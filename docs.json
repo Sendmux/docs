@@ -8,14 +8,66 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "params": {
+      "expanded": "all"
+    },
+    "examples": {
+      "languages": ["curl", "python", "javascript", "go"],
+      "defaults": "required",
+      "autogenerate": true
+    },
+    "spec": {
+      "download": true
+    }
+  },
   "navigation": {
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Getting started",
             "pages": ["index"]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "openapi": "https://app.sendmux.ai/api/v1/openapi.json",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/errors"
+            ]
+          },
+          {
+            "group": "Providers",
+            "pages": [
+              "GET /providers",
+              "GET /providers/stats"
+            ]
+          },
+          {
+            "group": "Emails",
+            "pages": [
+              "GET /emails/metrics",
+              "GET /emails/logs",
+              "GET /emails/logs/{logId}"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "GET /billing/balance",
+              "GET /billing/summary",
+              "GET /billing/transactions"
+            ]
           }
         ]
       }

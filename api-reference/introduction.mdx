@@ -1,0 +1,133 @@
+---
+title: "Introduction"
+description: "Programmatic access to your Sendmux email infrastructure."
+---
+
+The Sendmux API is a read-only REST API that gives you programmatic access to your email infrastructure data. Use it to build monitoring dashboards, alerting systems, and automated reporting workflows.
+
+## Base URL
+
+All API requests should be made to:
+
+```
+https://app.sendmux.ai/api/v1
+```
+
+## Authentication
+
+Authenticate using an API key from your Sendmux dashboard. Pass it as a Bearer token in the `Authorization` header.
+
+```bash
+curl https://app.sendmux.ai/api/v1/providers \
+  -H "Authorization: Bearer smx_root_your_key_here"
+```
+
+API keys are scoped to a team and carry specific permissions. Create and manage keys under **Settings > API Keys** in the dashboard.
+
+### Permissions
+
+Each endpoint requires a specific permission. Keys with wildcard permissions (e.g. `provider.*`) satisfy any permission in that namespace.
+
+| Endpoint group | Required permission |
+| -------------- | ------------------- |
+| Providers      | `provider.read`     |
+| Email metrics  | `analytics.read`    |
+| Email logs     | `logs.read`         |
+| Billing        | `billing.read`      |
+
+<Tip>
+  Use the `root:readonly` role for monitoring integrations — it covers all read permissions.
+</Tip>
+
+## Response format
+
+All responses use a consistent JSON envelope.
+
+### Success
+
+```json
+{
+  "ok": true,
+  "data": { ... },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+### Paginated success
+
+List endpoints include a `pagination` object alongside `data`.
+
+```json
+{
+  "ok": true,
+  "data": [ ... ],
+  "pagination": {
+    "has_more": true,
+    "next_cursor": "dlog_xxxxxxxx"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+### Error
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "invalid_parameter",
+    "message": "The 'from_date' parameter must be a valid ISO 8601 date.",
+    "param": "from_date",
+    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+## Errors
+
+| HTTP status | Error code                | Description                        |
+| ----------- | ------------------------- | ---------------------------------- |
+| 400         | `invalid_parameter`       | Bad query parameter format         |
+| 400         | `missing_parameter`       | Required parameter missing         |
+| 401         | `authentication_required` | No or invalid API key              |
+| 403         | `insufficient_permissions`| Key lacks required permission      |
+| 404         | `not_found`               | Resource does not exist            |
+| 429         | `rate_limit_exceeded`     | Rate limit hit                     |
+| 500         | `internal_error`          | Server error                       |
+
+## Rate limiting
+
+Each API key is rate-limited to **600 requests per minute**. Rate limit headers are included on every response:
+
+```
+X-RateLimit-Limit: 600
+X-RateLimit-Remaining: 594
+X-RateLimit-Reset: 1679313700
+```
+
+When the limit is exceeded, the API returns a `429` status with a `Retry-After` header.
+
+## Conventions
+
+- **snake_case** fields in all JSON responses
+- **UTC ISO 8601 timestamps** in RFC 3339 format: `2026-03-19T10:30:00Z`
+- **Public IDs only** — internal database IDs are never exposed
+- **`Cache-Control: no-store`** on all responses
+- **JSON only** — `Content-Type: application/json`
+
+## OpenAPI specification
+
+The full OpenAPI 3.1 specification is available at:
+
+```
+https://app.sendmux.ai/api/v1/openapi.json
+```
+
+Use it with any OpenAPI-compatible tool to generate client libraries or explore the API.

@@ -1,0 +1,61 @@
+---
+title: "Errors"
+description: "Error codes and handling for the Sendmux API."
+---
+
+The Sendmux API uses standard HTTP status codes and returns a consistent error envelope so you can handle failures programmatically.
+
+## Error response format
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "invalid_parameter",
+    "message": "A human-readable description of the error.",
+    "param": "from_date",
+    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+The `param` field is only present when the error relates to a specific request parameter. Always include `request_id` when contacting support.
+
+## Error codes
+
+### authentication_required
+
+**HTTP 401** — The request has no `Authorization` header or the API key is invalid, expired, or revoked.
+
+```bash
+# Fix: include a valid API key
+curl https://app.sendmux.ai/api/v1/providers \
+  -H "Authorization: Bearer smx_root_your_key_here"
+```
+
+### insufficient_permissions
+
+**HTTP 403** — The API key is valid but lacks the required permission for this endpoint. Check the [permission table](/api-reference/introduction#permissions) to see which permission each endpoint requires.
+
+### invalid_parameter
+
+**HTTP 400** — A query parameter has an invalid format or value. The `param` field identifies which parameter is at fault.
+
+### missing_parameter
+
+**HTTP 400** — A required query parameter is missing from the request.
+
+### not_found
+
+**HTTP 404** — The requested resource does not exist, or it belongs to a different team than the one associated with your API key.
+
+### rate_limit_exceeded
+
+**HTTP 429** — You have exceeded the rate limit of 600 requests per minute. Wait for the duration specified in the `Retry-After` header before retrying.
+
+### internal_error
+
+**HTTP 500** — An unexpected server error occurred. If this persists, contact support with the `request_id` from the response.
