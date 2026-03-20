@@ -1,0 +1,63 @@
+---
+title: "Idempotency"
+description: "Prevent duplicate email sends with idempotency keys."
+---
+
+Network issues, timeouts, and retries can cause the same API request to be sent multiple times. Idempotency keys prevent duplicate email delivery by ensuring each unique key is only processed once.
+
+## How it works
+
+1. Include an `idempotency_key` in your send request
+2. SendMux stores the key with the resulting `message_id` for 24 hours
+3. If the same key is sent again within 24 hours, the original `message_id` is returned without re-queuing the email
+
+## Usage
+
+```json
+{
+  "from": { "email": "hello@yourdomain.com" },
+  "to": { "email": "user@example.com" },
+  "subject": "Order confirmation #12345",
+  "html_body": "<p>Your order has been confirmed.</p>",
+  "idempotency_key": "order-confirmation-12345"
+}
+```
+
+### Idempotent replay response
+
+When a duplicate key is detected, the response includes `"idempotent": true`:
+
+```json
+{
+  "ok": true,
+  "data": {
+    "message_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "status": "queued",
+    "idempotent": true
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+## Key format
+
+- **Allowed characters**: alphanumeric, hyphens, underscores (`a-zA-Z0-9_-`)
+- **Length**: 1–255 characters
+- **Scope**: Keys are scoped to your team — different teams can use the same key without conflict
+
+## Best practices
+
+- **Use meaningful keys** tied to your business logic: `order-confirm-{orderId}`, `welcome-{userId}`, `invoice-{invoiceId}-{month}`
+- **Don't use random values** (like UUIDs) as idempotency keys — the whole point is to deduplicate, so the key must be deterministic
+- **Keys expire after 24 hours** — after expiry, the same key can be used again and will queue a new message
+
+## Batch sends
+
+Each message in a batch can have its own `idempotency_key`. Messages with previously-seen keys are returned as idempotent replays in the results array while new messages are queued normally.
+
+## Limitations
+
+- Idempotency is **best-effort** — if the key store (Redis) is temporarily unavailable, the email will be queued normally without idempotency protection
+- Keys are scoped to `(team_id, key)` — the same key from different API keys on the same team will still deduplicate

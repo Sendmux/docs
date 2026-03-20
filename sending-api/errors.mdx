@@ -1,0 +1,73 @@
+---
+title: "Errors"
+description: "Error codes and handling for the SendMux Sending API."
+---
+
+The Sending API uses standard HTTP status codes and returns a consistent error envelope. All error codes from the [Management API](/api-reference/errors) apply, plus additional sending-specific codes.
+
+## Error response format
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "insufficient_credits",
+    "message": "A human-readable description of the error.",
+    "param": "to.email",
+    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+The `param` field is only present when the error relates to a specific request field. Always include `request_id` when contacting support.
+
+## Shared error codes
+
+These codes are shared with the Management API:
+
+### authentication_required
+
+**HTTP 401** — The request has no `Authorization` header or the API key is invalid, expired, or revoked.
+
+### insufficient_permissions
+
+**HTTP 403** — The API key is valid but lacks the `email.send` permission.
+
+### rate_limit_exceeded
+
+**HTTP 429** — You have exceeded the rate limit of 600 requests per minute. Wait for the duration specified in the `Retry-After` header.
+
+### internal_error
+
+**HTTP 500** — An unexpected server error occurred. If this persists, contact support with the `request_id`.
+
+## Sending-specific error codes
+
+### insufficient_credits
+
+**HTTP 402** — Your team's balance is too low to send this email (or batch). Top up your balance in the dashboard under **Billing**.
+
+### validation_error
+
+**HTTP 422** — The request body failed schema validation. Check the `param` field for the specific field that caused the error.
+
+Common causes:
+- Missing required fields (`from`, `to`, `subject`, `html_body`)
+- Invalid email addresses
+- Attachment file type not in the allowed list
+- Batch exceeds 100 messages
+
+### payload_too_large
+
+**HTTP 413** — The request body exceeds the maximum allowed size. Individual fields have limits: `html_body` and `text_body` are capped at 10MB each, attachments at 25MB total.
+
+### no_active_providers
+
+**HTTP 503** — No healthy delivery providers are configured for your team. Add and activate a provider in the dashboard under **Accounts**.
+
+### service_unavailable
+
+**HTTP 503** — The email queue or storage infrastructure is temporarily unavailable. Retry after a short delay.

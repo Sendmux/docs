@@ -1,0 +1,58 @@
+---
+title: "Attachments"
+description: "Sending file attachments via the SendMux HTTP API."
+---
+
+The HTTP API supports up to 10 file attachments per email, sent as base64-encoded content in the request body.
+
+## Allowed file types
+
+Only the following file types are accepted (whitelist approach for security):
+
+| Category | Extensions |
+| --- | --- |
+| **Images** | `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.svg`, `.bmp`, `.ico` |
+| **Documents** | `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx` |
+| **OpenDocument** | `.odt`, `.ods`, `.odp` |
+| **Text** | `.txt`, `.csv`, `.json`, `.xml`, `.md` |
+| **Other** | `.ics` (calendar), `.vcf` (contact) |
+
+Executable files (`.exe`, `.bat`, `.sh`, etc.) and archive formats (`.zip`, `.tar`, `.gz`) are not accepted.
+
+## Size limits
+
+- **Per attachment**: No individual limit, but the total request body must be under the server's configured maximum (typically 25MB)
+- **Per email**: Maximum 10 attachments
+- **Content encoding**: Base64 increases size by ~33%, so a 25MB limit allows approximately 18MB of actual file content
+
+## Example
+
+```json
+{
+  "from": { "email": "hello@yourdomain.com" },
+  "to": { "email": "user@example.com" },
+  "subject": "Invoice attached",
+  "html_body": "<p>Please find your invoice attached.</p>",
+  "attachments": [
+    {
+      "filename": "invoice-2026-03.pdf",
+      "content": "JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZw...",
+      "type": "application/pdf"
+    }
+  ]
+}
+```
+
+## Attachment fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `filename` | `string` | Yes | Filename with allowed extension |
+| `content` | `string` | Yes | Base64-encoded file content |
+| `type` | `string` | No | MIME type override (auto-detected from extension if omitted) |
+
+## Security
+
+SendMux performs **magic byte validation** on binary attachments — the actual file content must match the claimed extension. For example, an `.exe` file renamed to `.pdf` will be rejected.
+
+Text-based formats (`.txt`, `.csv`, `.json`, `.xml`, `.md`, `.svg`, `.ics`, `.vcf`) are validated by extension only, as they don't have reliable magic byte signatures.

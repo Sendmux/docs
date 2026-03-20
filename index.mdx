@@ -1,9 +1,44 @@
 ---
-title: "Welcome to Sendmux"
-description: "Documentation for the Sendmux email infrastructure platform"
+title: "Welcome to SendMux"
+description: "Documentation for the SendMux email infrastructure platform."
 ---
 
-Welcome to the Sendmux documentation. Content coming soon.
+SendMux is an intelligent email layer that routes your emails through multiple delivery providers for optimal deliverability and reliability.
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card
+    title="Send via HTTP API"
+    icon="code"
+    href="/guides/sending-via-http"
+  >
+    Send emails programmatically with structured JSON requests, batch sending, and idempotency.
+  </Card>
+  <Card
+    title="Send via SMTP"
+    icon="envelope"
+    href="/guides/sending-via-smtp"
+  >
+    Connect any SMTP-compatible application to SendMux with standard credentials.
+  </Card>
+  <Card
+    title="Sending API Reference"
+    icon="paper-plane"
+    href="/sending-api/introduction"
+  >
+    Full reference for the email sending endpoints, authentication, and error codes.
+  </Card>
+  <Card
+    title="Management API Reference"
+    icon="chart-line"
+    href="/api-reference/introduction"
+  >
+    Read-only API for providers, email metrics, delivery logs, and billing data.
+  </Card>
+</CardGroup>
+
+## Dashboard
 
 <Card
   title="Go to Dashboard"
@@ -11,5 +46,5 @@ Welcome to the Sendmux documentation. Content coming soon.
   href="https://app.sendmux.ai"
   horizontal
 >
-  Access your Sendmux dashboard to manage your email infrastructure.
+  Manage providers, view analytics, configure API keys, and monitor your email infrastructure.
 </Card>

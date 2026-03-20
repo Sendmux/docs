@@ -32,26 +32,43 @@
           {
             "group": "Getting started",
             "pages": ["index"]
+          },
+          {
+            "group": "Sending emails",
+            "pages": [
+              "guides/sending-via-http",
+              "guides/sending-via-smtp",
+              "guides/attachments",
+              "guides/idempotency"
+            ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Sending API",
+        "openapi": "https://smtp.sendmux.ai/api/v1/openapi.json",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["sending-api/introduction", "sending-api/errors"]
+          },
+          {
+            "group": "Emails",
+            "pages": ["POST /emails/send", "POST /emails/send/batch"]
+          }
+        ]
+      },
+      {
+        "tab": "Management API",
         "openapi": "https://app.sendmux.ai/api/v1/openapi.json",
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "api-reference/introduction",
-              "api-reference/errors"
-            ]
+            "pages": ["api-reference/introduction", "api-reference/errors"]
           },
           {
             "group": "Providers",
-            "pages": [
-              "GET /providers",
-              "GET /providers/stats"
-            ]
+            "pages": ["GET /providers", "GET /providers/stats"]
           },
           {
             "group": "Emails",

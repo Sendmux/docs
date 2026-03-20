@@ -1,0 +1,106 @@
+---
+title: "Sending via SMTP"
+description: "Connect your application to SendMux via standard SMTP."
+---
+
+SendMux accepts email via standard SMTP, making it compatible with any language, framework, or email library that supports SMTP delivery.
+
+## Connection details
+
+| Setting | Value |
+| --- | --- |
+| **Host** | `smtp.sendmux.ai` |
+| **Port** | `587` (STARTTLS) or `465` (implicit TLS) |
+| **Encryption** | TLS required |
+| **Username** | `smtpuser` (or any value — username is ignored) |
+| **Password** | Your API key (`smx_...`) |
+| **Authentication** | `LOGIN` or `PLAIN` |
+
+## Examples
+
+<CodeGroup>
+
+```python Python (smtplib)
+import smtplib
+from email.mime.text import MIMEText
+
+msg = MIMEText("<h1>Hello!</h1>", "html")
+msg["Subject"] = "Test email"
+msg["From"] = "hello@yourdomain.com"
+msg["To"] = "user@example.com"
+
+with smtplib.SMTP("smtp.sendmux.ai", 587) as server:
+    server.starttls()
+    server.login("smtpuser", "smx_your_key_here")
+    server.send_message(msg)
+```
+
+```javascript Node.js (Nodemailer)
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.sendmux.ai",
+  port: 587,
+  secure: false, // STARTTLS
+  auth: {
+    user: "smtpuser",
+    pass: "smx_your_key_here",
+  },
+});
+
+await transporter.sendMail({
+  from: "hello@yourdomain.com",
+  to: "user@example.com",
+  subject: "Test email",
+  html: "<h1>Hello!</h1>",
+});
+```
+
+```ruby Ruby (Mail gem)
+require "mail"
+
+Mail.defaults do
+  delivery_method :smtp,
+    address: "smtp.sendmux.ai",
+    port: 587,
+    user_name: "smtpuser",
+    password: "smx_your_key_here",
+    authentication: :login,
+    enable_starttls_auto: true
+end
+
+Mail.deliver do
+  from    "hello@yourdomain.com"
+  to      "user@example.com"
+  subject "Test email"
+  body    "Hello!"
+end
+```
+
+```bash swaks (testing)
+swaks --to user@example.com \
+  --from hello@yourdomain.com \
+  --server smtp.sendmux.ai:587 \
+  --auth LOGIN \
+  --auth-user smtpuser \
+  --auth-password "smx_your_key_here" \
+  --tls \
+  --header "Subject: Test email" \
+  --body "Hello from SendMux!"
+```
+
+</CodeGroup>
+
+## When to use SMTP vs HTTP API
+
+| | SMTP | HTTP API |
+| --- | --- | --- |
+| **Best for** | Legacy systems, existing email libraries | New integrations, batch sending |
+| **Batch sending** | One connection per email | Up to 100 per request |
+| **Attachments** | Native MIME | Base64-encoded JSON |
+| **Idempotency** | Not supported | Built-in idempotency keys |
+| **Response format** | SMTP status codes | Structured JSON |
+
+<Tip>
+  For new integrations, the [HTTP API](/guides/sending-via-http) is recommended. Use SMTP when integrating with systems that only support SMTP delivery (e.g. WordPress, legacy CRM systems).
+</Tip>
