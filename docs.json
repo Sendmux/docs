@@ -3,9 +3,9 @@
   "theme": "maple",
   "name": "SendMux",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6a75f1",
+    "light": "#5a84e9",
+    "dark": "#004aad"
   },
   "favicon": "/favicon.svg",
   "api": {
