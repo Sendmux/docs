@@ -118,5 +118,17 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
+  },
+  "fonts": {
+    "family": "Lato",
+    "weight": 400,
+    "heading": {
+      "family": "Lato",
+      "weight": 700
+    },
+    "body": {
+      "family": "Lato",
+      "weight": 400
+    }
   }
 }
