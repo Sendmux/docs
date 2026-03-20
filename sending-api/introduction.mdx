@@ -80,11 +80,11 @@ All responses use the same JSON envelope as the Management API.
 
 ## Rate limiting
 
-Each API key is rate-limited to **600 requests per minute** (batch requests count as 1). Rate limit headers are included on every response:
+Each sending API key is rate-limited to **1800 requests per minute** (batch requests count as 1). Rate limit headers are included on every response:
 
 ```
-X-RateLimit-Limit: 600
-X-RateLimit-Remaining: 594
+X-RateLimit-Limit: 1800
+X-RateLimit-Remaining: 1794
 X-RateLimit-Reset: 1679313700
 ```
 
