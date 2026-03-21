@@ -60,6 +60,10 @@ Common causes:
 - Attachment file type not in the allowed list
 - Batch exceeds 100 messages
 
+### idempotency_conflict
+
+**HTTP 409** — The same `idempotency_key` is currently being processed by another concurrent request. This is transient — wait briefly and retry to receive the completed result.
+
 ### payload_too_large
 
 **HTTP 413** — The request body exceeds the maximum allowed size. Individual fields have limits: `html_body` and `text_body` are capped at 10MB each, attachments at 25MB total.

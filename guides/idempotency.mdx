@@ -53,6 +53,12 @@ When a duplicate key is detected, the response includes `"idempotent": true`:
 - **Don't use random values** (like UUIDs) as idempotency keys — the whole point is to deduplicate, so the key must be deterministic
 - **Keys expire after 24 hours** — after expiry, the same key can be used again and will queue a new message
 
+## Concurrent requests
+
+If two requests with the same idempotency key arrive simultaneously, the first claims the key and begins processing. The second receives a **409 `idempotency_conflict`** error. This is transient — retry after a short delay to receive the completed result with `"idempotent": true`.
+
+If the first request fails (validation error, insufficient credits, etc.), the key is released so subsequent retries can succeed immediately.
+
 ## Batch sends
 
 Each message in a batch can have its own `idempotency_key`. Messages with previously-seen keys are returned as idempotent replays in the results array while new messages are queued normally.
