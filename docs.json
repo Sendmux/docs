@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "mint",
   "name": "SendMux",
   "colors": {
     "primary": "#6a75f1",
@@ -132,14 +132,14 @@
   },
   "fonts": {
     "family": "Lato",
-    "weight": 500,
+    "weight": 400,
     "heading": {
       "family": "Lato",
       "weight": 700
     },
     "body": {
       "family": "Lato",
-      "weight": 500
+      "weight": 400
     }
   },
   "description": "The intelligent email layer"
