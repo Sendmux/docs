@@ -18,3 +18,7 @@ body, .prose, .prose p, .prose li,
 .prose td, .prose th, .prose blockquote {
   letter-spacing: .1px !important;
 }
+
+.text-sm, .lg\:text-sm {
+  font-size: .975rem !important;
+}

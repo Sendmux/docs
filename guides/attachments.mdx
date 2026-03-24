@@ -1,6 +1,6 @@
 ---
 title: "Attachments"
-description: "Sending file attachments via the SendMux HTTP API."
+description: "Sending file attachments via the Sendmux HTTP API."
 ---
 
 The HTTP API supports up to 10 file attachments per email, sent as base64-encoded content in the request body.
@@ -53,6 +53,6 @@ Executable files (`.exe`, `.bat`, `.sh`, etc.) and archive formats (`.zip`, `.ta
 
 ## Security
 
-SendMux performs **magic byte validation** on binary attachments — the actual file content must match the claimed extension. For example, an `.exe` file renamed to `.pdf` will be rejected.
+Sendmux performs **magic byte validation** on binary attachments — the actual file content must match the claimed extension. For example, an `.exe` file renamed to `.pdf` will be rejected.
 
 Text-based formats (`.txt`, `.csv`, `.json`, `.xml`, `.md`, `.svg`, `.ics`, `.vcf`) are validated by extension only, as they don't have reliable magic byte signatures.

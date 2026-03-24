@@ -8,7 +8,7 @@ Network issues, timeouts, and retries can cause the same API request to be sent 
 ## How it works
 
 1. Include an `idempotency_key` in your send request
-2. SendMux stores the key with the resulting `message_id` for 24 hours
+2. Sendmux stores the key with the resulting `message_id` for 24 hours
 3. If the same key is sent again within 24 hours, the original `message_id` is returned without re-queuing the email
 
 ## Usage
