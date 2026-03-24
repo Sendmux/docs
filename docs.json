@@ -132,14 +132,14 @@
   },
   "fonts": {
     "family": "Lato",
-    "weight": 400,
+    "weight": 500,
     "heading": {
       "family": "Lato",
       "weight": 700
     },
     "body": {
       "family": "Lato",
-      "weight": 400
+      "weight": 500
     }
   },
   "description": "The intelligent email layer"
