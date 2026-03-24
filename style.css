@@ -1,0 +1,20 @@
+html {
+  font-size: 106.25% !important;
+}
+
+.antialiased {
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6,
+h1, h2, h3, h4, h5, h6,
+.prose h1, .prose h2, .prose h3,
+.prose h4, .prose h5, .prose h6 {
+  letter-spacing: var(--tracking-tight) !important;
+}
+
+body, .prose, .prose p, .prose li,
+.prose td, .prose th, .prose blockquote {
+  letter-spacing: .1px !important;
+}
