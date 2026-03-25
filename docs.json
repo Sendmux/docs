@@ -41,6 +41,10 @@
               "guides/attachments",
               "guides/idempotency"
             ]
+          },
+          {
+            "group": "AI integrations",
+            "pages": ["guides/mcp"]
           }
         ]
       },

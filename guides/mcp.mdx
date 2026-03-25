@@ -1,0 +1,106 @@
+---
+title: "Model Context Protocol (MCP)"
+description: "Give Claude, Cursor, and VS Code direct access to Sendmux docs and API references through our hosted MCP server."
+---
+
+Your AI coding tools shouldn't need you to copy-paste documentation into every prompt. The Model Context Protocol (MCP) is an open standard that gives AI applications a direct line to external services, so they can pull the information they need on their own.
+
+Sendmux has an MCP server that connects AI assistants to our full knowledge base: guides, code examples, and API references. All searchable in real time.
+
+## Documentation MCP Server
+
+The Sendmux MCP server is hosted by Mintlify. It exposes a `search_sendmux` tool that lets any connected AI client search across all Sendmux documentation, find implementation details, and pull up API references without you leaving your editor.
+
+**Server URL:**
+
+```
+https://docs.sendmux.ai/mcp
+```
+
+### What your AI tools can do
+
+Once connected, AI assistants can:
+
+- Look up API endpoints, request formats, and error codes
+- Find code examples for sending emails via HTTP or SMTP
+- Answer questions about Sendmux features like batch sending, idempotency, and attachments
+- Pull provider configuration and billing details from the docs
+
+No context window wasted on pasting docs. Your AI tool fetches exactly what it needs.
+
+### Connect to Claude
+
+Add Sendmux as a custom MCP connector in Claude's settings:
+
+1. Open **Settings > Connectors** in Claude
+2. Click **Add Connector**
+3. Enter `https://docs.sendmux.ai/mcp` as the server URL
+4. Save and start asking Claude about Sendmux
+
+### Connect to Claude Code
+
+One command from your terminal:
+
+```bash
+claude mcp add sendmux --transport http https://docs.sendmux.ai/mcp
+```
+
+### Connect to Cursor
+
+Add this to your `.cursor/mcp.json` file:
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "url": "https://docs.sendmux.ai/mcp"
+    }
+  }
+}
+```
+
+### Connect to VS Code
+
+Add this to your VS Code `settings.json`:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "sendmux": {
+        "type": "http",
+        "url": "https://docs.sendmux.ai/mcp"
+      }
+    }
+  }
+}
+```
+
+### Connect to Windsurf
+
+Add this to your `~/.codeium/windsurf/mcp_config.json` file:
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "serverUrl": "https://docs.sendmux.ai/mcp"
+    }
+  }
+}
+```
+
+## Rate Limits
+
+The MCP server enforces these limits:
+
+| Scope | Limit |
+| --- | --- |
+| Per user (IP address) | 5,000 requests/hour |
+| Per documentation site | 10,000 requests/hour |
+
+## Sendmux MCP
+
+<Info>
+  **Coming soon.** A dedicated Sendmux MCP server that goes beyond documentation search. Send emails, manage providers, check delivery logs, and monitor billing directly from your AI tools.
+</Info>
