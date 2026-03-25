@@ -42,7 +42,7 @@ Add Sendmux as a custom MCP connector in Claude's settings:
 One command from your terminal:
 
 ```bash
-claude mcp add sendmux --transport http https://docs.sendmux.ai/mcp
+claude mcp add sendmux-docs --transport http https://docs.sendmux.ai/mcp
 ```
 
 ### Connect to Cursor
@@ -52,7 +52,7 @@ Add this to your `.cursor/mcp.json` file:
 ```json
 {
   "mcpServers": {
-    "sendmux": {
+    "sendmux-docs": {
       "url": "https://docs.sendmux.ai/mcp"
     }
   }
@@ -67,7 +67,7 @@ Add this to your VS Code `settings.json`:
 {
   "mcp": {
     "servers": {
-      "sendmux": {
+      "sendmux-docs": {
         "type": "http",
         "url": "https://docs.sendmux.ai/mcp"
       }
@@ -83,7 +83,7 @@ Add this to your `~/.codeium/windsurf/mcp_config.json` file:
 ```json
 {
   "mcpServers": {
-    "sendmux": {
+    "sendmux-docs": {
       "serverUrl": "https://docs.sendmux.ai/mcp"
     }
   }
