@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "palm",
   "name": "Sendmux",
   "colors": {
     "primary": "#6a75f1",
@@ -107,7 +107,7 @@
   "logo": {
     "light": "/images/logo-light.svg",
     "dark": "/images/logo-dark.svg",
-    "href": "https://sendmux.ai"
+    "href": "https://docs.sendmux.ai"
   },
   "navbar": {
     "links": [
