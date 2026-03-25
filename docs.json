@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "sequoia",
+  "theme": "willow",
   "name": "Sendmux",
   "colors": {
     "primary": "#6a75f1",
