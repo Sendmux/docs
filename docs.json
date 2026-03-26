@@ -49,20 +49,6 @@
         ]
       },
       {
-        "tab": "Sending API",
-        "openapi": "https://smtp.sendmux.ai/api/v1/openapi.json",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": ["sending-api/introduction", "sending-api/errors"]
-          },
-          {
-            "group": "Emails",
-            "pages": ["POST /emails/send", "POST /emails/send/batch"]
-          }
-        ]
-      },
-      {
         "tab": "Management API",
         "openapi": "https://app.sendmux.ai/api/v1/openapi.json",
         "groups": [
@@ -89,6 +75,20 @@
               "GET /billing/summary",
               "GET /billing/transactions"
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Sending API",
+        "openapi": "https://smtp.sendmux.ai/api/v1/openapi.json",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["sending-api/introduction", "sending-api/errors"]
+          },
+          {
+            "group": "Emails",
+            "pages": ["POST /emails/send", "POST /emails/send/batch"]
           }
         ]
       }

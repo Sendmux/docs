@@ -16,8 +16,8 @@ body, .prose, .prose p, .prose li,
 }
 
 #sidebar-title {
-  color: var(--tw-color-gray-500);
+  color: rgb(var(--gray-500));
   text-transform: uppercase;
   font-size: 80%;
-  letter-spacing: var(--tracking-wide) !important;
+  letter-spacing: 0.3px !important;
 }
