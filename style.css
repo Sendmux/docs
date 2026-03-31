@@ -1,3 +1,7 @@
+:root {
+  font-size: 105%;
+}
+
 .antialiased {
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
