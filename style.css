@@ -16,12 +16,12 @@ h1, h2, h3, h4, h5, h6,
 
 body, .prose, .prose p, .prose li,
 .prose td, .prose th, .prose blockquote {
-  letter-spacing: .1px !important;
+  letter-spacing: 0.00625rem !important;
 }
 
 #sidebar-title {
   color: rgb(var(--gray-500));
   text-transform: uppercase;
   font-size: 80%;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.01875rem !important;
 }
