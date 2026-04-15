@@ -1,0 +1,188 @@
+---
+title: "Domains"
+description: "Add, verify, and manage the sending domains behind your Sendmux mailboxes."
+---
+
+Every custom mailbox lives on a domain you own. Before you can create a mailbox on `acme.com`, the domain must be added to your team, the DNS records must be in place, and Sendmux must confirm the records over DNS.
+
+This guide walks through the full lifecycle: add a domain, read back the records, verify them, and clean up when a domain is no longer needed.
+
+## Custom domains vs `@myagent.mx`
+
+Sendmux offers two ways to give a mailbox an email address.
+
+| | `@myagent.mx` | Custom domain (e.g. `mail.acme.com`) |
+|---|---|---|
+| DNS changes required | None — Sendmux owns the domain | Yes — you must place MX/SPF/DMARC/DKIM/verification records |
+| Provisioning time | Instant | Minutes to hours (DNS propagation) |
+| Can switch outbound provider | No — locked to Sendmux SES | Yes — override per domain or per mailbox |
+| Addresses under the domain | One per team, suffix-scoped | Any address on your domain |
+| Best for | Quick starts, single agents | Production, branded sending, per-team isolation |
+
+The rest of this guide covers **custom domains**. The shared `@myagent.mx` path is handled automatically when you create a mailbox with that suffix and does not require any of the steps below.
+
+## Add a domain
+
+Call `POST /domains` with the fully qualified hostname. Sendmux provisions the domain in the mail server and Amazon SES in a single atomic step — if any part fails, everything is rolled back, so you'll never end up with a half-configured domain on retry.
+
+```bash
+curl https://app.sendmux.ai/api/v1/domains \
+  -H "Authorization: Bearer smx_root_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{ "domain": "mail.acme.com" }'
+```
+
+The response includes every DNS record you need to place at your DNS provider.
+
+```json
+{
+  "ok": true,
+  "data": {
+    "id": "mdom_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "domain": "mail.acme.com",
+    "verification_status": "pending",
+    "ses_dkim_status": "pending",
+    "verified_at": null,
+    "created_at": "2026-04-15T10:00:00Z",
+    "dns_records": {
+      "mx": [
+        { "priority": 10, "target": "mail.sendmux.ai" }
+      ],
+      "spf": {
+        "name": "mail.acme.com",
+        "value": "v=spf1 include:amazonses.com include:sendmux.ai ~all"
+      },
+      "dmarc": {
+        "name": "_dmarc.mail.acme.com",
+        "value": "v=DMARC1; p=quarantine"
+      },
+      "dkim": [
+        { "name": "token1._domainkey.mail.acme.com", "value": "token1.dkim.amazonses.com" },
+        { "name": "token2._domainkey.mail.acme.com", "value": "token2.dkim.amazonses.com" },
+        { "name": "token3._domainkey.mail.acme.com", "value": "token3.dkim.amazonses.com" }
+      ],
+      "verification": {
+        "name": "_sendmux.mail.acme.com",
+        "value": "sendmux-verify=team_abc123"
+      }
+    }
+  },
+  "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
+}
+```
+
+## Required DNS records
+
+Place every record from the `dns_records` object at your DNS provider exactly as returned. The table below explains what each record does — AU English, because the rest of Sendmux is too.
+
+| Record | Name | Value | Purpose |
+|---|---|---|---|
+| MX | `mail.acme.com` | `10 mail.sendmux.ai` | Routes inbound mail to Sendmux's managed mail server. |
+| TXT | `_sendmux.mail.acme.com` | `sendmux-verify=team_abc123` | Proves team ownership. Unique to your team — never shared. |
+| TXT | `mail.acme.com` | `v=spf1 include:amazonses.com include:sendmux.ai ~all` | SPF. Authorises both SES and Sendmux's relays. |
+| TXT | `_dmarc.mail.acme.com` | `v=DMARC1; p=quarantine` | DMARC enforcement. Receivers quarantine any mail that fails SPF + DKIM alignment. |
+| CNAME | `{token}._domainkey.mail.acme.com` (×3) | `{token}.dkim.amazonses.com` | DKIM signing. Amazon SES rotates keys automatically — don't replace the targets. |
+
+### A few notes
+
+- **DMARC reporting**: the record we return has no `rua=` or `ruf=` tag because Sendmux does not run a DMARC aggregator. If you want reports, add your own `rua=` tag to the same record on top of the enforcement value.
+- **SPF merging**: if the apex domain already has an SPF record, you must merge the `include:` mechanisms into a single record. Two SPF records on the same name are an authentication failure.
+- **TTL**: 300 seconds (5 min) works well during setup. You can raise it after verification.
+- **Subdomain only**: you don't have to give Sendmux your apex. Using a subdomain like `mail.acme.com` keeps your transactional SPF/DMARC separate from marketing traffic.
+
+## Verify a domain
+
+Once the records are in place, trigger a verification check.
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/domains/mdom_clxxx/verify \
+  -H "Authorization: Bearer smx_root_your_key_here"
+```
+
+Sendmux queries Cloudflare's public DNS-over-HTTPS resolver for all four non-DKIM records and asks Amazon SES for the latest DKIM status. If everything matches, `verification_status` flips to `verified` and the domain becomes available for mailbox creation.
+
+```json
+{
+  "ok": true,
+  "data": {
+    "status": "verified",
+    "ses_dkim_status": "success",
+    "checks": {
+      "mx": true,
+      "verification_txt": true,
+      "spf": true,
+      "dmarc": true
+    }
+  },
+  "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
+}
+```
+
+### Automatic re-verification
+
+You don't have to hit the verify endpoint yourself. Every six hours Sendmux re-checks every `pending` and `verified` domain in the background:
+
+- **Pending** domains flip to `verified` as soon as DNS catches up.
+- **Verified** domains that stop resolving correctly — domain transfer, DNS provider outage, accidentally deleted record — flip back to `pending`, and if the failure persists to the next cycle the status moves to `failed` and every team owner receives an email with the failing records.
+
+A single transient blip never triggers an email. The failure counter is reset on the first successful probe, so intermittent upstream flaps stay silent.
+
+### Why DKIM isn't checked via DNS-over-HTTPS
+
+DKIM propagation is owned by Amazon SES, not by you. SES watches for the three `_domainkey` CNAMEs and flips its internal `DkimAttributes.Status` from `pending` to `success` when it sees them — that's the value Sendmux stores in `ses_dkim_status` and uses as the authoritative source. Duplicating the check over DoH would race with SES and produce false negatives, so we only report the AWS-side state.
+
+## Troubleshooting
+
+### `verification_txt: false`
+
+The ownership TXT record hasn't propagated or its value doesn't match.
+
+- Confirm the record name is exactly `_sendmux.{your-domain}` — some DNS providers auto-append the zone, producing `_sendmux.{your-domain}.{your-domain}`.
+- Confirm the value matches the one Sendmux returned, including the `sendmux-verify=` prefix and your team's public ID suffix.
+- Wait 2-5 minutes and retry — TXT records typically propagate fast but some resolvers lag.
+
+### `mx: false`
+
+The MX record is missing or points somewhere else.
+
+- Check that the MX target is `mail.sendmux.ai` (no trailing dot is fine — DoH normalises it).
+- Check the priority is `10`.
+- Make sure you're placing the MX on the correct subdomain — `mail.acme.com`, not `acme.com`, if that's the domain you registered with Sendmux.
+- If you use Cloudflare proxying, MX records **cannot be proxied** — they must be set to "DNS only".
+
+### `spf: false`
+
+SPF failures are almost always caused by multiple SPF records on the same name.
+
+- Only one SPF record per hostname is allowed. Merge all your `include:` mechanisms into one record.
+- If your apex already has `v=spf1 include:_spf.google.com ~all`, add the Sendmux includes to the same record: `v=spf1 include:amazonses.com include:sendmux.ai include:_spf.google.com ~all`.
+- Check for typos — SPF is whitespace-sensitive.
+
+### `dmarc: false`
+
+DMARC record missing or its value doesn't match.
+
+- The record name is `_dmarc.{your-domain}` and the type is TXT.
+- The value `v=DMARC1; p=quarantine` is the Sendmux minimum. You can add tags (`rua=`, `pct=`, `adkim=`) but don't remove `p=quarantine`.
+
+### `ses_dkim_status: "failed"` or `"temporary_failure"`
+
+SES couldn't verify the three DKIM CNAMEs.
+
+- Confirm all three CNAMEs are in place, each with the correct `{token}._domainkey.{your-domain}` name and `{token}.dkim.amazonses.com` target.
+- DKIM records via Cloudflare must be "DNS only" (not proxied), same as MX.
+- SES retries automatically — `temporary_failure` usually resolves within an hour once the records are correct.
+- If `failed` persists for more than 72 hours with the records in place, contact support at <contact@sendmux.ai>.
+
+## Delete a domain
+
+```bash
+curl -X DELETE https://app.sendmux.ai/api/v1/domains/mdom_clxxx \
+  -H "Authorization: Bearer smx_root_your_key_here"
+```
+
+Deletion is blocked if any active mailbox still lives on the domain — delete the mailboxes first, then the domain. On success, Sendmux removes the domain from both the mail server and Amazon SES in addition to its own database. The DNS records in your zone are your responsibility to clean up.
+
+## Next steps
+
+Once your domain is verified, you can [create mailboxes](/api-reference/mailboxes) on it and start sending.

@@ -57,6 +57,17 @@
             "pages": ["api-reference/introduction", "api-reference/errors"]
           },
           {
+            "group": "Domains",
+            "pages": [
+              "api-reference/domains",
+              "GET /domains",
+              "POST /domains",
+              "GET /domains/{public_id}",
+              "POST /domains/{public_id}/verify",
+              "DELETE /domains/{public_id}"
+            ]
+          },
+          {
             "group": "Providers",
             "pages": ["GET /providers", "GET /providers/stats"]
           },
