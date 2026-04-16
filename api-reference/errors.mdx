@@ -52,9 +52,17 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 **HTTP 404** — The requested resource does not exist, or it belongs to a different team than the one associated with your API key.
 
+### validation_error
+
+**HTTP 422** — A request body parsed cleanly as JSON but fails a semantic rule. Common cases include shrinking a mailbox quota below its current usage, referencing a provider or delivery group from a different team, or submitting more than 1,000 filter rules in a single request. The `param` field identifies the offending field.
+
 ### rate_limit_exceeded
 
 **HTTP 429** — You have exceeded the rate limit of 600 requests per minute. Wait for the duration specified in the `Retry-After` header before retrying.
+
+### service_unavailable
+
+**HTTP 503** — A downstream component needed to serve this request is temporarily unavailable. Requests are safe to retry with exponential backoff. If this persists for more than a few minutes, contact support with the `request_id` from the response.
 
 ### internal_error
 
