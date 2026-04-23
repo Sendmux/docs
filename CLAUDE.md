@@ -17,7 +17,7 @@ Install CLI: `npm i -g mint`
 ## Architecture
 
 - **`docs.json`** — central config: navigation, theme, API specs, fonts, anchors
-- **Pages** — MDX files with YAML frontmatter (`title`, `description`)
+- **Pages** — MDX files with YAML frontmatter (`title`, `description`; add `keywords` for SEO)
 - **`style.css`** — global typography overrides (letter-spacing, font smoothing)
 - **`.mintignore`** — excludes `drafts/`, `*.draft.mdx`, `CLAUDE.md` from builds
 
@@ -39,7 +39,20 @@ API reference pages for endpoints (e.g. `POST /emails/send`) are generated from 
 ## Writing conventions
 
 - Active voice, second person ("you")
-- Sentence case for headings
+- Sentence case for headings and code block titles
 - Bold for UI elements: Click **Settings**
 - Code formatting for file names, commands, paths
 - One idea per sentence
+- AU/British spelling in user-facing content (organised, colour, behaviour, customise, authorise)
+- Kebab-case for new MDX file names
+- Root-relative paths for internal links (`/guides/quickstart`, not `../quickstart` or absolute URLs)
+- Language tags on every code block; alt text on every image
+- Component intros start with the action: "Use `<Steps>` to…" over "The Steps component…"
+- No promotional language, no editorialising ("it's important to note", "in conclusion"), no emoji
+
+## Before declaring docs work complete
+
+- Run `mint broken-links`
+- Run `mint validate` to check OpenAPI references
+- Verify frontmatter on every new/changed page (`title`, `description`)
+- Read changes in `mint dev` to catch formatting regressions
