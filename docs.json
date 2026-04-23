@@ -86,6 +86,20 @@
               "GET /billing/summary",
               "GET /billing/transactions"
             ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api-reference/webhooks/introduction",
+              "api-reference/webhooks/verify-signatures",
+              "GET /webhooks",
+              "POST /webhooks",
+              "GET /webhooks/{public_id}",
+              "PATCH /webhooks/{public_id}",
+              "DELETE /webhooks/{public_id}",
+              "POST /webhooks/{public_id}/rotate-secret",
+              "POST /webhooks/{public_id}/test"
+            ]
           }
         ]
       },

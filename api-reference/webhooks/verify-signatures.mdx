@@ -1,0 +1,153 @@
+---
+title: "Verify signatures"
+description: "Verify the HMAC-SHA256 signature Sendmux attaches to every webhook delivery."
+---
+
+Every webhook POST carries an `X-Sendmux-Signature` header in the form `sha256=<hex>`. That hex value is the HMAC-SHA256 of the **raw request body** keyed with the signing secret you received at subscription creation (or rotation).
+
+Compute the same HMAC on your side and compare. If the values match, the event came from Sendmux and hasn't been tampered with in transit.
+
+<Warning>
+  Always use a **constant-time** comparison (`crypto.timingSafeEqual` in Node, `hmac.compare_digest` in Python, `hmac.Equal` in Go). Plain string `==` leaks byte-level timing information an attacker can use to forge a valid signature.
+</Warning>
+
+## What you sign over
+
+- The **raw request body** as bytes — **not** a re-serialised JSON object. Re-serialising can reorder keys or normalise whitespace and produce a body your HMAC no longer matches.
+- The **signing secret** returned from `POST /webhooks` or `POST /webhooks/{id}/rotate-secret`, used as the HMAC key.
+- Algorithm: `HMAC-SHA256`, hex-encoded.
+
+## Node.js
+
+```js
+import crypto from "node:crypto";
+import express from "express";
+
+const app = express();
+const SECRET = process.env.SENDMUX_WEBHOOK_SECRET;
+
+// IMPORTANT: capture the raw body so we can compute the HMAC over the exact
+// bytes Sendmux signed. express.json() alone reparses and will not work.
+app.use(
+  express.json({
+    verify: (req, _res, buf) => {
+      req.rawBody = buf;
+    },
+  }),
+);
+
+app.post("/sendmux", (req, res) => {
+  const header = req.get("X-Sendmux-Signature") ?? "";
+  const expectedHex = crypto.createHmac("sha256", SECRET).update(req.rawBody).digest("hex");
+  const expected = `sha256=${expectedHex}`;
+
+  const a = Buffer.from(header);
+  const b = Buffer.from(expected);
+  const valid = a.length === b.length && crypto.timingSafeEqual(a, b);
+
+  if (!valid) {
+    return res.status(401).send("invalid signature");
+  }
+
+  // Dedupe on X-Sendmux-Event-Id to handle retries
+  const eventId = req.get("X-Sendmux-Event-Id");
+  const eventType = req.get("X-Sendmux-Event-Type");
+  console.log({ eventId, eventType, body: req.body });
+
+  res.status(200).send("ok");
+});
+
+app.listen(3000);
+```
+
+## Python (Flask)
+
+```python
+import hmac
+import os
+from hashlib import sha256
+from flask import Flask, request, abort
+
+SECRET = os.environ["SENDMUX_WEBHOOK_SECRET"].encode("utf-8")
+
+app = Flask(__name__)
+
+@app.post("/sendmux")
+def receive():
+    # IMPORTANT: use request.get_data() (raw bytes), not request.json,
+    # otherwise the HMAC will not match.
+    raw = request.get_data()
+    header = request.headers.get("X-Sendmux-Signature", "")
+    expected = "sha256=" + hmac.new(SECRET, raw, sha256).hexdigest()
+
+    if not hmac.compare_digest(header, expected):
+        abort(401, "invalid signature")
+
+    event_id = request.headers.get("X-Sendmux-Event-Id")
+    event_type = request.headers.get("X-Sendmux-Event-Type")
+    # Dedupe on event_id, then process request.json
+    app.logger.info("sendmux event %s (%s)", event_id, event_type)
+    return "ok", 200
+```
+
+## Go
+
+```go
+package main
+
+import (
+    "crypto/hmac"
+    "crypto/sha256"
+    "encoding/hex"
+    "io"
+    "log"
+    "net/http"
+    "os"
+)
+
+var secret = []byte(os.Getenv("SENDMUX_WEBHOOK_SECRET"))
+
+func handle(w http.ResponseWriter, r *http.Request) {
+    // Read the raw body — needed verbatim for the HMAC computation.
+    raw, err := io.ReadAll(r.Body)
+    if err != nil {
+        http.Error(w, "read body", http.StatusBadRequest)
+        return
+    }
+
+    mac := hmac.New(sha256.New, secret)
+    mac.Write(raw)
+    expected := "sha256=" + hex.EncodeToString(mac.Sum(nil))
+
+    if !hmac.Equal([]byte(r.Header.Get("X-Sendmux-Signature")), []byte(expected)) {
+        http.Error(w, "invalid signature", http.StatusUnauthorized)
+        return
+    }
+
+    eventID := r.Header.Get("X-Sendmux-Event-Id")
+    eventType := r.Header.Get("X-Sendmux-Event-Type")
+    log.Printf("sendmux event %s (%s): %s", eventID, eventType, raw)
+    w.WriteHeader(http.StatusOK)
+    w.Write([]byte("ok"))
+}
+
+func main() {
+    http.HandleFunc("/sendmux", handle)
+    log.Fatal(http.ListenAndServe(":3000", nil))
+}
+```
+
+## Common pitfalls
+
+- **Reading the body as JSON before verifying**: every framework that parses JSON for you also discards whitespace, which changes the byte-exact representation. Always compute the HMAC over the untouched bytes first, then parse.
+- **Using `==` instead of a constant-time compare**: timing-attack vectors are real and easy to close.
+- **Forgetting the `sha256=` prefix**: the header value includes it. Your computed value must either include it too (preferred) or be compared against the substring after the `=`.
+- **Not handling retries**: if your endpoint returns a non-`2xx`, Sendmux retries up to eight times over 24 hours. The `X-Sendmux-Event-Id` header is stable across retries — dedupe on it.
+
+## Also verify HTTPS and host
+
+Signature verification proves the body originated from Sendmux, but you should also:
+
+- Only accept requests on HTTPS — never plain HTTP. Sendmux refuses to register non-`https://` URLs.
+- Reject any payload larger than ~1 MB as a cheap denial-of-service guard. Our typical payload is under 10 KB.
+- Respond within 10 seconds. Longer processing should be enqueued and handled out-of-band.

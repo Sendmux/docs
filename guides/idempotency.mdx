@@ -65,5 +65,5 @@ Each message in a batch can have its own `idempotency_key`. Messages with previo
 
 ## Limitations
 
-- Idempotency is **best-effort** — if the key store (Redis) is temporarily unavailable, the email will be queued normally without idempotency protection
+- Idempotency is **best-effort** — if the key store is temporarily unavailable, the email will be queued normally without idempotency protection
 - Keys are scoped to `(team_id, key)` — the same key from different API keys on the same team will still deduplicate
