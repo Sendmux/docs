@@ -17,9 +17,11 @@ Compute the same HMAC on your side and compare. If the values match, the event c
 - The **signing secret** returned from `POST /webhooks` or `POST /webhooks/{id}/rotate-secret`, used as the HMAC key.
 - Algorithm: `HMAC-SHA256`, hex-encoded.
 
-## Node.js
+## Examples
 
-```js
+<CodeGroup>
+
+```javascript Node.js
 import crypto from "node:crypto";
 import express from "express";
 
@@ -60,9 +62,7 @@ app.post("/sendmux", (req, res) => {
 app.listen(3000);
 ```
 
-## Python (Flask)
-
-```python
+```python Python
 import hmac
 import os
 from hashlib import sha256
@@ -90,9 +90,7 @@ def receive():
     return "ok", 200
 ```
 
-## Go
-
-```go
+```go Go
 package main
 
 import (
@@ -136,6 +134,8 @@ func main() {
     log.Fatal(http.ListenAndServe(":3000", nil))
 }
 ```
+
+</CodeGroup>
 
 ## Common pitfalls
 

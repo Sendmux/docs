@@ -33,6 +33,8 @@ Sendmux defines the event types below. Subscribe to just the ones you need.
 
 ## Create a subscription
 
+Call `POST /webhooks` with the target URL and the event types you care about.
+
 ```bash
 curl https://app.sendmux.ai/api/v1/webhooks \
   -H "Authorization: Bearer smx_your_key_here" \
@@ -43,6 +45,8 @@ curl https://app.sendmux.ai/api/v1/webhooks \
     "enabled": true
   }'
 ```
+
+The response includes a `secret` — the HMAC key used to sign every event posted to your endpoint. Copy it somewhere safe.
 
 ```json
 {
@@ -91,7 +95,9 @@ The request body is the canonical event envelope.
   "teamPublicId": "tm_clxxxxxxxxxxxxxxxxxxxxxxxxx",
   "occurredAt": "2026-04-23T10:15:30Z",
   "rawSource": {
-    "// Original event payload preserved verbatim so you never lose fidelity.": "..."
+    "eventType": "Bounce",
+    "mail": { "messageId": "0100018c12345678-..." },
+    "bounce": { "bounceType": "Permanent", "bouncedRecipients": [{ "emailAddress": "user@example.com" }] }
   },
   "normalised": {
     "messageId": "0100018c12345678-...",
@@ -104,10 +110,14 @@ The request body is the canonical event envelope.
 }
 ```
 
-- `source` is `"ses"` for outbound delivery events, `"mail"` for inbound, or `"sendmux"` for synthetic test events.
-- `rawSource` contains the event payload as Sendmux first observed it — useful when you need a field we haven't surfaced in `normalised` yet.
-- `normalised.sendmuxMessageId` lets you join the event back to its corresponding `message_id` in your Sendmux delivery log.
-- `normalised.isSpam` is populated only for `mail.inbound` events — `true` means our spam filter classified the message as spam, `false` means ham, `null` for every other event type.
+| Field                          | Description                                                                                                          |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `id`                           | Stable per-event identifier. Also sent in the `X-Sendmux-Event-Id` header.                                           |
+| `source`                       | `"ses"` for outbound delivery events, `"mail"` for inbound, `"sendmux"` for synthetic test events.                    |
+| `type`                         | Event subtype without the source prefix — e.g. `"bounce"`, `"inbound"`, `"test"`.                                    |
+| `rawSource`                    | The event payload as Sendmux first observed it. Use this when you need a field we haven't surfaced in `normalised`. |
+| `normalised.sendmuxMessageId`  | Links the event back to its `message_id` in your Sendmux delivery log.                                               |
+| `normalised.isSpam`            | Populated only for `mail.inbound` — `true` for spam, `false` for ham, `null` for every other event type.             |
 
 ## Verify the signature
 
