@@ -129,7 +129,7 @@ See [Verify signatures](/api-reference/webhooks/verify-signatures) for Node, Pyt
 
 If your endpoint returns a non-`2xx` status or doesn't respond within 10 seconds, we retry with an exponential back-off schedule: 30 s → 2 min → 10 min → 30 min → 1 hr → 4 hr → 12 hr → 24 hr. That's eight attempts across a 24-hour window.
 
-After the final attempt fails, we set `failing` to `true` on the subscription and email the team owner. Events that fire while a subscription is marked failing are skipped — you'll see gaps in your event history until you fix the endpoint and toggle `enabled` off and on (which clears the `failing` flag), or update the URL via `PATCH /webhooks/{id}`.
+After the final attempt fails, we set `failing` to `true` on the subscription and email the team owner. Events that fire while a subscription is marked failing are skipped — you'll see gaps in your event history until you fix the endpoint and toggle `enabled` off then back on via `PATCH /webhooks/{id}` — the false → true transition clears the `failing` flag so retries resume on the next matching event. Changing the URL alone does not clear the flag.
 
 <Tip>
   Make your endpoint idempotent. Retries can produce the same event ID at your endpoint more than once — the `X-Sendmux-Event-Id` header is stable across retries, so dedupe on that value rather than on the request timestamp.
