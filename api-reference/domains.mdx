@@ -99,7 +99,7 @@ curl -X POST https://app.sendmux.ai/api/v1/domains/mdom_clxxx/verify \
   -H "Authorization: Bearer smx_root_your_key_here"
 ```
 
-Sendmux queries Cloudflare's public DNS-over-HTTPS resolver for all four non-DKIM records and asks Amazon SES for the latest DKIM status. If everything matches, `verification_status` flips to `verified` and the domain becomes available for mailbox creation.
+Sendmux queries our DNS-over-HTTPS resolver for all four non-DKIM records and asks Amazon SES for the latest DKIM status. If everything matches, `verification_status` flips to `verified` and the domain becomes available for mailbox creation.
 
 ```json
 {
@@ -148,7 +148,7 @@ The MX record is missing or points somewhere else.
 - Check that the MX target is `mail.sendmux.ai` (no trailing dot is fine — DoH normalises it).
 - Check the priority is `10`.
 - Make sure you're placing the MX on the correct subdomain — `mail.acme.com`, not `acme.com`, if that's the domain you registered with Sendmux.
-- If you use Cloudflare proxying, MX records **cannot be proxied** — they must be set to "DNS only".
+- If you use your DNS provider's proxying feature, MX records **cannot be proxied** — they must be set to "DNS only".
 
 ### `spf: false`
 
@@ -170,7 +170,7 @@ DMARC record missing or its value doesn't match.
 SES couldn't verify the three DKIM CNAMEs.
 
 - Confirm all three CNAMEs are in place, each with the correct `{token}._domainkey.{your-domain}` name and `{token}.dkim.amazonses.com` target.
-- DKIM records via Cloudflare must be "DNS only" (not proxied), same as MX.
+- DKIM records placed at your DNS provider must be set to "DNS only" (not proxied), same as MX.
 - SES retries automatically — `temporary_failure` usually resolves within an hour once the records are correct.
 - If `failed` persists for more than 72 hours with the records in place, contact support at <contact@sendmux.ai>.
 
