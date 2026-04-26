@@ -1,6 +1,7 @@
 ---
 title: "Webhooks"
 description: "Receive delivery events from Sendmux as signed HTTPS POSTs."
+keywords: ["webhooks", "events", "bounce", "complaint", "inbound", "subscriptions", "HMAC"]
 ---
 
 Webhook subscriptions let you receive real-time notifications when something happens to your mail — a bounce, a complaint, a delivery, or an inbound message. Each subscription is scoped to a team, signs every payload with an HMAC-SHA256 signature so you can verify it came from Sendmux, and retries failed deliveries with an exponential back-off for up to 24 hours.

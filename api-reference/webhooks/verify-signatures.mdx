@@ -1,6 +1,7 @@
 ---
 title: "Verify signatures"
 description: "Verify the HMAC-SHA256 signature Sendmux attaches to every webhook delivery."
+keywords: ["signature verification", "HMAC", "SHA-256", "webhook security", "Node", "Python", "Go"]
 ---
 
 Every webhook POST carries an `X-Sendmux-Signature` header in the form `sha256=<hex>`. That hex value is the HMAC-SHA256 of the **raw request body** keyed with the signing secret you received at subscription creation (or rotation).
