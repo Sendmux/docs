@@ -76,7 +76,7 @@
             "pages": [
               "GET /emails/metrics",
               "GET /emails/logs",
-              "GET /emails/logs/{logId}"
+              "GET /emails/logs/{public_id}"
             ]
           },
           {
