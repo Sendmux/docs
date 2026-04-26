@@ -91,33 +91,33 @@ The request body is the canonical event envelope.
 {
   "id": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
   "source": "ses",
+  "event_type": "ses.bounce",
   "type": "bounce",
-  "teamPublicId": "tm_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "occurredAt": "2026-04-23T10:15:30Z",
-  "rawSource": {
+  "team_public_id": "tm_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "occurred_at": "2026-04-23T10:15:30Z",
+  "raw_source": {
     "eventType": "Bounce",
     "mail": { "messageId": "0100018c12345678-..." },
     "bounce": { "bounceType": "Permanent", "bouncedRecipients": [{ "emailAddress": "user@example.com" }] }
   },
   "normalised": {
-    "messageId": "0100018c12345678-...",
+    "message_id": "0100018c12345678-...",
     "recipient": "user@example.com",
-    "bounceType": "Permanent",
-    "complaintType": null,
-    "sendmuxMessageId": "01JH8Z1Q2...",
-    "isSpam": null
+    "bounce_type": "Permanent",
+    "complaint_type": null,
+    "is_spam": null
   }
 }
 ```
 
-| Field                          | Description                                                                                                          |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `id`                           | Stable per-event identifier. Also sent in the `X-Sendmux-Event-Id` header.                                           |
-| `source`                       | `"ses"` for outbound delivery events, `"mail"` for inbound, `"sendmux"` for synthetic test events.                    |
-| `type`                         | Event subtype without the source prefix — e.g. `"bounce"`, `"inbound"`, `"test"`.                                    |
-| `rawSource`                    | The event payload as Sendmux first observed it. Use this when you need a field we haven't surfaced in `normalised`. |
-| `normalised.sendmuxMessageId`  | Links the event back to its `message_id` in your Sendmux delivery log.                                               |
-| `normalised.isSpam`            | Populated only for `mail.inbound` — `true` for spam, `false` for ham, `null` for every other event type.             |
+| Field                  | Description                                                                                                                                                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                   | Stable per-event identifier. Also sent in the `X-Sendmux-Event-Id` header.                                                                                                                                                   |
+| `source`               | `"ses"` for outbound delivery events, `"mail"` for inbound, `"sendmux"` for synthetic test events.                                                                                                                            |
+| `event_type`           | The dotted `{source}.{type}` form — e.g. `"ses.bounce"`, `"mail.inbound"`. Mirrors the value of the `X-Sendmux-Event-Type` header.                                                                                            |
+| `type`                 | Event subtype without the source prefix — e.g. `"bounce"`, `"inbound"`, `"test"`.                                                                                                                                            |
+| `raw_source`           | The event payload as Sendmux first observed it. Mirrors the upstream provider's payload verbatim, so its nested keys reflect the upstream contract (often camelCase) — use this when you need a field we haven't surfaced in `normalised`. |
+| `normalised.is_spam`   | Populated only for `mail.inbound` — `true` for spam, `false` for ham, `null` for every other event type.                                                                                                                     |
 
 ## Verify the signature
 
