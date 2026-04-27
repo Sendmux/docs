@@ -34,6 +34,10 @@
             "pages": ["index"]
           },
           {
+            "group": "Domains",
+            "pages": ["guides/domain-management"]
+          },
+          {
             "group": "Sending emails",
             "pages": [
               "guides/sending-via-http",
@@ -41,6 +45,10 @@
               "guides/attachments",
               "guides/idempotency"
             ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": ["guides/webhooks-setup", "guides/webhooks-verify-signatures"]
           },
           {
             "group": "AI integrations",
@@ -91,7 +99,6 @@
             "group": "Webhooks",
             "pages": [
               "api-reference/webhooks/introduction",
-              "api-reference/webhooks/verify-signatures",
               "GET /webhooks",
               "POST /webhooks",
               "GET /webhooks/{public_id}",
@@ -175,5 +182,11 @@
   "description": "The intelligent email layer",
   "appearance": {
     "default": "system"
-  }
+  },
+  "redirects": [
+    {
+      "source": "/api-reference/webhooks/verify-signatures",
+      "destination": "/guides/webhooks-verify-signatures"
+    }
+  ]
 }
