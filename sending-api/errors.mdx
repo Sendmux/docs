@@ -63,7 +63,7 @@ Common causes:
 
 ### idempotency_conflict
 
-**HTTP 409** — The same `idempotency_key` is currently being processed by another concurrent request. This is transient — wait briefly and retry to receive the completed result.
+**HTTP 409** — Returned when the same `Idempotency-Key` request header is reused either (a) while the original request is still being processed (transient — wait briefly and retry to receive the completed result), or (b) with a request body that does not match the body fingerprint of the original request (permanent — fix the client to use a fresh key for the new request).
 
 ### payload_too_large
 

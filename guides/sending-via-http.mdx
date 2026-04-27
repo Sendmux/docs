@@ -56,7 +56,7 @@ response = requests.post(
 )
 
 data = response.json()
-print(data["data"]["message_id"])  # UUID of the queued message
+print(data["data"]["message_id"])  # eml_<cuid2> identifier of the queued message
 ```
 
 ```javascript Node.js
@@ -76,7 +76,7 @@ const response = await fetch("https://smtp.sendmux.ai/api/v1/emails/send", {
 });
 
 const data = await response.json();
-console.log(data.data.message_id); // UUID of the queued message
+console.log(data.data.message_id); // eml_<cuid2> identifier of the queued message
 ```
 
 ```go Go
@@ -116,7 +116,7 @@ func main() {
 {
   "ok": true,
   "data": {
-    "message_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "message_id": "eml_abc123def456ghi789jkl012",
     "status": "queued"
   },
   "meta": {
@@ -158,8 +158,8 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
   "ok": true,
   "data": {
     "results": [
-      { "index": 0, "message_id": "uuid-1", "status": "queued" },
-      { "index": 1, "message_id": "uuid-2", "status": "queued" }
+      { "index": 0, "message_id": "eml_abc123def456ghi789jkl012", "status": "queued" },
+      { "index": 1, "message_id": "eml_mno345pqr678stu901vwx234", "status": "queued" }
     ],
     "summary": { "total": 2, "queued": 2, "failed": 0 }
   },
@@ -169,15 +169,10 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
 
 ## Optional fields
 
-| Field | Description |
-| --- | --- |
-| `text_body` | Plain text fallback (recommended for deliverability) |
-| `reply_to` | `{ "email": "...", "name": "..." }` — where replies go |
-| `cc` / `bcc` | Arrays of `{ "email": "...", "name": "..." }` (max 100 each) |
-| `custom_headers` | Object of `X-*` headers to include |
-| `attachments` | Base64-encoded files — see [Attachments guide](/guides/attachments) |
-| `idempotency_key` | Prevents duplicate sends — see [Idempotency guide](/guides/idempotency) |
-| `return_path` | Custom envelope sender for bounce handling (VERP) |
+The full request schema — every optional field, its type, and constraints — is rendered from the live OpenAPI spec on the **`POST /emails/send`** page in the Sending API reference. A few fields warrant their own guides:
+
+- **Attachments** — base64-encoded files. See the [Attachments](/guides/attachments) guide.
+- **Idempotency** — pass an `Idempotency-Key` HTTP header (not a body field) to make retries safe. See the [Idempotency](/guides/idempotency) guide.
 
 ## Error handling
 
