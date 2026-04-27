@@ -15,7 +15,8 @@ The Sendmux API uses standard HTTP status codes and returns a consistent error e
     "code": "invalid_parameter",
     "message": "A human-readable description of the error.",
     "param": "from_date",
-    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter"
+    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
+    "retryable": false
   },
   "meta": {
     "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -23,7 +24,60 @@ The Sendmux API uses standard HTTP status codes and returns a consistent error e
 }
 ```
 
-The `param` field is only present when the error relates to a specific request parameter. Always include `request_id` when contacting support.
+| Field        | Description                                                                                                                         |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `code`       | Stable machine-readable code from the table below. Branch your client logic on this, not on the message text.                       |
+| `message`    | Human-readable description suitable for logs or surfacing to internal tools. Wording may change without notice.                     |
+| `param`      | Only present when the error is tied to a specific request field — typically the field that failed validation.                       |
+| `doc_url`    | Anchor link into this page. Useful for surfacing inline help.                                                                       |
+| `retryable`  | `true` when the same request can succeed on a later attempt without changes. See [Retryable + Retry-After](#retryable--retry-after). |
+| `errors`     | Only present on accumulated validation failures. See [Validation errors with multiple issues](#validation-errors-with-multiple-issues). |
+
+Every response also carries an `X-Request-Id` HTTP header that matches `meta.request_id` verbatim. Always include `request_id` when contacting support.
+
+## Retryable + Retry-After
+
+The `retryable` field tells you whether retrying the same request is likely to succeed. Defaults follow this policy:
+
+| HTTP status | Default `retryable` | Why                                                                                |
+| ----------- | -------------------- | ---------------------------------------------------------------------------------- |
+| `429`       | `true`               | Transient — back off until the rate-limit window resets.                           |
+| `5xx`       | `true`               | Transient — backend issue or downstream component briefly unavailable.             |
+| `4xx` other | `false`              | Caller-side problem — fix the request before retrying.                             |
+
+When `retryable` is `true` for a `429` or `503`, the response also carries a `Retry-After` HTTP header with the recommended wait in seconds. Honour that value rather than retrying immediately.
+
+```http
+HTTP/1.1 429 Too Many Requests
+Retry-After: 30
+Content-Type: application/json
+```
+
+A handful of codes override the default policy explicitly — most notably `idempotency_conflict` is `false` (the same key + same body needs your client to either wait for the in-flight request to finish or use a fresh key).
+
+## Validation errors with multiple issues
+
+When a request body fails Zod schema validation on multiple fields, the error envelope carries an `errors` array so you can surface every issue in a single round-trip.
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "invalid_parameter",
+    "message": "Invalid request parameters.",
+    "param": "filter_rules.0.action",
+    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
+    "retryable": false,
+    "errors": [
+      { "field": "filter_rules.0.action", "code": "invalid_enum_value", "message": "Expected 'allow' | 'deny'." },
+      { "field": "filter_rules.2.pattern", "code": "too_small", "message": "String must contain at least 1 character(s)." }
+    ]
+  },
+  "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
+}
+```
+
+The `param` at the top of the error matches the first issue's `field` for backwards compatibility. The full list lives in `errors[]`. Status is `400` for syntactic problems (`invalid_parameter`) and `422` for semantic violations (`validation_error`).
 
 ## Error codes
 
@@ -53,18 +107,30 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 **HTTP 404** — The requested resource does not exist, or it belongs to a different team than the one associated with your API key.
 
+### conflict
+
+**HTTP 409** — The request can't be applied because of the resource's current state. Examples: deleting a domain while mailboxes still live on it, creating a mailbox whose email address is already in use, or sending a `PATCH` / `PUT` with an `If-Match` header that doesn't match the current `ETag` (optimistic concurrency conflict). Re-fetch the resource and reconcile before retrying.
+
+### idempotency_conflict
+
+**HTTP 409** — Returned when an `Idempotency-Key` request header is reused either (a) while the original request is still being processed (transient — wait briefly and retry to receive the completed response), or (b) with a request body whose fingerprint differs from the original (permanent — fix the client to use a fresh key for the new request). See the [Idempotency](/guides/idempotency) guide.
+
 ### validation_error
 
-**HTTP 422** — A request body parsed cleanly as JSON but fails a semantic rule. Common cases include shrinking a mailbox quota below its current usage, referencing a provider or delivery group from a different team, or submitting more than 1,000 filter rules in a single request. The `param` field identifies the offending field.
+**HTTP 422** — A request body parsed cleanly as JSON but fails a semantic rule. Common cases include shrinking a mailbox quota below its current usage, referencing a provider or delivery group from a different team, or submitting more than 1,000 filter rules in a single request. The `param` field identifies the first offending field; the `errors` array enumerates every issue.
 
 ### rate_limit_exceeded
 
-**HTTP 429** — You have exceeded the rate limit of 600 requests per minute. Wait for the duration specified in the `Retry-After` header before retrying.
+**HTTP 429** — You have exceeded the rate limit of 600 requests per minute. The response carries a `Retry-After` HTTP header with the recommended wait in seconds; back off until then before retrying. `retryable` is `true`.
+
+### payload_too_large
+
+**HTTP 413** — The request body exceeds the server-side size limit. Trim the body or split into smaller requests.
 
 ### service_unavailable
 
-**HTTP 503** — A downstream component needed to serve this request is temporarily unavailable. Requests are safe to retry with exponential backoff. If this persists for more than a few minutes, contact support with the `request_id` from the response.
+**HTTP 503** — A downstream component needed to serve this request is temporarily unavailable. The response may carry a `Retry-After` header. Requests are safe to retry with exponential backoff (`retryable` is `true`). If this persists for more than a few minutes, contact support with the `request_id` from the response.
 
 ### internal_error
 
-**HTTP 500** — An unexpected server error occurred. If this persists, contact support with the `request_id` from the response.
+**HTTP 500** — An unexpected server error occurred. `retryable` is `true` because the failure is server-side, but if it persists, contact support with the `request_id` from the response.

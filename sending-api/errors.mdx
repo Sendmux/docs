@@ -4,7 +4,7 @@ description: "Error codes and handling for the Sendmux Sending API."
 keywords: ["sending errors", "error codes", "insufficient credits", "rate limit", "validation", "payload too large"]
 ---
 
-The Sending API uses standard HTTP status codes and returns a consistent error envelope. All error codes from the [Management API](/api-reference/errors) apply, plus additional sending-specific codes.
+The Sending API uses the same error envelope as the [Management API](/api-reference/errors) — same `code`/`message`/`param`/`doc_url`/`retryable` fields, same accumulated `errors[]` on validation failures, same `X-Request-Id` response header, same `Retry-After` semantics on `429`/`503`. See the Management reference for the full envelope shape and the [retryable + Retry-After](/api-reference/errors#retryable--retry-after) policy. This page documents only the codes the Sending API actually emits.
 
 ## Error response format
 
@@ -15,7 +15,8 @@ The Sending API uses standard HTTP status codes and returns a consistent error e
     "code": "insufficient_credits",
     "message": "A human-readable description of the error.",
     "param": "to.email",
-    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits"
+    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits",
+    "retryable": false
   },
   "meta": {
     "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -23,11 +24,11 @@ The Sending API uses standard HTTP status codes and returns a consistent error e
 }
 ```
 
-The `param` field is only present when the error relates to a specific request field. Always include `request_id` when contacting support.
+`param` is only present when the error is tied to a specific request field. On accumulated validation failures, `error.errors` carries every issue — see [Validation errors with multiple issues](/api-reference/errors#validation-errors-with-multiple-issues). Always include `request_id` (or the `X-Request-Id` response header) when contacting support.
 
 ## Shared error codes
 
-These codes are shared with the Management API:
+These codes are shared with the Management API. Their semantics are identical to the matching sections in the [Management error reference](/api-reference/errors).
 
 ### authentication_required
 
@@ -37,13 +38,25 @@ These codes are shared with the Management API:
 
 **HTTP 403** — The API key is valid but lacks the `email.send` permission.
 
+### invalid_parameter
+
+**HTTP 400** — A request field has an invalid format or value, or the JSON body failed schema parsing. The `param` field identifies the offending field; `errors[]` enumerates every issue when more than one is present.
+
+### missing_parameter
+
+**HTTP 400** — A required request field is missing from the body.
+
+### not_found
+
+**HTTP 404** — A referenced resource (for example, a `from` mailbox or a domain) does not exist or belongs to a different team than the one associated with your API key.
+
 ### rate_limit_exceeded
 
-**HTTP 429** — You have exceeded the rate limit of 1800 requests per minute. Wait for the duration specified in the `Retry-After` header.
+**HTTP 429** — You have exceeded the rate limit of 1800 requests per minute. The response carries a `Retry-After` HTTP header with the recommended wait in seconds; back off until then before retrying. `retryable` is `true`.
 
 ### internal_error
 
-**HTTP 500** — An unexpected server error occurred. If this persists, contact support with the `request_id`.
+**HTTP 500** — An unexpected server error occurred. `retryable` is `true`. If this persists, contact support with the `request_id`.
 
 ## Sending-specific error codes
 
@@ -71,8 +84,8 @@ Common causes:
 
 ### no_active_providers
 
-**HTTP 503** — No healthy delivery providers are configured for your team. Add and activate a provider in the dashboard under **Accounts**.
+**HTTP 503** — No healthy delivery providers are configured for your team. Add and activate a provider in the dashboard under **Accounts**. `retryable` is `true`, but retrying will keep failing until you fix the provider configuration — this is a 503 because the request itself is well-formed.
 
 ### service_unavailable
 
-**HTTP 503** — The email queue or storage infrastructure is temporarily unavailable. Retry after a short delay.
+**HTTP 503** — A downstream component needed to serve this request is temporarily unavailable. The response may carry a `Retry-After` header. `retryable` is `true` — back off and retry. If this persists for more than a few minutes, contact support with the `request_id`.

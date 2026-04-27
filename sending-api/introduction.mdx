@@ -71,13 +71,16 @@ All responses use the same JSON envelope as the Management API.
   "error": {
     "code": "insufficient_credits",
     "message": "Your team's balance is too low to send this email.",
-    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits"
+    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits",
+    "retryable": false
   },
   "meta": {
     "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
   }
 }
 ```
+
+The Sending API uses the same envelope as the [Management API](/api-reference/introduction) — same `code`/`message`/`param`/`doc_url`/`retryable` fields, same accumulated `errors[]` array on validation failures, same `X-Request-Id` and `Retry-After` header conventions. See the [Sending API error reference](/sending-api/errors) for codes specific to email delivery.
 
 ## Rate limiting
 
