@@ -62,7 +62,7 @@ These codes are shared with the Management API. Their semantics are identical to
 
 ### insufficient_credits
 
-**HTTP 402** — Your team's balance is too low to send this email (or batch). Top up your balance in the dashboard under **Billing**.
+**HTTP 402** — Your team's balance is too low to send this email (or batch). Top up your balance in the Sendmux app under **Billing**.
 
 ### validation_error
 
@@ -84,7 +84,7 @@ Common causes:
 
 ### no_active_providers
 
-**HTTP 503** — No healthy delivery providers are configured for your team. Add and activate a provider in the dashboard under **Accounts**. `retryable` is `true`, but retrying will keep failing until you fix the provider configuration — this is a 503 because the request itself is well-formed.
+**HTTP 503** — No healthy delivery providers are configured for your team. Add and activate a provider in the Sendmux app under **Accounts**. `retryable` is `true`, but retrying will keep failing until you fix the provider configuration — this is a 503 because the request itself is well-formed.
 
 ### service_unavailable
 

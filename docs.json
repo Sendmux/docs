@@ -48,7 +48,10 @@
           },
           {
             "group": "Webhooks",
-            "pages": ["guides/webhooks-setup", "guides/webhooks-verify-signatures"]
+            "pages": [
+              "guides/webhooks-setup",
+              "guides/webhooks-verify-signatures"
+            ]
           },
           {
             "group": "AI integrations",
@@ -126,7 +129,7 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Dashboard",
+          "anchor": "App",
           "href": "https://app.sendmux.ai",
           "icon": "gauge"
         },
@@ -152,7 +155,7 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
+      "label": "App",
       "href": "https://app.sendmux.ai"
     }
   },
