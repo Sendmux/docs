@@ -1,70 +1,90 @@
 ---
 title: "Idempotency"
-description: "Prevent duplicate email sends with idempotency keys."
+description: "Make mutating requests safe to retry by attaching an Idempotency-Key header."
 keywords: ["idempotency", "Idempotency-Key", "retries", "duplicate prevention", "request replay"]
 ---
 
-Network issues, timeouts, and retries can cause the same API request to be sent multiple times. Idempotency keys prevent duplicate email delivery by ensuring each unique key is only processed once.
+Network blips, client timeouts, and middleware retries can cause the same request to reach Sendmux more than once. The `Idempotency-Key` request header lets you mark a request so a retry under the same key returns the original response instead of re-running the operation.
 
 ## How it works
 
-1. Include an `idempotency_key` in your send request
-2. Sendmux stores the key with the resulting `message_id` for 24 hours
-3. If the same key is sent again within 24 hours, the original `message_id` is returned without re-queuing the email
+<Steps>
+  <Step title="Send the header on the original request">
+    Add `Idempotency-Key: <your-key>` to any mutating request. Sendmux records the key, the response, and a fingerprint of the request body.
+  </Step>
+  <Step title="Retry under the same key">
+    If the same key arrives again within 24 hours **with the same body**, Sendmux returns the cached response verbatim — same status, same headers, same body. The operation does not run twice.
+  </Step>
+  <Step title="Mismatched body returns 409">
+    If the same key arrives with a **different body** (or while the original request is still in flight), Sendmux returns `409 idempotency_conflict`. The cached entry is left alone.
+  </Step>
+</Steps>
 
-## Usage
+## Sending the header
 
-```json
-{
-  "from": { "email": "hello@yourdomain.com" },
-  "to": { "email": "user@example.com" },
-  "subject": "Order confirmation #12345",
-  "html_body": "<p>Your order has been confirmed.</p>",
-  "idempotency_key": "order-confirmation-12345"
-}
+```bash
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+  -H "Authorization: Bearer smx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: order-confirmation-12345" \
+  -d '{
+    "from": { "email": "hello@yourdomain.com" },
+    "to":   { "email": "user@example.com" },
+    "subject":   "Order confirmation #12345",
+    "html_body": "<p>Your order has been confirmed.</p>"
+  }'
 ```
 
-### Idempotent replay response
+The key is opaque to Sendmux — pick whatever stably identifies the logical operation on your side.
 
-When a duplicate key is detected, the response includes `"idempotent": true`:
+## Coverage
 
-```json
-{
-  "ok": true,
-  "data": {
-    "message_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "status": "queued",
-    "idempotent": true
-  },
-  "meta": {
-    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
-  }
-}
-```
+The header is honoured on every mutating endpoint:
+
+| API            | Endpoint                                    | Effect of replay                                                          |
+| -------------- | ------------------------------------------- | ------------------------------------------------------------------------- |
+| Sending API    | `POST /emails/send`                         | Returns the original `message_id` and status.                             |
+| Sending API    | `POST /emails/send/batch`                   | Returns the original per-message results array.                           |
+| Management API | `POST /domains`                             | Returns the original 201 + `Location` header.                             |
+| Management API | `POST /mailboxes`                           | Returns the original 201 + `Location` header.                             |
+| Management API | `POST /mailboxes/{public_id}/keys`          | Returns the original 201 + `Location` header (and the `secret` field).    |
+| Management API | `POST /webhooks`                            | Returns the original 201 + `Location` header (and the `secret` field).   |
+| Management API | `POST /webhooks/{public_id}/rotate-secret`  | Returns the original new `secret` — the secret is **not** rotated again.  |
+| Management API | `POST /webhooks/{public_id}/test`           | Returns the original `event_id` — no second test event is published.      |
+
+`GET` endpoints don't accept the header (they have no side effects); `PATCH`, `PUT`, and `DELETE` use [`If-Match`](/api-reference/introduction) for optimistic concurrency instead.
+
+## Replay vs conflict
+
+| Situation                                          | HTTP status | Body                                                                                                |
+| -------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------- |
+| Same key, same body, original request finished     | The original status (200, 201, 422, …) | The original response body, byte-identical.                                              |
+| Same key, original request still being processed   | `409`       | `{ ok: false, error: { code: "idempotency_conflict", message: "This request is already being processed." } }` |
+| Same key, different body                           | `409`       | `{ ok: false, error: { code: "idempotency_conflict", message: "Idempotency-Key was reused with a different request body." } }` |
+
+A `409 idempotency_conflict` while the original is in flight is transient — wait briefly and retry under the same key to receive the completed response.
 
 ## Key format
 
-- **Allowed characters**: alphanumeric, hyphens, underscores (`a-zA-Z0-9_-`)
-- **Length**: 1–255 characters
-- **Scope**: Keys are scoped to your team — different teams can use the same key without conflict
+- **Length**: 1–255 characters. Whitespace is trimmed; an empty or oversize key is silently ignored.
+- **Charset**: opaque to Sendmux. URL-safe identifiers travel cleanly through proxies and logs (`a-zA-Z0-9_-`), but no character class is rejected server-side.
+- **Stability**: the key must be **deterministic per logical operation**. Random UUIDs minted at retry time defeat the purpose — they make every retry look like a brand-new request. Derive the key from the action you're performing: `order-confirmation-{order_id}`, `welcome-{user_id}`, `invoice-{invoice_id}-{period}`.
 
-## Best practices
+## Scope
 
-- **Use meaningful keys** tied to your business logic: `order-confirm-{orderId}`, `welcome-{userId}`, `invoice-{invoiceId}-{month}`
-- **Don't use random values** (like UUIDs) as idempotency keys — the whole point is to deduplicate, so the key must be deterministic
-- **Keys expire after 24 hours** — after expiry, the same key can be used again and will queue a new message
+Cached entries are scoped to **(team, endpoint, key)**:
 
-## Concurrent requests
-
-If two requests with the same idempotency key arrive simultaneously, the first claims the key and begins processing. The second receives a **409 `idempotency_conflict`** error. This is transient — retry after a short delay to receive the completed result with `"idempotent": true`.
-
-If the first request fails (validation error, insufficient credits, etc.), the key is released so subsequent retries can succeed immediately.
+- Two teams may use the same key without colliding.
+- The same key reused across two different endpoints (e.g. `POST /emails/send` and `POST /webhooks`) does not collide — each endpoint maintains its own namespace.
+- Keys expire 24 hours after first use. After expiry the same key can be reused and a fresh request is processed.
 
 ## Batch sends
 
-Each message in a batch can have its own `idempotency_key`. Messages with previously-seen keys are returned as idempotent replays in the results array while new messages are queued normally.
+`POST /emails/send/batch` honours one `Idempotency-Key` header for the whole batch. Replay returns the original results array verbatim — the batch is not re-processed and individual messages are not re-sent.
+
+If you need per-message idempotency inside a batch, split the batch into individual `POST /emails/send` calls each with their own `Idempotency-Key`.
 
 ## Limitations
 
-- Idempotency is **best-effort** — if the key store is temporarily unavailable, the email will be queued normally without idempotency protection
-- Keys are scoped to `(team_id, key)` — the same key from different API keys on the same team will still deduplicate
+- **Best-effort.** If our cache layer is briefly unavailable, the request is processed without idempotency protection (fail-open) rather than rejected. Critical retries should still be safe to send.
+- **Body field is rejected.** Earlier versions accepted `idempotency_key` inside the JSON body. That form now returns `422 validation_error` — migrate to the `Idempotency-Key` HTTP header.

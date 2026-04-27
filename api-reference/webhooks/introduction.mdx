@@ -8,11 +8,23 @@ Webhook subscriptions let you receive real-time notifications when something hap
 
 ## How it works
 
-1. You register a webhook via the API or dashboard, telling Sendmux which event types you care about and which HTTPS URL to POST them to.
-2. We return a **signing secret** in that one response. Store it securely — we never return it again.
-3. When a matching event fires, Sendmux POSTs a JSON body to your URL with four headers identifying the event and its signature.
-4. Your endpoint verifies the signature, processes the event, and returns `2xx` within 10 seconds.
-5. Non-`2xx` or timeout responses trigger exponential back-off for 24 hours. If delivery still fails after the window, the subscription is marked `failing` and the team owner receives an email.
+<Steps>
+  <Step title="Register the subscription">
+    Register a webhook via the API or dashboard, telling Sendmux which event types you care about and which HTTPS URL to POST them to.
+  </Step>
+  <Step title="Capture the signing secret">
+    We return a **signing secret** in that one response. Store it securely — we never return it again.
+  </Step>
+  <Step title="Receive event POSTs">
+    When a matching event fires, Sendmux POSTs a JSON body to your URL with four headers identifying the event and its signature.
+  </Step>
+  <Step title="Verify, process, ack">
+    Your endpoint verifies the signature, processes the event, and returns `2xx` within 10 seconds.
+  </Step>
+  <Step title="Handle retries">
+    Non-`2xx` or timeout responses trigger exponential back-off for 24 hours. If delivery still fails after the window, the subscription is marked `failing` and the team owner receives an email.
+  </Step>
+</Steps>
 
 ## Event types
 
