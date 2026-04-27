@@ -23,18 +23,16 @@ Install CLI: `npm i -g mint`
 
 ### Navigation structure (3 tabs)
 
-1. **Guides** (`guides/`) — getting started, sending emails, AI integrations
-2. **Sending API** (`sending-api/`) — auto-generated from `https://smtp.sendmux.ai/api/v1/openapi.json`
-3. **Management API** (`api-reference/`) — auto-generated from `https://app.sendmux.ai/api/v1/openapi.json`
-
-API reference pages for endpoints (e.g. `POST /emails/send`) are generated from remote OpenAPI specs, not local files. Only the overview/introduction pages are local MDX.
+1. **Guides** (`guides/`) — getting started, domains, sending emails, webhooks, AI integrations. All conceptual + procedural content lives here.
+2. **Management API** (`api-reference/`) — endpoint pages auto-generated from `https://app.sendmux.ai/api/v1/openapi.json`. Local MDX is limited to `introduction.mdx` (one tab-level intro) + `errors.mdx` (the canonical error reference). No per-resource overview pages.
+3. **Sending API** (`sending-api/`) — endpoint pages auto-generated from `https://smtp.sendmux.ai/api/v1/openapi.json`. Local MDX is limited to `introduction.mdx` + `errors.mdx`.
 
 ### Two separate APIs
 
 | API | Base URL | Purpose |
 |-----|----------|---------|
 | Sending API | `smtp.sendmux.ai/api/v1` | Email delivery (send, batch send) |
-| Management API | `app.sendmux.ai/api/v1` | Read-only: providers, metrics, logs, billing |
+| Management API | `app.sendmux.ai/api/v1` | Read + manage: providers, metrics, logs, billing, domains, mailboxes, API keys, webhooks |
 
 ## Content patterns
 
@@ -94,14 +92,26 @@ import Prereqs from '/snippets/prereqs.mdx'
 <Prereqs />
 ```
 
-### API reference — hybrid pattern
+### API reference — pure auto-rendered
 
-- Handwritten `overview.mdx` per resource: intent, use cases, list of endpoints with root-relative links.
-- Endpoint pages use `openapi: "POST /emails/send"` in frontmatter — Mintlify renders request/response panels from the spec. Any hand-written prose (rate limits, edge cases) sits below the frontmatter.
+The Management API and Sending API tabs follow Mintlify's own pattern (see [github.com/mintlify/docs](https://github.com/mintlify/docs)): **one** introduction page at the tab root, **one** errors page, and every endpoint group below them is composed of auto-generated pages from the OpenAPI spec — no handwritten per-resource overviews.
+
+- **Allowed local MDX in `api-reference/`** and `sending-api/`: `introduction.mdx` and `errors.mdx` only. These sit under an "Overview" group at the top of the tab.
+- **Endpoint groups** (Domains, Providers, Emails, Billing, Webhooks, etc.) contain only OpenAPI-rendered entries — strings like `"POST /emails/send"` in `docs.json`. No per-resource overview pages, no concept docs, no "see X guide" pointer pages.
+- **Where conceptual + procedural content lives**: the Guides tab. If a resource needs a "what it is, how it works, how to use it" walkthrough, that's a guide page (e.g. `guides/domain-management.mdx`, `guides/webhooks-setup.mdx`). The contract reference for that resource (event types, wire payload shape, permissions table) lives at the bottom of the same guide under a `## Reference` section so a guide reader has the contract one scroll away.
+- **Endpoint pages with hand-written prose**: if an endpoint genuinely needs explanation beyond what OpenAPI renders, use the `openapi:` frontmatter and put the prose below — but the page must still live in the OpenAPI-driven group, not as a separate concept page. Prefer adding the prose to the relevant guide instead.
+
+Anti-pattern (do not introduce): a per-resource `overview.mdx` or `introduction.mdx` inside `api-reference/` that duplicates content guides already cover. This was the drift Step F-cleanup removed; future drift in the same direction silently breaks tab consistency (some groups have overviews, others don't) and forces readers to tab-switch for context.
 
 ### Redirects
 
-When a page moves or is renamed, add an entry to `redirects.json` (referenced from `docs.json`). Never break an external link.
+When a page moves or is renamed, add an entry to the top-level `redirects` array in `docs.json` (Mintlify supports redirects directly in the central config — there's no separate `redirects.json` file). Never break an external link.
+
+```json
+"redirects": [
+  { "source": "/old-path", "destination": "/new-path" }
+]
+```
 
 ## Writing conventions
 

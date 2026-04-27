@@ -67,7 +67,6 @@
           {
             "group": "Domains",
             "pages": [
-              "api-reference/domains",
               "GET /domains",
               "POST /domains",
               "GET /domains/{public_id}",
@@ -98,7 +97,6 @@
           {
             "group": "Webhooks",
             "pages": [
-              "api-reference/webhooks/introduction",
               "GET /webhooks",
               "POST /webhooks",
               "GET /webhooks/{public_id}",
@@ -187,6 +185,14 @@
     {
       "source": "/api-reference/webhooks/verify-signatures",
       "destination": "/guides/webhooks-verify-signatures"
+    },
+    {
+      "source": "/api-reference/domains",
+      "destination": "/guides/domain-management"
+    },
+    {
+      "source": "/api-reference/webhooks/introduction",
+      "destination": "/guides/webhooks-setup"
     }
   ]
 }

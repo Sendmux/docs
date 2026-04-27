@@ -185,3 +185,19 @@ curl -X DELETE https://app.sendmux.ai/api/v1/domains/mdom_clxxx \
 ```
 
 Deletion is blocked if any active mailbox still lives on the domain — delete the mailboxes first, then the domain. On success, Sendmux removes the domain from both the mail server and Amazon SES in addition to its own database. The DNS records in your zone are your responsibility to clean up.
+
+## Permissions
+
+Domain endpoints are gated by the following API-key permissions. Keys with the wildcard `domain.*` satisfy all of them, and the built-in `root:full` role includes `domain.*`.
+
+| Endpoint                              | Required permission |
+| ------------------------------------- | ------------------- |
+| `POST /domains`                       | `domain.create`     |
+| `GET /domains`                        | `domain.read`       |
+| `GET /domains/{public_id}`            | `domain.read`       |
+| `POST /domains/{public_id}/verify`    | `domain.verify`     |
+| `DELETE /domains/{public_id}`         | `domain.delete`     |
+
+<Note>
+  Keys provisioned with `root:readonly` carry `domain.read` so monitoring integrations can list your domains without being able to modify them.
+</Note>
