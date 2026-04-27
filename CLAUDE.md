@@ -113,6 +113,17 @@ When a page moves or is renamed, add an entry to the top-level `redirects` array
 ]
 ```
 
+### MDX traps to avoid
+
+Mintlify uses strict MDX, so a single bad construct in one file can silently fail that page's build (the rest of the site still ships, the broken page returns 404 with no obvious error). The traps that actually bit this codebase:
+
+- **No `<email@domain>` autolinks.** Inside an `<Accordion>` / `<Steps>` / any JSX component body, `<contact@sendmux.ai>` parses as a JSX element opening tag and breaks the page. Use the explicit Markdown form instead: `[contact@sendmux.ai](mailto:contact@sendmux.ai)`. Same rule applies to `<https://...>` URL autolinks inside JSX — wrap in `[label](url)`.
+- **No naked `{token}` placeholders outside backticks.** MDX evaluates `{...}` as a JavaScript expression. Always wrap placeholder syntax in inline code: `` `{token}._domainkey.{your-domain}` ``. Plain prose `the {token} value` would try to evaluate `token` as a JS variable and fail.
+- **Tabular forms with empty leading cells** (`| | a | b |`) render unevenly across themes. Give every column a header label.
+- **Mixed quote styles inside one JSX attribute block** (`title='X "Y"'` next to `title="X 'Y'"`) compile but make diffs noisy. Pick one and stick with it per file.
+
+Before pushing any docs change, run the validation gates listed in [Before declaring docs work complete](#before-declaring-docs-work-complete). `mint broken-links` and `mint dev` together catch the autolink trap; CI doesn't.
+
 ## Writing conventions
 
 - Active voice, second person ("you")
