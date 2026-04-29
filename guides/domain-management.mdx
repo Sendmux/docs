@@ -51,7 +51,7 @@ The rest of this guide covers **custom domains**. The shared `@myagent.mx` path 
           "mx": [{ "priority": 10, "target": "mail.sendmux.ai" }],
           "spf": {
             "name": "mail.acme.com",
-            "value": "v=spf1 include:amazonses.com include:sendmux.ai ~all"
+            "value": "v=spf1 include:amazonses.com ~all"
           },
           "dmarc": {
             "name": "_dmarc.mail.acme.com",
@@ -112,7 +112,7 @@ Place every record from the `dns_records` object at your DNS provider exactly as
 |---|---|---|---|
 | MX | `mail.acme.com` | `10 mail.sendmux.ai` | Routes inbound mail to Sendmux's managed mail server. |
 | TXT | `_sendmux.mail.acme.com` | `sendmux-verify=team_abc123` | Proves team ownership. Unique to your team — never shared. |
-| TXT | `mail.acme.com` | `v=spf1 include:amazonses.com include:sendmux.ai ~all` | SPF. Authorises both SES and Sendmux's relays. |
+| TXT | `mail.acme.com` | `v=spf1 include:amazonses.com ~all` | SPF. Authorises Amazon SES to send for the domain. If you use your own upstream provider as well, merge its `include:` mechanism into this same record. |
 | TXT | `_dmarc.mail.acme.com` | `v=DMARC1; p=quarantine` | DMARC enforcement. Receivers quarantine any mail that fails SPF + DKIM alignment. |
 | CNAME | `{token}._domainkey.mail.acme.com` (×3) | `{token}.dkim.amazonses.com` | DKIM signing. Amazon SES rotates keys automatically — don't replace the targets. |
 
@@ -158,7 +158,7 @@ DKIM propagation is owned by Amazon SES, not by you. SES watches for the three `
     SPF failures are almost always caused by multiple SPF records on the same name.
 
     - Only one SPF record per hostname is allowed. Merge all your `include:` mechanisms into one record.
-    - If your apex already has `v=spf1 include:_spf.google.com ~all`, add the Sendmux includes to the same record: `v=spf1 include:amazonses.com include:sendmux.ai include:_spf.google.com ~all`.
+    - If your apex already has `v=spf1 include:_spf.google.com ~all`, add the Amazon SES include to the same record: `v=spf1 include:amazonses.com include:_spf.google.com ~all`.
     - Check for typos — SPF is whitespace-sensitive.
   </Accordion>
   <Accordion title="dmarc: false">
