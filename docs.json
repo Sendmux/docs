@@ -74,7 +74,24 @@
               "POST /domains",
               "GET /domains/{public_id}",
               "POST /domains/{public_id}/verify",
-              "DELETE /domains/{public_id}"
+              "DELETE /domains/{public_id}",
+              "GET /domains/{public_id}/filters",
+              "PUT /domains/{public_id}/filters"
+            ]
+          },
+          {
+            "group": "Mailboxes",
+            "pages": [
+              "GET /mailbox/me",
+              "GET /mailboxes",
+              "POST /mailboxes",
+              "GET /mailboxes/{public_id}",
+              "PATCH /mailboxes/{public_id}",
+              "DELETE /mailboxes/{public_id}",
+              "GET /mailboxes/{public_id}/filters",
+              "PUT /mailboxes/{public_id}/filters",
+              "POST /mailboxes/{public_id}/keys",
+              "DELETE /mailboxes/{public_id}/keys/{key_id}"
             ]
           },
           {
