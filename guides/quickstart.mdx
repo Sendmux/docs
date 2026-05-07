@@ -40,16 +40,17 @@ By the end of this guide you'll have:
   </Step>
 
   <Step title="Create a mailbox">
-    A mailbox is a single sending address bound to a verified domain (or to the shared `@myagent.mx` namespace). Each mailbox gets its own credentials and can have its own delivery rules.
+    A mailbox is a single sending address bound to a verified domain (or to the shared `@myagent.mx` namespace). Each mailbox gets its own credential and can have its own delivery rules.
 
     **In the dashboard**: open **Mailboxes** and click **Create mailbox**. Pick the verified domain from step 1, choose a local part (for example, `notifications`), and click **Create**.
 
-    The dashboard shows two one-shot secrets that **cannot be retrieved later** — copy them now:
+    The dashboard shows a single one-shot **mailbox credential** (`smx_mbx_...`) that **cannot be retrieved later** — copy it now. The same value authenticates everywhere:
 
-    - An **API key** (`smx_mbx_...`) for the HTTP and SMTP APIs.
-    - An **app password** plus IMAP/SMTP host details for any client that speaks IMAP or SMTP.
+    - As a Bearer token on the HTTP API.
+    - As the password for SMTP submission (`mail.sendmux.ai:587`).
+    - As the password for IMAP retrieval (`mail.sendmux.ai:993`).
 
-    Store both in your secrets manager. If you lose them, you can mint a fresh app password from the mailbox detail page, but the original values are gone.
+    Store it in your secrets manager. If you lose it, mint a fresh credential from the mailbox detail page — the original value is gone.
   </Step>
 
   <Step title="Send your first email">
