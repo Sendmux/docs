@@ -28,13 +28,14 @@ Webhook subscriptions let you receive real-time notifications when something hap
 
 ## Create a subscription
 
-Call `POST /webhooks` with the target URL and the event types you care about.
+Call `POST /webhooks` with the target URL and the event types you care about. An optional `name` gives the subscription a human-friendly label that surfaces in the dashboard list and detail pages — handy when you have several webhooks pointing at different internal services.
 
 ```bash
 curl https://app.sendmux.ai/api/v1/webhooks \
   -H "Authorization: Bearer smx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
+    "name": "Acme inbound forwarder",
     "url": "https://hooks.acme.com/sendmux",
     "event_types": ["ses.bounce", "ses.complaint", "mail.inbound"],
     "enabled": true
@@ -48,6 +49,7 @@ The response includes a `secret` — the HMAC key used to sign every event poste
   "ok": true,
   "data": {
     "id": "whk_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "name": "Acme inbound forwarder",
     "url": "https://hooks.acme.com/sendmux",
     "event_types": ["ses.bounce", "ses.complaint", "mail.inbound"],
     "enabled": true,
@@ -59,6 +61,10 @@ The response includes a `secret` — the HMAC key used to sign every event poste
   "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
 }
 ```
+
+<Tip>
+  `name` is optional. Omit it (or send `null` on `PATCH`) and the dashboard falls back to displaying the URL hostname. Update or clear it any time via `PATCH /webhooks/{id}` with `{"name": "New label"}` or `{"name": null}`.
+</Tip>
 
 <Warning>
   The `secret` field is returned **only in this response** and in the response to `POST /webhooks/{id}/rotate-secret`. Copy it somewhere safe immediately — if you lose it, rotate the secret to get a new one.
