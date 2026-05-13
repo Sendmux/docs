@@ -1,0 +1,63 @@
+---
+title: "Errors"
+description: "Error codes and handling for the Sendmux Mailbox API."
+keywords: ["mailbox API errors", "HTTP status", "retryable", "validation errors", "rate limit"]
+---
+
+The Mailbox API uses standard HTTP status codes and the same error envelope as the Management API.
+
+## Error response format
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "invalid_parameter",
+    "message": "A human-readable description of the error.",
+    "param": "cursor",
+    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
+    "retryable": false
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+| Field | Description |
+| --- | --- |
+| `code` | Stable machine-readable code. Branch client logic on this value. |
+| `message` | Human-readable description. Wording may change. |
+| `param` | Present when the error maps to a specific request field. |
+| `doc_url` | Link to the error reference. |
+| `retryable` | `true` when the same request may succeed later without changes. |
+| `errors` | Present on accumulated validation failures. |
+
+## Common codes
+
+| HTTP status | Error code | Retryable | Meaning |
+| --- | --- | --- | --- |
+| `400` | `invalid_parameter` | false | Bad query parameter or malformed request body. |
+| `400` | `missing_parameter` | false | Required parameter missing. |
+| `401` | `authentication_required` | false | Missing, invalid, expired, or revoked API key. |
+| `403` | `insufficient_permissions` | false | The key is valid but cannot call this endpoint. |
+| `404` | `not_found` | false | The mailbox or requested resource is absent or inaccessible. |
+| `409` | `conflict` | false | The resource state prevents the operation. |
+| `409` | `idempotency_conflict` | false | An `Idempotency-Key` was reused with a different request. |
+| `413` | `payload_too_large` | false | The request body is too large. |
+| `422` | `validation_error` | false | The request parsed correctly but violates a semantic rule. |
+| `429` | `rate_limit_exceeded` | true | Rate limit hit. Honour `Retry-After`. |
+| `500` | `internal_error` | true | Unexpected server error. |
+| `503` | `service_unavailable` | true | A required service is temporarily unavailable. Honour `Retry-After` when present. |
+
+## Retry handling
+
+Retry only when `retryable` is `true`. For `429` and `503`, use the `Retry-After` header before retrying.
+
+```http
+HTTP/1.1 429 Too Many Requests
+Retry-After: 30
+Content-Type: application/json
+```
+
+For POST requests that support `Idempotency-Key`, send a unique key so a retry cannot perform the same operation twice.

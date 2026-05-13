@@ -82,7 +82,6 @@
           {
             "group": "Mailboxes",
             "pages": [
-              "GET /mailbox/me",
               "GET /mailboxes",
               "POST /mailboxes",
               "GET /mailboxes/{public_id}",
@@ -125,6 +124,45 @@
               "POST /webhooks/{public_id}/rotate-secret",
               "POST /webhooks/{public_id}/test"
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Mailbox API",
+        "openapi": "openapi-app.json",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["mailbox-api/introduction", "mailbox-api/errors"]
+          },
+          {
+            "group": "Mailbox",
+            "pages": ["GET /mailbox/me"]
+          },
+          {
+            "group": "Messages",
+            "pages": [
+              "GET /mailbox/messages",
+              "GET /mailbox/messages/{message_id}",
+              "PATCH /mailbox/messages/{message_id}",
+              "DELETE /mailbox/messages/{message_id}",
+              "GET /mailbox/messages/{message_id}/attachments/{attachment_id}",
+              "POST /mailbox/messages/send"
+            ]
+          },
+          {
+            "group": "Folders",
+            "pages": [
+              "GET /mailbox/folders",
+              "POST /mailbox/folders",
+              "GET /mailbox/folders/{folder_id}",
+              "PATCH /mailbox/folders/{folder_id}",
+              "DELETE /mailbox/folders/{folder_id}"
+            ]
+          },
+          {
+            "group": "Sync",
+            "pages": ["GET /mailbox/changes"]
           }
         ]
       },

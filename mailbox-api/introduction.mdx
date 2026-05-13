@@ -1,0 +1,113 @@
+---
+title: "Introduction"
+description: "Mailbox-scoped API endpoints for a single Sendmux mailbox."
+keywords: ["mailbox API", "mailbox key", "self introspection", "messages", "folders", "sync"]
+---
+
+The Sendmux Mailbox API is for mailbox-scoped credentials. Use it when a client should act only as the mailbox tied to its API key, not manage team-wide resources.
+
+Team-wide mailbox provisioning stays in the [Management API](/api-reference/introduction). High-volume provider-routed sending stays in the [Sending API](/sending-api/introduction).
+
+## Base URL
+
+All Mailbox API requests should be made to:
+
+```text
+https://app.sendmux.ai/api/v1
+```
+
+## Authentication
+
+Authenticate with a mailbox credential from the Sendmux app. Pass it as a Bearer token in the `Authorization` header.
+
+```bash
+curl https://app.sendmux.ai/api/v1/mailbox/me \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mailbox API endpoints.
+
+## Current endpoints
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /mailbox/me` | Return the mailbox associated with the bearer token. |
+| `GET /mailbox/messages` | List messages with filters, sorting, and cursor pagination. |
+| `GET /mailbox/messages/{message_id}` | Read a message, including bodies and attachment metadata. |
+| `PATCH /mailbox/messages/{message_id}` | Update mutable message flags. |
+| `DELETE /mailbox/messages/{message_id}` | Move a message to Trash, or permanently delete it. |
+| `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment. |
+| `POST /mailbox/messages/send` | Send from the authenticated mailbox. |
+| `GET /mailbox/folders` | List folders. |
+| `POST /mailbox/folders` | Create a folder. |
+| `GET /mailbox/folders/{folder_id}` | Read one folder. |
+| `PATCH /mailbox/folders/{folder_id}` | Update a folder. |
+| `DELETE /mailbox/folders/{folder_id}` | Delete an empty custom folder. |
+| `GET /mailbox/changes` | Read message changes since a prior sync state. |
+
+## Response format
+
+The Mailbox API uses the same envelope as the Management API.
+
+### Success
+
+```json
+{
+  "ok": true,
+  "data": {
+    "id": "mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "email": "agent@example.com"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+### Error
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "not_found",
+    "message": "Mailbox not found.",
+    "doc_url": "https://docs.sendmux.ai/api-reference/errors#not_found",
+    "retryable": false
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Every response includes an `X-Request-Id` header matching `meta.request_id`. Include that value when contacting support.
+
+## Rate limiting
+
+Mailbox API keys are rate-limited to **1800 requests per minute**. Rate limit headers are included on responses:
+
+```http
+X-RateLimit-Limit: 1800
+X-RateLimit-Remaining: 1794
+X-RateLimit-Reset: 1679313700
+```
+
+When the limit is exceeded, the API returns `429 rate_limit_exceeded` with a `Retry-After` header.
+
+## Conventions
+
+- **snake_case** fields in JSON request and response bodies
+- **UTC ISO 8601 timestamps** in RFC 3339 format: `2026-03-19T10:30:00Z`
+- **Opaque IDs only** for mailbox, message, folder, and attachment resources
+- **`Cache-Control: no-store`** on authenticated responses
+- **Weak `ETag`** headers on single-resource GETs where supported
+- **Header-based idempotency** for retriable POST requests where supported
+
+## OpenAPI specification
+
+Mailbox API endpoints are included in the app API specification:
+
+```text
+https://app.sendmux.ai/api/v1/openapi.json
+```
