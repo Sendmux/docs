@@ -22,7 +22,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "API Key",
-        "description": "Sendmux API key. Obtain from the dashboard under API Keys. Format: smx_root_..."
+        "description": "Sendmux API key. Use a root API key for Management API routes, or a mailbox credential for Mailbox API routes. Obtain keys from the dashboard under API Keys."
       }
     },
     "schemas": {
@@ -44,20 +44,14 @@
             "description": "Human-readable issue description."
           }
         },
-        "required": [
-          "field",
-          "code",
-          "message"
-        ]
+        "required": ["field", "code", "message"]
       },
       "ApiError": {
         "type": "object",
         "properties": {
           "ok": {
             "type": "boolean",
-            "enum": [
-              false
-            ]
+            "enum": [false]
           },
           "error": {
             "type": "object",
@@ -106,11 +100,7 @@
                 "description": "Accumulated per-field issues for validation errors. Only present on 400/422 responses."
               }
             },
-            "required": [
-              "code",
-              "message",
-              "retryable"
-            ]
+            "required": ["code", "message", "retryable"]
           },
           "meta": {
             "type": "object",
@@ -120,16 +110,10 @@
                 "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
               }
             },
-            "required": [
-              "request_id"
-            ]
+            "required": ["request_id"]
           }
         },
-        "required": [
-          "ok",
-          "error",
-          "meta"
-        ]
+        "required": ["ok", "error", "meta"]
       },
       "ProviderTypeCounts": {
         "type": "object",
@@ -150,11 +134,7 @@
             "example": 2
           }
         },
-        "required": [
-          "smtp",
-          "gmail_api",
-          "outlook_api"
-        ],
+        "required": ["smtp", "gmail_api", "outlook_api"],
         "description": "Breakdown by provider type"
       },
       "ProviderStatusCounts": {
@@ -177,12 +157,7 @@
             "example": 0
           }
         },
-        "required": [
-          "active",
-          "inactive",
-          "error",
-          "pending"
-        ],
+        "required": ["active", "inactive", "error", "pending"],
         "description": "Breakdown by status"
       },
       "ProviderStats": {
@@ -245,28 +220,16 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "smtp",
-              "gmail_api",
-              "outlook_api"
-            ],
+            "enum": ["smtp", "gmail_api", "outlook_api"],
             "description": "Provider type"
           },
           "status": {
             "type": "string",
-            "enum": [
-              "active",
-              "inactive",
-              "error",
-              "pending"
-            ],
+            "enum": ["active", "inactive", "error", "pending"],
             "description": "Current status"
           },
           "status_reason": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Reason for current status"
           },
           "is_active": {
@@ -274,17 +237,11 @@
             "description": "Whether provider is enabled"
           },
           "from_email": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Default from email address"
           },
           "from_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Default from display name"
           },
           "created_at": {
@@ -293,17 +250,11 @@
             "example": "2026-03-01T10:00:00Z"
           },
           "last_tested_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Last connection test timestamp"
           },
           "last_used_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Last email sent timestamp"
           }
         },
@@ -348,13 +299,7 @@
                 "example": 50
               }
             },
-            "required": [
-              "total",
-              "sent",
-              "failed",
-              "rejected",
-              "pending"
-            ]
+            "required": ["total", "sent", "failed", "rejected", "pending"]
           },
           "comparison": {
             "type": "object",
@@ -403,13 +348,7 @@
                     "example": 0
                   }
                 },
-                "required": [
-                  "total",
-                  "sent",
-                  "failed",
-                  "rejected",
-                  "pending"
-                ]
+                "required": ["total", "sent", "failed", "rejected", "pending"]
               }
             },
             "required": [
@@ -457,11 +396,7 @@
             }
           }
         },
-        "required": [
-          "summary",
-          "comparison",
-          "timeseries"
-        ]
+        "required": ["summary", "comparison", "timeseries"]
       },
       "DeliveryLogItem": {
         "type": "object",
@@ -472,81 +407,46 @@
             "example": "dlog_clxxxxxxxxxxxxxxxxxxxxxxxxx"
           },
           "provider_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Provider public ID"
           },
           "provider_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Provider display name"
           },
           "message_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Email Message-ID header"
           },
           "from_email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sent_from_email": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "The actual from address used for delivery after transformation. NULL if no transformation occurred or for older log entries."
           },
           "to_email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "pending",
-              "sent",
-              "failed",
-              "rejected"
-            ]
+            "enum": ["pending", "sent", "failed", "rejected"]
           },
           "status_reason": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "attempts": {
             "type": "number"
           },
           "sent_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "ISO 8601 timestamp when email was sent"
           },
           "size_bytes": {
-            "type": [
-              "number",
-              "null"
-            ]
+            "type": ["number", "null"]
           },
           "created_at": {
             "type": "string",
@@ -588,9 +488,7 @@
           },
           "currency": {
             "type": "string",
-            "enum": [
-              "USD"
-            ]
+            "enum": ["USD"]
           },
           "auto_topup": {
             "type": "object",
@@ -599,24 +497,15 @@
                 "type": "boolean"
               },
               "threshold": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "example": "10.000000"
               },
               "amount": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "example": "50.000000"
               },
               "monthly_limit": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "example": "200.000000"
               },
               "monthly_used": {
@@ -662,9 +551,7 @@
           },
           "currency": {
             "type": "string",
-            "enum": [
-              "USD"
-            ]
+            "enum": ["USD"]
           }
         },
         "required": [
@@ -690,35 +577,20 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "PURCHASE",
-              "USAGE",
-              "AUTO_TOPUP",
-              "REFUND",
-              "ADJUSTMENT"
-            ]
+            "enum": ["PURCHASE", "USAGE", "AUTO_TOPUP", "REFUND", "ADJUSTMENT"]
           },
           "description": {
             "type": "string"
           },
           "quantity": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "description": "Item count (for USAGE transactions)"
           },
           "balance_before": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "balance_after": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "created_at": {
             "type": "string",
@@ -748,10 +620,7 @@
             "example": "mail.sendmux.ai"
           }
         },
-        "required": [
-          "priority",
-          "target"
-        ]
+        "required": ["priority", "target"]
       },
       "MailboxDomainNameValueRecord": {
         "type": "object",
@@ -765,10 +634,7 @@
             "example": "sendmux-verify=team_abc123"
           }
         },
-        "required": [
-          "name",
-          "value"
-        ],
+        "required": ["name", "value"],
         "description": "SPF TXT record covering both SES and Sendmux includes"
       },
       "MailboxDomainDnsRecords": {
@@ -812,13 +678,7 @@
             ]
           }
         },
-        "required": [
-          "mx",
-          "spf",
-          "dmarc",
-          "dkim",
-          "verification"
-        ]
+        "required": ["mx", "spf", "dmarc", "dkim", "verification"]
       },
       "MailboxDomain": {
         "type": "object",
@@ -835,25 +695,15 @@
           },
           "verification_status": {
             "type": "string",
-            "enum": [
-              "pending",
-              "verified",
-              "failed"
-            ],
+            "enum": ["pending", "verified", "failed"],
             "description": "Current verification state"
           },
           "ses_dkim_status": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "SES DKIM status (pending/success/failed/temporary_failure/not_started)"
           },
           "verified_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "ISO 8601 timestamp of last successful verification"
           },
           "created_at": {
@@ -901,22 +751,14 @@
             "description": "DMARC TXT record matches expected value"
           }
         },
-        "required": [
-          "mx",
-          "verification_txt",
-          "spf",
-          "dmarc"
-        ]
+        "required": ["mx", "verification_txt", "spf", "dmarc"]
       },
       "MailboxDomainVerifyResult": {
         "type": "object",
         "properties": {
           "status": {
             "type": "string",
-            "enum": [
-              "verified",
-              "pending"
-            ],
+            "enum": ["verified", "pending"],
             "description": "Post-check verification status"
           },
           "ses_dkim_status": {
@@ -927,25 +769,14 @@
             "$ref": "#/components/schemas/MailboxDomainVerifyChecks"
           }
         },
-        "required": [
-          "status",
-          "ses_dkim_status",
-          "checks"
-        ]
+        "required": ["status", "ses_dkim_status", "checks"]
       },
       "MailboxSendScope": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "all",
-              "providers",
-              "group"
-            ],
+            "enum": ["all", "providers", "group"],
             "description": "Outbound routing strategy. `all` lets the mailbox use any team-configured provider; `providers` restricts to the listed provider IDs; `group` routes via a delivery group."
           },
           "provider_public_ids": {
@@ -963,9 +794,7 @@
             "description": "Delivery group public IDs (only when type=group)"
           }
         },
-        "required": [
-          "type"
-        ]
+        "required": ["type"]
       },
       "Mailbox": {
         "type": "object",
@@ -981,17 +810,11 @@
             "example": "agent@acme.com"
           },
           "display_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Optional display name shown in outbound From headers"
           },
           "quota_bytes": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "description": "Storage quota in bytes"
           },
           "send_scope": {
@@ -1018,10 +841,7 @@
         ]
       },
       "MailboxCredential": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "public_id": {
             "type": "string",
@@ -1080,27 +900,17 @@
             "$ref": "#/components/schemas/MailboxCredential"
           },
           "warning": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Optional warning string when the mailbox was created without an initial credential"
           }
         },
-        "required": [
-          "mailbox",
-          "credential",
-          "warning"
-        ]
+        "required": ["mailbox", "credential", "warning"]
       },
       "UpdateMailboxBody": {
         "type": "object",
         "properties": {
           "display_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "minLength": 1,
             "maxLength": 255
           },
@@ -1113,11 +923,7 @@
             "properties": {
               "type": {
                 "type": "string",
-                "enum": [
-                  "all",
-                  "providers",
-                  "group"
-                ]
+                "enum": ["all", "providers", "group"]
               },
               "provider_public_ids": {
                 "type": "array",
@@ -1136,9 +942,7 @@
                 }
               }
             },
-            "required": [
-              "type"
-            ],
+            "required": ["type"],
             "additionalProperties": false
           }
         },
@@ -1158,9 +962,7 @@
             ]
           }
         },
-        "required": [
-          "credential"
-        ]
+        "required": ["credential"]
       },
       "MailboxMe": {
         "allOf": [
@@ -1172,17 +974,14 @@
             "properties": {
               "quota_used_bytes": {
                 "type": "integer",
-                "description": "Live storage usage in bytes. Omitted if the upstream read failed."
+                "description": "Live storage usage in bytes. Omitted when usage is temporarily unavailable."
               }
             }
           }
         ]
       },
       "MailboxAddress": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "email": {
             "type": "string",
@@ -1190,17 +989,11 @@
             "example": "agent@example.com"
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "example": "Support"
           }
         },
-        "required": [
-          "email",
-          "name"
-        ]
+        "required": ["email", "name"]
       },
       "MailboxMessageFlags": {
         "type": "object",
@@ -1218,12 +1011,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "seen",
-          "flagged",
-          "draft",
-          "answered"
-        ]
+        "required": ["seen", "flagged", "draft", "answered"]
       },
       "MailboxMessageSummary": {
         "type": "object",
@@ -1233,10 +1021,7 @@
             "description": "Message ID"
           },
           "thread_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "folder_ids": {
             "type": "array",
@@ -1245,16 +1030,10 @@
             }
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "preview": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "from": {
             "$ref": "#/components/schemas/MailboxAddress"
@@ -1299,22 +1078,13 @@
             }
           },
           "received_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sent_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "size_bytes": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "has_attachments": {
             "type": "boolean"
@@ -1348,15 +1118,10 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "queued"
-            ]
+            "enum": ["queued"]
           }
         },
-        "required": [
-          "message_id",
-          "status"
-        ]
+        "required": ["message_id", "status"]
       },
       "SendMailboxMessageBody": {
         "type": "object",
@@ -1455,18 +1220,11 @@
                   "description": "Base64-encoded attachment content."
                 }
               },
-              "required": [
-                "filename",
-                "content_type",
-                "content"
-              ]
+              "required": ["filename", "content_type", "content"]
             }
           }
         },
-        "required": [
-          "to",
-          "subject"
-        ]
+        "required": ["to", "subject"]
       },
       "MailboxAttachment": {
         "type": "object",
@@ -1476,32 +1234,20 @@
             "description": "Attachment ID"
           },
           "filename": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "content_type": {
             "type": "string",
             "example": "application/pdf"
           },
           "size_bytes": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "disposition": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "content_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "download_url": {
             "type": "string"
@@ -1525,16 +1271,10 @@
             "type": "object",
             "properties": {
               "text_body": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "html_body": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "attachments": {
                 "type": "array",
@@ -1543,11 +1283,7 @@
                 }
               }
             },
-            "required": [
-              "text_body",
-              "html_body",
-              "attachments"
-            ]
+            "required": ["text_body", "html_body", "attachments"]
           }
         ]
       },
@@ -1573,23 +1309,14 @@
             "type": "string"
           },
           "parent_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "role": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "System role when the folder is a built-in folder."
           },
           "sort_order": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "total_messages": {
             "type": "integer"
@@ -1615,18 +1342,13 @@
             "type": "string"
           },
           "parent_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sort_order": {
             "type": "integer"
           }
         },
-        "required": [
-          "name"
-        ]
+        "required": ["name"]
       },
       "PatchMailboxFolderBody": {
         "type": "object",
@@ -1635,10 +1357,7 @@
             "type": "string"
           },
           "parent_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sort_order": {
             "type": "integer"
@@ -1649,10 +1368,7 @@
         "type": "object",
         "properties": {
           "old_state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "new_state": {
             "type": "string"
@@ -1693,10 +1409,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "allow",
-              "deny"
-            ],
+            "enum": ["allow", "deny"],
             "description": "Rule type"
           },
           "pattern": {
@@ -1705,30 +1418,20 @@
             "example": "partner.com"
           },
           "note": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "maxLength": 255,
             "description": "Free-form caption for the rule (≤255 chars). UI-only metadata — never consulted at match time. `null` when absent.",
             "example": "billing webhooks"
           }
         },
-        "required": [
-          "type",
-          "pattern"
-        ]
+        "required": ["type", "pattern"]
       },
       "FilterState": {
         "type": "object",
         "properties": {
           "mode": {
             "type": "string",
-            "enum": [
-              "off",
-              "allowlist",
-              "denylist"
-            ],
+            "enum": ["off", "allowlist", "denylist"],
             "description": "Active filtering mode. `off` disables filtering (all senders accepted). `allowlist` only accepts senders matching a rule. `denylist` blocks senders matching a rule."
           },
           "rules": {
@@ -1739,21 +1442,14 @@
             "description": "Current rules, sorted by pattern ascending"
           }
         },
-        "required": [
-          "mode",
-          "rules"
-        ]
+        "required": ["mode", "rules"]
       },
       "SetFilterStateBody": {
         "type": "object",
         "properties": {
           "mode": {
             "type": "string",
-            "enum": [
-              "off",
-              "allowlist",
-              "denylist"
-            ]
+            "enum": ["off", "allowlist", "denylist"]
           },
           "rules": {
             "type": "array",
@@ -1764,10 +1460,7 @@
             "description": "Replacement rule set. Maximum 1000 rules per request. An empty array is valid (no rules)."
           }
         },
-        "required": [
-          "mode",
-          "rules"
-        ],
+        "required": ["mode", "rules"],
         "additionalProperties": false
       },
       "WebhookSubscription": {
@@ -1779,10 +1472,7 @@
             "example": "whk_clxxxxxxxxxxxxxxxxxxxxxxxxx"
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Optional human-friendly label used in dashboard list/detail pages. May be `null` for subscriptions created without a name.",
             "example": "Acme inbound forwarder"
           },
@@ -1809,10 +1499,7 @@
               "example": "ses.bounce"
             },
             "description": "Event types this subscription receives.",
-            "example": [
-              "ses.bounce",
-              "ses.complaint"
-            ]
+            "example": ["ses.bounce", "ses.complaint"]
           },
           "enabled": {
             "type": "boolean",
@@ -1860,9 +1547,7 @@
                 "example": "whsec_a9f3c2…"
               }
             },
-            "required": [
-              "secret"
-            ]
+            "required": ["secret"]
           }
         ]
       },
@@ -1900,11 +1585,7 @@
             },
             "minItems": 1,
             "description": "At least one event type must be provided.",
-            "example": [
-              "ses.bounce",
-              "ses.complaint",
-              "mail.inbound"
-            ]
+            "example": ["ses.bounce", "ses.complaint", "mail.inbound"]
           },
           "enabled": {
             "type": "boolean",
@@ -1912,20 +1593,14 @@
             "example": true
           }
         },
-        "required": [
-          "url",
-          "event_types"
-        ],
+        "required": ["url", "event_types"],
         "additionalProperties": false
       },
       "WebhookUpdateBody": {
         "type": "object",
         "properties": {
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "maxLength": 255,
             "description": "Replace the human-friendly label. Send `null` to clear it; omit to leave unchanged."
           },
@@ -1969,9 +1644,7 @@
             "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx"
           }
         },
-        "required": [
-          "event_id"
-        ]
+        "required": ["event_id"]
       }
     },
     "parameters": {}
@@ -1981,9 +1654,7 @@
       "get": {
         "summary": "Get provider statistics",
         "description": "Returns aggregate counts of configured email providers with breakdowns by type and status.",
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "security": [
           {
             "bearerAuth": []
@@ -1999,9 +1670,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/ProviderStats"
@@ -2014,16 +1683,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -2055,9 +1718,7 @@
       "get": {
         "summary": "List providers",
         "description": "Returns a paginated list of configured email providers with safe fields (no encrypted credentials). Uses cursor-based pagination ordered by created_at descending — pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "security": [
           {
             "bearerAuth": []
@@ -2076,12 +1737,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "active",
-                "inactive",
-                "error",
-                "pending"
-              ],
+              "enum": ["active", "inactive", "error", "pending"],
               "description": "Filter by status"
             },
             "required": false,
@@ -2091,11 +1747,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "smtp",
-                "gmail_api",
-                "outlook_api"
-              ],
+              "enum": ["smtp", "gmail_api", "outlook_api"],
               "description": "Filter by provider type"
             },
             "required": false,
@@ -2124,9 +1776,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -2144,9 +1794,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -2155,17 +1803,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -2197,9 +1838,7 @@
       "get": {
         "summary": "Get email metrics",
         "description": "Returns aggregated email delivery counts with flexible time windowing and comparison period.",
-        "tags": [
-          "Emails"
-        ],
+        "tags": ["Emails"],
         "security": [
           {
             "bearerAuth": []
@@ -2209,11 +1848,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "24h",
-                "7d",
-                "30d"
-              ],
+              "enum": ["24h", "7d", "30d"],
               "description": "Preset time window (default: 24h)"
             },
             "required": false,
@@ -2241,10 +1876,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "hourly",
-                "daily"
-              ],
+              "enum": ["hourly", "daily"],
               "description": "Timeseries granularity (default: daily)"
             },
             "required": false,
@@ -2271,9 +1903,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/EmailMetrics"
@@ -2286,16 +1916,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -2327,9 +1951,7 @@
       "get": {
         "summary": "List delivery logs",
         "description": "Returns paginated delivery logs with cursor-based pagination and filters.",
-        "tags": [
-          "Emails"
-        ],
+        "tags": ["Emails"],
         "security": [
           {
             "bearerAuth": []
@@ -2359,12 +1981,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "pending",
-                "sent",
-                "failed",
-                "rejected"
-              ]
+              "enum": ["pending", "sent", "failed", "rejected"]
             },
             "required": false,
             "name": "status",
@@ -2417,9 +2034,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -2437,9 +2052,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -2448,17 +2061,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -2490,9 +2096,7 @@
       "get": {
         "summary": "Get delivery log",
         "description": "Returns a single delivery log by its public ID. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the log has not changed. Logs in a terminal status (sent/failed/rejected) stop changing, so 304 replay is a real bandwidth win on repeated polls.",
-        "tags": [
-          "Emails"
-        ],
+        "tags": ["Emails"],
         "security": [
           {
             "bearerAuth": []
@@ -2537,9 +2141,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/DeliveryLogItem"
@@ -2552,16 +2154,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -2614,9 +2210,7 @@
       "get": {
         "summary": "Get current balance",
         "description": "Returns the current team balance and auto top-up configuration.",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "bearerAuth": []
@@ -2632,9 +2226,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/Balance"
@@ -2647,16 +2239,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -2688,9 +2274,7 @@
       "get": {
         "summary": "Get spend summary",
         "description": "Returns a spend summary over a configurable lookback period.",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "bearerAuth": []
@@ -2700,11 +2284,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "7",
-                "30",
-                "90"
-              ],
+              "enum": ["7", "30", "90"],
               "description": "Lookback period in days (default: 30)"
             },
             "required": false,
@@ -2722,9 +2302,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/SpendSummary"
@@ -2737,16 +2315,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -2778,9 +2350,7 @@
       "get": {
         "summary": "List transactions",
         "description": "Returns paginated credit transaction history with optional type filter. Uses cursor-based pagination ordered by created_at descending — pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "bearerAuth": []
@@ -2833,9 +2403,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -2853,9 +2421,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -2864,17 +2430,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -2906,9 +2465,7 @@
       "get": {
         "summary": "List mailbox domains",
         "description": "Returns a cursor-paginated list of sending domains configured for the team, ordered by `created_at` descending. Each entry includes the DNS records the customer must place, the current verification status, and the SES DKIM state. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -2946,9 +2503,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -2966,9 +2521,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -2977,17 +2530,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -3017,9 +2563,7 @@
       "post": {
         "summary": "Add a mailbox domain",
         "description": "Creates a new sending domain and returns the DNS records the customer must place before verification can succeed. Provisioning touches both our mail platform and Amazon SES — on any failure the partial state is automatically rolled back.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -3050,9 +2594,7 @@
                     "example": "mail.acme.com"
                   }
                 },
-                "required": [
-                  "domain"
-                ],
+                "required": ["domain"],
                 "additionalProperties": false
               }
             }
@@ -3077,9 +2619,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxDomain"
@@ -3092,16 +2632,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3143,9 +2677,7 @@
       "get": {
         "summary": "Get a mailbox domain",
         "description": "Returns a single domain including its DNS records and latest verification state. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -3191,9 +2723,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxDomain"
@@ -3206,16 +2736,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3246,9 +2770,7 @@
       "delete": {
         "summary": "Delete a mailbox domain",
         "description": "Removes a domain from our mail platform, Amazon SES, and Sendmux. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -3275,27 +2797,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -3305,16 +2820,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3346,9 +2855,7 @@
       "get": {
         "summary": "Download a domain as a zone file",
         "description": "Returns the domain's DNS records formatted as a BIND-style zone file fragment. Suitable for direct paste into a DNS provider that accepts zone-file imports.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -3402,9 +2909,7 @@
       "post": {
         "summary": "Verify a mailbox domain",
         "description": "Runs an immediate DNS-over-HTTPS check of the domain's MX, SPF, DMARC and ownership TXT records, then asks SES for the latest DKIM status. If every check passes the domain is marked verified. Domains automatically re-verify every 6 hours — this endpoint is only needed to trigger a check on demand.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -3431,9 +2936,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxDomainVerifyResult"
@@ -3446,16 +2949,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3477,9 +2974,7 @@
       "get": {
         "summary": "List mailboxes",
         "description": "Returns a cursor-paginated list of mailboxes configured for the team, ordered by `created_at` descending. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -3509,9 +3004,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "true"
-              ],
+              "enum": ["true"],
               "description": "Set to `true` to include soft-deleted mailboxes (status `deleted`) in the response. Default `false`. Soft-deleted mailboxes are retained for tenant-isolation references in delivery logs and API keys."
             },
             "required": false,
@@ -3529,9 +3022,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -3549,9 +3040,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -3560,17 +3049,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -3599,10 +3081,8 @@
       },
       "post": {
         "summary": "Create a mailbox",
-        "description": "Provisions a new mailbox plus an initial bearer token and matching IMAP/SMTP app password. The domain portion of the email must already be verified via POST /domains. Creation provisions resources on our mail platform and, for `@myagent.mx` addresses, on Amazon SES — any failure rolls the partial state back automatically.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "description": "Provisions a new mailbox plus an initial bearer token and matching IMAP/SMTP mailbox password. The domain portion of the email must already be verified via POST /domains. Creation provisions resources on our mail platform and, for `@myagent.mx` addresses, on Amazon SES — any failure rolls the partial state back automatically.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -3646,11 +3126,7 @@
                     "properties": {
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "all",
-                          "providers",
-                          "group"
-                        ]
+                        "enum": ["all", "providers", "group"]
                       },
                       "provider_public_ids": {
                         "type": "array",
@@ -3669,15 +3145,11 @@
                         }
                       }
                     },
-                    "required": [
-                      "type"
-                    ],
+                    "required": ["type"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "email"
-                ],
+                "required": ["email"],
                 "additionalProperties": false
               }
             }
@@ -3702,9 +3174,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxCreateResult"
@@ -3717,16 +3187,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3778,9 +3242,7 @@
       "get": {
         "summary": "Get a mailbox",
         "description": "Returns a single mailbox, tenant-scoped to the caller's team. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed. The same ETag is the value to use in `If-Match` on PATCH for optimistic concurrency.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -3825,9 +3287,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/Mailbox"
@@ -3840,16 +3300,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3880,9 +3334,7 @@
       "patch": {
         "summary": "Update a mailbox",
         "description": "Updates any combination of display_name, quota_bytes, and send_scope on a mailbox. The display_name and send_scope changes land in a single transaction; quota_bytes is applied afterwards because it also updates external state on our mail platform. Quota cannot be shrunk below the mailbox's current usage.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -3935,9 +3387,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/Mailbox"
@@ -3950,16 +3400,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4009,9 +3453,7 @@
       "delete": {
         "summary": "Delete a mailbox",
         "description": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Sendmux. All associated API keys are revoked.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -4038,27 +3480,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -4068,16 +3503,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4098,10 +3527,8 @@
     "/mailboxes/{public_id}/keys": {
       "post": {
         "summary": "Create a mailbox API key",
-        "description": "Mints an additional bearer token plus IMAP/SMTP app password for an existing mailbox. The plaintext key and password are shown exactly once — store them immediately.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "description": "Mints an additional bearer token plus IMAP/SMTP mailbox password for an existing mailbox. The plaintext key and password are shown exactly once — store them immediately.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -4141,9 +3568,7 @@
                     "maxLength": 255
                   }
                 },
-                "required": [
-                  "app_name"
-                ],
+                "required": ["app_name"],
                 "additionalProperties": false
               }
             }
@@ -4168,9 +3593,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxAppPasswordResult"
@@ -4183,16 +3606,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4243,10 +3660,8 @@
     "/mailboxes/{public_id}/keys/{key_id}": {
       "delete": {
         "summary": "Revoke a mailbox API key",
-        "description": "Revokes a specific bearer token + matching app password. Idempotent on already-revoked keys.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "description": "Revokes a specific bearer token + matching mailbox password. Idempotent on already-revoked keys.",
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -4283,27 +3698,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -4313,16 +3721,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4344,9 +3746,7 @@
       "get": {
         "summary": "Self-introspect the calling mailbox",
         "description": "Returns the mailbox the bearer token is scoped to, including live storage usage. Intended for SDK auto-discovery — call once on startup to resolve the mailbox ID. Requires a mailbox-scoped API key; root keys receive 403.\n\nResponses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the mailbox state has not changed.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -4382,9 +3782,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMe"
@@ -4397,16 +3795,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4459,9 +3851,7 @@
       "get": {
         "summary": "List mailbox messages",
         "description": "Returns a cursor-paginated list of messages for the authenticated mailbox. Requires a mailbox API key.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -4577,10 +3967,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort_direction",
@@ -4597,9 +3984,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -4617,9 +4002,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -4628,17 +4011,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -4680,9 +4056,7 @@
       "post": {
         "summary": "Send a mailbox message",
         "description": "Creates and queues a message from the authenticated mailbox. Supply an `Idempotency-Key` header to safely retry.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -4718,9 +4092,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/SendMailboxMessageResult"
@@ -4733,16 +4105,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4794,9 +4160,7 @@
       "get": {
         "summary": "Get a mailbox message",
         "description": "Returns one message from the authenticated mailbox. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -4830,9 +4194,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMessage"
@@ -4845,16 +4207,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4877,9 +4233,7 @@
       "patch": {
         "summary": "Update mailbox message flags",
         "description": "Updates mutable message flags. Send `If-Match` with a prior ETag for optimistic concurrency.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -4922,9 +4276,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMessage"
@@ -4937,16 +4289,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4986,9 +4332,7 @@
       "delete": {
         "summary": "Delete a mailbox message",
         "description": "Moves a message to Trash by default. Set `permanent=true` to permanently delete it.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5022,27 +4366,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -5052,16 +4389,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5083,9 +4414,7 @@
       "get": {
         "summary": "Download a message attachment",
         "description": "Downloads one attachment from a message in the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5130,9 +4459,7 @@
       "get": {
         "summary": "List mailbox folders",
         "description": "Returns a cursor-paginated list of folders for the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5168,9 +4495,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -5188,9 +4513,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -5199,17 +4522,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -5219,9 +4535,7 @@
       "post": {
         "summary": "Create a mailbox folder",
         "description": "Creates a folder in the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5246,9 +4560,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolder"
@@ -5261,16 +4573,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5302,9 +4608,7 @@
       "get": {
         "summary": "Get a mailbox folder",
         "description": "Returns one folder from the authenticated mailbox. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5338,9 +4642,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolder"
@@ -5353,16 +4655,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5385,9 +4681,7 @@
       "patch": {
         "summary": "Update a mailbox folder",
         "description": "Updates a folder. Send `If-Match` with a prior ETag for optimistic concurrency.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5430,9 +4724,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolder"
@@ -5445,16 +4737,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5494,9 +4780,7 @@
       "delete": {
         "summary": "Delete a mailbox folder",
         "description": "Deletes an empty custom folder. Built-in folders and non-empty folders cannot be deleted.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5522,27 +4806,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -5552,16 +4829,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5583,9 +4854,7 @@
       "get": {
         "summary": "Get mailbox changes",
         "description": "Returns message changes since a prior sync state, or the current state when `since_state` is omitted.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5621,9 +4890,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxChanges"
@@ -5636,16 +4903,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5667,9 +4928,7 @@
       "get": {
         "summary": "Get mailbox sender filters",
         "description": "Returns the current sender-filter mode and rule set for a mailbox. Mailbox-scoped rules override any domain-wide rules set on the parent domain.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
-        "tags": [
-          "Mailbox Filters"
-        ],
+        "tags": ["Mailbox Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -5714,9 +4973,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -5729,16 +4986,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5779,9 +5030,7 @@
       "put": {
         "summary": "Replace mailbox sender filters",
         "description": "Atomically replaces the sender-filter mode and rule set for a mailbox. The entire rule set is swapped in a single operation — there is no intermediate state where the mailbox has a partial ruleset. A maximum of 1000 rules per request is enforced.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Mailbox Filters"
-        ],
+        "tags": ["Mailbox Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -5834,9 +5083,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -5849,16 +5096,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5920,9 +5161,7 @@
       "get": {
         "summary": "Get domain-wide sender filters",
         "description": "Returns the current sender-filter mode and rule set applied to every mailbox under this domain. Per-mailbox rules take precedence at match time.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
-        "tags": [
-          "Domain Filters"
-        ],
+        "tags": ["Domain Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -5967,9 +5206,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -5982,16 +5219,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6032,9 +5263,7 @@
       "put": {
         "summary": "Replace domain-wide sender filters",
         "description": "Atomically replaces the sender-filter mode and rule set for an entire domain. Applies to every mailbox under the domain unless that mailbox has its own per-mailbox rules (which take precedence). Maximum 1000 rules per request.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Domain Filters"
-        ],
+        "tags": ["Domain Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -6087,9 +5316,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -6102,16 +5329,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6173,9 +5394,7 @@
       "get": {
         "summary": "List webhook subscriptions",
         "description": "Returns a cursor-paginated list of webhook subscriptions configured for the team, ordered by `created_at` descending. The signing secret is never included. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6213,9 +5432,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -6233,9 +5450,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -6244,17 +5459,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -6284,9 +5492,7 @@
       "post": {
         "summary": "Create a webhook subscription",
         "description": "Creates a new webhook subscription and returns the signing secret ONCE in the response body. Store it securely — it cannot be retrieved later. Use `POST /webhooks/{id}/rotate-secret` to issue a new one.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6333,9 +5539,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscriptionWithSecret"
@@ -6348,16 +5552,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6419,9 +5617,7 @@
       "get": {
         "summary": "Get a webhook subscription",
         "description": "Returns a single webhook subscription. The signing secret is never included. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed. The same ETag is the value to use in `If-Match` on PATCH for optimistic concurrency.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6467,9 +5663,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscription"
@@ -6482,16 +5676,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6522,9 +5710,7 @@
       "patch": {
         "summary": "Update a webhook subscription",
         "description": "Updates the URL, event types, or enabled flag. Any field omitted from the request body is left unchanged. The signing secret is unaffected — use `POST /webhooks/{id}/rotate-secret` to rotate it.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6577,9 +5763,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscription"
@@ -6592,16 +5776,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6651,9 +5829,7 @@
       "delete": {
         "summary": "Delete a webhook subscription",
         "description": "Permanently removes the subscription. In-flight retries are dropped.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6680,27 +5856,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -6710,16 +5879,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6741,9 +5904,7 @@
       "post": {
         "summary": "Rotate the signing secret",
         "description": "Generates a fresh signing secret and returns it ONCE. The old secret is immediately invalidated — the next event delivery is signed with the new secret. Store the new value securely; it cannot be retrieved later.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original rotation response rather than minting a fresh secret. Replays against a different `public_id` under the same key return `409 idempotency_conflict`.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6781,9 +5942,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscriptionWithSecret"
@@ -6796,16 +5955,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6837,9 +5990,7 @@
       "post": {
         "summary": "Send a synthetic test event",
         "description": "Publishes a synthetic `sendmux.test` event scoped to this team. The event is fanned out to every subscription whose `event_types` list contains `\"sendmux.test\"` — including this one if you want to test delivery to yourself, add `sendmux.test` to its event types first. Returns the generated `event_id` so you can correlate the `X-Sendmux-Event-Id` header on your endpoint.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original `event_id` rather than publishing a second test event.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -6877,9 +6028,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookTestResponse"
@@ -6892,16 +6041,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
