@@ -111,7 +111,7 @@ By the end of this guide you'll have:
 
     </CodeGroup>
 
-    A successful send returns `201 Created` with an `eml_*` message id you can search in your delivery logs. See the [HTTP sending guide](/guides/sending-via-http) for batch sends, attachments, and idempotency.
+    A successful send returns `201 Created` with an `eml_*` message id you can search in your delivery logs. Your send goes through the managed **Sendmux SES** account, which is active by default with a daily limit — see [Sending accounts](/guides/sending-accounts). See the [HTTP sending guide](/guides/sending-via-http) for batch sends, attachments, and idempotency.
 
     <Tip>
       Prefer SMTP? The same credentials work — see [Send via SMTP](/guides/sending-via-smtp).

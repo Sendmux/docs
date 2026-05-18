@@ -1,0 +1,90 @@
+---
+title: "Sending accounts"
+description: "How Sendmux routes your email — the managed Sendmux SES account, its daily limit, and bringing your own providers."
+keywords: ["sending account", "Sendmux SES", "delivery provider", "daily limit", "limit increase", "routing"]
+---
+
+Every team can send email the moment it's created — no provider setup required. Sendmux gives each team a managed sending account called **Sendmux SES**, and you can add your own providers on top of it when you need more control or volume.
+
+## Sendmux SES, the default account
+
+**Sendmux SES** is a shared Amazon SES sending account that Sendmux provisions and manages for every team. It's active from the moment your team is created, so your first send works without any configuration.
+
+| Property | Value |
+| --- | --- |
+| Availability | Provisioned automatically for every team |
+| State on creation | Active |
+| Starting limit | 500 emails per day |
+| Limit reset | Daily, at 00:00 UTC |
+| Used for | Every send, unless the send targets a specific delivery group |
+
+Because Sendmux SES is managed for you, it's locked. You can **activate or deactivate** it, but you can't rename it, change its credentials, edit its daily limit, add it to a delivery group, or run a connection test against it. To send beyond the daily limit, request an increase rather than editing the account.
+
+<Note>
+  Mailboxes on the shared `@myagent.mx` address always send through Sendmux SES. To send through your own providers, use a [verified custom domain](/guides/domain-management).
+</Note>
+
+## Request a higher daily limit
+
+When your usage for the day reaches **80%** of the daily limit, a **Request increase** button appears next to Sendmux SES on the **Accounts** page.
+
+<Steps>
+  <Step title="Open the Accounts page">
+    In the dashboard, go to **Accounts**. Sendmux SES is pinned at the top with a usage bar showing today's sends against your limit.
+  </Step>
+  <Step title="Click Request increase">
+    One click submits the request. Sendmux records your current limit and usage so the team reviewing it has the context — there's nothing to fill in.
+  </Step>
+  <Step title="Wait for the decision">
+    You can have one open request at a time; the button shows **Request pending** until it's decided. Sendmux emails you the outcome. Approved increases apply as soon as they're granted, and the new limit shows on the Accounts page.
+  </Step>
+</Steps>
+
+## Turn Sendmux SES off
+
+If you'd rather send only through your own providers, deactivate Sendmux SES.
+
+<Steps>
+  <Step title="Deactivate">
+    On the **Accounts** page, open the menu next to Sendmux SES and choose **Deactivate**. You can **Activate** it again from the same menu at any time.
+  </Step>
+  <Step title="Sends route to your own providers">
+    While Sendmux SES is inactive, every send goes through your own active providers instead.
+  </Step>
+</Steps>
+
+<Warning>
+  If Sendmux SES is inactive and you have no other active provider, sends fail with [`no_active_providers`](/sending-api/errors#no_active_providers) (HTTP 503). Reactivate Sendmux SES, or add and activate your own provider, to resume sending.
+</Warning>
+
+## Bring your own providers
+
+Add your own SMTP or API-based sending providers under **Accounts** → **Add account**. Use them to:
+
+- Send at higher volume than the Sendmux SES daily limit.
+- Route specific traffic through a provider you control.
+- Spread load across several providers with weighted delivery groups.
+
+Group your providers into **delivery groups** and target a group per domain or per mailbox to override the default route. A send that targets a group uses that group's providers; everything else falls back to Sendmux SES while it's active.
+
+One routing difference is worth knowing:
+
+| Aspect | Sendmux SES | Your own providers |
+| --- | --- | --- |
+| Sending domain | Must be a [verified domain](/guides/domain-management) on your team | Any domain — your provider enforces its own sender policy |
+| Daily limit | Managed by Sendmux (request increases) | Whatever you configure on the provider |
+| Setup | None — provisioned automatically | You add and configure each one |
+
+## Where to next
+
+<Columns cols={2}>
+  <Card title="Domain management" icon="globe" href="/guides/domain-management">
+    Verify the domains Sendmux SES is allowed to send from.
+  </Card>
+  <Card title="Send via HTTP API" icon="paper-plane" href="/guides/sending-via-http">
+    Send your first email through the default account.
+  </Card>
+  <Card title="Sending errors" icon="triangle-exclamation" href="/sending-api/errors">
+    Handle no_active_providers, insufficient_credits, and rate limits.
+  </Card>
+</Columns>

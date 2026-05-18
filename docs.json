@@ -40,6 +40,7 @@
           {
             "group": "Sending emails",
             "pages": [
+              "guides/sending-accounts",
               "guides/sending-via-http",
               "guides/sending-via-smtp",
               "guides/attachments",

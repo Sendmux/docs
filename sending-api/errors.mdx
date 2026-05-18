@@ -84,7 +84,7 @@ Common causes:
 
 ### no_active_providers
 
-**HTTP 503** — No healthy delivery providers are configured for your team. Add and activate a provider in the Sendmux app under **Accounts**. `retryable` is `true`, but retrying will keep failing until you fix the provider configuration — this is a 503 because the request itself is well-formed.
+**HTTP 503** — Your team has no active sending account. Every team has the managed **Sendmux SES** account active by default, so this normally means you've deactivated it and have no active provider of your own. Reactivate Sendmux SES, or add and activate a provider, in the Sendmux app under **Accounts** — see [Sending accounts](/guides/sending-accounts). `retryable` is `true`, but retrying will keep failing until an account is active — this is a 503 because the request itself is well-formed.
 
 ### service_unavailable
 
