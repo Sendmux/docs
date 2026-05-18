@@ -205,6 +205,10 @@
   "navbar": {
     "links": [
       {
+        "label": "Changelog",
+        "href": "/changelog"
+      },
+      {
         "label": "Support",
         "href": "mailto:contact@sendmux.ai"
       }
