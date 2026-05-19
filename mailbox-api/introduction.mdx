@@ -51,6 +51,7 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/messages/{message_id}/content`                     | Read clean message content with body-cleaning controls.           |
 | `PATCH /mailbox/messages/{message_id}`                           | Update mutable message flags with state-safe conflict handling.   |
 | `DELETE /mailbox/messages/{message_id}`                          | Move or delete a message with state-safe conflict handling.       |
+| `POST /mailbox/attachments:upload`                               | Upload an attachment for a later send request.                    |
 | `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment.                                           |
 | `POST /mailbox/messages/send`                                    | Send from the authenticated mailbox.                              |
 | `GET /mailbox/threads`                                           | List conversation threads with filters and cursor pagination.     |
@@ -555,6 +556,65 @@ Clean content controls:
   metadata or downloaded separately. PDF, CSV, Office document, and OCR parsing
   are not part of these APIs.
 </Note>
+
+## Attachments
+
+Use `POST /mailbox/attachments:upload` for larger files. Send the raw bytes in
+the request body and pass the returned `blob_id` to `POST /mailbox/messages/send`.
+
+```bash
+curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/pdf" \
+  --data-binary "@invoice.pdf"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "blob_id": "blob_123",
+    "filename": "invoice.pdf",
+    "content_type": "application/pdf",
+    "size_bytes": 12345
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Then send the uploaded attachment by ID:
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages/send \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": [{ "email": "customer@example.com" }],
+    "subject": "Invoice",
+    "text_body": "Attached is your invoice.",
+    "attachments": [
+      {
+        "filename": "invoice.pdf",
+        "content_type": "application/pdf",
+        "blob_id": "blob_123"
+      }
+    ]
+  }'
+```
+
+Small inline base64 attachments are still supported on `messages/send`, but the
+upload endpoint avoids large JSON request bodies.
+
+Attachment downloads support byte ranges:
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Range: bytes=0-1048575" \
+  --output invoice.part
+```
 
 ## Sync APIs
 

@@ -152,6 +152,7 @@
               "GET /mailbox/messages/{message_id}/content",
               "PATCH /mailbox/messages/{message_id}",
               "DELETE /mailbox/messages/{message_id}",
+              "POST /mailbox/attachments:upload",
               "GET /mailbox/messages/{message_id}/attachments/{attachment_id}",
               "POST /mailbox/messages/send"
             ]

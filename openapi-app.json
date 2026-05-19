@@ -44,20 +44,14 @@
             "description": "Human-readable issue description."
           }
         },
-        "required": [
-          "field",
-          "code",
-          "message"
-        ]
+        "required": ["field", "code", "message"]
       },
       "ApiError": {
         "type": "object",
         "properties": {
           "ok": {
             "type": "boolean",
-            "enum": [
-              false
-            ]
+            "enum": [false]
           },
           "error": {
             "type": "object",
@@ -106,11 +100,7 @@
                 "description": "Accumulated per-field issues for validation errors. Only present on 400/422 responses."
               }
             },
-            "required": [
-              "code",
-              "message",
-              "retryable"
-            ]
+            "required": ["code", "message", "retryable"]
           },
           "meta": {
             "type": "object",
@@ -120,16 +110,10 @@
                 "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
               }
             },
-            "required": [
-              "request_id"
-            ]
+            "required": ["request_id"]
           }
         },
-        "required": [
-          "ok",
-          "error",
-          "meta"
-        ]
+        "required": ["ok", "error", "meta"]
       },
       "ProviderTypeCounts": {
         "type": "object",
@@ -150,11 +134,7 @@
             "example": 2
           }
         },
-        "required": [
-          "smtp",
-          "gmail_api",
-          "outlook_api"
-        ],
+        "required": ["smtp", "gmail_api", "outlook_api"],
         "description": "Breakdown by provider type"
       },
       "ProviderStatusCounts": {
@@ -177,12 +157,7 @@
             "example": 0
           }
         },
-        "required": [
-          "active",
-          "inactive",
-          "error",
-          "pending"
-        ],
+        "required": ["active", "inactive", "error", "pending"],
         "description": "Breakdown by status"
       },
       "ProviderStats": {
@@ -245,28 +220,16 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "smtp",
-              "gmail_api",
-              "outlook_api"
-            ],
+            "enum": ["smtp", "gmail_api", "outlook_api"],
             "description": "Provider type"
           },
           "status": {
             "type": "string",
-            "enum": [
-              "active",
-              "inactive",
-              "error",
-              "pending"
-            ],
+            "enum": ["active", "inactive", "error", "pending"],
             "description": "Current status"
           },
           "status_reason": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Reason for current status"
           },
           "is_active": {
@@ -274,17 +237,11 @@
             "description": "Whether provider is enabled"
           },
           "from_email": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Default from email address"
           },
           "from_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Default from display name"
           },
           "created_at": {
@@ -293,17 +250,11 @@
             "example": "2026-03-01T10:00:00Z"
           },
           "last_tested_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Last connection test timestamp"
           },
           "last_used_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Last email sent timestamp"
           }
         },
@@ -348,13 +299,7 @@
                 "example": 50
               }
             },
-            "required": [
-              "total",
-              "sent",
-              "failed",
-              "rejected",
-              "pending"
-            ]
+            "required": ["total", "sent", "failed", "rejected", "pending"]
           },
           "comparison": {
             "type": "object",
@@ -403,13 +348,7 @@
                     "example": 0
                   }
                 },
-                "required": [
-                  "total",
-                  "sent",
-                  "failed",
-                  "rejected",
-                  "pending"
-                ]
+                "required": ["total", "sent", "failed", "rejected", "pending"]
               }
             },
             "required": [
@@ -457,11 +396,7 @@
             }
           }
         },
-        "required": [
-          "summary",
-          "comparison",
-          "timeseries"
-        ]
+        "required": ["summary", "comparison", "timeseries"]
       },
       "DeliveryLogItem": {
         "type": "object",
@@ -472,81 +407,46 @@
             "example": "dlog_clxxxxxxxxxxxxxxxxxxxxxxxxx"
           },
           "provider_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Provider public ID"
           },
           "provider_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Provider display name"
           },
           "message_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Email Message-ID header"
           },
           "from_email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sent_from_email": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "The actual from address used for delivery after transformation. NULL if no transformation occurred or for older log entries."
           },
           "to_email": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "pending",
-              "sent",
-              "failed",
-              "rejected"
-            ]
+            "enum": ["pending", "sent", "failed", "rejected"]
           },
           "status_reason": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "attempts": {
             "type": "number"
           },
           "sent_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "ISO 8601 timestamp when email was sent"
           },
           "size_bytes": {
-            "type": [
-              "number",
-              "null"
-            ]
+            "type": ["number", "null"]
           },
           "created_at": {
             "type": "string",
@@ -588,9 +488,7 @@
           },
           "currency": {
             "type": "string",
-            "enum": [
-              "USD"
-            ]
+            "enum": ["USD"]
           },
           "auto_topup": {
             "type": "object",
@@ -599,24 +497,15 @@
                 "type": "boolean"
               },
               "threshold": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "example": "10.000000"
               },
               "amount": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "example": "50.000000"
               },
               "monthly_limit": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "example": "200.000000"
               },
               "monthly_used": {
@@ -662,9 +551,7 @@
           },
           "currency": {
             "type": "string",
-            "enum": [
-              "USD"
-            ]
+            "enum": ["USD"]
           }
         },
         "required": [
@@ -690,35 +577,20 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "PURCHASE",
-              "USAGE",
-              "AUTO_TOPUP",
-              "REFUND",
-              "ADJUSTMENT"
-            ]
+            "enum": ["PURCHASE", "USAGE", "AUTO_TOPUP", "REFUND", "ADJUSTMENT"]
           },
           "description": {
             "type": "string"
           },
           "quantity": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": ["number", "null"],
             "description": "Item count (for USAGE transactions)"
           },
           "balance_before": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "balance_after": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "created_at": {
             "type": "string",
@@ -748,10 +620,7 @@
             "example": "mail.sendmux.ai"
           }
         },
-        "required": [
-          "priority",
-          "target"
-        ]
+        "required": ["priority", "target"]
       },
       "MailboxDomainNameValueRecord": {
         "type": "object",
@@ -765,10 +634,7 @@
             "example": "sendmux-verify=team_abc123"
           }
         },
-        "required": [
-          "name",
-          "value"
-        ],
+        "required": ["name", "value"],
         "description": "SPF TXT record covering both SES and Sendmux includes"
       },
       "MailboxDomainDnsRecords": {
@@ -812,13 +678,7 @@
             ]
           }
         },
-        "required": [
-          "mx",
-          "spf",
-          "dmarc",
-          "dkim",
-          "verification"
-        ]
+        "required": ["mx", "spf", "dmarc", "dkim", "verification"]
       },
       "MailboxDomain": {
         "type": "object",
@@ -835,25 +695,15 @@
           },
           "verification_status": {
             "type": "string",
-            "enum": [
-              "pending",
-              "verified",
-              "failed"
-            ],
+            "enum": ["pending", "verified", "failed"],
             "description": "Current verification state"
           },
           "ses_dkim_status": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "SES DKIM status (pending/success/failed/temporary_failure/not_started)"
           },
           "verified_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "ISO 8601 timestamp of last successful verification"
           },
           "created_at": {
@@ -901,22 +751,14 @@
             "description": "DMARC TXT record matches expected value"
           }
         },
-        "required": [
-          "mx",
-          "verification_txt",
-          "spf",
-          "dmarc"
-        ]
+        "required": ["mx", "verification_txt", "spf", "dmarc"]
       },
       "MailboxDomainVerifyResult": {
         "type": "object",
         "properties": {
           "status": {
             "type": "string",
-            "enum": [
-              "verified",
-              "pending"
-            ],
+            "enum": ["verified", "pending"],
             "description": "Post-check verification status"
           },
           "ses_dkim_status": {
@@ -927,25 +769,14 @@
             "$ref": "#/components/schemas/MailboxDomainVerifyChecks"
           }
         },
-        "required": [
-          "status",
-          "ses_dkim_status",
-          "checks"
-        ]
+        "required": ["status", "ses_dkim_status", "checks"]
       },
       "MailboxSendScope": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "all",
-              "providers",
-              "group"
-            ],
+            "enum": ["all", "providers", "group"],
             "description": "Outbound routing strategy. `all` lets the mailbox use any team-configured provider; `providers` restricts to the listed provider IDs; `group` routes via a delivery group."
           },
           "provider_public_ids": {
@@ -963,9 +794,7 @@
             "description": "Delivery group public IDs (only when type=group)"
           }
         },
-        "required": [
-          "type"
-        ]
+        "required": ["type"]
       },
       "Mailbox": {
         "type": "object",
@@ -981,17 +810,11 @@
             "example": "agent@acme.com"
           },
           "display_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Optional display name shown in outbound From headers"
           },
           "quota_bytes": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "description": "Storage quota in bytes"
           },
           "send_scope": {
@@ -1018,10 +841,7 @@
         ]
       },
       "MailboxCredential": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "public_id": {
             "type": "string",
@@ -1080,27 +900,17 @@
             "$ref": "#/components/schemas/MailboxCredential"
           },
           "warning": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Optional warning string when the mailbox was created without an initial credential"
           }
         },
-        "required": [
-          "mailbox",
-          "credential",
-          "warning"
-        ]
+        "required": ["mailbox", "credential", "warning"]
       },
       "UpdateMailboxBody": {
         "type": "object",
         "properties": {
           "display_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "minLength": 1,
             "maxLength": 255
           },
@@ -1113,11 +923,7 @@
             "properties": {
               "type": {
                 "type": "string",
-                "enum": [
-                  "all",
-                  "providers",
-                  "group"
-                ]
+                "enum": ["all", "providers", "group"]
               },
               "provider_public_ids": {
                 "type": "array",
@@ -1136,9 +942,7 @@
                 }
               }
             },
-            "required": [
-              "type"
-            ],
+            "required": ["type"],
             "additionalProperties": false
           }
         },
@@ -1158,9 +962,7 @@
             ]
           }
         },
-        "required": [
-          "credential"
-        ]
+        "required": ["credential"]
       },
       "MailboxMe": {
         "allOf": [
@@ -1187,17 +989,11 @@
             "example": "agent@example.com"
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "example": "Support"
           }
         },
-        "required": [
-          "email",
-          "name"
-        ]
+        "required": ["email", "name"]
       },
       "MailboxIdentity": {
         "type": "object",
@@ -1248,38 +1044,23 @@
         ]
       },
       "MailboxSubmissionEnvelopeAddress": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "email": {
             "type": "string",
             "format": "email"
           },
           "parameters": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": ["object", "null"],
             "additionalProperties": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             }
           }
         },
-        "required": [
-          "email",
-          "parameters"
-        ]
+        "required": ["email", "parameters"]
       },
       "MailboxSubmissionEnvelope": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "mail_from": {
             "$ref": "#/components/schemas/MailboxSubmissionEnvelopeAddress"
@@ -1298,10 +1079,7 @@
             }
           }
         },
-        "required": [
-          "mail_from",
-          "rcpt_to"
-        ]
+        "required": ["mail_from", "rcpt_to"]
       },
       "MailboxSubmissionDeliveryStatus": {
         "type": "object",
@@ -1311,30 +1089,16 @@
             "format": "email"
           },
           "smtp_reply": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "delivered": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "displayed": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         },
-        "required": [
-          "email",
-          "smtp_reply",
-          "delivered",
-          "displayed"
-        ]
+        "required": ["email", "smtp_reply", "delivered", "displayed"]
       },
       "MailboxSubmission": {
         "type": "object",
@@ -1344,34 +1108,19 @@
             "description": "Submission ID"
           },
           "identity_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "email_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "thread_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "send_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "undo_status": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "envelope": {
             "$ref": "#/components/schemas/MailboxSubmissionEnvelope"
@@ -1412,10 +1161,7 @@
         "type": "object",
         "properties": {
           "old_state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "new_state": {
             "type": "string"
@@ -1475,16 +1221,10 @@
             "type": "integer"
           },
           "warn_limit": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "soft_limit": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "scope": {
             "type": "string",
@@ -1500,10 +1240,7 @@
             }
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         },
         "required": [
@@ -1547,32 +1284,17 @@
             "type": "integer"
           },
           "warn_limit": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "soft_limit": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "percent_used": {
-            "type": [
-              "number",
-              "null"
-            ]
+            "type": ["number", "null"]
           },
           "limit_status": {
             "type": "string",
-            "enum": [
-              "ok",
-              "warning",
-              "soft_limit",
-              "hard_limit",
-              "unknown"
-            ]
+            "enum": ["ok", "warning", "soft_limit", "hard_limit", "unknown"]
           }
         },
         "required": [
@@ -1602,21 +1324,13 @@
             "type": "object",
             "properties": {
               "quota_state": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               }
             },
-            "required": [
-              "quota_state"
-            ]
+            "required": ["quota_state"]
           }
         },
-        "required": [
-          "resources",
-          "states"
-        ]
+        "required": ["resources", "states"]
       },
       "MailboxMessageFlags": {
         "type": "object",
@@ -1634,12 +1348,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "seen",
-          "flagged",
-          "draft",
-          "answered"
-        ]
+        "required": ["seen", "flagged", "draft", "answered"]
       },
       "MailboxMessageSummary": {
         "type": "object",
@@ -1649,10 +1358,7 @@
             "description": "Message ID"
           },
           "thread_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "folder_ids": {
             "type": "array",
@@ -1661,16 +1367,10 @@
             }
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "preview": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "from": {
             "allOf": [
@@ -1678,10 +1378,7 @@
                 "$ref": "#/components/schemas/MailboxAddress"
               },
               {
-                "type": [
-                  "object",
-                  "null"
-                ]
+                "type": ["object", "null"]
               }
             ]
           },
@@ -1704,22 +1401,13 @@
             }
           },
           "received_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sent_at": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "size_bytes": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "has_attachments": {
             "type": "boolean"
@@ -1746,100 +1434,58 @@
         ]
       },
       "MailboxRawBody": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "id": {
             "type": "string",
             "description": "Message ID"
           },
           "thread_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "part": {
             "type": "string",
-            "enum": [
-              "text",
-              "html",
-              "both"
-            ]
+            "enum": ["text", "html", "both"]
           },
           "body": {
             "type": "object",
             "properties": {
               "text": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "html": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "is_truncated": {
                 "type": "boolean"
               },
               "truncated_at_chars": {
-                "type": [
-                  "integer",
-                  "null"
-                ]
+                "type": ["integer", "null"]
               }
             },
-            "required": [
-              "text",
-              "html",
-              "is_truncated",
-              "truncated_at_chars"
-            ]
+            "required": ["text", "html", "is_truncated", "truncated_at_chars"]
           },
           "states": {
             "type": "object",
             "properties": {
               "email_state": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               }
             },
-            "required": [
-              "email_state"
-            ]
+            "required": ["email_state"]
           }
         },
-        "required": [
-          "id",
-          "thread_id",
-          "part",
-          "body",
-          "states"
-        ]
+        "required": ["id", "thread_id", "part", "body", "states"]
       },
       "MailboxContentHeaders": {
         "type": "object",
         "properties": {
           "mode": {
             "type": "string",
-            "enum": [
-              "none",
-              "selected",
-              "full"
-            ]
+            "enum": ["none", "selected", "full"]
           },
           "selected": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": ["object", "null"],
             "properties": {
               "message_id": {
                 "type": "array",
@@ -1848,10 +1494,7 @@
                 }
               },
               "in_reply_to": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "references": {
                 "type": "array",
@@ -1866,18 +1509,10 @@
                 }
               }
             },
-            "required": [
-              "message_id",
-              "in_reply_to",
-              "references",
-              "reply_to"
-            ]
+            "required": ["message_id", "in_reply_to", "references", "reply_to"]
           },
           "full": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": ["array", "null"],
             "items": {
               "type": "object",
               "properties": {
@@ -1888,18 +1523,11 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "name",
-                "value"
-              ]
+              "required": ["name", "value"]
             }
           }
         },
-        "required": [
-          "mode",
-          "selected",
-          "full"
-        ]
+        "required": ["mode", "selected", "full"]
       },
       "MailboxAttachment": {
         "type": "object",
@@ -1909,32 +1537,20 @@
             "description": "Attachment ID"
           },
           "filename": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "content_type": {
             "type": "string",
             "example": "application/pdf"
           },
           "size_bytes": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "disposition": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "content_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "download_url": {
             "type": "string"
@@ -1950,26 +1566,17 @@
         ]
       },
       "MailboxMessageContent": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "type": ["object", "null"],
         "properties": {
           "id": {
             "type": "string",
             "description": "Message ID"
           },
           "thread_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "participants": {
             "type": "object",
@@ -1980,10 +1587,7 @@
                     "$ref": "#/components/schemas/MailboxAddress"
                   },
                   {
-                    "type": [
-                      "object",
-                      "null"
-                    ]
+                    "type": ["object", "null"]
                   }
                 ]
               },
@@ -2012,69 +1616,39 @@
                 }
               }
             },
-            "required": [
-              "from",
-              "to",
-              "cc",
-              "bcc",
-              "reply_to"
-            ]
+            "required": ["from", "to", "cc", "bcc", "reply_to"]
           },
           "dates": {
             "type": "object",
             "properties": {
               "received_at": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "sent_at": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               }
             },
-            "required": [
-              "received_at",
-              "sent_at"
-            ]
+            "required": ["received_at", "sent_at"]
           },
           "body": {
             "type": "object",
             "properties": {
               "format": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "enum": [
-                  "text",
-                  "html"
-                ]
+                "type": ["string", "null"],
+                "enum": ["text", "html"]
               },
               "text": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "html": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": ["string", "null"],
                 "description": "HTML body when requested. Returned as a JSON string and not as rendered content."
               },
               "is_truncated": {
                 "type": "boolean"
               },
               "truncated_at_chars": {
-                "type": [
-                  "integer",
-                  "null"
-                ]
+                "type": ["integer", "null"]
               },
               "signature_stripped": {
                 "type": "boolean"
@@ -2114,19 +1688,13 @@
             "type": "object",
             "properties": {
               "email_state": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "option_hash": {
                 "type": "string"
               }
             },
-            "required": [
-              "email_state",
-              "option_hash"
-            ]
+            "required": ["email_state", "option_hash"]
           }
         },
         "required": [
@@ -2154,11 +1722,7 @@
             "$ref": "#/components/schemas/MailboxMessageContent"
           }
         },
-        "required": [
-          "message",
-          "raw_body",
-          "content"
-        ]
+        "required": ["message", "raw_body", "content"]
       },
       "MailboxBatchGetResult": {
         "type": "object",
@@ -2179,22 +1743,13 @@
             "type": "object",
             "properties": {
               "email_state": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               }
             },
-            "required": [
-              "email_state"
-            ]
+            "required": ["email_state"]
           }
         },
-        "required": [
-          "messages",
-          "not_found",
-          "states"
-        ]
+        "required": ["messages", "not_found", "states"]
       },
       "MailboxBatchGetBody": {
         "type": "object",
@@ -2209,20 +1764,11 @@
           },
           "body_mode": {
             "type": "string",
-            "enum": [
-              "none",
-              "raw",
-              "clean_json"
-            ]
+            "enum": ["none", "raw", "clean_json"]
           },
           "part": {
             "type": "string",
-            "enum": [
-              "auto",
-              "text",
-              "html",
-              "both"
-            ]
+            "enum": ["auto", "text", "html", "both"]
           },
           "max_body_chars": {
             "type": "integer",
@@ -2243,23 +1789,14 @@
           },
           "include_headers": {
             "type": "string",
-            "enum": [
-              "none",
-              "selected",
-              "full"
-            ]
+            "enum": ["none", "selected", "full"]
           },
           "include_attachments": {
             "type": "string",
-            "enum": [
-              "none",
-              "metadata"
-            ]
+            "enum": ["none", "metadata"]
           }
         },
-        "required": [
-          "ids"
-        ]
+        "required": ["ids"]
       },
       "MailboxMessageCount": {
         "type": "object",
@@ -2268,16 +1805,10 @@
             "type": "integer"
           },
           "sync_state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         },
-        "required": [
-          "total",
-          "sync_state"
-        ]
+        "required": ["total", "sync_state"]
       },
       "MailboxSearchSnippet": {
         "type": "object",
@@ -2286,25 +1817,15 @@
             "type": "string"
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Subject snippet. May include mark tags."
           },
           "preview": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Body preview snippet. May include mark tags."
           }
         },
-        "required": [
-          "message_id",
-          "subject",
-          "preview"
-        ]
+        "required": ["message_id", "subject", "preview"]
       },
       "MailboxSearchSnippetsResult": {
         "type": "object",
@@ -2322,17 +1843,32 @@
             }
           },
           "sync_state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           }
         },
-        "required": [
-          "snippets",
-          "not_found",
-          "sync_state"
-        ]
+        "required": ["snippets", "not_found", "sync_state"]
+      },
+      "MailboxAttachmentUploadResult": {
+        "type": "object",
+        "properties": {
+          "blob_id": {
+            "type": "string",
+            "description": "Uploaded attachment blob ID for a later send request."
+          },
+          "filename": {
+            "type": "string",
+            "example": "invoice.pdf"
+          },
+          "content_type": {
+            "type": "string",
+            "example": "application/pdf"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "example": 12345
+          }
+        },
+        "required": ["blob_id", "filename", "content_type", "size_bytes"]
       },
       "SendMailboxMessageResult": {
         "type": "object",
@@ -2342,15 +1878,10 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "queued"
-            ]
+            "enum": ["queued"]
           }
         },
-        "required": [
-          "message_id",
-          "status"
-        ]
+        "required": ["message_id", "status"]
       },
       "SendMailboxMessageBody": {
         "type": "object",
@@ -2401,31 +1932,44 @@
           "attachments": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "filename": {
-                  "type": "string"
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "filename": {
+                      "type": "string"
+                    },
+                    "content_type": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "Base64-encoded content for small inline attachments. Use /mailbox/attachments:upload for larger files."
+                    }
+                  },
+                  "required": ["filename", "content_type", "content"]
                 },
-                "content_type": {
-                  "type": "string"
-                },
-                "content": {
-                  "type": "string",
-                  "description": "Base64-encoded attachment content."
+                {
+                  "type": "object",
+                  "properties": {
+                    "filename": {
+                      "type": "string"
+                    },
+                    "content_type": {
+                      "type": "string"
+                    },
+                    "blob_id": {
+                      "type": "string",
+                      "description": "Blob ID returned by /mailbox/attachments:upload."
+                    }
+                  },
+                  "required": ["filename", "content_type", "blob_id"]
                 }
-              },
-              "required": [
-                "filename",
-                "content_type",
-                "content"
               ]
             }
           }
         },
-        "required": [
-          "to",
-          "subject"
-        ]
+        "required": ["to", "subject"]
       },
       "MailboxMessage": {
         "allOf": [
@@ -2436,16 +1980,10 @@
             "type": "object",
             "properties": {
               "text_body": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "html_body": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "attachments": {
                 "type": "array",
@@ -2454,11 +1992,7 @@
                 }
               }
             },
-            "required": [
-              "text_body",
-              "html_body",
-              "attachments"
-            ]
+            "required": ["text_body", "html_body", "attachments"]
           }
         ]
       },
@@ -2481,10 +2015,7 @@
             "description": "Thread ID"
           },
           "subject": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "message_count": {
             "type": "integer"
@@ -2513,10 +2044,7 @@
                 "$ref": "#/components/schemas/MailboxMessageSummary"
               },
               {
-                "type": [
-                  "object",
-                  "null"
-                ]
+                "type": ["object", "null"]
               }
             ]
           },
@@ -2524,22 +2052,13 @@
             "type": "object",
             "properties": {
               "thread_state": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               },
               "email_state": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": ["string", "null"]
               }
             },
-            "required": [
-              "thread_state",
-              "email_state"
-            ]
+            "required": ["thread_state", "email_state"]
           }
         },
         "required": [
@@ -2569,9 +2088,7 @@
                 }
               }
             },
-            "required": [
-              "message_ids"
-            ]
+            "required": ["message_ids"]
           }
         ]
       },
@@ -2580,9 +2097,7 @@
         "properties": {
           "ok": {
             "type": "boolean",
-            "enum": [
-              true
-            ]
+            "enum": [true]
           },
           "data": {
             "type": "array",
@@ -2607,9 +2122,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "has_more"
-            ]
+            "required": ["has_more"]
           },
           "meta": {
             "type": "object",
@@ -2630,42 +2143,22 @@
                 "type": "object",
                 "properties": {
                   "thread_state": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "email_state": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": ["string", "null"]
                   },
                   "option_hash": {
                     "type": "string"
                   }
                 },
-                "required": [
-                  "thread_state",
-                  "email_state",
-                  "option_hash"
-                ]
+                "required": ["thread_state", "email_state", "option_hash"]
               }
             },
-            "required": [
-              "request_id",
-              "thread_id",
-              "participants",
-              "states"
-            ]
+            "required": ["request_id", "thread_id", "participants", "states"]
           }
         },
-        "required": [
-          "ok",
-          "data",
-          "pagination",
-          "meta"
-        ]
+        "required": ["ok", "data", "pagination", "meta"]
       },
       "MailboxFolder": {
         "type": "object",
@@ -2678,23 +2171,14 @@
             "type": "string"
           },
           "parent_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "role": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "System role when the folder is a built-in folder."
           },
           "sort_order": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           },
           "total_messages": {
             "type": "integer"
@@ -2720,27 +2204,19 @@
             "type": "string"
           },
           "parent_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sort_order": {
             "type": "integer"
           }
         },
-        "required": [
-          "name"
-        ]
+        "required": ["name"]
       },
       "MailboxFolderQueryChanges": {
         "type": "object",
         "properties": {
           "old_query_state": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "new_query_state": {
             "type": "string"
@@ -2766,17 +2242,11 @@
                   "type": "integer"
                 }
               },
-              "required": [
-                "id",
-                "index"
-              ]
+              "required": ["id", "index"]
             }
           },
           "total": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": ["integer", "null"]
           }
         },
         "required": [
@@ -2795,10 +2265,7 @@
             "type": "string"
           },
           "parent_id": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "sort_order": {
             "type": "integer"
@@ -2832,19 +2299,14 @@
             }
           }
         },
-        "required": [
-          "types"
-        ]
+        "required": ["types"]
       },
       "FilterRule": {
         "type": "object",
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "allow",
-              "deny"
-            ],
+            "enum": ["allow", "deny"],
             "description": "Rule type"
           },
           "pattern": {
@@ -2853,30 +2315,20 @@
             "example": "partner.com"
           },
           "note": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "maxLength": 255,
             "description": "Free-form caption for the rule (≤255 chars). UI-only metadata — never consulted at match time. `null` when absent.",
             "example": "billing webhooks"
           }
         },
-        "required": [
-          "type",
-          "pattern"
-        ]
+        "required": ["type", "pattern"]
       },
       "FilterState": {
         "type": "object",
         "properties": {
           "mode": {
             "type": "string",
-            "enum": [
-              "off",
-              "allowlist",
-              "denylist"
-            ],
+            "enum": ["off", "allowlist", "denylist"],
             "description": "Active filtering mode. `off` disables filtering (all senders accepted). `allowlist` only accepts senders matching a rule. `denylist` blocks senders matching a rule."
           },
           "rules": {
@@ -2887,21 +2339,14 @@
             "description": "Current rules, sorted by pattern ascending"
           }
         },
-        "required": [
-          "mode",
-          "rules"
-        ]
+        "required": ["mode", "rules"]
       },
       "SetFilterStateBody": {
         "type": "object",
         "properties": {
           "mode": {
             "type": "string",
-            "enum": [
-              "off",
-              "allowlist",
-              "denylist"
-            ]
+            "enum": ["off", "allowlist", "denylist"]
           },
           "rules": {
             "type": "array",
@@ -2912,10 +2357,7 @@
             "description": "Replacement rule set. Maximum 1000 rules per request. An empty array is valid (no rules)."
           }
         },
-        "required": [
-          "mode",
-          "rules"
-        ],
+        "required": ["mode", "rules"],
         "additionalProperties": false
       },
       "WebhookSubscription": {
@@ -2927,10 +2369,7 @@
             "example": "whk_clxxxxxxxxxxxxxxxxxxxxxxxxx"
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "description": "Optional human-friendly label used in dashboard list/detail pages. May be `null` for subscriptions created without a name.",
             "example": "Acme inbound forwarder"
           },
@@ -2957,10 +2396,7 @@
               "example": "ses.bounce"
             },
             "description": "Event types this subscription receives.",
-            "example": [
-              "ses.bounce",
-              "ses.complaint"
-            ]
+            "example": ["ses.bounce", "ses.complaint"]
           },
           "enabled": {
             "type": "boolean",
@@ -3008,9 +2444,7 @@
                 "example": "whsec_a9f3c2…"
               }
             },
-            "required": [
-              "secret"
-            ]
+            "required": ["secret"]
           }
         ]
       },
@@ -3048,11 +2482,7 @@
             },
             "minItems": 1,
             "description": "At least one event type must be provided.",
-            "example": [
-              "ses.bounce",
-              "ses.complaint",
-              "mail.inbound"
-            ]
+            "example": ["ses.bounce", "ses.complaint", "mail.inbound"]
           },
           "enabled": {
             "type": "boolean",
@@ -3060,20 +2490,14 @@
             "example": true
           }
         },
-        "required": [
-          "url",
-          "event_types"
-        ],
+        "required": ["url", "event_types"],
         "additionalProperties": false
       },
       "WebhookUpdateBody": {
         "type": "object",
         "properties": {
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": ["string", "null"],
             "maxLength": 255,
             "description": "Replace the human-friendly label. Send `null` to clear it; omit to leave unchanged."
           },
@@ -3117,9 +2541,7 @@
             "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx"
           }
         },
-        "required": [
-          "event_id"
-        ]
+        "required": ["event_id"]
       }
     },
     "parameters": {}
@@ -3129,9 +2551,7 @@
       "get": {
         "summary": "Get provider statistics",
         "description": "Returns aggregate counts of configured email providers with breakdowns by type and status.",
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "security": [
           {
             "bearerAuth": []
@@ -3147,9 +2567,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/ProviderStats"
@@ -3162,16 +2580,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3203,9 +2615,7 @@
       "get": {
         "summary": "List providers",
         "description": "Returns a paginated list of configured email providers with safe fields (no encrypted credentials). Uses cursor-based pagination ordered by created_at descending — pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Providers"
-        ],
+        "tags": ["Providers"],
         "security": [
           {
             "bearerAuth": []
@@ -3224,12 +2634,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "active",
-                "inactive",
-                "error",
-                "pending"
-              ],
+              "enum": ["active", "inactive", "error", "pending"],
               "description": "Filter by status"
             },
             "required": false,
@@ -3239,11 +2644,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "smtp",
-                "gmail_api",
-                "outlook_api"
-              ],
+              "enum": ["smtp", "gmail_api", "outlook_api"],
               "description": "Filter by provider type"
             },
             "required": false,
@@ -3272,9 +2673,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -3292,9 +2691,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -3303,17 +2700,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -3345,9 +2735,7 @@
       "get": {
         "summary": "Get email metrics",
         "description": "Returns aggregated email delivery counts with flexible time windowing and comparison period.",
-        "tags": [
-          "Emails"
-        ],
+        "tags": ["Emails"],
         "security": [
           {
             "bearerAuth": []
@@ -3357,11 +2745,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "24h",
-                "7d",
-                "30d"
-              ],
+              "enum": ["24h", "7d", "30d"],
               "description": "Preset time window (default: 24h)"
             },
             "required": false,
@@ -3389,10 +2773,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "hourly",
-                "daily"
-              ],
+              "enum": ["hourly", "daily"],
               "description": "Timeseries granularity (default: daily)"
             },
             "required": false,
@@ -3419,9 +2800,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/EmailMetrics"
@@ -3434,16 +2813,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3475,9 +2848,7 @@
       "get": {
         "summary": "List delivery logs",
         "description": "Returns paginated delivery logs with cursor-based pagination and filters.",
-        "tags": [
-          "Emails"
-        ],
+        "tags": ["Emails"],
         "security": [
           {
             "bearerAuth": []
@@ -3507,12 +2878,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "pending",
-                "sent",
-                "failed",
-                "rejected"
-              ]
+              "enum": ["pending", "sent", "failed", "rejected"]
             },
             "required": false,
             "name": "status",
@@ -3565,9 +2931,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -3585,9 +2949,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -3596,17 +2958,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -3638,9 +2993,7 @@
       "get": {
         "summary": "Get delivery log",
         "description": "Returns a single delivery log by its public ID. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the log has not changed. Logs in a terminal status (sent/failed/rejected) stop changing, so 304 replay is a real bandwidth win on repeated polls.",
-        "tags": [
-          "Emails"
-        ],
+        "tags": ["Emails"],
         "security": [
           {
             "bearerAuth": []
@@ -3685,9 +3038,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/DeliveryLogItem"
@@ -3700,16 +3051,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3762,9 +3107,7 @@
       "get": {
         "summary": "Get current balance",
         "description": "Returns the current team balance and auto top-up configuration.",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "bearerAuth": []
@@ -3780,9 +3123,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/Balance"
@@ -3795,16 +3136,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3836,9 +3171,7 @@
       "get": {
         "summary": "Get spend summary",
         "description": "Returns a spend summary over a configurable lookback period.",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "bearerAuth": []
@@ -3848,11 +3181,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "7",
-                "30",
-                "90"
-              ],
+              "enum": ["7", "30", "90"],
               "description": "Lookback period in days (default: 30)"
             },
             "required": false,
@@ -3870,9 +3199,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/SpendSummary"
@@ -3885,16 +3212,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -3926,9 +3247,7 @@
       "get": {
         "summary": "List transactions",
         "description": "Returns paginated credit transaction history with optional type filter. Uses cursor-based pagination ordered by created_at descending — pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Billing"
-        ],
+        "tags": ["Billing"],
         "security": [
           {
             "bearerAuth": []
@@ -3981,9 +3300,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -4001,9 +3318,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -4012,17 +3327,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -4054,9 +3362,7 @@
       "get": {
         "summary": "List mailbox domains",
         "description": "Returns a cursor-paginated list of sending domains configured for the team, ordered by `created_at` descending. Each entry includes the DNS records the customer must place, the current verification status, and the SES DKIM state. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -4094,9 +3400,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -4114,9 +3418,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -4125,17 +3427,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -4165,9 +3460,7 @@
       "post": {
         "summary": "Add a mailbox domain",
         "description": "Creates a new sending domain and returns the DNS records the customer must place before verification can succeed. Provisioning touches both our mail platform and Amazon SES — on any failure the partial state is automatically rolled back.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -4198,9 +3491,7 @@
                     "example": "mail.acme.com"
                   }
                 },
-                "required": [
-                  "domain"
-                ],
+                "required": ["domain"],
                 "additionalProperties": false
               }
             }
@@ -4225,9 +3516,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxDomain"
@@ -4240,16 +3529,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4291,9 +3574,7 @@
       "get": {
         "summary": "Get a mailbox domain",
         "description": "Returns a single domain including its DNS records and latest verification state. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -4339,9 +3620,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxDomain"
@@ -4354,16 +3633,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4394,9 +3667,7 @@
       "delete": {
         "summary": "Delete a mailbox domain",
         "description": "Removes a domain from our mail platform, Amazon SES, and Sendmux. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -4423,27 +3694,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -4453,16 +3717,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4494,9 +3752,7 @@
       "get": {
         "summary": "Download a domain as a zone file",
         "description": "Returns the domain's DNS records formatted as a BIND-style zone file fragment. Suitable for direct paste into a DNS provider that accepts zone-file imports.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -4550,9 +3806,7 @@
       "post": {
         "summary": "Verify a mailbox domain",
         "description": "Runs an immediate DNS-over-HTTPS check of the domain's MX, SPF, DMARC and ownership TXT records, then asks SES for the latest DKIM status. If every check passes the domain is marked verified. Domains automatically re-verify every 6 hours — this endpoint is only needed to trigger a check on demand.",
-        "tags": [
-          "Domains"
-        ],
+        "tags": ["Domains"],
         "security": [
           {
             "bearerAuth": []
@@ -4579,9 +3833,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxDomainVerifyResult"
@@ -4594,16 +3846,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4625,9 +3871,7 @@
       "get": {
         "summary": "List mailboxes",
         "description": "Returns a cursor-paginated list of mailboxes configured for the team, ordered by `created_at` descending. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -4657,9 +3901,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "true"
-              ],
+              "enum": ["true"],
               "description": "Set to `true` to include soft-deleted mailboxes (status `deleted`) in the response. Default `false`. Soft-deleted mailboxes are retained for tenant-isolation references in delivery logs and API keys."
             },
             "required": false,
@@ -4677,9 +3919,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -4697,9 +3937,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -4708,17 +3946,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -4748,9 +3979,7 @@
       "post": {
         "summary": "Create a mailbox",
         "description": "Provisions a new mailbox plus an initial bearer token and matching IMAP/SMTP mailbox password. The domain portion of the email must already be verified via POST /domains. Creation provisions resources on our mail platform and, for `@myagent.mx` addresses, on Amazon SES — any failure rolls the partial state back automatically.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -4794,11 +4023,7 @@
                     "properties": {
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "all",
-                          "providers",
-                          "group"
-                        ]
+                        "enum": ["all", "providers", "group"]
                       },
                       "provider_public_ids": {
                         "type": "array",
@@ -4817,15 +4042,11 @@
                         }
                       }
                     },
-                    "required": [
-                      "type"
-                    ],
+                    "required": ["type"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "email"
-                ],
+                "required": ["email"],
                 "additionalProperties": false
               }
             }
@@ -4850,9 +4071,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxCreateResult"
@@ -4865,16 +4084,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -4926,9 +4139,7 @@
       "get": {
         "summary": "Get a mailbox",
         "description": "Returns a single mailbox, tenant-scoped to the caller's team. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed. The same ETag is the value to use in `If-Match` on PATCH for optimistic concurrency.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -4973,9 +4184,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/Mailbox"
@@ -4988,16 +4197,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5028,9 +4231,7 @@
       "patch": {
         "summary": "Update a mailbox",
         "description": "Updates any combination of display_name, quota_bytes, and send_scope on a mailbox. The display_name and send_scope changes land in a single transaction; quota_bytes is applied afterwards because it also updates external state on our mail platform. Quota cannot be shrunk below the mailbox's current usage.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -5083,9 +4284,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/Mailbox"
@@ -5098,16 +4297,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5157,9 +4350,7 @@
       "delete": {
         "summary": "Delete a mailbox",
         "description": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Sendmux. All associated API keys are revoked.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -5186,27 +4377,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -5216,16 +4400,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5247,9 +4425,7 @@
       "post": {
         "summary": "Create a mailbox API key",
         "description": "Mints an additional bearer token plus IMAP/SMTP mailbox password for an existing mailbox. The plaintext key and password are shown exactly once — store them immediately.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -5289,9 +4465,7 @@
                     "maxLength": 255
                   }
                 },
-                "required": [
-                  "app_name"
-                ],
+                "required": ["app_name"],
                 "additionalProperties": false
               }
             }
@@ -5316,9 +4490,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxAppPasswordResult"
@@ -5331,16 +4503,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5392,9 +4558,7 @@
       "delete": {
         "summary": "Revoke a mailbox API key",
         "description": "Revokes a specific bearer token + matching mailbox password. Idempotent on already-revoked keys.",
-        "tags": [
-          "Mailboxes"
-        ],
+        "tags": ["Mailboxes"],
         "security": [
           {
             "bearerAuth": []
@@ -5431,27 +4595,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -5461,16 +4618,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5492,9 +4643,7 @@
       "get": {
         "summary": "Self-introspect the calling mailbox",
         "description": "Returns the mailbox the bearer token is scoped to, including live storage usage. Intended for SDK auto-discovery — call once on startup to resolve the mailbox ID. Requires a mailbox-scoped API key; root keys receive 403.\n\nResponses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the mailbox state has not changed.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5530,9 +4679,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMe"
@@ -5545,16 +4692,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5607,9 +4748,7 @@
       "get": {
         "summary": "List mailbox sender identities",
         "description": "Returns sender identities available to the authenticated mailbox. This endpoint is read-only and does not mutate sender authority.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5645,9 +4784,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -5665,9 +4802,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -5676,17 +4811,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -5728,9 +4856,7 @@
       "get": {
         "summary": "List mailbox submissions",
         "description": "Returns a cursor-paginated list of send submissions for the authenticated mailbox, including delivery lifecycle fields when available.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5785,11 +4911,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "pending",
-                "final",
-                "canceled"
-              ]
+              "enum": ["pending", "final", "canceled"]
             },
             "required": false,
             "name": "undo_status",
@@ -5814,11 +4936,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "send_at",
-                "email_id",
-                "thread_id"
-              ]
+              "enum": ["send_at", "email_id", "thread_id"]
             },
             "required": false,
             "name": "sort_by",
@@ -5827,10 +4945,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort_direction",
@@ -5847,9 +4962,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -5867,9 +4980,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -5878,17 +4989,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -5910,9 +5014,7 @@
       "get": {
         "summary": "Get submission changes",
         "description": "Returns send submission changes since a prior submission state, or the current state when omitted.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -5948,9 +5050,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxChanges"
@@ -5963,16 +5063,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -5994,9 +5088,7 @@
       "get": {
         "summary": "Get a mailbox submission",
         "description": "Returns one send submission for the authenticated mailbox. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6030,9 +5122,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxSubmission"
@@ -6045,16 +5135,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6079,9 +5163,7 @@
       "get": {
         "summary": "List mailbox quotas",
         "description": "Returns a cursor-paginated list of quota usage and limits for the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6117,11 +5199,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "account",
-                "domain",
-                "global"
-              ]
+              "enum": ["account", "domain", "global"]
             },
             "required": false,
             "name": "scope",
@@ -6130,10 +5208,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "count",
-                "octets"
-              ]
+              "enum": ["count", "octets"]
             },
             "required": false,
             "name": "resource_type",
@@ -6150,10 +5225,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "name",
-                "used"
-              ]
+              "enum": ["name", "used"]
             },
             "required": false,
             "name": "sort_by",
@@ -6162,10 +5234,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort_direction",
@@ -6182,9 +5251,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -6202,9 +5269,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -6213,17 +5278,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -6245,9 +5303,7 @@
       "get": {
         "summary": "Get quota changes",
         "description": "Returns quota changes since a prior quota state, or the current quota state when omitted.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6283,9 +5339,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxChanges"
@@ -6298,16 +5352,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6329,9 +5377,7 @@
       "get": {
         "summary": "Get mailbox usage",
         "description": "Returns a compact usage view derived from mailbox quota records. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6357,9 +5403,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxUsage"
@@ -6372,16 +5416,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6396,9 +5434,7 @@
       "get": {
         "summary": "List mailbox messages",
         "description": "Returns a cursor-paginated list of messages for the authenticated mailbox. Requires a mailbox API key.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6596,10 +5632,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort_direction",
@@ -6616,9 +5649,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -6636,9 +5667,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -6647,17 +5676,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -6699,9 +5721,7 @@
       "post": {
         "summary": "Batch get mailbox messages",
         "description": "Returns exact messages by ID. Use `body_mode` to choose summary-only output, raw body output, or clean JSON content. Attachment output remains metadata only; attachment contents are not parsed.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6726,9 +5746,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxBatchGetResult"
@@ -6741,16 +5759,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -6782,9 +5794,7 @@
       "get": {
         "summary": "Count mailbox messages",
         "description": "Returns a count for the supplied mailbox message filters without returning message rows.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -6956,9 +5966,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMessageCount"
@@ -6971,16 +5979,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7002,9 +6004,7 @@
       "get": {
         "summary": "Get message search snippets",
         "description": "Returns subject and preview snippets for a text search. Provide `message_ids` to snippet exact messages, or omit it to snippet the first filtered results.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7187,9 +6187,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxSearchSnippetsResult"
@@ -7202,16 +6200,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7229,13 +6221,107 @@
         }
       }
     },
+    "/mailbox/attachments:upload": {
+      "post": {
+        "summary": "Upload a mailbox attachment",
+        "description": "Uploads one attachment as binary data and returns a blob ID that can be supplied to `POST /mailbox/messages/send`.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "description": "Filename to use when sending the uploaded attachment."
+            },
+            "required": true,
+            "name": "filename",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "Raw attachment bytes."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Attachment uploaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxAttachmentUploadResult"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid upload request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Attachment too large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Mailbox service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/mailbox/messages/send": {
       "post": {
         "summary": "Send a mailbox message",
-        "description": "Creates and queues a message from the authenticated mailbox. Supply an `Idempotency-Key` header to safely retry.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "description": "Creates and queues a message from the authenticated mailbox. Supply an `Idempotency-Key` header to safely retry. Attachments may use small inline base64 content or blob IDs returned by `POST /mailbox/attachments:upload`.",
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7271,9 +6357,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/SendMailboxMessageResult"
@@ -7286,16 +6370,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7347,9 +6425,7 @@
       "get": {
         "summary": "Get a mailbox message",
         "description": "Returns one message from the authenticated mailbox. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7383,9 +6459,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMessage"
@@ -7398,16 +6472,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7430,9 +6498,7 @@
       "patch": {
         "summary": "Update mailbox message flags",
         "description": "Updates mutable message flags with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7475,9 +6541,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxMessage"
@@ -7490,16 +6554,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7539,9 +6597,7 @@
       "delete": {
         "summary": "Delete a mailbox message",
         "description": "Moves a message to Trash by default with state-safe conflict handling. Set `permanent=true` to permanently delete it. Send `If-Match` with a prior ETag to reject stale deletes.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7583,27 +6639,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -7613,16 +6662,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7654,9 +6697,7 @@
       "get": {
         "summary": "Get raw message body",
         "description": "Returns raw message body content for the authenticated mailbox. This endpoint does not strip signatures, strip quoted replies, extract links, or clean the body into a structured content shape.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7674,11 +6715,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "text",
-                "html",
-                "both"
-              ]
+              "enum": ["text", "html", "both"]
             },
             "required": false,
             "name": "part",
@@ -7713,9 +6750,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "allOf": [
@@ -7735,16 +6770,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7779,9 +6808,7 @@
       "get": {
         "summary": "Get clean message content",
         "description": "Returns deterministic clean JSON content for one message. Attachment output is metadata only; attachment contents are not parsed by this endpoint.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -7799,11 +6826,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "auto",
-                "text",
-                "html"
-              ]
+              "enum": ["auto", "text", "html"]
             },
             "required": false,
             "name": "part",
@@ -7854,11 +6877,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "none",
-                "selected",
-                "full"
-              ]
+              "enum": ["none", "selected", "full"]
             },
             "required": false,
             "name": "include_headers",
@@ -7867,10 +6886,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "none",
-                "metadata"
-              ]
+              "enum": ["none", "metadata"]
             },
             "required": false,
             "name": "include_attachments",
@@ -7895,9 +6911,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "allOf": [
@@ -7917,16 +6931,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -7961,9 +6969,7 @@
       "get": {
         "summary": "List mailbox threads",
         "description": "Returns a cursor-paginated list of conversation threads for the authenticated mailbox. Filter by text, participant, folder, unread state, attachment presence, or date range.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8047,10 +7053,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort_direction",
@@ -8067,9 +7070,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -8087,9 +7088,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -8098,17 +7097,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -8150,9 +7142,7 @@
       "get": {
         "summary": "Get a mailbox thread",
         "description": "Returns thread metadata, message IDs, participants, last message, unread count, and state for one conversation. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8186,9 +7176,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxThread"
@@ -8201,16 +7189,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -8235,9 +7217,7 @@
       "get": {
         "summary": "List thread messages",
         "description": "Returns cursor-paginated message summaries for one thread. Use the thread content endpoint when you need cleaned bodies.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8273,10 +7253,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort",
@@ -8293,9 +7270,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -8313,9 +7288,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -8324,17 +7297,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -8366,9 +7332,7 @@
       "get": {
         "summary": "Get clean thread content",
         "description": "Returns a cursor-paginated clean JSON view of messages in a thread. Attachment output is metadata only; attachment contents are not parsed by this endpoint.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8386,11 +7350,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "auto",
-                "text",
-                "html"
-              ]
+              "enum": ["auto", "text", "html"]
             },
             "required": false,
             "name": "part",
@@ -8441,11 +7401,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "none",
-                "selected",
-                "full"
-              ]
+              "enum": ["none", "selected", "full"]
             },
             "required": false,
             "name": "include_headers",
@@ -8454,10 +7410,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "none",
-                "metadata"
-              ]
+              "enum": ["none", "metadata"]
             },
             "required": false,
             "name": "include_attachments",
@@ -8484,10 +7437,7 @@
           {
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "required": false,
             "name": "sort",
@@ -8542,10 +7492,8 @@
     "/mailbox/messages/{message_id}/attachments/{attachment_id}": {
       "get": {
         "summary": "Download a message attachment",
-        "description": "Downloads one attachment from a message in the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "description": "Streams one attachment from a message in the authenticated mailbox. Supports standard byte ranges.",
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8567,11 +7515,33 @@
             "required": true,
             "name": "attachment_id",
             "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "Optional byte range, for example `bytes=0-1048575`."
+            },
+            "required": false,
+            "name": "Range",
+            "in": "header"
           }
         ],
         "responses": {
           "200": {
             "description": "Attachment bytes"
+          },
+          "206": {
+            "description": "Partial attachment bytes"
+          },
+          "400": {
+            "description": "Invalid range header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
           },
           "404": {
             "description": "Attachment not found",
@@ -8590,9 +7560,7 @@
       "get": {
         "summary": "List mailbox folders",
         "description": "Returns a cursor-paginated list of folders for the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8628,9 +7596,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -8648,9 +7614,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -8659,17 +7623,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -8679,9 +7636,7 @@
       "post": {
         "summary": "Create a mailbox folder",
         "description": "Creates a folder in the authenticated mailbox.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8706,9 +7661,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolder"
@@ -8721,16 +7674,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -8762,9 +7709,7 @@
       "get": {
         "summary": "Get folder changes",
         "description": "Returns folder changes since a prior folder state, or the current folder state when omitted.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8800,9 +7745,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxChanges"
@@ -8815,16 +7758,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -8846,9 +7783,7 @@
       "get": {
         "summary": "Get folder query changes",
         "description": "Returns folder-list index changes since a prior folder query state, or the current folder query state when omitted.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8884,9 +7819,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolderQueryChanges"
@@ -8899,16 +7832,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -8930,9 +7857,7 @@
       "get": {
         "summary": "Get a mailbox folder",
         "description": "Returns one folder from the authenticated mailbox. Responses include a weak `ETag` header.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -8966,9 +7891,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolder"
@@ -8981,16 +7904,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9013,9 +7930,7 @@
       "patch": {
         "summary": "Update a mailbox folder",
         "description": "Updates a folder with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -9058,9 +7973,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/MailboxFolder"
@@ -9073,16 +7986,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9122,9 +8029,7 @@
       "delete": {
         "summary": "Delete a mailbox folder",
         "description": "Deletes an empty custom folder with state-safe conflict handling. Built-in folders and non-empty folders cannot be deleted. Send `If-Match` with a prior ETag to reject stale deletes.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -9158,27 +8063,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -9188,16 +8086,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9219,9 +8111,7 @@
       "get": {
         "summary": "Get mailbox changes",
         "description": "Returns message changes in the legacy shape when `types` is omitted. Pass a comma-separated `types` list for a typed state map.",
-        "tags": [
-          "Mailbox API"
-        ],
+        "tags": ["Mailbox API"],
         "security": [
           {
             "bearerAuth": []
@@ -9316,9 +8206,7 @@
                       "properties": {
                         "ok": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "data": {
                           "$ref": "#/components/schemas/MailboxChanges"
@@ -9331,25 +8219,17 @@
                               "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                             }
                           },
-                          "required": [
-                            "request_id"
-                          ]
+                          "required": ["request_id"]
                         }
                       },
-                      "required": [
-                        "ok",
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["ok", "data", "meta"]
                     },
                     {
                       "type": "object",
                       "properties": {
                         "ok": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "data": {
                           "$ref": "#/components/schemas/MailboxTypedChanges"
@@ -9362,16 +8242,10 @@
                               "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                             }
                           },
-                          "required": [
-                            "request_id"
-                          ]
+                          "required": ["request_id"]
                         }
                       },
-                      "required": [
-                        "ok",
-                        "data",
-                        "meta"
-                      ]
+                      "required": ["ok", "data", "meta"]
                     }
                   ]
                 }
@@ -9395,9 +8269,7 @@
       "get": {
         "summary": "Get mailbox sender filters",
         "description": "Returns the current sender-filter mode and rule set for a mailbox. Mailbox-scoped rules override any domain-wide rules set on the parent domain.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
-        "tags": [
-          "Mailbox Filters"
-        ],
+        "tags": ["Mailbox Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -9442,9 +8314,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -9457,16 +8327,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9507,9 +8371,7 @@
       "put": {
         "summary": "Replace mailbox sender filters",
         "description": "Atomically replaces the sender-filter mode and rule set for a mailbox. The entire rule set is swapped in a single operation — there is no intermediate state where the mailbox has a partial ruleset. A maximum of 1000 rules per request is enforced.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Mailbox Filters"
-        ],
+        "tags": ["Mailbox Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -9562,9 +8424,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -9577,16 +8437,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9648,9 +8502,7 @@
       "get": {
         "summary": "Get domain-wide sender filters",
         "description": "Returns the current sender-filter mode and rule set applied to every mailbox under this domain. Per-mailbox rules take precedence at match time.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
-        "tags": [
-          "Domain Filters"
-        ],
+        "tags": ["Domain Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -9695,9 +8547,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -9710,16 +8560,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9760,9 +8604,7 @@
       "put": {
         "summary": "Replace domain-wide sender filters",
         "description": "Atomically replaces the sender-filter mode and rule set for an entire domain. Applies to every mailbox under the domain unless that mailbox has its own per-mailbox rules (which take precedence). Maximum 1000 rules per request.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Domain Filters"
-        ],
+        "tags": ["Domain Filters"],
         "security": [
           {
             "bearerAuth": []
@@ -9815,9 +8657,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/FilterState"
@@ -9830,16 +8670,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -9901,9 +8735,7 @@
       "get": {
         "summary": "List webhook subscriptions",
         "description": "Returns a cursor-paginated list of webhook subscriptions configured for the team, ordered by `created_at` descending. The signing secret is never included. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -9941,9 +8773,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "array",
@@ -9961,9 +8791,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "has_more"
-                      ]
+                      "required": ["has_more"]
                     },
                     "meta": {
                       "type": "object",
@@ -9972,17 +8800,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "pagination",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "pagination", "meta"]
                 }
               }
             }
@@ -10012,9 +8833,7 @@
       "post": {
         "summary": "Create a webhook subscription",
         "description": "Creates a new webhook subscription and returns the signing secret ONCE in the response body. Store it securely — it cannot be retrieved later. Use `POST /webhooks/{id}/rotate-secret` to issue a new one.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -10061,9 +8880,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscriptionWithSecret"
@@ -10076,16 +8893,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -10147,9 +8958,7 @@
       "get": {
         "summary": "Get a webhook subscription",
         "description": "Returns a single webhook subscription. The signing secret is never included. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed. The same ETag is the value to use in `If-Match` on PATCH for optimistic concurrency.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -10195,9 +9004,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscription"
@@ -10210,16 +9017,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -10250,9 +9051,7 @@
       "patch": {
         "summary": "Update a webhook subscription",
         "description": "Updates the URL, event types, or enabled flag. Any field omitted from the request body is left unchanged. The signing secret is unaffected — use `POST /webhooks/{id}/rotate-secret` to rotate it.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -10305,9 +9104,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscription"
@@ -10320,16 +9117,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -10379,9 +9170,7 @@
       "delete": {
         "summary": "Delete a webhook subscription",
         "description": "Permanently removes the subscription. In-flight retries are dropped.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -10408,27 +9197,20 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "deleted": {
                           "type": "boolean",
-                          "enum": [
-                            true
-                          ]
+                          "enum": [true]
                         },
                         "id": {
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "deleted",
-                        "id"
-                      ]
+                      "required": ["deleted", "id"]
                     },
                     "meta": {
                       "type": "object",
@@ -10438,16 +9220,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -10469,9 +9245,7 @@
       "post": {
         "summary": "Rotate the signing secret",
         "description": "Generates a fresh signing secret and returns it ONCE. The old secret is immediately invalidated — the next event delivery is signed with the new secret. Store the new value securely; it cannot be retrieved later.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original rotation response rather than minting a fresh secret. Replays against a different `public_id` under the same key return `409 idempotency_conflict`.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -10509,9 +9283,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookSubscriptionWithSecret"
@@ -10524,16 +9296,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }
@@ -10565,9 +9331,7 @@
       "post": {
         "summary": "Send a synthetic test event",
         "description": "Publishes a synthetic `sendmux.test` event scoped to this team. The event is fanned out to every subscription whose `event_types` list contains `\"sendmux.test\"` — including this one if you want to test delivery to yourself, add `sendmux.test` to its event types first. Returns the generated `event_id` so you can correlate the `X-Sendmux-Event-Id` header on your endpoint.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original `event_id` rather than publishing a second test event.",
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "security": [
           {
             "bearerAuth": []
@@ -10605,9 +9369,7 @@
                   "properties": {
                     "ok": {
                       "type": "boolean",
-                      "enum": [
-                        true
-                      ]
+                      "enum": [true]
                     },
                     "data": {
                       "$ref": "#/components/schemas/WebhookTestResponse"
@@ -10620,16 +9382,10 @@
                           "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
                         }
                       },
-                      "required": [
-                        "request_id"
-                      ]
+                      "required": ["request_id"]
                     }
                   },
-                  "required": [
-                    "ok",
-                    "data",
-                    "meta"
-                  ]
+                  "required": ["ok", "data", "meta"]
                 }
               }
             }

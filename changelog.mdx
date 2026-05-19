@@ -4,7 +4,7 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="19 May 2026" tags={["New features","Improvements"]} rss={{ title: "Mailbox API adds clean content retrieval, thread sync, operational resources, and safer writes" }}>
+<Update label="19 May 2026" tags={["New features","Improvements"]} rss={{ title: "Mailbox API adds clean retrieval, sync, safer writes, and stronger attachment handling" }}>
   ## Mailbox API for agents
 
   The Mailbox API now gives agents more precise mailbox access without fetching full messages by default. You can retrieve raw bodies, clean JSON message content, clean thread content, exact message batches, counts, search snippets, thread metadata, folder change feeds, sender identities, send submissions, quota details, and compact usage health.
@@ -16,6 +16,7 @@ rss: true
   - Message searches support richer filters and snippet-only responses so clients can decide what to fetch next.
   - Sync now covers messages, folders, threads, submissions, identities, and quotas through typed change polling.
   - Message and folder writes now have stronger stale-state protection, with `If-Match` support on supported deletes as well as updates.
+  - Attachment sends can now use a binary upload step before `messages/send`, and attachment downloads support byte-range requests.
   - Attachment contents remain download-only; clean content endpoints return attachment metadata without parsing files.
 </Update>
 
