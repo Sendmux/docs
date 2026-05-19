@@ -22,9 +22,9 @@ Executable files (`.exe`, `.bat`, `.sh`, etc.) and archive formats (`.zip`, `.ta
 
 ## Size limits
 
-- **Per attachment**: No individual limit, but the total request body must be under the server's configured maximum (typically 25MB)
+- **Per attachment**: No individual size limit. The entire request body — all fields plus base64-encoded attachments — must be 25MB or less
 - **Per email**: Maximum 10 attachments
-- **Content encoding**: Base64 increases size by ~33%, so a 25MB limit allows approximately 18MB of actual file content
+- **Content encoding**: Base64 increases size by ~33%, so the 25MB request limit allows approximately 18MB of actual file content
 
 ## Example
 

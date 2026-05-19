@@ -80,7 +80,7 @@ Common causes:
 
 ### payload_too_large
 
-**HTTP 413** — The request body exceeds the maximum allowed size. Individual fields have limits: `html_body` and `text_body` are capped at 10MB each, attachments at 25MB total.
+**HTTP 413** — The request body exceeds the maximum allowed size. `html_body` and `text_body` are capped at 10MB each, and the entire request body — all fields plus base64-encoded attachments — must be 25MB or less. There is no separate per-attachment size limit; attachments are bounded only by the 25MB request total and the 10-attachment maximum.
 
 ### no_active_providers
 
