@@ -114,17 +114,33 @@ The `retryable` flag distinguishes transient failures (back off and retry) from 
 | 500         | `internal_error`            | true                 | Unexpected server error.                                             |
 | 503         | `service_unavailable`       | true                 | Downstream component briefly unavailable. May include `Retry-After`. |
 
-## Rate limiting
+## Rate limits
 
-Each API key is rate-limited to **600 requests per minute**. Rate limit headers are included on every response:
+Each Management API key is rate-limited to **600 requests per 60 seconds**.
+
+Sending API keys are limited separately to **1,800 requests per 60 seconds** on the Sending API — see the [Sending API introduction](/sending-api/introduction#rate-limits).
+
+Every response carries the current rate-limit state plus a request identifier:
 
 ```
 X-RateLimit-Limit: 600
 X-RateLimit-Remaining: 594
 X-RateLimit-Reset: 1679313700
+X-Request-Id: req_clxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-When the limit is exceeded, the API returns a `429` status with a `Retry-After` header.
+`X-Request-Id` matches the `request_id` in the JSON envelope's `meta` object — quote it when contacting support so a request can be traced.
+
+When the limit is exceeded, the API returns a `429` status with a `Retry-After` header indicating how many seconds to wait before retrying.
+
+## Conditional requests
+
+Every `GET` that returns a single resource emits a weak `ETag`. Send it back on the next request to avoid transferring unchanged data, and use `If-Match` on writes for optimistic concurrency control.
+
+- **`If-None-Match`** on a `GET` — if the resource is unchanged, the API responds `304 Not Modified` with no body. Reuse your cached copy.
+- **`If-Match`** on a `PATCH` or `PUT` — if the resource changed since you fetched it (a stale `ETag`), the API responds `409 conflict` so you don't overwrite a concurrent update. Re-fetch, reapply your change, and retry.
+
+Conditional requests are supported across mailbox, domain, webhook, and log resource `GET`s, and on the [Sending API](/sending-api/introduction#conditional-requests).
 
 ## Conventions
 

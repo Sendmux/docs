@@ -82,17 +82,28 @@ All responses use the same JSON envelope as the Management API.
 
 The Sending API uses the same envelope as the [Management API](/api-reference/introduction) — same `code`/`message`/`param`/`doc_url`/`retryable` fields, same accumulated `errors[]` array on validation failures, same `X-Request-Id` and `Retry-After` header conventions. See the [Sending API error reference](/sending-api/errors) for codes specific to email delivery.
 
-## Rate limiting
+## Rate limits
 
-Each sending API key is rate-limited to **1800 requests per minute** (batch requests count as 1). Rate limit headers are included on every response:
+Each sending API key is rate-limited to **1,800 requests per 60 seconds**. A batch send counts as **1 request**, regardless of how many messages it contains.
+
+Management API keys are limited separately to **600 requests per 60 seconds** — see the [Management API introduction](/api-reference/introduction#rate-limits).
+
+Every response carries the current rate-limit state plus a request identifier:
 
 ```
 X-RateLimit-Limit: 1800
 X-RateLimit-Remaining: 1794
 X-RateLimit-Reset: 1679313700
+X-Request-Id: req_clxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-When the limit is exceeded, the API returns a `429` status with a `Retry-After` header.
+`X-Request-Id` matches the `request_id` in the JSON envelope's `meta` object — quote it when contacting support so a request can be traced.
+
+When the limit is exceeded, the API returns a `429` status with a `Retry-After` header indicating how many seconds to wait before retrying.
+
+## Conditional requests
+
+Single-resource `GET` responses return a weak `ETag`. Send it back in an `If-None-Match` header on the next request; if the resource is unchanged the API responds `304 Not Modified` with no body, saving bandwidth. This is supported across the Sending API and the [Management API](/api-reference/introduction#conditional-requests) mailbox, domain, webhook, and log resources.
 
 ## Conventions
 

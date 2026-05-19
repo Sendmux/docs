@@ -10,6 +10,17 @@ This walkthrough takes you from a fresh Sendmux account to a verified sending do
   Before you start, sign in at [app.sendmux.ai](https://app.sendmux.ai) and create or join a team. Every step below happens inside that team.
 </Info>
 
+## Root vs mailbox API keys
+
+Sendmux has two categories of API key, both prefixed `smx_`:
+
+| Key category | Base URL | Use it for |
+| --- | --- | --- |
+| **Root** (Management) | `app.sendmux.ai/api/v1` | Reading and managing providers, domains, mailboxes, webhooks, billing, and logs |
+| **Mailbox-scoped** | `smtp.sendmux.ai/api/v1` (sending) | Sending email and mailbox-scoped endpoints such as `GET /mailbox/me` |
+
+Use a **mailbox-scoped key** for sending and any `/mailbox/*` endpoint. A root key sent to a mailbox-scoped endpoint is rejected with `403`. The mailbox credential created in step 2 is a mailbox-scoped key.
+
 ## What you'll build
 
 By the end of this guide you'll have:

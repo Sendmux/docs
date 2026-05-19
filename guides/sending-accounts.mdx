@@ -16,7 +16,7 @@ Every team can send email the moment it's created — no provider setup required
 | State on creation | Active |
 | Starting limit | 500 emails per day |
 | Limit reset | Daily, at 00:00 UTC |
-| Used for | Every send, unless the send targets a specific delivery group |
+| Used for | Every send, unless the sending key or mailbox is scoped to a specific delivery group |
 
 Because Sendmux SES is managed for you, it's locked. You can **activate or deactivate** it, but you can't rename it, change its credentials, edit its daily limit, add it to a delivery group, or run a connection test against it. To send beyond the daily limit, request an increase rather than editing the account.
 
@@ -65,7 +65,49 @@ Add your own SMTP or API-based sending providers under **Accounts** → **Add ac
 - Route specific traffic through a provider you control.
 - Spread load across several providers with weighted delivery groups.
 
-Group your providers into **delivery groups** and target a group per domain or per mailbox to override the default route. A send that targets a group uses that group's providers; everything else falls back to Sendmux SES while it's active.
+Group your providers into **delivery groups**, then bind a delivery group to a sending key or mailbox to override the default route. Sends made with a scoped key or mailbox route only through that group's providers; everything else falls back to Sendmux SES while it's active.
+
+## Route through a delivery group
+
+Routing is decided by how the sending key or mailbox is configured — not by the individual send. To send through a specific group, bind that group to the key or mailbox you authenticate with.
+
+<Steps>
+  <Step title="Create a delivery group">
+    In the dashboard, open **Accounts**, create a **delivery group**, and add the providers you want to route through it. A group can hold one or more of your own active providers.
+  </Step>
+  <Step title="Bind the group to a key or mailbox">
+    Set the send scope of the sending key or mailbox to that group. In the dashboard, edit the mailbox and choose the delivery group as its send scope.
+
+    Via the Management API, set `send_scope` on the mailbox when you create it (`POST /mailboxes`) or update it (`PATCH /mailboxes/{public_id}`):
+
+    ```json
+    {
+      "send_scope": {
+        "type": "group",
+        "group_public_ids": ["dgrp_your_group_id"]
+      }
+    }
+    ```
+
+    A send scope can be `all` (any of your active providers), `providers` (a fixed set of providers), or `group` (one or more delivery groups). Group identifiers are the public `dgrp_` IDs shown in the dashboard.
+  </Step>
+  <Step title="Send with that key or mailbox">
+    Authenticate your send with the scoped key or mailbox. The system routes only through providers that belong to the scoped group and are owned by your team.
+  </Step>
+</Steps>
+
+<Note>
+  Routing follows the configured send scope of the sending key or mailbox. There is **no per-request header or body field** to choose a delivery group — you target a group by sending with a key or mailbox that is already bound to it.
+</Note>
+
+If the scope is misconfigured, the request is rejected with `422 validation_error`:
+
+| Condition | Result |
+| --- | --- |
+| Send scope is `group` but no group IDs are set | `422 validation_error` — "API key group scope misconfigured" |
+| A referenced group is not found or not owned by your team | `422 validation_error` — "Configured delivery groups not found" |
+| A referenced group on mailbox create or update belongs to another team | `422 validation_error` |
+| A scoped group has no active providers | The send fails — there are no eligible providers to route through |
 
 One routing difference is worth knowing:
 

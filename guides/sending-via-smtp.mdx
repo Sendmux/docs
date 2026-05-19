@@ -6,6 +6,10 @@ keywords: ["SMTP", "STARTTLS", "TLS", "port 587", "port 465", "relay"]
 
 Sendmux accepts email via standard SMTP, making it compatible with any language, framework, or email library that supports SMTP delivery.
 
+<Note>
+  Provider and delivery-group routing follows the configured scope of the API key you authenticate with as the SMTP password — not a message header. See [Route through a delivery group](/guides/sending-accounts#route-through-a-delivery-group).
+</Note>
+
 ## Connection details
 
 | Setting | Value |

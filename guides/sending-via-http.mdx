@@ -6,6 +6,10 @@ keywords: ["HTTP API", "send email", "quick start", "curl", "REST", "JSON"]
 
 The HTTP API is the recommended way to send emails from your application. It supports single and batch sending with structured JSON requests.
 
+<Note>
+  Provider and delivery-group routing follows the configured scope of the API key you authenticate with — there is no header or request field to select a provider or group. See [Route through a delivery group](/guides/sending-accounts#route-through-a-delivery-group).
+</Note>
+
 ## Prerequisites
 
 <Steps>
@@ -173,6 +177,80 @@ The full request schema — every optional field, its type, and constraints — 
 
 - **Attachments** — base64-encoded files. See the [Attachments](/guides/attachments) guide.
 - **Idempotency** — pass an `Idempotency-Key` HTTP header (not a body field) to make retries safe. See the [Idempotency](/guides/idempotency) guide.
+
+### custom_headers
+
+Pass `custom_headers` as a map of custom `X-*` headers to add to the outbound message. These are added to the message only — they do not affect routing. Use them for custom tracking IDs or threading and correlation headers.
+
+- Header names must match `X-[A-Za-z0-9-]+`.
+- Each value is capped at 500 characters.
+- Carriage return and line feed characters are rejected.
+
+```json
+{
+  "custom_headers": {
+    "X-Campaign-Id": "summer-2026",
+    "X-Correlation-Id": "order-48213"
+  }
+}
+```
+
+### return_path
+
+Set `return_path` to override the envelope sender (VERP) used for bounce correlation. This is the address that receives bounce notifications and is distinct from the visible `from` address.
+
+```json
+{
+  "return_path": "bounces+order-48213@yourdomain.com"
+}
+```
+
+### Multiple recipients
+
+Add `cc` and `bcc` recipients (up to **100 each**) alongside `to`. Set `reply_to` as a structured address object — the same `{ email, name }` shape as `from` and `to`.
+
+<CodeGroup>
+
+```bash curl
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+  -H "Authorization: Bearer smx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from": { "email": "hello@yourdomain.com", "name": "Your App" },
+    "to": { "email": "user@example.com", "name": "Jane Doe" },
+    "cc": [{ "email": "manager@example.com", "name": "Team Lead" }],
+    "bcc": [{ "email": "archive@yourdomain.com" }],
+    "reply_to": { "email": "support@yourdomain.com", "name": "Support" },
+    "subject": "Your order update",
+    "html_body": "<p>Your order has shipped.</p>",
+    "text_body": "Your order has shipped."
+  }'
+```
+
+```javascript Node.js
+const response = await fetch("https://smtp.sendmux.ai/api/v1/emails/send", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer smx_your_key_here",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    from: { email: "hello@yourdomain.com", name: "Your App" },
+    to: { email: "user@example.com", name: "Jane Doe" },
+    cc: [{ email: "manager@example.com", name: "Team Lead" }],
+    bcc: [{ email: "archive@yourdomain.com" }],
+    reply_to: { email: "support@yourdomain.com", name: "Support" },
+    subject: "Your order update",
+    html_body: "<p>Your order has shipped.</p>",
+    text_body: "Your order has shipped.",
+  }),
+});
+
+const data = await response.json();
+console.log(data.data.message_id);
+```
+
+</CodeGroup>
 
 ## Error handling
 
