@@ -144,6 +144,9 @@
             "group": "Messages",
             "pages": [
               "GET /mailbox/messages",
+              "POST /mailbox/messages:batch-get",
+              "GET /mailbox/messages/count",
+              "GET /mailbox/messages/search-snippets",
               "GET /mailbox/messages/{message_id}",
               "GET /mailbox/messages/{message_id}/body",
               "GET /mailbox/messages/{message_id}/content",
