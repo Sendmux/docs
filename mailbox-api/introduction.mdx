@@ -49,8 +49,8 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/messages/{message_id}`                             | Read a message, including bodies and attachment metadata.         |
 | `GET /mailbox/messages/{message_id}/body`                        | Read raw body text, HTML, or both without cleaning.               |
 | `GET /mailbox/messages/{message_id}/content`                     | Read clean message content with body-cleaning controls.           |
-| `PATCH /mailbox/messages/{message_id}`                           | Update mutable message flags.                                     |
-| `DELETE /mailbox/messages/{message_id}`                          | Move a message to Trash, or permanently delete it.                |
+| `PATCH /mailbox/messages/{message_id}`                           | Update mutable message flags with state-safe conflict handling.   |
+| `DELETE /mailbox/messages/{message_id}`                          | Move or delete a message with state-safe conflict handling.       |
 | `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment.                                           |
 | `POST /mailbox/messages/send`                                    | Send from the authenticated mailbox.                              |
 | `GET /mailbox/threads`                                           | List conversation threads with filters and cursor pagination.     |
@@ -62,8 +62,8 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/folders/changes`                                   | Read folder object changes since a prior folder state.            |
 | `GET /mailbox/folders/query-changes`                             | Read folder-list index changes since a prior query state.         |
 | `GET /mailbox/folders/{folder_id}`                               | Read one folder.                                                  |
-| `PATCH /mailbox/folders/{folder_id}`                             | Update a folder.                                                  |
-| `DELETE /mailbox/folders/{folder_id}`                            | Delete an empty custom folder.                                    |
+| `PATCH /mailbox/folders/{folder_id}`                             | Update a folder with state-safe conflict handling.                |
+| `DELETE /mailbox/folders/{folder_id}`                            | Delete an empty custom folder with state-safe conflict handling.  |
 | `GET /mailbox/submissions`                                       | List send submissions with filters and cursor pagination.         |
 | `GET /mailbox/submissions/changes`                               | Read submission object changes since a prior state.               |
 | `GET /mailbox/submissions/{submission_id}`                       | Read one send submission.                                         |

@@ -109,7 +109,7 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 ### conflict
 
-**HTTP 409** — The request can't be applied because of the resource's current state. Examples: deleting a domain while mailboxes still live on it, creating a mailbox whose email address is already in use, or sending a `PATCH` / `PUT` with an `If-Match` header that doesn't match the current `ETag` (optimistic concurrency conflict). Re-fetch the resource and reconcile before retrying.
+**HTTP 409** — The request can't be applied because of the resource's current state. Examples: deleting a domain while mailboxes still live on it, creating a mailbox whose email address is already in use, or sending a write with an `If-Match` header that doesn't match the current `ETag` (optimistic concurrency conflict). Re-fetch the resource and reconcile before retrying.
 
 ### idempotency_conflict
 

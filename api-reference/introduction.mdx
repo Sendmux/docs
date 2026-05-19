@@ -135,10 +135,10 @@ When the limit is exceeded, the API returns a `429` status with a `Retry-After` 
 
 ## Conditional requests
 
-Every `GET` that returns a single resource emits a weak `ETag`. Send it back on the next request to avoid transferring unchanged data, and use `If-Match` on writes for optimistic concurrency control.
+Every `GET` that returns a single resource emits a weak `ETag`. Send it back on the next request to avoid transferring unchanged data, and use `If-Match` on writes that document the header for optimistic concurrency control.
 
 - **`If-None-Match`** on a `GET` — if the resource is unchanged, the API responds `304 Not Modified` with no body. Reuse your cached copy.
-- **`If-Match`** on a `PATCH` or `PUT` — if the resource changed since you fetched it (a stale `ETag`), the API responds `409 conflict` so you don't overwrite a concurrent update. Re-fetch, reapply your change, and retry.
+- **`If-Match`** on a `PATCH`, `PUT`, or supported `DELETE` — if the resource changed since you fetched it (a stale `ETag`), the API responds `409 conflict` so you don't overwrite a concurrent update. Re-fetch, reapply your change, and retry.
 
 Conditional requests are supported across mailbox, domain, webhook, and log resource `GET`s, and on the [Sending API](/sending-api/introduction#conditional-requests).
 

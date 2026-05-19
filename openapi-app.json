@@ -7429,7 +7429,7 @@
       },
       "patch": {
         "summary": "Update mailbox message flags",
-        "description": "Updates mutable message flags. Send `If-Match` with a prior ETag for optimistic concurrency.",
+        "description": "Updates mutable message flags with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
         "tags": [
           "Mailbox API"
         ],
@@ -7538,7 +7538,7 @@
       },
       "delete": {
         "summary": "Delete a mailbox message",
-        "description": "Moves a message to Trash by default. Set `permanent=true` to permanently delete it.",
+        "description": "Moves a message to Trash by default with state-safe conflict handling. Set `permanent=true` to permanently delete it. Send `If-Match` with a prior ETag to reject stale deletes.",
         "tags": [
           "Mailbox API"
         ],
@@ -7563,6 +7563,14 @@
             "required": false,
             "name": "permanent",
             "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "If-Match",
+            "in": "header"
           }
         ],
         "responses": {
@@ -7621,6 +7629,16 @@
           },
           "404": {
             "description": "Message not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ETag or state conflict",
             "content": {
               "application/json": {
                 "schema": {
@@ -8994,7 +9012,7 @@
       },
       "patch": {
         "summary": "Update a mailbox folder",
-        "description": "Updates a folder. Send `If-Match` with a prior ETag for optimistic concurrency.",
+        "description": "Updates a folder with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
         "tags": [
           "Mailbox API"
         ],
@@ -9103,7 +9121,7 @@
       },
       "delete": {
         "summary": "Delete a mailbox folder",
-        "description": "Deletes an empty custom folder. Built-in folders and non-empty folders cannot be deleted.",
+        "description": "Deletes an empty custom folder with state-safe conflict handling. Built-in folders and non-empty folders cannot be deleted. Send `If-Match` with a prior ETag to reject stale deletes.",
         "tags": [
           "Mailbox API"
         ],
@@ -9120,6 +9138,14 @@
             "required": true,
             "name": "folder_id",
             "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "If-Match",
+            "in": "header"
           }
         ],
         "responses": {
