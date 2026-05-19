@@ -158,13 +158,20 @@
           },
           {
             "group": "Threads",
-            "pages": ["GET /mailbox/threads/{thread_id}/content"]
+            "pages": [
+              "GET /mailbox/threads",
+              "GET /mailbox/threads/{thread_id}",
+              "GET /mailbox/threads/{thread_id}/messages",
+              "GET /mailbox/threads/{thread_id}/content"
+            ]
           },
           {
             "group": "Folders",
             "pages": [
               "GET /mailbox/folders",
               "POST /mailbox/folders",
+              "GET /mailbox/folders/changes",
+              "GET /mailbox/folders/query-changes",
               "GET /mailbox/folders/{folder_id}",
               "PATCH /mailbox/folders/{folder_id}",
               "DELETE /mailbox/folders/{folder_id}"

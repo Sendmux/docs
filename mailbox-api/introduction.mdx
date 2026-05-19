@@ -7,6 +7,7 @@ keywords:
     "mailbox key",
     "self introspection",
     "messages",
+    "threads",
     "folders",
     "sync",
   ]
@@ -51,13 +52,95 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `DELETE /mailbox/messages/{message_id}`                          | Move a message to Trash, or permanently delete it.                |
 | `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment.                                           |
 | `POST /mailbox/messages/send`                                    | Send from the authenticated mailbox.                              |
+| `GET /mailbox/threads`                                           | List conversation threads with filters and cursor pagination.     |
+| `GET /mailbox/threads/{thread_id}`                               | Read thread metadata, message IDs, participants, and state.       |
+| `GET /mailbox/threads/{thread_id}/messages`                      | List message summaries for one thread.                            |
 | `GET /mailbox/threads/{thread_id}/content`                       | Read clean message content for one thread with cursor pagination. |
 | `GET /mailbox/folders`                                           | List folders.                                                     |
 | `POST /mailbox/folders`                                          | Create a folder.                                                  |
+| `GET /mailbox/folders/changes`                                   | Read folder object changes since a prior folder state.            |
+| `GET /mailbox/folders/query-changes`                             | Read folder-list index changes since a prior query state.         |
 | `GET /mailbox/folders/{folder_id}`                               | Read one folder.                                                  |
 | `PATCH /mailbox/folders/{folder_id}`                             | Update a folder.                                                  |
 | `DELETE /mailbox/folders/{folder_id}`                            | Delete an empty custom folder.                                    |
-| `GET /mailbox/changes`                                           | Read message changes since a prior sync state.                    |
+| `GET /mailbox/changes`                                           | Read message changes, or typed message/folder/thread changes.     |
+
+## Thread APIs
+
+Use thread endpoints when you need conversation-level context without fetching
+every body.
+
+### List threads
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/threads?q=invoice&participant=sender@example.com&folder_id=inbox&is_unread=true&limit=10" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "thr_123",
+      "subject": "Invoice question",
+      "message_count": 2,
+      "unread_count": 1,
+      "has_attachments": true,
+      "folder_ids": ["inbox"],
+      "participants": [
+        { "email": "sender@example.com", "name": "Sender" },
+        { "email": "agent@example.com", "name": "Agent" }
+      ],
+      "last_message": {
+        "id": "msg_456",
+        "thread_id": "thr_123",
+        "subject": "Re: Invoice question",
+        "preview": "Thanks, I found it.",
+        "has_attachments": false
+      },
+      "states": {
+        "thread_state": "thread_state_token",
+        "email_state": "message_state_token"
+      }
+    }
+  ],
+  "pagination": {
+    "has_more": false
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "query_state": "thread_query_state_token"
+  }
+}
+```
+
+Thread list filters:
+
+| Parameter        | Purpose                                            |
+| ---------------- | -------------------------------------------------- |
+| `q`              | Search common address, subject, and body text.     |
+| `participant`    | Match sender or recipient addresses.               |
+| `folder_id`      | Restrict results to one folder.                    |
+| `is_unread`      | Match unread or read threads.                      |
+| `has_attachment` | Match threads with or without attachment metadata. |
+| `after`          | Match threads with messages at or after this time. |
+| `before`         | Match threads with messages before this time.      |
+| `cursor`         | Continue from a previous page.                     |
+| `limit`          | Return `1` to `100` threads.                       |
+| `sort_direction` | Sort by most recent message, `desc` or `asc`.      |
+
+### Read a thread
+
+```bash
+curl https://app.sendmux.ai/api/v1/mailbox/threads/thr_123 \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+The response includes the same thread metadata as the list endpoint plus
+`message_ids` in chronological order. Use
+`GET /mailbox/threads/{thread_id}/messages` for paginated message summaries, or
+`GET /mailbox/threads/{thread_id}/content` when you need cleaned bodies.
 
 ## Retrieval precision APIs
 
@@ -238,11 +321,11 @@ curl https://app.sendmux.ai/api/v1/mailbox/messages:batch-get \
 
 Batch body modes:
 
-| `body_mode`  | Output                                                               |
-| ------------ | -------------------------------------------------------------------- | ---- | ------ |
-| `none`       | Message summaries only.                                              |
-| `raw`        | Message summaries plus `raw_body`. Supports `part=text               | html | both`. |
-| `clean_json` | Message summaries plus `content`. Supports the clean controls below. |
+| `body_mode`  | Output                                                                      |
+| ------------ | --------------------------------------------------------------------------- |
+| `none`       | Message summaries only.                                                     |
+| `raw`        | Message summaries plus `raw_body`. Supports `part=text`, `html`, or `both`. |
+| `clean_json` | Message summaries plus `content`. Supports the clean controls below.        |
 
 ## Message body APIs
 
@@ -338,6 +421,80 @@ Clean content controls:
   metadata or downloaded separately. PDF, CSV, Office document, and OCR parsing
   are not part of these APIs.
 </Note>
+
+## Sync APIs
+
+Use sync endpoints to poll for changes with state tokens returned by earlier
+responses.
+
+### Folder changes
+
+`GET /mailbox/folders/changes` tracks folder object changes. Omit
+`since_state` to get the current folder state without a change list.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/folders/changes?since_state=folder_state_token" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+### Folder query changes
+
+`GET /mailbox/folders/query-changes` tracks folder-list ordering changes. Omit
+`since_query_state` to get the current folder query state.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/folders/query-changes?since_query_state=folder_query_state_token" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+### Typed mailbox changes
+
+`GET /mailbox/changes` keeps the legacy message-only response when `types` is
+omitted. Pass `types=messages,folders,threads` to receive a typed state map.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/changes?types=messages,folders,threads&messages_since_state=message_state_token&folders_since_state=folder_state_token&threads_since_state=thread_state_token" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "types": {
+      "messages": {
+        "old_state": "message_state_token",
+        "new_state": "message_state_token_2",
+        "has_more": false,
+        "created": ["msg_789"],
+        "updated": [],
+        "destroyed": []
+      },
+      "folders": {
+        "old_state": "folder_state_token",
+        "new_state": "folder_state_token_2",
+        "has_more": false,
+        "created": [],
+        "updated": ["inbox"],
+        "destroyed": []
+      },
+      "threads": {
+        "old_state": "thread_state_token",
+        "new_state": "thread_state_token_2",
+        "has_more": false,
+        "created": [],
+        "updated": ["thr_123"],
+        "destroyed": []
+      }
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Only `messages`, `folders`, and `threads` are currently supported in `types`.
 
 ## Response format
 
