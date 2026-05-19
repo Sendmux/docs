@@ -1,7 +1,7 @@
 ---
 title: "Verify webhook signatures"
-description: "Verify the HMAC-SHA256 signature Sendmux attaches to every webhook delivery, with ready-to-paste Node, Python, and Go examples."
-keywords: ["signature verification", "HMAC", "SHA-256", "webhook security", "Node", "Python", "Go"]
+description: "Verify the HMAC-SHA256 signature Sendmux attaches to every webhook delivery, with ready-to-paste examples."
+keywords: ["signature verification", "HMAC", "SHA-256", "webhook security"]
 ---
 
 Every webhook POST carries an `X-Sendmux-Signature` header in the form `sha256=<hex>`. That hex value is the HMAC-SHA256 of the **raw request body** keyed with the signing secret you received at subscription creation (or rotation).
@@ -9,7 +9,7 @@ Every webhook POST carries an `X-Sendmux-Signature` header in the form `sha256=<
 Compute the same HMAC on your side and compare. If the values match, the event came from Sendmux and hasn't been tampered with in transit.
 
 <Warning>
-  Always use a **constant-time** comparison (`crypto.timingSafeEqual` in Node, `hmac.compare_digest` in Python, `hmac.Equal` in Go). Plain string `==` leaks byte-level timing information an attacker can use to forge a valid signature.
+  Always use a **constant-time** comparison. Plain string `==` leaks byte-level timing information an attacker can use to forge a valid signature.
 </Warning>
 
 ## What you sign over
@@ -63,7 +63,7 @@ app.post("/sendmux", (req, res) => {
 app.listen(3000);
 ```
 
-```python Python
+```python Example B
 import hmac
 import os
 from hashlib import sha256
@@ -91,7 +91,7 @@ def receive():
     return "ok", 200
 ```
 
-```go Go
+```go Example C
 package main
 
 import (

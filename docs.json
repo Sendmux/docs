@@ -145,11 +145,17 @@
             "pages": [
               "GET /mailbox/messages",
               "GET /mailbox/messages/{message_id}",
+              "GET /mailbox/messages/{message_id}/body",
+              "GET /mailbox/messages/{message_id}/content",
               "PATCH /mailbox/messages/{message_id}",
               "DELETE /mailbox/messages/{message_id}",
               "GET /mailbox/messages/{message_id}/attachments/{attachment_id}",
               "POST /mailbox/messages/send"
             ]
+          },
+          {
+            "group": "Threads",
+            "pages": ["GET /mailbox/threads/{thread_id}/content"]
           },
           {
             "group": "Folders",

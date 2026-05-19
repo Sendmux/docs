@@ -1,7 +1,15 @@
 ---
 title: "Introduction"
 description: "Mailbox-scoped API endpoints for a single Sendmux mailbox."
-keywords: ["mailbox API", "mailbox key", "self introspection", "messages", "folders", "sync"]
+keywords:
+  [
+    "mailbox API",
+    "mailbox key",
+    "self introspection",
+    "messages",
+    "folders",
+    "sync",
+  ]
 ---
 
 The Sendmux Mailbox API is for mailbox-scoped credentials. Use it when a client should act only as the mailbox tied to its API key, not manage team-wide resources.
@@ -29,21 +37,118 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 
 ## Current endpoints
 
-| Endpoint | Purpose |
-| --- | --- |
-| `GET /mailbox/me` | Return the mailbox associated with the bearer token. |
-| `GET /mailbox/messages` | List messages with filters, sorting, and cursor pagination. |
-| `GET /mailbox/messages/{message_id}` | Read a message, including bodies and attachment metadata. |
-| `PATCH /mailbox/messages/{message_id}` | Update mutable message flags. |
-| `DELETE /mailbox/messages/{message_id}` | Move a message to Trash, or permanently delete it. |
-| `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment. |
-| `POST /mailbox/messages/send` | Send from the authenticated mailbox. |
-| `GET /mailbox/folders` | List folders. |
-| `POST /mailbox/folders` | Create a folder. |
-| `GET /mailbox/folders/{folder_id}` | Read one folder. |
-| `PATCH /mailbox/folders/{folder_id}` | Update a folder. |
-| `DELETE /mailbox/folders/{folder_id}` | Delete an empty custom folder. |
-| `GET /mailbox/changes` | Read message changes since a prior sync state. |
+| Endpoint                                                         | Purpose                                                           |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `GET /mailbox/me`                                                | Return the mailbox associated with the bearer token.              |
+| `GET /mailbox/messages`                                          | List messages with filters, sorting, and cursor pagination.       |
+| `GET /mailbox/messages/{message_id}`                             | Read a message, including bodies and attachment metadata.         |
+| `GET /mailbox/messages/{message_id}/body`                        | Read raw body text, HTML, or both without cleaning.               |
+| `GET /mailbox/messages/{message_id}/content`                     | Read clean message content with body-cleaning controls.           |
+| `PATCH /mailbox/messages/{message_id}`                           | Update mutable message flags.                                     |
+| `DELETE /mailbox/messages/{message_id}`                          | Move a message to Trash, or permanently delete it.                |
+| `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment.                                           |
+| `POST /mailbox/messages/send`                                    | Send from the authenticated mailbox.                              |
+| `GET /mailbox/threads/{thread_id}/content`                       | Read clean message content for one thread with cursor pagination. |
+| `GET /mailbox/folders`                                           | List folders.                                                     |
+| `POST /mailbox/folders`                                          | Create a folder.                                                  |
+| `GET /mailbox/folders/{folder_id}`                               | Read one folder.                                                  |
+| `PATCH /mailbox/folders/{folder_id}`                             | Update a folder.                                                  |
+| `DELETE /mailbox/folders/{folder_id}`                            | Delete an empty custom folder.                                    |
+| `GET /mailbox/changes`                                           | Read message changes since a prior sync state.                    |
+
+## Message body APIs
+
+Use the raw body endpoint when you need the message body exactly as available from the mailbox.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/body?part=both&max_body_chars=50000" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "id": "msg_123",
+    "thread_id": "thr_123",
+    "part": "both",
+    "body": {
+      "text": "Original body text...",
+      "html": "<p>Original body HTML...</p>",
+      "is_truncated": false,
+      "truncated_at_chars": null
+    },
+    "states": {
+      "email_state": "state_token"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Use the clean content endpoint when you want deterministic body cleaning and structured metadata.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?strip_signature=true&strip_quotes=true&include_links=true&include_html=false&include_headers=selected&include_attachments=metadata" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "id": "msg_123",
+    "thread_id": "thr_123",
+    "subject": "Invoice question",
+    "body": {
+      "format": "text",
+      "text": "Clean body text...",
+      "html": null,
+      "is_truncated": false,
+      "truncated_at_chars": null,
+      "signature_stripped": true,
+      "quotes_stripped": true,
+      "extracted_links": ["https://example.com/invoice"]
+    },
+    "attachments": [
+      {
+        "id": "att_123",
+        "filename": "invoice.pdf",
+        "content_type": "application/pdf",
+        "size_bytes": 12345,
+        "disposition": "attachment",
+        "content_id": null,
+        "download_url": "/api/v1/mailbox/messages/msg_123/attachments/att_123"
+      }
+    ]
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Clean content controls:
+
+| Parameter             | Values                     | Default                                           | Applies to                                |
+| --------------------- | -------------------------- | ------------------------------------------------- | ----------------------------------------- |
+| `part`                | `auto`, `text`, `html`     | `auto`                                            | Message content, thread content           |
+| `max_body_chars`      | `1` to `1000000`           | `100000` for messages, `25000` per thread message | Raw body, message content, thread content |
+| `strip_signature`     | `true`, `false`            | `true`                                            | Message content, thread content           |
+| `strip_quotes`        | `true`, `false`            | `true`                                            | Message content, thread content           |
+| `include_links`       | `true`, `false`            | `true`                                            | Message content, thread content           |
+| `include_html`        | `true`, `false`            | `false`                                           | Message content, thread content           |
+| `include_headers`     | `none`, `selected`, `full` | `selected`                                        | Message content, thread content           |
+| `include_attachments` | `none`, `metadata`         | `metadata`                                        | Message content, thread content           |
+| `cursor`              | Opaque cursor              | none                                              | Thread content                            |
+| `limit`               | `1` to `100`               | `25`                                              | Thread content                            |
+
+<Note>
+  Body endpoints do not parse attachment contents. Attachments are returned as
+  metadata or downloaded separately.
+</Note>
 
 ## Response format
 

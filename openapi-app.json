@@ -1287,6 +1287,274 @@
           }
         ]
       },
+      "MailboxRawBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Message ID"
+          },
+          "thread_id": {
+            "type": ["string", "null"]
+          },
+          "part": {
+            "type": "string",
+            "enum": ["text", "html", "both"]
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": ["string", "null"]
+              },
+              "html": {
+                "type": ["string", "null"]
+              },
+              "is_truncated": {
+                "type": "boolean"
+              },
+              "truncated_at_chars": {
+                "type": ["integer", "null"]
+              }
+            },
+            "required": ["text", "html", "is_truncated", "truncated_at_chars"]
+          },
+          "states": {
+            "type": "object",
+            "properties": {
+              "email_state": {
+                "type": ["string", "null"]
+              }
+            },
+            "required": ["email_state"]
+          }
+        },
+        "required": ["id", "thread_id", "part", "body", "states"]
+      },
+      "MailboxContentHeaders": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": ["none", "selected", "full"]
+          },
+          "selected": {
+            "type": ["object", "null"],
+            "properties": {
+              "message_id": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "in_reply_to": {
+                "type": ["string", "null"]
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reply_to": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MailboxAddress"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": ["message_id", "in_reply_to", "references", "reply_to"]
+          },
+          "full": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": ["name", "value"]
+            }
+          }
+        },
+        "required": ["mode", "selected", "full"]
+      },
+      "MailboxMessageContent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Message ID"
+          },
+          "thread_id": {
+            "type": ["string", "null"]
+          },
+          "subject": {
+            "type": ["string", "null"]
+          },
+          "participants": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "$ref": "#/components/schemas/MailboxAddress"
+              },
+              "to": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MailboxAddress"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "cc": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MailboxAddress"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "bcc": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MailboxAddress"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "reply_to": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MailboxAddress"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": ["from", "to", "cc", "bcc", "reply_to"]
+          },
+          "dates": {
+            "type": "object",
+            "properties": {
+              "received_at": {
+                "type": ["string", "null"]
+              },
+              "sent_at": {
+                "type": ["string", "null"]
+              }
+            },
+            "required": ["received_at", "sent_at"]
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "type": ["string", "null"],
+                "enum": ["text", "html"]
+              },
+              "text": {
+                "type": ["string", "null"]
+              },
+              "html": {
+                "type": ["string", "null"],
+                "description": "HTML body when requested. Returned as a JSON string and not as rendered content."
+              },
+              "is_truncated": {
+                "type": "boolean"
+              },
+              "truncated_at_chars": {
+                "type": ["integer", "null"]
+              },
+              "signature_stripped": {
+                "type": "boolean"
+              },
+              "quotes_stripped": {
+                "type": "boolean"
+              },
+              "extracted_links": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "format",
+              "text",
+              "html",
+              "is_truncated",
+              "truncated_at_chars",
+              "signature_stripped",
+              "quotes_stripped",
+              "extracted_links"
+            ]
+          },
+          "headers": {
+            "$ref": "#/components/schemas/MailboxContentHeaders"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailboxAttachment"
+            },
+            "description": "Attachment metadata only. Attachment contents are not parsed by this endpoint."
+          },
+          "states": {
+            "type": "object",
+            "properties": {
+              "email_state": {
+                "type": ["string", "null"]
+              },
+              "option_hash": {
+                "type": "string"
+              }
+            },
+            "required": ["email_state", "option_hash"]
+          }
+        },
+        "required": [
+          "id",
+          "thread_id",
+          "subject",
+          "participants",
+          "dates",
+          "body",
+          "headers",
+          "attachments",
+          "states"
+        ]
+      },
       "PatchMailboxMessageBody": {
         "type": "object",
         "properties": {
@@ -1297,6 +1565,74 @@
             "type": "boolean"
           }
         }
+      },
+      "MailboxThreadContentResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [true]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailboxMessageContent"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "has_more": {
+                "type": "boolean"
+              },
+              "next_cursor": {
+                "type": "string"
+              }
+            },
+            "required": ["has_more"]
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "request_id": {
+                "type": "string"
+              },
+              "thread_id": {
+                "type": "string"
+              },
+              "participants": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MailboxAddress"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "states": {
+                "type": "object",
+                "properties": {
+                  "thread_state": {
+                    "type": ["string", "null"]
+                  },
+                  "email_state": {
+                    "type": ["string", "null"]
+                  },
+                  "option_hash": {
+                    "type": "string"
+                  }
+                },
+                "required": ["thread_state", "email_state", "option_hash"]
+              }
+            },
+            "required": ["request_id", "thread_id", "participants", "states"]
+          }
+        },
+        "required": ["ok", "data", "pagination", "meta"]
       },
       "MailboxFolder": {
         "type": "object",
@@ -4399,6 +4735,425 @@
           },
           "404": {
             "description": "Message not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailbox/messages/{message_id}/body": {
+      "get": {
+        "summary": "Get raw message body",
+        "description": "Returns raw message body content for the authenticated mailbox. This endpoint does not strip signatures, strip quoted replies, extract links, or clean the body into a structured content shape.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "message_id",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["text", "html", "both"]
+            },
+            "required": false,
+            "name": "part",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "required": false,
+            "name": "max_body_chars",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "If-None-Match",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Raw message body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxRawBody"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "description": "Invalid query parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailbox/messages/{message_id}/content": {
+      "get": {
+        "summary": "Get clean message content",
+        "description": "Returns deterministic clean JSON content for one message. Attachment output is metadata only; attachment contents are not parsed by this endpoint.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "message_id",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["auto", "text", "html"]
+            },
+            "required": false,
+            "name": "part",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "required": false,
+            "name": "max_body_chars",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "strip_signature",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "strip_quotes",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "include_links",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "include_html",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["none", "selected", "full"]
+            },
+            "required": false,
+            "name": "include_headers",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["none", "metadata"]
+            },
+            "required": false,
+            "name": "include_attachments",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "If-None-Match",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Clean message content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxMessageContent"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "description": "Invalid query parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailbox/threads/{thread_id}/content": {
+      "get": {
+        "summary": "Get clean thread content",
+        "description": "Returns a cursor-paginated clean JSON view of messages in a thread. Attachment output is metadata only; attachment contents are not parsed by this endpoint.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "thread_id",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["auto", "text", "html"]
+            },
+            "required": false,
+            "name": "part",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "required": false,
+            "name": "max_body_chars",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "strip_signature",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "strip_quotes",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "include_links",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "include_html",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["none", "selected", "full"]
+            },
+            "required": false,
+            "name": "include_headers",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["none", "metadata"]
+            },
+            "required": false,
+            "name": "include_attachments",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "cursor",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "required": false,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"]
+            },
+            "required": false,
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "If-None-Match",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Clean thread content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxThreadContentResponse"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "description": "Invalid query parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Thread not found",
             "content": {
               "application/json": {
                 "schema": {
