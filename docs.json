@@ -138,7 +138,7 @@
           },
           {
             "group": "Mailbox",
-            "pages": ["GET /mailbox/me"]
+            "pages": ["GET /mailbox/me", "GET /mailbox/identities"]
           },
           {
             "group": "Messages",
@@ -175,6 +175,22 @@
               "GET /mailbox/folders/{folder_id}",
               "PATCH /mailbox/folders/{folder_id}",
               "DELETE /mailbox/folders/{folder_id}"
+            ]
+          },
+          {
+            "group": "Submissions",
+            "pages": [
+              "GET /mailbox/submissions",
+              "GET /mailbox/submissions/changes",
+              "GET /mailbox/submissions/{submission_id}"
+            ]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "GET /mailbox/quotas",
+              "GET /mailbox/quotas/changes",
+              "GET /mailbox/usage"
             ]
           },
           {

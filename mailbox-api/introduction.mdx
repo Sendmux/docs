@@ -41,6 +41,7 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | Endpoint                                                         | Purpose                                                           |
 | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
 | `GET /mailbox/me`                                                | Return the mailbox associated with the bearer token.              |
+| `GET /mailbox/identities`                                        | List sender identities available to the mailbox.                  |
 | `GET /mailbox/messages`                                          | List messages with filters, sorting, and cursor pagination.       |
 | `POST /mailbox/messages:batch-get`                               | Read exact message IDs with optional raw or clean body output.    |
 | `GET /mailbox/messages/count`                                    | Count messages matching filters without returning rows.           |
@@ -63,7 +64,140 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/folders/{folder_id}`                               | Read one folder.                                                  |
 | `PATCH /mailbox/folders/{folder_id}`                             | Update a folder.                                                  |
 | `DELETE /mailbox/folders/{folder_id}`                            | Delete an empty custom folder.                                    |
-| `GET /mailbox/changes`                                           | Read message changes, or typed message/folder/thread changes.     |
+| `GET /mailbox/submissions`                                       | List send submissions with filters and cursor pagination.         |
+| `GET /mailbox/submissions/changes`                               | Read submission object changes since a prior state.               |
+| `GET /mailbox/submissions/{submission_id}`                       | Read one send submission.                                         |
+| `GET /mailbox/quotas`                                            | List mailbox quota usage and limits.                              |
+| `GET /mailbox/quotas/changes`                                    | Read quota object changes since a prior quota state.              |
+| `GET /mailbox/usage`                                             | Read a compact usage view derived from quota records.             |
+| `GET /mailbox/changes`                                           | Read message changes, or a typed resource state map.              |
+
+## Operational resources
+
+Operational endpoints expose what an agent needs to send safely and monitor
+mailbox health without adding mutation authority.
+
+### Sender identities
+
+Use identities to discover which sender addresses and default signatures are
+available to the authenticated mailbox.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/identities" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "id_123",
+      "name": "Support",
+      "email": "support@example.com",
+      "reply_to": [],
+      "bcc": [],
+      "text_signature": "Regards",
+      "html_signature": "<p>Regards</p>",
+      "may_delete": false
+    }
+  ],
+  "pagination": {
+    "has_more": false
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "identity_state": "identity_state_token"
+  }
+}
+```
+
+<Note>
+  The Mailbox API exposes identities as read-only. It does not create, update,
+  or delete sender identities.
+</Note>
+
+### Send submissions
+
+Use submissions to inspect queued, sent, failed, or cancelled send lifecycle
+records separately from the `messages/send` request that created them.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/submissions?email_ids=msg_123&limit=10" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+Useful filters:
+
+| Parameter        | Purpose                                        |
+| ---------------- | ---------------------------------------------- |
+| `identity_ids`   | Comma-separated identity IDs.                  |
+| `email_ids`      | Comma-separated message IDs.                   |
+| `thread_ids`     | Comma-separated thread IDs.                    |
+| `undo_status`    | Match `pending`, `final`, or `canceled`.       |
+| `after`          | Match submissions sent at or after this time.  |
+| `before`         | Match submissions sent before this time.       |
+| `cursor`         | Continue from a previous page.                 |
+| `limit`          | Return `1` to `100` submissions.               |
+| `sort_by`        | Sort by `send_at`, `email_id`, or `thread_id`. |
+| `sort_direction` | Sort `asc` or `desc`.                          |
+
+Read one submission with `GET /mailbox/submissions/{submission_id}`. Poll
+`GET /mailbox/submissions/changes?since_state=...` to sync submission object
+changes.
+
+### Quotas and usage
+
+Use quotas for detailed limits and `usage` for a compact health view.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/usage" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "resources": [
+      {
+        "quota_id": "quota_123",
+        "name": "Mailbox storage",
+        "resource_type": "octets",
+        "scope": "account",
+        "types": ["Mail"],
+        "used": 512000,
+        "hard_limit": 104857600,
+        "warn_limit": 83886080,
+        "soft_limit": null,
+        "percent_used": 0.48828125,
+        "limit_status": "ok"
+      }
+    ],
+    "states": {
+      "quota_state": "quota_state_token"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Quota filters:
+
+| Parameter        | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| `name`           | Match quota name text.                   |
+| `scope`          | Match `account`, `domain`, or `global`.  |
+| `resource_type`  | Match `count` or `octets`.               |
+| `type`           | Match a resource family, such as `Mail`. |
+| `cursor`         | Continue from a previous page.           |
+| `limit`          | Return `1` to `100` quotas.              |
+| `sort_by`        | Sort by `name` or `used`.                |
+| `sort_direction` | Sort `asc` or `desc`.                    |
+
+Poll `GET /mailbox/quotas/changes?since_state=...` to sync quota changes.
 
 ## Thread APIs
 
@@ -450,10 +584,10 @@ curl "https://app.sendmux.ai/api/v1/mailbox/folders/query-changes?since_query_st
 ### Typed mailbox changes
 
 `GET /mailbox/changes` keeps the legacy message-only response when `types` is
-omitted. Pass `types=messages,folders,threads` to receive a typed state map.
+omitted. Pass a comma-separated `types` list to receive a typed state map.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/changes?types=messages,folders,threads&messages_since_state=message_state_token&folders_since_state=folder_state_token&threads_since_state=thread_state_token" \
+curl "https://app.sendmux.ai/api/v1/mailbox/changes?types=messages,folders,threads,submissions,identities,quotas" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -485,6 +619,30 @@ curl "https://app.sendmux.ai/api/v1/mailbox/changes?types=messages,folders,threa
         "created": [],
         "updated": ["thr_123"],
         "destroyed": []
+      },
+      "submissions": {
+        "old_state": "submission_state_token",
+        "new_state": "submission_state_token_2",
+        "has_more": false,
+        "created": [],
+        "updated": ["sub_123"],
+        "destroyed": []
+      },
+      "identities": {
+        "old_state": "identity_state_token",
+        "new_state": "identity_state_token_2",
+        "has_more": false,
+        "created": [],
+        "updated": ["id_123"],
+        "destroyed": []
+      },
+      "quotas": {
+        "old_state": "quota_state_token",
+        "new_state": "quota_state_token_2",
+        "has_more": false,
+        "created": [],
+        "updated": ["quota_123"],
+        "destroyed": []
       }
     }
   },
@@ -494,7 +652,8 @@ curl "https://app.sendmux.ai/api/v1/mailbox/changes?types=messages,folders,threa
 }
 ```
 
-Only `messages`, `folders`, and `threads` are currently supported in `types`.
+Supported `types` values are `messages`, `folders`, `threads`, `submissions`,
+`identities`, and `quotas`.
 
 ## Response format
 
