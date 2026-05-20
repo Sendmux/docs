@@ -850,7 +850,7 @@
           },
           "secret": {
             "type": "string",
-            "description": "Mailbox credential — shown exactly once. Use as a Bearer token on the HTTP API and as the password for IMAP retrieval, POP3 retrieval, and SMTP submission."
+            "description": "Mailbox credential — shown exactly once. Use as a Bearer token on the HTTP API and as the password for IMAP retrieval and SMTP submission."
           },
           "key_prefix": {
             "type": "string"
@@ -4623,7 +4623,7 @@
       },
       "post": {
         "summary": "Create a mailbox",
-        "description": "Provisions a new mailbox plus an initial bearer token and matching IMAP/POP3/SMTP mailbox password. The domain portion of the email must already be verified via POST /domains. Creation provisions resources on our mail platform and, for `@myagent.mx` addresses, on Amazon SES — any failure rolls the partial state back automatically.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+        "description": "Provisions a new mailbox plus an initial bearer token and matching IMAP/SMTP mailbox password. The domain portion of the email must already be verified via POST /domains. Creation provisions resources on our mail platform and, for `@myagent.mx` addresses, on Amazon SES — any failure rolls the partial state back automatically.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
         "tags": ["Mailboxes"],
         "security": [
           {
@@ -5069,7 +5069,7 @@
     "/mailboxes/{public_id}/keys": {
       "post": {
         "summary": "Create a mailbox API key",
-        "description": "Mints an additional bearer token plus IMAP/POP3/SMTP mailbox password for an existing mailbox. The plaintext key and password are shown exactly once — store them immediately.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+        "description": "Mints an additional bearer token plus IMAP/SMTP mailbox password for an existing mailbox. The plaintext key and password are shown exactly once — store them immediately.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
         "tags": ["Mailboxes"],
         "security": [
           {
