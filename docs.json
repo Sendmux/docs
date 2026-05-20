@@ -145,7 +145,10 @@
             "pages": [
               "GET /mailbox/messages",
               "POST /mailbox/messages:batch-get",
+              "POST /mailbox/messages:batch-update",
+              "POST /mailbox/messages:batch-delete",
               "GET /mailbox/messages/count",
+              "GET /mailbox/messages/query-changes",
               "GET /mailbox/messages/search-snippets",
               "GET /mailbox/messages/{message_id}",
               "GET /mailbox/messages/{message_id}/body",

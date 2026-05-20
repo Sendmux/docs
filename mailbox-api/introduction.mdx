@@ -44,7 +44,10 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/identities`                                        | List sender identities available to the mailbox.                  |
 | `GET /mailbox/messages`                                          | List messages with filters, sorting, and cursor pagination.       |
 | `POST /mailbox/messages:batch-get`                               | Read exact message IDs with optional raw or clean body output.    |
+| `POST /mailbox/messages:batch-update`                            | Update allowed flags for multiple messages.                       |
+| `POST /mailbox/messages:batch-delete`                            | Move or permanently delete multiple messages.                     |
 | `GET /mailbox/messages/count`                                    | Count messages matching filters without returning rows.           |
+| `GET /mailbox/messages/query-changes`                            | Read filtered message-list index changes since a prior state.     |
 | `GET /mailbox/messages/search-snippets`                          | Return subject and preview snippets for text searches.            |
 | `GET /mailbox/messages/{message_id}`                             | Read a message, including bodies and attachment metadata.         |
 | `GET /mailbox/messages/{message_id}/body`                        | Read raw body text, HTML, or both without cleaning.               |
@@ -286,9 +289,10 @@ answer count or search-preview questions.
 ### Rich message filters
 
 `GET /mailbox/messages` and `GET /mailbox/messages/count` support these
-filters. `GET /mailbox/messages/search-snippets` supports the same filters
-except `thread_id`; pass `message_ids` when you already know the exact messages
-to snippet.
+filters. `GET /mailbox/messages/search-snippets` and
+`GET /mailbox/messages/query-changes` support the same filters except
+`thread_id`; pass `message_ids` when you already know the exact messages to
+snippet.
 
 | Parameter        | Purpose                                                        |
 | ---------------- | -------------------------------------------------------------- |
@@ -462,6 +466,80 @@ Batch body modes:
 | `raw`        | Message summaries plus `raw_body`. Supports `part=text`, `html`, or `both`. |
 | `clean_json` | Message summaries plus `content`. Supports the clean controls below.        |
 
+### Batch update messages
+
+Use batch update to set allowed flags on up to 100 messages in one state-safe
+request. Only `seen` and `flagged` are mutable.
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-update \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ids": ["msg_123", "msg_456"],
+    "seen": true,
+    "if_in_state": "message_state_token"
+  }'
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "updated": ["msg_123", "msg_456"],
+    "not_found": [],
+    "failed": [],
+    "states": {
+      "old_state": "message_state_token",
+      "new_state": "message_state_token_2"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+### Batch delete messages
+
+Use batch delete to move up to 100 messages to Trash. Set `permanent=true` only
+when the messages should be permanently removed.
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-delete \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ids": ["msg_123", "msg_456"],
+    "permanent": false,
+    "if_in_state": "message_state_token"
+  }'
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "deleted": ["msg_123", "msg_456"],
+    "not_found": [],
+    "failed": [],
+    "states": {
+      "old_state": "message_state_token",
+      "new_state": "message_state_token_2"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+<Note>
+  Batch update and delete accept `if_in_state` for stale-write protection. Use
+  the latest message state from message lists, detail reads, batch reads, or
+  change endpoints.
+</Note>
+
 ## Message body APIs
 
 Use the raw body endpoint when you need the message body exactly as available from the mailbox.
@@ -620,6 +698,34 @@ curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123
 
 Use sync endpoints to poll for changes with state tokens returned by earlier
 responses.
+
+### Message query changes
+
+`GET /mailbox/messages/query-changes` tracks how a filtered message list has
+changed since a prior `query_state`. Omit `since_query_state` to get the
+current query state for a filter without a change list.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/query-changes?since_query_state=message_query_state_token&q=invoice&limit=100" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "old_query_state": "message_query_state_token",
+    "new_query_state": "message_query_state_token_2",
+    "has_more": false,
+    "removed": ["msg_old"],
+    "added": [{ "id": "msg_new", "index": 0 }],
+    "total": null
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
 
 ### Folder changes
 

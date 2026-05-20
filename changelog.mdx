@@ -4,6 +4,18 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="20 May 2026" tags={["New features","Improvements"]} rss={{ title: "Mailbox API adds message query sync and state-safe batch actions" }}>
+  ## Mailbox API
+
+  The Mailbox API now supports filtered message query changes, so clients can poll a saved message list and receive only added, removed, and reordered message IDs.
+
+  ## Improvements
+
+  - Batch message updates can set allowed flags such as `seen` and `flagged` for up to 100 messages with stale-state protection.
+  - Batch message deletes can move up to 100 messages to Trash, or permanently delete them when requested.
+  - Mailbox credentials now have tighter permissions so restricted mailbox capabilities stay unavailable outside the public API.
+</Update>
+
 <Update label="19 May 2026" tags={["New features","Improvements"]} rss={{ title: "Mailbox API adds clean retrieval, sync, safer writes, and stronger attachment handling" }}>
   ## Mailbox API for agents
 

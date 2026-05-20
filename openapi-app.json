@@ -1433,6 +1433,52 @@
           "flags"
         ]
       },
+      "MailboxMessageQueryChanges": {
+        "type": "object",
+        "properties": {
+          "old_query_state": {
+            "type": ["string", "null"]
+          },
+          "new_query_state": {
+            "type": "string"
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "removed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "added": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": "integer"
+                }
+              },
+              "required": ["id", "index"]
+            }
+          },
+          "total": {
+            "type": ["integer", "null"]
+          }
+        },
+        "required": [
+          "old_query_state",
+          "new_query_state",
+          "has_more",
+          "removed",
+          "added",
+          "total"
+        ]
+      },
       "MailboxRawBody": {
         "type": ["object", "null"],
         "properties": {
@@ -1794,6 +1840,133 @@
           "include_attachments": {
             "type": "string",
             "enum": ["none", "metadata"]
+          }
+        },
+        "required": ["ids"]
+      },
+      "MailboxBatchMessageFailure": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "code", "message"]
+      },
+      "MailboxBatchMessageStates": {
+        "type": "object",
+        "properties": {
+          "old_state": {
+            "type": ["string", "null"]
+          },
+          "new_state": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["old_state", "new_state"]
+      },
+      "MailboxBatchUpdateMessagesResult": {
+        "type": "object",
+        "properties": {
+          "updated": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not_found": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "failed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailboxBatchMessageFailure"
+            }
+          },
+          "states": {
+            "$ref": "#/components/schemas/MailboxBatchMessageStates"
+          }
+        },
+        "required": ["updated", "not_found", "failed", "states"]
+      },
+      "BatchUpdateMailboxMessagesBody": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "seen": {
+            "type": "boolean"
+          },
+          "flagged": {
+            "type": "boolean"
+          },
+          "if_in_state": {
+            "type": "string",
+            "description": "Optional message state token for stale-write protection."
+          }
+        },
+        "required": ["ids"]
+      },
+      "MailboxBatchDeleteMessagesResult": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "not_found": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "failed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailboxBatchMessageFailure"
+            }
+          },
+          "states": {
+            "$ref": "#/components/schemas/MailboxBatchMessageStates"
+          }
+        },
+        "required": ["deleted", "not_found", "failed", "states"]
+      },
+      "BatchDeleteMailboxMessagesBody": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "permanent": {
+            "type": "boolean",
+            "description": "When true, permanently deletes instead of moving to Trash."
+          },
+          "if_in_state": {
+            "type": "string",
+            "description": "Optional message state token for stale-write protection."
           }
         },
         "required": ["ids"]
@@ -5717,6 +5890,267 @@
         }
       }
     },
+    "/mailbox/messages/query-changes": {
+      "get": {
+        "summary": "Get message query changes",
+        "description": "Returns filtered message-list index changes since a prior message query state, or the current message query state when omitted.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "since_query_state",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "required": false,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "up_to_id",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "calculate_total",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "folder_id",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "q",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "from",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "to",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "cc",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "bcc",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "subject",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "body",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "header_name",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "header_value",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "required": false,
+            "name": "min_size_bytes",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "required": false,
+            "name": "max_size_bytes",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "not_keyword",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "after",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "before",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "has_attachment",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "name": "is_unread",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "received_at",
+                "sent_at",
+                "subject",
+                "from",
+                "to",
+                "size_bytes"
+              ]
+            },
+            "required": false,
+            "name": "sort_by",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"]
+            },
+            "required": false,
+            "name": "sort_direction",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message query changes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxMessageQueryChanges"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query sync state or filter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/mailbox/messages:batch-get": {
       "post": {
         "summary": "Batch get mailbox messages",
@@ -5779,6 +6213,152 @@
           },
           "404": {
             "description": "Message not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailbox/messages:batch-update": {
+      "post": {
+        "summary": "Batch update mailbox messages",
+        "description": "Updates allowed message flags for up to 100 messages with state-safe conflict handling. Only `seen` and `flagged` are mutable.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchUpdateMailboxMessagesBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch update result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxBatchUpdateMessagesResult"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailbox/messages:batch-delete": {
+      "post": {
+        "summary": "Batch delete mailbox messages",
+        "description": "Moves up to 100 messages to Trash by default with state-safe conflict handling. Set `permanent=true` to permanently delete them.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchDeleteMailboxMessagesBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch delete result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxBatchDeleteMessagesResult"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "State conflict",
             "content": {
               "application/json": {
                 "schema": {
