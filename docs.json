@@ -138,7 +138,11 @@
           },
           {
             "group": "Mailbox",
-            "pages": ["GET /mailbox/me", "GET /mailbox/identities"]
+            "pages": [
+              "GET /mailbox/me",
+              "GET /mailbox/session",
+              "GET /mailbox/identities"
+            ]
           },
           {
             "group": "Messages",

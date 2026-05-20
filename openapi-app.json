@@ -980,6 +980,478 @@
           }
         ]
       },
+      "MailboxSession": {
+        "type": "object",
+        "properties": {
+          "mailbox": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Mailbox public ID",
+                "example": "mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "example": "agent@example.com"
+              },
+              "display_name": {
+                "type": ["string", "null"]
+              }
+            },
+            "required": ["id", "email", "display_name"]
+          },
+          "states": {
+            "type": "object",
+            "properties": {
+              "messages": {
+                "type": "string"
+              },
+              "folders": {
+                "type": "string"
+              },
+              "threads": {
+                "type": "string"
+              },
+              "submissions": {
+                "type": "string"
+              },
+              "identities": {
+                "type": "string"
+              },
+              "quotas": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "messages",
+              "folders",
+              "threads",
+              "submissions",
+              "identities",
+              "quotas"
+            ]
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "messages": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "boolean"
+                  },
+                  "detail": {
+                    "type": "boolean"
+                  },
+                  "raw_body": {
+                    "type": "boolean"
+                  },
+                  "clean_content": {
+                    "type": "boolean"
+                  },
+                  "batch_get": {
+                    "type": "boolean"
+                  },
+                  "count": {
+                    "type": "boolean"
+                  },
+                  "search_snippets": {
+                    "type": "boolean"
+                  },
+                  "changes": {
+                    "type": "boolean"
+                  },
+                  "query_changes": {
+                    "type": "boolean"
+                  },
+                  "update_fields": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["seen", "flagged"]
+                    }
+                  },
+                  "batch_update": {
+                    "type": "boolean"
+                  },
+                  "delete": {
+                    "type": "boolean"
+                  },
+                  "permanent_delete": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "list",
+                  "detail",
+                  "raw_body",
+                  "clean_content",
+                  "batch_get",
+                  "count",
+                  "search_snippets",
+                  "changes",
+                  "query_changes",
+                  "update_fields",
+                  "batch_update",
+                  "delete",
+                  "permanent_delete"
+                ]
+              },
+              "threads": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "boolean"
+                  },
+                  "detail": {
+                    "type": "boolean"
+                  },
+                  "messages": {
+                    "type": "boolean"
+                  },
+                  "clean_content": {
+                    "type": "boolean"
+                  },
+                  "changes": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "list",
+                  "detail",
+                  "messages",
+                  "clean_content",
+                  "changes"
+                ]
+              },
+              "folders": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "boolean"
+                  },
+                  "detail": {
+                    "type": "boolean"
+                  },
+                  "create": {
+                    "type": "boolean"
+                  },
+                  "update": {
+                    "type": "boolean"
+                  },
+                  "delete": {
+                    "type": "boolean"
+                  },
+                  "changes": {
+                    "type": "boolean"
+                  },
+                  "query_changes": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "list",
+                  "detail",
+                  "create",
+                  "update",
+                  "delete",
+                  "changes",
+                  "query_changes"
+                ]
+              },
+              "submissions": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "boolean"
+                  },
+                  "detail": {
+                    "type": "boolean"
+                  },
+                  "changes": {
+                    "type": "boolean"
+                  },
+                  "send": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["list", "detail", "changes", "send"]
+              },
+              "identities": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "boolean"
+                  },
+                  "changes": {
+                    "type": "boolean"
+                  },
+                  "create": {
+                    "type": "boolean"
+                  },
+                  "update": {
+                    "type": "boolean"
+                  },
+                  "delete": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["list", "changes", "create", "update", "delete"]
+              },
+              "quotas": {
+                "type": "object",
+                "properties": {
+                  "list": {
+                    "type": "boolean"
+                  },
+                  "usage": {
+                    "type": "boolean"
+                  },
+                  "changes": {
+                    "type": "boolean"
+                  },
+                  "update": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["list", "usage", "changes", "update"]
+              },
+              "attachments": {
+                "type": "object",
+                "properties": {
+                  "upload": {
+                    "type": "boolean"
+                  },
+                  "download": {
+                    "type": "boolean"
+                  },
+                  "range_download": {
+                    "type": "boolean"
+                  },
+                  "metadata": {
+                    "type": "boolean"
+                  },
+                  "parsing": {
+                    "type": "boolean"
+                  },
+                  "send_with_uploaded_blob": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "upload",
+                  "download",
+                  "range_download",
+                  "metadata",
+                  "parsing",
+                  "send_with_uploaded_blob"
+                ]
+              },
+              "sync": {
+                "type": "object",
+                "properties": {
+                  "typed_changes": {
+                    "type": "boolean"
+                  },
+                  "types": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "messages",
+                        "folders",
+                        "threads",
+                        "submissions",
+                        "identities",
+                        "quotas"
+                      ]
+                    }
+                  },
+                  "query_changes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["messages", "folders"]
+                    }
+                  }
+                },
+                "required": ["typed_changes", "types", "query_changes"]
+              }
+            },
+            "required": [
+              "messages",
+              "threads",
+              "folders",
+              "submissions",
+              "identities",
+              "quotas",
+              "attachments",
+              "sync"
+            ]
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "list_limit_max": {
+                "type": "integer"
+              },
+              "changes_limit_max": {
+                "type": "integer"
+              },
+              "batch_ids_max": {
+                "type": "integer"
+              },
+              "message_body_chars_default": {
+                "type": "integer"
+              },
+              "thread_body_chars_default": {
+                "type": "integer"
+              },
+              "body_chars_max": {
+                "type": "integer"
+              },
+              "inline_attachment_bytes_max": {
+                "type": "integer"
+              },
+              "attachment_upload_bytes_max": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "list_limit_max",
+              "changes_limit_max",
+              "batch_ids_max",
+              "message_body_chars_default",
+              "thread_body_chars_default",
+              "body_chars_max",
+              "inline_attachment_bytes_max",
+              "attachment_upload_bytes_max"
+            ]
+          },
+          "gated": {
+            "type": "object",
+            "properties": {
+              "identity_mutation": {
+                "type": "boolean"
+              },
+              "quota_mutation": {
+                "type": "boolean"
+              },
+              "vacation_response": {
+                "type": "boolean"
+              },
+              "filter_script_writes": {
+                "type": "boolean"
+              },
+              "events": {
+                "type": "boolean"
+              },
+              "raw_protocol": {
+                "type": "boolean"
+              },
+              "attachment_parsing": {
+                "type": "boolean"
+              },
+              "message_copy": {
+                "type": "boolean"
+              },
+              "message_import": {
+                "type": "boolean"
+              },
+              "message_parse": {
+                "type": "boolean"
+              },
+              "blob_lookup": {
+                "type": "boolean"
+              },
+              "blob_copy": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "identity_mutation",
+              "quota_mutation",
+              "vacation_response",
+              "filter_script_writes",
+              "events",
+              "raw_protocol",
+              "attachment_parsing",
+              "message_copy",
+              "message_import",
+              "message_parse",
+              "blob_lookup",
+              "blob_copy"
+            ],
+            "description": "Flags are true when a feature is intentionally unavailable through the mailbox API."
+          },
+          "endpoints": {
+            "type": "object",
+            "properties": {
+              "mailbox": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "messages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "threads": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "folders": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "submissions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "usage": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sync": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "mailbox",
+              "messages",
+              "threads",
+              "folders",
+              "submissions",
+              "usage",
+              "sync"
+            ]
+          }
+        },
+        "required": [
+          "mailbox",
+          "states",
+          "capabilities",
+          "limits",
+          "gated",
+          "endpoints"
+        ]
+      },
       "MailboxAddress": {
         "type": "object",
         "properties": {
@@ -4906,6 +5378,93 @@
           },
           "404": {
             "description": "Mailbox not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailbox/session": {
+      "get": {
+        "summary": "Get mailbox API session",
+        "description": "Returns mailbox API capabilities, resource state tokens, limits, and disabled feature flags for the authenticated mailbox.",
+        "tags": ["Mailbox API"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "If-None-Match",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mailbox API session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean",
+                      "enum": [true]
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailboxSession"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "request_id": {
+                          "type": "string",
+                          "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        }
+                      },
+                      "required": ["request_id"]
+                    }
+                  },
+                  "required": ["ok", "data", "meta"]
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Mailbox API key required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Mailbox service unavailable",
             "content": {
               "application/json": {
                 "schema": {

@@ -41,6 +41,7 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | Endpoint                                                         | Purpose                                                           |
 | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
 | `GET /mailbox/me`                                                | Return the mailbox associated with the bearer token.              |
+| `GET /mailbox/session`                                           | Return supported capabilities, limits, and current state tokens.  |
 | `GET /mailbox/identities`                                        | List sender identities available to the mailbox.                  |
 | `GET /mailbox/messages`                                          | List messages with filters, sorting, and cursor pagination.       |
 | `POST /mailbox/messages:batch-get`                               | Read exact message IDs with optional raw or clean body output.    |
@@ -75,6 +76,78 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/quotas/changes`                                    | Read quota object changes since a prior quota state.              |
 | `GET /mailbox/usage`                                             | Read a compact usage view derived from quota records.             |
 | `GET /mailbox/changes`                                           | Read message changes, or a typed resource state map.              |
+
+## Capability discovery
+
+Use `GET /mailbox/session` before planning a mailbox workflow. It returns the
+mailbox tied to the credential, supported Mailbox API features, current state
+tokens, request limits, and gated features. A gated feature is intentionally
+unavailable through the Mailbox API.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/session" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "mailbox": {
+      "id": "mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "email": "agent@example.com",
+      "display_name": "Agent"
+    },
+    "states": {
+      "messages": "email_state_token",
+      "folders": "folder_state_token",
+      "threads": "thread_state_token",
+      "submissions": "submission_state_token",
+      "identities": "identity_state_token",
+      "quotas": "quota_state_token"
+    },
+    "capabilities": {
+      "messages": {
+        "list": true,
+        "query_changes": true,
+        "batch_update": true,
+        "update_fields": ["seen", "flagged"]
+      },
+      "identities": {
+        "list": true,
+        "update": false
+      },
+      "attachments": {
+        "upload": true,
+        "download": true,
+        "parsing": false
+      }
+    },
+    "limits": {
+      "list_limit_max": 100,
+      "changes_limit_max": 500,
+      "batch_ids_max": 100,
+      "body_chars_max": 1000000,
+      "attachment_upload_bytes_max": 50000000
+    },
+    "gated": {
+      "identity_mutation": true,
+      "quota_mutation": true,
+      "filter_script_writes": true,
+      "events": true,
+      "raw_protocol": true,
+      "attachment_parsing": true
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+<Note>
+  `gated` fields are `true` when a feature is intentionally unavailable.
+</Note>
 
 ## Operational resources
 
