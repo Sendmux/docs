@@ -1070,8 +1070,11 @@
                     "type": "array",
                     "items": {
                       "type": "string",
-                      "enum": ["seen", "flagged"]
+                      "enum": ["seen", "flagged", "keywords"]
                     }
+                  },
+                  "keywords": {
+                    "type": "boolean"
                   },
                   "batch_update": {
                     "type": "boolean"
@@ -1094,6 +1097,7 @@
                   "changes",
                   "query_changes",
                   "update_fields",
+                  "keywords",
                   "batch_update",
                   "delete",
                   "permanent_delete"
@@ -1317,6 +1321,9 @@
               },
               "attachment_upload_bytes_max": {
                 "type": "integer"
+              },
+              "keywords_per_update_max": {
+                "type": "integer"
               }
             },
             "required": [
@@ -1327,7 +1334,8 @@
               "thread_body_chars_default",
               "body_chars_max",
               "inline_attachment_bytes_max",
-              "attachment_upload_bytes_max"
+              "attachment_upload_bytes_max",
+              "keywords_per_update_max"
             ]
           },
           "gated": {
@@ -1884,6 +1892,14 @@
           "has_attachments": {
             "type": "boolean"
           },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Active message keywords, including system flags and custom labels.",
+            "example": ["$seen", "$flagged", "agent_triaged"]
+          },
           "flags": {
             "$ref": "#/components/schemas/MailboxMessageFlags"
           }
@@ -1902,6 +1918,7 @@
           "sent_at",
           "size_bytes",
           "has_attachments",
+          "keywords",
           "flags"
         ]
       },
@@ -2387,6 +2404,18 @@
           "flagged": {
             "type": "boolean"
           },
+          "keywords": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "description": "Map of message keyword names to booleans. `true` sets the keyword; `false` clears it. Keyword names are normalised to lowercase. Lifecycle keywords such as `$draft` are read-only.",
+            "example": {
+              "$answered": true,
+              "agent_triaged": true,
+              "needs_reply": false
+            }
+          },
           "if_in_state": {
             "type": "string",
             "description": "Optional message state token for stale-write protection."
@@ -2649,6 +2678,18 @@
           },
           "flagged": {
             "type": "boolean"
+          },
+          "keywords": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "description": "Map of message keyword names to booleans. `true` sets the keyword; `false` clears it. Keyword names are normalised to lowercase. Lifecycle keywords such as `$draft` are read-only.",
+            "example": {
+              "$answered": true,
+              "agent_triaged": true,
+              "needs_reply": false
+            }
           }
         }
       },
@@ -6786,7 +6827,7 @@
     "/mailbox/messages:batch-update": {
       "post": {
         "summary": "Batch update mailbox messages",
-        "description": "Updates allowed message flags for up to 100 messages with state-safe conflict handling. Only `seen` and `flagged` are mutable.",
+        "description": "Updates allowed message flags and keywords for up to 100 messages with state-safe conflict handling.",
         "tags": ["Mailbox API"],
         "security": [
           {
@@ -7636,7 +7677,7 @@
       },
       "patch": {
         "summary": "Update mailbox message flags",
-        "description": "Updates mutable message flags with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
+        "description": "Updates mutable message flags and keywords with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
         "tags": ["Mailbox API"],
         "security": [
           {

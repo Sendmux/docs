@@ -12,7 +12,7 @@ rss: true
   ## Improvements
 
   - Session discovery now reports supported Mailbox API capabilities, current state tokens, request limits, and intentionally unavailable features.
-  - Batch message updates can set allowed flags such as `seen` and `flagged` for up to 100 messages with stale-state protection.
+  - Message responses now expose active keywords, and batch message updates can set or clear custom keywords for richer mailbox triage.
   - Batch message deletes can move up to 100 messages to Trash, or permanently delete them when requested.
   - Mailbox credentials now have tighter permissions so restricted mailbox capabilities stay unavailable outside the public API. They remain usable for SMTP and IMAP access.
 </Update>

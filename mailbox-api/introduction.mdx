@@ -111,7 +111,8 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
         "list": true,
         "query_changes": true,
         "batch_update": true,
-        "update_fields": ["seen", "flagged"]
+        "keywords": true,
+        "update_fields": ["seen", "flagged", "keywords"]
       },
       "identities": {
         "list": true,
@@ -128,6 +129,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
       "changes_limit_max": 500,
       "batch_ids_max": 100,
       "body_chars_max": 1000000,
+      "keywords_per_update_max": 50,
       "attachment_upload_bytes_max": 50000000
     },
     "gated": {
@@ -541,8 +543,10 @@ Batch body modes:
 
 ### Batch update messages
 
-Use batch update to set allowed flags on up to 100 messages in one state-safe
-request. Only `seen` and `flagged` are mutable.
+Use batch update to set allowed flags and keywords on up to 100 messages in one
+state-safe request. `keywords` is a map where `true` sets a keyword and `false`
+clears it. Keyword names are normalised to lowercase. Lifecycle keywords such
+as `$draft` are read-only.
 
 ```bash
 curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-update \
@@ -551,6 +555,10 @@ curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-update \
   -d '{
     "ids": ["msg_123", "msg_456"],
     "seen": true,
+    "keywords": {
+      "agent_triaged": true,
+      "needs_reply": false
+    },
     "if_in_state": "message_state_token"
   }'
 ```
