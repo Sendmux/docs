@@ -1,7 +1,15 @@
 ---
 title: "Sending accounts"
 description: "How Sendmux routes your email — the managed Sendmux SES account, its daily limit, and bringing your own providers."
-keywords: ["sending account", "Sendmux SES", "delivery provider", "daily limit", "limit increase", "routing"]
+keywords:
+  [
+    "sending account",
+    "Sendmux SES",
+    "delivery provider",
+    "daily limit",
+    "limit increase",
+    "routing",
+  ]
 ---
 
 Every team can send email the moment it's created — no provider setup required. Sendmux gives each team a managed sending account called **Sendmux SES**, and you can add your own providers on top of it when you need more control or volume.
@@ -10,19 +18,27 @@ Every team can send email the moment it's created — no provider setup required
 
 **Sendmux SES** is a shared Amazon SES sending account that Sendmux provisions and manages for every team. It's active from the moment your team is created, so your first send works without any configuration.
 
-| Property | Value |
-| --- | --- |
-| Availability | Provisioned automatically for every team |
-| State on creation | Active |
-| Starting limit | 500 emails per day |
-| Limit reset | Daily, at 00:00 UTC |
-| Used for | Every send, unless the sending key or mailbox is scoped to a specific delivery group |
+| Property          | Value                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------ |
+| Availability      | Provisioned automatically for every team                                             |
+| State on creation | Active                                                                               |
+| Starting limit    | 500 emails per day                                                                   |
+| Limit reset       | Daily, at 00:00 UTC                                                                  |
+| Used for          | Every send, unless the sending key or mailbox is scoped to a specific delivery group |
 
 Because Sendmux SES is managed for you, it's locked. You can **activate or deactivate** it, but you can't rename it, change its credentials, edit its daily limit, add it to a delivery group, or run a connection test against it. To send beyond the daily limit, request an increase rather than editing the account.
 
 <Note>
-  Mailboxes on the shared `@myagent.mx` address always send through Sendmux SES. To send through your own providers, use a [verified custom domain](/guides/domain-management).
+  Mailboxes on the shared `@myagent.mx` address always send through Sendmux SES.
+  To send through your own providers, use a [verified custom
+  domain](/guides/domain-management).
 </Note>
+
+<Info>
+  Standard email usage is billed at `$0.15 / 1,000 emails` for incoming mail and
+  outgoing mail through your own providers. Sending through Sendmux SES is
+  billed at `$0.25 / 1,000 emails`.
+</Info>
 
 ## Request a higher daily limit
 
@@ -30,13 +46,18 @@ When your usage for the day reaches **80%** of the daily limit, a **Request incr
 
 <Steps>
   <Step title="Open the Accounts page">
-    In the dashboard, go to **Accounts**. Sendmux SES is pinned at the top with a usage bar showing today's sends against your limit.
+    In the dashboard, go to **Accounts**. Sendmux SES is pinned at the top with
+    a usage bar showing today's sends against your limit.
   </Step>
   <Step title="Click Request increase">
-    One click submits the request. Sendmux records your current limit and usage so the team reviewing it has the context — there's nothing to fill in.
+    One click submits the request. Sendmux records your current limit and usage
+    so the team reviewing it has the context — there's nothing to fill in.
   </Step>
   <Step title="Wait for the decision">
-    You can have one open request at a time; the button shows **Request pending** until it's decided. Sendmux emails you the outcome. Approved increases apply as soon as they're granted, and the new limit shows on the Accounts page.
+    You can have one open request at a time; the button shows **Request
+    pending** until it's decided. Sendmux emails you the outcome. Approved
+    increases apply as soon as they're granted, and the new limit shows on the
+    Accounts page.
   </Step>
 </Steps>
 
@@ -46,15 +67,21 @@ If you'd rather send only through your own providers, deactivate Sendmux SES.
 
 <Steps>
   <Step title="Deactivate">
-    On the **Accounts** page, open the menu next to Sendmux SES and choose **Deactivate**. You can **Activate** it again from the same menu at any time.
+    On the **Accounts** page, open the menu next to Sendmux SES and choose
+    **Deactivate**. You can **Activate** it again from the same menu at any
+    time.
   </Step>
   <Step title="Sends route to your own providers">
-    While Sendmux SES is inactive, every send goes through your own active providers instead.
+    While Sendmux SES is inactive, every send goes through your own active
+    providers instead.
   </Step>
 </Steps>
 
 <Warning>
-  If Sendmux SES is inactive and you have no other active provider, sends fail with [`no_active_providers`](/sending-api/errors#no_active_providers) (HTTP 503). Reactivate Sendmux SES, or add and activate your own provider, to resume sending.
+  If Sendmux SES is inactive and you have no other active provider, sends fail
+  with [`no_active_providers`](/sending-api/errors#no_active_providers) (HTTP
+  503). Reactivate Sendmux SES, or add and activate your own provider, to resume
+  sending.
 </Warning>
 
 ## Bring your own providers
@@ -90,6 +117,7 @@ Routing is decided by how the sending key or mailbox is configured — not by th
     ```
 
     A send scope can be `all` (any of your active providers), `providers` (a fixed set of providers), or `group` (one or more delivery groups). Group identifiers are the public `dgrp_` IDs shown in the dashboard.
+
   </Step>
   <Step title="Send with that key or mailbox">
     Authenticate your send with the scoped key or mailbox. The system routes only through providers that belong to the scoped group and are owned by your team.
@@ -97,25 +125,27 @@ Routing is decided by how the sending key or mailbox is configured — not by th
 </Steps>
 
 <Note>
-  Routing follows the configured send scope of the sending key or mailbox. There is **no per-request header or body field** to choose a delivery group — you target a group by sending with a key or mailbox that is already bound to it.
+  Routing follows the configured send scope of the sending key or mailbox. There
+  is **no per-request header or body field** to choose a delivery group — you
+  target a group by sending with a key or mailbox that is already bound to it.
 </Note>
 
 If the scope is misconfigured, the request is rejected with `422 validation_error`:
 
-| Condition | Result |
-| --- | --- |
-| Send scope is `group` but no group IDs are set | `422 validation_error` — "API key group scope misconfigured" |
-| A referenced group is not found or not owned by your team | `422 validation_error` — "Configured delivery groups not found" |
-| A referenced group on mailbox create or update belongs to another team | `422 validation_error` |
-| A scoped group has no active providers | The send fails — there are no eligible providers to route through |
+| Condition                                                              | Result                                                            |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Send scope is `group` but no group IDs are set                         | `422 validation_error` — "API key group scope misconfigured"      |
+| A referenced group is not found or not owned by your team              | `422 validation_error` — "Configured delivery groups not found"   |
+| A referenced group on mailbox create or update belongs to another team | `422 validation_error`                                            |
+| A scoped group has no active providers                                 | The send fails — there are no eligible providers to route through |
 
 One routing difference is worth knowing:
 
-| Aspect | Sendmux SES | Your own providers |
-| --- | --- | --- |
+| Aspect         | Sendmux SES                                                         | Your own providers                                        |
+| -------------- | ------------------------------------------------------------------- | --------------------------------------------------------- |
 | Sending domain | Must be a [verified domain](/guides/domain-management) on your team | Any domain — your provider enforces its own sender policy |
-| Daily limit | Managed by Sendmux (request increases) | Whatever you configure on the provider |
-| Setup | None — provisioned automatically | You add and configure each one |
+| Daily limit    | Managed by Sendmux (request increases)                              | Whatever you configure on the provider                    |
+| Setup          | None — provisioned automatically                                    | You add and configure each one                            |
 
 ## Where to next
 
@@ -123,10 +153,18 @@ One routing difference is worth knowing:
   <Card title="Domain management" icon="globe" href="/guides/domain-management">
     Verify the domains Sendmux SES is allowed to send from.
   </Card>
-  <Card title="Send via HTTP API" icon="paper-plane" href="/guides/sending-via-http">
+  <Card
+    title="Send via HTTP API"
+    icon="paper-plane"
+    href="/guides/sending-via-http"
+  >
     Send your first email through the default account.
   </Card>
-  <Card title="Sending errors" icon="triangle-exclamation" href="/sending-api/errors">
+  <Card
+    title="Sending errors"
+    icon="triangle-exclamation"
+    href="/sending-api/errors"
+  >
     Handle no_active_providers, insufficient_credits, and rate limits.
   </Card>
 </Columns>

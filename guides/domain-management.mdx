@@ -1,7 +1,8 @@
 ---
 title: "Domain management"
 description: "Add, verify, and manage the sending domains behind your Sendmux mailboxes."
-keywords: ["domains", "DNS", "SPF", "DKIM", "DMARC", "verification", "custom domain"]
+keywords:
+  ["domains", "DNS", "SPF", "DKIM", "DMARC", "verification", "custom domain"]
 ---
 
 Every custom mailbox lives on a domain you own. Before you can create a mailbox on `acme.com`, the domain must be added to your team, the DNS records must be in place, and Sendmux must confirm the records over DNS.
@@ -12,15 +13,21 @@ This guide walks through the full lifecycle: add a domain, read back the records
 
 Sendmux offers two ways to give a mailbox an email address.
 
-| | `@myagent.mx` | Custom domain (e.g. `mail.acme.com`) |
-|---|---|---|
-| DNS changes required | None — Sendmux owns the domain | Yes — you must place MX/SPF/DMARC/DKIM/verification records |
-| Provisioning time | Instant | Minutes to hours (DNS propagation) |
-| Can switch outbound provider | No — locked to Sendmux SES | Yes — override per domain or per mailbox |
-| Addresses under the domain | One per team, suffix-scoped | Any address on your domain |
-| Best for | Quick starts, single agents | Production, branded sending, per-team isolation |
+|                              | `@myagent.mx`                  | Custom domain (e.g. `mail.acme.com`)                        |
+| ---------------------------- | ------------------------------ | ----------------------------------------------------------- |
+| DNS changes required         | None — Sendmux owns the domain | Yes — you must place MX/SPF/DMARC/DKIM/verification records |
+| Provisioning time            | Instant                        | Minutes to hours (DNS propagation)                          |
+| Can switch outbound provider | No — locked to Sendmux SES     | Yes — override per domain or per mailbox                    |
+| Addresses under the domain   | One per team, suffix-scoped    | Any address on your domain                                  |
+| Best for                     | Quick starts, single agents    | Production, branded sending, per-team isolation             |
 
 The rest of this guide covers **custom domains**. The shared `@myagent.mx` path is handled automatically when you create a mailbox with that suffix and does not require any of the steps below.
+
+<Info>
+  Incoming email is billed at the standard `$0.15 / 1,000 emails` rate. To
+  control unwanted inbound volume, use mailbox or domain sender filters to allow
+  trusted senders or deny noisy ones.
+</Info>
 
 ## Add and verify a domain
 
@@ -71,6 +78,7 @@ The rest of this guide covers **custom domains**. The shared `@myagent.mx` path 
       "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
     }
     ```
+
   </Step>
   <Step title="Place every DNS record at your DNS provider">
     See [Required DNS records](#required-dns-records) below for what each record does. Place them exactly as returned — Sendmux's verification check looks for byte-exact values.
@@ -101,6 +109,7 @@ The rest of this guide covers **custom domains**. The shared `@myagent.mx` path 
       "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
     }
     ```
+
   </Step>
 </Steps>
 
@@ -108,13 +117,13 @@ The rest of this guide covers **custom domains**. The shared `@myagent.mx` path 
 
 Place every record from the `dns_records` object at your DNS provider exactly as returned. The table below explains what each record does — AU English, because the rest of Sendmux is too.
 
-| Record | Name | Value | Purpose |
-|---|---|---|---|
-| MX | `mail.acme.com` | `10 mail.sendmux.ai` | Routes inbound mail to Sendmux's managed mail server. |
-| TXT | `_sendmux.mail.acme.com` | `sendmux-verify=team_abc123` | Proves team ownership. Unique to your team — never shared. |
-| TXT | `mail.acme.com` | `v=spf1 include:amazonses.com ~all` | SPF. Authorises Amazon SES to send for the domain. If you use your own upstream provider as well, merge its `include:` mechanism into this same record. |
-| TXT | `_dmarc.mail.acme.com` | `v=DMARC1; p=quarantine` | DMARC enforcement. Receivers quarantine any mail that fails SPF + DKIM alignment. |
-| CNAME | `{token}._domainkey.mail.acme.com` (×3) | `{token}.dkim.amazonses.com` | DKIM signing. Amazon SES rotates keys automatically — don't replace the targets. |
+| Record | Name                                    | Value                               | Purpose                                                                                                                                                 |
+| ------ | --------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MX     | `mail.acme.com`                         | `10 mail.sendmux.ai`                | Routes inbound mail to Sendmux's managed mail server.                                                                                                   |
+| TXT    | `_sendmux.mail.acme.com`                | `sendmux-verify=team_abc123`        | Proves team ownership. Unique to your team — never shared.                                                                                              |
+| TXT    | `mail.acme.com`                         | `v=spf1 include:amazonses.com ~all` | SPF. Authorises Amazon SES to send for the domain. If you use your own upstream provider as well, merge its `include:` mechanism into this same record. |
+| TXT    | `_dmarc.mail.acme.com`                  | `v=DMARC1; p=quarantine`            | DMARC enforcement. Receivers quarantine any mail that fails SPF + DKIM alignment.                                                                       |
+| CNAME  | `{token}._domainkey.mail.acme.com` (×3) | `{token}.dkim.amazonses.com`        | DKIM signing. Amazon SES rotates keys automatically — don't replace the targets.                                                                        |
 
 ### A few notes
 
@@ -145,6 +154,7 @@ DKIM propagation is owned by Amazon SES, not by you. SES watches for the three `
     - Confirm the record name is exactly `_sendmux.{your-domain}` — some DNS providers auto-append the zone, producing `_sendmux.{your-domain}.{your-domain}`.
     - Confirm the value matches the one Sendmux returned, including the `sendmux-verify=` prefix and your team's public ID suffix.
     - Wait 2–5 minutes and retry — TXT records typically propagate fast but some resolvers lag.
+
   </Accordion>
   <Accordion title="mx: false">
     The MX record is missing or points somewhere else.
@@ -153,6 +163,7 @@ DKIM propagation is owned by Amazon SES, not by you. SES watches for the three `
     - Check the priority is `10`.
     - Make sure you're placing the MX on the correct subdomain — `mail.acme.com`, not `acme.com`, if that's the domain you registered with Sendmux.
     - If you use your DNS provider's proxying feature, MX records **cannot be proxied** — they must be set to "DNS only".
+
   </Accordion>
   <Accordion title="spf: false">
     SPF failures are almost always caused by multiple SPF records on the same name.
@@ -160,12 +171,14 @@ DKIM propagation is owned by Amazon SES, not by you. SES watches for the three `
     - Only one SPF record per hostname is allowed. Merge all your `include:` mechanisms into one record.
     - If your apex already has `v=spf1 include:_spf.google.com ~all`, add the Amazon SES include to the same record: `v=spf1 include:amazonses.com include:_spf.google.com ~all`.
     - Check for typos — SPF is whitespace-sensitive.
+
   </Accordion>
   <Accordion title="dmarc: false">
     DMARC record missing or its value doesn't match.
 
     - The record name is `_dmarc.{your-domain}` and the type is TXT.
     - The value `v=DMARC1; p=quarantine` is the Sendmux minimum. You can add tags (`rua=`, `pct=`, `adkim=`) but don't remove `p=quarantine`.
+
   </Accordion>
   <Accordion title='ses_dkim_status: "failed" or "temporary_failure"'>
     SES couldn't verify the three DKIM CNAMEs.
@@ -174,6 +187,7 @@ DKIM propagation is owned by Amazon SES, not by you. SES watches for the three `
     - DKIM records placed at your DNS provider must be set to "DNS only" (not proxied), same as MX.
     - SES retries automatically — `temporary_failure` usually resolves within an hour once the records are correct.
     - If `failed` persists for more than 72 hours with the records in place, contact support at [contact@sendmux.ai](mailto:contact@sendmux.ai).
+
   </Accordion>
 </AccordionGroup>
 
@@ -190,14 +204,15 @@ Deletion is blocked if any active mailbox still lives on the domain — delete t
 
 Domain endpoints are gated by the following API-key permissions. Keys with the wildcard `domain.*` satisfy all of them, and the built-in `root:full` role includes `domain.*`.
 
-| Endpoint                              | Required permission |
-| ------------------------------------- | ------------------- |
-| `POST /domains`                       | `domain.create`     |
-| `GET /domains`                        | `domain.read`       |
-| `GET /domains/{public_id}`            | `domain.read`       |
-| `POST /domains/{public_id}/verify`    | `domain.verify`     |
-| `DELETE /domains/{public_id}`         | `domain.delete`     |
+| Endpoint                           | Required permission |
+| ---------------------------------- | ------------------- |
+| `POST /domains`                    | `domain.create`     |
+| `GET /domains`                     | `domain.read`       |
+| `GET /domains/{public_id}`         | `domain.read`       |
+| `POST /domains/{public_id}/verify` | `domain.verify`     |
+| `DELETE /domains/{public_id}`      | `domain.delete`     |
 
 <Note>
-  Keys provisioned with `root:readonly` carry `domain.read` so monitoring integrations can list your domains without being able to modify them.
+  Keys provisioned with `root:readonly` carry `domain.read` so monitoring
+  integrations can list your domains without being able to modify them.
 </Note>

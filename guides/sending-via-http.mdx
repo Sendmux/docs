@@ -7,7 +7,10 @@ keywords: ["HTTP API", "send email", "quick start", "curl", "REST", "JSON"]
 The HTTP API is the recommended way to send emails from your application. It supports single and batch sending with structured JSON requests.
 
 <Note>
-  Provider and delivery-group routing follows the configured scope of the API key you authenticate with — there is no header or request field to select a provider or group. See [Route through a delivery group](/guides/sending-accounts#route-through-a-delivery-group).
+  Provider and delivery-group routing follows the configured scope of the API
+  key you authenticate with — there is no header or request field to select a
+  provider or group. See [Route through a delivery
+  group](/guides/sending-accounts#route-through-a-delivery-group).
 </Note>
 
 ## Prerequisites
@@ -20,7 +23,7 @@ The HTTP API is the recommended way to send emails from your application. It sup
     An API key with the `email.send` permission. Create one under **Settings > API Keys**.
   </Step>
   <Step title="Sufficient balance">
-    Check your team's balance under **Billing** — sends are debited per message.
+    Check your team's balance under **Billing** — sends are debited per message. Outgoing mail through your own providers is billed at `$0.15 / 1,000 emails`; outgoing mail through Sendmux SES is billed at `$0.25 / 1,000 emails`.
   </Step>
 </Steps>
 
@@ -162,8 +165,16 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
   "ok": true,
   "data": {
     "results": [
-      { "index": 0, "message_id": "eml_abc123def456ghi789jkl012", "status": "queued" },
-      { "index": 1, "message_id": "eml_mno345pqr678stu901vwx234", "status": "queued" }
+      {
+        "index": 0,
+        "message_id": "eml_abc123def456ghi789jkl012",
+        "status": "queued"
+      },
+      {
+        "index": 1,
+        "message_id": "eml_mno345pqr678stu901vwx234",
+        "status": "queued"
+      }
     ],
     "summary": { "total": 2, "queued": 2, "failed": 0 }
   },
