@@ -1,23 +1,33 @@
 ---
 title: "Quickstart"
 description: "Verify a domain, create a mailbox, and send your first email through Sendmux in five steps."
-keywords: ["quickstart", "getting started", "first email", "onboarding", "verify domain", "send email", "webhook"]
+keywords:
+  [
+    "quickstart",
+    "getting started",
+    "first email",
+    "onboarding",
+    "verify domain",
+    "send email",
+    "webhook",
+  ]
 ---
 
 This walkthrough takes you from a fresh Sendmux account to a verified sending domain, an active mailbox, and a webhook receiving live delivery events. Plan for about 30 minutes — most of which is waiting for DNS records to propagate.
 
 <Info>
-  Before you start, sign in at [app.sendmux.ai](https://app.sendmux.ai) and create or join a team. Every step below happens inside that team.
+  Before you start, sign in at [app.sendmux.ai](https://app.sendmux.ai) and
+  create or join a team. Every step below happens inside that team.
 </Info>
 
 ## Root vs mailbox API keys
 
 Sendmux has two categories of API key, both prefixed `smx_`:
 
-| Key category | Base URL | Use it for |
-| --- | --- | --- |
-| **Root** (Management) | `app.sendmux.ai/api/v1` | Reading and managing providers, domains, mailboxes, webhooks, billing, and logs |
-| **Mailbox-scoped** | `smtp.sendmux.ai/api/v1` (sending) | Sending email and mailbox-scoped endpoints such as `GET /mailbox/me` |
+| Key category          | Base URL                           | Use it for                                                                      |
+| --------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
+| **Root** (Management) | `app.sendmux.ai/api/v1`            | Reading and managing providers, domains, mailboxes, webhooks, billing, and logs |
+| **Mailbox-scoped**    | `smtp.sendmux.ai/api/v1` (sending) | Sending email and mailbox-scoped endpoints such as `GET /mailbox/me`            |
 
 Use a **mailbox-scoped key** for sending and any `/mailbox/*` endpoint. A root key sent to a mailbox-scoped endpoint is rejected with `403`. The mailbox credential created in step 2 is a mailbox-scoped key.
 
@@ -48,6 +58,7 @@ By the end of this guide you'll have:
     <Tip>
       You can also use a `@myagent.mx` shared address if you don't have a custom domain yet — skip this step and pick the shared option when creating your mailbox in step 2.
     </Tip>
+
   </Step>
 
   <Step title="Create a mailbox">
@@ -62,6 +73,7 @@ By the end of this guide you'll have:
     - As the password for IMAP retrieval (`mail.sendmux.ai:993`).
 
     Store it in your secrets manager. If you lose it, mint a fresh credential from the mailbox detail page — the original value is gone.
+
   </Step>
 
   <Step title="Send your first email">
@@ -127,6 +139,7 @@ By the end of this guide you'll have:
     <Tip>
       Prefer SMTP? The same credentials work — see [Send via SMTP](/guides/sending-via-smtp).
     </Tip>
+
   </Step>
 
   <Step title="Subscribe a webhook">
@@ -135,13 +148,14 @@ By the end of this guide you'll have:
     **In the dashboard**: open **Webhooks** and click **Add webhook**. Provide:
 
     - The **URL** that will receive events (must be HTTPS).
-    - The **event types** you want — start with `ses.bounce` and `ses.complaint` to learn about deliverability problems.
+    - The **event types** you want — start with `message.bounced` and `message.complained` to learn about deliverability problems.
 
     On creation, Sendmux returns a signing secret (`whsec_...`) **once**. Copy it into your application's secret store immediately — you cannot retrieve it again. If you lose it, rotate the secret from the webhook detail page.
 
     Sendmux signs every payload with HMAC-SHA256 over the request body, sent in the `X-Sendmux-Signature` header. Always verify the signature before trusting the payload.
 
     See [Webhooks setup](/guides/webhooks-setup) for the full event-type catalogue and retry behaviour, and [Verify signatures](/guides/webhooks-verify-signatures) for ready-to-paste verification code.
+
   </Step>
 
   <Step title="Verify everything works end-to-end">
@@ -150,11 +164,12 @@ By the end of this guide you'll have:
     1. Send via the API as in step 3.
     2. Confirm the message arrived in the recipient inbox (check spam folder if needed; deliverability improves as your domain reputation builds).
     3. Open **Logs** in the dashboard — your `eml_*` id should appear within seconds with `status: delivered`.
-    4. Check your webhook receiver — for a successful delivery, no `ses.bounce` or `ses.complaint` event fires. To exercise the webhook path immediately, send a second message to `bounce@simulator.amazonses.com`; you'll receive a `ses.bounce` event within about 30 seconds.
+    4. Check your webhook receiver — for a successful delivery, no `message.bounced` or `message.complained` event fires. To exercise the webhook path immediately, send a second message to `bounce@simulator.amazonses.com`; you'll receive a `message.bounced` event within about 30 seconds.
 
     <Note>
       The bounce simulator address is provided by Amazon SES specifically for testing — it returns a hard bounce without affecting your sender reputation.
     </Note>
+
   </Step>
 </Steps>
 
@@ -164,13 +179,21 @@ By the end of this guide you'll have:
   <Card title="Domain management" icon="globe" href="/guides/domain-management">
     Add more domains, rotate DNS records, and manage verification state.
   </Card>
-  <Card title="Sending API reference" icon="paper-plane" href="/sending-api/introduction">
+  <Card
+    title="Sending API reference"
+    icon="paper-plane"
+    href="/sending-api/introduction"
+  >
     Full reference for single sends, batch sends, attachments, and idempotency.
   </Card>
   <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
     Subscribe to event types, handle retries, and rotate signing secrets.
   </Card>
-  <Card title="Verify signatures" icon="key" href="/guides/webhooks-verify-signatures">
+  <Card
+    title="Verify signatures"
+    icon="key"
+    href="/guides/webhooks-verify-signatures"
+  >
     HMAC verification snippets for webhook receivers.
   </Card>
 </Columns>

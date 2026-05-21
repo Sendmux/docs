@@ -120,6 +120,8 @@
               "GET /webhooks",
               "POST /webhooks",
               "GET /webhooks/{public_id}",
+              "GET /webhooks/{public_id}/deliveries",
+              "GET /webhooks/{public_id}/deliveries/{delivery_id}/payload",
               "PATCH /webhooks/{public_id}",
               "DELETE /webhooks/{public_id}",
               "POST /webhooks/{public_id}/rotate-secret",
@@ -130,7 +132,7 @@
       },
       {
         "tab": "Mailbox API",
-        "openapi": "openapi-app.json",
+        "openapi": "https://app.sendmux.ai/api/v1/openapi.json",
         "groups": [
           {
             "group": "Overview",

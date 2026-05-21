@@ -4,163 +4,151 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="21 May 2026" tags={["New features","Improvements"]} rss={{ title: "Webhooks add mailbox scoping, delivery logs, and retained payload inspection" }}>
+  ## Webhooks
+
+Webhook subscriptions can now target all team mailboxes or a selected mailbox list, so you can route inbound events to the right service without creating a separate team.
+
+## Improvements
+
+- Webhook delivery logs now show attempts, retry timing, response status, latency, response previews, and retained request payloads from the last 7 days.
+- Failed-webhook emails now link directly to the delivery logs for the affected subscription.
+- Public event names now use product-shaped `message.*` names, including `message.received` and `message.received.spam`.
+
+</Update>
+
 <Update label="20 May 2026" tags={["New features","Improvements"]} rss={{ title: "Mailbox API adds session discovery, message query sync, and state-safe batch actions" }}>
   ## Mailbox API
 
-  The Mailbox API now supports filtered message query changes, so clients can poll a saved message list and receive only added, removed, and reordered message IDs.
+The Mailbox API now supports filtered message query changes, so clients can poll a saved message list and receive only added, removed, and reordered message IDs.
 
-  ## Improvements
+## Improvements
 
-  - Session discovery now reports supported Mailbox API capabilities, current state tokens, request limits, and intentionally unavailable features.
-  - Message responses now expose active keywords, and batch message updates can set or clear custom keywords for richer mailbox triage.
-  - Batch message deletes can move up to 100 messages to Trash, or permanently delete them when requested.
-  - Mailbox credentials now have tighter permissions so restricted mailbox capabilities stay unavailable outside the public API. They remain usable for SMTP and IMAP access.
+- Session discovery now reports supported Mailbox API capabilities, current state tokens, request limits, and intentionally unavailable features.
+- Message responses now expose active keywords, and batch message updates can set or clear custom keywords for richer mailbox triage.
+- Batch message deletes can move up to 100 messages to Trash, or permanently delete them when requested.
+- Mailbox credentials now have tighter permissions so restricted mailbox capabilities stay unavailable outside the public API. They remain usable for SMTP and IMAP access.
+
 </Update>
 
 <Update label="19 May 2026" tags={["New features","Improvements"]} rss={{ title: "Mailbox API adds clean retrieval, sync, safer writes, and stronger attachment handling" }}>
   ## Mailbox API for agents
 
-  The Mailbox API now gives agents more precise mailbox access without fetching full messages by default. You can retrieve raw bodies, clean JSON message content, clean thread content, exact message batches, counts, search snippets, thread metadata, folder change feeds, sender identities, send submissions, quota details, and compact usage health.
+The Mailbox API now gives agents more precise mailbox access without fetching full messages by default. You can retrieve raw bodies, clean JSON message content, clean thread content, exact message batches, counts, search snippets, thread metadata, folder change feeds, sender identities, send submissions, quota details, and compact usage health.
 
-  See the [Mailbox API](/mailbox-api/introduction).
+See the [Mailbox API](/mailbox-api/introduction).
 
-  ## Improvements
+## Improvements
 
-  - Message searches support richer filters and snippet-only responses so clients can decide what to fetch next.
-  - Sync now covers messages, folders, threads, submissions, identities, and quotas through typed change polling.
-  - Message and folder writes now have stronger stale-state protection, with `If-Match` support on supported deletes as well as updates.
-  - Attachment sends can now use a binary upload step before `messages/send`, and attachment downloads support byte-range requests.
-  - Attachment contents remain download-only; clean content endpoints return attachment metadata without parsing files.
+- Message searches support richer filters and snippet-only responses so clients can decide what to fetch next.
+- Sync now covers messages, folders, threads, submissions, identities, and quotas through typed change polling.
+- Message and folder writes now have stronger stale-state protection, with `If-Match` support on supported deletes as well as updates.
+- Attachment sends can now use a binary upload step before `messages/send`, and attachment downloads support byte-range requests.
+- Attachment contents remain download-only; clean content endpoints return attachment metadata without parsing files.
+
 </Update>
 
 <Update label="14 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "A managed Amazon SES sending route with daily limits, a new mailbox API, and one credential per mailbox" }}>
   ## Managed Amazon SES sending route
 
-  Every team now gets a managed Amazon SES sending route out of the box — ready to send immediately, with no setup. It's capped at 500 emails per day to protect your sending reputation. When you reach 80% of the cap you can request an increase in one click from the **Accounts** page; we review each request and email you the outcome.
+Every team now gets a managed Amazon SES sending route out of the box — ready to send immediately, with no setup. It's capped at 500 emails per day to protect your sending reputation. When you reach 80% of the cap you can request an increase in one click from the **Accounts** page; we review each request and email you the outcome.
 
-  ## New mailbox API
+## New mailbox API
 
-  A new mailbox API lets you list folders and messages, read a message, send mail, and poll for changes — authenticated with a mailbox key. See the [Mailbox API](/mailbox-api/introduction).
+A new mailbox API lets you list folders and messages, read a message, send mail, and poll for changes — authenticated with a mailbox key. See the [Mailbox API](/mailbox-api/introduction).
 
-  ## Improvements
+## Improvements
 
-  - **One credential per mailbox.** Each mailbox now uses a single credential for sending and for mailbox access over SMTP, IMAP, and the API — simpler setup. "App passwords" are now called "Mailbox passwords".
-  - Refreshed, more compact **Accounts**, domain, mailbox, and webhook pages, with DNS records and connection settings you can copy in a single click.
+- **One credential per mailbox.** Each mailbox now uses a single credential for sending and for mailbox access over SMTP, IMAP, and the API — simpler setup. "App passwords" are now called "Mailbox passwords".
+- Refreshed, more compact **Accounts**, domain, mailbox, and webhook pages, with DNS records and connection settings you can copy in a single click.
 
-  ## Bug fixes
+## Bug fixes
 
-  - The mailbox quickstart example now works exactly as shown.
+- The mailbox quickstart example now works exactly as shown.
+
 </Update>
 
 <Update label="27 April 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "The Management API is hardened for production: request IDs, cursor pagination, ETags, and idempotency keys" }}>
   ## Management API
 
-  The [Management API](/api-reference/introduction) is hardened for production use:
+The [Management API](/api-reference/introduction) is hardened for production use:
 
-  - Consistent success and error response formats.
-  - A request ID on every response for support correlation.
-  - Cursor pagination on all list endpoints.
-  - ETags and conditional requests (`If-None-Match` / `If-Match`) to save bandwidth and prevent lost updates.
-  - [Idempotency keys](/guides/idempotency) so create requests can be retried safely.
-  - Rate-limit responses now report the exact number of seconds until your limit resets.
+- Consistent success and error response formats.
+- A request ID on every response for support correlation.
+- Cursor pagination on all list endpoints.
+- ETags and conditional requests (`If-None-Match` / `If-Match`) to save bandwidth and prevent lost updates.
+- [Idempotency keys](/guides/idempotency) so create requests can be retried safely.
+- Rate-limit responses now report the exact number of seconds until your limit resets.
 
-  ## Bug fixes
+## Bug fixes
 
-  - Fixed a rare timing issue that could cause a small number of valid emails to be incorrectly rejected; affected messages now send normally.
+- Fixed a rare timing issue that could cause a small number of valid emails to be incorrectly rejected; affected messages now send normally.
+
 </Update>
 
 <Update label="24 April 2026" tags={["New features","Bug fixes"]} rss={{ title: "Mailboxes, your own sending domains, configurable signed webhooks, and a Deliverability dashboard" }}>
   ## Mailboxes
 
-  Create and manage mailboxes with per-mailbox quotas, sender-filter rules, and suspend, resume, and empty actions. A shared domain option lets you start instantly with no setup.
+Create and manage mailboxes with per-mailbox quotas, sender-filter rules, and suspend, resume, and empty actions. A shared domain option lets you start instantly with no setup.
 
-  ## Your own sending domains
+## Your own sending domains
 
-  Add your own sending domains with guided DNS setup (MX, SPF, DKIM, DMARC), one-click verification, automatic periodic re-verification, and a downloadable DNS zone file. See [Domain management](/guides/domain-management). Owners are emailed if a domain stops verifying.
+Add your own sending domains with guided DNS setup (MX, SPF, DKIM, DMARC), one-click verification, automatic periodic re-verification, and a downloadable DNS zone file. See [Domain management](/guides/domain-management). Owners are emailed if a domain stops verifying.
 
-  ## Configurable webhooks
+## Configurable webhooks
 
-  Subscribe to delivery and inbound-mail events with signed webhooks: name them, choose event types, send a test event, and rotate the signing secret. You're notified if an endpoint starts failing. See [Webhooks](/guides/webhooks-setup).
+Subscribe to delivery and inbound-mail events with signed webhooks: name them, choose event types, send a test event, and rotate the signing secret. You're notified if an endpoint starts failing. See [Webhooks](/guides/webhooks-setup).
 
-  ## Deliverability
+## Deliverability
 
-  A new **Deliverability** page tracks your bounce and complaint rates over rolling windows and shows your sending reputation at a glance.
+A new **Deliverability** page tracks your bounce and complaint rates over rolling windows and shows your sending reputation at a glance.
 
-  ## Bug fixes
+## Bug fixes
 
-  - Delivery, bounce, and complaint events are now recorded reliably to your event history.
-  - Delivery-log statuses stay accurate even when provider events arrive out of order — a failed or bounced email is no longer shown as sent.
+- Delivery, bounce, and complaint events are now recorded reliably to your event history.
+- Delivery-log statuses stay accurate even when provider events arrive out of order — a failed or bounced email is no longer shown as sent.
+
 </Update>
 
 <Update label="17 April 2026" tags={["New features"]} rss={{ title: "Delete a team with a 7-day grace period, plus richer invitation management" }}>
   ## Team deletion
 
-  Team Owners can now delete a team. Deletion has a 7-day grace period during which it can be undone; after that the team and its data are permanently removed.
+Team Owners can now delete a team. Deletion has a 7-day grace period during which it can be undone; after that the team and its data are permanently removed.
 
-  ## Invitation management
+## Invitation management
 
-  Track full invitation history with filters, invite several people at once, resend or cancel pending invites, and decline an invitation.
+Track full invitation history with filters, invite several people at once, resend or cancel pending invites, and decline an invitation.
+
 </Update>
 
 <Update label="26 March 2026" tags={["New features","Improvements"]} rss={{ title: "Four team roles, low-balance email alerts, and refreshed transactional emails" }}>
   ## Team roles
 
-  Teams now have four roles — Owner, Admin, Developer, and Member — with permissions enforced across the dashboard and the API.
+Teams now have four roles — Owner, Admin, Developer, and Member — with permissions enforced across the dashboard and the API.
 
-  ## Low-balance email alerts
+## Low-balance email alerts
 
-  Get an email when your team balance drops below a threshold you choose, with a one-click link to top up.
+Get an email when your team balance drops below a threshold you choose, with a one-click link to top up.
 
-  ## Improvements
+## Improvements
 
-  - Refreshed, on-brand transactional emails — responsive, dark-mode friendly, and personalised with your name.
-  - The overview now tracks pending emails alongside sent, successful, and failed, and large numbers are shown compactly (for example 1.5k, 2M).
-  - The dashboard and logs refresh automatically while you're viewing them and pause when the tab is in the background.
+- Refreshed, on-brand transactional emails — responsive, dark-mode friendly, and personalised with your name.
+- The overview now tracks pending emails alongside sent, successful, and failed, and large numbers are shown compactly (for example 1.5k, 2M).
+- The dashboard and logs refresh automatically while you're viewing them and pause when the tab is in the background.
+
 </Update>
 
 <Update label="20 March 2026" tags={["New features"]} rss={{ title: "Sendmux is here — dashboard, sending accounts, dollar-based billing, the Sending API, and a read-only Management API" }}>
   ## Sendmux is here
 
-  Welcome to Sendmux. The initial release includes:
+Welcome to Sendmux. The initial release includes:
 
-  - **Dashboard** — an at-a-glance overview with sending charts and a searchable, filterable delivery-log viewer with CSV export.
-  - **Sending accounts** — connect accounts over SMTP or with Gmail and Microsoft 365 (including GCC High, DoD, and China clouds), organise them into groups, bulk-test connections, and import in bulk from CSV. See [Sending accounts](/guides/sending-accounts).
-  - **Sending API** — send a single email or batches of up to 100 over a modern JSON REST interface, with structured sender and recipient objects, partial-success batch results, attachments, CC/BCC, and Reply-To. See the [Sending API](/sending-api/introduction).
-  - **Read-only Management API** — query your sending accounts, email logs, metrics, and billing programmatically, with API-key authentication and a published OpenAPI spec.
-  - **Scoped API keys** — restrict a sending key to specific accounts or a group, and see warnings before deleting anything a key depends on.
-  - **Dollar-based billing** — a clear transaction history, automatic top-ups so your balance never runs dry, and promotion codes at checkout.
-  - **Unlimited teams** — create and join as many teams as you need.
+- **Dashboard** — an at-a-glance overview with sending charts and a searchable, filterable delivery-log viewer with CSV export.
+- **Sending accounts** — connect accounts over SMTP or with Gmail and Microsoft 365 (including GCC High, DoD, and China clouds), organise them into groups, bulk-test connections, and import in bulk from CSV. See [Sending accounts](/guides/sending-accounts).
+- **Sending API** — send a single email or batches of up to 100 over a modern JSON REST interface, with structured sender and recipient objects, partial-success batch results, attachments, CC/BCC, and Reply-To. See the [Sending API](/sending-api/introduction).
+- **Read-only Management API** — query your sending accounts, email logs, metrics, and billing programmatically, with API-key authentication and a published OpenAPI spec.
+- **Scoped API keys** — restrict a sending key to specific accounts or a group, and see warnings before deleting anything a key depends on.
+- **Dollar-based billing** — a clear transaction history, automatic top-ups so your balance never runs dry, and promotion codes at checkout.
+- **Unlimited teams** — create and join as many teams as you need.
+
 </Update>
-
-{/*
-  ─────────────────────────────────────────────────────────────────────────────
-  ENTRY TEMPLATE — do not delete. Copy it for each release.
-
-  Entries are authored from code, never from memory. Authoring rules:
-    • This repo's CLAUDE.md → "Changelog (Product updates)" (format, source of truth).
-    • Product repo's CLAUDE.md → "Product Changelog" (what shipped, derived per
-      release tag from git history).
-
-  Rules:
-    • Newest entry goes at the TOP (reverse chronological).
-    • `label` = ship date only, e.g. "18 May 2026" — no version number.
-    • `tags` = only those that apply, from: "New features", "Improvements", "Bug fixes".
-    • `rss.title` = one-line summary for feed subscribers.
-    • Internal architecture confidentiality applies in full — allowlist only.
-
-  <Update label="18 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "One-line summary of what shipped this release" }}>
-    ## Feature name
-
-    What it does and what it means for you. Link related docs, e.g.
-    [Domain management](/guides/domain-management).
-
-    ## Improvements
-
-    - Concise, user-facing improvement.
-
-    ## Bug fixes
-
-    - Concise, user-facing fix.
-  </Update>
-  ─────────────────────────────────────────────────────────────────────────────
-*/}
