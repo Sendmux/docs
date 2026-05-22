@@ -42,6 +42,8 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
 | `GET /mailbox/me`                                                | Return the mailbox associated with the bearer token.              |
 | `GET /mailbox/session`                                           | Return supported capabilities, limits, and current state tokens.  |
+| `GET /mailbox/identity`                                          | Return the mailbox's default sender identity and signatures.      |
+| `PATCH /mailbox/identity`                                        | Update the mailbox's sender name and signatures.                  |
 | `GET /mailbox/identities`                                        | List sender identities available to the mailbox.                  |
 | `GET /mailbox/messages`                                          | List messages with filters, sorting, and cursor pagination.       |
 | `POST /mailbox/messages:batch-get`                               | Read exact message IDs with optional raw or clean body output.    |
@@ -116,7 +118,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
       },
       "identities": {
         "list": true,
-        "update": false
+        "update": true
       },
       "attachments": {
         "upload": true,
@@ -133,7 +135,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
       "attachment_upload_bytes_max": 50000000
     },
     "gated": {
-      "identity_mutation": true,
+      "identity_mutation": false,
       "quota_mutation": true,
       "filter_script_writes": true,
       "events": true,
@@ -158,8 +160,30 @@ mailbox health without adding mutation authority.
 
 ### Sender identities
 
-Use identities to discover which sender addresses and default signatures are
-available to the authenticated mailbox.
+Use `GET /mailbox/identity` to read the mailbox's default sender name and
+signatures. Use `PATCH /mailbox/identity` to update `name`,
+`text_signature`, and `html_signature`.
+Mailbox API sends use this sender name by default and append the matching
+plain text or HTML signature when the send body includes that format.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/identity" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```bash
+curl -X PATCH "https://app.sendmux.ai/api/v1/mailbox/identity" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Support",
+    "text_signature": "Regards",
+    "html_signature": "<p>Regards</p>"
+  }'
+```
+
+`GET /mailbox/identities` lists all sender identities available to the
+authenticated mailbox.
 
 ```bash
 curl "https://app.sendmux.ai/api/v1/mailbox/identities" \
@@ -190,11 +214,6 @@ curl "https://app.sendmux.ai/api/v1/mailbox/identities" \
   }
 }
 ```
-
-<Note>
-  The Mailbox API exposes identities as read-only. It does not create, update,
-  or delete sender identities.
-</Note>
 
 ### Send submissions
 

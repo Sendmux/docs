@@ -143,6 +143,8 @@
             "pages": [
               "GET /mailbox/me",
               "GET /mailbox/session",
+              "GET /mailbox/identity",
+              "PATCH /mailbox/identity",
               "GET /mailbox/identities"
             ]
           },
