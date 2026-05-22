@@ -1,7 +1,15 @@
 ---
 title: "Errors"
 description: "Error codes and handling for the Sendmux API."
-keywords: ["error codes", "HTTP status", "retryable", "validation errors", "rate limit", "troubleshooting"]
+keywords:
+  [
+    "error codes",
+    "HTTP status",
+    "retryable",
+    "validation errors",
+    "rate limit",
+    "troubleshooting",
+  ]
 ---
 
 The Sendmux API uses standard HTTP status codes and returns a consistent error envelope so you can handle failures programmatically.
@@ -24,14 +32,14 @@ The Sendmux API uses standard HTTP status codes and returns a consistent error e
 }
 ```
 
-| Field        | Description                                                                                                                         |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `code`       | Stable machine-readable code from the table below. Branch your client logic on this, not on the message text.                       |
-| `message`    | Human-readable description suitable for logs or surfacing to internal tools. Wording may change without notice.                     |
-| `param`      | Only present when the error is tied to a specific request field — typically the field that failed validation.                       |
-| `doc_url`    | Anchor link into this page. Useful for surfacing inline help.                                                                       |
-| `retryable`  | `true` when the same request can succeed on a later attempt without changes. See [Retryable + Retry-After](#retryable--retry-after). |
-| `errors`     | Only present on accumulated validation failures. See [Validation errors with multiple issues](#validation-errors-with-multiple-issues). |
+| Field       | Description                                                                                                                             |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `code`      | Stable machine-readable code from the table below. Branch your client logic on this, not on the message text.                           |
+| `message`   | Human-readable description suitable for logs or surfacing to internal tools. Wording may change without notice.                         |
+| `param`     | Only present when the error is tied to a specific request field — typically the field that failed validation.                           |
+| `doc_url`   | Anchor link into this page. Useful for surfacing inline help.                                                                           |
+| `retryable` | `true` when the same request can succeed on a later attempt without changes. See [Retryable + Retry-After](#retryable--retry-after).    |
+| `errors`    | Only present on accumulated validation failures. See [Validation errors with multiple issues](#validation-errors-with-multiple-issues). |
 
 Every response also carries an `X-Request-Id` HTTP header that matches `meta.request_id` verbatim. Always include `request_id` when contacting support.
 
@@ -39,11 +47,11 @@ Every response also carries an `X-Request-Id` HTTP header that matches `meta.req
 
 The `retryable` field tells you whether retrying the same request is likely to succeed. Defaults follow this policy:
 
-| HTTP status | Default `retryable` | Why                                                                                |
-| ----------- | -------------------- | ---------------------------------------------------------------------------------- |
-| `429`       | `true`               | Transient — back off until the rate-limit window resets.                           |
-| `5xx`       | `true`               | Transient — backend issue or downstream component briefly unavailable.             |
-| `4xx` other | `false`              | Caller-side problem — fix the request before retrying.                             |
+| HTTP status | Default `retryable` | Why                                                                    |
+| ----------- | ------------------- | ---------------------------------------------------------------------- |
+| `429`       | `true`              | Transient — back off until the rate-limit window resets.               |
+| `5xx`       | `true`              | Transient — backend issue or downstream component briefly unavailable. |
+| `4xx` other | `false`             | Caller-side problem — fix the request before retrying.                 |
 
 When `retryable` is `true` for a `429` or `503`, the response also carries a `Retry-After` HTTP header with the recommended wait in seconds. Honour that value rather than retrying immediately.
 
@@ -69,8 +77,16 @@ When a request body fails Zod schema validation on multiple fields, the error en
     "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
     "retryable": false,
     "errors": [
-      { "field": "filter_rules.0.action", "code": "invalid_enum_value", "message": "Expected 'allow' | 'deny'." },
-      { "field": "filter_rules.2.pattern", "code": "too_small", "message": "String must contain at least 1 character(s)." }
+      {
+        "field": "filter_rules.0.action",
+        "code": "invalid_enum_value",
+        "message": "Expected 'allow' | 'deny'."
+      },
+      {
+        "field": "filter_rules.2.pattern",
+        "code": "too_small",
+        "message": "String must contain at least 1 character(s)."
+      }
     ]
   },
   "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
@@ -117,7 +133,7 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 ### validation_error
 
-**HTTP 422** — A request body parsed cleanly as JSON but fails a semantic rule. Common cases include shrinking a mailbox quota below its current usage, referencing a provider or delivery group from a different team, or submitting more than 1,000 filter rules in a single request. The `param` field identifies the first offending field; the `errors` array enumerates every issue.
+**HTTP 422** — A request body parsed cleanly as JSON but fails a semantic rule. Common cases include choosing an unsupported mailbox storage tier, shrinking mailbox storage below its current usage, referencing a provider or delivery group from a different team, or submitting more than 1,000 filter rules in a single request. The `param` field identifies the first offending field; the `errors` array enumerates every issue.
 
 ### rate_limit_exceeded
 
