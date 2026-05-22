@@ -141,7 +141,7 @@ To avoid dropped events, verify against both the old and new secret for a few mi
 
 ## Send a test event
 
-`POST /webhooks/{id}/test` publishes a synthetic `sendmux.test` event scoped to your team. The response contains the `event_id` so you can correlate receipt on your endpoint via `X-Sendmux-Event-Id`.
+`POST /webhooks/{id}/test` publishes a synthetic `sendmux.test` event to that webhook subscription. The response contains the `event_id` so you can correlate receipt on your endpoint via `X-Sendmux-Event-Id`.
 
 ```bash
 curl -X POST https://app.sendmux.ai/api/v1/webhooks/whk_.../test \
@@ -158,10 +158,9 @@ curl -X POST https://app.sendmux.ai/api/v1/webhooks/whk_.../test \
 
 <Tip>
   Add `sendmux.test` to your subscription's `event_types` list **before**
-  calling this endpoint if you want the test event to reach that specific
-  subscription. The event fans out team-wide and only matches subscriptions that
-  explicitly list `sendmux.test`. Most teams add it temporarily during setup,
-  then remove it.
+  calling this endpoint. Mailbox filters do not block test delivery, so you can
+  verify a filtered webhook before waiting for a real mailbox event. Most teams
+  add it temporarily during setup, then remove it.
 </Tip>
 
 ## Reference
