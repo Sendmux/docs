@@ -201,39 +201,52 @@ The request body is the canonical event envelope.
 ```json
 {
   "id": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "source": "message",
-  "event_type": "message.bounced",
-  "type": "bounced",
+  "type": "message.bounced",
   "team_public_id": "tm_clxxxxxxxxxxxxxxxxxxxxxxxxx",
   "occurred_at": "2026-04-23T10:15:30Z",
-  "raw_source": {
-    "eventType": "Bounce",
-    "mail": { "messageId": "0100018c12345678-..." },
-    "bounce": {
-      "bounceType": "Permanent",
-      "bouncedRecipients": [{ "emailAddress": "user@example.com" }]
-    }
-  },
-  "normalised": {
+  "data": {
     "message_id": "0100018c12345678-...",
-    "recipient": "user@example.com",
+    "message_id_kind": "provider",
+    "sendmux_message_id": "msg_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "sender": "sender@example.com",
+    "recipients": ["user@example.com"],
     "mailbox_id": null,
     "bounce_type": "Permanent",
+    "bounce_subtype": "General",
     "complaint_type": null,
-    "is_spam": null
+    "complaint_subtype": null,
+    "reject_reason": null,
+    "delay_type": null,
+    "delay_expires_at": null,
+    "is_spam": null,
+    "webhook_id": null
   }
 }
 ```
 
-| Field                   | Description                                                                                                                                 |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                    | Stable per-event identifier. Also sent in the `X-Sendmux-Event-Id` header.                                                                  |
-| `source`                | `"message"` for outbound and inbound mail events, `"sendmux"` for synthetic test events.                                                    |
-| `event_type`            | The dotted `{source}.{type}` form — e.g. `"message.bounced"`, `"message.received"`. Mirrors the value of the `X-Sendmux-Event-Type` header. |
-| `type`                  | Event subtype without the source prefix — e.g. `"bounced"`, `"received"`, `"test"`.                                                         |
-| `raw_source`            | The original provider payload when safe to expose. This is `null` for inbound mailbox events; use `normalised` for stable fields.           |
-| `normalised.mailbox_id` | Populated for inbound mailbox events when the mailbox can be resolved.                                                                      |
-| `normalised.is_spam`    | Populated only for inbound mailbox events — `true` for spam, `false` for normal mail, `null` for every other event type.                    |
+| Field                       | Description                                                                                                                                         |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                        | Stable per-event identifier. Also sent in the `X-Sendmux-Event-Id` header.                                                                          |
+| `type`                      | Dotted event type — e.g. `"message.bounced"`, `"message.received"`. Mirrors the `X-Sendmux-Event-Type` header.                                     |
+| `team_public_id`            | Team that owns the event.                                                                                                                           |
+| `occurred_at`               | When the upstream event occurred.                                                                                                                   |
+| `data.message_id`           | Message identifier from the event source.                                                                                                           |
+| `data.message_id_kind`      | `"provider"` for sending feedback IDs; `"rfc5322"` for inbound email `Message-ID` header values.                                                     |
+| `data.sendmux_message_id`   | Sendmux message correlation ID for outbound sending feedback when available; otherwise `null`.                                                       |
+| `data.sender`               | Sender/envelope-from address when available.                                                                                                        |
+| `data.recipients`           | All affected recipients. Empty for `sendmux.test` events.                                                                                           |
+| `data.mailbox_id`           | Populated for inbound mailbox events when the mailbox can be resolved.                                                                              |
+| `data.bounce_type`          | Populated for `message.bounced`; otherwise `null`.                                                                                                  |
+| `data.bounce_subtype`       | More specific bounce category when available; otherwise `null`.                                                                                     |
+| `data.complaint_type`       | Populated for `message.complained`; otherwise `null`.                                                                                               |
+| `data.complaint_subtype`    | More specific complaint category when available; otherwise `null`.                                                                                  |
+| `data.reject_reason`        | Populated for `message.rejected`; otherwise `null`.                                                                                                 |
+| `data.delay_type`           | Populated for `message.delivery_delayed`; otherwise `null`.                                                                                         |
+| `data.delay_expires_at`     | When delivery retries are expected to stop for delayed delivery feedback, when provided; otherwise `null`.                                           |
+| `data.is_spam`              | Populated only for inbound mailbox events — `true` for spam, `false` for normal mail, `null` for every other event type.                            |
+| `data.webhook_id`           | Populated only for synthetic `sendmux.test` payloads so you can confirm which subscription was targeted.                                            |
+
+Provider raw payloads are not delivered to webhook endpoints. The `data` object is the stable Sendmux contract; use it instead of provider-specific fields.
 
 ### Permissions
 
