@@ -20,16 +20,17 @@ Sendmux uses team-level limits for resources that can be created in large number
 
 Each new team starts with these limits:
 
-| Resource             | Default limit | Where to manage it                                         |
-| -------------------- | ------------- | ---------------------------------------------------------- |
-| Domains              | 25            | [Domain management](/guides/domain-management)             |
-| Mailboxes            | 50            | **Mailboxes** in the Sendmux app                           |
-| Sending accounts     | 200           | [Sending accounts](/guides/sending-accounts)               |
-| Webhooks             | 10            | [Webhooks setup](/guides/webhooks-setup)                   |
-| Active root API keys | 100           | [Management API introduction](/api-reference/introduction) |
+| Resource         | Default limit | Where to manage it                                         |
+| ---------------- | ------------- | ---------------------------------------------------------- |
+| Domains          | 25            | [Domain management](/guides/domain-management)             |
+| Mailboxes        | 50            | **Mailboxes** in the Sendmux app                           |
+| Sending accounts | 200           | [Sending accounts](/guides/sending-accounts)               |
+| Webhooks         | 10            | [Webhooks setup](/guides/webhooks-setup)                   |
+| Active API keys  | 100           | [Management API introduction](/api-reference/introduction) |
 
 <Note>
-  Mailbox-scoped credentials do not count towards the active root API key limit.
+  Active API keys include root keys, sending keys, and mailbox-scoped
+  credentials.
 </Note>
 
 ## Request an increase
