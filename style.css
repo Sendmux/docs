@@ -19,9 +19,24 @@ body, .prose, .prose p, .prose li,
   letter-spacing: 0.00625rem !important;
 }
 
-#sidebar-title {
-  color: rgb(var(--gray-500));
+.eyebrow.h-5 {
   text-transform: uppercase;
-  font-size: 80%;
-  letter-spacing: 0.01875rem !important;
+  letter-spacing: 0.063em !important;
+}
+
+h3.sidebar-title,
+#sidebar-title {
+  display: flex;
+  align-items: center;
+  height: 1.75rem;
+  color: oklch(0.345 0.006 264 / 60%);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.044rem !important;
+}
+
+.dark h3.sidebar-title,
+.dark #sidebar-title {
+  color: oklch(0.985 0.001 106.423 / 60%);
 }
