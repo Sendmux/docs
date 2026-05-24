@@ -1,0 +1,80 @@
+---
+title: "Team limits"
+description: "Default Sendmux team limits, when increase requests appear, and how approval works."
+keywords:
+  [
+    "team limits",
+    "resource limits",
+    "increase request",
+    "domains",
+    "mailboxes",
+    "sending accounts",
+    "webhooks",
+    "API keys",
+  ]
+---
+
+Sendmux uses team-level limits for resources that can be created in large numbers. These limits protect your team from accidental growth and keep the platform predictable, while still letting you request more capacity when you need it.
+
+## Default limits
+
+Each new team starts with these limits:
+
+| Resource             | Default limit | Where to manage it                                         |
+| -------------------- | ------------- | ---------------------------------------------------------- |
+| Domains              | 25            | [Domain management](/guides/domain-management)             |
+| Mailboxes            | 50            | **Mailboxes** in the Sendmux app                           |
+| Sending accounts     | 200           | [Sending accounts](/guides/sending-accounts)               |
+| Webhooks             | 10            | [Webhooks setup](/guides/webhooks-setup)                   |
+| Active root API keys | 100           | [Management API introduction](/api-reference/introduction) |
+
+<Note>
+  Mailbox-scoped credentials do not count towards the active root API key limit.
+</Note>
+
+## Request an increase
+
+When a resource reaches **80%** of its current limit, Sendmux shows **Request increase** near the usage text on that resource page.
+
+For example, the Domains page may show:
+
+```text
+18 of 25 domains
+```
+
+When the button appears, click it once. Sendmux records the current usage and limit for review, and the page changes to show that an increase request is pending.
+
+You can have one pending request per team and resource. When the request is approved or denied, Sendmux emails the requester. Approved increases apply immediately and the new limit appears on the relevant page.
+
+## At the hard limit
+
+When usage reaches the full limit, creation is blocked for that resource until the limit is raised or you delete an existing item.
+
+API create requests return `409 limit_exceeded` when the limit has been reached. This error is not retryable; request an increase or reduce usage before trying again.
+
+## Email volume
+
+Sendmux does not add a separate cap to your incoming or outgoing email volume through this team-limit system.
+
+Sending through the managed Sendmux SES account still follows its daily sending limit. Your own providers may also enforce their own provider-side sending limits.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Domain management" icon="globe" href="/guides/domain-management">
+    Add and verify custom domains.
+  </Card>
+  <Card title="Sending accounts" icon="send" href="/guides/sending-accounts">
+    Add your own providers and request Sendmux SES daily limit increases.
+  </Card>
+  <Card title="Webhooks setup" icon="webhook" href="/guides/webhooks-setup">
+    Subscribe to delivery and mailbox events.
+  </Card>
+  <Card
+    title="API errors"
+    icon="triangle-exclamation"
+    href="/api-reference/errors#limit_exceeded"
+  >
+    Handle `limit_exceeded` responses in API clients.
+  </Card>
+</Columns>

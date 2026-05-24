@@ -1,7 +1,15 @@
 ---
 title: "Introduction"
 description: "Programmatic access to your Sendmux email infrastructure."
-keywords: ["management API", "REST API", "authentication", "API keys", "errors", "snake_case"]
+keywords:
+  [
+    "management API",
+    "REST API",
+    "authentication",
+    "API keys",
+    "errors",
+    "snake_case",
+  ]
 ---
 
 The Sendmux Management API gives you programmatic access to your email infrastructure: read providers, metrics, and delivery logs; manage domains, mailboxes, API keys, and webhook subscriptions; track billing balance and history. Use it to build monitoring dashboards, automate provisioning, and integrate Sendmux into your own back-office tooling.
@@ -23,24 +31,26 @@ curl https://app.sendmux.ai/api/v1/providers \
   -H "Authorization: Bearer smx_root_your_key_here"
 ```
 
-API keys are scoped to a team and carry specific permissions. Create and manage keys under **Settings > API Keys** in the Sendmux app.
+API keys are scoped to a team and carry specific permissions. Create and manage keys under **Settings > API Keys** in the Sendmux app. Each team starts with **100 active root API keys**; mailbox-scoped credentials are separate. See [Team limits](/guides/team-limits).
 
 ### Permissions
 
 Each endpoint requires a specific permission. Keys with wildcard permissions (e.g. `domain.*`) satisfy any permission in that namespace, and the built-in `root:full` role includes every wildcard.
 
-| Endpoint group | Required permission(s)                                                   |
-| -------------- | ------------------------------------------------------------------------ |
-| Providers      | `provider.read`                                                          |
-| Email metrics  | `analytics.read`                                                         |
-| Email logs     | `logs.read`                                                              |
-| Billing        | `billing.read`                                                           |
-| Domains        | `domain.read` for reads; `domain.create`, `domain.verify`, `domain.delete` for the matching mutations. |
+| Endpoint group | Required permission(s)                                                                                                                                                                          |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Providers      | `provider.read`                                                                                                                                                                                 |
+| Email metrics  | `analytics.read`                                                                                                                                                                                |
+| Email logs     | `logs.read`                                                                                                                                                                                     |
+| Billing        | `billing.read`                                                                                                                                                                                  |
+| Domains        | `domain.read` for reads; `domain.create`, `domain.verify`, `domain.delete` for the matching mutations.                                                                                          |
 | Mailboxes      | `mailbox.admin.read` for reads; `mailbox.admin.create` for create; `mailbox.admin.delete` for delete; `mailbox.admin.manage` for update, filter management, and per-mailbox API-key management. |
-| Webhooks       | `webhook.read` for reads; `webhook.create`, `webhook.update`, `webhook.delete` for the matching mutations; `webhook.manage` for rotate-secret and test. |
+| Webhooks       | `webhook.read` for reads; `webhook.create`, `webhook.update`, `webhook.delete` for the matching mutations; `webhook.manage` for rotate-secret and test.                                         |
 
 <Tip>
-  Use the `root:readonly` role for monitoring integrations — it covers every `*.read` permission. `root:webhook_admin` is a narrower preset for keys that should only manage webhook subscriptions.
+  Use the `root:readonly` role for monitoring integrations — it covers every
+  `*.read` permission. `root:webhook_admin` is a narrower preset for keys that
+  should only manage webhook subscriptions.
 </Tip>
 
 ## Response format
@@ -99,20 +109,21 @@ The `retryable` flag distinguishes transient failures (back off and retry) from 
 
 ## Errors
 
-| HTTP status | Error code                  | Default `retryable` | Description                                                          |
-| ----------- | --------------------------- | -------------------- | -------------------------------------------------------------------- |
-| 400         | `invalid_parameter`         | false                | Bad query parameter format or syntactic body validation failure.     |
-| 400         | `missing_parameter`         | false                | Required parameter missing.                                          |
-| 401         | `authentication_required`   | false                | No or invalid API key.                                               |
-| 403         | `insufficient_permissions`  | false                | Key lacks required permission.                                       |
-| 404         | `not_found`                 | false                | Resource does not exist or belongs to a different team.              |
-| 409         | `conflict`                  | false                | Resource state forbids the operation (e.g. `If-Match` mismatch).     |
-| 409         | `idempotency_conflict`      | false                | `Idempotency-Key` reused with a different body or while in-flight.   |
-| 413         | `payload_too_large`         | false                | Request body exceeds the server-side size limit.                     |
-| 422         | `validation_error`          | false                | Body parsed but violates a semantic rule.                            |
-| 429         | `rate_limit_exceeded`       | true                 | Rate limit hit. `Retry-After` header included.                       |
-| 500         | `internal_error`            | true                 | Unexpected server error.                                             |
-| 503         | `service_unavailable`       | true                 | Downstream component briefly unavailable. May include `Retry-After`. |
+| HTTP status | Error code                 | Default `retryable` | Description                                                          |
+| ----------- | -------------------------- | ------------------- | -------------------------------------------------------------------- |
+| 400         | `invalid_parameter`        | false               | Bad query parameter format or syntactic body validation failure.     |
+| 400         | `missing_parameter`        | false               | Required parameter missing.                                          |
+| 401         | `authentication_required`  | false               | No or invalid API key.                                               |
+| 403         | `insufficient_permissions` | false               | Key lacks required permission.                                       |
+| 404         | `not_found`                | false               | Resource does not exist or belongs to a different team.              |
+| 409         | `conflict`                 | false               | Resource state forbids the operation (e.g. `If-Match` mismatch).     |
+| 409         | `limit_exceeded`           | false               | Team resource limit reached for a create request.                    |
+| 409         | `idempotency_conflict`     | false               | `Idempotency-Key` reused with a different body or while in-flight.   |
+| 413         | `payload_too_large`        | false               | Request body exceeds the server-side size limit.                     |
+| 422         | `validation_error`         | false               | Body parsed but violates a semantic rule.                            |
+| 429         | `rate_limit_exceeded`      | true                | Rate limit hit. `Retry-After` header included.                       |
+| 500         | `internal_error`           | true                | Unexpected server error.                                             |
+| 503         | `service_unavailable`      | true                | Downstream component briefly unavailable. May include `Retry-After`. |
 
 ## Rate limits
 

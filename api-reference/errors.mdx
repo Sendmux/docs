@@ -127,6 +127,10 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 **HTTP 409** — The request can't be applied because of the resource's current state. Examples: deleting a domain while mailboxes still live on it, creating a mailbox whose email address is already in use, or sending a write with an `If-Match` header that doesn't match the current `ETag` (optimistic concurrency conflict). Re-fetch the resource and reconcile before retrying.
 
+### limit_exceeded
+
+**HTTP 409** — Your team has reached the create limit for this resource. This can apply to domains, mailboxes, sending accounts, webhooks, or active root API keys. Request an increase from the relevant page in the Sendmux app, or delete an existing item before retrying. See [Team limits](/guides/team-limits).
+
 ### idempotency_conflict
 
 **HTTP 409** — Returned when an `Idempotency-Key` request header is reused either (a) while the original request is still being processed (transient — wait briefly and retry to receive the completed response), or (b) with a request body whose fingerprint differs from the original (permanent — fix the client to use a fresh key for the new request). See the [Idempotency](/guides/idempotency) guide.

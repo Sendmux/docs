@@ -40,6 +40,12 @@ Because Sendmux SES is managed for you, it's locked. You can **activate or deact
   billed at `$0.25 / 1,000 emails`.
 </Info>
 
+<Note>
+  Each team starts with **200 sending accounts** that you add yourself. The
+  managed Sendmux SES account does not count towards this limit. See [Team
+  limits](/guides/team-limits).
+</Note>
+
 ## Request a higher daily limit
 
 When your usage for the day reaches **80%** of the daily limit, a **Request increase** button appears next to Sendmux SES on the **Accounts** page.
@@ -91,6 +97,10 @@ Add your own SMTP or API-based sending providers under **Accounts** → **Add ac
 - Send at higher volume than the Sendmux SES daily limit.
 - Route specific traffic through a provider you control.
 - Spread load across several providers with weighted delivery groups.
+
+The Accounts page shows your sending account usage. When you reach 80% of your
+current account limit, **Request increase** appears so you can ask for a higher
+account count before creation is blocked.
 
 Group your providers into **delivery groups**, then bind a delivery group to a sending key or mailbox to override the default route. Sends made with a scoped key or mailbox route only through that group's providers; everything else falls back to Sendmux SES while it's active.
 

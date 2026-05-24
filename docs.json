@@ -31,7 +31,7 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["index", "guides/quickstart"]
+            "pages": ["index", "guides/quickstart", "guides/team-limits"]
           },
           {
             "group": "Domains",

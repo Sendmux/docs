@@ -31,6 +31,11 @@ Sendmux has two categories of API key, both prefixed `smx_`:
 
 Use a **mailbox-scoped key** for sending and any `/mailbox/*` endpoint. A root key sent to a mailbox-scoped endpoint is rejected with `403`. The mailbox credential created in step 2 is a mailbox-scoped key.
 
+<Note>
+  Each team starts with **100 active root API keys**. Mailbox-scoped credentials
+  are separate. See [Team limits](/guides/team-limits).
+</Note>
+
 ## What you'll build
 
 By the end of this guide you'll have:

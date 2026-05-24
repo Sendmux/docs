@@ -29,6 +29,12 @@ The rest of this guide covers **custom domains**. The shared `@myagent.mx` path 
   trusted senders or deny noisy ones.
 </Info>
 
+<Note>
+  Each team starts with **25 domains**. The Domains page shows current usage and
+  displays **Request increase** when usage reaches 80% of your current limit.
+  See [Team limits](/guides/team-limits).
+</Note>
+
 ## Add and verify a domain
 
 <Steps>
@@ -43,6 +49,7 @@ The rest of this guide covers **custom domains**. The shared `@myagent.mx` path 
     ```
 
     The response includes every DNS record you need to place at your DNS provider.
+    If your team has reached its domain limit, the API returns `409 limit_exceeded`.
 
     ```json
     {
