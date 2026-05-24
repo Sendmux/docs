@@ -4,7 +4,21 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="24 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Team resource limits with increase requests and clearer API key coverage" }}>
+<Update label="24 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Inbound billing, realtime mailbox events, and clearer team limits" }}>
+  ## Inbound email billing
+
+Accepted inbound mail is now billed at `$0.15 / 1,000 emails`, matching standard outgoing usage. Mail rejected by mailbox sender rules is not billed.
+
+See [Billing](/guides/billing) and [Mailboxes](/guides/mailboxes).
+
+## Realtime mailbox events
+
+The Mailbox API now includes `GET /mailbox/events`, a Server-Sent Events stream for `message.received` and `message.received.spam`. Use it for agents, CLIs, and SDKs that need live mailbox updates without polling.
+
+The stream supports heartbeats, bounded connection lifetimes, and resume with `Last-Event-ID` or `last_event_id`. If the replay window is no longer available, the stream tells the client to sync before reconnecting.
+
+See the [Mailbox API event stream](/mailbox-api/introduction#event-stream).
+
   ## Team limits
 
 Teams now have clear usage limits for domains, mailboxes, sending accounts, webhooks, and active API keys. When your team reaches 80% of a limit, you can request an increase from the relevant dashboard page and receive an email when the request is reviewed.
@@ -14,6 +28,7 @@ Teams now have clear usage limits for domains, mailboxes, sending accounts, webh
 - Limit usage now appears at the bottom-right of the relevant dashboard pages, so it stays available without crowding the page header.
 - The API key limit now covers active root, sending, and mailbox credentials.
 - The team limits guide now clarifies default limits, increase requests, and that email volume is not capped beyond existing sending limits.
+- Webhooks and mailbox realtime events use the same public `message.received` event names for inbound mailbox activity.
 
 ## Bug fixes
 
@@ -48,6 +63,8 @@ The dashboard is clearer for larger teams and longer mailbox or webhook names.
   ## Webhooks
 
 Webhook subscriptions can now target all team mailboxes or a selected mailbox list, so you can route inbound events to the right service without creating a separate team.
+
+Use webhooks for server-to-server event delivery. Use the Mailbox API event stream when a mailbox client keeps a live connection open and needs immediate received-message updates.
 
 ## Improvements
 

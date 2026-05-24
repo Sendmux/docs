@@ -14,6 +14,20 @@ keywords:
 
 Billing is team-scoped. Sendmux uses the team balance for paid email activity and records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
 
+## Email usage
+
+Sendmux charges email usage from the team balance.
+
+| Activity | Rate |
+| --- | --- |
+| Standard outgoing mail through your own providers | `$0.15 / 1,000 emails` |
+| Outgoing mail through the managed Amazon SES route | `$0.25 / 1,000 emails` |
+| Accepted inbound mail | `$0.15 / 1,000 emails` |
+
+Inbound usage is counted when a message is accepted into a mailbox. Mail rejected by mailbox allow or block rules is not billed.
+
+Usage transactions can be grouped, so the transaction table may show one **Incoming email usage** line for several received messages in a short period.
+
 ## Balance
 
 The Billing page shows current balance, purchased amount over the last 30 days, and consumed amount over the last 30 days.
@@ -72,6 +86,9 @@ Use the Management API to read balance, summary, and transaction history from yo
   </Card>
   <Card title="Team limits" icon="gauge" href="/guides/team-limits">
     See which limits are separate from balance.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
+    Use sender rules to reject unwanted inbound mail before it is billed.
   </Card>
   <Card title="API keys" icon="key" href="/guides/api-keys">
     Create keys for billing reporting.

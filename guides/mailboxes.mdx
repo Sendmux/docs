@@ -69,6 +69,8 @@ Sender rules control inbound mail for the mailbox.
 
 A mailbox can use allow rules or block rules, not both at the same time. Clear all rules before switching rule type.
 
+Rules run before a message is accepted into the mailbox. Rejected mail is not billed as accepted inbound usage.
+
 ## Suspend, resume, and delete
 
 - **Suspend** pauses mailbox access without deleting the mailbox.
@@ -85,9 +87,12 @@ A mailbox can use allow rules or block rules, not both at the same time. Clear a
     Create mailbox keys for API and mail client access.
   </Card>
   <Card title="Push delivery" icon="radio" href="/guides/mailbox-push-delivery">
-    See the coming-soon push URL option.
+    Choose between polling, realtime events, webhooks, and the coming-soon push URL.
   </Card>
   <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
     Receive inbound and delivery events at your HTTPS endpoint.
+  </Card>
+  <Card title="Mailbox API" icon="mailbox" href="/mailbox-api/introduction#event-stream">
+    Stream live received-message events from a mailbox key.
   </Card>
 </Columns>

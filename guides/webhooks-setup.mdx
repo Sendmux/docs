@@ -11,6 +11,10 @@ Webhooks POST events to your HTTPS endpoint when mail is delivered, rejected, bo
   limits](/guides/team-limits).
 </Note>
 
+## Webhooks or realtime events
+
+Use webhooks when your backend should receive signed event POSTs, even while your app is offline. Use the [Mailbox API event stream](/mailbox-api/introduction#event-stream) when a mailbox client can keep a live Server-Sent Events connection open and needs immediate received-message updates.
+
 ## Create a webhook
 
 <Steps>
@@ -87,6 +91,9 @@ Use the Management API when you need to create webhooks, list attempts, fetch re
   </Card>
   <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
     Receive inbound mailbox events.
+  </Card>
+  <Card title="Mailbox API events" icon="radio" href="/mailbox-api/introduction#event-stream">
+    Stream live mailbox events with a mailbox key.
   </Card>
   <Card title="Delivery logs" icon="scroll-text" href="/guides/dashboard-logs">
     Compare webhook events with delivery logs.

@@ -805,6 +805,8 @@ responses, or open an event stream when a client needs live updates.
 
 `GET /mailbox/events` streams mailbox events as Server-Sent Events. Use it for
 agents, CLIs, MCP servers, and SDKs that need to react when inbound mail arrives.
+Use [webhooks](/guides/webhooks-setup) instead when a backend service should
+receive signed event POSTs without keeping a live connection open.
 
 ```bash
 curl -N "https://app.sendmux.ai/api/v1/mailbox/events?event_types=message.received,message.received.spam" \
