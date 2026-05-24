@@ -207,7 +207,7 @@
           },
           {
             "group": "Sync",
-            "pages": ["GET /mailbox/changes"]
+            "pages": ["GET /mailbox/changes", "GET /mailbox/events"]
           }
         ]
       },

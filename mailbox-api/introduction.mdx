@@ -10,6 +10,7 @@ keywords:
     "threads",
     "folders",
     "sync",
+    "events",
   ]
 ---
 
@@ -78,6 +79,7 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 | `GET /mailbox/quotas/changes`                                    | Read quota object changes since a prior quota state.              |
 | `GET /mailbox/usage`                                             | Read a compact usage view derived from quota records.             |
 | `GET /mailbox/changes`                                           | Read message changes, or a typed resource state map.              |
+| `GET /mailbox/events`                                            | Stream mailbox events with Server-Sent Events.                    |
 
 ## Capability discovery
 
@@ -138,7 +140,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
       "identity_mutation": false,
       "quota_mutation": true,
       "filter_script_writes": true,
-      "events": true,
+      "events": false,
       "raw_protocol": true,
       "attachment_parsing": true
     }
@@ -797,7 +799,40 @@ curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123
 ## Sync APIs
 
 Use sync endpoints to poll for changes with state tokens returned by earlier
-responses.
+responses, or open an event stream when a client needs live updates.
+
+### Event stream
+
+`GET /mailbox/events` streams mailbox events as Server-Sent Events. Use it for
+agents, CLIs, MCP servers, and SDKs that need to react when inbound mail arrives.
+
+```bash
+curl -N "https://app.sendmux.ai/api/v1/mailbox/events?event_types=message.received,message.received.spam" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```text
+id: evt_clxxxxxxxxxxxxxxxxxxxxxxxxx
+event: message.received
+data: {"event_type":"message.received","mailbox_id":"mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx","message_id":"msg_123","message":{"id":"msg_123","subject":"New reply","preview":"Thanks for the update.","body":{"text":"Thanks for the update.","html":null,"is_truncated":false,"max_bytes":16384}}}
+```
+
+Each received-message event includes subject, participants, preview, attachment
+metadata, and a capped body snapshot. Use the message and attachment endpoints
+when you need full content or attachment bytes.
+
+To resume after a disconnect, pass the last SSE `id` as the `Last-Event-ID`
+header or the `last_event_id` query parameter. If the stream sends
+`sync_required`, call `GET /mailbox/changes` before reopening the stream.
+
+Optional query parameters:
+
+| Parameter       | Purpose                                                                 |
+| --------------- | ----------------------------------------------------------------------- |
+| `event_types`   | Comma-separated list of `message.received` and `message.received.spam`. |
+| `ping`          | Heartbeat interval in seconds, from `10` to `300`.                      |
+| `close_after`   | Close the stream after `30` to `3600` seconds. Omit for a long-lived stream. |
+| `last_event_id` | Replay events after a prior SSE event ID.                               |
 
 ### Message query changes
 
