@@ -1,0 +1,76 @@
+---
+title: "Teams and access"
+description: "Create teams, invite members, assign roles, and schedule team deletion."
+keywords:
+  [
+    "teams",
+    "members",
+    "roles",
+    "invitations",
+    "team deletion",
+    "access",
+  ]
+---
+
+Teams separate people, billing, mailboxes, providers, logs, and API keys. Use roles to give each member only the access they need.
+
+## Roles
+
+| Role | Access |
+| --- | --- |
+| **Owner** | Full access, including team deletion. |
+| **Admin** | Full access except team deletion. |
+| **Developer** | Sending, receiving, providers, API keys, logs, and webhooks. |
+| **Member** | Dashboard and logs only. |
+
+Owners can assign Admin, Developer, or Member. Admins can assign Developer or Member. The Owner role is set when the team is created and cannot be assigned by another member.
+
+## Invite members
+
+<Steps>
+  <Step title="Open the team">
+    Open **Teams**, choose the team, then open **Members**.
+  </Step>
+  <Step title="Send the invitation">
+    Select **Invite members**, enter one or more email addresses, and choose a role.
+  </Step>
+  <Step title="Track pending invitations">
+    Pending invitations appear on the team page. Members join when they accept the email invitation.
+  </Step>
+</Steps>
+
+## Change roles
+
+Open **Members** and use the role selector beside a member. You can only assign roles below your own role.
+
+<Note>
+  You cannot change your own role, remove yourself through the member table, or
+  remove the team owner.
+</Note>
+
+## Remove members
+
+Use **Remove member** beside the person you want to remove. Removed members lose access to the team immediately. Their personal account remains active.
+
+## Delete a team
+
+Only an Owner can delete a team. Open **Team settings**, choose **Delete team**, then type the team name to confirm.
+
+Team deletion has a 7 day grace period. During that time, dashboard access and sending are paused. You can cancel deletion before the grace period ends. After deletion completes, team resources are removed and cannot be restored.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Account settings" icon="user" href="/guides/account-settings">
+    Manage profile details, sessions, passwords, and passkeys.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create scoped credentials for apps and integrations.
+  </Card>
+  <Card title="Team limits" icon="gauge" href="/guides/team-limits">
+    See default limits and request more capacity.
+  </Card>
+  <Card title="Billing" icon="credit-card" href="/guides/billing">
+    Top up team balance and review transactions.
+  </Card>
+</Columns>

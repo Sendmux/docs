@@ -1,46 +1,63 @@
 ---
 title: "Welcome to Sendmux"
 sidebarTitle: "Welcome"
-description: "Documentation for the Sendmux email infrastructure platform."
+description: "Guides and API references for sending, receiving, and monitoring email with Sendmux."
 keywords: ["sendmux", "email", "API", "SMTP", "deliverability", "transactional email"]
 ---
 
-Sendmux is an intelligent email layer that routes your emails through multiple delivery providers for optimal deliverability and reliability.
+Sendmux helps you send, receive, and monitor application email from one team workspace.
 
 ## Get started
 
 <CardGroup cols={2}>
   <Card
-    title="Send via HTTP API"
+    title="Send by HTTP"
     icon="code"
     href="/guides/sending-via-http"
   >
-    Send emails programmatically with structured JSON requests, batch sending, and idempotency.
+    Queue single or batch messages with JSON requests and retry-safe headers.
   </Card>
   <Card
     title="Send via SMTP"
     icon="envelope"
     href="/guides/sending-via-smtp"
   >
-    Connect any SMTP-compatible application to Sendmux with standard credentials.
+    Connect an existing mail client or application with standard SMTP settings.
   </Card>
   <Card
-    title="Sending API Reference"
+    title="Sending API"
     icon="paper-plane"
     href="/sending-api/introduction"
   >
-    Full reference for the email sending endpoints, authentication, and error codes.
+    Reference for sending endpoints, authentication, examples, and errors.
   </Card>
   <Card
-    title="Management API Reference"
+    title="Management API"
     icon="chart-line"
     href="/api-reference/introduction"
   >
-    Read and manage providers, email metrics, delivery logs, billing, domains, mailboxes, API keys, and webhook subscriptions.
+    Reference for teams, providers, logs, billing, domains, keys, and webhooks.
   </Card>
 </CardGroup>
 
-## App
+## Common tasks
+
+<Columns cols={2}>
+  <Card title="Create a team" icon="users" href="/guides/teams-access">
+    Invite members, assign roles, and manage team deletion.
+  </Card>
+  <Card title="Create a mailbox" icon="inbox" href="/guides/mailboxes">
+    Set up addresses, passwords, sender identity, and sender rules.
+  </Card>
+  <Card title="Add providers" icon="mail" href="/guides/sending-accounts">
+    Connect sending accounts and choose how outbound mail routes.
+  </Card>
+  <Card title="Monitor delivery" icon="scroll-text" href="/guides/dashboard-logs">
+    Use dashboards, logs, exports, and deliverability views.
+  </Card>
+</Columns>
+
+## Open the app
 
 <Card
   title="Open app"
@@ -48,5 +65,5 @@ Sendmux is an intelligent email layer that routes your emails through multiple d
   href="https://app.sendmux.ai"
   horizontal
 >
-  Manage providers, view analytics, configure API keys, and monitor your email infrastructure.
+  Manage teams, sending, receiving, billing, API keys, and webhooks.
 </Card>

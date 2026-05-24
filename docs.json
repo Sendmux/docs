@@ -34,24 +34,48 @@
             "pages": ["index", "guides/quickstart", "guides/team-limits"]
           },
           {
-            "group": "Domains",
-            "pages": ["guides/domain-management"]
+            "group": "Teams and access",
+            "pages": [
+              "guides/teams-access",
+              "guides/account-settings",
+              "guides/api-keys"
+            ]
           },
           {
-            "group": "Sending emails",
+            "group": "Sending",
             "pages": [
-              "guides/sending-accounts",
               "guides/sending-via-http",
               "guides/sending-via-smtp",
+              "guides/sending-accounts",
+              "guides/delivery-groups",
+              "guides/http-provider",
               "guides/attachments",
               "guides/idempotency"
             ]
           },
           {
+            "group": "Receiving",
+            "pages": [
+              "guides/domain-management",
+              "guides/mailboxes",
+              "guides/domain-settings",
+              "guides/mailbox-push-delivery"
+            ]
+          },
+          {
+            "group": "Monitoring",
+            "pages": ["guides/dashboard-logs", "guides/deliverability"]
+          },
+          {
+            "group": "Billing",
+            "pages": ["guides/billing"]
+          },
+          {
             "group": "Webhooks",
             "pages": [
               "guides/webhooks-setup",
-              "guides/webhooks-verify-signatures"
+              "guides/webhooks-verify-signatures",
+              "guides/webhook-replay"
             ]
           },
           {

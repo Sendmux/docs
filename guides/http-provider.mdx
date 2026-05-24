@@ -1,0 +1,39 @@
+---
+title: "HTTP provider"
+description: "What the coming-soon HTTP provider option means in Accounts."
+keywords:
+  [
+    "HTTP provider",
+    "provider setup",
+    "coming soon",
+    "sending accounts",
+    "routing",
+  ]
+---
+
+The **HTTP API** provider type is visible in **Accounts** as a coming-soon option. It is not available for live sending yet.
+
+## What it will be for
+
+HTTP providers will connect Sendmux to sending providers that accept token-based HTTP requests instead of SMTP or connected-account sending.
+
+## What to use now
+
+- Use **Custom SMTP** for providers that expose SMTP credentials.
+- Use **Gmail** or **Outlook / Microsoft 365** for connected account sending.
+- Use the managed sending account for first sends and low-volume traffic.
+
+## What happens next
+
+The disabled card is there so teams can see the planned provider category. There is no setup step, release date, or migration action required.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+    Add currently supported sending providers.
+  </Card>
+  <Card title="Delivery groups" icon="route" href="/guides/delivery-groups">
+    Route sending through groups of active providers.
+  </Card>
+</Columns>

@@ -1,0 +1,63 @@
+---
+title: "Deliverability"
+description: "Use deliverability views to monitor bounce rates, complaint rates, and provider health."
+keywords:
+  [
+    "deliverability",
+    "bounce rate",
+    "complaint rate",
+    "provider health",
+    "monitoring",
+  ]
+---
+
+Deliverability shows signals that can affect whether mail keeps reaching inboxes. Use it when failures rise, when you add a provider, or when volume changes.
+
+## Summary
+
+The summary highlights 24-hour bounce rate, 24-hour complaint rate, and provider signals.
+
+Sendmux warns near:
+
+| Signal | Warning point |
+| --- | --- |
+| Bounce rate | 5% |
+| Complaint rate | 0.1% |
+
+## Risk signals
+
+Risk signals compare activity across three windows:
+
+- Last hour.
+- 24 hours.
+- 7 days.
+
+Use this table to separate short spikes from sustained issues. A high one-hour rate may be a bad campaign, while a rising 7-day rate points to a broader reputation problem.
+
+## Provider health
+
+Provider health shows the current monitored provider status, impact, and 24-hour bounce and complaint rates. Amazon SES appears when managed provider signals are available.
+
+## What to check first
+
+- Confirm failures in [Dashboard and logs](/guides/dashboard-logs).
+- Pause risky traffic while you investigate.
+- Check recent provider, domain, and sender changes.
+- Review bounced and complained message patterns.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Dashboard and logs" icon="scroll-text" href="/guides/dashboard-logs">
+    Filter logs and export message-level data.
+  </Card>
+  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+    Review provider status, quotas, and routing.
+  </Card>
+  <Card title="Domains" icon="globe" href="/guides/domain-management">
+    Verify domain records used for sending.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
+    Receive bounce and complaint events.
+  </Card>
+</Columns>

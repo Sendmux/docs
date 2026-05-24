@@ -1,0 +1,33 @@
+---
+title: "Webhook replay"
+description: "Understand the coming-soon replay action on webhook delivery attempts."
+keywords: ["webhook replay", "webhooks", "delivery attempts", "coming soon"]
+---
+
+Webhook delivery attempts show a **Replay** action. It is visible as a coming-soon control and is not available yet.
+
+## What it will be for
+
+Replay will send a retained webhook payload to the subscription endpoint again. It is intended for cases where your endpoint was fixed after a failed delivery.
+
+## What to use now
+
+- Use delivery attempts to inspect status, latency, retry count, and response preview.
+- Fetch retained payloads while they are available.
+- Copy the request as cURL from the delivery detail view when payload data is loaded.
+- Use **Send test** to confirm the endpoint is healthy.
+
+## What happens next
+
+There is no setup action or release date. Keep endpoints idempotent now so replay is safe when it becomes available.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Webhooks setup" icon="webhook" href="/guides/webhooks-setup">
+    Create subscriptions and review delivery attempts.
+  </Card>
+  <Card title="Verify signatures" icon="shield-check" href="/guides/webhooks-verify-signatures">
+    Verify payloads before processing them.
+  </Card>
+</Columns>

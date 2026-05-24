@@ -1,278 +1,94 @@
 ---
 title: "Webhooks setup"
-description: "Subscribe to Sendmux delivery events, verify signatures, and handle retries."
+description: "Subscribe to Sendmux events, verify signatures, and review delivery attempts."
 keywords: ["webhooks", "events", "signatures", "HMAC", "retries", "rotation"]
 ---
 
-Webhook subscriptions let you receive real-time notifications when something happens to your mail — a bounce, a complaint, a delivery, or an inbound message. Each subscription is scoped to a team, can target all mailboxes or selected mailboxes, signs every payload with an HMAC-SHA256 signature so you can verify it came from Sendmux, and retries failed deliveries with an exponential back-off for up to 24 hours.
+Webhooks POST events to your HTTPS endpoint when mail is delivered, rejected, bounced, complained about, or received by a mailbox.
 
 <Note>
-  Each team starts with **10 webhooks**. The Webhooks page shows current usage
-  and displays **Request increase** when usage reaches 80% of your current
-  limit. See [Team limits](/guides/team-limits).
+  Each team starts with **10 webhooks**. See [Team
+  limits](/guides/team-limits).
 </Note>
 
-## How it works
+## Create a webhook
 
 <Steps>
-  <Step title="Register the subscription">
-    Register a webhook via the API or the Sendmux app, telling Sendmux which
-    event types you care about and which HTTPS URL to POST them to.
+  <Step title="Open Webhooks">
+    Open **Webhooks** in the team workspace and select **Create webhook**.
   </Step>
-  <Step title="Capture the signing secret">
-    We return a **signing secret** in that one response. Store it securely — we
-    never return it again.
+  <Step title="Enter the endpoint">
+    Add a name, an HTTPS URL, and the event types you want to receive.
   </Step>
-  <Step title="Receive event POSTs">
-    When a matching event fires, Sendmux POSTs a JSON body to your URL with four
-    headers identifying the event and its signature.
+  <Step title="Choose filters">
+    Keep the webhook team-wide, or scope it to selected mailboxes.
   </Step>
-  <Step title="Verify, process, ack">
-    Your endpoint verifies the signature, processes the event, and returns `2xx`
-    within 10 seconds.
-  </Step>
-  <Step title="Handle retries">
-    Non-`2xx` or timeout responses trigger exponential back-off for 24 hours. If
-    delivery still fails after the window, the subscription is marked `failing`
-    and the team owner receives an email.
+  <Step title="Store the secret">
+    Copy the signing secret when it appears. It is shown once.
   </Step>
 </Steps>
 
-## Create a subscription
+## Process events
 
-Call `POST /webhooks` with the target URL and the event types you care about. An optional `name` gives the subscription a human-friendly label that surfaces in the dashboard list and detail pages — handy when you have several webhooks pointing at different internal services.
+Every delivery includes a JSON body and headers that identify the event.
 
-By default, a webhook receives matching events for every mailbox in the team. To scope it to selected mailboxes, pass `filters.mailbox_ids`.
+| Header | Use |
+| --- | --- |
+| `X-Sendmux-Signature` | Verify the payload with the webhook secret. |
+| `X-Sendmux-Event-Id` | Dedupe retries for the same event. |
+| `X-Sendmux-Event-Type` | Route the event in your application. |
+| `X-Sendmux-Delivery-Attempt` | Track retry attempts. |
 
-If your team has reached its webhook limit, the API returns `409 limit_exceeded`.
+Verify the signature before acting on an event. See [Verify webhook signatures](/guides/webhooks-verify-signatures).
 
-```bash
-curl https://app.sendmux.ai/api/v1/webhooks \
-  -H "Authorization: Bearer smx_your_key_here" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Acme inbound forwarder",
-    "url": "https://hooks.acme.com/sendmux",
-    "event_types": ["message.bounced", "message.complained", "message.received"],
-    "filters": { "mailbox_ids": ["mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx"] },
-    "enabled": true
-  }'
-```
+## Event types
 
-The response includes a `secret` — the HMAC key used to sign every event posted to your endpoint. Copy it somewhere safe.
-
-```json
-{
-  "ok": true,
-  "data": {
-    "id": "whk_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "name": "Acme inbound forwarder",
-    "url": "https://hooks.acme.com/sendmux",
-    "event_types": [
-      "message.bounced",
-      "message.complained",
-      "message.received"
-    ],
-    "filters": { "mailbox_ids": ["mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx"] },
-    "enabled": true,
-    "failing": false,
-    "created_at": "2026-04-23T10:00:00Z",
-    "updated_at": "2026-04-23T10:00:00Z",
-    "secret": "whsec_8a2f4d9c7b1e6f3a0d5c8b7e9f2a4d6c8b1e3f5a7d9c2e4f6a8b0d2c4e6f8a0b"
-  },
-  "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
-}
-```
-
-<Tip>
-  `name` is optional. Omit it (or send `null` on `PATCH`) and the dashboard falls back to displaying the URL hostname. Update or clear it any time via `PATCH /webhooks/{id}` with `{"name": "New label"}` or `{"name": null}`.
-</Tip>
-
-<Tip>
-  Omit `filters`, or send `{"mailbox_ids": []}`, to receive matching events for all mailboxes in the team.
-</Tip>
-
-<Warning>
-  The `secret` field is returned **only in this response** and in the response
-  to `POST /webhooks/{id}/rotate-secret`. Copy it somewhere safe immediately —
-  if you lose it, rotate the secret to get a new one.
-</Warning>
-
-## Verify the signature
-
-Always verify the signature before acting on an event. Without verification, a motivated attacker could forge events and trick your systems into processing bounces or inbound messages that never happened.
-
-See [Verify webhook signatures](/guides/webhooks-verify-signatures) for ready-to-paste verification examples.
+| Event type | When it fires |
+| --- | --- |
+| `message.delivered` | A recipient system accepted the message. |
+| `message.bounced` | A message bounced. |
+| `message.complained` | A recipient marked a message as spam. |
+| `message.rejected` | The sending system rejected the message before delivery. |
+| `message.delivery_delayed` | Delivery is delayed and still being retried. |
+| `message.received` | A mailbox received an inbound message. |
+| `message.received.spam` | A mailbox received an inbound message classified as spam. |
+| `sendmux.test` | A synthetic event for testing a webhook. |
 
 ## Retries
 
-If your endpoint returns a non-`2xx` status or doesn't respond within 10 seconds, we retry with an exponential back-off schedule: 30 s → 2 min → 10 min → 30 min → 1 hr → 4 hr → 12 hr → 24 hr. That's eight attempts across a 24-hour window.
+Your endpoint should return `2xx` quickly. Non-`2xx` responses and timeouts are retried across a 24-hour window.
 
-After the final attempt fails, we set `failing` to `true` on the subscription and email the team owner. Events that fire while a subscription is marked failing are skipped — you'll see gaps in your event history until you fix the endpoint and toggle `enabled` off then back on via `PATCH /webhooks/{id}` — the false → true transition clears the `failing` flag so retries resume on the next matching event. Changing the URL alone does not clear the flag.
+After the final failed attempt, Sendmux marks the webhook as failing and emails the team owner. Fix the endpoint, then disable and re-enable the webhook to resume delivery.
 
-<Tip>
-  Make your endpoint idempotent. Retries can produce the same event ID at your
-  endpoint more than once — the `X-Sendmux-Event-Id` header is stable across
-  retries, so dedupe on that value rather than on the request timestamp.
-</Tip>
+## Review deliveries
 
-## Review delivery attempts
+Open a webhook to review recent attempts, response status, latency, retry state, and retained payload availability. Delivery metadata and retained payloads are kept for 7 days.
 
-Use `GET /webhooks/{id}/deliveries` to inspect recent delivery attempts for one subscription. The response includes the event type, HTTP status, latency, retry attempt, next retry time, public-safe error category, response preview, payload hash, payload size, and whether the retained request payload is still available.
+Use **Rotate secret** if a signing secret may have leaked. The new secret is shown once and is used for future deliveries.
 
-```bash
-curl https://app.sendmux.ai/api/v1/webhooks/whk_.../deliveries \
-  -H "Authorization: Bearer smx_your_key_here"
-```
+Use **Send test** to publish a `sendmux.test` event. Add `sendmux.test` to the webhook event list before testing.
 
-When `payload_available` is `true`, use `GET /webhooks/{id}/deliveries/{delivery_id}/payload` to fetch the JSON request body that Sendmux delivered to your endpoint.
+## API access
 
-```bash
-curl https://app.sendmux.ai/api/v1/webhooks/whk_.../deliveries/whda_.../payload \
-  -H "Authorization: Bearer smx_your_key_here"
-```
+Use the Management API when you need to create webhooks, list attempts, fetch retained payloads, rotate secrets, or send test events from your own tooling.
 
-<Note>
-  Delivery metadata and retained request payloads are kept for 7 days.
-</Note>
+<Card title="Management API" icon="book-open" href="/api-reference/introduction">
+  Open the generated Webhooks endpoint reference.
+</Card>
 
-## Rotate the signing secret
+## Related guides
 
-If a secret leaks or you simply want to rotate periodically, call `POST /webhooks/{id}/rotate-secret`. The response includes the new `secret` field (returned exactly once), and the next event delivery is signed with the new value. The old secret is invalidated immediately.
-
-```bash
-curl -X POST https://app.sendmux.ai/api/v1/webhooks/whk_.../rotate-secret \
-  -H "Authorization: Bearer smx_your_key_here"
-```
-
-To avoid dropped events, verify against both the old and new secret for a few minutes after rotating, then retire the old one.
-
-## Send a test event
-
-`POST /webhooks/{id}/test` publishes a synthetic `sendmux.test` event to that webhook subscription. The response contains the `event_id` so you can correlate receipt on your endpoint via `X-Sendmux-Event-Id`.
-
-```bash
-curl -X POST https://app.sendmux.ai/api/v1/webhooks/whk_.../test \
-  -H "Authorization: Bearer smx_your_key_here"
-```
-
-```json
-{
-  "ok": true,
-  "data": { "event_id": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx" },
-  "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
-}
-```
-
-<Tip>
-  Add `sendmux.test` to your subscription's `event_types` list **before**
-  calling this endpoint. Mailbox filters do not block test delivery, so you can
-  verify a filtered webhook before waiting for a real mailbox event. Most teams
-  add it temporarily during setup, then remove it.
-</Tip>
-
-## Reference
-
-The remainder of this page is a contract reference for the wire format.
-
-### Event types
-
-Sendmux defines the event types below. Subscribe to just the ones you need.
-
-| Event type                 | When it fires                                                                                         |
-| -------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `message.delivered`        | A recipient mail server accepted the message.                                                         |
-| `message.bounced`          | A message you sent was bounced by the recipient mail server.                                          |
-| `message.complained`       | A recipient marked one of your messages as spam.                                                      |
-| `message.rejected`         | The sending system rejected the message before sending.                                               |
-| `message.delivery_delayed` | A recipient mail server is temporarily unavailable — we're still retrying.                            |
-| `message.received`         | An inbound message arrived at one of your mailboxes.                                                  |
-| `message.received.spam`    | A spam-classified inbound message arrived at one of your mailboxes.                                   |
-| `sendmux.test`             | A synthetic event emitted by `POST /webhooks/{public_id}/test` so you can verify end-to-end delivery. |
-
-### Delivery headers
-
-Every webhook POST carries these HTTP headers.
-
-| Header                       | Value                                                   |
-| ---------------------------- | ------------------------------------------------------- |
-| `Content-Type`               | `application/json`                                      |
-| `X-Sendmux-Signature`        | `sha256=<hex-hmac-sha256(body, secret)>`                |
-| `X-Sendmux-Event-Id`         | `evt_<cuid2>` — unique per event, stable across retries |
-| `X-Sendmux-Event-Type`       | One of the event types in the table above               |
-| `X-Sendmux-Delivery-Attempt` | `1` on the first delivery; increments on each retry     |
-
-### Delivery body
-
-The request body is the canonical event envelope.
-
-```json
-{
-  "id": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "type": "message.bounced",
-  "team_public_id": "tm_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "occurred_at": "2026-04-23T10:15:30Z",
-  "data": {
-    "message_id": "0100018c12345678-...",
-    "message_id_kind": "provider",
-    "sendmux_message_id": "msg_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "sender": "sender@example.com",
-    "recipients": ["user@example.com"],
-    "mailbox_id": null,
-    "bounce_type": "Permanent",
-    "bounce_subtype": "General",
-    "complaint_type": null,
-    "complaint_subtype": null,
-    "reject_reason": null,
-    "delay_type": null,
-    "delay_expires_at": null,
-    "is_spam": null,
-    "webhook_id": null
-  }
-}
-```
-
-| Field                     | Description                                                                                                              |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `id`                      | Stable per-event identifier. Also sent in the `X-Sendmux-Event-Id` header.                                               |
-| `type`                    | Dotted event type — e.g. `"message.bounced"`, `"message.received"`. Mirrors the `X-Sendmux-Event-Type` header.           |
-| `team_public_id`          | Team that owns the event.                                                                                                |
-| `occurred_at`             | When the upstream event occurred.                                                                                        |
-| `data.message_id`         | Message identifier from the event source.                                                                                |
-| `data.message_id_kind`    | `"provider"` for sending feedback IDs; `"rfc5322"` for inbound email `Message-ID` header values.                         |
-| `data.sendmux_message_id` | Sendmux message correlation ID for outbound sending feedback when available; otherwise `null`.                           |
-| `data.sender`             | Sender/envelope-from address when available.                                                                             |
-| `data.recipients`         | All affected recipients. Empty for `sendmux.test` events.                                                                |
-| `data.mailbox_id`         | Populated for inbound mailbox events when the mailbox can be resolved.                                                   |
-| `data.bounce_type`        | Populated for `message.bounced`; otherwise `null`.                                                                       |
-| `data.bounce_subtype`     | More specific bounce category when available; otherwise `null`.                                                          |
-| `data.complaint_type`     | Populated for `message.complained`; otherwise `null`.                                                                    |
-| `data.complaint_subtype`  | More specific complaint category when available; otherwise `null`.                                                       |
-| `data.reject_reason`      | Populated for `message.rejected`; otherwise `null`.                                                                      |
-| `data.delay_type`         | Populated for `message.delivery_delayed`; otherwise `null`.                                                              |
-| `data.delay_expires_at`   | When delivery retries are expected to stop for delayed delivery feedback, when provided; otherwise `null`.               |
-| `data.is_spam`            | Populated only for inbound mailbox events — `true` for spam, `false` for normal mail, `null` for every other event type. |
-| `data.webhook_id`         | Populated only for synthetic `sendmux.test` payloads so you can confirm which subscription was targeted.                 |
-
-Provider raw payloads are not delivered to webhook endpoints. The `data` object is the stable Sendmux contract; use it instead of provider-specific fields.
-
-### Permissions
-
-Webhook endpoints are gated by the following API-key permissions. Keys with the wildcard `webhook.*` satisfy all of them, and the built-in `root:full` role includes `webhook.*`. A dedicated `root:webhook_admin` preset is available for keys that manage only webhooks.
-
-| Endpoint                                                     | Required permission |
-| ------------------------------------------------------------ | ------------------- |
-| `POST /webhooks`                                             | `webhook.create`    |
-| `GET /webhooks`                                              | `webhook.read`      |
-| `GET /webhooks/{public_id}`                                  | `webhook.read`      |
-| `GET /webhooks/{public_id}/deliveries`                       | `webhook.read`      |
-| `GET /webhooks/{public_id}/deliveries/{delivery_id}/payload` | `webhook.read`      |
-| `PATCH /webhooks/{public_id}`                                | `webhook.update`    |
-| `DELETE /webhooks/{public_id}`                               | `webhook.delete`    |
-| `POST /webhooks/{public_id}/rotate-secret`                   | `webhook.manage`    |
-| `POST /webhooks/{public_id}/test`                            | `webhook.manage`    |
-
-<Note>
-  Keys provisioned with `root:readonly` carry `webhook.read` so monitoring
-  integrations can list your subscriptions without being able to modify them.
-</Note>
+<Columns cols={2}>
+  <Card title="Verify signatures" icon="shield-check" href="/guides/webhooks-verify-signatures">
+    Check webhook payloads before processing events.
+  </Card>
+  <Card title="Webhook replay" icon="rotate-ccw" href="/guides/webhook-replay">
+    See the coming-soon replay action.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
+    Receive inbound mailbox events.
+  </Card>
+  <Card title="Delivery logs" icon="scroll-text" href="/guides/dashboard-logs">
+    Compare webhook events with delivery logs.
+  </Card>
+</Columns>

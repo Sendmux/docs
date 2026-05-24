@@ -1,212 +1,95 @@
 ---
 title: "Quickstart"
-description: "Verify a domain, create a mailbox, and send your first email through Sendmux in five steps."
+description: "Create a team, add a mailbox, send a test email, and watch the result in Sendmux."
 keywords:
   [
     "quickstart",
     "getting started",
     "first email",
-    "onboarding",
-    "verify domain",
+    "mailbox",
     "send email",
-    "webhook",
+    "delivery logs",
+    "webhooks",
   ]
 ---
 
-This walkthrough takes you from a fresh Sendmux account to a verified sending domain, an active mailbox, and a webhook receiving live delivery events. Plan for about 30 minutes — most of which is waiting for DNS records to propagate.
+This guide gets a new team to its first tracked email. Use the shared domain for a fast test, or add your own domain first if you want a branded sender.
 
 <Info>
-  Before you start, sign in at [app.sendmux.ai](https://app.sendmux.ai) and
-  create or join a team. Every step below happens inside that team.
+  Sign in at [app.sendmux.ai](https://app.sendmux.ai) before you start. You need
+  a team with access to sending and receiving settings.
 </Info>
 
-## Root vs mailbox API keys
+## What you will set up
 
-Sendmux has two categories of API key, both prefixed `smx_`:
-
-| Key category          | Base URL                           | Use it for                                                                      |
-| --------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
-| **Root** (Management) | `app.sendmux.ai/api/v1`            | Reading and managing providers, domains, mailboxes, webhooks, billing, and logs |
-| **Mailbox-scoped**    | `smtp.sendmux.ai/api/v1` (sending) | Sending email and mailbox-scoped endpoints such as `GET /mailbox/me`            |
-
-Use a **mailbox-scoped key** for sending and any `/mailbox/*` endpoint. A root key sent to a mailbox-scoped endpoint is rejected with `403`. The mailbox credential created in step 2 is a mailbox-scoped key.
-
-<Note>
-  Each team starts with **100 active API keys** across root keys, sending keys,
-  and mailbox-scoped credentials. See [Team limits](/guides/team-limits).
-</Note>
-
-## What you'll build
-
-By the end of this guide you'll have:
-
-- A verified custom sending domain with the four DNS records (TXT, SPF, DMARC, DKIM) AWS SES requires.
-- A live mailbox on that domain with bearer-token credentials.
-- A webhook subscription that receives signed delivery events.
-- A test email sent and confirmed in delivery logs.
+- A team workspace.
+- A mailbox with a one-time password.
+- A test message sent through the Sending API.
+- A delivery log entry you can search and export.
+- Optional webhooks for delivery events.
 
 <Steps>
-  <Step title="Verify your sending domain">
-    Add the domain you want to send from and publish the DNS records Sendmux generates for you.
+  <Step title="Create or choose a team">
+    Open **Teams**, then create a team or choose an existing one. Team roles decide which pages and actions you can use.
 
-    **In the dashboard**: open **Mailbox domains** and click **Add domain**. Enter your domain (for example, `mail.acme.com`) and Sendmux returns the records you need to publish at your DNS provider:
-
-    - One **TXT** record proving ownership.
-    - One **SPF** record authorising Sendmux to send.
-    - One **DMARC** record setting your alignment policy.
-    - Three **DKIM** CNAME records issued by AWS SES.
-
-    Publish all six records, then click **Verify** in the dashboard. Verification typically completes within a few minutes once your DNS provider has propagated. The domain status moves from `pending` to `verified`.
-
-    **Or via the API**: see the [Domain management guide](/guides/domain-management) for the equivalent `POST /api/v1/domains` + `POST /api/v1/domains/{id}/verify` flow.
-
-    <Tip>
-      You can also use a `@myagent.mx` shared address if you don't have a custom domain yet — skip this step and pick the shared option when creating your mailbox in step 2.
-    </Tip>
-
+    See [Teams and access](/guides/teams-access) if you need to invite someone or change roles.
   </Step>
 
   <Step title="Create a mailbox">
-    A mailbox is a single sending address bound to a verified domain (or to the shared `@myagent.mx` namespace). Each mailbox gets its own credential and can have its own delivery rules.
+    Open **Mailboxes** and select **Create mailbox**.
 
-    **In the dashboard**: open **Mailboxes** and click **Create mailbox**. Pick the verified domain from step 1, choose a local part (for example, `notifications`), choose a storage limit (`1 GB`, `5 GB`, or `50 GB`), and click **Create**.
+    Pick a verified custom domain, or use the shared `myagent.mx` domain for a quick test. Choose a storage quota, then create the mailbox.
 
-    <Tip>
-      Need a larger mailbox? Contact support to request a higher storage allowance.
-    </Tip>
+    Sendmux shows the first mailbox password once. Store it now. You can create more mailbox passwords later, but you cannot reveal an old password again.
 
-    The dashboard shows a single one-shot **mailbox credential** (`smx_mbx_...`) that **cannot be retrieved later** — copy it now. The same value authenticates everywhere:
-
-    - As a Bearer token on the HTTP API.
-    - As the password for SMTP submission (`mail.sendmux.ai:587`).
-    - As the password for IMAP retrieval (`mail.sendmux.ai:993`).
-
-    Store it in your secrets manager. If you lose it, mint a fresh credential from the mailbox detail page — the original value is gone.
-
+    See [Mailboxes](/guides/mailboxes) for sender identity, storage, and sender rules.
   </Step>
 
-  <Step title="Send your first email">
-    Use the API key from step 2 to send a test message. Replace `your_key_here` and the email addresses with your own values.
+  <Step title="Send a test email">
+    Use the mailbox password as the bearer token for the Sending API.
 
-    <CodeGroup>
-
-    ```bash curl
+    ```bash
     curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
       -H "Authorization: Bearer smx_mbx_your_key_here" \
       -H "Content-Type: application/json" \
       -d '{
-        "from": { "email": "notifications@your-verified-domain.com", "name": "Your App" },
+        "from": { "email": "hello@myagent.mx", "name": "Your App" },
         "to": { "email": "you@example.com", "name": "Your Name" },
         "subject": "Hello from Sendmux",
-        "html_body": "<p>It works!</p>",
-        "text_body": "It works!"
+        "html_body": "<p>It works.</p>",
+        "text_body": "It works."
       }'
     ```
 
-    ```python Example B
-    import requests
-
-    response = requests.post(
-        "https://smtp.sendmux.ai/api/v1/emails/send",
-        headers={
-            "Authorization": "Bearer smx_mbx_your_key_here",
-            "Content-Type": "application/json",
-        },
-        json={
-            "from": {"email": "notifications@your-verified-domain.com", "name": "Your App"},
-            "to": {"email": "you@example.com", "name": "Your Name"},
-            "subject": "Hello from Sendmux",
-            "html_body": "<p>It works!</p>",
-            "text_body": "It works!",
-        },
-    )
-    print(response.status_code, response.json())
-    ```
-
-    ```javascript Node.js
-    const response = await fetch("https://smtp.sendmux.ai/api/v1/emails/send", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer smx_mbx_your_key_here",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: { email: "notifications@your-verified-domain.com", name: "Your App" },
-        to: { email: "you@example.com", name: "Your Name" },
-        subject: "Hello from Sendmux",
-        html_body: "<p>It works!</p>",
-        text_body: "It works!",
-      }),
-    });
-    console.log(response.status, await response.json());
-    ```
-
-    </CodeGroup>
-
-    A successful send returns `201 Created` with an `eml_*` message id you can search in your delivery logs. Your send goes through the managed **Sendmux SES** account, which is active by default with a daily limit — see [Sending accounts](/guides/sending-accounts). See the [HTTP sending guide](/guides/sending-via-http) for batch sends, attachments, and idempotency.
-
-    <Tip>
-      Prefer SMTP? The same credentials work — see [Send via SMTP](/guides/sending-via-smtp).
-    </Tip>
-
+    A successful response returns `201 Created` with an `eml_` message ID.
   </Step>
 
-  <Step title="Subscribe a webhook">
-    Webhooks let your application react to delivery events (delivered, bounced, complained) and inbound mail in real time.
+  <Step title="Check delivery">
+    Open **Logs** and search for the `eml_` message ID. Logs show sender, recipient, status, provider, attempts, and timestamp.
 
-    **In the dashboard**: open **Webhooks** and click **Add webhook**. Provide:
-
-    - The **URL** that will receive events (must be HTTPS).
-    - The **event types** you want — start with `message.bounced` and `message.complained` to learn about deliverability problems.
-
-    On creation, Sendmux returns a signing secret (`whsec_...`) **once**. Copy it into your application's secret store immediately — you cannot retrieve it again. If you lose it, rotate the secret from the webhook detail page.
-
-    Sendmux signs every payload with HMAC-SHA256 over the request body, sent in the `X-Sendmux-Signature` header. Always verify the signature before trusting the payload.
-
-    See [Webhooks setup](/guides/webhooks-setup) for the full event-type catalogue and retry behaviour, and [Verify signatures](/guides/webhooks-verify-signatures) for ready-to-paste verification code.
-
+    Use **Export CSV** when you need a filtered copy of the log data.
   </Step>
 
-  <Step title="Verify everything works end-to-end">
-    Send another test message — this time to a known good inbox so you can check both delivery and the corresponding webhook.
+  <Step title="Add a webhook">
+    Open **Webhooks** and create a subscription if your application needs delivery events.
 
-    1. Send via the API as in step 3.
-    2. Confirm the message arrived in the recipient inbox (check spam folder if needed; deliverability improves as your domain reputation builds).
-    3. Open **Logs** in the dashboard — your `eml_*` id should appear within seconds with `status: delivered`.
-    4. Check your webhook receiver — for a successful delivery, no `message.bounced` or `message.complained` event fires. To exercise the webhook path immediately, send a second message to `bounce@simulator.amazonses.com`; you'll receive a `message.bounced` event within about 30 seconds.
-
-    <Note>
-      The bounce simulator address is provided by Amazon SES specifically for testing — it returns a hard bounce without affecting your sender reputation.
-    </Note>
-
+    Copy the signing secret when it appears. Sendmux will not show it again. Always verify webhook signatures before processing events.
   </Step>
 </Steps>
 
-## Where to next
+## Next steps
 
 <Columns cols={2}>
-  <Card title="Domain management" icon="globe" href="/guides/domain-management">
-    Add more domains, rotate DNS records, and manage verification state.
+  <Card title="Domains" icon="globe" href="/guides/domain-management">
+    Verify a custom domain for branded sending and inbound mail.
   </Card>
-  <Card
-    title="Sending API reference"
-    icon="paper-plane"
-    href="/sending-api/introduction"
-  >
-    Full reference for single sends, batch sends, attachments, and idempotency.
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create scoped keys for sending, monitoring, and automation.
+  </Card>
+  <Card title="Delivery logs" icon="scroll-text" href="/guides/dashboard-logs">
+    Search, filter, refresh, and export delivery activity.
   </Card>
   <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
-    Subscribe to event types, handle retries, and rotate signing secrets.
-  </Card>
-  <Card
-    title="Verify signatures"
-    icon="key"
-    href="/guides/webhooks-verify-signatures"
-  >
-    HMAC verification snippets for webhook receivers.
+    Receive signed events for deliveries and inbound mail.
   </Card>
 </Columns>
-
-## Need help?
-
-Email [contact@sendmux.ai](mailto:contact@sendmux.ai) with your `request_id` from the response (every API response carries one in the `meta.request_id` field and the `X-Request-Id` header).

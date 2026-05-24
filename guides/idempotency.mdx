@@ -1,26 +1,26 @@
 ---
 title: "Idempotency"
-description: "Make mutating requests safe to retry by attaching an Idempotency-Key header."
+description: "Use the Idempotency-Key header to make mutating requests safe to retry."
 keywords: ["idempotency", "Idempotency-Key", "retries", "duplicate prevention", "request replay"]
 ---
 
-Network blips, client timeouts, and middleware retries can cause the same request to reach Sendmux more than once. The `Idempotency-Key` request header lets you mark a request so a retry under the same key returns the original response instead of re-running the operation.
+Network timeouts and client retries can send the same request more than once. `Idempotency-Key` lets Sendmux return the first result instead of running the operation again.
 
 ## How it works
 
 <Steps>
-  <Step title="Send the header on the original request">
-    Add `Idempotency-Key: <your-key>` to any mutating request. Sendmux records the key, the response, and a fingerprint of the request body.
+  <Step title="Send a stable key">
+    Add `Idempotency-Key` to the original mutating request. Use a value that identifies the logical action, such as an order or invoice ID.
   </Step>
-  <Step title="Retry under the same key">
-    If the same key arrives again within 24 hours **with the same body**, Sendmux returns the cached response verbatim — same status, same headers, same body. The operation does not run twice.
+  <Step title="Retry with the same body">
+    If the same key and body arrive again within 24 hours, Sendmux returns the original response.
   </Step>
-  <Step title="Mismatched body returns 409">
-    If the same key arrives with a **different body** (or while the original request is still in flight), Sendmux returns `409 idempotency_conflict`. The cached entry is left alone.
+  <Step title="Handle conflicts">
+    If the same key arrives with a different body, or while the first request is still running, Sendmux returns `409 idempotency_conflict`.
   </Step>
 </Steps>
 
-## Sending the header
+## Example
 
 ```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
@@ -28,63 +28,34 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: order-confirmation-12345" \
   -d '{
-    "from": { "email": "hello@yourdomain.com" },
-    "to":   { "email": "user@example.com" },
-    "subject":   "Order confirmation #12345",
+    "from": { "email": "hello@example.com" },
+    "to": { "email": "user@example.com" },
+    "subject": "Order confirmation #12345",
     "html_body": "<p>Your order has been confirmed.</p>"
   }'
 ```
 
-The key is opaque to Sendmux — pick whatever stably identifies the logical operation on your side.
+## Where it applies
 
-## Coverage
+Use the header on mutating endpoints such as sending email, creating domains, creating mailboxes, creating mailbox keys, creating webhooks, rotating webhook secrets, and sending webhook test events.
 
-The header is honoured on every mutating endpoint:
+`GET` endpoints do not need it. Update and delete requests use their documented concurrency controls instead.
 
-| API            | Endpoint                                    | Effect of replay                                                          |
-| -------------- | ------------------------------------------- | ------------------------------------------------------------------------- |
-| Sending API    | `POST /emails/send`                         | Returns the original `message_id` and status.                             |
-| Sending API    | `POST /emails/send/batch`                   | Returns the original per-message results array.                           |
-| Management API | `POST /domains`                             | Returns the original 201 + `Location` header.                             |
-| Management API | `POST /mailboxes`                           | Returns the original 201 + `Location` header.                             |
-| Management API | `POST /mailboxes/{public_id}/keys`          | Returns the original 201 + `Location` header (and the `secret` field).    |
-| Management API | `POST /webhooks`                            | Returns the original 201 + `Location` header (and the `secret` field).   |
-| Management API | `POST /webhooks/{public_id}/rotate-secret`  | Returns the original new `secret` — the secret is **not** rotated again.  |
-| Management API | `POST /webhooks/{public_id}/test`           | Returns the original `event_id` — no second test event is published.      |
+## Key rules
 
-`GET` endpoints don't accept the header (they have no side effects); `PATCH`, `PUT`, and `DELETE` use [`If-Match`](/api-reference/introduction) for optimistic concurrency instead.
+- Keep keys between 1 and 255 characters.
+- Reuse the same key for retries of the same operation.
+- Do not generate a new random key for each retry.
+- Do not put idempotency keys in the JSON body.
+- Treat `409 idempotency_conflict` on an in-flight request as retryable after a short wait.
 
-## Replay vs conflict
+## Related guides
 
-| Situation                                          | HTTP status | Body                                                                                                |
-| -------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------- |
-| Same key, same body, original request finished     | The original status (200, 201, 422, …) | The original response body, byte-identical.                                              |
-| Same key, original request still being processed   | `409`       | `{ ok: false, error: { code: "idempotency_conflict", message: "This request is already being processed." } }` |
-| Same key, different body                           | `409`       | `{ ok: false, error: { code: "idempotency_conflict", message: "Idempotency-Key was reused with a different request body." } }` |
-
-A `409 idempotency_conflict` while the original is in flight is transient — wait briefly and retry under the same key to receive the completed response.
-
-## Key format
-
-- **Length**: 1–255 characters. Whitespace is trimmed; an empty or oversize key is silently ignored.
-- **Charset**: opaque to Sendmux. URL-safe identifiers travel cleanly through proxies and logs (`a-zA-Z0-9_-`), but no character class is rejected server-side.
-- **Stability**: the key must be **deterministic per logical operation**. Random UUIDs minted at retry time defeat the purpose — they make every retry look like a brand-new request. Derive the key from the action you're performing: `order-confirmation-{order_id}`, `welcome-{user_id}`, `invoice-{invoice_id}-{period}`.
-
-## Scope
-
-Cached entries are scoped to **(team, endpoint, key)**:
-
-- Two teams may use the same key without colliding.
-- The same key reused across two different endpoints (e.g. `POST /emails/send` and `POST /webhooks`) does not collide — each endpoint maintains its own namespace.
-- Keys expire 24 hours after first use. After expiry the same key can be reused and a fresh request is processed.
-
-## Batch sends
-
-`POST /emails/send/batch` honours one `Idempotency-Key` header for the whole batch. Replay returns the original results array verbatim — the batch is not re-processed and individual messages are not re-sent.
-
-If you need per-message idempotency inside a batch, split the batch into individual `POST /emails/send` calls each with their own `Idempotency-Key`.
-
-## Limitations
-
-- **Best-effort.** If our cache layer is briefly unavailable, the request is processed without idempotency protection (fail-open) rather than rejected. Critical retries should still be safe to send.
-- **Body field is rejected.** Earlier versions accepted `idempotency_key` inside the JSON body. That form now returns `422 validation_error` — migrate to the `Idempotency-Key` HTTP header.
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
+    Use idempotency with single and batch sends.
+  </Card>
+  <Card title="API errors" icon="triangle-alert" href="/api-reference/errors">
+    Handle `idempotency_conflict` responses.
+  </Card>
+</Columns>

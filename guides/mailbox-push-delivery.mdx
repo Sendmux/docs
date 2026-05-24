@@ -1,0 +1,42 @@
+---
+title: "Mailbox push delivery"
+description: "Understand the coming-soon push URL option shown when creating a mailbox."
+keywords:
+  [
+    "mailbox push delivery",
+    "push URL",
+    "inbound mail",
+    "mailboxes",
+    "coming soon",
+  ]
+---
+
+The **Push URL** field in the mailbox creation flow is visible as a coming-soon option. It is disabled for now.
+
+## What it will be for
+
+Push delivery will POST inbound mailbox messages to a URL you control. It is intended for teams that want direct per-mailbox delivery without polling mailbox APIs.
+
+## What to use now
+
+- Use mailbox APIs to read folders, messages, threads, attachments, and changes.
+- Use webhooks to receive inbound event notifications.
+- Use sender rules to reduce unwanted inbound mail before it reaches the mailbox.
+
+## What happens next
+
+There is no setup action or release date. You can create mailboxes normally while the field is disabled.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
+    Create addresses, passwords, sender identity, and sender rules.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
+    Subscribe to inbound mailbox events now.
+  </Card>
+  <Card title="Mailbox API" icon="mailbox" href="/mailbox-api/introduction">
+    Read messages and changes from a mailbox key.
+  </Card>
+</Columns>

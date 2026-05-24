@@ -1,0 +1,79 @@
+---
+title: "Billing"
+description: "Top up team balance, configure auto top-up, set low-balance alerts, and review transactions."
+keywords:
+  [
+    "billing",
+    "top-up",
+    "auto top-up",
+    "low-balance alerts",
+    "transactions",
+    "balance",
+  ]
+---
+
+Billing is team-scoped. Sendmux uses the team balance for paid email activity and records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
+
+## Balance
+
+The Billing page shows current balance, purchased amount over the last 30 days, and consumed amount over the last 30 days.
+
+If balance is too low, sending requests can fail with `insufficient_credits`. Top up before retrying.
+
+## Manual top-up
+
+Choose a top-up amount, then complete checkout. Supported amounts are:
+
+```text
+$20, $50, $100, $250, $500, $1,000, $2,500, $5,000
+```
+
+The balance updates after the purchase completes.
+
+## Auto top-up
+
+Auto top-up adds balance when your team drops below a threshold.
+
+| Setting | Options |
+| --- | --- |
+| Balance threshold | $50, $100, $200, $500 |
+| Top-up amount | $100, $200, $500, $1,000, $2,000 |
+| Monthly limit | $500, $1,000, $2,000, $5,000, $10,000 |
+
+Use a monthly limit that covers expected usage but still caps unexpected spend.
+
+## Low-balance alerts
+
+Low-balance alerts email you when team balance drops below the selected threshold.
+
+```text
+$5, $10, $25, $50, $100, $250
+```
+
+Alerts are sent at most once every 24 hours for the same team and user.
+
+## Transactions
+
+The transaction table shows balance movements with type, amount, date, and description. Use it to reconcile purchases, auto top-ups, usage, refunds, and manual adjustments.
+
+## API access
+
+Use the Management API to read balance, summary, and transaction history from your own reporting tools.
+
+<Card title="Management API" icon="book-open" href="/api-reference/introduction">
+  Open the generated Billing endpoint reference.
+</Card>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
+    Handle `insufficient_credits` on sending requests.
+  </Card>
+  <Card title="Team limits" icon="gauge" href="/guides/team-limits">
+    See which limits are separate from balance.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create keys for billing reporting.
+  </Card>
+</Columns>

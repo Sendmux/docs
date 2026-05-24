@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-The Sendmux Management API gives you programmatic access to your email infrastructure: read providers, metrics, and delivery logs; manage domains, mailboxes, API keys, and webhook subscriptions; track billing balance and history. Use it to build monitoring dashboards, automate provisioning, and integrate Sendmux into your own back-office tooling.
+The Sendmux Management API gives you programmatic access to your email workspace: read providers, metrics, and delivery logs; manage domains, mailboxes, API keys, and webhook subscriptions; track billing balance and history.
 
 ## Base URL
 
@@ -48,7 +48,7 @@ Each endpoint requires a specific permission. Keys with wildcard permissions (e.
 | Webhooks       | `webhook.read` for reads; `webhook.create`, `webhook.update`, `webhook.delete` for the matching mutations; `webhook.manage` for rotate-secret and test.                                         |
 
 <Tip>
-  Use the `root:readonly` role for monitoring integrations — it covers every
+  Use the `root:readonly` role for monitoring integrations. It covers every
   `*.read` permission. `root:webhook_admin` is a narrower preset for keys that
   should only manage webhook subscriptions.
 </Tip>
@@ -129,7 +129,7 @@ The `retryable` flag distinguishes transient failures (back off and retry) from 
 
 Each Management API key is rate-limited to **600 requests per 60 seconds**.
 
-Sending API keys are limited separately to **1,800 requests per 60 seconds** on the Sending API — see the [Sending API introduction](/sending-api/introduction#rate-limits).
+Sending API keys are limited separately to **1,800 requests per 60 seconds** on the Sending API. See the [Sending API introduction](/sending-api/introduction#rate-limits).
 
 Every response carries the current rate-limit state plus a request identifier:
 
@@ -140,7 +140,7 @@ X-RateLimit-Reset: 1679313700
 X-Request-Id: req_clxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-`X-Request-Id` matches the `request_id` in the JSON envelope's `meta` object — quote it when contacting support so a request can be traced.
+`X-Request-Id` matches `meta.request_id` in the JSON envelope. Include it when contacting support.
 
 When the limit is exceeded, the API returns a `429` status with a `Retry-After` header indicating how many seconds to wait before retrying.
 
@@ -148,8 +148,8 @@ When the limit is exceeded, the API returns a `429` status with a `Retry-After` 
 
 Every `GET` that returns a single resource emits a weak `ETag`. Send it back on the next request to avoid transferring unchanged data, and use `If-Match` on writes that document the header for optimistic concurrency control.
 
-- **`If-None-Match`** on a `GET` — if the resource is unchanged, the API responds `304 Not Modified` with no body. Reuse your cached copy.
-- **`If-Match`** on a `PATCH`, `PUT`, or supported `DELETE` — if the resource changed since you fetched it (a stale `ETag`), the API responds `409 conflict` so you don't overwrite a concurrent update. Re-fetch, reapply your change, and retry.
+- **`If-None-Match`** on a `GET`: if the resource is unchanged, the API responds `304 Not Modified` with no body. Reuse your cached copy.
+- **`If-Match`** on a `PATCH`, `PUT`, or supported `DELETE`: if the resource changed since you fetched it, the API responds `409 conflict` so you do not overwrite a concurrent update. Re-fetch, reapply your change, and retry.
 
 Conditional requests are supported across mailbox, domain, webhook, and log resource `GET`s, and on the [Sending API](/sending-api/introduction#conditional-requests).
 
@@ -157,9 +157,9 @@ Conditional requests are supported across mailbox, domain, webhook, and log reso
 
 - **snake_case** fields in all JSON responses
 - **UTC ISO 8601 timestamps** in RFC 3339 format: `2026-03-19T10:30:00Z`
-- **Public IDs only** — internal database IDs are never exposed
+- **Public IDs only**. Private numeric IDs are never exposed.
 - **`Cache-Control: no-store`** on all responses
-- **JSON only** — `Content-Type: application/json`
+- **JSON only**. Use `Content-Type: application/json`.
 
 ## OpenAPI specification
 

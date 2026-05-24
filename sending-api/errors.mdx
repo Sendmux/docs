@@ -4,7 +4,7 @@ description: "Error codes and handling for the Sendmux Sending API."
 keywords: ["sending errors", "error codes", "insufficient credits", "rate limit", "validation", "payload too large"]
 ---
 
-The Sending API uses the same error envelope as the [Management API](/api-reference/errors) — same `code`/`message`/`param`/`doc_url`/`retryable` fields, same accumulated `errors[]` on validation failures, same `X-Request-Id` response header, same `Retry-After` semantics on `429`/`503`. See the Management reference for the full envelope shape and the [retryable + Retry-After](/api-reference/errors#retryable--retry-after) policy. This page documents only the codes the Sending API actually emits.
+The Sending API uses the same error envelope as the [Management API](/api-reference/errors): `code`, `message`, `param`, `doc_url`, `retryable`, accumulated `errors[]`, `X-Request-Id`, and `Retry-After` on `429` or `503`. This page documents only the codes the Sending API emits.
 
 ## Error response format
 
@@ -24,7 +24,7 @@ The Sending API uses the same error envelope as the [Management API](/api-refere
 }
 ```
 
-`param` is only present when the error is tied to a specific request field. On accumulated validation failures, `error.errors` carries every issue — see [Validation errors with multiple issues](/api-reference/errors#validation-errors-with-multiple-issues). Always include `request_id` (or the `X-Request-Id` response header) when contacting support.
+`param` is only present when the error is tied to a specific request field. On accumulated validation failures, `error.errors` carries every issue. See [Validation errors with multiple issues](/api-reference/errors#validation-errors-with-multiple-issues). Always include `request_id` or the `X-Request-Id` response header when contacting support.
 
 ## Shared error codes
 
@@ -32,41 +32,41 @@ These codes are shared with the Management API. Their semantics are identical to
 
 ### authentication_required
 
-**HTTP 401** — The request has no `Authorization` header or the API key is invalid, expired, or revoked.
+**HTTP 401**: The request has no `Authorization` header or the API key is invalid, expired, or revoked.
 
 ### insufficient_permissions
 
-**HTTP 403** — The API key is valid but lacks the `email.send` permission.
+**HTTP 403**: The API key is valid but lacks the `email.send` permission.
 
 ### invalid_parameter
 
-**HTTP 400** — A request field has an invalid format or value, or the JSON body failed schema parsing. The `param` field identifies the offending field; `errors[]` enumerates every issue when more than one is present.
+**HTTP 400**: A request field has an invalid format or value, or the JSON body failed schema parsing. The `param` field identifies the offending field. `errors[]` lists every issue when more than one is present.
 
 ### missing_parameter
 
-**HTTP 400** — A required request field is missing from the body.
+**HTTP 400**: A required request field is missing from the body.
 
 ### not_found
 
-**HTTP 404** — A referenced resource (for example, a `from` mailbox or a domain) does not exist or belongs to a different team than the one associated with your API key.
+**HTTP 404**: A referenced resource, such as a `from` mailbox or domain, does not exist or belongs to a different team than the one associated with your API key.
 
 ### rate_limit_exceeded
 
-**HTTP 429** — You have exceeded the rate limit of 1800 requests per minute. The response carries a `Retry-After` HTTP header with the recommended wait in seconds; back off until then before retrying. `retryable` is `true`.
+**HTTP 429**: You have exceeded the rate limit of 1800 requests per minute. The response carries a `Retry-After` HTTP header with the recommended wait in seconds. Back off until then before retrying. `retryable` is `true`.
 
 ### internal_error
 
-**HTTP 500** — An unexpected server error occurred. `retryable` is `true`. If this persists, contact support with the `request_id`.
+**HTTP 500**: An unexpected server error occurred. `retryable` is `true`. If this persists, contact support with the `request_id`.
 
 ## Sending-specific error codes
 
 ### insufficient_credits
 
-**HTTP 402** — Your team's balance is too low to send this email (or batch). Top up your balance in the Sendmux app under **Billing**.
+**HTTP 402**: Your team's balance is too low to send this email or batch. Top up your balance under **Billing**.
 
 ### validation_error
 
-**HTTP 422** — The request body failed schema validation. Check the `param` field for the specific field that caused the error.
+**HTTP 422**: The request body failed schema validation. Check the `param` field for the specific field that caused the error.
 
 Common causes:
 - Missing required fields (`from`, `to`, `subject`, `html_body`)
@@ -76,16 +76,16 @@ Common causes:
 
 ### idempotency_conflict
 
-**HTTP 409** — Returned when the same `Idempotency-Key` request header is reused either (a) while the original request is still being processed (transient — wait briefly and retry to receive the completed result), or (b) with a request body that does not match the body fingerprint of the original request (permanent — fix the client to use a fresh key for the new request).
+**HTTP 409**: Returned when the same `Idempotency-Key` request header is reused while the original request is still running, or with a request body that does not match the original body fingerprint. Wait and retry for an in-flight request. Use a fresh key for a different request.
 
 ### payload_too_large
 
-**HTTP 413** — The request body exceeds the maximum allowed size. `html_body` and `text_body` are capped at 10MB each, and the entire request body — all fields plus base64-encoded attachments — must be 25MB or less. There is no separate per-attachment size limit; attachments are bounded only by the 25MB request total and the 10-attachment maximum.
+**HTTP 413**: The request body exceeds the maximum allowed size. `html_body` and `text_body` are capped at 10MB each. The full request body, including base64-encoded attachments, must be 25MB or less. Attachments are also bounded by the 10-attachment maximum.
 
 ### no_active_providers
 
-**HTTP 503** — Your team has no active sending account. Every team has the managed **Sendmux SES** account active by default, so this normally means you've deactivated it and have no active provider of your own. Reactivate Sendmux SES, or add and activate a provider, in the Sendmux app under **Accounts** — see [Sending accounts](/guides/sending-accounts). `retryable` is `true`, but retrying will keep failing until an account is active — this is a 503 because the request itself is well-formed.
+**HTTP 503**: Your team has no active sending account. Every team starts with the managed Amazon SES account active, so this usually means it was deactivated and no other provider is active. Reactivate the managed account, or add and activate a provider under **Accounts**. See [Provider setup](/guides/sending-accounts). `retryable` is `true`, but retrying will keep failing until an account is active.
 
 ### service_unavailable
 
-**HTTP 503** — A downstream component needed to serve this request is temporarily unavailable. The response may carry a `Retry-After` header. `retryable` is `true` — back off and retry. If this persists for more than a few minutes, contact support with the `request_id`.
+**HTTP 503**: A required service is temporarily unavailable. The response may carry a `Retry-After` header. `retryable` is `true`, so back off and retry. If this persists for more than a few minutes, contact support with the `request_id`.

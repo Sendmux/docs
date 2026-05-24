@@ -1,0 +1,88 @@
+---
+title: "API keys"
+description: "Create, scope, rotate, and revoke Sendmux API keys."
+keywords:
+  [
+    "API keys",
+    "scopes",
+    "permissions",
+    "rotation",
+    "revocation",
+    "sending key",
+    "mailbox key",
+  ]
+---
+
+API keys authenticate applications, scripts, mail clients, and automation. Keys are shown once when created or rotated, so store them in your secrets manager immediately.
+
+## Key types
+
+| Key type | Use it for |
+| --- | --- |
+| **Infrastructure key** | Team automation, providers, routing, billing, logs, domains, mailboxes, and webhooks. |
+| **Sending key** | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents. |
+| **Mailbox key** | API, IMAP, and SMTP access for one mailbox. |
+
+<Note>
+  Each team starts with **100 active API keys** across all key types. See [Team
+  limits](/guides/team-limits).
+</Note>
+
+## Create a key
+
+<Steps>
+  <Step title="Open API keys">
+    Open **API Keys** in the team workspace.
+  </Step>
+  <Step title="Choose the key type">
+    Select **Create API Key**, then choose the key type. Sending keys can route through all providers, selected providers, or delivery groups.
+  </Step>
+  <Step title="Store the secret">
+    Copy the generated `smx_` value. Sendmux will not show it again.
+  </Step>
+</Steps>
+
+## Scopes and presets
+
+Infrastructure keys use role presets such as **Full Access**, **Read Only**, **Provider Admin**, **Billing Admin**, and **Webhook Admin**.
+
+Sending and mailbox keys use mailbox permissions:
+
+| Permission | Allows |
+| --- | --- |
+| `email.send` | Send email through HTTP or SMTP. |
+| `email.receive` | Receive email through mailbox access. |
+| `mailbox.read` | Read mailbox folders and messages. |
+| `mailbox.settings.update` | Update mailbox identity and settings. |
+
+## Rotate a key
+
+Use rotation when a key may have leaked, when a team member leaves, or as part of regular credential hygiene.
+
+1. Select the rotate action beside the key.
+2. Copy the new secret when it appears.
+3. Deploy the new secret to every system that uses it.
+4. Revoke the old key once all callers have moved.
+
+If your team is already at the API key limit, Sendmux requires the old key to be revoked during rotation.
+
+## Revoke a key
+
+Revocation is immediate. Any system still using the key loses access. Create and test a replacement before revoking a production key.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
+    Use a sending key to queue messages through the API.
+  </Card>
+  <Card title="Delivery groups" icon="route" href="/guides/delivery-groups">
+    Route sending keys through selected provider groups.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
+    Create mailbox keys and per-integration passwords.
+  </Card>
+  <Card title="API errors" icon="triangle-alert" href="/api-reference/errors">
+    Handle authentication, permission, and rate-limit errors.
+  </Card>
+</Columns>

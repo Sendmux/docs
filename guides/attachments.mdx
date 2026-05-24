@@ -1,36 +1,31 @@
 ---
 title: "Attachments"
-description: "Sending file attachments via the Sendmux HTTP API."
+description: "Attach files to Sendmux HTTP send requests."
 keywords: ["attachments", "file uploads", "base64", "MIME types", "size limits"]
 ---
 
-The HTTP API supports up to 10 file attachments per email, sent as base64-encoded content in the request body.
+HTTP send requests can include up to 10 attachments. Each attachment is sent as base64 content inside the JSON body.
 
-## Allowed file types
+## Limits
 
-Only the following file types are accepted (whitelist approach for security):
-
-| Category | Extensions |
+| Limit | Value |
 | --- | --- |
-| **Images** | `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`, `.bmp`, `.ico` |
-| **Documents** | `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx` |
-| **OpenDocument** | `.odt`, `.ods`, `.odp` |
-| **Text / Vector** | `.txt`, `.csv`, `.json`, `.xml`, `.md`, `.svg` |
-| **Other** | `.ics` (calendar), `.vcf` (contact) |
+| Attachments per email | 10 |
+| Request body | 25 MB |
 
-Executable files (`.exe`, `.bat`, `.sh`, etc.) and archive formats (`.zip`, `.tar`, `.gz`) are not accepted.
+Base64 content counts towards the request body size, so keep files below the full request limit.
 
-## Size limits
+## Allowed files
 
-- **Per attachment**: No individual size limit. The entire request body — all fields plus base64-encoded attachments — must be 25MB or less
-- **Per email**: Maximum 10 attachments
-- **Content encoding**: Base64 increases size by ~33%, so the 25MB request limit allows approximately 18MB of actual file content
+Sendmux accepts common image, document, spreadsheet, presentation, text, calendar, and contact formats. Executables and archives are rejected.
 
-## Example
+Binary files are checked against their claimed file type. Text-based files are checked by extension.
+
+## Add an attachment
 
 ```json
 {
-  "from": { "email": "hello@yourdomain.com" },
+  "from": { "email": "hello@example.com" },
   "to": { "email": "user@example.com" },
   "subject": "Invoice attached",
   "html_body": "<p>Please find your invoice attached.</p>",
@@ -44,16 +39,25 @@ Executable files (`.exe`, `.bat`, `.sh`, etc.) and archive formats (`.zip`, `.ta
 }
 ```
 
-## Attachment fields
+## Fields
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `filename` | `string` | Yes | Filename with allowed extension |
-| `content` | `string` | Yes | Base64-encoded file content |
-| `type` | `string` | No | MIME type override (auto-detected from extension if omitted) |
+| Field | Required | Notes |
+| --- | --- | --- |
+| `filename` | Yes | Must include an allowed extension. |
+| `content` | Yes | Base64-encoded file content. |
+| `type` | No | Optional MIME type override. |
 
-## Security
+## What happens next
 
-Sendmux performs **magic byte validation** on binary attachments — the actual file content must match the claimed extension. For example, an `.exe` file renamed to `.pdf` will be rejected.
+If an attachment is too large, unsupported, or does not match its file type, the request fails with `validation_error` or `payload_too_large`. Fix the file and retry.
 
-Text-based formats (`.txt`, `.csv`, `.json`, `.xml`, `.md`, `.svg`, `.ics`, `.vcf`) are validated by extension only, as they don't have reliable magic byte signatures.
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
+    Add attachments to single or batch send requests.
+  </Card>
+  <Card title="Sending errors" icon="triangle-alert" href="/sending-api/errors">
+    Handle validation and payload size errors.
+  </Card>
+</Columns>

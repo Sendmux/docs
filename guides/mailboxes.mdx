@@ -1,0 +1,93 @@
+---
+title: "Mailboxes"
+description: "Create mailboxes, manage passwords, set sender identity, and control inbound sender rules."
+keywords:
+  [
+    "mailboxes",
+    "mailbox passwords",
+    "sender identity",
+    "storage",
+    "sender rules",
+    "IMAP",
+    "SMTP",
+  ]
+---
+
+A mailbox is one email address on a verified custom domain or on the shared `myagent.mx` domain. It can send mail, receive mail, hold messages, and have its own passwords and sender rules.
+
+<Note>
+  Each team starts with **50 active mailboxes**. See [Team limits](/guides/team-limits).
+</Note>
+
+## Create a mailbox
+
+<Steps>
+  <Step title="Open Mailboxes">
+    Open **Mailboxes** and select **Create mailbox**.
+  </Step>
+  <Step title="Choose the address">
+    Enter a local part and choose a verified domain. Leave the local part blank if you want Sendmux to generate one.
+  </Step>
+  <Step title="Set display name and storage">
+    Add an optional display name and choose **1 GB**, **5 GB**, or **50 GB** storage.
+  </Step>
+  <Step title="Save the password">
+    Copy the mailbox password when it appears. It is shown once.
+  </Step>
+</Steps>
+
+## Mailbox passwords
+
+Create one password per device, app, or integration. That makes revocation safer because you can remove one password without breaking every other connection.
+
+Mailbox passwords can be used for:
+
+- Sending through SMTP.
+- Authenticating mailbox-scoped API calls.
+- Connecting a mail client to the mailbox.
+
+Use **New password** on the mailbox detail page to create another password. Use **Revoke** to disable one immediately.
+
+## Sender identity
+
+Open a mailbox and choose **Edit sender identity** to set:
+
+- Sender name.
+- Plain text signature.
+- HTML signature.
+
+These values become the mailbox defaults. Individual API sends can still provide their own message fields.
+
+## Sender rules
+
+Sender rules control inbound mail for the mailbox.
+
+| Rule type | Behaviour |
+| --- | --- |
+| **Allow** | Deliver only mail that matches trusted senders or domains. |
+| **Block** | Reject mail from known noisy or unwanted senders. |
+
+A mailbox can use allow rules or block rules, not both at the same time. Clear all rules before switching rule type.
+
+## Suspend, resume, and delete
+
+- **Suspend** pauses mailbox access without deleting the mailbox.
+- **Resume** restores access.
+- **Delete** removes the mailbox, its messages, API keys, and passwords.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Domains" icon="globe" href="/guides/domain-management">
+    Verify custom domains before creating branded mailboxes.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create mailbox keys for API and mail client access.
+  </Card>
+  <Card title="Push delivery" icon="radio" href="/guides/mailbox-push-delivery">
+    See the coming-soon push URL option.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
+    Receive inbound and delivery events at your HTTPS endpoint.
+  </Card>
+</Columns>

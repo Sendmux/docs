@@ -1,140 +1,43 @@
 ---
-title: "Sending via HTTP API"
-description: "Quick start guide for sending emails via the Sendmux REST API."
-keywords: ["HTTP API", "send email", "quick start", "curl", "REST", "JSON"]
+title: "Sending by HTTP"
+description: "Send single or batch email requests through the Sendmux Sending API."
+keywords: ["HTTP API", "send email", "batch send", "JSON", "Sending API"]
 ---
 
-The HTTP API is the recommended way to send emails from your application. It supports single and batch sending with structured JSON requests.
+Use the HTTP Sending API for new integrations, batch sending, and retry-safe requests.
 
-<Note>
-  Provider and delivery-group routing follows the configured scope of the API
-  key you authenticate with — there is no header or request field to select a
-  provider or group. See [Route through a delivery
-  group](/guides/sending-accounts#route-through-a-delivery-group).
-</Note>
+<Info>
+  Routing follows the sending key or mailbox you authenticate with. You cannot
+  choose a provider or delivery group inside an individual send request.
+</Info>
 
 ## Prerequisites
 
-<Steps>
-  <Step title="A sending account">
-    Nothing to set up — every team has the managed **Sendmux SES** account active by default, so you can send straight away. See [Sending accounts](/guides/sending-accounts) for its daily limit and how to bring your own providers.
-  </Step>
-  <Step title="API key with sending permission">
-    An API key with the `email.send` permission. Create one under **Settings > API Keys**.
-  </Step>
-  <Step title="Sufficient balance">
-    Check your team's balance under **Billing** — sends are debited per message. Outgoing mail through your own providers is billed at `$0.15 / 1,000 emails`; outgoing mail through Sendmux SES is billed at `$0.25 / 1,000 emails`.
-  </Step>
-</Steps>
+- A team with sending access.
+- A sending key or mailbox key with `email.send`.
+- Enough team balance for the messages you send.
+- A verified custom domain, unless you are testing with the shared domain.
 
-## Send a single email
+## Send one email
 
-<CodeGroup>
-
-```bash curl
+```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
   -H "Authorization: Bearer smx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
-    "from": { "email": "hello@yourdomain.com", "name": "Your App" },
+    "from": { "email": "hello@example.com", "name": "Your App" },
     "to": { "email": "user@example.com", "name": "Jane Doe" },
-    "subject": "Welcome to our platform",
-    "html_body": "<h1>Welcome!</h1><p>Thanks for signing up.</p>",
-    "text_body": "Welcome! Thanks for signing up."
+    "subject": "Welcome",
+    "html_body": "<p>Thanks for signing up.</p>",
+    "text_body": "Thanks for signing up."
   }'
 ```
 
-```python Example B
-import requests
+A successful request returns `201 Created` with a queued `message_id`.
 
-response = requests.post(
-    "https://smtp.sendmux.ai/api/v1/emails/send",
-    headers={
-        "Authorization": "Bearer smx_your_key_here",
-        "Content-Type": "application/json",
-    },
-    json={
-        "from": {"email": "hello@yourdomain.com", "name": "Your App"},
-        "to": {"email": "user@example.com", "name": "Jane Doe"},
-        "subject": "Welcome to our platform",
-        "html_body": "<h1>Welcome!</h1><p>Thanks for signing up.</p>",
-        "text_body": "Welcome! Thanks for signing up.",
-    },
-)
+## Send a batch
 
-data = response.json()
-print(data["data"]["message_id"])  # eml_<cuid2> identifier of the queued message
-```
-
-```javascript Node.js
-const response = await fetch("https://smtp.sendmux.ai/api/v1/emails/send", {
-  method: "POST",
-  headers: {
-    Authorization: "Bearer smx_your_key_here",
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    from: { email: "hello@yourdomain.com", name: "Your App" },
-    to: { email: "user@example.com", name: "Jane Doe" },
-    subject: "Welcome to our platform",
-    html_body: "<h1>Welcome!</h1><p>Thanks for signing up.</p>",
-    text_body: "Welcome! Thanks for signing up.",
-  }),
-});
-
-const data = await response.json();
-console.log(data.data.message_id); // eml_<cuid2> identifier of the queued message
-```
-
-```go Example C
-package main
-
-import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"net/http"
-)
-
-func main() {
-	body, _ := json.Marshal(map[string]interface{}{
-		"from":      map[string]string{"email": "hello@yourdomain.com", "name": "Your App"},
-		"to":        map[string]string{"email": "user@example.com", "name": "Jane Doe"},
-		"subject":   "Welcome to our platform",
-		"html_body": "<h1>Welcome!</h1><p>Thanks for signing up.</p>",
-		"text_body": "Welcome! Thanks for signing up.",
-	})
-
-	req, _ := http.NewRequest("POST", "https://smtp.sendmux.ai/api/v1/emails/send", bytes.NewBuffer(body))
-	req.Header.Set("Authorization", "Bearer smx_your_key_here")
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, _ := http.DefaultClient.Do(req)
-	defer resp.Body.Close()
-	fmt.Println("Status:", resp.StatusCode)
-}
-```
-
-</CodeGroup>
-
-### Response
-
-```json
-{
-  "ok": true,
-  "data": {
-    "message_id": "eml_abc123def456ghi789jkl012",
-    "status": "queued"
-  },
-  "meta": {
-    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
-  }
-}
-```
-
-## Send a batch of emails
-
-Send up to 100 emails in a single request. The API uses a partial success model — individual message failures don't fail the entire batch.
+Send up to 100 messages in one request. The response reports each message by its input index.
 
 ```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
@@ -143,140 +46,61 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
   -d '{
     "messages": [
       {
-        "from": { "email": "hello@yourdomain.com" },
+        "from": { "email": "hello@example.com" },
         "to": { "email": "alice@example.com" },
         "subject": "Hello Alice",
-        "html_body": "<p>Hi Alice!</p>"
+        "html_body": "<p>Hi Alice.</p>"
       },
       {
-        "from": { "email": "hello@yourdomain.com" },
+        "from": { "email": "hello@example.com" },
         "to": { "email": "bob@example.com" },
         "subject": "Hello Bob",
-        "html_body": "<p>Hi Bob!</p>"
+        "html_body": "<p>Hi Bob.</p>"
       }
     ]
   }'
 ```
 
-### Batch response
+## Useful options
 
-```json
-{
-  "ok": true,
-  "data": {
-    "results": [
-      {
-        "index": 0,
-        "message_id": "eml_abc123def456ghi789jkl012",
-        "status": "queued"
-      },
-      {
-        "index": 1,
-        "message_id": "eml_mno345pqr678stu901vwx234",
-        "status": "queued"
-      }
-    ],
-    "summary": { "total": 2, "queued": 2, "failed": 0 }
-  },
-  "meta": { "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx" }
-}
-```
+| Option | Use it for |
+| --- | --- |
+| `cc`, `bcc` | Add more recipients. Each list can contain up to 100 recipients. |
+| `reply_to` | Direct replies to a different address. |
+| `return_path` | Set the envelope sender for bounce handling. |
+| `custom_headers` | Add custom `X-*` headers to the outgoing message. |
+| `attachments` | Attach files as base64 content. |
+| `Idempotency-Key` | Safely retry a request without sending twice. |
 
-## Optional fields
-
-The full request schema — every optional field, its type, and constraints — is rendered from the live OpenAPI spec on the **`POST /emails/send`** page in the Sending API reference. A few fields warrant their own guides:
-
-- **Attachments** — base64-encoded files. See the [Attachments](/guides/attachments) guide.
-- **Idempotency** — pass an `Idempotency-Key` HTTP header (not a body field) to make retries safe. See the [Idempotency](/guides/idempotency) guide.
-
-### custom_headers
-
-Pass `custom_headers` as a map of custom `X-*` headers to add to the outbound message. These are added to the message only — they do not affect routing. Use them for custom tracking IDs or threading and correlation headers.
-
-- Header names must match `X-[A-Za-z0-9-]+`.
-- Each value is capped at 500 characters.
-- Carriage return and line feed characters are rejected.
-
-```json
-{
-  "custom_headers": {
-    "X-Campaign-Id": "summer-2026",
-    "X-Correlation-Id": "order-48213"
-  }
-}
-```
-
-### return_path
-
-Set `return_path` to override the envelope sender (VERP) used for bounce correlation. This is the address that receives bounce notifications and is distinct from the visible `from` address.
-
-```json
-{
-  "return_path": "bounces+order-48213@yourdomain.com"
-}
-```
-
-### Multiple recipients
-
-Add `cc` and `bcc` recipients (up to **100 each**) alongside `to`. Set `reply_to` as a structured address object — the same `{ email, name }` shape as `from` and `to`.
-
-<CodeGroup>
-
-```bash curl
-curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
-  -H "Authorization: Bearer smx_your_key_here" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "from": { "email": "hello@yourdomain.com", "name": "Your App" },
-    "to": { "email": "user@example.com", "name": "Jane Doe" },
-    "cc": [{ "email": "manager@example.com", "name": "Team Lead" }],
-    "bcc": [{ "email": "archive@yourdomain.com" }],
-    "reply_to": { "email": "support@yourdomain.com", "name": "Support" },
-    "subject": "Your order update",
-    "html_body": "<p>Your order has shipped.</p>",
-    "text_body": "Your order has shipped."
-  }'
-```
-
-```javascript Node.js
-const response = await fetch("https://smtp.sendmux.ai/api/v1/emails/send", {
-  method: "POST",
-  headers: {
-    Authorization: "Bearer smx_your_key_here",
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    from: { email: "hello@yourdomain.com", name: "Your App" },
-    to: { email: "user@example.com", name: "Jane Doe" },
-    cc: [{ email: "manager@example.com", name: "Team Lead" }],
-    bcc: [{ email: "archive@yourdomain.com" }],
-    reply_to: { email: "support@yourdomain.com", name: "Support" },
-    subject: "Your order update",
-    html_body: "<p>Your order has shipped.</p>",
-    text_body: "Your order has shipped.",
-  }),
-});
-
-const data = await response.json();
-console.log(data.data.message_id);
-```
-
-</CodeGroup>
+See the [Sending API reference](/sending-api/introduction) for the full schema.
 
 ## Error handling
 
-Always check the `ok` field in the response:
+Check the `ok` field. If it is `false`, read `error.code`, `error.message`, and `meta.request_id`.
 
-```javascript
+```js
 const data = await response.json();
 
 if (!data.ok) {
-  console.error(`Error ${data.error.code}: ${data.error.message}`);
-  // Handle specific error codes
-  if (data.error.code === "insufficient_credits") {
-    // Top up balance
-  }
+  console.error(data.error.code, data.error.message, data.meta.request_id);
 }
 ```
 
-See the full [error reference](/sending-api/errors) for all error codes.
+Use [Sending API errors](/sending-api/errors) for retry and support guidance.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="SMTP sending" icon="send" href="/guides/sending-via-smtp">
+    Use SMTP when an existing tool only supports SMTP delivery.
+  </Card>
+  <Card title="Attachments" icon="paperclip" href="/guides/attachments">
+    Add files to HTTP send requests.
+  </Card>
+  <Card title="Idempotency" icon="repeat" href="/guides/idempotency">
+    Make send retries safe with `Idempotency-Key`.
+  </Card>
+  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+    Connect providers and control routing before you send.
+  </Card>
+</Columns>

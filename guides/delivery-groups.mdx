@@ -1,0 +1,70 @@
+---
+title: "Delivery groups"
+description: "Group sending providers and route selected keys or mailboxes through them."
+keywords:
+  [
+    "delivery groups",
+    "routing",
+    "providers",
+    "sending keys",
+    "mailboxes",
+    "send scope",
+  ]
+---
+
+Delivery groups let you route a sending key or mailbox through a named set of providers. Use them to separate traffic by product, region, customer, or risk profile.
+
+## How routing works
+
+Routing is chosen by the key or mailbox you authenticate with. There is no per-request header or body field that selects a provider or delivery group.
+
+| Scope | Result |
+| --- | --- |
+| **All active providers** | Sendmux can use any active provider on the team. |
+| **Specific providers** | Sendmux can use only the providers selected on the key. |
+| **Delivery group** | Sendmux can use only providers in the selected group. |
+
+## Create a group
+
+<Steps>
+  <Step title="Open Accounts">
+    Open **Accounts**, then select **Manage Groups**.
+  </Step>
+  <Step title="Create the group">
+    Add a group name. You can edit the name and description later.
+  </Step>
+  <Step title="Add providers">
+    Edit a provider and choose the delivery group in **Advanced Settings**.
+  </Step>
+</Steps>
+
+## Route a sending key
+
+Create or edit a sending key and choose **Delivery group(s)** under sending scope. Select one or more groups.
+
+If a selected group has no active providers, sends through that key fail until a provider is added or reactivated.
+
+## Route a mailbox
+
+Use a mailbox's send scope to bind it to a delivery group. Every API or SMTP send authenticated as that mailbox follows the mailbox scope.
+
+## Delete a group
+
+Deleting a group moves its providers to **No group**. Sendmux warns when API keys depend on the group so you can update their send scope first.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+    Add providers and tune quotas, sender defaults, and weights.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create sending keys and choose their send scope.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
+    Scope mailbox sending to a selected provider group.
+  </Card>
+  <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
+    Send messages with a key that already has the right route.
+  </Card>
+</Columns>
