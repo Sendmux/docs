@@ -67,14 +67,14 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
 
 ## Useful options
 
-| Option | Use it for |
-| --- | --- |
-| `cc`, `bcc` | Add more recipients. Each list can contain up to 100 recipients. |
-| `reply_to` | Direct replies to a different address. |
-| `return_path` | Set the envelope sender for bounce handling. |
-| `custom_headers` | Add custom `X-*` headers to the outgoing message. |
-| `attachments` | Attach files as base64 content. |
-| `Idempotency-Key` | Safely retry a request without sending twice. |
+| Option            | Use it for                                                       |
+| ----------------- | ---------------------------------------------------------------- |
+| `cc`, `bcc`       | Add more recipients. Each list can contain up to 100 recipients. |
+| `reply_to`        | Direct replies to a different address.                           |
+| `return_path`     | Set the envelope sender for bounce handling.                     |
+| `custom_headers`  | Add custom `X-*` headers to the outgoing message.                |
+| `attachments`     | Attach files as base64 content.                                  |
+| `Idempotency-Key` | Safely retry a request without sending twice.                    |
 
 See the [Sending API reference](/sending-api/introduction) for the full schema.
 
@@ -104,7 +104,7 @@ Use [Sending API errors](/sending-api/errors) for retry and support guidance.
   <Card title="Idempotency" icon="repeat" href="/guides/idempotency">
     Make send retries safe with `Idempotency-Key`.
   </Card>
-  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+  <Card title="Sending accounts" icon="mail" href="/guides/sending-accounts">
     Connect providers and control routing before you send.
   </Card>
 </Columns>

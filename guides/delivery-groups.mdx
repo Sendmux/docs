@@ -18,11 +18,11 @@ Delivery groups let you route a sending key or mailbox through a named set of pr
 
 Routing is chosen by the key or mailbox you authenticate with. There is no per-request header or body field that selects a provider or delivery group.
 
-| Scope | Result |
-| --- | --- |
-| **All active providers** | Sendmux can use any active provider on the team. |
-| **Specific providers** | Sendmux can use only the providers selected on the key. |
-| **Delivery group** | Sendmux can use only providers in the selected group. |
+| Scope                    | Result                                                  |
+| ------------------------ | ------------------------------------------------------- |
+| **All active providers** | Sendmux can use any active provider on the team.        |
+| **Specific providers**   | Sendmux can use only the providers selected on the key. |
+| **Delivery group**       | Sendmux can use only providers in the selected group.   |
 
 ## Create a group
 
@@ -55,7 +55,7 @@ Deleting a group moves its providers to **No group**. Sendmux warns when API key
 ## Related guides
 
 <Columns cols={2}>
-  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+  <Card title="Sending accounts" icon="mail" href="/guides/sending-accounts">
     Add providers and tune quotas, sender defaults, and weights.
   </Card>
   <Card title="API keys" icon="key" href="/guides/api-keys">

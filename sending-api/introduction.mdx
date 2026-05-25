@@ -1,7 +1,15 @@
 ---
 title: "Introduction"
 description: "Send emails programmatically via the Sendmux Sending API."
-keywords: ["sending API", "send email", "transactional email", "HTTP API", "authentication", "envelope"]
+keywords:
+  [
+    "sending API",
+    "send email",
+    "transactional email",
+    "HTTP API",
+    "authentication",
+    "envelope",
+  ]
 ---
 
 import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
@@ -19,8 +27,11 @@ https://smtp.sendmux.ai/api/v1
 ```
 
 <Note>
-  This is a different base URL from the [Management API](/api-reference/introduction) (`app.sendmux.ai`).
+  This is a different base URL from the [Management
+  API](/api-reference/introduction) (`app.sendmux.ai`).
 </Note>
+
+Use the Management API to manage the accounts that the Sending API can use: list accounts, add custom SMTP accounts, activate or deactivate accounts, test SMTP connections, read usage, and request limit increases. See [Sending account management](/api-reference/introduction#sending-account-management).
 
 ## Authentication
 
@@ -42,11 +53,13 @@ API keys are scoped to a team. Create and manage keys under **Settings > API Key
 
 ### Permissions
 
-| Endpoint | Required permission |
-| --- | --- |
-| `POST /api/v1/emails/send` | `email.send` |
-| `POST /api/v1/emails/send/batch` | `email.send` |
-| `GET /api/v1/openapi.json` | None (public) |
+| Endpoint                         | Required permission |
+| -------------------------------- | ------------------- |
+| `POST /api/v1/emails/send`       | `email.send`        |
+| `POST /api/v1/emails/send/batch` | `email.send`        |
+| `GET /api/v1/openapi.json`       | None (public)       |
+
+Account-management endpoints live in the Management API and use root API keys with `provider.*` permissions.
 
 ## Response format
 

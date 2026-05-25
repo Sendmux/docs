@@ -1,7 +1,15 @@
 ---
 title: "Errors"
 description: "Error codes and handling for the Sendmux Sending API."
-keywords: ["sending errors", "error codes", "insufficient credits", "rate limit", "validation", "payload too large"]
+keywords:
+  [
+    "sending errors",
+    "error codes",
+    "insufficient credits",
+    "rate limit",
+    "validation",
+    "payload too large",
+  ]
 ---
 
 The Sending API uses the same error envelope as the [Management API](/api-reference/errors): `code`, `message`, `param`, `doc_url`, `retryable`, accumulated `errors[]`, `X-Request-Id`, and `Retry-After` on `429` or `503`. This page documents only the codes the Sending API emits.
@@ -69,6 +77,7 @@ These codes are shared with the Management API. Their semantics are identical to
 **HTTP 422**: The request body failed schema validation. Check the `param` field for the specific field that caused the error.
 
 Common causes:
+
 - Missing required fields (`from`, `to`, `subject`, `html_body`)
 - Invalid email addresses
 - Attachment file type not in the allowed list
@@ -84,7 +93,7 @@ Common causes:
 
 ### no_active_providers
 
-**HTTP 503**: Your team has no active sending account. Every team starts with the managed Amazon SES account active, so this usually means it was deactivated and no other provider is active. Reactivate the managed account, or add and activate a provider under **Accounts**. See [Provider setup](/guides/sending-accounts). `retryable` is `true`, but retrying will keep failing until an account is active.
+**HTTP 503**: Your team has no active sending account. Every team starts with the managed Amazon SES account active, so this usually means it was deactivated and no other provider is active. Reactivate the managed account, or add and activate a provider under **Accounts**. See [Sending accounts](/guides/sending-accounts). `retryable` is `true`, but retrying will keep failing until an account is active.
 
 ### service_unavailable
 

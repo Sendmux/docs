@@ -119,8 +119,23 @@
             ]
           },
           {
-            "group": "Providers",
-            "pages": ["GET /providers", "GET /providers/stats"]
+            "group": "Sending accounts",
+            "pages": [
+              "GET /providers/stats",
+              "GET /providers/limits",
+              "POST /providers/limits/sending-accounts/request-increase",
+              "GET /providers/shared-amazon-ses-limit-request",
+              "POST /providers/shared-amazon-ses-limit-request",
+              "GET /providers/usage",
+              "GET /providers",
+              "POST /providers",
+              "GET /providers/{public_id}",
+              "PATCH /providers/{public_id}",
+              "DELETE /providers/{public_id}",
+              "POST /providers/{public_id}/activate",
+              "POST /providers/{public_id}/deactivate",
+              "POST /providers/{public_id}/test"
+            ]
           },
           {
             "group": "Emails",

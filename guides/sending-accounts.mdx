@@ -1,6 +1,6 @@
 ---
-title: "Provider setup"
-description: "Use the managed sending account, connect your own providers, and test provider health."
+title: "Sending accounts"
+description: "Use the managed sending account, connect your own providers, and test account health."
 keywords:
   [
     "provider setup",
@@ -15,30 +15,30 @@ keywords:
 
 import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 
-Every team can send as soon as it is created. Sendmux includes a managed Amazon SES sending account, and you can add your own providers when you need more control.
+Every team can send as soon as it is created. Sendmux includes a managed Amazon SES sending account, and you can add your own accounts when you need more control.
 
 ## Default managed account
 
 The managed account is active by default. It is best for first sends and low-volume traffic.
 
-| Setting | Value |
-| --- | --- |
-| Starting limit | 500 emails per day |
-| Limit reset | 00:00 UTC |
-| Setup | None |
-| Editable credentials | No |
-| Delivery groups | Not supported |
+| Setting              | Value              |
+| -------------------- | ------------------ |
+| Starting limit       | 500 emails per day |
+| Limit reset          | 00:00 UTC          |
+| Setup                | None               |
+| Editable credentials | No                 |
+| Delivery groups      | Not supported      |
 
 <SharedSesPolicy />
 
-When usage reaches 80% of the daily limit, **Request increase** appears on **Accounts**. Submit the request once. Sendmux reviews it and emails the outcome.
+When usage reaches 80% of the daily limit, **Request increase** appears on **Accounts**. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API. Submit the request once. Sendmux reviews it and emails the outcome.
 
 <Warning>
   If the managed account is inactive and no other active provider exists, sends
   fail with `no_active_providers`.
 </Warning>
 
-## Add your own provider
+## Add your own account
 
 Use your own provider when you need higher volume, a specific sender policy, or direct control of account credentials.
 
@@ -47,33 +47,60 @@ Use your own provider when you need higher volume, a specific sender policy, or 
     Open **Accounts** and select **Add Account**.
   </Step>
   <Step title="Choose the provider type">
-    Choose **Custom SMTP**, **Gmail**, or **Outlook / Microsoft 365**. **HTTP API** is visible as a coming-soon option.
+    Choose **Custom SMTP**, **Gmail**, or **Outlook / Microsoft 365**. **HTTP
+    API** is visible as a coming-soon option.
   </Step>
   <Step title="Complete setup">
-    SMTP providers need host, port, protocol, username, password, and optional sender defaults. Connected account providers send you through the provider's sign-in flow.
+    SMTP accounts need host, port, protocol, username, password, and optional
+    sender defaults. Connected accounts send you through the provider's sign-in
+    flow.
   </Step>
   <Step title="Test the provider">
-    For SMTP providers, use **Test Connection** after saving. Fix any credential or network error before routing production mail through the account.
+    For SMTP accounts, use **Test Connection** after saving. Fix any credential
+    or network error before routing production mail through the account.
   </Step>
 </Steps>
+
+## Manage accounts by API
+
+Use the [Management API](/api-reference/introduction#sending-account-management) when you need to automate account operations.
+
+| Task                                         | Endpoint                                                                           |
+| -------------------------------------------- | ---------------------------------------------------------------------------------- |
+| List accounts                                | `GET /providers`                                                                   |
+| Add a custom SMTP account                    | `POST /providers`                                                                  |
+| Update account metadata or SMTP settings     | `PATCH /providers/{public_id}`                                                     |
+| Activate or deactivate an account            | `POST /providers/{public_id}/activate` or `POST /providers/{public_id}/deactivate` |
+| Test a custom SMTP account                   | `POST /providers/{public_id}/test`                                                 |
+| Read usage and limits                        | `GET /providers/usage`, `GET /providers/limits`                                    |
+| Request more custom-account capacity         | `POST /providers/limits/sending-accounts/request-increase`                         |
+| Request shared Amazon SES daily limit review | `POST /providers/shared-amazon-ses-limit-request`                                  |
+
+Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
+
+<Warning>
+  The shared Amazon SES account is platform-managed. API clients can read it,
+  activate or deactivate it, and request a daily limit increase. They cannot
+  edit its credentials, quotas, routing weight, sender defaults, or delete it.
+</Warning>
 
 ## Advanced settings
 
 Advanced settings let you tune the provider without changing every send request.
 
-| Setting | Use it for |
-| --- | --- |
-| **From email** | Set a default sender address for this provider. |
-| **From name** | Set a default sender display name. |
-| **Reply-To** | Send replies to a different mailbox. |
-| **Tracking domain** | Use a custom tracking hostname when configured. |
-| **Quotas** | Set per-second, per-minute, per-hour, or per-day caps. |
-| **Distribution percentage** | Weight traffic when several providers are eligible. |
-| **Delivery group** | Add the provider to a routing group. |
+| Setting                     | Use it for                                                                     |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| **From email**              | Set a default sender address for this provider.                                |
+| **From name**               | Set a default sender display name.                                             |
+| **Reply-To**                | Send replies to a different mailbox.                                           |
+| **Tracking domain**         | Use a custom tracking hostname when configured.                                |
+| **Quotas**                  | Set per-second, per-minute, per-hour, or per-day caps on custom SMTP accounts. |
+| **Distribution percentage** | Weight traffic when several providers are eligible.                            |
+| **Delivery group**          | Add the provider to a routing group.                                           |
 
 ## Account limits
 
-Each team starts with **200 sending accounts** that you add yourself. The managed account does not count towards this limit. When usage reaches 80%, **Request increase** appears on **Accounts**.
+Each team starts with **200 sending accounts** that you add yourself. The managed account does not count towards this limit. When usage reaches 80%, **Request increase** appears on **Accounts**, and API clients can call `POST /providers/limits/sending-accounts/request-increase`.
 
 ## Related guides
 
@@ -87,7 +114,11 @@ Each team starts with **200 sending accounts** that you add yourself. The manage
   <Card title="Domains" icon="globe" href="/guides/domain-management">
     Verify custom domains before using them for branded sending.
   </Card>
-  <Card title="Deliverability" icon="shield-check" href="/guides/deliverability">
+  <Card
+    title="Deliverability"
+    icon="shield-check"
+    href="/guides/deliverability"
+  >
     Watch bounce, complaint, and provider health signals.
   </Card>
 </Columns>

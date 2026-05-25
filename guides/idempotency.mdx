@@ -1,7 +1,14 @@
 ---
 title: "Idempotency"
 description: "Use the Idempotency-Key header to make mutating requests safe to retry."
-keywords: ["idempotency", "Idempotency-Key", "retries", "duplicate prevention", "request replay"]
+keywords:
+  [
+    "idempotency",
+    "Idempotency-Key",
+    "retries",
+    "duplicate prevention",
+    "request replay",
+  ]
 ---
 
 Network timeouts and client retries can send the same request more than once. `Idempotency-Key` lets Sendmux return the first result instead of running the operation again.
@@ -10,13 +17,16 @@ Network timeouts and client retries can send the same request more than once. `I
 
 <Steps>
   <Step title="Send a stable key">
-    Add `Idempotency-Key` to the original mutating request. Use a value that identifies the logical action, such as an order or invoice ID.
+    Add `Idempotency-Key` to the original mutating request. Use a value that
+    identifies the logical action, such as an order or invoice ID.
   </Step>
   <Step title="Retry with the same body">
-    If the same key and body arrive again within 24 hours, Sendmux returns the original response.
+    If the same key and body arrive again within 24 hours, Sendmux returns the
+    original response.
   </Step>
   <Step title="Handle conflicts">
-    If the same key arrives with a different body, or while the first request is still running, Sendmux returns `409 idempotency_conflict`.
+    If the same key arrives with a different body, or while the first request is
+    still running, Sendmux returns `409 idempotency_conflict`.
   </Step>
 </Steps>
 
@@ -37,7 +47,7 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
 
 ## Where it applies
 
-Use the header on mutating endpoints such as sending email, creating domains, creating mailboxes, creating mailbox keys, creating webhooks, rotating webhook secrets, and sending webhook test events.
+Use the header on mutating endpoints such as sending email, creating domains, creating mailboxes, creating mailbox keys, creating sending accounts, activating or deactivating sending accounts, requesting sending-account limit increases, creating webhooks, rotating webhook secrets, and sending webhook test events.
 
 `GET` endpoints do not need it. Update and delete requests use their documented concurrency controls instead.
 

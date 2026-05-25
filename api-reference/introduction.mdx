@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-The Sendmux Management API gives you programmatic access to your email workspace: read providers, metrics, and delivery logs; manage domains, mailboxes, API keys, and webhook subscriptions; track billing balance and history.
+The Sendmux Management API gives you programmatic access to your email workspace: manage sending accounts, domains, mailboxes, API keys, and webhook subscriptions; read metrics and delivery logs; track billing balance and history.
 
 ## Base URL
 
@@ -37,20 +37,21 @@ API keys are scoped to a team and carry specific permissions. Create and manage 
 
 Each endpoint requires a specific permission. Keys with wildcard permissions (e.g. `domain.*`) satisfy any permission in that namespace, and the built-in `root:full` role includes every wildcard.
 
-| Endpoint group | Required permission(s)                                                                                                                                                                          |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Providers      | `provider.read`                                                                                                                                                                                 |
-| Email metrics  | `analytics.read`                                                                                                                                                                                |
-| Email logs     | `logs.read`                                                                                                                                                                                     |
-| Billing        | `billing.read`                                                                                                                                                                                  |
-| Domains        | `domain.read` for reads; `domain.create`, `domain.verify`, `domain.delete` for the matching mutations.                                                                                          |
-| Mailboxes      | `mailbox.admin.read` for reads; `mailbox.admin.create` for create; `mailbox.admin.delete` for delete; `mailbox.admin.manage` for update, filter management, and per-mailbox API-key management. |
-| Webhooks       | `webhook.read` for reads; `webhook.create`, `webhook.update`, `webhook.delete` for the matching mutations; `webhook.manage` for rotate-secret and test.                                         |
+| Endpoint group   | Required permission(s)                                                                                                                                                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Sending accounts | `provider.read` for reads; `provider.create` for custom SMTP account creation and sending-account limit requests; `provider.update` for edits, activation, connection tests, and shared Amazon SES limit requests; `provider.delete` for delete. |
+| Email metrics    | `analytics.read`                                                                                                                                                                                                                                 |
+| Email logs       | `logs.read`                                                                                                                                                                                                                                      |
+| Billing          | `billing.read`                                                                                                                                                                                                                                   |
+| Domains          | `domain.read` for reads; `domain.create`, `domain.verify`, `domain.delete` for the matching mutations.                                                                                                                                           |
+| Mailboxes        | `mailbox.admin.read` for reads; `mailbox.admin.create` for create; `mailbox.admin.delete` for delete; `mailbox.admin.manage` for update, filter management, and per-mailbox API-key management.                                                  |
+| Webhooks         | `webhook.read` for reads; `webhook.create`, `webhook.update`, `webhook.delete` for the matching mutations; `webhook.manage` for rotate-secret and test.                                                                                          |
 
 <Tip>
   Use the `root:readonly` role for monitoring integrations. It covers every
   `*.read` permission. `root:webhook_admin` is a narrower preset for keys that
-  should only manage webhook subscriptions.
+  should only manage webhook subscriptions. `root:provider_admin` is a narrower
+  preset for keys that manage sending accounts, routing, domains, and logs.
 </Tip>
 
 ## Response format
@@ -152,6 +153,14 @@ Every `GET` that returns a single resource emits a weak `ETag`. Send it back on 
 - **`If-Match`** on a `PATCH`, `PUT`, or supported `DELETE`: if the resource changed since you fetched it, the API responds `409 conflict` so you do not overwrite a concurrent update. Re-fetch, reapply your change, and retry.
 
 Conditional requests are supported across mailbox, domain, webhook, and log resource `GET`s, and on the [Sending API](/sending-api/introduction#conditional-requests).
+
+## Sending account management
+
+Use the Management API's **Sending accounts** group to manage accounts used by the Sending API. Custom SMTP accounts support full create, read, update, delete, activation, deactivation, usage, and connection-test flows.
+
+Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
+
+The shared Amazon SES account is protected. You can read it, activate or deactivate it, and request a daily limit increase. You cannot edit its credentials, quotas, routing weight, sender defaults, or delete it through the API.
 
 ## Conventions
 

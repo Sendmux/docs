@@ -9,10 +9,10 @@ Use a custom domain when you want branded mailbox addresses such as `support@exa
 
 ## Shared vs custom domains
 
-| Option | Best for | DNS required |
-| --- | --- | --- |
-| `myagent.mx` shared domain | Fast tests and simple agents | No |
-| Custom domain | Production mail and branded addresses | Yes |
+| Option                     | Best for                              | DNS required |
+| -------------------------- | ------------------------------------- | ------------ |
+| `myagent.mx` shared domain | Fast tests and simple agents          | No           |
+| Custom domain              | Production mail and branded addresses | Yes          |
 
 <Note>
   Each team starts with **25 domains**. See [Team limits](/guides/team-limits).
@@ -28,35 +28,37 @@ Use a custom domain when you want branded mailbox addresses such as `support@exa
     Enter the domain you own, such as `mail.example.com` or `example.com`.
   </Step>
   <Step title="Copy DNS records">
-    Sendmux shows the records needed for ownership, inbound routing, sending policy, message policy, and email signing.
+    Sendmux shows the records needed for ownership, inbound routing, sending
+    policy, message policy, and email signing.
   </Step>
   <Step title="Publish the records">
     Add each record at your DNS provider. Copy values exactly as shown.
   </Step>
   <Step title="Verify">
-    Select **Verify** after the records have propagated. The domain is ready when all records show as ready.
+    Select **Verify** after the records have propagated. The domain is ready
+    when all records show as ready.
   </Step>
 </Steps>
 
 ## DNS records
 
-| Purpose | Record | What it does |
-| --- | --- | --- |
-| Ownership | TXT | Confirms you control the domain. |
-| Receive mail | MX | Routes inbound mail for the domain to Sendmux. |
-| Email signing | CNAME | Enables DKIM signing through Amazon SES. |
-| Sending policy | TXT | Authorises Sendmux to send for the domain. |
-| Message policy | TXT | Defines DMARC handling for suspicious mail. |
+| Purpose        | Record | What it does                                   |
+| -------------- | ------ | ---------------------------------------------- |
+| Ownership      | TXT    | Confirms you control the domain.               |
+| Receive mail   | MX     | Routes inbound mail for the domain to Sendmux. |
+| Email signing  | CNAME  | Enables DKIM signing through Amazon SES.       |
+| Sending policy | TXT    | Authorises Sendmux to send for the domain.     |
+| Message policy | TXT    | Defines DMARC handling for suspicious mail.    |
 
 You can download the records as a zone file from the domain detail page.
 
 ## Verification states
 
-| State | Meaning |
-| --- | --- |
-| `pending` | Records are missing, still propagating, or still being checked. |
-| `verified` | All required records are present and ready. |
-| `failed` | One or more records could not be verified after repeated checks. |
+| State      | Meaning                                                          |
+| ---------- | ---------------------------------------------------------------- |
+| `pending`  | Records are missing, still propagating, or still being checked.  |
+| `verified` | All required records are present and ready.                      |
+| `failed`   | One or more records could not be verified after repeated checks. |
 
 Sendmux rechecks domains every six hours. A short DNS issue does not immediately trigger an email. Persistent failures notify team owners.
 
@@ -64,19 +66,25 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
 
 <AccordionGroup>
   <Accordion title="Ownership is not found">
-    Check that the TXT record name and value match Sendmux exactly. Some DNS providers append the zone name automatically, which can duplicate the domain.
+    Check that the TXT record name and value match Sendmux exactly. Some DNS
+    providers append the zone name automatically, which can duplicate the
+    domain.
   </Accordion>
   <Accordion title="Inbound routing is not found">
-    Check that the MX record is on the same domain you added to Sendmux. DNS proxying features do not apply to MX records.
+    Check that the MX record is on the same domain you added to Sendmux. DNS
+    proxying features do not apply to MX records.
   </Accordion>
   <Accordion title="SPF is failing">
-    Keep only one SPF record on a hostname. Merge all `include:` values into the same TXT record.
+    Keep only one SPF record on a hostname. Merge all `include:` values into the
+    same TXT record.
   </Accordion>
   <Accordion title="DMARC is failing">
-    Check that the TXT record is published at `_dmarc.{your-domain}` and still includes the policy value Sendmux generated.
+    Check that the TXT record is published at `_dmarc.{your - domain}` and still
+    includes the policy value Sendmux generated.
   </Accordion>
   <Accordion title="Email signing is still pending">
-    DKIM records can take longer to verify. Confirm all three CNAME records are present, then wait and verify again.
+    DKIM records can take longer to verify. Confirm all three CNAME records are
+    present, then wait and verify again.
   </Accordion>
 </AccordionGroup>
 
@@ -90,7 +98,11 @@ After deletion, remove the DNS records from your DNS provider if you no longer n
 
 Use the Management API when you want to create, list, verify, or delete domains from your own tooling. Keep API shape, permissions, and error handling in the generated reference so your client follows the current contract.
 
-<Card title="Management API" icon="book-open" href="/api-reference/introduction">
+<Card
+  title="Management API"
+  icon="book-open"
+  href="/api-reference/introduction"
+>
   Open the generated Domains endpoint reference.
 </Card>
 
@@ -103,7 +115,7 @@ Use the Management API when you want to create, list, verify, or delete domains 
   <Card title="Domain settings" icon="settings" href="/guides/domain-settings">
     See the coming-soon inbound handling controls.
   </Card>
-  <Card title="Provider setup" icon="mail" href="/guides/sending-accounts">
+  <Card title="Sending accounts" icon="mail" href="/guides/sending-accounts">
     Connect providers for outbound sending.
   </Card>
   <Card title="Team limits" icon="gauge" href="/guides/team-limits">
