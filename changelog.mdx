@@ -4,8 +4,14 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="25 May 2026" tags={["New features","Improvements"]} rss={{ title: "Sending account management is now available through the Management API" }}>
-  ## Sending account management API
+<Update label="25 May 2026" tags={["New features","Improvements"]} rss={{ title: "Team setup is smoother, and sending account management is now available through the Management API" }}>
+  ## Team setup
+
+Team creation now walks you through the setup details we need upfront: your team name, website, industry, how you found Sendmux, preferences, and what you're building. If you want help, you can book a 15-minute consultation without leaving setup.
+
+Signed-in browser agents can create teams after login too, using retry-safe requests so automated onboarding doesn't double-create a team when a request is retried.
+
+## Sending account management API
 
 You can now manage sending accounts through the Management API: list accounts, add custom SMTP accounts, update account settings, activate or deactivate accounts, test custom SMTP connections, read usage, and request higher sending-account limits.
 
