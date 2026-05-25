@@ -135,7 +135,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
       "body_chars_max": 1000000,
       "inline_attachment_bytes_max": 5000000,
       "attachment_upload_bytes_max": 7500000,
-      "outbound_raw_message_bytes_max": 10485760,
+      "outbound_raw_message_bytes_max": 26214400,
       "keywords_per_update_max": 50
     },
     "gated": {
@@ -744,7 +744,7 @@ Clean content controls:
 Use `POST /mailbox/attachments:upload` for binary files up to 7.5 MB. Send the
 raw bytes in the request body, then pass the returned `blob_id` to
 `POST /mailbox/messages/send`. Final outbound messages, including bodies,
-headers, and encoded attachments, must fit inside the 10 MiB raw message limit.
+headers, and encoded attachments, must fit inside the 25 MB raw message limit.
 
 ```bash
 curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \
