@@ -4,6 +4,22 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="25 May 2026" tags={["New features","Bug fixes"]} rss={{ title: "Mailbox suspension now blocks sending and has Management API controls" }}>
+  ## Mailbox suspension
+
+Mailbox suspension now consistently pauses inbound mail, outbound sends from that mailbox address, mailbox API access, SMTP access, and IMAP access until the mailbox is resumed.
+
+You can also suspend or resume a mailbox through the Management API with retry-safe requests.
+
+See [Mailboxes](/guides/mailboxes) and [API keys](/guides/api-keys).
+
+## Bug fixes
+
+- Mailbox credentials now stop working while their mailbox is suspended and work again after resume.
+- Sending from a suspended mailbox address is now blocked even when you use a broader sending credential.
+
+</Update>
+
 <Update label="25 May 2026" tags={["New features","Improvements"]} rss={{ title: "Team setup is smoother, and sending account management is now available through the Management API" }}>
   ## Team setup
 
@@ -41,7 +57,7 @@ The stream supports heartbeats, bounded connection lifetimes, and resume with `L
 
 See the [Mailbox API event stream](/mailbox-api/introduction#event-stream).
 
-  ## Team limits
+## Team limits
 
 Teams now have clear usage limits for domains, mailboxes, sending accounts, webhooks, and active API keys. When your team reaches 80% of a limit, you can request an increase from the relevant dashboard page and receive an email when the request is reviewed.
 
