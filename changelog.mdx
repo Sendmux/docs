@@ -4,6 +4,22 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="25 May 2026" tags={["New features","Improvements"]} rss={{ title: "Sending account management is now available through the Management API" }}>
+  ## Sending account management API
+
+You can now manage sending accounts through the Management API: list accounts, add custom SMTP accounts, update account settings, activate or deactivate accounts, test custom SMTP connections, read usage, and request higher sending-account limits.
+
+The shared Amazon SES sending route can now be read, activated or deactivated, and sent for a daily-limit review from the API. Its platform-managed credentials, quotas, routing settings, and sender defaults stay protected.
+
+See [Sending accounts](/guides/sending-accounts).
+
+## Improvements
+
+- The Sending API docs now link directly to the account-management endpoints that control which accounts can send.
+- The Management API reference now has a dedicated **Sending accounts** group.
+
+</Update>
+
 <Update label="24 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Inbound billing, realtime mailbox events, and clearer team limits" }}>
   ## Inbound email billing
 
