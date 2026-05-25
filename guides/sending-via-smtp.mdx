@@ -4,12 +4,16 @@ description: "Connect an SMTP-compatible app or mail client to Sendmux."
 keywords: ["SMTP", "STARTTLS", "TLS", "port 587", "port 465", "relay"]
 ---
 
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
 Use SMTP when an existing application, plugin, or mail client already supports SMTP delivery.
 
 <Info>
   The SMTP password is your `smx_` API key or mailbox password. Routing still
   follows that key or mailbox scope.
 </Info>
+
+<SharedSesPolicy />
 
 ## Connection details
 

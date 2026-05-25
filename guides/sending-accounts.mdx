@@ -13,6 +13,8 @@ keywords:
   ]
 ---
 
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
 Every team can send as soon as it is created. Sendmux includes a managed Amazon SES sending account, and you can add your own providers when you need more control.
 
 ## Default managed account
@@ -26,6 +28,8 @@ The managed account is active by default. It is best for first sends and low-vol
 | Setup | None |
 | Editable credentials | No |
 | Delivery groups | Not supported |
+
+<SharedSesPolicy />
 
 When usage reaches 80% of the daily limit, **Request increase** appears on **Accounts**. Submit the request once. Sendmux reviews it and emails the outcome.
 

@@ -4,12 +4,16 @@ description: "Send single or batch email requests through the Sendmux Sending AP
 keywords: ["HTTP API", "send email", "batch send", "JSON", "Sending API"]
 ---
 
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
 Use the HTTP Sending API for new integrations, batch sending, and retry-safe requests.
 
 <Info>
   Routing follows the sending key or mailbox you authenticate with. You cannot
   choose a provider or delivery group inside an individual send request.
 </Info>
+
+<SharedSesPolicy />
 
 ## Prerequisites
 
