@@ -17,11 +17,11 @@ API keys authenticate applications, scripts, mail clients, and automation. Keys 
 
 ## Key types
 
-| Key type | Use it for |
-| --- | --- |
+| Key type               | Use it for                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------- |
 | **Infrastructure key** | Team automation, providers, routing, billing, logs, domains, mailboxes, and webhooks. |
-| **Sending key** | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents. |
-| **Mailbox key** | API, IMAP, and SMTP access for one mailbox. |
+| **Sending key**        | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents.        |
+| **Mailbox key**        | API, IMAP, and SMTP access for one mailbox.                                           |
 
 <Note>
   Each team starts with **100 active API keys** across all key types. See [Team
@@ -31,11 +31,10 @@ API keys authenticate applications, scripts, mail clients, and automation. Keys 
 ## Create a key
 
 <Steps>
-  <Step title="Open API keys">
-    Open **API Keys** in the team workspace.
-  </Step>
+  <Step title="Open API keys">Open **API Keys** in the team workspace.</Step>
   <Step title="Choose the key type">
-    Select **Create API Key**, then choose the key type. Sending keys can route through all providers, selected providers, or delivery groups.
+    Select **Create API Key**, then choose the key type. Sending keys can route
+    through all providers, selected providers, or delivery groups.
   </Step>
   <Step title="Store the secret">
     Copy the generated `smx_` value. Sendmux will not show it again.
@@ -48,11 +47,11 @@ Infrastructure keys use role presets such as **Full Access**, **Read Only**, **P
 
 Sending and mailbox keys use mailbox permissions:
 
-| Permission | Allows |
-| --- | --- |
-| `email.send` | Send email through HTTP or SMTP. |
-| `email.receive` | Receive email through mailbox access. |
-| `mailbox.read` | Read mailbox folders and messages. |
+| Permission                | Allows                                |
+| ------------------------- | ------------------------------------- |
+| `email.send`              | Send email through HTTP or SMTP.      |
+| `email.receive`           | Receive email through mailbox access. |
+| `mailbox.read`            | Read mailbox folders and messages.    |
 | `mailbox.settings.update` | Update mailbox identity and settings. |
 
 ## Rotate a key
@@ -69,6 +68,8 @@ If your team is already at the API key limit, Sendmux requires the old key to be
 ## Revoke a key
 
 Revocation is immediate. Any system still using the key loses access. Create and test a replacement before revoking a production key.
+
+Mailbox keys also stop working while their mailbox is suspended, and work again after the mailbox is resumed.
 
 ## Related guides
 

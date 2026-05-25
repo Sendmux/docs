@@ -47,7 +47,7 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
 
 ## Where it applies
 
-Use the header on mutating endpoints such as sending email, creating domains, creating mailboxes, creating mailbox keys, creating sending accounts, activating or deactivating sending accounts, requesting sending-account limit increases, creating webhooks, rotating webhook secrets, and sending webhook test events.
+Use the header on mutating endpoints such as sending email, creating domains, creating mailboxes, suspending or resuming mailboxes, creating mailbox keys, creating sending accounts, activating or deactivating sending accounts, requesting sending-account limit increases, creating webhooks, rotating webhook secrets, and sending webhook test events.
 
 `GET` endpoints do not need it. Update and delete requests use their documented concurrency controls instead.
 

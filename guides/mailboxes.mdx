@@ -16,7 +16,8 @@ keywords:
 A mailbox is one email address on a verified custom domain or on the shared `myagent.mx` domain. It can send mail, receive mail, hold messages, and have its own passwords and sender rules.
 
 <Note>
-  Each team starts with **50 active mailboxes**. See [Team limits](/guides/team-limits).
+  Each team starts with **50 active mailboxes**. See [Team
+  limits](/guides/team-limits).
 </Note>
 
 ## Create a mailbox
@@ -26,10 +27,12 @@ A mailbox is one email address on a verified custom domain or on the shared `mya
     Open **Mailboxes** and select **Create mailbox**.
   </Step>
   <Step title="Choose the address">
-    Enter a local part and choose a verified domain. Leave the local part blank if you want Sendmux to generate one.
+    Enter a local part and choose a verified domain. Leave the local part blank
+    if you want Sendmux to generate one.
   </Step>
   <Step title="Set display name and storage">
-    Add an optional display name and choose **1 GB**, **5 GB**, or **50 GB** storage.
+    Add an optional display name and choose **1 GB**, **5 GB**, or **50 GB**
+    storage.
   </Step>
   <Step title="Save the password">
     Copy the mailbox password when it appears. It is shown once.
@@ -62,10 +65,10 @@ These values become the mailbox defaults. Individual API sends can still provide
 
 Sender rules control inbound mail for the mailbox.
 
-| Rule type | Behaviour |
-| --- | --- |
+| Rule type | Behaviour                                                  |
+| --------- | ---------------------------------------------------------- |
 | **Allow** | Deliver only mail that matches trusted senders or domains. |
-| **Block** | Reject mail from known noisy or unwanted senders. |
+| **Block** | Reject mail from known noisy or unwanted senders.          |
 
 A mailbox can use allow rules or block rules, not both at the same time. Clear all rules before switching rule type.
 
@@ -73,8 +76,8 @@ Rules run before a message is accepted into the mailbox. Rejected mail is not bi
 
 ## Suspend, resume, and delete
 
-- **Suspend** pauses mailbox access without deleting the mailbox.
-- **Resume** restores access.
+- **Suspend** pauses inbound mail, outbound sends, mailbox API access, IMAP, and SMTP without deleting messages, passwords, or settings.
+- **Resume** restores mailbox access and sending from the mailbox address.
 - **Delete** removes the mailbox, its messages, API keys, and passwords.
 
 ## Related guides
@@ -87,12 +90,17 @@ Rules run before a message is accepted into the mailbox. Rejected mail is not bi
     Create mailbox keys for API and mail client access.
   </Card>
   <Card title="Push delivery" icon="radio" href="/guides/mailbox-push-delivery">
-    Choose between polling, realtime events, webhooks, and the coming-soon push URL.
+    Choose between polling, realtime events, webhooks, and the coming-soon push
+    URL.
   </Card>
   <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
     Receive inbound and delivery events at your HTTPS endpoint.
   </Card>
-  <Card title="Mailbox API" icon="mailbox" href="/mailbox-api/introduction#event-stream">
+  <Card
+    title="Mailbox API"
+    icon="mailbox"
+    href="/mailbox-api/introduction#event-stream"
+  >
     Stream live received-message events from a mailbox key.
   </Card>
 </Columns>
