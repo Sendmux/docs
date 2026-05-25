@@ -4,6 +4,28 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="25 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Mailbox API attachment limits now match outbound send behaviour" }}>
+  ## Mailbox API attachments
+
+Mailbox API session discovery now reports both the per-attachment upload limit
+and the final raw outbound message limit.
+
+Attachments uploaded through the Mailbox API are capped at 7.5 MB. Final
+outbound messages, including bodies, headers, and encoded attachments, must fit
+within 10 MiB.
+
+See [Mailbox API](/mailbox-api/introduction#attachments).
+
+## Bug fixes
+
+- Oversized uploaded attachments are now rejected before they can be used in a
+  send request.
+- Oversized outbound messages are now rejected before partial send work starts,
+  so clients get a clear `payload_too_large` response instead of a later send
+  failure.
+
+</Update>
+
 <Update label="25 May 2026" tags={["New features","Bug fixes"]} rss={{ title: "Mailbox suspension now blocks sending and has Management API controls" }}>
   ## Mailbox suspension
 
