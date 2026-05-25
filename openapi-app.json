@@ -860,7 +860,7 @@
           },
           "server": {
             "type": "string",
-            "description": "Mailbox host",
+            "description": "Mailbox server name",
             "example": "mail.sendmux.ai"
           },
           "imap_port": {
@@ -1325,6 +1325,9 @@
               "attachment_upload_bytes_max": {
                 "type": "integer"
               },
+              "outbound_raw_message_bytes_max": {
+                "type": "integer"
+              },
               "keywords_per_update_max": {
                 "type": "integer"
               }
@@ -1338,6 +1341,7 @@
               "body_chars_max",
               "inline_attachment_bytes_max",
               "attachment_upload_bytes_max",
+              "outbound_raw_message_bytes_max",
               "keywords_per_update_max"
             ]
           },
@@ -4562,7 +4566,7 @@
                 "properties": {
                   "domain": {
                     "type": "string",
-                    "description": "Fully qualified domain name. Must be lowercased and hostname-only (no scheme).",
+                    "description": "Fully qualified domain name. Must be lowercased and domain-only (no scheme).",
                     "example": "mail.acme.com"
                   }
                 },

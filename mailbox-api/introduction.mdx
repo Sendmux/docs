@@ -133,8 +133,10 @@ curl "https://app.sendmux.ai/api/v1/mailbox/session" \
       "changes_limit_max": 500,
       "batch_ids_max": 100,
       "body_chars_max": 1000000,
-      "keywords_per_update_max": 50,
-      "attachment_upload_bytes_max": 50000000
+      "inline_attachment_bytes_max": 5000000,
+      "attachment_upload_bytes_max": 7500000,
+      "outbound_raw_message_bytes_max": 10485760,
+      "keywords_per_update_max": 50
     },
     "gated": {
       "identity_mutation": false,
@@ -234,7 +236,7 @@ Useful filters:
 | `identity_ids`   | Comma-separated identity IDs.                  |
 | `email_ids`      | Comma-separated message IDs.                   |
 | `thread_ids`     | Comma-separated thread IDs.                    |
-| `undo_status`    | Match `pending`, `final`, or `canceled`.       |
+| `undo_status`    | Match a specific submission undo state.        |
 | `after`          | Match submissions sent at or after this time.  |
 | `before`         | Match submissions sent before this time.       |
 | `cursor`         | Continue from a previous page.                 |
@@ -739,8 +741,10 @@ Clean content controls:
 
 ## Attachments
 
-Use `POST /mailbox/attachments:upload` for larger files. Send the raw bytes in
-the request body and pass the returned `blob_id` to `POST /mailbox/messages/send`.
+Use `POST /mailbox/attachments:upload` for binary files up to 7.5 MB. Send the
+raw bytes in the request body, then pass the returned `blob_id` to
+`POST /mailbox/messages/send`. Final outbound messages, including bodies,
+headers, and encoded attachments, must fit inside the 10 MiB raw message limit.
 
 ```bash
 curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \

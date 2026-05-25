@@ -75,8 +75,8 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
     proxying features do not apply to MX records.
   </Accordion>
   <Accordion title="SPF is failing">
-    Keep only one SPF record on a hostname. Merge all `include:` values into the
-    same TXT record.
+    Keep only one SPF record for the same domain name. Merge all `include:`
+    values into the same TXT record.
   </Accordion>
   <Accordion title="DMARC is failing">
     Check that the TXT record is published at `_dmarc.{your - domain}` and still
