@@ -7,8 +7,8 @@ rss: true
 <Update label="25 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Mailbox API attachment limits now match outbound send behaviour" }}>
   ## Mailbox API attachments
 
-Mailbox API session discovery now reports both the per-attachment upload limit
-and the final raw outbound message limit.
+Mailbox API session discovery now reports the final 25 MB outbound message
+limit alongside the per-attachment upload limit.
 
 Attachments uploaded through the Mailbox API are capped at 7.5 MB. Final
 outbound messages, including bodies, headers, and encoded attachments, must fit
