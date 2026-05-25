@@ -4,6 +4,19 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="26 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Mailbox creation and password changes are more reliable" }}>
+  ## Mailboxes
+
+Mailbox creation now handles delayed sender-name setup without discarding the mailbox. If the sender display name cannot be applied immediately, the mailbox is still created and you can save the name again from the mailbox page.
+
+## Bug fixes
+
+- Creating the first mailbox password now recovers cleanly if part of the operation is interrupted.
+- Rotating or revoking a mailbox password now avoids leaving the mailbox without a working credential if part of the change needs to retry.
+- Mailbox password changes now count in-progress credentials toward the team API key limit, so limits stay consistent while a change is being processed.
+
+</Update>
+
 <Update label="25 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Mailbox API attachment limits now match outbound send behaviour" }}>
   ## Mailbox API attachments
 
