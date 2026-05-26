@@ -1,73 +1,142 @@
 ---
 title: "Welcome to Sendmux"
 sidebarTitle: "Welcome"
-description: "Guides and API references for sending, receiving, and monitoring email with Sendmux."
+description: "Learn what Sendmux does, where to start, and which guides or API references to use next."
 keywords: ["sendmux", "email", "API", "SMTP", "deliverability", "transactional email"]
 ---
 
 import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 
-Sendmux helps you send, receive, and monitor application email from one team workspace.
-
-<SharedSesPolicy />
-
-## Get started
-
-<CardGroup cols={2}>
-  <Card
-    title="Send by HTTP"
-    icon="code"
-    href="/guides/sending-via-http"
-  >
-    Queue single or batch messages with JSON requests and retry-safe headers.
-  </Card>
-  <Card
-    title="Send via SMTP"
-    icon="envelope"
-    href="/guides/sending-via-smtp"
-  >
-    Connect an existing mail client or application with standard SMTP settings.
-  </Card>
-  <Card
-    title="Sending API"
-    icon="paper-plane"
-    href="/sending-api/introduction"
-  >
-    Reference for sending endpoints, authentication, examples, and errors.
-  </Card>
-  <Card
-    title="Management API"
-    icon="chart-line"
-    href="/api-reference/introduction"
-  >
-    Reference for teams, providers, logs, billing, domains, keys, and webhooks.
-  </Card>
-</CardGroup>
-
-## Common tasks
-
-<Columns cols={2}>
-  <Card title="Create a team" icon="users" href="/guides/teams-access">
-    Invite members, assign roles, and manage team deletion.
-  </Card>
-  <Card title="Create a mailbox" icon="inbox" href="/guides/mailboxes">
-    Set up addresses, passwords, sender identity, and sender rules.
-  </Card>
-  <Card title="Add providers" icon="mail" href="/guides/sending-accounts">
-    Connect sending accounts and choose how outbound mail routes.
-  </Card>
-  <Card title="Monitor delivery" icon="scroll-text" href="/guides/dashboard-logs">
-    Use dashboards, logs, exports, and deliverability views.
-  </Card>
-</Columns>
-
-## Open the app
+Sendmux gives your product or AI agent one workspace to send, receive, route, and monitor email. Start by setting up your workspace, then use the receiving, sending, monitoring, and API guides as you need them.
 
 <Card
-  title="Open app"
+  title="Open Sendmux"
   icon="gauge"
   href="https://app.sendmux.ai"
   horizontal
 >
   Manage teams, sending, receiving, billing, API keys, and webhooks.
 </Card>
+
+## Set up your workspace
+
+<CardGroup cols={2}>
+  <Card
+    title="Quickstart"
+    icon="rocket"
+    href="/guides/quickstart"
+  >
+    Create a team, add a mailbox, send a test email, and check the result.
+  </Card>
+  <Card
+    title="Teams and access"
+    icon="users"
+    href="/guides/teams-access"
+  >
+    Invite members, assign roles, and manage team access.
+  </Card>
+  <Card
+    title="API keys"
+    icon="key"
+    href="/guides/api-keys"
+  >
+    Create scoped keys for sending, management, and mailbox access.
+  </Card>
+  <Card
+    title="Account settings"
+    icon="user-cog"
+    href="/guides/account-settings"
+  >
+    Update your profile, sessions, password, and passkeys.
+  </Card>
+  <Card
+    title="Billing"
+    icon="wallet"
+    href="/guides/billing"
+  >
+    Top up balance, configure alerts, and review transactions.
+  </Card>
+  <Card
+    title="Team limits"
+    icon="gauge"
+    href="/guides/team-limits"
+  >
+    Understand defaults, increase requests, and hard limits.
+  </Card>
+</CardGroup>
+
+## Receive email
+
+<CardGroup cols={2}>
+  <Card title="Domains" icon="globe" href="/guides/domain-management">
+    Add and verify custom domains for receiving mail.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
+    Create addresses, set sender identity, and control sender rules.
+  </Card>
+  <Card title="Mailbox API" icon="braces" href="/mailbox-api/introduction">
+    Read and manage messages for one mailbox.
+  </Card>
+  <Card title="Mailbox push delivery" icon="bell-ring" href="/guides/mailbox-push-delivery">
+    Review the push delivery option shown during mailbox setup.
+  </Card>
+</CardGroup>
+
+## Send email
+
+<CardGroup cols={2}>
+  <Card title="Sending accounts" icon="mail" href="/guides/sending-accounts">
+    Use the managed account, connect your own providers, and test health.
+  </Card>
+  <Card title="Delivery groups" icon="route" href="/guides/delivery-groups">
+    Route selected keys or mailboxes through grouped providers.
+  </Card>
+  <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
+    Queue single or batch messages with JSON requests.
+  </Card>
+  <Card title="Send via SMTP" icon="envelope" href="/guides/sending-via-smtp">
+    Connect existing apps and mail clients with SMTP settings.
+  </Card>
+  <Card title="Attachments" icon="paperclip" href="/guides/attachments">
+    Add files to HTTP send requests.
+  </Card>
+  <Card title="Idempotency" icon="refresh-cw" href="/guides/idempotency">
+    Make retries safe for mutating API requests.
+  </Card>
+</CardGroup>
+
+## Monitor and automate
+
+<CardGroup cols={2}>
+  <Card title="Dashboard and logs" icon="scroll-text" href="/guides/dashboard-logs">
+    Monitor activity, filter delivery logs, and export log data.
+  </Card>
+  <Card title="Deliverability" icon="activity" href="/guides/deliverability">
+    Watch bounce rates, complaint rates, and provider health.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/guides/webhooks-setup">
+    Subscribe to events and review delivery attempts.
+  </Card>
+  <Card title="Verify signatures" icon="shield-check" href="/guides/webhooks-verify-signatures">
+    Verify webhook deliveries before trusting payloads.
+  </Card>
+  <Card title="AI integrations" icon="bot" href="/guides/mcp">
+    Connect AI tools to the Sendmux docs.
+  </Card>
+</CardGroup>
+
+## API references
+
+<Columns cols={3}>
+  <Card title="Sending API" icon="paper-plane" href="/sending-api/introduction">
+    Send single or batch email from apps.
+  </Card>
+  <Card title="Management API" icon="chart-line" href="/api-reference/introduction">
+    Manage teams, keys, billing, and logs.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Read mailbox messages and threads.
+  </Card>
+</Columns>
+
+<SharedSesPolicy />
