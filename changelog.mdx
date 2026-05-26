@@ -19,6 +19,8 @@ Feedback includes the page and team context needed to investigate requests, so y
 
 Mailbox creation now handles delayed sender-name setup without discarding the mailbox. If the sender display name cannot be applied immediately, the mailbox is still created and you can save the name again from the mailbox page.
 
+Deleted mailbox addresses can now be recreated cleanly. The new mailbox gets its own credentials and settings instead of inheriting state from the deleted mailbox.
+
 ## Bug fixes
 
 - The consultation calendar loading state now separates the spinner from the loading text.
@@ -29,6 +31,7 @@ Mailbox creation now handles delayed sender-name setup without discarding the ma
 - If mailbox password setup needs extra time, the generated password is still shown once instead of creating a credential you cannot see.
 - Rotating or revoking a mailbox password now avoids leaving the mailbox without a working credential if part of the change needs to retry.
 - Mailbox password changes now count in-progress credentials toward the team API key limit, so limits stay consistent while a change is being processed.
+- Deleting and recreating the same mailbox address now works without old mailbox state blocking the new mailbox.
 
 </Update>
 
