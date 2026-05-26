@@ -32,45 +32,7 @@ Mailbox creation now handles delayed sender-name setup without discarding the ma
 
 </Update>
 
-<Update label="25 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Mailbox API attachment limits now match outbound send behaviour" }}>
-  ## Mailbox API attachments
-
-Mailbox API session discovery now reports the final 25 MB outbound message
-limit alongside the per-attachment upload limit.
-
-Attachments uploaded through the Mailbox API are capped at 7.5 MB. Final
-outbound messages, including bodies, headers, and encoded attachments, must fit
-within 25 MB.
-
-See [Mailbox API](/mailbox-api/introduction#attachments).
-
-## Bug fixes
-
-- Oversized uploaded attachments are now rejected before they can be used in a
-  send request.
-- Oversized outbound messages are now rejected before partial send work starts,
-  so clients get a clear `payload_too_large` response instead of a later send
-  failure.
-
-</Update>
-
-<Update label="25 May 2026" tags={["New features","Bug fixes"]} rss={{ title: "Mailbox suspension now blocks sending and has Management API controls" }}>
-  ## Mailbox suspension
-
-Mailbox suspension now consistently pauses inbound mail, outbound sends from that mailbox address, mailbox API access, SMTP access, and IMAP access until the mailbox is resumed.
-
-You can also suspend or resume a mailbox through the Management API with retry-safe requests.
-
-See [Mailboxes](/guides/mailboxes) and [API keys](/guides/api-keys).
-
-## Bug fixes
-
-- Mailbox credentials now stop working while their mailbox is suspended and work again after resume.
-- Sending from a suspended mailbox address is now blocked even when you use a broader sending credential.
-
-</Update>
-
-<Update label="25 May 2026" tags={["New features","Improvements"]} rss={{ title: "Team setup is smoother, and sending account management is now available through the Management API" }}>
+<Update label="25 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Team setup, sending account management, mailbox suspension, and attachment limits are improved" }}>
   ## Team setup
 
 Team creation now walks you through the setup details we need upfront: your team name, website, industry, how you found Sendmux, preferences, and what you're building. If you want help, you can book a 15-minute consultation without leaving setup.
@@ -85,10 +47,33 @@ The shared Amazon SES sending route can now be read, activated or deactivated, a
 
 See [Sending accounts](/guides/sending-accounts).
 
+## Mailbox suspension
+
+Mailbox suspension now consistently pauses inbound mail, outbound sends from that mailbox address, mailbox API access, SMTP access, and IMAP access until the mailbox is resumed.
+
+You can also suspend or resume a mailbox through the Management API with retry-safe requests.
+
+See [Mailboxes](/guides/mailboxes) and [API keys](/guides/api-keys).
+
+## Mailbox API attachments
+
+Mailbox API session discovery now reports the final 25 MB outbound message limit alongside the per-attachment upload limit.
+
+Attachments uploaded through the Mailbox API are capped at 7.5 MB. Final outbound messages, including bodies, headers, and encoded attachments, must fit within 25 MB.
+
+See [Mailbox API](/mailbox-api/introduction#attachments).
+
 ## Improvements
 
 - The Sending API docs now link directly to the account-management endpoints that control which accounts can send.
 - The Management API reference now has a dedicated **Sending accounts** group.
+
+## Bug fixes
+
+- Mailbox credentials now stop working while their mailbox is suspended and work again after resume.
+- Sending from a suspended mailbox address is now blocked even when you use a broader sending credential.
+- Oversized uploaded attachments are now rejected before they can be used in a send request.
+- Oversized outbound messages are now rejected before partial send work starts, so clients get a clear `payload_too_large` response instead of a later send failure.
 
 </Update>
 
