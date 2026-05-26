@@ -22,6 +22,7 @@ Mailbox creation now handles delayed sender-name setup without discarding the ma
 
 - Creating the first mailbox password now recovers cleanly if part of the operation is interrupted.
 - Mailbox setup now waits for new mailbox accounts to be ready before applying sender details and creating the first password.
+- If mailbox password setup needs extra time, the generated password is still shown once instead of creating a credential you cannot see.
 - Rotating or revoking a mailbox password now avoids leaving the mailbox without a working credential if part of the change needs to retry.
 - Mailbox password changes now count in-progress credentials toward the team API key limit, so limits stay consistent while a change is being processed.
 
