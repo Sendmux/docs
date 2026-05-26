@@ -29,6 +29,7 @@ Deleted mailbox addresses can now be recreated cleanly. The new mailbox gets its
 - Creating the first mailbox password now recovers cleanly if part of the operation is interrupted.
 - Mailbox setup now waits for new mailbox accounts to be ready before applying sender details and creating the first password.
 - If mailbox password setup needs extra time, the generated password is still shown once instead of creating a credential you cannot see.
+- Recreating a deleted mailbox address now rebuilds sender rules reliably, so the new mailbox is created instead of showing a retry error.
 - Rotating or revoking a mailbox password now avoids leaving the mailbox without a working credential if part of the change needs to retry.
 - Mailbox password changes now count in-progress credentials toward the team API key limit, so limits stay consistent while a change is being processed.
 - Deleting and recreating the same mailbox address now works without old mailbox state blocking the new mailbox.
