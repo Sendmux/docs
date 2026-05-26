@@ -4,22 +4,26 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="26 May 2026" tags={["Improvements"]} rss={{ title: "Dashboard feedback and documentation are easier to reach" }}>
-  ## Dashboard help
+<Update label="26 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Team setup, dashboard help, and mailbox setup are improved" }}>
+  ## Team setup
+
+Team creation now uses a wider centred layout, so choices, preferences, and use-case details have more room while staying aligned with the rest of the dashboard.
+
+## Dashboard help
 
 You can now open product documentation and send feedback from your dashboard sidebar.
 
 Feedback includes the page and team context needed to investigate requests, so you can report an issue, suggest an idea, or share praise without leaving the app.
 
-</Update>
-
-<Update label="26 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Mailbox creation and password changes are more reliable" }}>
-  ## Mailboxes
+## Mailboxes
 
 Mailbox creation now handles delayed sender-name setup without discarding the mailbox. If the sender display name cannot be applied immediately, the mailbox is still created and you can save the name again from the mailbox page.
 
 ## Bug fixes
 
+- The consultation calendar loading state now separates the spinner from the loading text.
+- The final **Open dashboard** action now opens the new team's dashboard overview.
+- The use-case field label now has the same spacing as other setup fields.
 - Creating the first mailbox password now recovers cleanly if part of the operation is interrupted.
 - Mailbox setup now waits for new mailbox accounts to be ready before applying sender details and creating the first password.
 - If mailbox password setup needs extra time, the generated password is still shown once instead of creating a credential you cannot see.
