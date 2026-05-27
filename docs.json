@@ -121,6 +121,10 @@
             ]
           },
           {
+            "group": "Inbox logs",
+            "pages": ["GET /inboxes/logs", "GET /inboxes/logs/{public_id}"]
+          },
+          {
             "group": "Sending accounts",
             "pages": [
               "GET /providers/stats",
