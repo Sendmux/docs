@@ -22,6 +22,10 @@ You can create, rename, recolour, delete, assign, and remove inbox labels from t
 - The sidebar credit balance now stays usable in both expanded and collapsed modes.
 - Thread replies now refresh into the open conversation after sending.
 - Inboxes now refresh quietly in the background while the tab is visible, so new mail and folder counts stay current without interrupting your work.
+- The compose window now supports **Command + Enter** to send, with the shortcut shown on the send button.
+- Mailbox switchers now include search, so teams with many mailbox addresses can switch faster.
+- New teams now get an in-dashboard setup checklist that helps choose a sending, receiving, or combined workflow and tracks the key setup steps.
+- Mailbox quota bars now show live storage usage on the mailbox list instead of always showing zero usage.
 
 ## Bug fixes
 
@@ -29,6 +33,11 @@ You can create, rename, recolour, delete, assign, and remove inbox labels from t
 - Archive, spam, and delete actions now resolve the available mailbox folders before moving messages.
 - Attachment downloads now preserve the original file bytes and metadata.
 - Slow inbox actions now time out cleanly instead of leaving the page stuck in a processing state.
+- Reply sends now move out of drafts correctly after queuing.
+- Delete actions now create or use a Trash folder so deleted conversations remain accessible from the inbox folder list.
+- Label changes no longer alter the mailbox colour marker shown beside each conversation.
+- Inbox send confirmations now use the same action-toast styling as other message actions.
+- Opening an unread conversation now clears its unread styling and folder count immediately, then refreshes quietly in the background.
 
 </Update>
 
