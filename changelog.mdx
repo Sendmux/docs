@@ -4,6 +4,31 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="28 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Incoming usage logs, inbox fixes, and dashboard stats are now available" }}>
+  ## Incoming logs
+
+Teams can now open **Logs** under **Receiving** to review inbound messages that count toward usage. Each entry shows the mailbox, sender, recipients, subject, event type, received time, and amount, with search, filters, and pagination for larger histories.
+
+The Management API now includes `GET /inboxes/logs` and `GET /inboxes/logs/{public_id}` so you can audit the same incoming log data programmatically.
+
+## Dashboard
+
+The overview dashboard now shows incoming email totals, standard received mail, spam received mail, and incoming usage alongside sending stats.
+
+## Improvements
+
+- Webhook event selection now includes search, making it faster to choose the right events when setting up or editing a webhook.
+- The dashboard setup checklist now adapts better on small screens and keeps long task lists within the viewport.
+
+## Bug fixes
+
+- Inbox message bodies now use the selected light or dark theme, so rendered email content no longer appears with mismatched colours.
+- Draft conversations now open in edit mode from the Drafts folder, and edited drafts replace the previous draft when saved or sent.
+- Sent-folder conversations now sort by sent time and show the message from the selected folder instead of mixing in unrelated thread messages.
+- Inbox actions such as archive, delete, spam, and not spam now apply to the messages in the current folder, avoiding unexpected moves for the rest of the conversation.
+
+</Update>
+
 <Update label="27 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Team inboxes, labels, and message actions are now available" }}>
   ## Inboxes
 
