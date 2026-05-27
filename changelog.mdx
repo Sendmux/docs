@@ -21,11 +21,14 @@ You can create, rename, recolour, delete, assign, and remove inbox labels from t
 - The dashboard sidebar now has separate icons for **Inboxes** and **Mailboxes**.
 - The sidebar credit balance now stays usable in both expanded and collapsed modes.
 - Thread replies now refresh into the open conversation after sending.
+- Inboxes now refresh quietly in the background while the tab is visible, so new mail and folder counts stay current without interrupting your work.
 
 ## Bug fixes
 
 - Folder-specific actions now hide when they do not apply, such as spam actions for drafts.
 - Archive, spam, and delete actions now resolve the available mailbox folders before moving messages.
+- Attachment downloads now preserve the original file bytes and metadata.
+- Slow inbox actions now time out cleanly instead of leaving the page stuck in a processing state.
 
 </Update>
 
