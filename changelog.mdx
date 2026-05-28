@@ -4,9 +4,11 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="28 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Inbox compose fields, log times, and long messages are easier to use" }}>
+<Update label="28 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Inbox actions, sending limits, and compose fields are easier to use" }}>
   ## Improvements
 
+- New teams now start on the managed Amazon SES sending route with a 50-email daily limit before requesting a review.
+- Inboxes now let you move conversations into another folder from the context menu when that folder accepts mail.
 - The **Inboxes** compose window now turns completed recipients into tidy address chips after you move out of the field, while leaving unfinished input untouched.
 - The **Compose** button now sits above the inbox folder list for faster access.
 - Sending and receiving log tables now show relative times with the full date and time available on hover.
@@ -280,7 +282,7 @@ See the [Mailbox API](/mailbox-api/introduction).
 <Update label="14 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "A managed Amazon SES sending route with daily limits, a new mailbox API, and one credential per mailbox" }}>
   ## Managed Amazon SES sending route
 
-Every team now gets a managed Amazon SES sending route out of the box — ready to send immediately, with no setup. It's capped at 500 emails per day to protect your sending reputation. When you reach 80% of the cap you can request an increase in one click from the **Accounts** page; we review each request and email you the outcome.
+Every team now gets a managed Amazon SES sending route out of the box — ready to send immediately, with no setup. It's capped at 50 emails per day to protect your sending reputation. When you reach 80% of the cap you can request an increase in one click from the **Accounts** page; we review each request and email you the outcome.
 
 ## New mailbox API
 
