@@ -98,6 +98,7 @@
               "GET /domains",
               "POST /domains",
               "GET /domains/{public_id}",
+              "GET /domains/{public_id}/zone-file",
               "POST /domains/{public_id}/verify",
               "DELETE /domains/{public_id}",
               "GET /domains/{public_id}/filters",
