@@ -4,6 +4,24 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="31 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Dashboard health and activity signals are clearer" }}>
+  ## Dashboard
+
+The team overview now presents health, sending, receiving, billing, domain, API key, and capacity signals with clearer states for new, partially configured, and active teams.
+
+## Improvements
+
+- The health strip now fills completed hours and shows the selected hour's sent, received, and failed counts directly in the summary.
+- Activity chart tooltips now match the dashboard style and stay compact while you inspect daily sending and receiving totals.
+- Domain status now uses the latest saved verification details so SPF, DKIM, and DMARC signals can be shown independently after checks run.
+
+## Bug fixes
+
+- Empty or low-activity teams no longer show misleading healthy indicators, fake billing runway, or internal dashboard wording.
+- Duplicate API key names no longer trigger repeated-row rendering warnings in the overview.
+
+</Update>
+
 <Update label="30 May 2026" tags={["Improvements"]} rss={{ title: "Sending infrastructure dependency security updates" }}>
   ## Improvements
 
