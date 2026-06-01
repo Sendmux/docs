@@ -16,7 +16,7 @@
       "expanded": "all"
     },
     "examples": {
-      "languages": ["curl", "python", "javascript", "go"],
+      "languages": ["curl", "javascript"],
       "defaults": "required",
       "autogenerate": true
     },
