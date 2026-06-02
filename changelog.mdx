@@ -4,6 +4,29 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="2 June 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Dashboard alerts and inbox sending are more reliable" }}>
+  ## Dashboard
+
+The team overview now points sending activity to the sending logs, keeps capacity cards as read-only usage summaries, and raises separate deliverability issues when bounce and complaint rates are both above recommended levels.
+
+## Inboxes
+
+Compose now handles send and draft saving more cleanly, so sent messages close out instead of continuing to save as drafts.
+
+## Improvements
+
+- Delivery log statuses now use short readable labels instead of raw provider event strings.
+- Dashboard hover details now avoid repeating the same health summary in more than one place.
+- Billing runway and usage-capacity cards now use clearer labels and interactions.
+
+## Bug fixes
+
+- Draft autosave now backs off while a message is sending, reducing duplicate saves and avoidable rate-limit warnings.
+- Email buttons now render with a consistent background across email clients.
+- Deliverability alerts now count bounce rate and complaint rate separately when both need attention.
+
+</Update>
+
 <Update label="1 June 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Dashboard health status is easier to trust" }}>
   ## Dashboard
 
