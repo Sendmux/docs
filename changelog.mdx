@@ -7,7 +7,7 @@ rss: true
 <Update label="2 June 2026" tags={["Bug fixes"]} rss={{ title: "Shared mailbox creation is more reliable" }}>
   ## Bug fixes
 
-- Creating a mailbox on the shared Sendmux domain now repairs missing platform state before provisioning the mailbox, so generated addresses no longer fail when required domain records are missing.
+- Creating a mailbox on the shared Sendmux domain now checks the shared-domain setup before provisioning the mailbox, so generated addresses no longer fail when required domain records are missing.
 - Domain creation and deletion now consistently protect the shared Sendmux domain while still letting teams delete the mailboxes they created.
 - Sign-up legal links now use shorter labels so the agreement line fits better on narrow screens.
 
