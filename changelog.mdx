@@ -4,6 +4,22 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="2 June 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Inbox credentials are more reliable" }}>
+  ## Inboxes
+
+Inbox credentials now use provider-issued secrets while keeping Sendmux key IDs, improving compatibility with the managed mailbox platform.
+
+## Improvements
+
+- Rotating an inbox credential now tracks the provider credential ID directly, so stale credentials can be cleaned up more reliably.
+- Mailbox roles now use the current managed-mailbox permission model for sending, receiving, and inbox access.
+
+## Bug fixes
+
+- Inbox provisioning now recovers more safely if external credential creation succeeds but the local operation has to retry.
+
+</Update>
+
 <Update label="2 June 2026" tags={["Bug fixes"]} rss={{ title: "Shared mailbox creation is more reliable" }}>
   ## Bug fixes
 
