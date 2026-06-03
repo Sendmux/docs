@@ -1,0 +1,432 @@
+{
+  "auth": {
+    "bearer": [
+      {
+        "key": "token",
+        "type": "string",
+        "value": "{{sendmux_api_key}}"
+      }
+    ],
+    "type": "bearer"
+  },
+  "event": [],
+  "info": {
+    "description": {
+      "content": "Send emails programmatically via the SendMux email infrastructure. Every response carries an `X-Request-Id` header; errors include a `retryable` flag. 429 and 503 responses include `Retry-After`. Mutating endpoints accept an `Idempotency-Key` header for safe retries.",
+      "type": "text/plain"
+    },
+    "name": "Sendmux Sending API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "Send a single email",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"attachments\": [\n    {\n      \"content\": \"<string>\",\n      \"encoding\": \"base64\",\n      \"filename\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"bcc\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"cc\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"custom_headers\": {\n    \"key_0\": \"<string>\"\n  },\n  \"from\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  },\n  \"html_body\": \"<string>\",\n  \"reply_to\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  },\n  \"return_path\": \"<email>\",\n  \"subject\": \"<string>\",\n  \"text_body\": \"<string>\",\n  \"to\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string>\"\n  }\n}"
+            },
+            "description": {
+              "content": "Queue a single email for delivery. Requires `email.send` permission.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Send a single email",
+            "url": {
+              "host": [
+                "{{sending_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "send"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Email queued successfully",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Malformed request (invalid JSON or syntactic parameter error)",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 402,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient credits",
+              "status": "Payment Required"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict (Idempotency-Key reused with different body, or request already in flight)",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body exceeds 25 MB",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Validation error (schema failures, accumulated in error.errors[])",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rate limit exceeded (Retry-After header included)",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Service unavailable (Retry-After header included)",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Send a batch of emails",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"messages\": [\n    {\n      \"attachments\": [\n        {\n          \"content\": \"<string>\",\n          \"encoding\": \"base64\",\n          \"filename\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"bcc\": [\n        {\n          \"email\": \"<email>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"cc\": [\n        {\n          \"email\": \"<email>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"custom_headers\": {\n        \"key_0\": \"<string>\"\n      },\n      \"from\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      },\n      \"html_body\": \"<string>\",\n      \"reply_to\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      },\n      \"return_path\": \"<email>\",\n      \"subject\": \"<string>\",\n      \"text_body\": \"<string>\",\n      \"to\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}"
+            },
+            "description": {
+              "content": "Queue up to 100 emails for delivery in a single request. Uses partial success model — individual message failures do not fail the entire batch. Requires `email.send` permission.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Send a batch of emails",
+            "url": {
+              "host": [
+                "{{sending_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "send",
+                "batch"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Batch processed (check individual results for per-message status)",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Malformed request (invalid JSON or syntactic parameter error)",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 402,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient credits for entire batch",
+              "status": "Payment Required"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body exceeds 25 MB",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "All messages failed validation",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rate limit exceeded",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Service unavailable or all messages failed with transient errors",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Emails"
+    }
+  ],
+  "variable": [
+    {
+      "key": "sendmux_api_key",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "sending_base_url",
+      "type": "string",
+      "value": "https://smtp.sendmux.ai/api/v1"
+    }
+  ]
+}

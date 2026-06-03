@@ -1,0 +1,3883 @@
+{
+  "auth": {
+    "bearer": [
+      {
+        "key": "token",
+        "type": "string",
+        "value": "{{sendmux_api_key}}"
+      }
+    ],
+    "type": "bearer"
+  },
+  "event": [],
+  "info": {
+    "description": {
+      "content": "Programmatic access to your Sendmux email infrastructure.",
+      "type": "text/plain"
+    },
+    "name": "Sendmux Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "Get current balance",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the current team balance and auto top-up configuration.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get current balance",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "billing",
+                "balance"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Current balance",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get spend summary",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a spend summary over a configurable lookback period.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get spend summary",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "billing",
+                "summary"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "days",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Spend summary",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List transactions",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns paginated credit transaction history with optional type filter. Uses cursor-based pagination ordered by created_at descending — pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List transactions",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "billing",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Transaction list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        }
+      ],
+      "name": "Billing"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "List mailbox domains",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of sending domains configured for the team, ordered by `created_at` descending. Each entry includes the DNS records the customer must place, the current verification status, and the SES DKIM state. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox domains",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Add a mailbox domain",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"domain\": \"<string>\"\n}"
+            },
+            "description": {
+              "content": "Creates a new sending domain and returns the DNS records the customer must place before verification can succeed. Provisioning touches both our mail platform and Amazon SES — on any failure the partial state is automatically rolled back.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Add a mailbox domain",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical GET URL for the newly created domain.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "/api/v1/domains/mdom_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain created. The response carries a `Location` header pointing at the canonical GET URL for the new domain.",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain already in use, or `Idempotency-Key` was replayed with a different body.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "SES tenant not yet provisioned for this team",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a mailbox domain",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Removes a domain from our mail platform, Amazon SES, and Sendmux. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a mailbox domain",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain still has active mailboxes (error code `conflict`).",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a mailbox domain",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a single domain including its DNS records and latest verification state. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a mailbox domain",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag (same as request's `If-None-Match`).",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Verify a mailbox domain",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Runs an immediate DNS-over-HTTPS check of the domain's MX, SPF, DMARC and ownership TXT records, then asks SES for the latest DKIM status. If every check passes the domain is marked verified. Domains automatically re-verify every 6 hours — this endpoint is only needed to trigger a check on demand.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Verify a mailbox domain",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id",
+                "verify"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Verification result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Download a domain as a zone file",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the domain's DNS records formatted as a BIND-style zone file fragment. Suitable for direct paste into a DNS provider that accepts zone-file imports.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "name": "Download a domain as a zone file",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id",
+                "zone-file"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Attachment filename `<domain>.zone`.",
+                  "disabled": true,
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"mail.acme.com.zone\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Zone file (text/plain)",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            }
+          ]
+        }
+      ],
+      "name": "Domains"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "Get domain-wide sender filters",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the current sender-filter mode and rule set applied to every mailbox under this domain. Per-mailbox rules take precedence at match time.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get domain-wide sender filters",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id",
+                "filters"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs and optimistic-concurrency PUTs.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Filter state",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Filter service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Replace domain-wide sender filters",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"mode\": \"<string>\",\n  \"rules\": [\n    {\n      \"note\": \"<string,null>\",\n      \"pattern\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "description": {
+              "content": "Atomically replaces the sender-filter mode and rule set for an entire domain. Applies to every mailbox under the domain unless that mailbox has its own per-mailbox rules (which take precedence). Maximum 1000 rules per request.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "name": "Replace domain-wide sender filters",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id",
+                "filters"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for the post-update resource.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated filter state",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`If-Match` ETag does not match the server's current version.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rule cap exceeded or invalid rule pattern",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Filter service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Domain Filters"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "List delivery logs",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns paginated delivery logs with cursor-based pagination and filters.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List delivery logs",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "logs"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "provider_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Delivery log list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get delivery log",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a single delivery log by its public ID. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the log has not changed. Logs in a terminal status (sent/failed/rejected) stop changing, so 304 replay is a real bandwidth win on repeated polls.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get delivery log",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "logs",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Delivery log detail",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag (same as request's `If-None-Match`).",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get email metrics",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns aggregated email delivery counts with flexible time windowing and comparison period.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get email metrics",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "metrics"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "window",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "granularity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "provider_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Email metrics with comparison",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        }
+      ],
+      "name": "Emails"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "List incoming logs",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns paginated incoming message logs for billing accountability.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List incoming logs",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "inboxes",
+                "logs"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "event_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Incoming log list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get incoming log",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns one incoming message log by public ID.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get incoming log",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "inboxes",
+                "logs",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Incoming log detail",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Not found",
+              "status": "Not Found"
+            }
+          ]
+        }
+      ],
+      "name": "Inboxes"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "List sending accounts",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of sending accounts. Credentials are never returned. The shared Amazon SES account is included and marked with `is_shared: true`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List sending accounts",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create an SMTP sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"from_email\": \"<string,null-email>\",\n  \"from_name\": \"<string,null>\",\n  \"name\": \"<string>\",\n  \"percentage\": \"<integer>\",\n  \"quotas\": {\n    \"per_day\": \"<integer>\",\n    \"per_hour\": \"<integer>\",\n    \"per_minute\": \"<integer>\",\n    \"per_second\": \"<integer>\"\n  },\n  \"reply_to_email\": \"<string,null-email>\",\n  \"reply_to_name\": \"<string,null>\",\n  \"smtp_host\": \"<string>\",\n  \"smtp_password\": \"<string>\",\n  \"smtp_port\": \"<integer>\",\n  \"smtp_protocol\": \"<string>\",\n  \"smtp_username\": \"<string>\",\n  \"tracking_domain\": \"<string,null>\"\n}"
+            },
+            "description": {
+              "content": "Creates a custom SMTP sending account. Supply an `Idempotency-Key` header to safely retry on network errors. The SMTP password is stored securely and is never returned.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create an SMTP sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical GET URL for the new sending account.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account created",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Limit reached or idempotency conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Deletes a custom or connected sending account. The shared Amazon SES account cannot be deleted.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Shared account cannot be deleted",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns one sending account. Responses include an ETag for conditional GET and optimistic PATCH.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update a sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"from_email\": \"<string,null-email>\",\n  \"from_name\": \"<string,null>\",\n  \"name\": \"<string>\",\n  \"percentage\": \"<integer>\",\n  \"quotas\": {\n    \"per_day\": \"<integer>\",\n    \"per_hour\": \"<integer>\",\n    \"per_minute\": \"<integer>\",\n    \"per_second\": \"<integer>\"\n  },\n  \"reply_to_email\": \"<string,null-email>\",\n  \"reply_to_name\": \"<string,null>\",\n  \"smtp_host\": \"<string>\",\n  \"smtp_password\": \"<string>\",\n  \"smtp_port\": \"<integer>\",\n  \"smtp_protocol\": \"<string>\",\n  \"smtp_username\": \"<string>\",\n  \"tracking_domain\": \"<string,null>\"\n}"
+            },
+            "description": {
+              "content": "Updates a custom sending account. The shared Amazon SES account cannot be edited here; use activate/deactivate and the limit-request endpoint for the allowed shared-account actions.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update a sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated sending account",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "ETag conflict",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Shared-account lock or unsupported field",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Activate a sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Enables a sending account. OAuth accounts without an active connection are moved to pending until reconnected in the dashboard. The shared Amazon SES account can be activated.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Activate a sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                ":public_id",
+                "activate"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated sending account",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Deactivate a sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Disables a sending account. The shared Amazon SES account can be deactivated.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Deactivate a sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                ":public_id",
+                "deactivate"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated sending account",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Test an SMTP sending account",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Runs a connection test for a custom SMTP account. The shared Amazon SES account and OAuth accounts cannot be tested through this endpoint.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Test an SMTP sending account",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                ":public_id",
+                "test"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Connection test result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Account cannot be tested",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Connection testing unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get sending account limits",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns custom-account capacity and shared Amazon SES daily sending limit state.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get sending account limits",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "limits"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Limit state",
+              "status": "OK"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Request a sending account limit increase",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Creates a request to increase the number of custom or connected sending accounts allowed for the team.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Request a sending account limit increase",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "limits",
+                "sending-accounts",
+                "request-increase"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request submitted",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "A request is already pending",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Increase request is not available yet",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get shared Amazon SES limit request state",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the shared Amazon SES daily limit state and any pending increase request.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get shared Amazon SES limit request state",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "shared-amazon-ses-limit-request"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Shared Amazon SES limit request state",
+              "status": "OK"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Request a shared Amazon SES daily limit increase",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Creates a review request for the shared Amazon SES daily sending limit. This does not modify the limit directly.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Request a shared Amazon SES daily limit increase",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "shared-amazon-ses-limit-request"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request submitted",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Shared Amazon SES account not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "A request is already pending",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Increase request is not available yet",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get sending account statistics",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns aggregate counts of configured sending accounts with breakdowns by type and status.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get sending account statistics",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "stats"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Sending account statistics",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get sending account usage",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns per-account delivery-log counts for today and the trailing 7-day window.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get sending account usage",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "usage"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Usage summary",
+              "status": "OK"
+            }
+          ]
+        }
+      ],
+      "name": "Sending accounts"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "List webhook subscriptions",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of webhook subscriptions configured for the team, ordered by `created_at` descending. The signing secret is never included. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List webhook subscriptions",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create a webhook subscription",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"event_types\": [\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"mailbox_ids\": [\n      \"<string>\"\n    ]\n  },\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\"\n}"
+            },
+            "description": {
+              "content": "Creates a new webhook subscription and returns the signing secret ONCE in the response body. Store it securely — it cannot be retrieved later. Use `POST /webhooks/{id}/rotate-secret` to issue a new one.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a webhook subscription",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical GET URL for the newly created webhook subscription.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "/api/v1/webhooks/whk_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription created, including the signing secret. The response carries a `Location` header pointing at the canonical GET URL for the new subscription.",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`Idempotency-Key` was replayed with a different body (`idempotency_conflict`).",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Validation failed (e.g. non-https URL, unknown event type)",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a webhook subscription",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Permanently removes the subscription. In-flight retries are dropped.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a webhook subscription",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a webhook subscription",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a single webhook subscription. The signing secret is never included. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed. The same ETag is the value to use in `If-Match` on PATCH for optimistic concurrency.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a webhook subscription",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs and optimistic-concurrency PATCHes.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag (same as request's `If-None-Match`).",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update a webhook subscription",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"event_types\": [\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"mailbox_ids\": [\n      \"<string>\"\n    ]\n  },\n  \"name\": \"<string,null>\",\n  \"url\": \"<uri>\"\n}"
+            },
+            "description": {
+              "content": "Updates the URL, event types, or enabled flag. Any field omitted from the request body is left unchanged. The signing secret is unaffected — use `POST /webhooks/{id}/rotate-secret` to rotate it.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update a webhook subscription",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for the post-update resource.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated subscription",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`If-Match` ETag does not match the server's current version.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Validation failed (e.g. non-https URL, unknown event type, empty event list)",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List webhook delivery attempts",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns recent delivery attempts for one webhook subscription, ordered by `created_at` descending. Delivery metadata is retained for 7 days. Use the payload endpoint while `payload_available` is true to inspect the exact JSON request body that was delivered.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List webhook delivery attempts",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id",
+                "deliveries"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "event_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "result",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Delivery-attempt list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a webhook delivery payload",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the retained JSON request body for one delivery attempt. Payloads are retained for 7 days and may no longer be available after `payload_expires_at`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a webhook delivery payload",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id",
+                "deliveries",
+                ":delivery_id",
+                "payload"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "delivery_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Delivery payload",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Delivery not found or payload no longer available",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Rotate the signing secret",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Generates a fresh signing secret and returns it ONCE. The old secret is immediately invalidated — the next event delivery is signed with the new secret. Store the new value securely; it cannot be retrieved later.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original rotation response rather than minting a fresh secret. Replays against a different `public_id` under the same key return `409 idempotency_conflict`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Rotate the signing secret",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id",
+                "rotate-secret"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription with new signing secret",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`Idempotency-Key` was replayed against a different webhook (`idempotency_conflict`).",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Send a synthetic test event",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Publishes a synthetic `sendmux.test` event to this webhook subscription. The subscription must include `\"sendmux.test\"` in `event_types`, and mailbox filters do not block the test delivery. Returns the generated `event_id` so you can correlate the `X-Sendmux-Event-Id` header on your endpoint.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original `event_id` rather than publishing a second test event.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Send a synthetic test event",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "webhooks",
+                ":public_id",
+                "test"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Test event published",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Subscription not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`Idempotency-Key` was replayed against a different webhook (`idempotency_conflict`) or the webhook is not subscribed to `sendmux.test` (`conflict`).",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Event publish service is unavailable.",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Webhooks"
+    }
+  ],
+  "variable": [
+    {
+      "key": "sendmux_api_key",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "management_base_url",
+      "type": "string",
+      "value": "https://app.sendmux.ai/api/v1"
+    }
+  ]
+}

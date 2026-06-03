@@ -1,0 +1,5619 @@
+{
+  "auth": {
+    "bearer": [
+      {
+        "key": "token",
+        "type": "string",
+        "value": "{{sendmux_api_key}}"
+      }
+    ],
+    "type": "bearer"
+  },
+  "event": [],
+  "info": {
+    "description": {
+      "content": "Programmatic access to your Sendmux email infrastructure.",
+      "type": "text/plain"
+    },
+    "name": "Sendmux Mailbox API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "Upload a mailbox attachment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            },
+            "description": {
+              "content": "Uploads one attachment as binary data and returns a blob ID that can be supplied to `POST /mailbox/messages/send`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Upload a mailbox attachment",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "attachments:upload"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment uploaded",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid upload request",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get mailbox changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns message changes in the legacy shape when `types` is omitted. Pass a comma-separated `types` list for a typed state map.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get mailbox changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "messages_since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "folders_since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "threads_since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "submissions_since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "identities_since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "quotas_since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox changes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid sync state",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Stream mailbox events",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Streams bounded rich mailbox events for connected clients. Each received-message event includes subject, participants, preview, attachment metadata, and a capped body snapshot; use the message endpoints for full content or attachment bytes.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Last-Event-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "GET",
+            "name": "Stream mailbox events",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "events"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "event_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "last_event_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "ping",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "close_after",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "name": "Server-sent event stream. Event data uses the MailboxRealtimeEvent shape.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid stream parameters",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Too many realtime connections",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Realtime events unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List mailbox folders",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of folders for the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox folders",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder list",
+              "status": "OK"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create a mailbox folder",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"<string>\",\n  \"parent_id\": \"<string,null>\",\n  \"sort_order\": \"<integer>\"\n}"
+            },
+            "description": {
+              "content": "Creates a folder in the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a mailbox folder",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder created",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder validation failed",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a mailbox folder",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Deletes an empty custom folder with state-safe conflict handling. Built-in folders and non-empty folders cannot be deleted. Send `If-Match` with a prior ETag to reject stale deletes.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a mailbox folder",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders",
+                ":folder_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "folder_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder cannot be deleted",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a mailbox folder",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns one folder from the authenticated mailbox. Responses include a weak `ETag` header.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a mailbox folder",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders",
+                ":folder_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "folder_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update a mailbox folder",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"<string>\",\n  \"parent_id\": \"<string,null>\",\n  \"sort_order\": \"<integer>\"\n}"
+            },
+            "description": {
+              "content": "Updates a folder with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update a mailbox folder",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders",
+                ":folder_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "folder_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated folder",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "ETag conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get folder changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns folder changes since a prior folder state, or the current folder state when omitted.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get folder changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders",
+                "changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder changes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid sync state",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get folder query changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns folder-list index changes since a prior folder query state, or the current folder query state when omitted.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get folder query changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "folders",
+                "query-changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_query_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Folder query changes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query sync state",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List mailbox sender identities",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns sender identities available to the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox sender identities",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "identities"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Identity list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get mailbox sender identity",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the default sender identity and signatures for the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get mailbox sender identity",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "identity"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox sender identity",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update mailbox sender identity",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"html_signature\": \"<string,null>\",\n  \"name\": \"<string,null>\",\n  \"text_signature\": \"<string,null>\"\n}"
+            },
+            "description": {
+              "content": "Updates the default sender name, plain text signature, and HTML signature for the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update mailbox sender identity",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "identity"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated mailbox sender identity",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Identity could not be updated",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Self-introspect the calling mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the mailbox the bearer token is scoped to, including live storage usage. Intended for SDK auto-discovery — call once on startup to resolve the mailbox ID. Requires a mailbox-scoped API key; root keys receive 403.\n\nResponses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the mailbox state has not changed.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Self-introspect the calling mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "The calling mailbox",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag (same as request's `If-None-Match`).",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Root key used on a mailbox-scoped endpoint",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List mailbox messages",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of messages for the authenticated mailbox. Requires a mailbox API key.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox messages",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "folder_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "thread_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "bcc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "subject",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "body",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_value",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "min_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "not_keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "has_attachment",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "is_unread",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Batch delete mailbox messages",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"ids\": [\n    \"<string>\"\n  ],\n  \"if_in_state\": \"<string>\",\n  \"permanent\": \"<boolean>\"\n}"
+            },
+            "description": {
+              "content": "Moves up to 100 messages to Trash by default with state-safe conflict handling. Set `permanent=true` to permanently delete them.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Batch delete mailbox messages",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages:batch-delete"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Batch delete result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "State conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Batch get mailbox messages",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"body_mode\": \"<string>\",\n  \"ids\": [\n    \"<string>\"\n  ],\n  \"include_attachments\": \"<string>\",\n  \"include_headers\": \"<string>\",\n  \"include_html\": \"<boolean>\",\n  \"include_links\": \"<boolean>\",\n  \"max_body_chars\": \"<integer>\",\n  \"part\": \"<string>\",\n  \"strip_quotes\": \"<boolean>\",\n  \"strip_signature\": \"<boolean>\"\n}"
+            },
+            "description": {
+              "content": "Returns exact messages by ID. Use `body_mode` to choose summary-only output, raw body output, or clean JSON content. Attachment output remains metadata only; attachment contents are not parsed.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Batch get mailbox messages",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages:batch-get"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Batch message result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Batch update mailbox messages",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"flagged\": \"<boolean>\",\n  \"ids\": [\n    \"<string>\"\n  ],\n  \"if_in_state\": \"<string>\",\n  \"keywords\": {\n    \"key_0\": \"<boolean>\"\n  },\n  \"seen\": \"<boolean>\"\n}"
+            },
+            "description": {
+              "content": "Updates allowed message flags and keywords for up to 100 messages with state-safe conflict handling.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Batch update mailbox messages",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages:batch-update"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Batch update result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "State conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a mailbox message",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Moves a message to Trash by default with state-safe conflict handling. Set `permanent=true` to permanently delete it. Send `If-Match` with a prior ETag to reject stale deletes.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a mailbox message",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                ":message_id"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "permanent",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "message_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "ETag or state conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a mailbox message",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns one message from the authenticated mailbox. Responses include a weak `ETag` header.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a mailbox message",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                ":message_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "message_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update mailbox message flags",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"flagged\": \"<boolean>\",\n  \"keywords\": {\n    \"key_0\": \"<boolean>\"\n  },\n  \"seen\": \"<boolean>\"\n}"
+            },
+            "description": {
+              "content": "Updates mutable message flags and keywords with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update mailbox message flags",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                ":message_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "message_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated message",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "ETag conflict",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Download a message attachment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Streams one attachment from a message in the authenticated mailbox. Supports standard byte ranges.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Range",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Download a message attachment",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                ":message_id",
+                "attachments",
+                ":attachment_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "message_id",
+                  "type": "any",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "attachment_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Attachment bytes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 206,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Partial attachment bytes",
+              "status": "Partial Content"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid range header",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get raw message body",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns raw message body content for the authenticated mailbox. This endpoint does not strip signatures, strip quoted replies, extract links, or clean the body into a structured content shape.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get raw message body",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                ":message_id",
+                "body"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "part",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_body_chars",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "message_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Raw message body",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get clean message content",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns deterministic clean JSON content for one message. Attachment output is metadata only; attachment contents are not parsed by this endpoint.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get clean message content",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                ":message_id",
+                "content"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "part",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_body_chars",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "strip_signature",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "strip_quotes",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_links",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_html",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_headers",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_attachments",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "message_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Clean message content",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Count mailbox messages",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a count for the supplied mailbox message filters without returning message rows.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Count mailbox messages",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                "count"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "folder_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "thread_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "bcc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "subject",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "body",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_value",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "min_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "not_keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "has_attachment",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "is_unread",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message count",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get message query changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns filtered message-list index changes since a prior message query state, or the current message query state when omitted.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get message query changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                "query-changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_query_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "up_to_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "calculate_total",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "folder_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "bcc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "subject",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "body",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_value",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "min_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "not_keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "has_attachment",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "is_unread",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message query changes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query sync state or filter",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get message search snippets",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns subject and preview snippets for a text search. Provide `message_ids` to snippet exact messages, or omit it to snippet the first filtered results.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get message search snippets",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                "search-snippets"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "folder_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "from",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "to",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "bcc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "subject",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "body",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "header_value",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "min_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_size_bytes",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "not_keyword",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "has_attachment",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "is_unread",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "message_ids",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Search snippets",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Send a mailbox message",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"attachments\": [\n    {\n      \"content\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"filename\": \"<string>\"\n    }\n  ],\n  \"bcc\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ],\n  \"cc\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ],\n  \"custom_headers\": {\n    \"key_0\": \"<string>\"\n  },\n  \"from\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string,null>\"\n  },\n  \"html_body\": \"<string>\",\n  \"reply_to\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ],\n  \"subject\": \"<string>\",\n  \"text_body\": \"<string>\",\n  \"to\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ]\n}"
+            },
+            "description": {
+              "content": "Creates and queues a message from the authenticated mailbox. Supply an `Idempotency-Key` header to safely retry. Attachments may use small inline base64 content or blob IDs returned by `POST /mailbox/attachments:upload`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Send a mailbox message",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "messages",
+                "send"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message queued",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Message validation failed",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List mailbox quotas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of quota usage and limits for the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox quotas",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "quotas"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "scope",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "resource_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Quota list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get quota changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns quota changes since a prior quota state, or the current quota state when omitted.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get quota changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "quotas",
+                "changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Quota changes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid sync state",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get mailbox API session",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns mailbox API capabilities, resource state tokens, limits, and disabled feature flags for the authenticated mailbox.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get mailbox API session",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "session"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API session",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List mailbox submissions",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of send submissions for the authenticated mailbox, including delivery lifecycle fields when available.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox submissions",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "submissions"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "identity_ids",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "email_ids",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "thread_ids",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "undo_status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Submission list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a mailbox submission",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns one send submission for the authenticated mailbox. Responses include a weak `ETag` header.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a mailbox submission",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "submissions",
+                ":submission_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "submission_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Submission",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Submission not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get submission changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns send submission changes since a prior submission state, or the current state when omitted.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get submission changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "submissions",
+                "changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Submission changes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid sync state",
+              "status": "Bad Request"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List mailbox threads",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of conversation threads for the authenticated mailbox. Filter by text, participant, folder, unread state, attachment presence, or date range.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailbox threads",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "threads"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "participant",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "folder_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "has_attachment",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "is_unread",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort_direction",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Thread list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key required",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a mailbox thread",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns thread metadata, message IDs, participants, last message, unread count, and state for one conversation. Responses include a weak `ETag` header.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a mailbox thread",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "threads",
+                ":thread_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "thread_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Thread",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Thread not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get clean thread content",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated clean JSON view of messages in a thread. Attachment output is metadata only; attachment contents are not parsed by this endpoint.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get clean thread content",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "threads",
+                ":thread_id",
+                "content"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "part",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "max_body_chars",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "strip_signature",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "strip_quotes",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_links",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_html",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_headers",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_attachments",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "thread_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Clean thread content",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Thread not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List thread messages",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns cursor-paginated message summaries for one thread. Use the thread content endpoint when you need cleaned bodies.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List thread messages",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "threads",
+                ":thread_id",
+                "messages"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "sort",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "thread_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Thread messages",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid query parameter",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Thread not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get mailbox usage",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a compact usage view derived from mailbox quota records. Responses include a weak `ETag` header.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get mailbox usage",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "usage"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox usage",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not modified",
+              "status": "Not Modified"
+            }
+          ]
+        }
+      ],
+      "name": "Mailbox API"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "List mailboxes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a cursor-paginated list of mailboxes configured for the team, ordered by `created_at` descending. Pass `cursor=<next_cursor>` from the previous response to fetch the next page.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List mailboxes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "include_deleted",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox list",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create a mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"quota_bytes\": \"<integer>\",\n  \"send_scope\": {\n    \"group_public_ids\": [\n      \"<string>\"\n    ],\n    \"provider_public_ids\": [\n      \"<string>\"\n    ],\n    \"type\": \"<string>\"\n  }\n}"
+            },
+            "description": {
+              "content": "Provisions a new mailbox plus an initial bearer token and matching IMAP/SMTP mailbox password. The domain portion of the email must already be verified via POST /domains. If supplied, `quota_bytes` must be one of the current storage tiers: 1073741824 (1 GB), 5368709120 (5 GB), or 53687091200 (50 GB). Creation provisions resources on our mail platform and, for `@myagent.mx` addresses, on Amazon SES — any failure rolls the partial state back automatically.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical GET URL for the newly created mailbox.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "/api/v1/mailboxes/mx_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox created. The response carries a `Location` header pointing at the canonical GET URL for the new mailbox.",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Email already in use (error code `conflict`), or `Idempotency-Key` was replayed with a different body (`idempotency_conflict`).",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not yet verified or semantic validation failure",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Team is not yet provisioned for sending",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Sendmux. All associated API keys are revoked.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns a single mailbox, tenant-scoped to the caller's team. Responses carry a weak `ETag` header — send it back as `If-None-Match` on the next request and the server will return `304 Not Modified` (no body) when the resource has not changed. The same ETag is the value to use in `If-Match` on PATCH for optimistic concurrency.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs and optimistic-concurrency PATCHes.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag (same as request's `If-None-Match`).",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update a mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"display_name\": \"<string,null>\",\n  \"quota_bytes\": \"<integer>\",\n  \"send_scope\": {\n    \"group_public_ids\": [\n      \"<string>\"\n    ],\n    \"provider_public_ids\": [\n      \"<string>\"\n    ],\n    \"type\": \"<string>\"\n  }\n}"
+            },
+            "description": {
+              "content": "Updates any combination of display_name, quota_bytes, and send_scope on a mailbox. The display_name and send_scope changes land in a single transaction; quota_bytes is applied afterwards because it also updates external state on our mail platform. Quota can only be set to 1073741824 (1 GB), 5368709120 (5 GB), or 53687091200 (50 GB), and cannot be shrunk below the mailbox's current usage.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update a mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for the post-update resource.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated mailbox",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`If-Match` ETag does not match the server's current version.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Validation error — unsupported quota tier, quota below current usage, or cross-tenant send_scope reference",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create a mailbox API key",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"app_name\": \"<string>\"\n}"
+            },
+            "description": {
+              "content": "Mints an additional bearer token plus IMAP/SMTP mailbox password for an existing mailbox. The plaintext key and password are shown exactly once — store them immediately.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a mailbox API key",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id",
+                "keys"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical URL for the newly created API key.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "/api/v1/mailboxes/mx_clxxxxxxxxxxxxxxxxxxxxxxxxx/keys/smx_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox API key created. The response carries a `Location` header pointing at the canonical URL for the new key.",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "API key limit reached (`limit_exceeded`) or idempotency key conflict (`idempotency_conflict`).",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox is not active",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Revoke a mailbox API key",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Revokes a specific bearer token + matching mailbox password. Idempotent on already-revoked keys.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Revoke a mailbox API key",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id",
+                "keys",
+                ":key_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "key_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion result",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox or key not found",
+              "status": "Not Found"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Resume a mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Restores a suspended mailbox so it can authenticate, receive mail, and send from the mailbox address again. The operation is idempotent and accepts `Idempotency-Key` for safe retries.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Resume a mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id",
+                "resume"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Resumed mailbox",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Root API key required",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox is deleted, or `Idempotency-Key` was replayed with a different request body.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Suspend a mailbox",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Suspends a mailbox without deleting messages, credentials, or settings. Suspended mailboxes cannot receive mail, authenticate to mailbox protocols, or send from the mailbox address. The operation is idempotent and accepts `Idempotency-Key` for safe retries.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Suspend a mailbox",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id",
+                "suspend"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Suspended mailbox",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Root API key required",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox is deleted, or `Idempotency-Key` was replayed with a different request body.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Mailboxes"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
+          "name": "Get mailbox sender filters",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Returns the current sender-filter mode and rule set for a mailbox. Mailbox-scoped rules override any domain-wide rules set on the parent domain.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get mailbox sender filters",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id",
+                "filters"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for conditional GETs and optimistic-concurrency PUTs.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "W/\"a1b2c3d4e5f60718\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Filter state",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current weak ETag.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Not Modified — the client's cached copy (matching `If-None-Match`) is still current.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Filter service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Replace mailbox sender filters",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"mode\": \"<string>\",\n  \"rules\": [\n    {\n      \"note\": \"<string,null>\",\n      \"pattern\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "description": {
+              "content": "Atomically replaces the sender-filter mode and rule set for a mailbox. The entire rule set is swapped in a single operation — there is no intermediate state where the mailbox has a partial ruleset. A maximum of 1000 rules per request is enforced.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "name": "Replace mailbox sender filters",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailboxes",
+                ":public_id",
+                "filters"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for the post-update resource.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated filter state",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`If-Match` ETag does not match the server's current version.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rule cap exceeded or invalid rule pattern",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Filter service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Mailbox Filters"
+    }
+  ],
+  "variable": [
+    {
+      "key": "sendmux_api_key",
+      "type": "string",
+      "value": ""
+    },
+    {
+      "key": "mailbox_base_url",
+      "type": "string",
+      "value": "https://app.sendmux.ai/api/v1"
+    }
+  ]
+}

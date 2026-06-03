@@ -31,7 +31,12 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["index", "guides/quickstart", "guides/team-limits"]
+            "pages": [
+              "index",
+              "guides/quickstart",
+              "guides/postman-collection",
+              "guides/team-limits"
+            ]
           },
           {
             "group": "Teams and access",

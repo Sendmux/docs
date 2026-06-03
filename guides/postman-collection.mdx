@@ -1,0 +1,97 @@
+---
+title: "Postman collections"
+description: "Import Sendmux API collections into Postman and configure your API key."
+keywords:
+  [
+    "Postman",
+    "API collection",
+    "Management API",
+    "Mailbox API",
+    "Sending API",
+    "API key",
+  ]
+---
+
+Use the Sendmux Postman collections to try requests, save examples, and share API workflows with your team.
+
+<Info>
+  You need a Sendmux API key before sending authenticated requests. Create one
+  in the Sendmux app under **API Keys**.
+</Info>
+
+## Choose a collection
+
+| Collection     | Use it for                                                       | Import URL                                                                   |
+| -------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Management API | Manage sending accounts, domains, mailboxes, webhooks, and logs. | `https://docs.sendmux.ai/postman/sendmux-management.postman_collection.json` |
+| Mailbox API    | Read and manage one mailbox using a mailbox-scoped credential.   | `https://docs.sendmux.ai/postman/sendmux-mailbox.postman_collection.json`    |
+| Sending API    | Send single or batch emails through the Sending API.             | `https://docs.sendmux.ai/postman/sendmux-sending.postman_collection.json`    |
+
+## Import by URL
+
+<Steps>
+  <Step title="Open import">
+    In Postman, select **Import**, then choose **Link**.
+  </Step>
+  <Step title="Paste the collection URL">
+    Paste the URL for the collection you want to use, then select **Continue**.
+  </Step>
+  <Step title="Confirm the import">
+    Review the collection name, then select **Import**.
+  </Step>
+</Steps>
+
+## Configure authentication
+
+Each collection uses a `sendmux_api_key` collection variable.
+
+<Steps>
+  <Step title="Open collection variables">
+    In Postman, open the imported collection, then select **Variables**.
+  </Step>
+  <Step title="Set the API key">
+    Set `sendmux_api_key` to your `smx_` API key.
+  </Step>
+  <Step title="Save changes">Select **Save** before running requests.</Step>
+</Steps>
+
+<Warning>
+  Do not commit, publish, or share a collection after adding a real API key.
+</Warning>
+
+## Base URL variables
+
+The collections include these base URL variables:
+
+| Collection     | Variable              | Default value                    |
+| -------------- | --------------------- | -------------------------------- |
+| Management API | `management_base_url` | `https://app.sendmux.ai/api/v1`  |
+| Mailbox API    | `mailbox_base_url`    | `https://app.sendmux.ai/api/v1`  |
+| Sending API    | `sending_base_url`    | `https://smtp.sendmux.ai/api/v1` |
+
+Change a base URL only if Sendmux support asks you to use a different endpoint.
+
+## Update a collection
+
+Re-import the same URL when you want the latest requests. The collection files use the same API descriptions as the Sendmux reference docs.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card
+    title="Management API"
+    icon="settings"
+    href="/api-reference/introduction"
+  >
+    Read authentication, permissions, response formats, and rate limits.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Use a mailbox-scoped credential for one mailbox.
+  </Card>
+  <Card title="Sending API" icon="send" href="/sending-api/introduction">
+    Send email through the HTTP API.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create scoped keys for applications and integrations.
+  </Card>
+</Columns>
