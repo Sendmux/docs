@@ -1,0 +1,39 @@
+name: Verify Postman collections
+
+# Hard gate: the committed Postman collections must match what the generator
+# produces from the committed OpenAPI specs (openapi-app.json /
+# openapi-sending.json). Producer repos keep those specs in sync with their
+# live APIs; this gate keeps the collections in sync with the specs, so an
+# openapi-sending.json update (driven by the Sending API) cannot merge without
+# the matching collection regeneration.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  postman:
+    runs-on: ubuntu-latest
+    name: Postman collection drift
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Postman collection drift
+        run: npm run postman:check

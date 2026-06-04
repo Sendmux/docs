@@ -6,3 +6,9 @@
 drafts/
 *.draft.mdx
 CLAUDE.md
+
+# Postman collection tooling (not docs content)
+scripts/
+package.json
+package-lock.json
+AGENTS.md

@@ -1,0 +1,14 @@
+{
+  "name": "sendmux-docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tooling to generate and drift-check the Sendmux Postman collections from the committed OpenAPI specs.",
+  "scripts": {
+    "postman:emit": "node scripts/emit-postman-collections.mjs",
+    "postman:check": "node scripts/check-postman-collections.mjs"
+  },
+  "devDependencies": {
+    "openapi-to-postmanv2": "6.0.1"
+  }
+}
