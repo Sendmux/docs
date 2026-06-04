@@ -12,14 +12,21 @@
 - Run `mint dev` to preview locally
 - Run `mint broken-links` to check links
 
+## Postman collections
+
+- `postman/*.postman_collection.json` are **generated artifacts — never hand-edit them.** They are produced from the committed `openapi-app.json` + `openapi-sending.json` by `scripts/emit-postman-collections.mjs`.
+- After any change to those specs, run `npm run postman:emit` and commit the updated `postman/` files in the same change.
+- CI (`.github/workflows/verify.yml`) runs `npm run postman:check` on every push + PR and **fails on drift** — a spec update cannot merge without the matching collection regeneration.
+- The producer repos keep `openapi-app.json` / `openapi-sending.json` in sync with the live APIs; this repo only owns the spec → collection transform.
+
 ## Terminology
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+{/_ Add product-specific terms and preferred usage _/}
+{/_ Example: Use "workspace" not "project", "member" not "user" _/}
 
 ## Style preferences
 
-{/* Add any project-specific style rules below */}
+{/_ Add any project-specific style rules below _/}
 
 - Use active voice and second person ("you")
 - Keep sentences concise — one idea per sentence
@@ -29,5 +36,5 @@
 
 ## Content boundaries
 
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+{/_ Define what should and shouldn't be documented _/}
+{/_ Example: Don't document internal admin features _/}
