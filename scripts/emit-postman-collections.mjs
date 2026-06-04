@@ -196,7 +196,7 @@ function collectUsedTags(paths) {
 
 function normaliseResponseExamples(value) {
   if (Array.isArray(value)) {
-    return value.filter((item) => !isGeneratedResponseExample(item)).map((item) => normaliseResponseExamples(item));
+    return value.map((item) => normaliseResponseExamples(item));
   }
 
   if (!value || typeof value !== "object") {
@@ -205,12 +205,19 @@ function normaliseResponseExamples(value) {
 
   const record = asRecord(value);
 
-  return Object.fromEntries(Object.entries(record).map(([key, child]) => [key, normaliseResponseExamples(child)]));
-}
+  if ("originalRequest" in record && "code" in record) {
+    return normaliseResponseExamples({
+      _postman_previewlanguage: record._postman_previewlanguage,
+      body: "",
+      code: record.code,
+      cookie: record.cookie ?? [],
+      header: record.header ?? [],
+      name: record.name,
+      status: record.status,
+    });
+  }
 
-function isGeneratedResponseExample(value) {
-  const record = asRecord(value);
-  return "originalRequest" in record && "code" in record;
+  return Object.fromEntries(Object.entries(record).map(([key, child]) => [key, normaliseResponseExamples(child)]));
 }
 
 function normaliseJsonStringExamples(value) {
