@@ -540,7 +540,7 @@
           },
           "request": {
             "description": {
-              "content": "Deletes an empty custom folder with state-safe conflict handling. Built-in folders and non-empty folders cannot be deleted. Send `If-Match` with a prior ETag to reject stale deletes.",
+              "content": "Deletes an empty custom folder unconditionally unless `If-Match` is supplied. Built-in folders and non-empty folders cannot be deleted. Send `If-Match` with a prior ETag to reject stale deletes.",
               "type": "text/plain"
             },
             "header": [
@@ -717,7 +717,7 @@
               "raw": "{\n  \"name\": \"<string>\",\n  \"parent_id\": \"<string,null>\",\n  \"sort_order\": \"<integer>\"\n}"
             },
             "description": {
-              "content": "Updates a folder with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
+              "content": "Updates a folder unconditionally unless `If-Match` is supplied. Send `If-Match` with a prior ETag to reject stale edits.",
               "type": "text/plain"
             },
             "header": [
@@ -1891,7 +1891,7 @@
           },
           "request": {
             "description": {
-              "content": "Moves a message to Trash by default with state-safe conflict handling. Set `permanent=true` to permanently delete it. Send `If-Match` with a prior ETag to reject stale deletes.",
+              "content": "Moves a message to Trash by default, unconditionally unless `If-Match` is supplied. Set `permanent=true` to permanently delete it. Send `If-Match` with a prior ETag to reject stale deletes.",
               "type": "text/plain"
             },
             "header": [
@@ -2088,7 +2088,7 @@
               "raw": "{\n  \"flagged\": \"<boolean>\",\n  \"keywords\": {\n    \"key_0\": \"<boolean>\"\n  },\n  \"seen\": \"<boolean>\"\n}"
             },
             "description": {
-              "content": "Updates mutable message flags and keywords with state-safe conflict handling. Send `If-Match` with a prior ETag to reject stale edits.",
+              "content": "Updates mutable message flags and keywords unconditionally unless `If-Match` is supplied. Send `If-Match` with a prior ETag to reject stale edits.",
               "type": "text/plain"
             },
             "header": [

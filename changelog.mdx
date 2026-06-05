@@ -7,7 +7,7 @@ rss: true
 <Update label="4 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox updates are more reliable" }}>
   ## Bug fixes
 
-- Inbox folder and message update/delete requests now avoid stale-resource conflicts when you make sequential changes without conditional headers.
+- Inbox folder and message update/delete requests now honour `If-Match` when you send it and avoid hidden stale-state checks when you make sequential changes without conditional headers.
 - Deleted inboxes and domains now clean up associated routing and filtering state more consistently.
 
 </Update>
