@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="6 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox keys and folder actions are more reliable" }}>
+  ## Bug fixes
+
+- Newly-created inbox keys now confirm access before they are shown, so they work immediately for the inbox API, IMAP, SMTP, and JMAP.
+- Inbox folder deletion now retries brief setup delays after a folder is created or renamed, reducing transient delete failures.
+- Inbox deletion now retries temporary cleanup delays more reliably.
+
+</Update>
+
 <Update label="4 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox updates are more reliable" }}>
   ## Bug fixes
 
