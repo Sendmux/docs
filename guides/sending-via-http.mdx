@@ -9,7 +9,7 @@ import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 Use the HTTP Sending API for new integrations, batch sending, and retry-safe requests.
 
 <Info>
-  Routing follows the sending key or mailbox you authenticate with. You cannot
+  Routing follows the send-only key or mailbox key you authenticate with. You cannot
   choose a provider or delivery group inside an individual send request.
 </Info>
 
@@ -18,7 +18,7 @@ Use the HTTP Sending API for new integrations, batch sending, and retry-safe req
 ## Prerequisites
 
 - A team with sending access.
-- A sending key or mailbox key with `email.send`.
+- A send-only key or mailbox key with `email.send`.
 - Enough team balance for the messages you send.
 - A verified custom domain, unless you are testing with the shared domain.
 
@@ -26,7 +26,7 @@ Use the HTTP Sending API for new integrations, batch sending, and retry-safe req
 
 ```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
-  -H "Authorization: Bearer smx_your_key_here" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
     "from": { "email": "hello@example.com", "name": "Your App" },
@@ -45,7 +45,7 @@ Send up to 100 messages in one request. The response reports each message by its
 
 ```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
-  -H "Authorization: Bearer smx_your_key_here" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [

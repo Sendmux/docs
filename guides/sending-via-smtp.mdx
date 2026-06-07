@@ -9,8 +9,8 @@ import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 Use SMTP when an existing application, plugin, or mail client already supports SMTP delivery.
 
 <Info>
-  The SMTP password is your `smx_` API key or mailbox password. Routing still
-  follows that key or mailbox scope.
+  The SMTP password is your `smx_mbx_` send-only key or mailbox password.
+  Routing still follows that key or mailbox scope.
 </Info>
 
 <SharedSesPolicy />
@@ -22,7 +22,7 @@ Use SMTP when an existing application, plugin, or mail client already supports S
 | **Host** | `smtp.sendmux.ai` |
 | **Port** | `587` with STARTTLS, or `465` with implicit TLS |
 | **Username** | Any value, such as `smtpuser` |
-| **Password** | Your `smx_` key or mailbox password |
+| **Password** | Your `smx_mbx_` send-only key or mailbox password |
 | **Authentication** | `LOGIN` or `PLAIN` |
 
 ## Test with swaks
@@ -33,7 +33,7 @@ swaks --to user@example.com \
   --server smtp.sendmux.ai:587 \
   --auth LOGIN \
   --auth-user smtpuser \
-  --auth-password "smx_your_key_here" \
+  --auth-password "smx_mbx_your_key_here" \
   --tls \
   --header "Subject: Test email" \
   --body "Hello from Sendmux"

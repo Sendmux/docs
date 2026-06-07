@@ -34,7 +34,7 @@ Network timeouts and client retries can send the same request more than once. `I
 
 ```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
-  -H "Authorization: Bearer smx_your_key_here" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: order-confirmation-12345" \
   -d '{

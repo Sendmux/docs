@@ -14,7 +14,7 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "SendMux API key (smx_...)"
+        "description": "Sendmux Sending API key (smx_mbx_...)"
       }
     },
     "schemas": {

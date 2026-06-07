@@ -17,11 +17,13 @@ API keys authenticate applications, scripts, mail clients, and automation. Keys 
 
 ## Key types
 
-| Key type               | Use it for                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------------- |
-| **Infrastructure key** | Team automation, providers, routing, billing, logs, domains, mailboxes, and webhooks. |
-| **Sending key**        | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents.        |
-| **Mailbox key**        | API, IMAP, and SMTP access for one mailbox.                                           |
+| Key type               | Use it for                                                                            | Secret prefix |
+| ---------------------- | ------------------------------------------------------------------------------------- | ------------- |
+| **Infrastructure key** | Team automation, providers, routing, billing, logs, domains, mailboxes, and webhooks. | `smx_root_`   |
+| **Sending key**        | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents.        | `smx_mbx_`    |
+| **Mailbox key**        | API, IMAP, and SMTP access for one mailbox.                                           | `smx_mbx_`    |
+
+Sending keys and mailbox keys share the `smx_mbx_` prefix. Their permissions and sending scope decide what each key can do.
 
 <Note>
   Each team starts with **100 active API keys** across all key types. See [Team
@@ -37,7 +39,7 @@ API keys authenticate applications, scripts, mail clients, and automation. Keys 
     through all providers, selected providers, or delivery groups.
   </Step>
   <Step title="Store the secret">
-    Copy the generated `smx_` value. Sendmux will not show it again.
+    Copy the generated `smx_root_` or `smx_mbx_` value. Sendmux will not show it again.
   </Step>
 </Steps>
 
