@@ -1521,6 +1521,10 @@
               "null"
             ]
           },
+          "sync_required": {
+            "description": "When true, refetch this resource list instead of applying the incremental arrays.",
+            "type": "boolean"
+          },
           "updated": {
             "items": {
               "type": "string"
