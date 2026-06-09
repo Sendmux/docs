@@ -4,6 +4,23 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="9 June 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Hosted MCP authorisation is easier to complete" }}>
+  ## Hosted MCP
+
+Hosted MCP authorisation now lets you choose the right team before granting access. The requested resources refresh when you switch teams, so connected apps only see what that team can use.
+
+## Improvements
+
+- Connected app requests now use clearer team wording throughout the authorisation flow.
+- Authorisation checks now validate current team access again before creating connected app credentials.
+
+## Bug fixes
+
+- Hosted MCP requests now avoid a network path that could fail for otherwise valid agent actions.
+- Malformed authorisation requests with duplicate fields are now rejected more consistently.
+
+</Update>
+
 <Update label="7 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox quota sync is more reliable" }}>
   ## Bug fixes
 
