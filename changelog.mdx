@@ -15,6 +15,8 @@ Local MCP setups can now use the same product-line selection for one, several, o
 
 Connected apps now appear separately from manual API keys. They use short-lived access tokens with refresh tokens, can be filtered in **API keys**, and disconnecting an app revokes its connected-app access without creating orphan manual keys.
 
+Re-authorising an existing connected app now replaces its previous product-line grant, so removed product lines disappear from that app instead of leaving stale access behind.
+
 ## SDKs and CLI
 
 SDK and CLI surfaces now account for every documented operation and expose the supported options and filters.
