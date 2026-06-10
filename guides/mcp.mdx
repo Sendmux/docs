@@ -1,40 +1,42 @@
 ---
 title: "AI integrations"
-description: "Connect AI tools to the Sendmux documentation MCP server."
+description: "Connect AI tools to Sendmux documentation and product tools."
 keywords: ["MCP", "Model Context Protocol", "Claude", "Cursor", "VS Code", "AI agents"]
 ---
 
-The Sendmux documentation MCP server lets AI tools search Sendmux guides and API references from your editor or assistant.
+Sendmux has two MCP connections:
 
-## Server URL
+- **Documentation MCP** lets AI tools search Sendmux guides and API references.
+- **Product MCP** lets an AI agent use the Sendmux product lines you choose: Management, Mailbox, Sending, or any combination of them.
 
-```text
-https://docs.sendmux.ai/mcp
-```
+## Documentation MCP
 
-The server exposes a `search_sendmux` tool for documentation search.
+Use this when you want an AI tool to answer questions from the Sendmux docs.
 
-## Connect Claude
+| Setting | Value |
+| --- | --- |
+| Server URL | `https://docs.sendmux.ai/mcp` |
+| Tool | `search_sendmux` |
+
+### Connect Claude
 
 <Steps>
   <Step title="Open settings">
     Open **Settings** and choose **Connectors**.
   </Step>
-  <Step title="Add connector">
-    Select **Add Connector**.
-  </Step>
+  <Step title="Add connector">Select **Add Connector**.</Step>
   <Step title="Enter the URL">
     Use `https://docs.sendmux.ai/mcp` as the server URL.
   </Step>
 </Steps>
 
-## Connect Claude Code
+### Connect Claude Code
 
 ```bash
 claude mcp add sendmux-docs --transport http https://docs.sendmux.ai/mcp
 ```
 
-## Connect Cursor
+### Connect Cursor
 
 Add this server to your MCP configuration:
 
@@ -48,7 +50,7 @@ Add this server to your MCP configuration:
 }
 ```
 
-## Connect VS Code
+### Connect VS Code
 
 Add this server to your settings:
 
@@ -65,16 +67,103 @@ Add this server to your settings:
 }
 ```
 
-## Rate limits
+### Rate limits
 
 | Scope | Limit |
 | --- | --- |
 | Per user IP | 5,000 requests per hour |
 | Per documentation site | 10,000 requests per hour |
 
-## Sendmux MCP
+## Product MCP
+
+Use the Product MCP when you want an agent to act inside Sendmux. A single connection can expose exactly the product lines you authorise:
+
+| Product line | What the agent can do | Credential authority |
+| --- | --- | --- |
+| Management | Manage domains, mailboxes, sending accounts, webhooks, logs, metrics, and billing data. | Team-level access |
+| Mailbox | Read, search, organise, thread, and send from one mailbox. | Mailbox access |
+| Sending | Send outbound email without mailbox reading tools. | Sending access |
 
 <Info>
-  A dedicated Sendmux MCP server is coming soon for product actions such as
-  sending email, checking logs, and reviewing balance.
+  Choosing more product lines never grants more authority than your team role,
+  selected mailbox, and consent allow. Tools for product lines you did not
+  authorise are not shown to the agent.
+</Info>
+
+### Hosted connection
+
+Use the hosted Product MCP when your AI tool supports remote MCP with OAuth.
+
+| Setting | Value |
+| --- | --- |
+| Server URL | `https://mcp.sendmux.ai/mcp` |
+| Authorisation server | `https://app.sendmux.ai` |
+
+When you connect:
+
+<Steps>
+  <Step title="Start the connection">
+    Add `https://mcp.sendmux.ai/mcp` in your AI tool, then sign in to Sendmux when prompted.
+  </Step>
+  <Step title="Choose a team">
+    Pick the team that should own the connection.
+  </Step>
+  <Step title="Choose product lines">
+    Select Management, Mailbox, Sending, or any combination. Choose all three
+    when the agent should see every curated Sendmux tool.
+  </Step>
+  <Step title="Authorise">
+    Review the requested access and select **Authorise**.
+  </Step>
+</Steps>
+
+Connected apps use short-lived access tokens that last 15 minutes. Refresh tokens rotate on use and can last up to 30 days unless the connection is disconnected or the grant expires. The connection does not create a manual `smx_root_` or `smx_mbx_` API key.
+
+### Local connection
+
+Use the local command when your AI tool runs MCP servers on your machine.
+
+Run one product line:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... sendmux-mcp-mailbox
+SENDMUX_API_KEY=smx_root_... sendmux-mcp-management
+SENDMUX_API_KEY=smx_mbx_... sendmux-mcp-sending
+```
+
+Run a chosen combination:
+
+```bash
+SENDMUX_MCP_SURFACES=mailbox,sending \
+SENDMUX_MAILBOX_API_KEY=smx_mbx_... \
+sendmux-mcp
+```
+
+Run all three product lines:
+
+```bash
+SENDMUX_MCP_SURFACES=mailbox,management,sending \
+SENDMUX_MAILBOX_API_KEY=smx_mbx_... \
+SENDMUX_MANAGEMENT_API_KEY=smx_root_... \
+SENDMUX_SENDING_API_KEY=smx_mbx_... \
+sendmux-mcp
+```
+
+You can also pass the same choices as command flags:
+
+```bash
+sendmux-mcp \
+  --surfaces mailbox,management,sending \
+  --mailbox-api-key smx_mbx_... \
+  --management-api-key smx_root_... \
+  --sending-api-key smx_mbx_...
+```
+
+Management requires an `smx_root_` key. Mailbox and Sending require an `smx_mbx_` key. A key with lower authority will not expose higher-authority tools.
+
+## Tool coverage
+
+<Info>
+  MCP exposes a curated agent toolset, not every API endpoint. Use the SDKs,
+  CLI, or API reference when you need full endpoint coverage.
 </Info>

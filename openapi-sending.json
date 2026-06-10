@@ -1,643 +1,828 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "SendMux Sending API",
-    "version": "1.0.0",
-    "description": "Send emails programmatically via the SendMux email infrastructure. Every response carries an `X-Request-Id` header; errors include a `retryable` flag. 429 and 503 responses include `Retry-After`. Mutating endpoints accept an `Idempotency-Key` header for safe retries."
-  },
-  "servers": [
-    { "url": "https://smtp.sendmux.ai/api/v1", "description": "Production" }
-  ],
-  "security": [{ "BearerAuth": [] }],
   "components": {
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "description": "Sendmux Sending API key (smx_mbx_...)"
-      }
-    },
+    "parameters": {},
     "schemas": {
-      "Meta": {
-        "type": "object",
-        "properties": {
-          "request_id": {
-            "type": "string",
-            "description": "Unique request identifier",
-            "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
-          }
-        },
-        "required": ["request_id"],
-        "additionalProperties": false
-      },
-      "SendSuccessData": {
-        "type": "object",
-        "properties": {
-          "message_id": {
-            "type": "string",
-            "pattern": "^eml_[a-z0-9]{24}$",
-            "description": "Unique message identifier (eml_ prefix + 24 alphanumeric chars)",
-            "example": "eml_tz4a98xxat96iws9zmbrgj3a"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["queued"],
-            "description": "Message queuing status"
-          }
-        },
-        "required": ["message_id", "status"],
-        "additionalProperties": false
-      },
-      "SuccessEnvelope": {
-        "type": "object",
-        "properties": {
-          "ok": { "type": "boolean", "enum": [true] },
-          "meta": { "$ref": "#/components/schemas/Meta" }
-        },
-        "required": ["ok", "meta"]
-      },
-      "SendSuccessResponse": {
-        "allOf": [
-          { "$ref": "#/components/schemas/SuccessEnvelope" },
-          {
-            "type": "object",
-            "properties": {
-              "data": { "$ref": "#/components/schemas/SendSuccessData" }
-            },
-            "required": ["data"]
-          }
-        ],
-        "unevaluatedProperties": false
-      },
-      "ErrorIssue": {
-        "type": "object",
-        "properties": {
-          "field": {
-            "type": "string",
-            "description": "Dot-path to the failing field",
-            "example": "to.email"
-          },
-          "code": {
-            "type": "string",
-            "description": "Issue code from the validator",
-            "example": "invalid_string"
-          },
-          "message": {
-            "type": "string",
-            "description": "Human-readable issue message"
-          }
-        },
-        "required": ["field", "code", "message"],
-        "additionalProperties": false
-      },
-      "ErrorDetail": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "Machine-readable error code",
-            "example": "validation_error"
-          },
-          "message": {
-            "type": "string",
-            "description": "Human-readable error description"
-          },
-          "param": {
-            "type": "string",
-            "description": "Parameter that caused the error"
-          },
-          "doc_url": {
-            "type": "string",
-            "format": "uri",
-            "description": "Link to error documentation"
-          },
-          "retryable": {
-            "type": "boolean",
-            "description": "True when the client may safely retry the same request. 429 and 5xx default true; 4xx default false."
-          },
-          "errors": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/ErrorIssue" },
-            "description": "Accumulated per-field issues (validation errors)"
-          }
-        },
-        "required": ["code", "message", "retryable"],
-        "additionalProperties": false
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "ok": { "type": "boolean", "enum": [false] },
-          "error": { "$ref": "#/components/schemas/ErrorDetail" },
-          "meta": { "$ref": "#/components/schemas/Meta" }
-        },
-        "required": ["ok", "error", "meta"],
-        "additionalProperties": false
-      },
       "Address": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "maxLength": 254,
-            "format": "email",
-            "description": "Email address",
-            "example": "user@example.com"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 100,
-            "pattern": "^[^\\r\\n]*$",
-            "description": "Display name",
-            "example": "John Smith"
-          }
-        },
-        "required": ["email"],
         "additionalProperties": false,
-        "description": "Sender address"
-      },
-      "Recipient": {
-        "type": "object",
+        "description": "Sender address",
         "properties": {
           "email": {
-            "type": "string",
-            "maxLength": 254,
+            "description": "Email address",
+            "example": "user@example.com",
             "format": "email",
-            "description": "Recipient email address"
+            "maxLength": 254,
+            "type": "string"
           },
           "name": {
-            "type": "string",
+            "description": "Display name",
+            "example": "John Smith",
             "maxLength": 100,
             "pattern": "^[^\\r\\n]*$",
-            "description": "Recipient display name"
+            "type": "string"
           }
         },
-        "required": ["email"],
-        "additionalProperties": false
+        "required": [
+          "email"
+        ],
+        "type": "object"
       },
       "Attachment": {
-        "type": "object",
+        "additionalProperties": false,
         "properties": {
-          "filename": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 255,
-            "description": "Filename with allowed extension",
-            "example": "invoice.pdf"
-          },
           "content": {
-            "type": "string",
+            "description": "Base64-encoded file content",
             "minLength": 1,
-            "description": "Base64-encoded file content"
-          },
-          "type": {
-            "type": "string",
-            "description": "MIME type override",
-            "example": "application/pdf"
+            "type": "string"
           },
           "encoding": {
-            "type": "string",
-            "enum": ["base64"],
-            "default": "base64"
+            "default": "base64",
+            "enum": [
+              "base64"
+            ],
+            "type": "string"
+          },
+          "filename": {
+            "description": "Filename with allowed extension",
+            "example": "invoice.pdf",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "description": "MIME type override",
+            "example": "application/pdf",
+            "type": "string"
           }
         },
-        "required": ["filename", "content"],
-        "additionalProperties": false
-      },
-      "EmailSendRequest": {
-        "type": "object",
-        "properties": {
-          "from": { "$ref": "#/components/schemas/Address" },
-          "to": {
-            "allOf": [
-              { "$ref": "#/components/schemas/Address" },
-              { "description": "Primary recipient" }
-            ]
-          },
-          "subject": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 998,
-            "pattern": "^[^\\r\\n]*$",
-            "description": "Email subject line (max 998 chars, RFC 5322)",
-            "example": "Welcome to SendMux"
-          },
-          "html_body": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 26214400,
-            "description": "HTML email content (max 25MB)"
-          },
-          "text_body": {
-            "type": "string",
-            "maxLength": 26214400,
-            "description": "Plain text alternative (max 25MB)"
-          },
-          "reply_to": {
-            "allOf": [
-              { "$ref": "#/components/schemas/Address" },
-              { "description": "Reply-To address" }
-            ]
-          },
-          "return_path": {
-            "type": "string",
-            "maxLength": 254,
-            "format": "email",
-            "description": "Envelope sender for VERP support"
-          },
-          "cc": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Recipient" },
-            "maxItems": 100,
-            "description": "CC recipients (max 100)"
-          },
-          "bcc": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Recipient" },
-            "maxItems": 100,
-            "description": "BCC recipients (max 100)"
-          },
-          "custom_headers": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "maxLength": 500,
-              "pattern": "^[^\\r\\n]*$"
-            },
-            "description": "Custom X-* headers to include in the email"
-          },
-          "attachments": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Attachment" },
-            "maxItems": 10,
-            "description": "File attachments (max 10)"
-          }
-        },
-        "required": ["from", "to", "subject", "html_body"],
-        "additionalProperties": false
+        "required": [
+          "filename",
+          "content"
+        ],
+        "type": "object"
       },
       "BatchResultItem": {
-        "type": "object",
+        "additionalProperties": false,
         "properties": {
-          "index": {
-            "type": "integer",
-            "description": "Position in the input array"
-          },
-          "message_id": {
-            "type": ["string", "null"],
-            "pattern": "^eml_[a-z0-9]{24}$",
-            "description": "Message ID (null if failed)"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["queued", "failed"],
-            "description": "Result status"
-          },
           "error": {
             "allOf": [
-              { "$ref": "#/components/schemas/ErrorDetail" },
-              { "description": "Error details (only if failed)" }
+              {
+                "$ref": "#/components/schemas/ErrorDetail"
+              },
+              {
+                "description": "Error details (only if failed)"
+              }
             ]
+          },
+          "index": {
+            "description": "Position in the input array",
+            "type": "integer"
+          },
+          "message_id": {
+            "description": "Message ID (null if failed)",
+            "pattern": "^eml_[a-z0-9]{24}$",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "description": "Result status",
+            "enum": [
+              "queued",
+              "failed"
+            ],
+            "type": "string"
           }
         },
-        "required": ["index", "message_id", "status"],
-        "additionalProperties": false
+        "required": [
+          "index",
+          "message_id",
+          "status"
+        ],
+        "type": "object"
       },
-      "BatchSummary": {
-        "type": "object",
+      "BatchSendRequest": {
+        "additionalProperties": false,
         "properties": {
-          "total": {
-            "type": "integer",
-            "description": "Total messages in batch"
-          },
-          "queued": {
-            "type": "integer",
-            "description": "Successfully queued count"
-          },
-          "failed": { "type": "integer", "description": "Failed count" }
+          "messages": {
+            "description": "Array of email messages to send (max 100)",
+            "items": {
+              "$ref": "#/components/schemas/EmailSendRequest"
+            },
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array"
+          }
         },
-        "required": ["total", "queued", "failed"],
-        "additionalProperties": false
+        "required": [
+          "messages"
+        ],
+        "type": "object"
       },
       "BatchSendSuccessData": {
-        "type": "object",
+        "additionalProperties": false,
         "properties": {
           "results": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/BatchResultItem" }
+            "items": {
+              "$ref": "#/components/schemas/BatchResultItem"
+            },
+            "type": "array"
           },
-          "summary": { "$ref": "#/components/schemas/BatchSummary" }
+          "summary": {
+            "$ref": "#/components/schemas/BatchSummary"
+          }
         },
-        "required": ["results", "summary"],
-        "additionalProperties": false
+        "required": [
+          "results",
+          "summary"
+        ],
+        "type": "object"
       },
       "BatchSendSuccessResponse": {
         "allOf": [
-          { "$ref": "#/components/schemas/SuccessEnvelope" },
           {
-            "type": "object",
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
             "properties": {
-              "data": { "$ref": "#/components/schemas/BatchSendSuccessData" }
+              "data": {
+                "$ref": "#/components/schemas/BatchSendSuccessData"
+              }
             },
-            "required": ["data"]
+            "required": [
+              "data"
+            ],
+            "type": "object"
           }
         ],
         "unevaluatedProperties": false
       },
-      "BatchSendRequest": {
-        "type": "object",
+      "BatchSummary": {
+        "additionalProperties": false,
         "properties": {
-          "messages": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/EmailSendRequest" },
-            "minItems": 1,
-            "maxItems": 100,
-            "description": "Array of email messages to send (max 100)"
+          "failed": {
+            "description": "Failed count",
+            "type": "integer"
+          },
+          "queued": {
+            "description": "Successfully queued count",
+            "type": "integer"
+          },
+          "total": {
+            "description": "Total messages in batch",
+            "type": "integer"
           }
         },
-        "required": ["messages"],
-        "additionalProperties": false
+        "required": [
+          "total",
+          "queued",
+          "failed"
+        ],
+        "type": "object"
+      },
+      "EmailSendRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "attachments": {
+            "description": "File attachments (max 10)",
+            "items": {
+              "$ref": "#/components/schemas/Attachment"
+            },
+            "maxItems": 10,
+            "type": "array"
+          },
+          "bcc": {
+            "description": "BCC recipients (max 100)",
+            "items": {
+              "$ref": "#/components/schemas/Recipient"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "cc": {
+            "description": "CC recipients (max 100)",
+            "items": {
+              "$ref": "#/components/schemas/Recipient"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "custom_headers": {
+            "additionalProperties": {
+              "maxLength": 500,
+              "pattern": "^[^\\r\\n]*$",
+              "type": "string"
+            },
+            "description": "Custom X-* headers to include in the email",
+            "type": "object"
+          },
+          "from": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "html_body": {
+            "description": "HTML email content (max 25MB)",
+            "maxLength": 26214400,
+            "minLength": 1,
+            "type": "string"
+          },
+          "reply_to": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "description": "Reply-To address"
+              }
+            ]
+          },
+          "return_path": {
+            "description": "Envelope sender for VERP support",
+            "format": "email",
+            "maxLength": 254,
+            "type": "string"
+          },
+          "subject": {
+            "description": "Email subject line (max 998 chars, RFC 5322)",
+            "example": "Welcome to Sendmux",
+            "maxLength": 998,
+            "minLength": 1,
+            "pattern": "^[^\\r\\n]*$",
+            "type": "string"
+          },
+          "text_body": {
+            "description": "Plain text alternative (max 25MB)",
+            "maxLength": 26214400,
+            "type": "string"
+          },
+          "to": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "description": "Primary recipient"
+              }
+            ]
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "subject",
+          "html_body"
+        ],
+        "type": "object"
+      },
+      "ErrorDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "description": "Machine-readable error code",
+            "example": "validation_error",
+            "type": "string"
+          },
+          "doc_url": {
+            "description": "Link to error documentation",
+            "format": "uri",
+            "type": "string"
+          },
+          "errors": {
+            "description": "Accumulated per-field issues (validation errors)",
+            "items": {
+              "$ref": "#/components/schemas/ErrorIssue"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Human-readable error description",
+            "type": "string"
+          },
+          "param": {
+            "description": "Parameter that caused the error",
+            "type": "string"
+          },
+          "retryable": {
+            "description": "True when the client may safely retry the same request. 429 and 5xx default true; 4xx default false.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "retryable"
+        ],
+        "type": "object"
+      },
+      "ErrorIssue": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "description": "Issue code from the validator",
+            "example": "invalid_string",
+            "type": "string"
+          },
+          "field": {
+            "description": "Dot-path to the failing field",
+            "example": "to.email",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable issue message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "ok": {
+            "enum": [
+              false
+            ],
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok",
+          "error",
+          "meta"
+        ],
+        "type": "object"
+      },
+      "Meta": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "description": "Unique request identifier",
+            "example": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id"
+        ],
+        "type": "object"
+      },
+      "Recipient": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "description": "Recipient email address",
+            "format": "email",
+            "maxLength": 254,
+            "type": "string"
+          },
+          "name": {
+            "description": "Recipient display name",
+            "maxLength": 100,
+            "pattern": "^[^\\r\\n]*$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "type": "object"
+      },
+      "SendSuccessData": {
+        "additionalProperties": false,
+        "properties": {
+          "message_id": {
+            "description": "Unique message identifier (eml_ prefix + 24 alphanumeric chars)",
+            "example": "eml_tz4a98xxat96iws9zmbrgj3a",
+            "pattern": "^eml_[a-z0-9]{24}$",
+            "type": "string"
+          },
+          "status": {
+            "description": "Message queuing status",
+            "enum": [
+              "queued"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "message_id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "SendSuccessResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SendSuccessData"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "SuccessEnvelope": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "ok": {
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok",
+          "meta"
+        ],
+        "type": "object"
       }
     },
-    "parameters": {}
+    "securitySchemes": {
+      "BearerAuth": {
+        "description": "Sendmux API key (smx_...)",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
   },
+  "info": {
+    "description": "Send emails programmatically via the Sendmux email infrastructure. Every response carries an `X-Request-Id` header; errors include a `retryable` flag. 429 and 503 responses include `Retry-After`. Mutating endpoints accept an `Idempotency-Key` header for safe retries.",
+    "title": "Sendmux Sending API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
   "paths": {
     "/emails/send": {
       "post": {
-        "operationId": "sendingSendEmail",
-        "summary": "Send a single email",
         "description": "Queue a single email for delivery. Requires `email.send` permission.",
-        "tags": ["Emails"],
-        "security": [{ "BearerAuth": [] }],
+        "operationId": "sendingSendEmail",
         "parameters": [
           {
-            "name": "Idempotency-Key",
+            "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
+            "example": "order-12345-2026-04-24",
             "in": "header",
+            "name": "Idempotency-Key",
             "required": false,
             "schema": {
-              "type": "string",
-              "minLength": 1,
               "maxLength": 255,
-              "pattern": "^[a-zA-Z0-9_-]+$"
-            },
-            "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
-            "example": "order-12345-2026-04-24"
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/EmailSendRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/EmailSendRequest"
+              }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
-            "description": "Email queued successfully",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/SendSuccessResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/SendSuccessResponse"
+                }
               }
-            }
+            },
+            "description": "Email queued successfully"
           },
           "400": {
-            "description": "Malformed request (invalid JSON or syntactic parameter error)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Malformed request (invalid JSON or syntactic parameter error)"
           },
           "401": {
-            "description": "Authentication required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Authentication required"
           },
           "402": {
-            "description": "Insufficient credits",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Insufficient credits"
           },
           "403": {
-            "description": "Insufficient permissions",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Insufficient permissions"
           },
           "409": {
-            "description": "Idempotency conflict (Idempotency-Key reused with different body, or request already in flight)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Idempotency conflict (Idempotency-Key reused with different body, or request already in flight)"
           },
           "413": {
-            "description": "Request body exceeds 25 MB",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Request body exceeds 25 MB"
           },
           "422": {
-            "description": "Validation error (schema failures, accumulated in error.errors[])",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Validation error (schema failures, accumulated in error.errors[])"
           },
           "429": {
-            "description": "Rate limit exceeded (Retry-After header included)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Rate limit exceeded (Retry-After header included)"
           },
           "503": {
-            "description": "Service unavailable (Retry-After header included)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Service unavailable (Retry-After header included)"
           }
-        }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Send a single email",
+        "tags": [
+          "Emails"
+        ]
       }
     },
     "/emails/send/batch": {
       "post": {
-        "operationId": "sendingSendEmailBatch",
-        "summary": "Send a batch of emails",
         "description": "Queue up to 100 emails for delivery in a single request. Uses partial success model — individual message failures do not fail the entire batch. Requires `email.send` permission.",
-        "tags": ["Emails"],
-        "security": [{ "BearerAuth": [] }],
+        "operationId": "sendingSendEmailBatch",
         "parameters": [
           {
-            "name": "Idempotency-Key",
+            "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
+            "example": "order-12345-2026-04-24",
             "in": "header",
+            "name": "Idempotency-Key",
             "required": false,
             "schema": {
-              "type": "string",
-              "minLength": 1,
               "maxLength": 255,
-              "pattern": "^[a-zA-Z0-9_-]+$"
-            },
-            "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
-            "example": "order-12345-2026-04-24"
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/BatchSendRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/BatchSendRequest"
+              }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
-            "description": "Batch processed (check individual results for per-message status)",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BatchSendSuccessResponse"
                 }
               }
-            }
+            },
+            "description": "Batch processed (check individual results for per-message status)"
           },
           "400": {
-            "description": "Malformed request (invalid JSON or syntactic parameter error)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Malformed request (invalid JSON or syntactic parameter error)"
           },
           "401": {
-            "description": "Authentication required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Authentication required"
           },
           "402": {
-            "description": "Insufficient credits for entire batch",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Insufficient credits for entire batch"
           },
           "403": {
-            "description": "Insufficient permissions",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Insufficient permissions"
           },
           "409": {
-            "description": "Idempotency conflict",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Idempotency conflict"
           },
           "413": {
-            "description": "Request body exceeds 25 MB",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Request body exceeds 25 MB"
           },
           "422": {
-            "description": "All messages failed validation",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "All messages failed validation"
           },
           "429": {
-            "description": "Rate limit exceeded",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Rate limit exceeded"
           },
           "503": {
-            "description": "Service unavailable or all messages failed with transient errors",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
-            }
+            },
+            "description": "Service unavailable or all messages failed with transient errors"
           }
-        }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Send a batch of emails",
+        "tags": [
+          "Emails"
+        ]
       }
     },
     "/openapi.json": {
       "get": {
+        "description": "Auto-generated OpenAPI 3.1 spec for the Sendmux Sending API. Public endpoint (no authentication). Emits a weak ETag; clients may send `If-None-Match` to receive 304 Not Modified.",
         "operationId": "sendingGetOpenApiSpec",
-        "summary": "OpenAPI 3.1 specification",
-        "description": "Auto-generated OpenAPI 3.1 spec for the SendMux Sending API. Public endpoint (no authentication). Emits a weak ETag; clients may send `If-None-Match` to receive 304 Not Modified.",
-        "tags": ["Meta"],
-        "security": [],
         "parameters": [
           {
-            "name": "If-None-Match",
+            "description": "Weak ETag from a previous response. When it matches the current resource, the server returns 304 Not Modified with no body.",
             "in": "header",
+            "name": "If-None-Match",
             "required": false,
-            "schema": { "type": "string" },
-            "description": "Weak ETag from a previous response. When it matches the current resource, the server returns 304 Not Modified with no body."
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OpenAPI 3.1 document",
-            "headers": {
-              "ETag": {
-                "schema": { "type": "string" },
-                "description": "Weak ETag of the canonical spec content"
-              },
-              "Cache-Control": {
-                "schema": { "type": "string" },
-                "description": "public, max-age=3600"
-              }
-            },
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
+                  "additionalProperties": {},
                   "properties": {},
-                  "additionalProperties": {}
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OpenAPI 3.1 document",
+            "headers": {
+              "Cache-Control": {
+                "description": "public, max-age=3600",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "ETag": {
+                "description": "Weak ETag of the canonical spec content",
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
           "304": {
             "description": "Spec has not changed (matches If-None-Match). Response body is empty per RFC 7232 §4.1.",
-            "headers": { "ETag": { "schema": { "type": "string" } } }
+            "headers": {
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [],
+        "summary": "OpenAPI 3.1 specification",
+        "tags": [
+          "Meta"
+        ]
       }
     }
   },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://smtp.sendmux.ai/api/v1"
+    }
+  ],
   "webhooks": {}
 }

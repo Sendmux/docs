@@ -15,6 +15,17 @@ keywords:
 
 API keys authenticate applications, scripts, mail clients, and automation. Keys are shown once when created or rotated, so store them in your secrets manager immediately.
 
+Connected apps are different. They appear on the same credentials page for management, but they use short-lived tokens instead of manual API keys.
+
+## Credential classes
+
+| Credential class | Created by | Secret lifetime | Where to manage it |
+| --- | --- | --- | --- |
+| **Manual API key** | A team member creates a key in Sendmux. | Long-lived until you rotate or revoke it. | **API Keys** with the **Manual keys** filter. |
+| **Connected app** | You authorise an app through OAuth, such as Product MCP. | 15-minute access tokens with rotating refresh tokens. | **API Keys** with the **Connected apps** filter. |
+
+Revoking a manual API key stops that key. Disconnecting a connected app stops that app refreshing access and using its existing connection.
+
 ## Key types
 
 | Key type               | Use it for                                                                            | Secret prefix |
@@ -29,6 +40,28 @@ Sending keys and mailbox keys share the `smx_mbx_` prefix. Their permissions and
   Each team starts with **100 active API keys** across all key types. See [Team
   limits](/guides/team-limits).
 </Note>
+
+## Connected apps
+
+Connected apps let tools such as Product MCP act with the product lines you authorise. During authorisation, you can choose Management, Mailbox, Sending, or a combination. Sendmux then issues a short-lived access token for the app and a refresh token that rotates when used.
+
+Connected apps do not create `smx_root_` or `smx_mbx_` secrets. They are listed separately from manual API keys so you can see which app is connected, which product lines it can use, who authorised it, when it was last used, and how many requests it has made.
+
+To manage connected apps:
+
+<Steps>
+  <Step title="Open API keys">
+    Open **API Keys** in the team workspace.
+  </Step>
+  <Step title="Filter to connected apps">
+    Use the credential filter and select **Connected apps**.
+  </Step>
+  <Step title="Disconnect an app">
+    Select the disconnect action beside the app. This revokes its refresh token and grant immediately.
+  </Step>
+</Steps>
+
+Re-authorising the same app updates the app connection instead of creating unused manual API keys.
 
 ## Create a key
 
