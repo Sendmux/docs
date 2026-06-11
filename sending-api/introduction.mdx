@@ -28,10 +28,10 @@ https://smtp.sendmux.ai/api/v1
 
 <Note>
   This is a different base URL from the [Management
-  API](/api-reference/introduction) (`app.sendmux.ai`).
+  API](/api/introduction) (`app.sendmux.ai`).
 </Note>
 
-Use the Management API to manage the accounts that the Sending API can use: list accounts, add custom SMTP accounts, activate or deactivate accounts, test SMTP connections, read usage, and request limit increases. See [Sending account management](/api-reference/introduction#sending-account-management).
+Use the Management API to manage the accounts that the Sending API can use: list accounts, add custom SMTP accounts, activate or deactivate accounts, test SMTP connections, read usage, and request limit increases. See [Sending account management](/api/introduction#sending-account-management).
 
 ## Authentication
 
@@ -88,7 +88,7 @@ All responses use the same JSON envelope as the Management API.
   "error": {
     "code": "insufficient_credits",
     "message": "Your team's balance is too low to send this email.",
-    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits",
+    "doc_url": "https://sendmux.ai/docs/sending-api/errors#insufficient_credits",
     "retryable": false
   },
   "meta": {
@@ -97,13 +97,13 @@ All responses use the same JSON envelope as the Management API.
 }
 ```
 
-The Sending API uses the same envelope as the [Management API](/api-reference/introduction): `code`, `message`, `param`, `doc_url`, `retryable`, accumulated `errors[]`, `X-Request-Id`, and `Retry-After`. See the [Sending API error reference](/sending-api/errors) for email delivery codes.
+The Sending API uses the same envelope as the [Management API](/api/introduction): `code`, `message`, `param`, `doc_url`, `retryable`, accumulated `errors[]`, `X-Request-Id`, and `Retry-After`. See the [Sending API error reference](/sending-api/errors) for email delivery codes.
 
 ## Rate limits
 
 Each send-only or mailbox key used on the Sending API is rate-limited to **1,800 requests per 60 seconds**. A batch send counts as **1 request**, regardless of how many messages it contains.
 
-Management API keys are limited separately to **600 requests per 60 seconds**. See the [Management API introduction](/api-reference/introduction#rate-limits).
+Management API keys are limited separately to **600 requests per 60 seconds**. See the [Management API introduction](/api/introduction#rate-limits).
 
 Every response carries the current rate-limit state plus a request identifier:
 
@@ -120,7 +120,7 @@ When the limit is exceeded, the API returns a `429` status with a `Retry-After` 
 
 ## Conditional requests
 
-Single-resource `GET` responses return a weak `ETag`. Send it back in an `If-None-Match` header on the next request; if the resource is unchanged the API responds `304 Not Modified` with no body, saving bandwidth. This is supported across the Sending API and the [Management API](/api-reference/introduction#conditional-requests) mailbox, domain, webhook, and log resources.
+Single-resource `GET` responses return a weak `ETag`. Send it back in an `If-None-Match` header on the next request; if the resource is unchanged the API responds `304 Not Modified` with no body, saving bandwidth. This is supported across the Sending API and the [Management API](/api/introduction#conditional-requests) mailbox, domain, webhook, and log resources.
 
 ## Conventions
 

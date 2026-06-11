@@ -95,7 +95,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": ["api-reference/introduction", "api-reference/errors"]
+            "pages": ["api/introduction", "api/errors"]
           },
           {
             "group": "Domains",
@@ -295,7 +295,7 @@
   "logo": {
     "light": "/images/logo-light.svg",
     "dark": "/images/logo-dark.svg",
-    "href": "https://docs.sendmux.ai"
+    "href": "https://sendmux.ai/docs"
   },
   "navbar": {
     "links": [
@@ -345,6 +345,11 @@
     }
   },
   "description": "The intelligent email layer",
+  "seo": {
+    "metatags": {
+      "canonical": "https://sendmux.ai/docs"
+    }
+  },
   "appearance": {
     "default": "system"
   },
@@ -360,6 +365,18 @@
     {
       "source": "/api-reference/webhooks/introduction",
       "destination": "/guides/webhooks-setup"
+    },
+    {
+      "source": "/api-reference",
+      "destination": "/api/introduction"
+    },
+    {
+      "source": "/api-reference/:slug*",
+      "destination": "/api/:slug*"
+    },
+    {
+      "source": "/api",
+      "destination": "/api/introduction"
     }
   ]
 }

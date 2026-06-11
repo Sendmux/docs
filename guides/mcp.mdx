@@ -15,7 +15,7 @@ Use this when you want an AI tool to answer questions from the Sendmux docs.
 
 | Setting | Value |
 | --- | --- |
-| Server URL | `https://docs.sendmux.ai/mcp` |
+| Server URL | `https://sendmux.ai/docs/mcp` |
 | Tool | `search_sendmux` |
 
 ### Connect Claude
@@ -26,14 +26,14 @@ Use this when you want an AI tool to answer questions from the Sendmux docs.
   </Step>
   <Step title="Add connector">Select **Add Connector**.</Step>
   <Step title="Enter the URL">
-    Use `https://docs.sendmux.ai/mcp` as the server URL.
+    Use `https://sendmux.ai/docs/mcp` as the server URL.
   </Step>
 </Steps>
 
 ### Connect Claude Code
 
 ```bash
-claude mcp add sendmux-docs --transport http https://docs.sendmux.ai/mcp
+claude mcp add sendmux-docs --transport http https://sendmux.ai/docs/mcp
 ```
 
 ### Connect Cursor
@@ -44,7 +44,7 @@ Add this server to your MCP configuration:
 {
   "mcpServers": {
     "sendmux-docs": {
-      "url": "https://docs.sendmux.ai/mcp"
+      "url": "https://sendmux.ai/docs/mcp"
     }
   }
 }
@@ -60,7 +60,7 @@ Add this server to your settings:
     "servers": {
       "sendmux-docs": {
         "type": "http",
-        "url": "https://docs.sendmux.ai/mcp"
+        "url": "https://sendmux.ai/docs/mcp"
       }
     }
   }

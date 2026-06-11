@@ -97,7 +97,7 @@ List endpoints include a `pagination` object alongside `data`.
     "code": "invalid_parameter",
     "message": "The 'from_date' parameter must be a valid ISO 8601 date.",
     "param": "from_date",
-    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
+    "doc_url": "https://sendmux.ai/docs/api/errors#invalid_parameter",
     "retryable": false
   },
   "meta": {
@@ -106,7 +106,7 @@ List endpoints include a `pagination` object alongside `data`.
 }
 ```
 
-The `retryable` flag distinguishes transient failures (back off and retry) from permanent ones (fix the request). See the [errors reference](/api-reference/errors) for the full envelope shape, the accumulated `errors[]` array on validation failures, and the `Retry-After` header semantics for `429`/`503`.
+The `retryable` flag distinguishes transient failures (back off and retry) from permanent ones (fix the request). See the [errors reference](/api/errors) for the full envelope shape, the accumulated `errors[]` array on validation failures, and the `Retry-After` header semantics for `429`/`503`.
 
 ## Errors
 

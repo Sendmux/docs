@@ -21,9 +21,9 @@ The Sendmux API uses standard HTTP status codes and returns a consistent error e
   "ok": false,
   "error": {
     "code": "invalid_parameter",
-  "message": "Description of the error.",
+    "message": "Description of the error.",
     "param": "from_date",
-    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
+    "doc_url": "https://sendmux.ai/docs/api/errors#invalid_parameter",
     "retryable": false
   },
   "meta": {
@@ -47,9 +47,9 @@ Every response also carries an `X-Request-Id` HTTP header that matches `meta.req
 
 The `retryable` field tells you whether retrying the same request is likely to succeed. Defaults follow this policy:
 
-| HTTP status | Default `retryable` | Why                                                                    |
-| ----------- | ------------------- | ---------------------------------------------------------------------- |
-| `429`       | `true`              | Back off until the rate-limit window resets.              |
+| HTTP status | Default `retryable` | Why                                                        |
+| ----------- | ------------------- | ---------------------------------------------------------- |
+| `429`       | `true`              | Back off until the rate-limit window resets.               |
 | `5xx`       | `true`              | Server-side issue or required service briefly unavailable. |
 | `4xx` other | `false`             | Caller-side problem. Fix the request before retrying.      |
 
@@ -74,7 +74,7 @@ When a request body fails schema validation on multiple fields, the error envelo
     "code": "invalid_parameter",
     "message": "Invalid request parameters.",
     "param": "filter_rules.0.action",
-    "doc_url": "https://docs.sendmux.ai/api-reference/errors#invalid_parameter",
+    "doc_url": "https://sendmux.ai/docs/api/errors#invalid_parameter",
     "retryable": false,
     "errors": [
       {
@@ -109,7 +109,7 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 ### insufficient_permissions
 
-**HTTP 403**: The API key is valid but lacks the required permission for this endpoint. Check the [permission table](/api-reference/introduction#permissions) to see which permission each endpoint requires.
+**HTTP 403**: The API key is valid but lacks the required permission for this endpoint. Check the [permission table](/api/introduction#permissions) to see which permission each endpoint requires.
 
 ### invalid_parameter
 

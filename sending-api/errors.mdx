@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-The Sending API uses the same error envelope as the [Management API](/api-reference/errors): `code`, `message`, `param`, `doc_url`, `retryable`, accumulated `errors[]`, `X-Request-Id`, and `Retry-After` on `429` or `503`. This page documents only the codes the Sending API emits.
+The Sending API uses the same error envelope as the [Management API](/api/errors): `code`, `message`, `param`, `doc_url`, `retryable`, accumulated `errors[]`, `X-Request-Id`, and `Retry-After` on `429` or `503`. This page documents only the codes the Sending API emits.
 
 ## Error response format
 
@@ -23,7 +23,7 @@ The Sending API uses the same error envelope as the [Management API](/api-refere
     "code": "insufficient_credits",
     "message": "A human-readable description of the error.",
     "param": "to.email",
-    "doc_url": "https://docs.sendmux.ai/sending-api/errors#insufficient_credits",
+    "doc_url": "https://sendmux.ai/docs/sending-api/errors#insufficient_credits",
     "retryable": false
   },
   "meta": {
@@ -32,11 +32,11 @@ The Sending API uses the same error envelope as the [Management API](/api-refere
 }
 ```
 
-`param` is only present when the error is tied to a specific request field. On accumulated validation failures, `error.errors` carries every issue. See [Validation errors with multiple issues](/api-reference/errors#validation-errors-with-multiple-issues). Always include `request_id` or the `X-Request-Id` response header when contacting support.
+`param` is only present when the error is tied to a specific request field. On accumulated validation failures, `error.errors` carries every issue. See [Validation errors with multiple issues](/api/errors#validation-errors-with-multiple-issues). Always include `request_id` or the `X-Request-Id` response header when contacting support.
 
 ## Shared error codes
 
-These codes are shared with the Management API. Their semantics are identical to the matching sections in the [Management error reference](/api-reference/errors).
+These codes are shared with the Management API. Their semantics are identical to the matching sections in the [Management error reference](/api/errors).
 
 ### authentication_required
 
