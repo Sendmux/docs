@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "Mailbox-scoped API endpoints for a single Sendmux mailbox."
+description: "Mailbox-scoped API endpoints for Sendmux mailbox credentials and connected apps."
 keywords:
   [
     "mailbox API",
@@ -14,7 +14,7 @@ keywords:
   ]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped credentials. Use it when a client should act only as the mailbox tied to its API key, not manage team-wide resources.
+The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 Team-wide mailbox provisioning stays in the [Management API](/api/introduction). High-volume provider-routed sending stays in the [Sending API](/sending-api/introduction).
 
@@ -28,19 +28,20 @@ https://app.sendmux.ai/api/v1
 
 ## Authentication
 
-Authenticate with a mailbox credential from the Sendmux app. Pass it as a Bearer token in the `Authorization` header.
+Authenticate with a mailbox credential or connected-app access token from the Sendmux app. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
 curl https://app.sendmux.ai/api/v1/mailbox/me \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
-Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mailbox API endpoints. The same credential is also accepted as the mailbox password for SMTP submission and IMAP retrieval.
+Manual mailbox credentials are scoped to one mailbox. The same credential is also accepted as the mailbox password for SMTP submission and IMAP retrieval. Connected-app tokens can be granted one or more mailboxes, and each mailbox request is limited to that granted set. Root API keys are rejected on Mailbox API endpoints.
 
 ## Current endpoints
 
 | Endpoint                                                         | Purpose                                                           |
 | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `GET /mailbox/mailboxes`                                         | List and search mailboxes granted to the bearer token.            |
 | `GET /mailbox/me`                                                | Return the mailbox associated with the bearer token.              |
 | `GET /mailbox/session`                                           | Return supported capabilities, limits, and current state tokens.  |
 | `GET /mailbox/identity`                                          | Return the mailbox's default sender identity and signatures.      |
@@ -83,10 +84,28 @@ Mailbox credentials are scoped to one mailbox. Root API keys are rejected on Mai
 
 Import the [Mailbox API Postman collection](/guides/postman-collection#choose-a-collection) when you want ready-made requests.
 
+## Mailbox targeting for connected apps
+
+Manual mailbox credentials always target their single mailbox. Omit `mailbox_id` when you use a manual `smx_mbx_` credential.
+
+Connected-app tokens can grant a set of mailboxes. Use `GET /mailbox/mailboxes` to list or search the granted set, then pass the selected mailbox's `id` as `mailbox_id` on Mailbox API requests.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/mailboxes?q=support" \
+  -H "Authorization: Bearer connected_app_access_token"
+```
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages?mailbox_id=mbx_clxxxxxxxxxxxxxxxxxxxxxxxxx&limit=10" \
+  -H "Authorization: Bearer connected_app_access_token"
+```
+
+If a connected app has exactly one granted mailbox, Mailbox API requests use that mailbox by default. If several mailboxes are granted and you omit `mailbox_id`, Sendmux returns `400 missing_parameter`. If you pass a mailbox outside the grant, Sendmux returns `403 insufficient_permissions`.
+
 ## Capability discovery
 
 Use `GET /mailbox/session` before planning a mailbox workflow. It returns the
-mailbox tied to the credential, supported Mailbox API features, current state
+selected mailbox, supported Mailbox API features, current state
 tokens, request limits, and gated features. A gated feature is intentionally
 unavailable through the Mailbox API.
 

@@ -198,6 +198,7 @@
           {
             "group": "Mailbox",
             "pages": [
+              "GET /mailbox/mailboxes",
               "GET /mailbox/me",
               "GET /mailbox/session",
               "GET /mailbox/identity",
