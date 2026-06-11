@@ -67,6 +67,12 @@
                   "disabled": false,
                   "key": "filename",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -203,6 +209,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -292,6 +304,12 @@
                   "disabled": true,
                   "key": "close_after",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -421,6 +439,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -483,7 +507,14 @@
                 "mailbox",
                 "folders"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -566,7 +597,14 @@
                 "folders",
                 ":folder_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -643,7 +681,14 @@
                 "folders",
                 ":folder_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -747,7 +792,14 @@
                 "folders",
                 ":folder_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -856,6 +908,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -930,6 +988,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -1003,6 +1067,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -1094,7 +1164,14 @@
                 "mailbox",
                 "identity"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -1197,7 +1274,14 @@
                 "mailbox",
                 "identity"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -1290,6 +1374,98 @@
         },
         {
           "event": [],
+          "name": "List granted mailboxes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Lists the mailboxes available to the current mailbox credential or connected app. Use this before choosing a `mailbox_id` for mailbox actions when more than one mailbox is available.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List granted mailboxes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "mailboxes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": true,
+                  "key": "q",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Granted mailboxes",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Mailbox access required",
+              "status": "Forbidden"
+            }
+          ]
+        },
+        {
+          "event": [],
           "name": "Self-introspect the calling mailbox",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -1321,7 +1497,14 @@
                 "mailbox",
                 "me"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -1552,6 +1735,12 @@
                   "disabled": true,
                   "key": "sort_direction",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -1656,7 +1845,14 @@
                 "mailbox",
                 "messages:batch-delete"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -1745,7 +1941,14 @@
                 "mailbox",
                 "messages:batch-get"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -1834,7 +2037,14 @@
                 "mailbox",
                 "messages:batch-update"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -1922,6 +2132,12 @@
                   "disabled": true,
                   "key": "permanent",
                   "value": "<boolean>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": [
@@ -2014,7 +2230,14 @@
                 "messages",
                 ":message_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -2118,7 +2341,14 @@
                 "messages",
                 ":message_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -2225,7 +2455,14 @@
                 "attachments",
                 ":attachment_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -2348,6 +2585,12 @@
                   "disabled": true,
                   "key": "max_body_chars",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": [
@@ -2494,6 +2737,12 @@
                 {
                   "disabled": true,
                   "key": "include_attachments",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
                   "value": "<string>"
                 }
               ],
@@ -2690,6 +2939,12 @@
                   "disabled": true,
                   "key": "is_unread",
                   "value": "<boolean>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -2874,6 +3129,12 @@
                   "disabled": true,
                   "key": "sort_direction",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3039,6 +3300,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3122,7 +3389,14 @@
                 "messages",
                 "send"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -3266,6 +3540,12 @@
                   "disabled": true,
                   "key": "sort_direction",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3340,6 +3620,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3409,7 +3695,14 @@
                 "mailbox",
                 "session"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },
@@ -3563,6 +3856,12 @@
                   "disabled": true,
                   "key": "sort_direction",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3633,7 +3932,14 @@
                 "submissions",
                 ":submission_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -3728,6 +4034,12 @@
                   "disabled": true,
                   "key": "limit",
                   "value": "<integer>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3841,6 +4153,12 @@
                   "disabled": true,
                   "key": "sort_direction",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": []
@@ -3939,7 +4257,14 @@
                 "threads",
                 ":thread_id"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": [
                 {
                   "description": "(Required) ",
@@ -4086,6 +4411,12 @@
                   "disabled": true,
                   "key": "sort",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": [
@@ -4202,6 +4533,12 @@
                   "disabled": true,
                   "key": "sort",
                   "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
                 }
               ],
               "variable": [
@@ -4293,7 +4630,14 @@
                 "mailbox",
                 "usage"
               ],
-              "query": [],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
               "variable": []
             }
           },

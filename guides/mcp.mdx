@@ -81,12 +81,12 @@ Use the Product MCP when you want an agent to act inside Sendmux. A single conne
 | Product line | What the agent can do | Credential authority |
 | --- | --- | --- |
 | Management | Manage domains, mailboxes, sending accounts, webhooks, logs, metrics, and billing data. | Team-level access |
-| Mailbox | Read, search, organise, thread, and send from one mailbox. | Mailbox access |
+| Mailbox | Read, search, organise, thread, and send from selected mailboxes. | Selected mailbox access |
 | Sending | Send outbound email without mailbox reading tools. | Sending access |
 
 <Info>
   Choosing more product lines never grants more authority than your team role,
-  selected mailbox, and consent allow. Tools for product lines you did not
+  selected mailbox set, and consent allow. Tools for product lines you did not
   authorise are not shown to the agent.
 </Info>
 
@@ -112,6 +112,10 @@ When you connect:
     Select Management, Mailbox, Sending, or any combination. Choose all three
     when the agent should see every curated Sendmux tool.
   </Step>
+  <Step title="Choose mailboxes">
+    If you select Mailbox, choose one or more mailboxes the agent can use. Use
+    search or select all when your team has many mailboxes.
+  </Step>
   <Step title="Authorise">
     Review the requested access and select **Authorise**.
   </Step>
@@ -119,7 +123,9 @@ When you connect:
 
 Connected apps use short-lived access tokens that last 15 minutes. Refresh tokens rotate on use and can last up to 30 days unless the connection is disconnected or the grant expires. The connection does not create a manual `smx_root_` or `smx_mbx_` API key.
 
-Re-authorising the same hosted connection replaces the previous product-line selection for that app. Product lines you remove during re-authorisation disappear from the agent's tool list.
+When more than one mailbox is granted, agents can call `mailbox_list_granted_mailboxes` to search the granted set and pass `mailbox_id` to mailbox tools. If only one mailbox is granted, mailbox tools use it by default.
+
+Re-authorising the same hosted connection replaces the previous product-line and mailbox selections for that app. Product lines or mailboxes you remove during re-authorisation disappear from the agent's tool list or allowed mailbox targets.
 
 Hosted Product MCP requests keep the same permission, sending-scope, and rate-limit checks as direct Sendmux API requests before each request is accepted. For example, adding Sending tools to an agent does not let it send from mailboxes, sending accounts, or account groups outside the access you granted.
 
@@ -166,6 +172,8 @@ sendmux-mcp \
 Management requires an `smx_root_` key. Mailbox and Sending require an `smx_mbx_` key. A key with lower authority will not expose higher-authority tools.
 
 Use separate keys for separate local product lines when that is how your team grants least-privilege access. For example, a local all-three setup can use one management key plus separate mailbox and sending keys.
+
+Local MCP with a manual mailbox key acts as that one mailbox. Hosted Product MCP can grant a mailbox set and target each mailbox by `mailbox_id`.
 
 ## Tool coverage
 

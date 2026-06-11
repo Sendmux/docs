@@ -4,6 +4,17 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="11 June 2026" tags={["Improvements"]} rss={{ title: "Hosted MCP can grant selected mailbox sets" }}>
+  ## Hosted MCP
+
+Hosted Product MCP can now grant one or more selected mailboxes in the same connected app. Agents can search the granted mailbox set, target a mailbox for each mailbox action, and remain blocked from any mailbox that was not authorised.
+
+  ## Mailbox API
+
+Connected-app Mailbox API requests now support `mailbox_id` targeting. Use `GET /mailbox/mailboxes` to list or search the mailboxes available to the token before making a mailbox-specific request.
+
+</Update>
+
 <Update label="10 June 2026" tags={["New features","Improvements"]} rss={{ title: "MCP, SDK, and CLI access now compose across product lines" }}>
   ## MCP
 

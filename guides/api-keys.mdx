@@ -43,9 +43,9 @@ Sending keys and mailbox keys share the `smx_mbx_` prefix. Their permissions and
 
 ## Connected apps
 
-Connected apps let tools such as Product MCP act with the product lines you authorise. During authorisation, you can choose Management, Mailbox, Sending, or a combination. Sendmux then issues a short-lived access token for the app and a refresh token that rotates when used.
+Connected apps let tools such as Product MCP act with the product lines you authorise. During authorisation, you can choose Management, Mailbox, Sending, or a combination. If you choose Mailbox, you also choose the mailbox set the app can use. Sendmux then issues a short-lived access token for the app and a refresh token that rotates when used.
 
-Connected apps do not create `smx_root_` or `smx_mbx_` secrets. They are listed separately from manual API keys so you can see which app is connected, which product lines it can use, who authorised it, when it was last used, and how many requests it has made.
+Connected apps do not create `smx_root_` or `smx_mbx_` secrets. They are listed separately from manual API keys so you can see which app is connected, which product lines it can use, which mailbox set is selected, who authorised it, when it was last used, and how many requests it has made.
 
 To manage connected apps:
 
@@ -61,7 +61,7 @@ To manage connected apps:
   </Step>
 </Steps>
 
-Re-authorising the same app updates the existing connection instead of creating unused manual API keys. If you choose fewer product lines during re-authorisation, tools from the removed product lines stop being available to that app.
+Re-authorising the same app updates the existing connection instead of creating unused manual API keys. If you choose fewer product lines or mailboxes during re-authorisation, removed tools and mailbox targets stop being available to that app.
 
 ## Create a key
 
