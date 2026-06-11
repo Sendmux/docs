@@ -91,7 +91,10 @@
       },
       {
         "tab": "Management API",
-        "openapi": "https://app.sendmux.ai/api/v1/openapi.json",
+        "openapi": {
+          "source": "https://app.sendmux.ai/api/v1/openapi.json",
+          "directory": "api"
+        },
         "groups": [
           {
             "group": "Overview",
@@ -183,7 +186,10 @@
       },
       {
         "tab": "Mailbox API",
-        "openapi": "https://app.sendmux.ai/api/v1/openapi.json",
+        "openapi": {
+          "source": "https://app.sendmux.ai/api/v1/openapi.json",
+          "directory": "api"
+        },
         "groups": [
           {
             "group": "Overview",
@@ -264,7 +270,10 @@
       },
       {
         "tab": "Sending API",
-        "openapi": "https://smtp.sendmux.ai/api/v1/openapi.json",
+        "openapi": {
+          "source": "https://smtp.sendmux.ai/api/v1/openapi.json",
+          "directory": "api"
+        },
         "groups": [
           {
             "group": "Overview",
