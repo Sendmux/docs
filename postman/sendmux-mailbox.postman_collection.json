@@ -5329,7 +5329,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "API key limit reached (`limit_exceeded`) or idempotency key conflict (`idempotency_conflict`).",
+              "name": "Credential limit reached (`limit_exceeded`) or idempotency key conflict (`idempotency_conflict`).",
               "status": "Conflict"
             },
             {

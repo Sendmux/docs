@@ -4,6 +4,18 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="12 June 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Credential limits now include connected apps" }}>
+  ## Credentials
+
+Team credential limits now count manual API keys and connected apps together. Quota labels across the app now use **credentials**, so usage matches what counts toward the limit.
+
+  ## Bug fixes
+
+- Creating a new connected app is now blocked when the team has reached its credential limit.
+- Re-authorising the same connected app still works at the limit because it replaces the existing connection instead of adding another credential.
+
+</Update>
+
 <Update label="12 June 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Connected app permissions are easier to review" }}>
   ## Connected apps
 
