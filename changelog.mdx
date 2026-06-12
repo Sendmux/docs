@@ -4,6 +4,23 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="12 June 2026" tags={["Bug fixes", "Improvements"]} rss={{ title: "Mailbox sender rules save reliably and accept wildcard patterns" }}>
+  ## Mailbox sender rules
+
+Sender allow/block rules on the mailbox detail page now save and persist reliably. Previously a rule could appear saved in the editor but be missing after a page refresh.
+
+  ## Improvements
+
+- Wildcard patterns like `*@example.com` are now accepted and saved as the bare domain (`example.com`), which allows or blocks the entire sender domain at delivery.
+- When a rule can't be saved, the editor shows a persistent inline error explaining why, instead of only a brief notification.
+- The sender filters API now accepts the documented `note` field on rules, and rejects rule sets whose rule type contradicts the selected mode instead of silently dropping them.
+
+  ## Bug fixes
+
+- Fixed saved sender rules not appearing on the mailbox page after a refresh.
+
+</Update>
+
 <Update label="11 June 2026" tags={["Bug fixes"]} rss={{ title: "Hosted MCP keeps mailbox targeting to mailbox tools" }}>
   ## Hosted MCP
 
