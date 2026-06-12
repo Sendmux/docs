@@ -4,6 +4,18 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="12 June 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Connected app permissions are easier to review" }}>
+  ## Connected apps
+
+Connected app authorisation now groups permissions by area and lets you choose none, read, full, or a custom set for each group. This makes broad Management API grants easier to scan before you connect an agent.
+
+  ## Bug fixes
+
+- Connected app authorisation now grants only the permissions selected in the consent flow.
+- Re-authorising mailbox access now always uses the selected mailbox set instead of falling back to a single-mailbox grant shape.
+
+</Update>
+
 <Update label="12 June 2026" tags={["Bug fixes", "Improvements"]} rss={{ title: "Mailbox sender rules save reliably and accept wildcard patterns" }}>
   ## Mailbox sender rules
 
