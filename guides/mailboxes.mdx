@@ -63,16 +63,36 @@ These values become the mailbox defaults. Individual API sends can still provide
 
 ## Sender rules
 
-Sender rules control inbound mail for the mailbox.
+Sender rules control inbound mail for the mailbox. Open a mailbox and use the **Sender rules** card to add rules, then choose **Save rules**.
 
-| Rule type | Behaviour                                                  |
-| --------- | ---------------------------------------------------------- |
-| **Allow** | Deliver only mail that matches trusted senders or domains. |
-| **Block** | Reject mail from known noisy or unwanted senders.          |
+| Rule type | Behaviour                                                                          |
+| --------- | ---------------------------------------------------------------------------------- |
+| **Allow** | Deliver only mail that matches a rule. Every other sender is rejected.             |
+| **Block** | Reject mail that matches a rule. Every other sender is delivered.                  |
 
-A mailbox can use allow rules or block rules, not both at the same time. Clear all rules before switching rule type.
+A mailbox can use allow rules or block rules, not both at the same time. Clear all rules before switching rule type. Removing every rule turns filtering off, so all senders are delivered again.
 
-Rules run before a message is accepted into the mailbox. Rejected mail is not billed as accepted inbound usage.
+### Pattern formats
+
+Each rule matches the sender's envelope address. Three formats are accepted:
+
+| Pattern              | Matches                                              |
+| -------------------- | ---------------------------------------------------- |
+| `name@example.com`   | That exact address only.                             |
+| `example.com`        | Every address at that domain.                        |
+| `*@example.com`      | Saved as `example.com` — every address at the domain. |
+
+Patterns are case-insensitive and stored in lowercase. Each rule can carry an optional note (up to 255 characters) to record why it exists — notes never affect matching. A mailbox or domain can hold up to 1,000 rules.
+
+### How matching works
+
+- Rules run before a message is accepted, so a blocked sender receives a rejection from their own provider rather than landing in spam. Rejected mail is not billed as accepted inbound usage.
+- Mailbox rules take precedence: when a mailbox has its own rules, any domain-wide rules are skipped for that mailbox.
+- If a rule can't be saved, the editor shows the reason inline — fix the highlighted pattern and save again.
+
+### Manage rules via the API
+
+The Management API exposes the same rules for automation: `GET`/`PUT /mailboxes/{public_id}/filters` for one mailbox, and `GET`/`PUT /domains/{public_id}/filters` to apply a rule set across every mailbox on a domain. Each `PUT` replaces the whole rule set in a single atomic operation. See the [Management API reference](/api/introduction).
 
 ## Suspend, resume, and delete
 
