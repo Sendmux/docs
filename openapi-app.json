@@ -13657,6 +13657,16 @@
               }
             },
             "description": "Mailbox is not active"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Credential setup temporarily unavailable"
           }
         },
         "security": [
