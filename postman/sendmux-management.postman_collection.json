@@ -386,10 +386,10 @@
                   "language": "json"
                 }
               },
-              "raw": "{\n  \"domain\": \"<string>\"\n}"
+              "raw": "{\n  \"domain\": \"<string>\",\n  \"mode\": \"<string>\"\n}"
             },
             "description": {
-              "content": "Creates a new sending domain and returns the DNS records the customer must place before verification can succeed. Provisioning touches both our mail platform and Amazon SES — on any failure the partial state is automatically rolled back.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
+              "content": "Creates a new domain and returns the DNS records the customer must place before verification can succeed. `send_only` configures outbound sending without changing MX records. `send_receive` also configures the domain for hosted mailboxes. Provisioning touches our email platform and Amazon SES; on any failure the partial state is automatically rolled back.\n\nSupply an `Idempotency-Key` header (any unique string, max 255 chars) to safely retry on network errors. Replays with the same key return the original response; replays with a different body return `409 idempotency_conflict`.",
               "type": "text/plain"
             },
             "header": [
@@ -674,13 +674,150 @@
         },
         {
           "event": [],
+          "name": "Update a mailbox domain",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"mode\": \"<string>\"\n}"
+            },
+            "description": {
+              "content": "Upgrades a send-only domain to sending and receiving. Downgrades are rejected. After upgrade, the domain returns to `pending` until the required MX record verifies.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update a mailbox domain",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "domains",
+                ":public_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "public_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Weak ETag for the post-update resource.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Updated domain",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid request body",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "`If-Match` mismatch, or the domain cannot be upgraded in its current state.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Unsupported update. Only `{ mode: \"send_receive\" }` is accepted.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            }
+          ]
+        },
+        {
+          "event": [],
           "name": "Verify a mailbox domain",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
           "request": {
             "description": {
-              "content": "Runs an immediate DNS-over-HTTPS check of the domain's MX, SPF, DMARC and ownership TXT records, then asks SES for the latest DKIM status. If every check passes the domain is marked verified. Domains automatically re-verify every 6 hours — this endpoint is only needed to trigger a check on demand.",
+              "content": "Runs an immediate DNS-over-HTTPS check of the domain's required DNS records, then asks Amazon SES for the latest DKIM status. If every required check passes the domain is marked verified. Domains automatically re-verify every 6 hours — this endpoint is only needed to trigger a check on demand.",
               "type": "text/plain"
             },
             "header": [
@@ -838,7 +975,7 @@
           },
           "request": {
             "description": {
-              "content": "Returns the current sender-filter mode and rule set applied to every mailbox under this domain. Per-mailbox rules take precedence at match time.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
+              "content": "Returns the current sender-filter mode and rule set applied to every mailbox under this domain. Only sending and receiving domains support domain-wide filters. Per-mailbox rules take precedence at match time.\n\nResponses carry a weak `ETag` — send it as `If-None-Match` to skip the body when the filter set has not changed (returns `304 Not Modified`). The same ETag is the value to use in `If-Match` on the corresponding PUT for optimistic concurrency.",
               "type": "text/plain"
             },
             "header": [
@@ -934,6 +1071,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Domain is send-only and does not support inbound filters.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 503,
               "cookie": [],
               "header": [
@@ -964,7 +1115,7 @@
               "raw": "{\n  \"mode\": \"<string>\",\n  \"rules\": [\n    {\n      \"note\": \"<string,null>\",\n      \"pattern\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}"
             },
             "description": {
-              "content": "Atomically replaces the sender-filter mode and rule set for an entire domain. Applies to every mailbox under the domain unless that mailbox has its own per-mailbox rules (which take precedence). Maximum 1000 rules per request.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
+              "content": "Atomically replaces the sender-filter mode and rule set for an entire sending and receiving domain. Applies to every mailbox under the domain unless that mailbox has its own per-mailbox rules (which take precedence). Maximum 1000 rules per request.\n\nFor optimistic concurrency, send `If-Match: <etag>` using the ETag from a prior GET. A mismatched `If-Match` returns `409 conflict` (the server's ETag is echoed back so you can decide whether to re-fetch). Responses carry the new ETag so chained edits can pipeline without a re-GET.",
               "type": "text/plain"
             },
             "header": [
@@ -1066,7 +1217,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "`If-Match` ETag does not match the server's current version.",
+              "name": "`If-Match` ETag does not match the server's current version, or the domain is send-only.",
               "status": "Conflict"
             },
             {

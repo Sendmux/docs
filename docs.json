@@ -92,7 +92,7 @@
       {
         "tab": "Management API",
         "openapi": {
-          "source": "https://app.sendmux.ai/api/v1/openapi.json",
+          "source": "openapi-app.json",
           "directory": "api"
         },
         "groups": [
@@ -106,6 +106,7 @@
               "GET /domains",
               "POST /domains",
               "GET /domains/{public_id}",
+              "PATCH /domains/{public_id}",
               "GET /domains/{public_id}/zone-file",
               "POST /domains/{public_id}/verify",
               "DELETE /domains/{public_id}",
@@ -187,7 +188,7 @@
       {
         "tab": "Mailbox API",
         "openapi": {
-          "source": "https://app.sendmux.ai/api/v1/openapi.json",
+          "source": "openapi-app.json",
           "directory": "api"
         },
         "groups": [

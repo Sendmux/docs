@@ -1,18 +1,19 @@
 ---
 title: "Domains"
-description: "Add, verify, and manage custom domains for Sendmux mailboxes."
+description: "Add, verify, and manage custom domains for sending and receiving."
 keywords:
   ["domains", "DNS", "SPF", "DKIM", "DMARC", "verification", "custom domain"]
 ---
 
-Use a custom domain when you want branded mailbox addresses such as `support@example.com`. A domain must be verified before you can create mailboxes on it.
+Use a custom domain when you want branded sending, hosted mailboxes, or both. Choose the domain mode when you add it: sending only avoids MX changes, while sending & receiving lets you create mailboxes after verification.
 
-## Shared vs custom domains
+## Domain options
 
-| Option                     | Best for                              | DNS required |
-| -------------------------- | ------------------------------------- | ------------ |
-| `myagent.mx` shared domain | Fast tests and simple agents          | No           |
-| Custom domain              | Production mail and branded addresses | Yes          |
+| Option                              | Best for                                            | DNS required   |
+| ----------------------------------- | --------------------------------------------------- | -------------- |
+| `myagent.mx` shared domain          | Fast tests and simple agents                        | No             |
+| Custom domain, sending only         | Branded outbound mail while another inbox receives  | TXT and CNAME  |
+| Custom domain, sending & receiving  | Branded mailboxes hosted in Sendmux                 | TXT, CNAME, MX |
 
 <Note>
   Each team starts with **25 domains**. See [Team limits](/guides/team-limits).
@@ -27,30 +28,40 @@ Use a custom domain when you want branded mailbox addresses such as `support@exa
   <Step title="Enter the domain">
     Enter the domain you own, such as `mail.example.com` or `example.com`.
   </Step>
+  <Step title="Choose usage">
+    Choose **Sending only** if Sendmux should only send from the domain. Choose
+    **Sending & receiving** if Sendmux should also receive mail and host
+    mailboxes on the domain.
+  </Step>
   <Step title="Copy DNS records">
-    Sendmux shows the records needed for ownership, inbound routing, sending
-    policy, message policy, and email signing.
+    Sendmux shows the records required for your chosen usage. Sending-only
+    domains do not show an MX record.
   </Step>
   <Step title="Publish the records">
     Add each record at your DNS provider. Copy values exactly as shown.
   </Step>
   <Step title="Verify">
-    Select **Verify** after the records have propagated. The domain is ready
-    when all records show as ready.
+    Select **Verify** after the records have propagated. Sending-only domains
+    check ownership, sending policy, message policy, and email signing. Sending
+    & receiving domains also check inbound routing.
   </Step>
 </Steps>
 
 ## DNS records
 
-| Purpose        | Record | What it does                                   |
-| -------------- | ------ | ---------------------------------------------- |
-| Ownership      | TXT    | Confirms you control the domain.               |
-| Receive mail   | MX     | Routes inbound mail for the domain to Sendmux. |
-| Email signing  | CNAME  | Enables DKIM signing through Amazon SES.       |
-| Sending policy | TXT    | Authorises Sendmux to send for the domain.     |
-| Message policy | TXT    | Defines DMARC handling for suspicious mail.    |
+| Purpose        | Record | Required for                  | What it does                                   |
+| -------------- | ------ | ----------------------------- | ---------------------------------------------- |
+| Ownership      | TXT    | Both modes                    | Confirms you control the domain.               |
+| Email signing  | CNAME  | Both modes                    | Enables DKIM signing through Amazon SES.       |
+| Sending policy | TXT    | Both modes                    | Authorises Sendmux to send for the domain.     |
+| Message policy | TXT    | Both modes                    | Defines DMARC handling for suspicious mail.    |
+| Receive mail   | MX     | Sending & receiving           | Routes inbound mail for the domain to Sendmux. |
 
 You can download the records as a zone file from the domain detail page.
+
+## Enable receiving later
+
+Open the sending-only domain and choose **Switch to sending & receiving**. Sendmux adds the MX requirement, resets the domain to pending, and asks you to verify again. Add the MX record before creating mailboxes.
 
 ## Verification states
 
@@ -71,8 +82,9 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
     domain.
   </Accordion>
   <Accordion title="Inbound routing is not found">
-    Check that the MX record is on the same domain you added to Sendmux. DNS
-    proxying features do not apply to MX records.
+    This only applies to sending & receiving domains. Check that the MX record
+    is on the same domain you added to Sendmux. DNS proxying features do not
+    apply to MX records.
   </Accordion>
   <Accordion title="SPF is failing">
     Keep only one SPF record for the same domain name. Merge all `include:`
@@ -90,13 +102,13 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
 
 ## Delete a domain
 
-Deletion is blocked while active mailboxes still use the domain. Delete or move those mailboxes first, then delete the domain.
+Deleting a sending-only domain stops sending from it. Deleting a sending & receiving domain is blocked while active mailboxes still use it. Delete or move those mailboxes first, then delete the domain.
 
 After deletion, remove the DNS records from your DNS provider if you no longer need them.
 
 ## API access
 
-Use the Management API when you want to create, list, verify, or delete domains from your own tooling. Keep API shape, permissions, and error handling in the generated reference so your client follows the current contract.
+Use the Management API when you want to create, list, upgrade, verify, or delete domains from your own tooling. Keep API shape, permissions, and error handling in the generated reference so your client follows the current contract.
 
 <Card
   title="Management API"
@@ -110,10 +122,10 @@ Use the Management API when you want to create, list, verify, or delete domains 
 
 <Columns cols={2}>
   <Card title="Mailboxes" icon="inbox" href="/guides/mailboxes">
-    Create addresses on verified domains.
+    Create addresses on verified sending & receiving domains.
   </Card>
   <Card title="Domain settings" icon="settings" href="/guides/domain-settings">
-    See the coming-soon inbound handling controls.
+    Review inbound controls for sending & receiving domains.
   </Card>
   <Card title="Sending accounts" icon="mail" href="/guides/sending-accounts">
     Connect providers for outbound sending.
