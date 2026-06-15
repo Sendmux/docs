@@ -4,6 +4,19 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="15 June 2026" tags={["New features", "Improvements"]} rss={{ title: "Domains can now be set up for sending only" }}>
+  ## Domains
+
+Domains can now be set up for sending only, or for sending and receiving. Sending-only domains require ownership, SPF, DKIM, and DMARC records, and leave incoming mail with your current provider.
+
+  ## Improvements
+
+- Domains that send and receive still include mailbox setup and MX records.
+- Sending-only domains can be switched to sending and receiving later.
+- The Management API now documents the domain mode field and the upgrade endpoint.
+
+</Update>
+
 <Update label="14 June 2026" tags={["Bug fixes"]} rss={{ title: "Mailbox keys are only shown once they're ready" }}>
   ## Bug fixes
 
