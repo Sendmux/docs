@@ -6228,7 +6228,8 @@
             "enum": [
               "pending",
               "approved",
-              "denied"
+              "denied",
+              "cancelled"
             ],
             "type": "string"
           }
@@ -6243,10 +6244,45 @@
           "created_at",
           "decided_at"
         ],
-        "type": [
-          "object",
-          "null"
-        ]
+        "type": "object"
+      },
+      "SharedAmazonSesLimitRequestCancel": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "$ref": "#/components/schemas/SharedAmazonSesLimit"
+          },
+          "request": {
+            "$ref": "#/components/schemas/SharedAmazonSesLimitRequest"
+          }
+        },
+        "required": [
+          "request",
+          "limit"
+        ],
+        "type": "object"
+      },
+      "SharedAmazonSesLimitRequestCancelResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SharedAmazonSesLimitRequestCancel"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
       },
       "SharedAmazonSesLimitRequestCreate": {
         "additionalProperties": false,
@@ -6255,14 +6291,7 @@
             "$ref": "#/components/schemas/SharedAmazonSesLimit"
           },
           "request": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SharedAmazonSesLimitRequest"
-              },
-              {
-                "type": "object"
-              }
-            ]
+            "$ref": "#/components/schemas/SharedAmazonSesLimitRequest"
           }
         },
         "required": [
@@ -6300,7 +6329,17 @@
             "$ref": "#/components/schemas/SharedAmazonSesLimit"
           },
           "pending_request": {
-            "$ref": "#/components/schemas/SharedAmazonSesLimitRequest"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SharedAmazonSesLimitRequest"
+              },
+              {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              }
+            ]
           }
         },
         "required": [
@@ -14853,6 +14892,65 @@
           }
         ],
         "summary": "Request a shared Amazon SES daily limit increase",
+        "tags": [
+          "Sending accounts"
+        ]
+      }
+    },
+    "/providers/shared-amazon-ses-limit-request/{request_id}": {
+      "delete": {
+        "description": "Cancels a pending shared Amazon SES daily limit increase request for the caller's team. Approved or denied requests cannot be cancelled.",
+        "operationId": "managementCancelSharedAmazonSesLimitRequest",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "description": "Shared Amazon SES limit request public ID",
+              "example": "slir_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SharedAmazonSesLimitRequestCancelResponse"
+                }
+              }
+            },
+            "description": "Request cancelled"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request not found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request has already been approved or denied"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Cancel a shared Amazon SES daily limit request",
         "tags": [
           "Sending accounts"
         ]

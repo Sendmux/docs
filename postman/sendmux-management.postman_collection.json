@@ -2908,6 +2908,91 @@
         },
         {
           "event": [],
+          "name": "Cancel a shared Amazon SES daily limit request",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Cancels a pending shared Amazon SES daily limit increase request for the caller's team. Approved or denied requests cannot be cancelled.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Cancel a shared Amazon SES daily limit request",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "providers",
+                "shared-amazon-ses-limit-request",
+                ":request_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "request_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request cancelled",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request not found",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request has already been approved or denied",
+              "status": "Conflict"
+            }
+          ]
+        },
+        {
+          "event": [],
           "name": "Get sending account statistics",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
