@@ -13,7 +13,7 @@ keywords:
   ]
 ---
 
-A mailbox is one email address on a verified custom domain or on the shared `myagent.mx` domain. It can send mail, receive mail, hold messages, and have its own passwords and sender rules.
+A mailbox is one email address on a verified sending & receiving custom domain or on the shared `myagent.mx` domain. It can send mail, receive mail, hold messages, and have its own passwords and sender rules.
 
 <Note>
   Each team starts with **50 active mailboxes**. See [Team
@@ -27,8 +27,8 @@ A mailbox is one email address on a verified custom domain or on the shared `mya
     Open **Mailboxes** and select **Create mailbox**.
   </Step>
   <Step title="Choose the address">
-    Enter a local part and choose a verified domain. Leave the local part blank
-    if you want Sendmux to generate one.
+    Enter a local part and choose a verified sending & receiving domain. Leave
+    the local part blank if you want Sendmux to generate one.
   </Step>
   <Step title="Set display name and storage">
     Add an optional display name and choose **1 GB**, **5 GB**, or **50 GB**
@@ -92,7 +92,7 @@ Patterns are case-insensitive and stored in lowercase. Each rule can carry an op
 
 ### Manage rules via the API
 
-The Management API exposes the same rules for automation: `GET`/`PUT /mailboxes/{public_id}/filters` for one mailbox, and `GET`/`PUT /domains/{public_id}/filters` to apply a rule set across every mailbox on a domain. Each `PUT` replaces the whole rule set in a single atomic operation. See the [Management API reference](/api/introduction).
+The Management API exposes the same rules for automation: `GET`/`PUT /mailboxes/{public_id}/filters` for one mailbox, and `GET`/`PUT /domains/{public_id}/filters` to apply a rule set across every mailbox on a sending & receiving domain. Each `PUT` replaces the whole rule set in a single atomic operation. See the [Management API reference](/api/introduction).
 
 ## Suspend, resume, and delete
 
@@ -104,7 +104,7 @@ The Management API exposes the same rules for automation: `GET`/`PUT /mailboxes/
 
 <Columns cols={2}>
   <Card title="Domains" icon="globe" href="/guides/domain-management">
-    Verify custom domains before creating branded mailboxes.
+    Verify sending & receiving domains before creating branded mailboxes.
   </Card>
   <Card title="API keys" icon="key" href="/guides/api-keys">
     Create mailbox keys for API and mail client access.

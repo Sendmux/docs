@@ -5345,6 +5345,20 @@
               ],
               "name": "Mailbox is not active",
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Credential setup temporarily unavailable",
+              "status": "Service Unavailable"
             }
           ]
         },

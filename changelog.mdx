@@ -4,6 +4,34 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="15 June 2026" tags={["Improvements"]} rss={{ title: "Limit increase requests can be cancelled" }}>
+  ## Management API
+
+Pending shared Amazon SES limit increase requests can now be cancelled through the Management API. Once cancelled, the team can submit a new request when they are ready.
+
+</Update>
+
+<Update label="15 June 2026" tags={["New features", "Improvements"]} rss={{ title: "Domains can now be set up for sending only" }}>
+  ## Domains
+
+Custom domains can now be set up for sending only, or for sending and receiving. Sending-only domains require ownership, SPF, DKIM, and DMARC records, and leave incoming mail with your current provider.
+
+  ## Improvements
+
+- Domains that send and receive still include mailbox setup and MX records.
+- Sending-only domains can be switched to sending and receiving later.
+- The Management API now documents the domain mode field and the upgrade endpoint.
+
+</Update>
+
+<Update label="14 June 2026" tags={["Bug fixes"]} rss={{ title: "Mailbox keys are only shown once they're ready" }}>
+  ## Bug fixes
+
+- New mailbox keys now confirm access before they are shown, so you can use the returned key immediately.
+- If key setup is temporarily unavailable, the Management API now returns a retryable service unavailable response instead of showing a key that is not ready yet.
+
+</Update>
+
 <Update label="12 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox replies and message actions stay fresh" }}>
   ## Inboxes
 
