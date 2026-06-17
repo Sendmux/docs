@@ -39,6 +39,26 @@
             ]
           },
           {
+            "group": "SDKs",
+            "pages": [
+              "sdks/index",
+              "sdks/typescript",
+              "sdks/python",
+              "sdks/go",
+              "sdks/php",
+              "sdks/ruby",
+              "sdks/versioning-support"
+            ]
+          },
+          {
+            "group": "CLI",
+            "pages": ["cli/index"]
+          },
+          {
+            "group": "MCP",
+            "pages": ["guides/mcp"]
+          },
+          {
             "group": "Teams and access",
             "pages": [
               "guides/teams-access",
@@ -82,40 +102,6 @@
               "guides/webhooks-verify-signatures",
               "guides/webhook-replay"
             ]
-          },
-          {
-            "group": "AI integrations",
-            "pages": ["guides/mcp"]
-          }
-        ]
-      },
-      {
-        "tab": "SDKs",
-        "icon": "code",
-        "groups": [
-          {
-            "group": "Start here",
-            "icon": "book-open",
-            "pages": [
-              "sdks/index",
-              "sdks/typescript",
-              "sdks/python",
-              "sdks/go",
-              "sdks/php",
-              "sdks/ruby",
-              "sdks/versioning-support"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "CLI",
-        "icon": "terminal",
-        "groups": [
-          {
-            "group": "Start here",
-            "icon": "terminal",
-            "pages": ["cli/index"]
           }
         ]
       },
