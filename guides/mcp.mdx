@@ -15,6 +15,8 @@ keywords:
 
 Sendmux has two MCP connections. Use the documentation MCP when you want an AI tool to search Sendmux docs. Use the product MCP when you want an agent to work with Sendmux tools you authorise.
 
+For product access, use the hosted Product MCP connection by default when your client supports remote MCP and OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
+
 | Connection | Use it for | Server |
 | --- | --- | --- |
 | Documentation MCP | Search Sendmux guides and API references. | `https://sendmux.ai/docs/mcp` |
@@ -27,7 +29,7 @@ Sendmux has two MCP connections. Use the documentation MCP when you want an AI t
 
 ## Documentation MCP
 
-The documentation MCP exposes one tool, `search_sendmux`.
+The documentation MCP exposes `search_sendmux`.
 
 <Tabs>
   <Tab title="Claude">
@@ -99,19 +101,19 @@ The documentation MCP exposes one tool, `search_sendmux`.
 
 ## Product MCP
 
-Product MCP can expose any combination of three surfaces:
+Product MCP exposes the product surfaces you grant:
 
-| Surface | Tools | Credential |
-| --- | ---: | --- |
-| Mailbox | 21 | Hosted grant with Mailbox access, or an `smx_mbx_` key locally |
-| Management | 20 | Hosted grant with Management access, or an `smx_root_` key locally |
-| Sending | 2 | Hosted grant with Sending access, or an `smx_mbx_` key locally |
+| Surface | Use it for | Access |
+| --- | --- | --- |
+| Mailbox | Search, read, organise, and send from granted mailboxes. | Hosted grant with Mailbox access, or an `smx_mbx_` key locally |
+| Management | Manage team resources such as domains, mailboxes, sending accounts, logs, metrics, billing, and webhooks. | Hosted grant with Management access, or an `smx_root_` key locally |
+| Sending | Send single or batch emails. | Hosted grant with Sending access, or an `smx_mbx_` key locally |
 
-Choose the hosted connection when your client supports remote MCP and OAuth. Choose local stdio when your client starts MCP servers on your machine. Choose self-hosted HTTP when you run `sendmux-mcp` behind your own private endpoint.
+Choose local stdio when your client starts MCP servers on your machine. Choose self-hosted HTTP when you run `sendmux-mcp` behind your own private endpoint.
 
 ## Hosted connection
 
-Hosted product MCP uses OAuth. It does not create manual `smx_root_` or `smx_mbx_` keys for the agent.
+Hosted product MCP is the recommended setup for clients that support remote MCP and OAuth. It does not create manual `smx_root_` or `smx_mbx_` keys for the agent.
 
 | Setting | Value |
 | --- | --- |
@@ -227,7 +229,7 @@ SENDMUX_MAILBOX_API_KEY=smx_mbx_... \
 sendmux-mcp
 ```
 
-Run all three surfaces:
+Run all product surfaces:
 
 ```bash
 SENDMUX_MCP_SURFACES=mailbox,management,sending \
@@ -407,61 +409,11 @@ sendmux-mcp \
   --sending-api-key smx_mbx_...
 ```
 
-## Tool reference
+## Tool discovery
 
-<AccordionGroup>
-  <Accordion title="Mailbox tools">
-    - `mailbox_list_granted_mailboxes`
-    - `mailbox_get_me`
-    - `mailbox_get_session`
-    - `mailbox_get_identity`
-    - `mailbox_list_identities`
-    - `mailbox_update_identity`
-    - `mailbox_list_messages`
-    - `mailbox_get_message`
-    - `mailbox_list_body`
-    - `mailbox_list_content`
-    - `mailbox_batch_get_messages`
-    - `mailbox_batch_update_messages`
-    - `mailbox_batch_delete_messages`
-    - `mailbox_count_messages`
-    - `mailbox_search_message_snippets`
-    - `mailbox_send_message`
-    - `mailbox_list_threads`
-    - `mailbox_get_thread`
-    - `mailbox_list_thread_messages`
-    - `mailbox_list_folders`
-    - `mailbox_get_changes`
-  </Accordion>
+Tool names are generated from the current public API surfaces. Open your MCP client's tool picker after authorisation to see the tools available to that connection.
 
-  <Accordion title="Management tools">
-    - `management_list_domains`
-    - `management_create_domain`
-    - `management_get_domain`
-    - `management_get_domain_zone_file`
-    - `management_verify_domain`
-    - `management_list_mailboxes`
-    - `management_create_mailbox`
-    - `management_get_mailbox`
-    - `management_update_mailbox`
-    - `management_suspend_mailbox`
-    - `management_resume_mailbox`
-    - `management_create_mailbox_key`
-    - `management_delete_mailbox_key`
-    - `management_list_email_logs`
-    - `management_get_email_log`
-    - `management_get_email_metrics`
-    - `management_get_spend_summary`
-    - `management_list_webhooks`
-    - `management_create_webhook`
-    - `management_test_webhook`
-  </Accordion>
-
-  <Accordion title="Sending tools">
-    - `sending_send_email`
-    - `sending_send_email_batch`
-  </Accordion>
-</AccordionGroup>
+Hosted connections show only the tools allowed by the selected product surfaces, permissions, and mailbox grant. Local servers show the tools for the surfaces and keys you provide at startup.
 
 ## Troubleshooting
 
@@ -471,7 +423,7 @@ sendmux-mcp \
 | Local server fails before starting | Check the API key prefix. Management needs `smx_root_`; Mailbox and Sending need `smx_mbx_`. |
 | HTTP server returns `401` | Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` to self-hosted HTTP, or complete OAuth for hosted MCP. |
 | HTTP server returns `403 origin_forbidden` | Add the browser client's origin to `SENDMUX_MCP_ALLOWED_ORIGINS` for self-hosted HTTP. |
-| Too many tools in one client | Connect only the surfaces you need, or disable unused tools in the client. Sendmux exposes 43 tools across all product surfaces. |
+| Too many tools in one client | Connect only the surfaces you need, or disable unused tools in the client. |
 
 ## Next steps
 
