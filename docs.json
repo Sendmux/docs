@@ -109,6 +109,17 @@
         ]
       },
       {
+        "tab": "CLI",
+        "icon": "terminal",
+        "groups": [
+          {
+            "group": "Start here",
+            "icon": "terminal",
+            "pages": ["cli/index"]
+          }
+        ]
+      },
+      {
         "tab": "Management API",
         "openapi": {
           "source": "openapi-app.json",
