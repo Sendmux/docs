@@ -1,0 +1,97 @@
+---
+title: "Agent skills"
+description: "Install Sendmux Agent Skills so AI coding tools choose the right Sendmux API, CLI, MCP, or SDK workflow."
+keywords:
+  [
+    "Agent Skills",
+    "skills.sh",
+    "AI agents",
+    "Claude Code",
+    "Cursor",
+    "Codex",
+    "Sendmux MCP",
+    "Sendmux CLI",
+  ]
+---
+
+Sendmux Agent Skills teach AI coding tools how to send email, read mailboxes, manage team resources, and choose low-token Sendmux calls. Use them when your agent needs Sendmux context before it writes commands, API calls, or integration code.
+
+<Info>
+  Skills do not grant Sendmux access by themselves. Create API keys or authorise
+  Product MCP separately, then let the skill choose the right surface for the task.
+</Info>
+
+## Install
+
+Install the full pack with the `skills` CLI.
+
+```bash
+npx skills add Sendmux/sendmux-skills
+```
+
+Install one skill when you only need a focused workflow.
+
+```bash
+npx skills add Sendmux/sendmux-skills --skill sendmux-send-email
+```
+
+Update installed skills later.
+
+```bash
+npx skills update
+```
+
+Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual skill folder through **Settings -> Capabilities/Features**.
+
+## Supported targets
+
+| Agent target | Project path | Global path |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
+| Cursor | `.agents/skills/` | `~/.cursor/skills/` |
+| Codex | `.agents/skills/` | `~/.codex/skills/` |
+| GitHub Copilot / VS Code | `.agents/skills/` | `~/.copilot/skills/` |
+| Windsurf | `.windsurf/skills/` | `~/.codeium/windsurf/skills/` |
+| Gemini CLI | `.agents/skills/` | `~/.gemini/skills/` |
+| Cline | `.agents/skills/` | `~/.agents/skills/` |
+
+## What the pack teaches
+
+| Skill | Use when |
+| --- | --- |
+| `sendmux-getting-started` | Choosing a Sendmux surface, setting up authentication, or making a first verified call. |
+| `sendmux-send-email` | Sending one transactional email or batching multiple sends. |
+| `sendmux-mailbox-agent` | Reading, triaging, replying from, or syncing one mailbox. |
+| `sendmux-management` | Managing domains, mailboxes, sending accounts, webhooks, billing, and logs. |
+| `sendmux-cli` | Running Sendmux commands from a terminal. |
+| `sendmux-mcp-setup` | Connecting Sendmux MCP servers to an agent client. |
+| `sendmux-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
+| `sendmux-email-for-agents` | Giving an AI agent an inbox, a send-receive workflow, or a human-approved draft flow. |
+
+## Choose the right surface
+
+| Task | Default path |
+| --- | --- |
+| Agent already has Sendmux MCP connected | Use the relevant MCP tool first. |
+| Terminal one-shot or scripted admin work | Use the `sendmux` CLI. |
+| Application code | Use an SDK package. |
+| Endpoint detail or uncommon operation | Use the API reference. |
+
+Use mailbox-scoped `smx_mbx_` keys for Sending and Mailbox work. Use team-scoped `smx_root_` keys for Management work.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="MCP" icon="plug" href="/guides/mcp">
+    Connect hosted or local Sendmux MCP tools.
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli">
+    Run Sendmux workflows from your terminal.
+  </Card>
+  <Card title="SDKs" icon="code" href="/sdks">
+    Choose an SDK package for application code.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create scoped credentials for tools and agents.
+  </Card>
+</CardGroup>

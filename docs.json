@@ -58,9 +58,9 @@
             "pages": ["cli/index"]
           },
           {
-            "group": "MCP",
-            "icon": "plug",
-            "pages": ["guides/mcp"]
+            "group": "AI integrations",
+            "icon": "robot",
+            "pages": ["guides/agent-skills", "guides/mcp"]
           },
           {
             "group": "Teams and access",
