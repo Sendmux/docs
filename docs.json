@@ -40,6 +40,7 @@
           },
           {
             "group": "SDKs",
+            "icon": "code",
             "pages": [
               "sdks/index",
               "sdks/typescript",
@@ -52,10 +53,12 @@
           },
           {
             "group": "CLI",
+            "icon": "square-terminal",
             "pages": ["cli/index"]
           },
           {
             "group": "MCP",
+            "icon": "plug",
             "pages": ["guides/mcp"]
           },
           {
@@ -308,13 +311,11 @@
       "anchors": [
         {
           "anchor": "App",
-          "href": "https://app.sendmux.ai",
-          "icon": "gauge"
+          "href": "https://app.sendmux.ai"
         },
         {
           "anchor": "Website",
-          "href": "https://sendmux.ai",
-          "icon": "globe"
+          "href": "https://sendmux.ai"
         }
       ]
     }
