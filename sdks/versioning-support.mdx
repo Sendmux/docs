@@ -1,0 +1,66 @@
+---
+title: "Versioning and support"
+description: "Understand Sendmux SDK package releases, compatibility, and support expectations."
+keywords:
+  [
+    "SDK versioning",
+    "SDK support",
+    "package versions",
+    "API compatibility",
+    "request ID",
+    "Sendmux SDKs",
+  ]
+---
+
+SDK packages track the public Sendmux API contracts. A package update can be limited to one language or one surface when the change only affects that package.
+
+## Versioning model
+
+- Current SDK packages are in the `1.x` release line.
+- Patch versions can differ between packages.
+- Generated clients are built from the same public API contracts used by the API reference.
+- API contract changes update the relevant SDK output in the same package release.
+- Pin the major version your application is tested against. Review package release notes before upgrading.
+
+## Compatibility checks
+
+Check the package registry for the version you install, then compare the package surface with the API reference:
+
+- Use the [Sending API](/sending-api/introduction) for outbound email behaviour.
+- Use the [Mailbox API](/mailbox-api/introduction) for mailbox and message behaviour.
+- Use the [Management API](/api/introduction) for team-level resources.
+- Use [API keys](/guides/api-keys) to confirm the key scope before testing.
+
+## Support requests
+
+For SDK help, include:
+
+- Package name and version.
+- Language runtime and operating system.
+- Command, import path, or client method involved.
+- The API surface: Sending, Mailbox, or Management.
+- Sanitised request or response details.
+- `X-Request-Id` or `meta.request_id` from an API response, if present.
+
+Do not include API keys, passwords, tokens, webhook secrets, customer data, or private account details.
+
+## Security reports
+
+Report suspected vulnerabilities privately through [contact@sendmux.ai](mailto:contact@sendmux.ai). Do not open a public GitHub issue for security reports.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose an SDK package and API surface.
+  </Card>
+  <Card title="Errors" icon="shield-check" href="/api/errors">
+    Review the shared API error envelope and retry guidance.
+  </Card>
+  <Card title="Idempotency" icon="rotate" href="/guides/idempotency">
+    Make retries safe for mutating API requests.
+  </Card>
+  <Card title="Support" icon="envelope" href="mailto:contact@sendmux.ai">
+    Contact Sendmux for account-specific support.
+  </Card>
+</CardGroup>

@@ -90,6 +90,17 @@
         ]
       },
       {
+        "tab": "SDKs",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Start here",
+            "icon": "book-open",
+            "pages": ["sdks/index", "sdks/versioning-support"]
+          }
+        ]
+      },
+      {
         "tab": "Management API",
         "openapi": {
           "source": "openapi-app.json",
