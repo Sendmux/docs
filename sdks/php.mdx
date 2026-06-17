@@ -1,0 +1,158 @@
+---
+title: "PHP SDK"
+description: "Install and configure the Sendmux PHP SDK packages."
+keywords:
+  [
+    "PHP SDK",
+    "sendmux/sdk",
+    "sendmux/sending",
+    "sendmux/mailbox",
+    "sendmux/management",
+    "Sendmux SDKs",
+  ]
+---
+
+Use the PHP SDK when your application needs Composer packages for one or more Sendmux API surfaces.
+
+<Info>
+  Sending and Mailbox clients require mailbox-scoped `smx_mbx_` keys.
+  Management clients require team-scoped `smx_root_` keys.
+</Info>
+
+## Requirements
+
+- PHP 8.2 or newer.
+- Composer.
+- A Sendmux API key for the surface you are calling.
+
+## Install
+
+Install the umbrella package when one application needs more than one API surface.
+
+<CodeGroup>
+
+```bash Umbrella
+composer require sendmux/sdk:^1.0
+```
+
+```bash Sending
+composer require sendmux/sending:^1.0
+```
+
+```bash Mailbox
+composer require sendmux/mailbox:^1.0
+```
+
+```bash Management
+composer require sendmux/management:^1.0
+```
+
+</CodeGroup>
+
+## Create a client
+
+PHP packages expose factory methods for each generated API group.
+
+<CodeGroup>
+
+```php Sending
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Sendmux\Sending\ClientFactory;
+
+$emails = ClientFactory::createEmailsApi(
+    getenv('SENDMUX_MAILBOX_API_KEY') ?: ''
+);
+```
+
+```php Mailbox
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Sendmux\Mailbox\ClientFactory;
+
+$mailboxApi = ClientFactory::createMailboxAPIApi(
+    getenv('SENDMUX_MAILBOX_API_KEY') ?: ''
+);
+```
+
+```php Management
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Sendmux\Management\ClientFactory;
+
+$mailboxes = ClientFactory::createMailboxesApi(
+    getenv('SENDMUX_ROOT_API_KEY') ?: ''
+);
+```
+
+</CodeGroup>
+
+## Choose a surface
+
+| Surface | Package | Factory examples | API key |
+| --- | --- | --- | --- |
+| Sending | `sendmux/sending` | `createEmailsApi`, `createMetaApi` | `smx_mbx_` |
+| Mailbox | `sendmux/mailbox` | `createMailboxAPIApi` | `smx_mbx_` |
+| Management | `sendmux/management` | `createMailboxesApi`, `createDomainsApi`, `createWebhooksApi` | `smx_root_` |
+
+Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+
+## Shared API behaviour
+
+Surface factories validate API key prefixes, configure bearer auth, and add retry middleware to generated API clients.
+
+### Pagination
+
+List responses use cursor pagination with `pagination.has_more` and `pagination.next_cursor`. The core package exports `Pagination::iterate()` for cursor iteration when you wrap a page-fetching function.
+
+### Retries and rate limits
+
+Surface clients use `RetryMiddleware::create()` by default. It retries safe methods and retry-safe `POST` requests that include `Idempotency-Key`, then honours `Retry-After` and `X-RateLimit-Reset` response headers.
+
+Pass `RetryOptions` into a factory method to change attempts, delays, or jitter.
+
+### Idempotency and ETags
+
+Use core header helpers when a generated operation accepts custom headers.
+
+```php
+<?php
+
+use Sendmux\Core\Headers;
+
+$headers = array_merge(
+    Headers::idempotency('order-123'),
+    Headers::conditional(ifMatch: $etag)
+);
+```
+
+Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-None-Match` with single-resource endpoints that support ETags.
+
+### Errors
+
+The core package defines `SendmuxApiError`. Use `ErrorMapper::fromThrowable()` when you need to normalise a generated exception into the Sendmux error shape.
+
+Use the mapped error code, retryability, status, and request ID when deciding whether to retry or contact support.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose the right package family and API surface.
+  </Card>
+  <Card title="Versioning and support" icon="rotate" href="/sdks/versioning-support">
+    Check compatibility, support, and upgrade guidance.
+  </Card>
+  <Card title="Management API" icon="chart-line" href="/api/introduction">
+    Review the Management API contract used by `sendmux/management`.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create and scope the credentials used by SDK clients.
+  </Card>
+</CardGroup>
