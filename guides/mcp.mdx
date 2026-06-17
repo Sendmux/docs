@@ -1,142 +1,217 @@
 ---
-title: "AI integrations"
+title: "MCP"
 description: "Connect AI tools to Sendmux documentation and product tools."
-keywords: ["MCP", "Model Context Protocol", "Claude", "Cursor", "VS Code", "AI agents"]
+keywords:
+  [
+    "MCP",
+    "Model Context Protocol",
+    "sendmux-mcp",
+    "Claude",
+    "Cursor",
+    "VS Code",
+    "Codex",
+  ]
 ---
 
-Sendmux has two MCP connections:
+Sendmux has two MCP connections. Use the documentation MCP when you want an AI tool to search Sendmux docs. Use the product MCP when you want an agent to work with Sendmux tools you authorise.
 
-- **Documentation MCP** lets AI tools search Sendmux guides and API references.
-- **Product MCP** lets an AI agent use the Sendmux product lines you choose: Management, Mailbox, Sending, or any combination of them.
+| Connection | Use it for | Server |
+| --- | --- | --- |
+| Documentation MCP | Search Sendmux guides and API references. | `https://sendmux.ai/docs/mcp` |
+| Product MCP | Use Management, Mailbox, and Sending tools. | `https://mcp.sendmux.ai/mcp` or the local `sendmux-mcp` command |
+
+<Info>
+  Product MCP exposes a curated agent toolset, not every API endpoint. Use the
+  SDKs, CLI, or API reference when you need full endpoint coverage.
+</Info>
 
 ## Documentation MCP
 
-Use this when you want an AI tool to answer questions from the Sendmux docs.
+The documentation MCP exposes one tool, `search_sendmux`.
 
-| Setting | Value |
-| --- | --- |
-| Server URL | `https://sendmux.ai/docs/mcp` |
-| Tool | `search_sendmux` |
+<Tabs>
+  <Tab title="Claude">
+    Add a custom connector with this server URL:
 
-### Connect Claude
+    ```text
+    https://sendmux.ai/docs/mcp
+    ```
+  </Tab>
 
-<Steps>
-  <Step title="Open settings">
-    Open **Settings** and choose **Connectors**.
-  </Step>
-  <Step title="Add connector">Select **Add Connector**.</Step>
-  <Step title="Enter the URL">
-    Use `https://sendmux.ai/docs/mcp` as the server URL.
-  </Step>
-</Steps>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add sendmux-docs --transport http https://sendmux.ai/docs/mcp
+    ```
+  </Tab>
 
-### Connect Claude Code
+  <Tab title="Cursor">
+    Add this server to `.cursor/mcp.json` for one project or `~/.cursor/mcp.json` for all projects.
 
-```bash
-claude mcp add sendmux-docs --transport http https://sendmux.ai/docs/mcp
-```
-
-### Connect Cursor
-
-Add this server to your MCP configuration:
-
-```json
-{
-  "mcpServers": {
-    "sendmux-docs": {
-      "url": "https://sendmux.ai/docs/mcp"
-    }
-  }
-}
-```
-
-### Connect VS Code
-
-Add this server to your settings:
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "sendmux-docs": {
-        "type": "http",
-        "url": "https://sendmux.ai/docs/mcp"
+    ```json
+    {
+      "mcpServers": {
+        "sendmux-docs": {
+          "url": "https://sendmux.ai/docs/mcp"
+        }
       }
     }
-  }
-}
-```
+    ```
+  </Tab>
 
-### Rate limits
+  <Tab title="Windsurf">
+    Add this server to `~/.codeium/windsurf/mcp_config.json`.
 
-| Scope | Limit |
-| --- | --- |
-| Per user IP | 5,000 requests per hour |
-| Per documentation site | 10,000 requests per hour |
+    ```json
+    {
+      "mcpServers": {
+        "sendmux-docs": {
+          "serverUrl": "https://sendmux.ai/docs/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="VS Code">
+    Add this server to your user or workspace `mcp.json`.
+
+    ```json
+    {
+      "servers": {
+        "sendmux-docs": {
+          "type": "http",
+          "url": "https://sendmux.ai/docs/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Codex">
+    Add this server to `~/.codex/config.toml` or a trusted project `.codex/config.toml`.
+
+    ```toml
+    [mcp_servers.sendmux_docs]
+    url = "https://sendmux.ai/docs/mcp"
+    ```
+  </Tab>
+</Tabs>
 
 ## Product MCP
 
-Use the Product MCP when you want an agent to act inside Sendmux. A single connection can expose exactly the product lines you authorise:
+Product MCP can expose any combination of three surfaces:
 
-| Product line | What the agent can do | Credential authority |
-| --- | --- | --- |
-| Management | Manage domains, mailboxes, sending accounts, webhooks, logs, metrics, and billing data. | Team-level access |
-| Mailbox | Read, search, organise, thread, and send from selected mailboxes. | Selected mailbox access |
-| Sending | Send outbound email without mailbox reading tools. | Sending access |
+| Surface | Tools | Credential |
+| --- | ---: | --- |
+| Mailbox | 21 | Hosted grant with Mailbox access, or an `smx_mbx_` key locally |
+| Management | 20 | Hosted grant with Management access, or an `smx_root_` key locally |
+| Sending | 2 | Hosted grant with Sending access, or an `smx_mbx_` key locally |
 
-<Info>
-  Choosing more product lines never grants more authority than your team role,
-  selected mailbox set, and consent allow. Tools for product lines you did not
-  authorise are not shown to the agent.
-</Info>
+Choose the hosted connection when your client supports remote MCP and OAuth. Choose local stdio when your client starts MCP servers on your machine. Choose self-hosted HTTP when you run `sendmux-mcp` behind your own private endpoint.
 
-### Hosted connection
+## Hosted connection
 
-Use the hosted Product MCP when your AI tool supports remote MCP with OAuth.
+Hosted product MCP uses OAuth. It does not create manual `smx_root_` or `smx_mbx_` keys for the agent.
 
 | Setting | Value |
 | --- | --- |
 | Server URL | `https://mcp.sendmux.ai/mcp` |
 | Authorisation server | `https://app.sendmux.ai` |
+| Health check | `https://mcp.sendmux.ai/health` |
 
-When you connect:
+When you connect, Sendmux asks you to choose a team, product surfaces, and mailbox access where relevant. Access tokens are short-lived. Refresh tokens rotate on use and can last up to 30 days unless the connection is disconnected or expires.
 
-<Steps>
-  <Step title="Start the connection">
-    Add `https://mcp.sendmux.ai/mcp` in your AI tool, then sign in to Sendmux when prompted.
-  </Step>
-  <Step title="Choose a team">
-    Pick the team that should own the connection.
-  </Step>
-  <Step title="Choose product lines">
-    Select Management, Mailbox, Sending, or any combination. Choose all three
-    when the agent should see every curated Sendmux tool.
-  </Step>
-  <Step title="Choose mailboxes">
-    If you select Mailbox, choose one or more mailboxes the agent can use. Use
-    search or **Select all** when your team has many mailboxes.
-  </Step>
-  <Step title="Review and authorise">
-    Review the requested access, then select **Authorise**. Management
-    permissions are grouped by area with **None**, **Read**, **Full**, and
-    **Customise** choices, so you can open individual scopes only when you need
-    them.
-  </Step>
-</Steps>
+<Note>
+  If you grant more than one mailbox, start mailbox workflows with
+  `mailbox_list_granted_mailboxes` and pass the returned `mailbox_id` to tools
+  that act on one mailbox.
+</Note>
 
-Connected apps use short-lived access tokens that last 15 minutes. Refresh tokens rotate on use and can last up to 30 days unless the connection is disconnected or the grant expires. The connection does not create a manual `smx_root_` or `smx_mbx_` API key.
+### Hosted client setup
 
-When more than one mailbox is granted, agents can call `mailbox_list_granted_mailboxes` to search the granted set and pass `mailbox_id` to mailbox tools. If only one mailbox is granted, mailbox tools use it by default.
+<AccordionGroup>
+  <Accordion title="Claude and Claude Desktop">
+    Add a custom connector with server URL `https://mcp.sendmux.ai/mcp`, then connect and complete the Sendmux authorisation flow.
 
-Re-authorising the same hosted connection replaces the previous product-line and mailbox selections for that app. Product lines or mailboxes you remove during re-authorisation disappear from the agent's tool list or allowed mailbox targets.
+    On Team and Enterprise plans, an owner may need to add the custom connector for the organisation before members can connect it.
+  </Accordion>
 
-Hosted Product MCP requests keep the same permission, sending-scope, and rate-limit checks as direct Sendmux API requests before each request is accepted. For example, adding Sending tools to an agent does not let it send from mailboxes, sending accounts, or account groups outside the access you granted.
+  <Accordion title="Claude Code">
+    Add the remote server, then use `/mcp` to complete OAuth if Claude Code marks the server as requiring authentication.
 
-### Local connection
+    ```bash
+    claude mcp add sendmux --transport http https://mcp.sendmux.ai/mcp
+    ```
+  </Accordion>
 
-Use the local command when your AI tool runs MCP servers on your machine.
+  <Accordion title="Cursor">
+    Add the hosted server to `.cursor/mcp.json` or `~/.cursor/mcp.json`. Cursor supports OAuth for remote MCP servers.
 
-Run one product line:
+    ```json
+    {
+      "mcpServers": {
+        "sendmux": {
+          "url": "https://mcp.sendmux.ai/mcp"
+        }
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Windsurf">
+    Add the hosted server to `~/.codeium/windsurf/mcp_config.json`.
+
+    ```json
+    {
+      "mcpServers": {
+        "sendmux": {
+          "serverUrl": "https://mcp.sendmux.ai/mcp"
+        }
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="VS Code">
+    Add the hosted server to your user or workspace `mcp.json`. If VS Code prompts for OAuth, complete the browser sign-in flow.
+
+    ```json
+    {
+      "servers": {
+        "sendmux": {
+          "type": "http",
+          "url": "https://mcp.sendmux.ai/mcp"
+        }
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Codex">
+    Add the hosted server to `~/.codex/config.toml` or a trusted project `.codex/config.toml`, then run `codex mcp login sendmux`.
+
+    ```toml
+    [mcp_servers.sendmux]
+    url = "https://mcp.sendmux.ai/mcp"
+    ```
+  </Accordion>
+
+  <Accordion title="ChatGPT">
+    ChatGPT uses MCP through apps. For Business, Enterprise, and Edu workspaces with developer mode enabled, create a custom MCP app that points to `https://mcp.sendmux.ai/mcp`, test it privately, then publish it to the workspace.
+
+    Workspace admins control who can build, test, publish, and use the app.
+  </Accordion>
+</AccordionGroup>
+
+## Local stdio
+
+Install the local package from PyPI:
+
+```bash
+pip install sendmux-mcp
+```
+
+Run one surface:
 
 ```bash
 SENDMUX_API_KEY=smx_mbx_... sendmux-mcp-mailbox
@@ -152,7 +227,7 @@ SENDMUX_MAILBOX_API_KEY=smx_mbx_... \
 sendmux-mcp
 ```
 
-Run all three product lines:
+Run all three surfaces:
 
 ```bash
 SENDMUX_MCP_SURFACES=mailbox,management,sending \
@@ -161,6 +236,166 @@ SENDMUX_MANAGEMENT_API_KEY=smx_root_... \
 SENDMUX_SENDING_API_KEY=smx_mbx_... \
 sendmux-mcp
 ```
+
+The server validates key prefixes before starting. Management requires a root key. Mailbox and Sending require a mailbox-scoped key.
+
+### Local client setup
+
+<Tabs>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add sendmux-mailbox \
+      --transport stdio \
+      --env SENDMUX_API_KEY=smx_mbx_... \
+      -- sendmux-mcp-mailbox
+    ```
+  </Tab>
+
+  <Tab title="Cursor">
+    ```json
+    {
+      "mcpServers": {
+        "sendmux-mailbox": {
+          "command": "sendmux-mcp-mailbox",
+          "env": {
+            "SENDMUX_API_KEY": "${env:SENDMUX_MAILBOX_KEY}"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Windsurf">
+    ```json
+    {
+      "mcpServers": {
+        "sendmux-mailbox": {
+          "command": "sendmux-mcp-mailbox",
+          "env": {
+            "SENDMUX_API_KEY": "${env:SENDMUX_MAILBOX_KEY}"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="VS Code">
+    ```json
+    {
+      "servers": {
+        "sendmux-mailbox": {
+          "type": "stdio",
+          "command": "sendmux-mcp-mailbox",
+          "env": {
+            "SENDMUX_API_KEY": "${input:sendmux-mailbox-key}"
+          }
+        }
+      },
+      "inputs": [
+        {
+          "type": "promptString",
+          "id": "sendmux-mailbox-key",
+          "description": "Sendmux mailbox API key",
+          "password": true
+        }
+      ]
+    }
+    ```
+  </Tab>
+
+  <Tab title="Codex">
+    ```toml
+    [mcp_servers.sendmux_mailbox]
+    command = "sendmux-mcp-mailbox"
+
+    [mcp_servers.sendmux_mailbox.env]
+    SENDMUX_API_KEY = "smx_mbx_..."
+    ```
+  </Tab>
+</Tabs>
+
+## Self-hosted HTTP
+
+HTTP mode is useful when your MCP client connects to a server URL but you still want to run the package yourself.
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP mode requires `SENDMUX_MCP_HTTP_BEARER_TOKEN` unless you explicitly start it with `--allow-unauthenticated-http`.
+
+Example HTTP client configuration:
+
+<Tabs>
+  <Tab title="Cursor or Windsurf">
+    ```json
+    {
+      "mcpServers": {
+        "sendmux-local": {
+          "url": "http://127.0.0.1:8765/mcp",
+          "headers": {
+            "Authorization": "Bearer ${env:SENDMUX_MCP_HTTP_BEARER_TOKEN}"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="VS Code">
+    ```json
+    {
+      "servers": {
+        "sendmux-local": {
+          "type": "http",
+          "url": "http://127.0.0.1:8765/mcp",
+          "headers": {
+            "Authorization": "Bearer ${input:sendmux-mcp-token}"
+          }
+        }
+      },
+      "inputs": [
+        {
+          "type": "promptString",
+          "id": "sendmux-mcp-token",
+          "description": "Sendmux local MCP bearer token",
+          "password": true
+        }
+      ]
+    }
+    ```
+  </Tab>
+
+  <Tab title="Codex">
+    ```toml
+    [mcp_servers.sendmux_local]
+    url = "http://127.0.0.1:8765/mcp"
+    bearer_token_env_var = "SENDMUX_MCP_HTTP_BEARER_TOKEN"
+    ```
+  </Tab>
+</Tabs>
+
+## Configuration reference
+
+| Setting | Environment | Default |
+| --- | --- | --- |
+| Tool surfaces | `SENDMUX_MCP_SURFACES` | Required for `sendmux-mcp` |
+| API key fallback | `SENDMUX_API_KEY` | None |
+| Mailbox API key | `SENDMUX_MAILBOX_API_KEY` | None |
+| Management API key | `SENDMUX_MANAGEMENT_API_KEY` | None |
+| Sending API key | `SENDMUX_SENDING_API_KEY` | None |
+| Management and Mailbox API base URL | `SENDMUX_APP_BASE_URL` | `https://app.sendmux.ai/api/v1` |
+| Sending API base URL | `SENDMUX_SENDING_BASE_URL` | `https://smtp.sendmux.ai/api/v1` |
+| Transport | `SENDMUX_MCP_TRANSPORT` | `stdio` |
+| HTTP host | `SENDMUX_MCP_HOST` | `127.0.0.1` |
+| HTTP port | `SENDMUX_MCP_PORT` | `8765` |
+| HTTP path | `SENDMUX_MCP_PATH` | `/mcp` |
+| HTTP bearer token | `SENDMUX_MCP_HTTP_BEARER_TOKEN` | Required for HTTP |
+| Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
 
 You can also pass the same choices as command flags:
 
@@ -172,15 +407,85 @@ sendmux-mcp \
   --sending-api-key smx_mbx_...
 ```
 
-Management requires an `smx_root_` key. Mailbox and Sending require an `smx_mbx_` key. A key with lower authority will not expose higher-authority tools.
+## Tool reference
 
-Use separate keys for separate local product lines when that is how your team grants least-privilege access. For example, a local all-three setup can use one management key plus separate mailbox and sending keys.
+<AccordionGroup>
+  <Accordion title="Mailbox tools">
+    - `mailbox_list_granted_mailboxes`
+    - `mailbox_get_me`
+    - `mailbox_get_session`
+    - `mailbox_get_identity`
+    - `mailbox_list_identities`
+    - `mailbox_update_identity`
+    - `mailbox_list_messages`
+    - `mailbox_get_message`
+    - `mailbox_list_body`
+    - `mailbox_list_content`
+    - `mailbox_batch_get_messages`
+    - `mailbox_batch_update_messages`
+    - `mailbox_batch_delete_messages`
+    - `mailbox_count_messages`
+    - `mailbox_search_message_snippets`
+    - `mailbox_send_message`
+    - `mailbox_list_threads`
+    - `mailbox_get_thread`
+    - `mailbox_list_thread_messages`
+    - `mailbox_list_folders`
+    - `mailbox_get_changes`
+  </Accordion>
 
-Local MCP with a manual mailbox key acts as that one mailbox. Hosted Product MCP can grant a mailbox set and target each mailbox by `mailbox_id`.
+  <Accordion title="Management tools">
+    - `management_list_domains`
+    - `management_create_domain`
+    - `management_get_domain`
+    - `management_get_domain_zone_file`
+    - `management_verify_domain`
+    - `management_list_mailboxes`
+    - `management_create_mailbox`
+    - `management_get_mailbox`
+    - `management_update_mailbox`
+    - `management_suspend_mailbox`
+    - `management_resume_mailbox`
+    - `management_create_mailbox_key`
+    - `management_delete_mailbox_key`
+    - `management_list_email_logs`
+    - `management_get_email_log`
+    - `management_get_email_metrics`
+    - `management_get_spend_summary`
+    - `management_list_webhooks`
+    - `management_create_webhook`
+    - `management_test_webhook`
+  </Accordion>
 
-## Tool coverage
+  <Accordion title="Sending tools">
+    - `sending_send_email`
+    - `sending_send_email_batch`
+  </Accordion>
+</AccordionGroup>
 
-<Info>
-  MCP exposes a curated agent toolset, not every API endpoint. Use the SDKs,
-  CLI, or API reference when you need full endpoint coverage.
-</Info>
+## Troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| No tools appear | Confirm the selected product surfaces and granted permissions. Hosted connections show only tools allowed by the grant. |
+| Local server fails before starting | Check the API key prefix. Management needs `smx_root_`; Mailbox and Sending need `smx_mbx_`. |
+| HTTP server returns `401` | Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` to self-hosted HTTP, or complete OAuth for hosted MCP. |
+| HTTP server returns `403 origin_forbidden` | Add the browser client's origin to `SENDMUX_MCP_ALLOWED_ORIGINS` for self-hosted HTTP. |
+| Too many tools in one client | Connect only the surfaces you need, or disable unused tools in the client. Sendmux exposes 43 tools across all product surfaces. |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDKs" icon="code" href="/sdks">
+    Use package-managed clients from application code.
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli">
+    Run the same product surfaces from your terminal.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create scoped credentials for local MCP setups.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Review the API behind mailbox tools.
+  </Card>
+</CardGroup>
