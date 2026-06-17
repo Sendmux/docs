@@ -31,6 +31,7 @@
         "groups": [
           {
             "group": "Getting started",
+            "icon": "play",
             "pages": [
               "index",
               "guides/quickstart",
@@ -63,6 +64,7 @@
           },
           {
             "group": "Teams and access",
+            "icon": "users",
             "pages": [
               "guides/teams-access",
               "guides/account-settings",
@@ -71,6 +73,7 @@
           },
           {
             "group": "Sending",
+            "icon": "paper-plane",
             "pages": [
               "guides/sending-via-http",
               "guides/sending-via-smtp",
@@ -83,6 +86,7 @@
           },
           {
             "group": "Receiving",
+            "icon": "inbox",
             "pages": [
               "guides/domain-management",
               "guides/mailboxes",
@@ -92,14 +96,17 @@
           },
           {
             "group": "Monitoring",
+            "icon": "chart-line",
             "pages": ["guides/dashboard-logs", "guides/deliverability"]
           },
           {
             "group": "Billing",
+            "icon": "credit-card",
             "pages": ["guides/billing"]
           },
           {
             "group": "Webhooks",
+            "icon": "link",
             "pages": [
               "guides/webhooks-setup",
               "guides/webhooks-verify-signatures",
