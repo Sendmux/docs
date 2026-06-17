@@ -1,0 +1,144 @@
+---
+title: "TypeScript SDK"
+description: "Install and configure the Sendmux TypeScript SDK packages."
+keywords:
+  [
+    "TypeScript SDK",
+    "@sendmux/sdk",
+    "@sendmux/sending",
+    "@sendmux/mailbox",
+    "@sendmux/management",
+    "Sendmux SDKs",
+  ]
+---
+
+Use the TypeScript SDK when your application needs package-managed clients for one or more Sendmux API surfaces.
+
+<Info>
+  Sending and Mailbox clients require mailbox-scoped `smx_mbx_` keys.
+  Management clients require team-scoped `smx_root_` keys.
+</Info>
+
+## Requirements
+
+- A Sendmux API key for the surface you are calling.
+- An application that can install packages from npm.
+
+## Install
+
+Install the umbrella package when one application needs more than one API surface.
+
+<CodeGroup>
+
+```bash Umbrella
+npm install @sendmux/sdk
+```
+
+```bash Sending
+npm install @sendmux/sending
+```
+
+```bash Mailbox
+npm install @sendmux/mailbox
+```
+
+```bash Management
+npm install @sendmux/management
+```
+
+</CodeGroup>
+
+## Create a client
+
+The umbrella package exports `sending`, `mailbox`, and `management` namespaces. Each namespace exposes the same factory as its surface package.
+
+<CodeGroup>
+
+```typescript Sending
+import { sending } from "@sendmux/sdk";
+
+const client = sending.createSendingClient({
+  apiKey: process.env.SENDMUX_MAILBOX_API_KEY!,
+});
+```
+
+```typescript Mailbox
+import { mailbox } from "@sendmux/sdk";
+
+const client = mailbox.createMailboxClient({
+  apiKey: process.env.SENDMUX_MAILBOX_API_KEY!,
+});
+```
+
+```typescript Management
+import { management } from "@sendmux/sdk";
+
+const client = management.createManagementClient({
+  apiKey: process.env.SENDMUX_ROOT_API_KEY!,
+});
+```
+
+</CodeGroup>
+
+Surface packages expose `createSendingClient`, `createMailboxClient`, and `createManagementClient` directly.
+
+## Choose a surface
+
+| Surface | Package | Factory | API key |
+| --- | --- | --- | --- |
+| Sending | `@sendmux/sending` | `createSendingClient` | `smx_mbx_` |
+| Mailbox | `@sendmux/mailbox` | `createMailboxClient` | `smx_mbx_` |
+| Management | `@sendmux/management` | `createManagementClient` | `smx_root_` |
+
+Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+
+## Shared API behaviour
+
+The SDK configures bearer authentication, retries, and error mapping when you create a surface client.
+
+### Pagination
+
+List responses use cursor pagination with `pagination.has_more` and `pagination.next_cursor`. The core package exports `paginate()` for cursor iteration when you wrap a page-fetching function.
+
+### Retries and rate limits
+
+The default retry client retries safe methods and retry-safe `POST` requests that include `Idempotency-Key`. It honours `Retry-After` and `X-RateLimit-Reset` response headers.
+
+Pass `retry` into a client factory to change `maxAttempts`, delay, replay body size, or jitter.
+
+### Idempotency and ETags
+
+Use core header helpers when a generated operation accepts custom headers.
+
+```typescript
+import { core } from "@sendmux/sdk";
+
+const retryHeaders = core.idempotencyHeaders("order-123");
+const updateHeaders = core.conditionalHeaders({ ifMatch: etag });
+const cacheHeaders = core.conditionalHeaders({ ifNoneMatch: etag });
+```
+
+Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-None-Match` with single-resource endpoints that support ETags.
+
+### Errors
+
+Generated client errors are mapped to `SendmuxApiError`. The error exposes the API error code, retryability, request ID, response status, headers, and raw body when available.
+
+Use `error.retryable` and `error.requestId` when deciding whether to retry or contact support.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose the right package family and API surface.
+  </Card>
+  <Card title="Versioning and support" icon="rotate" href="/sdks/versioning-support">
+    Check compatibility, support, and upgrade guidance.
+  </Card>
+  <Card title="Sending API" icon="paper-plane" href="/sending-api/introduction">
+    Review the Sending API contract used by `@sendmux/sending`.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create and scope the credentials used by SDK clients.
+  </Card>
+</CardGroup>

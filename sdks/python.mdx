@@ -1,0 +1,148 @@
+---
+title: "Python SDK"
+description: "Install and configure the Sendmux Python SDK packages."
+keywords:
+  [
+    "Python SDK",
+    "sendmux-sdk",
+    "sendmux-sending",
+    "sendmux-mailbox",
+    "sendmux-management",
+    "Sendmux SDKs",
+  ]
+---
+
+Use the Python SDK when your application needs Sendmux API clients with API-key validation, retry handling, cursor helpers, and typed API errors.
+
+<Info>
+  Sending and Mailbox clients require mailbox-scoped `smx_mbx_` keys.
+  Management clients require team-scoped `smx_root_` keys.
+</Info>
+
+## Requirements
+
+- Python 3.10 or newer.
+- A Sendmux API key for the surface you are calling.
+
+## Install
+
+Install the umbrella package when one application needs more than one API surface.
+
+<CodeGroup>
+
+```bash Umbrella
+pip install sendmux-sdk
+```
+
+```bash Sending
+pip install sendmux-sending
+```
+
+```bash Mailbox
+pip install sendmux-mailbox
+```
+
+```bash Management
+pip install sendmux-management
+```
+
+</CodeGroup>
+
+## Create a client
+
+The umbrella package lazy-loads `sending`, `mailbox`, and `management` modules.
+
+<CodeGroup>
+
+```python Sending
+import os
+from sendmux_sdk import sending
+
+client = sending.create_sending_client(
+    api_key=os.environ["SENDMUX_MAILBOX_API_KEY"],
+)
+```
+
+```python Mailbox
+import os
+from sendmux_sdk import mailbox
+
+client = mailbox.create_mailbox_client(
+    api_key=os.environ["SENDMUX_MAILBOX_API_KEY"],
+)
+```
+
+```python Management
+import os
+from sendmux_sdk import management
+
+client = management.create_management_client(
+    api_key=os.environ["SENDMUX_ROOT_API_KEY"],
+)
+```
+
+</CodeGroup>
+
+Surface packages expose `create_sending_client`, `create_mailbox_client`, and `create_management_client` directly.
+
+## Choose a surface
+
+| Surface | Package | Factory | API key |
+| --- | --- | --- | --- |
+| Sending | `sendmux-sending` | `create_sending_client` | `smx_mbx_` |
+| Mailbox | `sendmux-mailbox` | `create_mailbox_client` | `smx_mbx_` |
+| Management | `sendmux-management` | `create_management_client` | `smx_root_` |
+
+Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+
+## Shared API behaviour
+
+The surface factories validate API key prefixes, attach bearer auth, and wrap generated API errors.
+
+### Pagination
+
+List responses use cursor pagination with `pagination.has_more` and `pagination.next_cursor`. The core package exports `iter_cursor_pages()` for cursor iteration when you wrap a page-fetching function.
+
+### Retries and rate limits
+
+Surface clients use a retrying request client. It retries safe methods and retry-safe `POST` requests that include `Idempotency-Key`, then honours `Retry-After` and `X-RateLimit-Reset` response headers.
+
+Pass `RetryOptions` into a client factory to change attempts, delays, or sleep behaviour.
+
+### Idempotency and ETags
+
+Use core header helpers when a generated operation accepts custom headers.
+
+```python
+from sendmux_core import conditional_headers, idempotency_headers
+
+headers = {
+    **idempotency_headers("order-123"),
+    **conditional_headers(if_match=etag),
+}
+```
+
+Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-None-Match` with single-resource endpoints that support ETags.
+
+### Errors
+
+Generated client exceptions are mapped to `SendmuxApiError`. The error carries the API error code, retryability, request ID, status, headers, and raw body when available.
+
+Use `error.retryable` and `error.request_id` when deciding whether to retry or contact support.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose the right package family and API surface.
+  </Card>
+  <Card title="Versioning and support" icon="rotate" href="/sdks/versioning-support">
+    Check compatibility, support, and upgrade guidance.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Review the Mailbox API contract used by `sendmux-mailbox`.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create and scope the credentials used by SDK clients.
+  </Card>
+</CardGroup>

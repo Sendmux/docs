@@ -1,0 +1,162 @@
+---
+title: "Go SDK"
+description: "Install and configure the Sendmux Go module."
+keywords:
+  [
+    "Go SDK",
+    "sendmux.ai/go",
+    "Sendmux sending package",
+    "Sendmux mailbox package",
+    "Sendmux management package",
+    "Sendmux SDKs",
+  ]
+---
+
+Use the Go SDK when your application needs importable clients for the Sending, Mailbox, or Management API.
+
+<Info>
+  Sending and Mailbox clients require mailbox-scoped `smx_mbx_` keys.
+  Management clients require team-scoped `smx_root_` keys.
+</Info>
+
+## Requirements
+
+- Go 1.23 or newer.
+- A Sendmux API key for the surface you are calling.
+
+## Install
+
+The Go SDK is one module with surface subpackages.
+
+```bash
+go get sendmux.ai/go@v1.0.0
+```
+
+## Create a client
+
+Import the surface package directly.
+
+<CodeGroup>
+
+```go Sending
+package main
+
+import (
+	"log"
+	"os"
+
+	"sendmux.ai/go/sending"
+)
+
+func main() {
+	client, err := sending.New(os.Getenv("SENDMUX_MAILBOX_API_KEY"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_ = client
+}
+```
+
+```go Mailbox
+package main
+
+import (
+	"log"
+	"os"
+
+	"sendmux.ai/go/mailbox"
+)
+
+func main() {
+	client, err := mailbox.New(os.Getenv("SENDMUX_MAILBOX_API_KEY"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_ = client
+}
+```
+
+```go Management
+package main
+
+import (
+	"log"
+	"os"
+
+	"sendmux.ai/go/management"
+)
+
+func main() {
+	client, err := management.New(os.Getenv("SENDMUX_ROOT_API_KEY"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_ = client
+}
+```
+
+</CodeGroup>
+
+## Choose a surface
+
+| Surface | Import path | Factory | API key |
+| --- | --- | --- | --- |
+| Sending | `sendmux.ai/go/sending` | `sending.New` | `smx_mbx_` |
+| Mailbox | `sendmux.ai/go/mailbox` | `mailbox.New` | `smx_mbx_` |
+| Management | `sendmux.ai/go/management` | `management.New` | `smx_root_` |
+
+Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+
+## Shared API behaviour
+
+Surface packages validate API key prefixes, attach bearer auth, and wrap an HTTP client with retry behaviour.
+
+### Pagination
+
+List responses use cursor pagination with `pagination.has_more` and `pagination.next_cursor`. The `core` package exports `IterateCursor()` for cursor iteration when you wrap a page-fetching function.
+
+### Retries and rate limits
+
+Surface clients use `core.NewHTTPClient()` by default. It retries safe requests and requests that carry `Idempotency-Key`, then honours `Retry-After` and `X-RateLimit-Reset` response headers.
+
+Pass `WithRetryOptions(core.RetryOptions{...})` into a surface factory to change attempts and backoff.
+
+### Idempotency and ETags
+
+Use surface header helpers when a generated operation accepts optional header values.
+
+```go
+idempotencyKey := sending.IdempotencyKey("order-123")
+ifMatch := sending.IfMatch(etag)
+ifNoneMatch := sending.IfNoneMatch(etag)
+
+_, _, _ = idempotencyKey, ifMatch, ifNoneMatch
+```
+
+Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-None-Match` with single-resource endpoints that support ETags.
+
+### Errors
+
+The `core` package defines `core.APIError`. Surface packages expose `APIErrorFromResponse()` to map generated error responses into the typed API error shape.
+
+Keep the request ID from the API response when contacting support.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose the right package family and API surface.
+  </Card>
+  <Card title="Versioning and support" icon="rotate" href="/sdks/versioning-support">
+    Check compatibility, support, and upgrade guidance.
+  </Card>
+  <Card title="Management API" icon="chart-line" href="/api/introduction">
+    Review the Management API contract used by `sendmux.ai/go/management`.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create and scope the credentials used by SDK clients.
+  </Card>
+</CardGroup>

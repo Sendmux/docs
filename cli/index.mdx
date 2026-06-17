@@ -1,0 +1,271 @@
+---
+title: "CLI"
+description: "Install and configure the Sendmux CLI for management, mailbox, and sending workflows."
+keywords:
+  [
+    "Sendmux CLI",
+    "@sendmux/cli",
+    "sendmux",
+    "profiles",
+    "Management API",
+    "Mailbox API",
+    "Sending API",
+  ]
+icon: "terminal"
+---
+
+Use the `sendmux` CLI when you want terminal access to the same Management, Mailbox, and Sending API surfaces exposed by the SDKs.
+
+<Info>
+  Sending and Mailbox commands require mailbox-scoped `smx_mbx_` keys.
+  Management commands require team-scoped `smx_root_` keys.
+</Info>
+
+## Install
+
+Install the CLI from npm.
+
+```bash
+npm install -g @sendmux/cli
+```
+
+Check the installed command.
+
+```bash
+sendmux --version
+sendmux --help
+```
+
+## Configure profiles
+
+Save API keys as local CLI profiles so you do not pass a key on every command.
+
+<CodeGroup>
+
+```bash Mailbox profile
+sendmux profiles:set mailbox \
+  --api-key "$SENDMUX_MAILBOX_KEY" \
+  --default
+```
+
+```bash Management profile
+sendmux profiles:set management \
+  --api-key "$SENDMUX_ROOT_KEY"
+```
+
+</CodeGroup>
+
+The CLI stores profile configuration locally with restricted file permissions. `profiles:list --verbose` and `profiles:show` mask saved keys.
+
+```bash
+sendmux profiles:list
+sendmux profiles:list --verbose
+sendmux profiles:show management
+```
+
+## Authentication order
+
+Every API command resolves credentials in this order:
+
+1. `--api-key`
+2. `SENDMUX_API_KEY`
+3. `--profile`
+4. `SENDMUX_PROFILE`
+5. the configured default profile
+
+`--base-url` overrides the API base URL for one command. `SENDMUX_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
+
+Before running the API call, the CLI checks that the key prefix matches the command surface. A management command fails early when it receives a mailbox key, and mailbox or sending commands fail early when they receive a root key.
+
+## Run commands
+
+Commands use colon-separated names.
+
+<CodeGroup>
+
+```bash Sending
+sendmux sending:send \
+  --profile mailbox \
+  --body '{"from":{"email":"sender@example.com"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with the Sendmux CLI"}' \
+  --idempotency-key send-cli-001
+```
+
+```bash Mailbox
+sendmux mailbox:messages:list \
+  --profile mailbox \
+  --query limit=25
+```
+
+```bash Management
+sendmux management:mailboxes:list \
+  --profile management \
+  --query limit=25
+```
+
+</CodeGroup>
+
+Pass request bodies inline with `--body` or from a file with `--body-file`.
+
+```bash
+sendmux management:create-mailbox \
+  --profile management \
+  --body-file ./mailbox.json \
+  --idempotency-key create-mailbox-001
+```
+
+Pass parameters with repeatable `name=value` flags:
+
+- `--path name=value` for path parameters.
+- `--query name=value` for query parameters.
+- `--header name=value` for supported headers.
+
+Typed values are validated before the request is sent. Unknown parameter names fail with the supported names for that command.
+
+## Output
+
+Without `--json`, API commands print formatted JSON for easy reading. Use `--json` when another process needs machine-readable output from the CLI.
+
+```bash
+sendmux management:mailboxes:list --profile management --json
+```
+
+Text responses return `{ "text": "..." }` with `--json`. Binary responses return base64 data and `byte_length`.
+
+## Request safety flags
+
+Use the dedicated safety flags when the generated command supports the corresponding header:
+
+| Flag | Header |
+| --- | --- |
+| `--idempotency-key` | `Idempotency-Key` |
+| `--if-match` | `If-Match` |
+| `--if-none-match` | `If-None-Match` |
+
+The CLI rejects these flags on commands whose API operation does not accept the matching header.
+
+## Command reference
+
+The CLI currently exposes 95 generated API commands: 3 sending commands, 40 mailbox commands, and 52 management commands. Run `sendmux <command> --help` for the flags supported by one command.
+
+<AccordionGroup>
+  <Accordion title="Sending commands">
+    - `sending:get-open-api-spec`: OpenAPI 3.1 specification. Key: `smx_mbx_`.
+    - `sending:send`: Send a single email. Key: `smx_mbx_`.
+    - `sending:send:batch`: Send a batch of emails. Key: `smx_mbx_`.
+  </Accordion>
+
+  <Accordion title="Mailbox commands">
+    - `mailbox:batch-delete-messages`: Batch delete mailbox messages. Key: `smx_mbx_`.
+    - `mailbox:batch-get-messages`: Batch get mailbox messages. Key: `smx_mbx_`.
+    - `mailbox:batch-update-messages`: Batch update mailbox messages. Key: `smx_mbx_`.
+    - `mailbox:count-messages`: Count mailbox messages. Key: `smx_mbx_`.
+    - `mailbox:create-folder`: Create a mailbox folder. Key: `smx_mbx_`.
+    - `mailbox:delete-folder`: Delete a mailbox folder. Key: `smx_mbx_`.
+    - `mailbox:delete-message`: Delete a mailbox message. Key: `smx_mbx_`.
+    - `mailbox:folders:list`: List mailbox folders. Key: `smx_mbx_`.
+    - `mailbox:get-changes`: Get mailbox changes. Key: `smx_mbx_`.
+    - `mailbox:get-folder`: Get a mailbox folder. Key: `smx_mbx_`.
+    - `mailbox:get-folder-changes`: Get folder changes. Key: `smx_mbx_`.
+    - `mailbox:get-identity`: Get mailbox sender identity. Key: `smx_mbx_`.
+    - `mailbox:get-message-attachment`: Download a message attachment. Key: `smx_mbx_`.
+    - `mailbox:get-quota-changes`: Get quota changes. Key: `smx_mbx_`.
+    - `mailbox:get-session`: Get mailbox API session. Key: `smx_mbx_`.
+    - `mailbox:get-submission`: Get a mailbox submission. Key: `smx_mbx_`.
+    - `mailbox:get-submission-changes`: Get submission changes. Key: `smx_mbx_`.
+    - `mailbox:get-thread`: Get a mailbox thread. Key: `smx_mbx_`.
+    - `mailbox:get-thread-content`: Get clean thread content. Key: `smx_mbx_`.
+    - `mailbox:list-body`: Get raw message body. Key: `smx_mbx_`.
+    - `mailbox:list-content`: Get clean message content. Key: `smx_mbx_`.
+    - `mailbox:list-granted-mailboxes`: List granted mailboxes. Key: `smx_mbx_`.
+    - `mailbox:list-identities`: List mailbox sender identities. Key: `smx_mbx_`.
+    - `mailbox:list-quotas`: List mailbox quotas. Key: `smx_mbx_`.
+    - `mailbox:list-submissions`: List mailbox submissions. Key: `smx_mbx_`.
+    - `mailbox:list-thread-messages`: List thread messages. Key: `smx_mbx_`.
+    - `mailbox:list-threads`: List mailbox threads. Key: `smx_mbx_`.
+    - `mailbox:list-usage`: Get mailbox usage. Key: `smx_mbx_`.
+    - `mailbox:me:get`: Self-introspect the calling mailbox. Key: `smx_mbx_`.
+    - `mailbox:messages:get`: Get a mailbox message. Key: `smx_mbx_`.
+    - `mailbox:messages:list`: List mailbox messages. Key: `smx_mbx_`.
+    - `mailbox:query-folder-changes`: Get folder query changes. Key: `smx_mbx_`.
+    - `mailbox:query-message-changes`: Get message query changes. Key: `smx_mbx_`.
+    - `mailbox:search-message-snippets`: Get message search snippets. Key: `smx_mbx_`.
+    - `mailbox:send-message`: Send a mailbox message. Key: `smx_mbx_`.
+    - `mailbox:stream-events`: Stream mailbox events. Key: `smx_mbx_`.
+    - `mailbox:update-folder`: Update a mailbox folder. Key: `smx_mbx_`.
+    - `mailbox:update-identity`: Update mailbox sender identity. Key: `smx_mbx_`.
+    - `mailbox:update-message`: Update mailbox message flags. Key: `smx_mbx_`.
+    - `mailbox:upload-attachment`: Upload a mailbox attachment. Key: `smx_mbx_`.
+  </Accordion>
+
+  <Accordion title="Management commands">
+    - `management:activate-provider`: Activate a sending account. Key: `smx_root_`.
+    - `management:cancel-shared-amazon-ses-limit-request`: Cancel a shared Amazon SES daily limit request. Key: `smx_root_`.
+    - `management:create-domain`: Add a mailbox domain. Key: `smx_root_`.
+    - `management:create-mailbox`: Create a mailbox. Key: `smx_root_`.
+    - `management:create-mailbox-key`: Create a mailbox API key. Key: `smx_root_`.
+    - `management:create-provider`: Create an SMTP sending account. Key: `smx_root_`.
+    - `management:create-shared-amazon-ses-limit-request`: Request a shared Amazon SES daily limit increase. Key: `smx_root_`.
+    - `management:create-webhook`: Create a webhook subscription. Key: `smx_root_`.
+    - `management:deactivate-provider`: Deactivate a sending account. Key: `smx_root_`.
+    - `management:delete-domain`: Delete a mailbox domain. Key: `smx_root_`.
+    - `management:delete-mailbox`: Delete a mailbox. Key: `smx_root_`.
+    - `management:delete-mailbox-key`: Revoke a mailbox API key. Key: `smx_root_`.
+    - `management:delete-provider`: Delete a sending account. Key: `smx_root_`.
+    - `management:delete-webhook`: Delete a webhook subscription. Key: `smx_root_`.
+    - `management:domains:get`: Get a mailbox domain. Key: `smx_root_`.
+    - `management:domains:list`: List mailbox domains. Key: `smx_root_`.
+    - `management:get-delivery-payload`: Get a webhook delivery payload. Key: `smx_root_`.
+    - `management:get-domain-filters`: Get domain-wide sender filters. Key: `smx_root_`.
+    - `management:get-domain-zone-file`: Download a domain as a zone file. Key: `smx_root_`.
+    - `management:get-email-log`: Get delivery log. Key: `smx_root_`.
+    - `management:get-email-metrics`: Get email metrics. Key: `smx_root_`.
+    - `management:get-inbox-log`: Get incoming log. Key: `smx_root_`.
+    - `management:get-mailbox`: Get a mailbox. Key: `smx_root_`.
+    - `management:get-mailbox-filters`: Get mailbox sender filters. Key: `smx_root_`.
+    - `management:get-provider`: Get a sending account. Key: `smx_root_`.
+    - `management:get-provider-limits`: Get sending account limits. Key: `smx_root_`.
+    - `management:get-provider-stats`: Get sending account statistics. Key: `smx_root_`.
+    - `management:get-provider-usage`: Get sending account usage. Key: `smx_root_`.
+    - `management:get-shared-amazon-ses-limit-request`: Get shared Amazon SES limit request state. Key: `smx_root_`.
+    - `management:get-spend-summary`: Get spend summary. Key: `smx_root_`.
+    - `management:get-webhook`: Get a webhook subscription. Key: `smx_root_`.
+    - `management:list-balance`: Get current balance. Key: `smx_root_`.
+    - `management:list-delivery`: List webhook delivery attempts. Key: `smx_root_`.
+    - `management:list-email-logs`: List delivery logs. Key: `smx_root_`.
+    - `management:list-inbox-logs`: List incoming logs. Key: `smx_root_`.
+    - `management:list-transactions`: List transactions. Key: `smx_root_`.
+    - `management:list-webhooks`: List webhook subscriptions. Key: `smx_root_`.
+    - `management:mailboxes:list`: List mailboxes. Key: `smx_root_`.
+    - `management:providers:list`: List sending accounts. Key: `smx_root_`.
+    - `management:request-sending-account-limit-increase`: Request a sending account limit increase. Key: `smx_root_`.
+    - `management:resume-mailbox`: Resume a mailbox. Key: `smx_root_`.
+    - `management:rotate-webhook-secret`: Rotate the signing secret. Key: `smx_root_`.
+    - `management:set-domain-filters`: Replace domain-wide sender filters. Key: `smx_root_`.
+    - `management:set-mailbox-filters`: Replace mailbox sender filters. Key: `smx_root_`.
+    - `management:suspend-mailbox`: Suspend a mailbox. Key: `smx_root_`.
+    - `management:test-provider`: Test an SMTP sending account. Key: `smx_root_`.
+    - `management:test-webhook`: Send a synthetic test event. Key: `smx_root_`.
+    - `management:update-domain`: Update a mailbox domain. Key: `smx_root_`.
+    - `management:update-mailbox`: Update a mailbox. Key: `smx_root_`.
+    - `management:update-provider`: Update a sending account. Key: `smx_root_`.
+    - `management:update-webhook`: Update a webhook subscription. Key: `smx_root_`.
+    - `management:verify-domain`: Verify a mailbox domain. Key: `smx_root_`.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose package-managed clients for application code.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create scoped credentials before configuring CLI profiles.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Review the API used by mailbox commands.
+  </Card>
+  <Card title="Management API" icon="chart-line" href="/api/introduction">
+    Review the API used by management commands.
+  </Card>
+</CardGroup>

@@ -1,0 +1,141 @@
+---
+title: "Ruby SDK"
+description: "Install and configure the Sendmux Ruby SDK gems."
+keywords:
+  [
+    "Ruby SDK",
+    "sendmux-sdk",
+    "sendmux-sending",
+    "sendmux-mailbox",
+    "sendmux-management",
+    "Sendmux SDKs",
+  ]
+---
+
+Use the Ruby SDK when your application needs gems for the Sending, Mailbox, or Management API.
+
+<Info>
+  Sending and Mailbox clients require mailbox-scoped `smx_mbx_` keys.
+  Management clients require team-scoped `smx_root_` keys.
+</Info>
+
+## Requirements
+
+- Ruby 3.1 or newer.
+- A Sendmux API key for the surface you are calling.
+
+## Install
+
+Install the umbrella gem when one application needs more than one API surface.
+
+<CodeGroup>
+
+```bash Umbrella
+gem install sendmux-sdk
+```
+
+```bash Sending
+gem install sendmux-sending
+```
+
+```bash Mailbox
+gem install sendmux-mailbox
+```
+
+```bash Management
+gem install sendmux-management
+```
+
+</CodeGroup>
+
+## Create a client
+
+The umbrella gem exposes helpers for each surface.
+
+<CodeGroup>
+
+```ruby Sending
+require 'sendmux/sdk'
+
+client = Sendmux::SDK.sending(
+  api_key: ENV.fetch('SENDMUX_MAILBOX_API_KEY')
+)
+```
+
+```ruby Mailbox
+require 'sendmux/sdk'
+
+client = Sendmux::SDK.mailbox(
+  api_key: ENV.fetch('SENDMUX_MAILBOX_API_KEY')
+)
+```
+
+```ruby Management
+require 'sendmux/sdk'
+
+client = Sendmux::SDK.management(
+  api_key: ENV.fetch('SENDMUX_ROOT_API_KEY')
+)
+```
+
+</CodeGroup>
+
+Surface gems expose `Sendmux::Sending::Client`, `Sendmux::Mailbox::Client`, and `Sendmux::Management::Client` directly.
+
+## Choose a surface
+
+| Surface | Gem | Client or helper | API key |
+| --- | --- | --- | --- |
+| Sending | `sendmux-sending` | `Sendmux::SDK.sending`, `client.emails` | `smx_mbx_` |
+| Mailbox | `sendmux-mailbox` | `Sendmux::SDK.mailbox`, `client.mailbox_api` | `smx_mbx_` |
+| Management | `sendmux-management` | `Sendmux::SDK.management`, `client.mailboxes` | `smx_root_` |
+
+Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+
+## Shared API behaviour
+
+Surface clients validate API key prefixes, configure bearer auth, and map generated API errors.
+
+### Pagination
+
+List responses use cursor pagination with `pagination.has_more` and `pagination.next_cursor`. The core gem exports `Sendmux::Core.each_cursor()` and `Sendmux::Core::CursorPager` for cursor iteration when you wrap a page-fetching function.
+
+### Retries and rate limits
+
+Surface clients call `Sendmux::Core::Retry.configure()` by default. Retries apply to safe methods and retry-safe `POST` requests that include `Idempotency-Key`, then honour `Retry-After` and `X-RateLimit-Reset` response headers.
+
+Pass `Sendmux::Core::RetryOptions` into a surface helper or client to change attempts, delays, or jitter.
+
+### Idempotency and ETags
+
+Use core header helpers when a generated operation accepts custom headers.
+
+```ruby
+headers = Sendmux::Core::Headers.conditional(if_match: etag)
+headers.merge!(Sendmux::Core::Headers.idempotency_key('order-123'))
+```
+
+Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-None-Match` with single-resource endpoints that support ETags.
+
+### Errors
+
+Generated API errors are mapped to `Sendmux::Core::ApiError`. The error includes status, code, retryability, request ID, param, nested errors, response body, and response headers when available.
+
+Use the request ID when contacting support.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/sdks">
+    Choose the right package family and API surface.
+  </Card>
+  <Card title="Versioning and support" icon="rotate" href="/sdks/versioning-support">
+    Check compatibility, support, and upgrade guidance.
+  </Card>
+  <Card title="Sending API" icon="paper-plane" href="/sending-api/introduction">
+    Review the Sending API contract used by `sendmux-sending`.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create and scope the credentials used by SDK clients.
+  </Card>
+</CardGroup>
