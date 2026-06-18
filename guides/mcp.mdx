@@ -27,14 +27,14 @@ Sendmux has two MCP connections. Use Documentation MCP when you want an AI tool 
 
 Documentation MCP exposes `search_sendmux`.
 
-<Tabs>
-  <Tab title="Claude Code">
+<AccordionGroup>
+  <Accordion title="Claude Code" description="Add the docs server over HTTP.">
     ```bash
     claude mcp add sendmux-docs --transport http https://sendmux.ai/docs/mcp
     ```
-  </Tab>
+  </Accordion>
 
-  <Tab title="Cursor">
+  <Accordion title="Cursor" description="Add the docs server to project or user config.">
     Add this server to `.cursor/mcp.json` for one project or `~/.cursor/mcp.json` for all projects.
 
     ```json
@@ -46,9 +46,9 @@ Documentation MCP exposes `search_sendmux`.
       }
     }
     ```
-  </Tab>
+  </Accordion>
 
-  <Tab title="VS Code">
+  <Accordion title="VS Code" description="Add the docs server to user or workspace config.">
     Add this server to your user or workspace `mcp.json`.
 
     ```json
@@ -61,17 +61,17 @@ Documentation MCP exposes `search_sendmux`.
       }
     }
     ```
-  </Tab>
+  </Accordion>
 
-  <Tab title="Codex">
+  <Accordion title="Codex" description="Add the docs server to trusted Codex config.">
     Add this server to `~/.codex/config.toml` or a trusted project `.codex/config.toml`.
 
     ```toml
     [mcp_servers.sendmux_docs]
     url = "https://sendmux.ai/docs/mcp"
     ```
-  </Tab>
-</Tabs>
+  </Accordion>
+</AccordionGroup>
 
 ## Product MCP
 
@@ -155,47 +155,67 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
 
 ## Configuration reference
 
-| Setting | Environment | Default |
-| --- | --- | --- |
-| Tool surfaces | `SENDMUX_MCP_SURFACES` | Required for `sendmux-mcp` |
-| API key fallback | `SENDMUX_API_KEY` | None |
-| Mailbox API key | `SENDMUX_MAILBOX_API_KEY` | None |
-| Management API key | `SENDMUX_MANAGEMENT_API_KEY` | None |
-| Sending API key | `SENDMUX_SENDING_API_KEY` | None |
-| Management and Mailbox API base URL | `SENDMUX_APP_BASE_URL` | `https://app.sendmux.ai/api/v1` |
-| Sending API base URL | `SENDMUX_SENDING_BASE_URL` | `https://smtp.sendmux.ai/api/v1` |
-| Transport | `SENDMUX_MCP_TRANSPORT` | `stdio` |
-| HTTP host | `SENDMUX_MCP_HOST` | `127.0.0.1` |
-| HTTP port | `SENDMUX_MCP_PORT` | `8765` |
-| HTTP path | `SENDMUX_MCP_PATH` | `/mcp` |
-| HTTP bearer token | `SENDMUX_MCP_HTTP_BEARER_TOKEN` | Required for HTTP |
-| Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
+<AccordionGroup>
+  <Accordion title="Environment variables" description="All local MCP server settings.">
+    | Setting | Environment | Default |
+    | --- | --- | --- |
+    | Tool surfaces | `SENDMUX_MCP_SURFACES` | Required for `sendmux-mcp` |
+    | API key fallback | `SENDMUX_API_KEY` | None |
+    | Mailbox API key | `SENDMUX_MAILBOX_API_KEY` | None |
+    | Management API key | `SENDMUX_MANAGEMENT_API_KEY` | None |
+    | Sending API key | `SENDMUX_SENDING_API_KEY` | None |
+    | Management and Mailbox API base URL | `SENDMUX_APP_BASE_URL` | `https://app.sendmux.ai/api/v1` |
+    | Sending API base URL | `SENDMUX_SENDING_BASE_URL` | `https://smtp.sendmux.ai/api/v1` |
+    | Transport | `SENDMUX_MCP_TRANSPORT` | `stdio` |
+    | HTTP host | `SENDMUX_MCP_HOST` | `127.0.0.1` |
+    | HTTP port | `SENDMUX_MCP_PORT` | `8765` |
+    | HTTP path | `SENDMUX_MCP_PATH` | `/mcp` |
+    | HTTP bearer token | `SENDMUX_MCP_HTTP_BEARER_TOKEN` | Required for HTTP |
+    | Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
+  </Accordion>
 
-You can also pass the same choices as command flags:
-
-```bash
-sendmux-mcp \
-  --surfaces mailbox,management,sending \
-  --mailbox-api-key smx_mbx_... \
-  --management-api-key smx_root_... \
-  --sending-api-key smx_mbx_...
-```
+  <Accordion title="Command flags" description="Pass the same choices as CLI flags.">
+    ```bash
+    sendmux-mcp \
+      --surfaces mailbox,management,sending \
+      --mailbox-api-key smx_mbx_... \
+      --management-api-key smx_root_... \
+      --sending-api-key smx_mbx_...
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ## Tool discovery
 
-Tool names are generated from the current public API surfaces. Open your MCP client's tool picker after authorisation to see the tools available to that connection.
+<Accordion title="How tool discovery works">
+  Tool names are generated from the current public API surfaces. Open your MCP client's tool picker after authorisation to see the tools available to that connection.
 
-Hosted connections show only the tools allowed by the selected product surfaces, permissions, and mailbox grant. Local servers show the tools for the surfaces and keys you provide at startup.
+  Hosted connections show only the tools allowed by the selected product surfaces, permissions, and mailbox grant. Local servers show the tools for the surfaces and keys you provide at startup.
+</Accordion>
 
 ## Troubleshooting
 
-| Symptom | Check |
-| --- | --- |
-| No tools appear | Confirm the selected product surfaces and granted permissions. Hosted connections show only tools allowed by the grant. |
-| Local server fails before starting | Check the API key prefix. Management needs `smx_root_`; Mailbox and Sending need `smx_mbx_`. |
-| HTTP server returns `401` | Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` to private HTTP, or complete OAuth for hosted MCP. |
-| HTTP server returns `403 origin_forbidden` | Add the browser client's origin to `SENDMUX_MCP_ALLOWED_ORIGINS` for private HTTP. |
-| Too many tools in one client | Connect only the surfaces you need, or disable unused tools in the client. |
+<AccordionGroup>
+  <Accordion title="No tools appear">
+    Confirm the selected product surfaces and granted permissions. Hosted connections show only tools allowed by the grant.
+  </Accordion>
+
+  <Accordion title="Local server fails before starting">
+    Check the API key prefix. Management needs `smx_root_`; Mailbox and Sending need `smx_mbx_`.
+  </Accordion>
+
+  <Accordion title="HTTP server returns 401">
+    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` to private HTTP, or complete OAuth for hosted MCP.
+  </Accordion>
+
+  <Accordion title="HTTP server returns 403 origin_forbidden">
+    Add the browser client's origin to `SENDMUX_MCP_ALLOWED_ORIGINS` for private HTTP.
+  </Accordion>
+
+  <Accordion title="Too many tools in one client">
+    Connect only the surfaces you need, or disable unused tools in the client.
+  </Accordion>
+</AccordionGroup>
 
 ## Next steps
 
