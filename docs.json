@@ -60,7 +60,7 @@
           {
             "group": "AI integrations",
             "icon": "robot",
-            "pages": ["guides/agent-skills", "guides/mcp"]
+            "pages": ["guides/agent-skills", "guides/mcp", "guides/mcp-clients"]
           },
           {
             "group": "Teams and access",

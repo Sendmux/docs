@@ -1,0 +1,831 @@
+---
+title: "MCP client setup"
+sidebarTitle: "MCP clients"
+description: "Configure Sendmux Product MCP in supported AI clients."
+keywords:
+  [
+    "MCP clients",
+    "sendmux-mcp",
+    "Claude Code",
+    "Cursor",
+    "Codex",
+    "Gemini CLI",
+    "Qwen Code",
+    "Zed",
+  ]
+---
+
+Use this page to connect Sendmux Product MCP to your AI client. Prefer hosted OAuth when your client supports it. Use local stdio or private HTTP when the client cannot complete hosted OAuth.
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+## Compatibility
+
+| Client | Recommended setup | Works with |
+| --- | --- | --- |
+| Claude and Claude Desktop | Hosted OAuth | Custom connector |
+| Claude Code | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+| Cursor | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+| Codex | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+| ChatGPT | Hosted OAuth app | Remote HTTPS MCP app |
+| Gemini CLI | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+| Qwen Code | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+| Kiro | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+| OpenCode | Hosted OAuth | Remote MCP, local MCP |
+| Zed | Hosted OAuth | Remote OAuth, local command, private HTTP |
+| Visual Studio | Hosted OAuth | Remote HTTP, local stdio |
+| VS Code | Local stdio or private HTTP | Local stdio, private HTTP |
+| Windsurf and Cascade | Local stdio or private HTTP | Local stdio, private HTTP |
+| Cline | Local stdio or private HTTP | Local stdio, private HTTP |
+| Roo Code | Local stdio or private HTTP | Local stdio, private HTTP |
+| Warp local app | Local stdio or private HTTP | Local command, URL server |
+| JetBrains AI Assistant | Local stdio or private HTTP | Local stdio, private HTTP |
+| Continue | Local stdio or private HTTP | Local stdio, private HTTP |
+| LM Studio | Private HTTP | Remote MCP using Cursor-style JSON |
+| GitHub Copilot CLI | Local stdio or private HTTP | Local, HTTP |
+| GitHub Copilot coding agent | Private HTTP | Repository MCP config with secrets |
+
+<Info>
+  A client can still use Sendmux when hosted OAuth is not listed. Use local
+  stdio if the client can launch commands, or private HTTP if it needs a URL.
+</Info>
+
+## Hosted OAuth clients
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+### Claude and Claude Desktop
+
+Add a custom connector with server URL `https://mcp.sendmux.ai/mcp`, then connect and complete the Sendmux authorisation flow.
+
+On Team and Enterprise plans, an owner may need to add the custom connector for the organisation before members can connect it.
+
+### Claude Code
+
+```bash
+claude mcp add sendmux --transport http https://mcp.sendmux.ai/mcp
+```
+
+Use `/mcp` in Claude Code if the server is listed as requiring authentication.
+
+### Cursor
+
+Add this to `.cursor/mcp.json` for one project or `~/.cursor/mcp.json` for all projects.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "url": "https://mcp.sendmux.ai/mcp"
+    }
+  }
+}
+```
+
+Cursor opens the OAuth flow when the hosted server asks for authorisation.
+
+### Codex
+
+Add this to `~/.codex/config.toml` or a trusted project `.codex/config.toml`.
+
+```toml
+[mcp_servers.sendmux]
+url = "https://mcp.sendmux.ai/mcp"
+```
+
+Then authenticate:
+
+```bash
+codex mcp login sendmux
+```
+
+### ChatGPT
+
+Create a custom MCP app or connector that points to `https://mcp.sendmux.ai/mcp`. Developer mode or workspace app setup must be available on your plan or workspace.
+
+After ChatGPT scans the tools, complete the Sendmux authorisation prompt and test the app privately before publishing it to a workspace.
+
+### Gemini CLI
+
+Add this to your Gemini CLI `settings.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "httpUrl": "https://mcp.sendmux.ai/mcp",
+      "trust": false
+    }
+  }
+}
+```
+
+Then run `/mcp auth sendmux` inside Gemini CLI.
+
+### Qwen Code
+
+Add this to `.qwen/settings.json` for one project or `~/.qwen/settings.json` for all projects.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "httpUrl": "https://mcp.sendmux.ai/mcp",
+      "trust": false
+    }
+  }
+}
+```
+
+Use `/mcp auth` in Qwen Code if the server needs authentication.
+
+### Kiro
+
+Add this to `.kiro/settings/mcp.json` for one workspace or `~/.kiro/settings/mcp.json` for all workspaces.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "url": "https://mcp.sendmux.ai/mcp",
+      "disabled": false
+    }
+  }
+}
+```
+
+Kiro opens the browser OAuth flow when the hosted server asks for authorisation.
+
+### OpenCode
+
+Add this to `opencode.json`.
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sendmux": {
+      "type": "remote",
+      "url": "https://mcp.sendmux.ai/mcp",
+      "enabled": true
+    }
+  }
+}
+```
+
+Authenticate when prompted, or run:
+
+```bash
+opencode mcp auth sendmux
+```
+
+### Zed
+
+Add this to Zed settings.
+
+```json
+{
+  "context_servers": {
+    "sendmux": {
+      "url": "https://mcp.sendmux.ai/mcp"
+    }
+  }
+}
+```
+
+Do not add an `Authorization` header for hosted OAuth. Zed prompts for the standard MCP OAuth flow when no header is configured.
+
+### Visual Studio
+
+Add a remote MCP server with this JSON shape.
+
+```json
+{
+  "servers": {
+    "sendmux": {
+      "url": "https://mcp.sendmux.ai/mcp"
+    }
+  }
+}
+```
+
+Click **Auth** above the server in the MCP configuration file, then complete the Sendmux authorisation flow.
+
+## Local stdio clients
+
+Install the local package once:
+
+```bash
+pip install sendmux-mcp
+```
+
+Use a mailbox key for Mailbox or Sending:
+
+```bash
+export SENDMUX_MBX_KEY=smx_mbx_...
+```
+
+Use a root key for Management:
+
+```bash
+export SENDMUX_ROOT_KEY=smx_root_...
+```
+
+### Claude Code
+
+```bash
+claude mcp add sendmux-mailbox \
+  --transport stdio \
+  --env SENDMUX_API_KEY="$SENDMUX_MBX_KEY" \
+  -- sendmux-mcp-mailbox
+```
+
+### Cursor
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "type": "stdio",
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      }
+    }
+  }
+}
+```
+
+### VS Code
+
+Use an input variable so the key is not stored directly in `.vscode/mcp.json`.
+
+```json
+{
+  "servers": {
+    "sendmux-mailbox": {
+      "type": "stdio",
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "${input:sendmux-mailbox-key}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "sendmux-mailbox-key",
+      "description": "Sendmux mailbox API key",
+      "password": true
+    }
+  ]
+}
+```
+
+### Codex
+
+Run Codex with `SENDMUX_API_KEY` already set, then use `env_vars` so the value stays outside the config file.
+
+```toml
+[mcp_servers.sendmux_mailbox]
+command = "sendmux-mcp-mailbox"
+env_vars = ["SENDMUX_API_KEY"]
+```
+
+### Windsurf and Cascade
+
+Add this to `~/.codeium/windsurf/mcp_config.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      }
+    }
+  }
+}
+```
+
+### Cline
+
+Add this through the Cline MCP settings JSON or `~/.cline/mcp.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+```
+
+### Roo Code
+
+Add this to the Roo MCP settings JSON.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}
+```
+
+### Gemini CLI
+
+Add this to Gemini CLI `settings.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "$SENDMUX_MBX_KEY"
+      },
+      "trust": false
+    }
+  }
+}
+```
+
+### Qwen Code
+
+Add this to `.qwen/settings.json` or `~/.qwen/settings.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "$SENDMUX_MBX_KEY"
+      },
+      "trust": false
+    }
+  }
+}
+```
+
+### Kiro
+
+Add this to `.kiro/settings/mcp.json` or `~/.kiro/settings/mcp.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "args": [],
+      "env": {
+        "SENDMUX_API_KEY": "${SENDMUX_MBX_KEY}"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
+### OpenCode
+
+Add this to `opencode.json`.
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sendmux-mailbox": {
+      "type": "local",
+      "command": ["sendmux-mcp-mailbox"],
+      "environment": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
+### Zed
+
+Add this to Zed settings.
+
+```json
+{
+  "context_servers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "args": [],
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      }
+    }
+  }
+}
+```
+
+### Warp local app
+
+Paste this as an MCP server JSON snippet in **Settings** > **Agents** > **MCP servers**.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "args": [],
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      }
+    }
+  }
+}
+```
+
+### JetBrains AI Assistant
+
+Go to **Settings** > **Tools** > **AI Assistant** > **Model Context Protocol (MCP)** and add this JSON configuration over STDIO.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "args": [],
+      "env": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      }
+    }
+  }
+}
+```
+
+### Continue
+
+Create `.continue/mcpServers/sendmux-mailbox.yaml`.
+
+```yaml
+name: Sendmux mailbox MCP
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Sendmux mailbox
+    type: stdio
+    command: sendmux-mcp-mailbox
+    env:
+      SENDMUX_API_KEY: smx_mbx_...
+```
+
+### GitHub Copilot CLI
+
+```bash
+copilot mcp add sendmux-mailbox \
+  --env SENDMUX_API_KEY=smx_mbx_... \
+  -- sendmux-mcp-mailbox
+```
+
+## Private HTTP clients
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+### Claude Code
+
+```bash
+claude mcp add sendmux-local \
+  --transport http \
+  --header "Authorization: Bearer local-mcp-token" \
+  http://127.0.0.1:8765/mcp
+```
+
+### Cursor
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```
+
+### VS Code
+
+```json
+{
+  "servers": {
+    "sendmux-local": {
+      "type": "http",
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:sendmux-mcp-token}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "sendmux-mcp-token",
+      "description": "Sendmux local MCP bearer token",
+      "password": true
+    }
+  ]
+}
+```
+
+### Codex
+
+```toml
+[mcp_servers.sendmux_local]
+url = "http://127.0.0.1:8765/mcp"
+bearer_token_env_var = "SENDMUX_MCP_HTTP_BEARER_TOKEN"
+```
+
+### Windsurf and Cascade
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "serverUrl": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```
+
+### Cline
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+```
+
+### Roo Code
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "type": "streamable-http",
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}
+```
+
+### Gemini CLI
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "httpUrl": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "trust": false
+    }
+  }
+}
+```
+
+### Qwen Code
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "httpUrl": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "trust": false
+    }
+  }
+}
+```
+
+### Kiro
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
+### OpenCode
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sendmux-local": {
+      "type": "remote",
+      "url": "http://127.0.0.1:8765/mcp",
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
+### Zed
+
+```json
+{
+  "context_servers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```
+
+### Warp local app
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```
+
+Warp cloud agents should use a reachable private HTTPS endpoint, not a loopback URL on your laptop.
+
+### JetBrains AI Assistant
+
+Use the HTTP option in the MCP settings.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```
+
+### Continue
+
+Create `.continue/mcpServers/sendmux-local.yaml`.
+
+```yaml
+name: Sendmux local MCP
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Sendmux local
+    type: streamable-http
+    url: http://127.0.0.1:8765/mcp
+    headers:
+      Authorization: Bearer local-mcp-token
+```
+
+### LM Studio
+
+LM Studio follows Cursor's `mcp.json` notation. Open **Program** > **Install** > **Edit mcp.json** and add:
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```
+
+### GitHub Copilot CLI
+
+```bash
+copilot mcp add --transport http \
+  --header "Authorization: Bearer local-mcp-token" \
+  sendmux-local http://127.0.0.1:8765/mcp
+```
+
+### GitHub Copilot coding agent
+
+Use repository-level MCP settings with a private HTTPS endpoint that the cloud agent can reach. Store the bearer token as an Agents secret or variable whose name starts with `COPILOT_MCP_`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "type": "http",
+      "url": "https://your-private-mcp.example.com/mcp",
+      "headers": {
+        "Authorization": "Bearer $COPILOT_MCP_SENDMUX_MCP_TOKEN"
+      },
+      "tools": ["*"]
+    }
+  }
+}
+```
+
+GitHub Copilot coding agent does not support remote MCP servers that require OAuth. Do not point it at the hosted Sendmux OAuth endpoint.
+
+## Verify the connection
+
+After adding a client:
+
+1. Restart or reconnect the MCP server in the client.
+2. Open the client's MCP server list or tool picker.
+3. Confirm Sendmux tools appear.
+4. For a hosted multi-mailbox grant, call `mailbox_list_granted_mailboxes` before mailbox-specific work.
+5. For private HTTP, confirm the client sends `Authorization: Bearer local-mcp-token`.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="MCP overview" icon="plug" href="/guides/mcp">
+    Compare Documentation MCP, hosted Product MCP, local stdio, and private HTTP.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create mailbox and root keys for local MCP.
+  </Card>
+  <Card title="Agent skills" icon="sparkles" href="/guides/agent-skills">
+    Teach AI coding agents the Sendmux workflows and efficient defaults.
+  </Card>
+  <Card title="CLI" icon="terminal" href="/cli">
+    Run Sendmux workflows from your terminal.
+  </Card>
+</CardGroup>
