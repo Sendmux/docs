@@ -51,6 +51,12 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
 
 API keys are scoped to a team. Create and manage keys under **Settings > API Keys** in the Sendmux app. Keys used for sending require the `email.send` permission. Send-only keys and mailbox keys use the `smx_mbx_` prefix; root keys use `smx_root_`.
 
+<Note>
+  Self-registered agent tokens use the `smx_agent_` prefix, but pre-claim agent
+  tokens do not include `email.send`. Agents invite their owner through
+  [agent access](/guides/agent-access), not by calling the Sending API.
+</Note>
+
 ### Permissions
 
 | Endpoint                         | Required permission |

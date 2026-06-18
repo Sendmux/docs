@@ -15,8 +15,9 @@ keywords:
 Use the Python SDK when your application needs Sendmux API clients with API-key validation, retry handling, cursor helpers, and typed API errors.
 
 <Info>
-  Sending and Mailbox clients require mailbox-scoped `smx_mbx_` keys.
-  Management clients require team-scoped `smx_root_` keys.
+  Sending and Mailbox clients accept mailbox-compatible `smx_mbx_` keys or
+  scoped `smx_agent_` tokens. Management clients require team-scoped
+  `smx_root_` keys.
 </Info>
 
 ## Requirements
@@ -89,9 +90,14 @@ Surface packages expose `create_sending_client`, `create_mailbox_client`, and `c
 
 | Surface | Package | Factory | API key |
 | --- | --- | --- | --- |
-| Sending | `sendmux-sending` | `create_sending_client` | `smx_mbx_` |
-| Mailbox | `sendmux-mailbox` | `create_mailbox_client` | `smx_mbx_` |
+| Sending | `sendmux-sending` | `create_sending_client` | `smx_mbx_` or scoped `smx_agent_` |
+| Mailbox | `sendmux-mailbox` | `create_mailbox_client` | `smx_mbx_` or scoped `smx_agent_` |
 | Management | `sendmux-management` | `create_management_client` | `smx_root_` |
+
+<Note>
+  The SDK accepts `smx_agent_` on mailbox-compatible clients, but the API still
+  enforces endpoint permissions. Pre-claim agent tokens cannot send email.
+</Note>
 
 Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
 

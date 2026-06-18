@@ -28,14 +28,14 @@ https://app.sendmux.ai/api/v1
 
 ## Authentication
 
-Authenticate with a mailbox credential or connected-app access token from the Sendmux app. Pass it as a Bearer token in the `Authorization` header.
+Authenticate with a mailbox credential, connected-app access token, or agent access token from Sendmux. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
 curl https://app.sendmux.ai/api/v1/mailbox/me \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
-Manual mailbox credentials are scoped to one mailbox. The same credential is also accepted as the mailbox password for SMTP submission and IMAP retrieval. Connected-app tokens can be granted one or more mailboxes, and each mailbox request is limited to that granted set. Root API keys are rejected on Mailbox API endpoints.
+Manual mailbox credentials are scoped to one mailbox. The same credential is also accepted as the mailbox password for SMTP submission and IMAP retrieval. Connected-app tokens can be granted one or more mailboxes, and each mailbox request is limited to that granted set. Agent access tokens use the `smx_agent_` prefix and are limited by their granted scopes. Root API keys are rejected on Mailbox API endpoints.
 
 ## Current endpoints
 
@@ -89,6 +89,8 @@ Import the [Mailbox API Postman collection](/guides/postman-collection#choose-a-
 Manual mailbox credentials always target their single mailbox. Omit `mailbox_id` when you use a manual `smx_mbx_` credential.
 
 Connected-app tokens can grant a set of mailboxes. Use `GET /mailbox/mailboxes` to list or search the granted set, then pass the selected mailbox's `id` as `mailbox_id` on Mailbox API requests.
+
+Self-registered agent tokens target their assigned mailbox. Omit `mailbox_id` when you use a pre-claim `smx_agent_` token. Pre-claim tokens can read and receive mail, but they cannot send.
 
 ```bash
 curl "https://app.sendmux.ai/api/v1/mailbox/mailboxes?q=support" \
