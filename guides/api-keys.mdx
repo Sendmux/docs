@@ -23,6 +23,7 @@ Connected apps are different. They appear on the same credentials page for manag
 | --- | --- | --- | --- |
 | **Manual API key** | A team member creates a key in Sendmux. | Long-lived until you rotate or revoke it. | **API Keys** with the **Manual keys** filter. |
 | **Connected app** | You authorise an app through OAuth, such as Product MCP. | 15-minute access tokens with rotating refresh tokens. | **API Keys** with the **Connected apps** filter. |
+| **Agent access token** | An agent registers through agent access. | Short-lived access token. | Agent access flow, then normal team controls after owner acceptance. |
 
 Revoking a manual API key stops that key. Disconnecting a connected app stops that app refreshing access and using its existing connection.
 
@@ -33,8 +34,11 @@ Revoking a manual API key stops that key. Disconnecting a connected app stops th
 | **Infrastructure key** | Team automation, providers, routing, billing, logs, domains, mailboxes, and webhooks. | `smx_root_`   |
 | **Sending key**        | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents.        | `smx_mbx_`    |
 | **Mailbox key**        | API, IMAP, and SMTP access for one mailbox.                                           | `smx_mbx_`    |
+| **Agent token**        | Constrained mailbox access for a self-registered agent.                               | `smx_agent_`  |
 
 Sending keys and mailbox keys share the `smx_mbx_` prefix. Their permissions and sending scope decide what each key can do.
+
+Pre-claim agent tokens include `mailbox.read` and `email.receive`, not `email.send`. The agent can ask Sendmux to invite the owner through [agent access](/guides/agent-access).
 
 <Note>
   Each team starts with **100 active credentials** across manual API keys and

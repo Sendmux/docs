@@ -21,18 +21,23 @@ Sendmux SDKs give your application package-managed clients for the Sending, Mail
 Use an umbrella package when one application needs more than one API surface. Use a surface package when you want a smaller dependency for one job.
 
 <Info>
-  Create the API key in Sendmux before you install a package. Sending and
-  Mailbox clients use mailbox-scoped `smx_mbx_` keys. Management clients use
-  team-scoped `smx_root_` keys.
+  Create the credential in Sendmux before you install a package. Sending and
+  Mailbox clients accept mailbox-compatible `smx_mbx_` keys or scoped
+  `smx_agent_` tokens. Management clients use team-scoped `smx_root_` keys.
 </Info>
 
 ## Choose a surface
 
 | Surface | Use it for | API key |
 | --- | --- | --- |
-| Sending | Send single or batch emails. | `smx_mbx_` |
-| Mailbox | Read, search, organise, and send from a mailbox. | `smx_mbx_` |
+| Sending | Send single or batch emails. | `smx_mbx_` or scoped `smx_agent_` |
+| Mailbox | Read, search, organise, and send from a mailbox. | `smx_mbx_` or scoped `smx_agent_` |
 | Management | Manage team resources such as domains, sending accounts, mailboxes, webhooks, logs, metrics, and billing data. | `smx_root_` |
+
+<Note>
+  SDK prefix validation treats `smx_agent_` as mailbox-compatible. The API still
+  enforces scopes. Pre-claim agent tokens do not include `email.send`.
+</Note>
 
 ## Choose a package family
 

@@ -17,8 +17,9 @@ keywords:
 Sendmux Agent Skills teach AI coding tools how to send email, read mailboxes, manage team resources, and choose low-token Sendmux calls. Use them when your agent needs Sendmux context before it writes commands, API calls, or integration code.
 
 <Info>
-  Skills do not grant Sendmux access by themselves. Create API keys or authorise
-  Product MCP separately, then let the skill choose the right surface for the task.
+  Skills do not grant Sendmux access by themselves. Create API keys, authorise
+  Product MCP, or use agent access first, then let the skill choose the right
+  surface for the task.
 </Info>
 
 ## Install
@@ -66,7 +67,7 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 | `sendmux-cli` | Running Sendmux commands from a terminal. |
 | `sendmux-mcp-setup` | Connecting Sendmux MCP servers to an agent client. |
 | `sendmux-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
-| `sendmux-email-for-agents` | Giving an AI agent an inbox, a send-receive workflow, or a human-approved draft flow. |
+| `sendmux-email-for-agents` | Giving an AI agent an inbox, a self-registration flow, or a human-approved send workflow. |
 
 ## Choose the right surface
 
@@ -77,13 +78,16 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 | Application code | Use an SDK package. |
 | Endpoint detail or uncommon operation | Use the API reference. |
 
-Use mailbox-scoped `smx_mbx_` keys for Sending and Mailbox work. Use team-scoped `smx_root_` keys for Management work.
+Use mailbox-scoped `smx_mbx_` keys for Sending and Mailbox work. Use team-scoped `smx_root_` keys for Management work. Self-registered agents can also use `smx_agent_` tokens for their allowed Mailbox API work. Pre-claim `smx_agent_` tokens do not include `email.send`.
 
 ## Next steps
 
 <CardGroup cols={2}>
   <Card title="MCP" icon="plug" href="/guides/mcp">
     Connect hosted or local Sendmux MCP tools.
+  </Card>
+  <Card title="Agent access" icon="bot" href="/guides/agent-access">
+    Let an agent register a constrained mailbox and invite its owner.
   </Card>
   <Card title="CLI" icon="terminal" href="/cli">
     Run Sendmux workflows from your terminal.
