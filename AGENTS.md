@@ -17,7 +17,16 @@
 - `postman/*.postman_collection.json` are **generated artifacts — never hand-edit them.** They are produced from the committed `openapi-app.json` + `openapi-sending.json` by `scripts/emit-postman-collections.mjs`.
 - After any change to those specs, run `npm run postman:emit` and commit the updated `postman/` files in the same change.
 - CI (`.github/workflows/verify.yml`) runs `npm run postman:check` on every push + PR and **fails on drift** — a spec update cannot merge without the matching collection regeneration.
+- The hosted Run in Postman collections are mapped in `postman/hosted-collections.json`. After regenerating `postman/`, run `npm run postman:hosted:sync`, then `npm run postman:hosted:check`.
+- `npm run postman:hosted:check` requires `POSTMAN_API_KEY` from CI secrets or 1Password and blocks hosted collection drift.
 - The producer repos keep `openapi-app.json` / `openapi-sending.json` in sync with the live APIs; this repo only owns the spec → collection transform.
+
+## External links
+
+- Sendmux-owned links are root-relative, `sendmux.ai`, or `*.sendmux.ai`.
+- Any other MDX link MUST use explicit `<a>` HTML with `rel="nofollow noopener noreferrer"` and `target="_blank"`.
+- Never use Markdown syntax for non-Sendmux external links; it cannot set `rel`.
+- CI runs `npm run external-links:check` and blocks unsafe external links.
 
 ## Terminology
 

@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Management API",
+    "fileName": "sendmux-management.postman_collection.json",
+    "collectionUid": "2607731-3f234e9b-f322-46fe-8ea2-3f3c2e6ce3b3"
+  },
+  {
+    "label": "Mailbox API",
+    "fileName": "sendmux-mailbox.postman_collection.json",
+    "collectionUid": "2607731-8365c261-1af1-47c6-815c-e80a13932b28"
+  },
+  {
+    "label": "Sending API",
+    "fileName": "sendmux-sending.postman_collection.json",
+    "collectionUid": "2607731-735e7ae4-2652-4ab0-a3d2-f4ae9fd5cc55"
+  }
+]
