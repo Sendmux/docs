@@ -4,6 +4,21 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="22 June 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Agent authentication is easier to discover" }}>
+  ## Agent access
+
+Agents that call the Management API without credentials now receive the standard authentication discovery hint, so they can find the protected resource metadata and complete setup from a bare API request.
+
+The agent access guide now includes request and response examples for registration, token exchange, owner invites, credential use, revocation, expiry, and errors, so agents can follow the signup flow without guessing field names.
+
+  ## Bug fixes
+
+Unclaimed agent registrations are now cleaned up after their 24-hour expiry, including pre-claim tokens, pending owner invites, and the temporary agent mailbox.
+
+Invalid agent invite requests can no longer spend the owner email safety limit before the agent credential is checked. Expired temporary agent mailbox names can also be reused after cleanup.
+
+</Update>
+
 <Update label="21 June 2026" tags={["Bug fixes"]} rss={{ title: "Mailbox lists stay aligned with inboxes" }}>
   ## Bug fixes
 
