@@ -6,8 +6,11 @@
   "description": "Tooling to generate and drift-check the Sendmux Postman collections from the committed OpenAPI specs.",
   "scripts": {
     "confidentiality:check": "node scripts/check-confidentiality.mjs",
+    "external-links:check": "node scripts/check-external-links.mjs",
     "postman:emit": "node scripts/emit-postman-collections.mjs",
-    "postman:check": "node scripts/check-postman-collections.mjs"
+    "postman:check": "node scripts/check-postman-collections.mjs",
+    "postman:hosted:check": "node scripts/check-hosted-postman-collections.mjs",
+    "postman:hosted:sync": "node scripts/check-hosted-postman-collections.mjs --write"
   },
   "devDependencies": {
     "openapi-to-postmanv2": "6.0.1"

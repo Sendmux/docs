@@ -1,11 +1,9 @@
-name: Verify Postman collections
+name: Verify docs
 
-# Hard gate: the committed Postman collections must match what the generator
-# produces from the committed OpenAPI specs (openapi-app.json /
-# openapi-sending.json). Producer repos keep those specs in sync with their
-# live APIs; this gate keeps the collections in sync with the specs, so an
-# openapi-sending.json update (driven by the Sending API) cannot merge without
-# the matching collection regeneration.
+# Hard gates:
+# - Non-Sendmux external MDX links must be SEO-safe nofollow links.
+# - Committed Postman collections must match the generated OpenAPI output.
+# - Hosted Run in Postman collections must match committed Postman collections.
 
 on:
   push:
@@ -19,9 +17,9 @@ permissions:
   contents: read
 
 jobs:
-  postman:
+  verify:
     runs-on: ubuntu-latest
-    name: Postman collection drift
+    name: Docs gates
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -35,5 +33,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: External link safety
+        run: npm run external-links:check
+
       - name: Postman collection drift
         run: npm run postman:check
+
+      - name: Hosted Postman collection drift
+        env:
+          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+        run: npm run postman:hosted:check
