@@ -15,7 +15,7 @@ keywords:
 Use the Python SDK when your application needs Sendmux API clients with API-key validation, retry handling, cursor helpers, and typed API errors.
 
 <Info>
-  Sending clients require a send-capable `smx_mbx_` key. Mailbox clients accept
+  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
   `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
   team-scoped `smx_root_` keys.
 </Info>
@@ -90,13 +90,12 @@ Surface packages expose `create_sending_client`, `create_mailbox_client`, and `c
 
 | Surface | Package | Factory | API key |
 | --- | --- | --- | --- |
-| Sending | `sendmux-sending` | `create_sending_client` | `smx_mbx_` with `email.send` |
+| Sending | `sendmux-sending` | `create_sending_client` | `smx_mbx_` or owner-approved `smx_agent_` with `email.send` |
 | Mailbox | `sendmux-mailbox` | `create_mailbox_client` | `smx_mbx_` or scoped `smx_agent_` |
 | Management | `sendmux-management` | `create_management_client` | `smx_root_` |
 
 <Note>
-  `smx_agent_` tokens are mailbox-compatible only. Self-registered agent tokens
-  include `mailbox.read` and `email.receive`, not `email.send`.
+  Pre-claim `smx_agent_` tokens are mailbox-compatible only. Owner-approved Sending-resource `smx_agent_` tokens can send. Pre-claim self-registered agent tokens include `mailbox.read` and `email.receive`, not `email.send`.
 </Note>
 
 Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
