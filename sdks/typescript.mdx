@@ -15,9 +15,9 @@ keywords:
 Use the TypeScript SDK when your application needs package-managed clients for one or more Sendmux API surfaces.
 
 <Info>
-  Sending and Mailbox clients accept mailbox-compatible `smx_mbx_` keys or
-  scoped `smx_agent_` tokens. Management clients require team-scoped
-  `smx_root_` keys.
+  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  team-scoped `smx_root_` keys.
 </Info>
 
 ## Requirements
@@ -87,13 +87,12 @@ Surface packages expose `createSendingClient`, `createMailboxClient`, and `creat
 
 | Surface | Package | Factory | API key |
 | --- | --- | --- | --- |
-| Sending | `@sendmux/sending` | `createSendingClient` | `smx_mbx_` or scoped `smx_agent_` |
+| Sending | `@sendmux/sending` | `createSendingClient` | `smx_mbx_` or owner-approved `smx_agent_` with `email.send` |
 | Mailbox | `@sendmux/mailbox` | `createMailboxClient` | `smx_mbx_` or scoped `smx_agent_` |
 | Management | `@sendmux/management` | `createManagementClient` | `smx_root_` |
 
 <Note>
-  The SDK accepts `smx_agent_` on mailbox-compatible clients, but the API still
-  enforces endpoint permissions. Pre-claim agent tokens cannot send email.
+  Pre-claim `smx_agent_` tokens are mailbox-compatible only. Owner-approved Sending-resource `smx_agent_` tokens can send. Pre-claim self-registered agent tokens include `mailbox.read` and `email.receive`, not `email.send`.
 </Note>
 
 Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.

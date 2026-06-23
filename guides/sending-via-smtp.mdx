@@ -9,7 +9,7 @@ import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 Use SMTP when an existing application, plugin, or mail client already supports SMTP delivery.
 
 <Info>
-  The SMTP password is your `smx_mbx_` send-only key or mailbox password.
+  The SMTP password is your `smx_mbx_` send-only key, mailbox password, or owner-approved Sending-resource `smx_agent_` token.
   Routing still follows that key or mailbox scope.
 </Info>
 
@@ -22,7 +22,7 @@ Use SMTP when an existing application, plugin, or mail client already supports S
 | **Host** | `smtp.sendmux.ai` |
 | **Port** | `587` with STARTTLS, or `465` with implicit TLS |
 | **Username** | Any value, such as `smtpuser` |
-| **Password** | Your `smx_mbx_` send-only key or mailbox password |
+| **Password** | Your `smx_mbx_` send-only key, mailbox password, or owner-approved Sending-resource `smx_agent_` token |
 | **Authentication** | `LOGIN` or `PLAIN` |
 
 ## Test with swaks

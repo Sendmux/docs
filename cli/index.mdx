@@ -19,8 +19,9 @@ keywords:
 Use the `sendmux` CLI when you want terminal access to the same Management, Mailbox, and Sending API surfaces exposed by the SDKs.
 
 <Info>
-  Sending and Mailbox commands accept mailbox-compatible `smx_mbx_` keys or
-  scoped `smx_agent_` tokens. Management commands require team-scoped
+  Sending commands accept a send-capable `smx_mbx_` key or owner-approved
+  Sending-resource `smx_agent_` token. Mailbox commands accept `smx_mbx_` keys
+  or scoped `smx_agent_` tokens. Management commands require team-scoped
   `smx_root_` keys.
 </Info>
 
@@ -90,7 +91,7 @@ Every API command resolves credentials in this order:
 
 `--base-url` overrides the API base URL for one command. `SENDMUX_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
 
-Before running the API call, the CLI checks that the key prefix matches the command surface. A management command fails early when it receives a mailbox-compatible key, and mailbox or sending commands fail early when they receive a root key. API permissions still apply, so a pre-claim `smx_agent_` token cannot send email.
+Before running the API call, the CLI checks that the key prefix matches the command surface. A management command fails early when it receives a mailbox-compatible key, and sending commands fail early when they receive a root key. Mailbox commands accept `smx_mbx_` keys and scoped `smx_agent_` tokens. API permissions still apply, so a pre-claim `smx_agent_` token cannot send email.
 
 ## Run commands
 

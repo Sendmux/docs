@@ -1,6 +1,6 @@
 ---
 title: "Agent access"
-description: "Let an AI agent register a constrained Sendmux mailbox, get a short-lived agent token, and invite its human owner."
+description: "Let an AI agent register a constrained Sendmux mailbox, exchange an identity assertion, and invite its human owner."
 keywords:
   [
     "agent access",
@@ -12,21 +12,46 @@ keywords:
   ]
 ---
 
-Agent access lets an AI agent start with one constrained `@myagent.mx` mailbox before a person joins the team. The agent can read and receive mail for that mailbox, then ask Sendmux to invite the human owner.
+Agent access lets an AI agent start with one constrained `@myagent.mx` mailbox before a person joins the team. The agent can read and receive mail for that mailbox, ask Sendmux to invite the human owner, and use owner-approved sending after the owner joins and grants it.
 
 <Info>
   Pre-claim agent tokens include `mailbox.read` and `email.receive`. They do
   not include `email.send`.
 </Info>
 
+If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task, use that existing setup first. Register a new agent identity only when the agent has no usable Sendmux credential.
+
 ## How it works
 
-1. Discover Sendmux at `https://app.sendmux.ai/auth.md`.
-2. Create an anonymous agent identity.
-3. Exchange the returned identity assertion for an `smx_agent_` access token.
-4. Use the token as a Bearer token for allowed Mailbox API calls.
-5. Ask Sendmux to send the owner invite.
-6. After the owner accepts, use normal team credentials and limits.
+<Steps>
+  <Step title="Discover the protected resource">
+    Start from `https://app.sendmux.ai/auth.md`, follow the `auth.md` link on
+    the human sign-up page, or call the Management API without credentials and
+    follow the `WWW-Authenticate` metadata hint.
+  </Step>
+  <Step title="Create an anonymous agent identity">
+    Register once to get an identity assertion, a claim token, and a
+    constrained agent mailbox.
+  </Step>
+  <Step title="Exchange the assertion">
+    Use the JWT bearer grant to exchange the identity assertion for an
+    `smx_agent_` access token.
+  </Step>
+  <Step title="Use the mailbox">
+    Pass the token as a Bearer token on allowed Mailbox API requests.
+  </Step>
+  <Step title="Invite the owner">
+    Ask Sendmux to send the owner invite. The agent token is not upgraded.
+  </Step>
+  <Step title="Wait for owner approval">
+    After the owner accepts, they can approve sending for the agent mailbox from
+    the **Agent access** card on the team page.
+  </Step>
+  <Step title="Exchange the claim token">
+    Use the claim grant to request an app-resource token for mailbox work or a
+    Sending-resource token for the Sending API.
+  </Step>
+</Steps>
 
 Sendmux sends the owner invite email through the invite system. The agent does not need Sending API access to invite its owner.
 
@@ -38,41 +63,68 @@ Agents can read the human-readable service document first.
 curl https://app.sendmux.ai/auth.md
 ```
 
-API discovery also starts from the protected-resource metadata URL:
+Agents that land on the human sign-up page can use the `auth.md` link under
+the Terms and Privacy line instead of filling in the form.
+
+Agents can also start from a cold API request. Sendmux returns the protected-resource metadata URL in `WWW-Authenticate`:
+
+```http
+GET /api/v1 HTTP/1.1
+Host: app.sendmux.ai
+
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer resource_metadata="https://app.sendmux.ai/.well-known/oauth-protected-resource/api/v1"
+```
+
+The same discovery challenge is returned from `/api/v1/mailbox` and mailbox routes such as `/api/v1/mailbox/me` when the Bearer token is missing or invalid.
+
+Fetch the protected-resource metadata, then follow its `authorization_servers` entry.
 
 ```text
 https://app.sendmux.ai/.well-known/oauth-protected-resource/api/v1
 ```
 
-The authorisation-server metadata advertises the token and revocation endpoints. Its `agent_auth` block names the identity and invite endpoints:
+The authorisation-server metadata advertises the token and revocation endpoints. Its `agent_auth` block includes `register_uri`, `identity_endpoint`, `x_sendmux_identity_invite_endpoint`, `identity_invite_endpoint`, and `revocation_uri`. The `x_sendmux_identity_invite_endpoint` field is the Sendmux-specific owner invite extension. `identity_invite_endpoint` remains as a compatibility alias.
 
 ```text
 https://app.sendmux.ai/.well-known/oauth-authorization-server/agent-auth
 ```
 
+Sendmux does not expose `claim_uri`. Human ownership uses the invite flow below instead of an OTP claim ceremony.
+
+Unsupported methods today:
+
+- no OTP `claim_uri`
+- no ID-JAG or verified-email registration
+- no `email.send` scope for pre-claim agent tokens
+
 ## Register an agent identity
 
 Call the identity endpoint without an existing API key.
 
-```bash
-curl -X POST https://app.sendmux.ai/agent-auth/agent/identity \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "anonymous",
-    "mailbox_local_part": "triage-agent",
-    "client_name": "Triage Agent",
-    "idempotency_key": "agent-register-001"
-  }'
-```
+```http
+POST https://app.sendmux.ai/agent-auth/agent/identity HTTP/1.1
+Content-Type: application/json
+Idempotency-Key: idem_agent_registration_123
 
-The response includes an identity assertion and the assigned mailbox.
-
-```json
 {
-  "registration_id": "areg_abc123",
+  "type": "anonymous",
+  "mailbox_local_part": "triage-agent",
+  "client_name": "Triage Agent",
+  "idempotency_key": "idem_agent_registration_123"
+}
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "registration_id": "areg_...",
   "registration_type": "anonymous",
-  "identity_assertion": "eyJ...",
-  "assertion_expires": "2026-06-18T04:15:00.000Z",
+  "identity_assertion": "<service-signed JWT>",
+  "assertion_expires": "2026-06-22T22:00:00.000Z",
+  "claim_token": "smx_agent_claim_...",
+  "claim_token_expires": "2026-06-23T21:00:00.000Z",
   "pre_claim_scopes": ["mailbox.read", "email.receive"],
   "mailbox": {
     "email": "triage-agent@myagent.mx",
@@ -81,21 +133,22 @@ The response includes an identity assertion and the assigned mailbox.
 }
 ```
 
+`mailbox_local_part`, `client_name`, and `idempotency_key` are optional. If `mailbox.status` is `provisioning`, retry token exchange shortly.
+
 ## Exchange the assertion
 
 Use the OAuth JWT bearer grant to get an `smx_agent_` access token.
 
-```bash
-curl -X POST https://app.sendmux.ai/agent-auth/oauth2/token \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  --data-urlencode "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer" \
-  --data-urlencode "assertion=$SENDMUX_AGENT_IDENTITY_ASSERTION" \
-  --data-urlencode "resource=https://app.sendmux.ai/api/v1"
-```
+```http
+POST https://app.sendmux.ai/agent-auth/oauth2/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
 
-If the mailbox is still being prepared, the token endpoint returns `temporarily_unavailable` with `Retry-After`.
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=<identity_assertion>&resource=https%3A%2F%2Fapp.sendmux.ai%2Fapi%2Fv1
 
-```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+
 {
   "access_token": "smx_agent_...",
   "token_type": "Bearer",
@@ -104,13 +157,16 @@ If the mailbox is still being prepared, the token endpoint returns `temporarily_
 }
 ```
 
+If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After`.
+
 ## Use the mailbox
 
 Pass the `smx_agent_` token as a Bearer token to allowed Mailbox API endpoints.
 
-```bash
-curl https://app.sendmux.ai/api/v1/mailbox/me \
-  -H "Authorization: Bearer smx_agent_your_token_here"
+```http
+GET /api/v1/mailbox/me HTTP/1.1
+Host: app.sendmux.ai
+Authorization: Bearer smx_agent_...
 ```
 
 The token is mailbox-compatible, but permissions still apply. A pre-claim token can read and receive mail. It cannot send through the Mailbox API or Sending API.
@@ -119,42 +175,141 @@ The token is mailbox-compatible, but permissions still apply. A pre-claim token 
 
 Ask Sendmux to invite the human owner.
 
-```bash
-curl -X POST https://app.sendmux.ai/agent-auth/agent/identity/invite \
-  -H "Authorization: Bearer smx_agent_your_token_here" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "owner@example.com",
-    "requested_role": "owner",
-    "idempotency_key": "owner-invite-001"
-  }'
-```
+```http
+POST https://app.sendmux.ai/agent-auth/agent/identity/invite HTTP/1.1
+Authorization: Bearer smx_agent_...
+Content-Type: application/json
+Idempotency-Key: idem_owner_invite_123
 
-The response only confirms the invite request.
-
-```json
 {
-  "invite_id": "ainv_abc123",
+  "email": "owner@example.com",
+  "requested_role": "owner",
+  "idempotency_key": "idem_owner_invite_123"
+}
+
+HTTP/1.1 202 Accepted
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "invite_id": "ainv_...",
   "status": "pending"
 }
 ```
 
 The invite email goes to the owner. Membership starts only after that person verifies and accepts the invite. One live pre-claim owner invite can be pending per registration; retry the same request with the same `idempotency_key`.
 
+## Wait for owner-approved sending
+
+After the owner accepts the invite, they open the team page and use the
+**Agent access** card to approve sending. The agent polls the token endpoint
+with the original `claim_token` until that approval exists.
+
+Request the app resource for Mailbox API work:
+
+```http
+POST https://app.sendmux.ai/agent-auth/oauth2/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn%3Aworkos%3Aagent-auth%3Agrant-type%3Aclaim&claim_token=smx_agent_claim_...&resource=https%3A%2F%2Fapp.sendmux.ai%2Fapi%2Fv1
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "access_token": "smx_agent_...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "mailbox.read email.receive email.send mailbox.settings.update"
+}
+```
+
+Request the Sending API resource before calling `smtp.sendmux.ai`:
+
+```http
+POST https://app.sendmux.ai/agent-auth/oauth2/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn%3Aworkos%3Aagent-auth%3Agrant-type%3Aclaim&claim_token=smx_agent_claim_...&resource=https%3A%2F%2Fsmtp.sendmux.ai%2Fapi%2Fv1
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "access_token": "smx_agent_...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "mailbox.read email.receive email.send mailbox.settings.update"
+}
+```
+
+Use the Sending-resource token for Sending API calls. Use the app-resource token for Mailbox API reads, receives, and mailbox sends.
+
+If the owner has joined but not approved sending yet, the token endpoint returns `503 authorization_pending` with `Retry-After: 10`.
+
+```http
+POST /api/v1/emails/send HTTP/1.1
+Host: smtp.sendmux.ai
+Authorization: Bearer smx_agent_...
+Content-Type: application/json
+
+{
+  "from": { "email": "triage-agent@myagent.mx" },
+  "to": { "email": "owner@example.com" },
+  "subject": "Hello from Sendmux",
+  "html_body": "<p>Owner-approved agent sending is active.</p>",
+  "text_body": "Owner-approved agent sending is active."
+}
+```
+
 ## Revoke a token
 
 Revoke an agent access token when it is no longer needed.
 
-```bash
-curl -X POST https://app.sendmux.ai/agent-auth/oauth2/revoke \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  --data-urlencode "token=$SENDMUX_AGENT_ACCESS_TOKEN" \
-  --data-urlencode "token_type_hint=access_token"
+```http
+POST https://app.sendmux.ai/agent-auth/oauth2/revoke HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+token=smx_agent_...&token_type_hint=access_token
+
+HTTP/1.1 200 OK
+Cache-Control: no-store
 ```
+
+Revocation is idempotent. Unknown or already-revoked access tokens still return `200 OK`.
 
 ## Limits
 
-Each anonymous registration gets exactly one constrained `@myagent.mx` mailbox. Unclaimed registrations expire after 24 hours. After the owner accepts the invite, the team uses normal Sendmux limits and can request increases like any other team.
+Each anonymous registration gets exactly one constrained `@myagent.mx` mailbox. Unclaimed registrations expire after 24 hours. Sendmux revokes pre-claim access tokens and reclaims the agent mailbox after expiry.
+
+After the owner accepts the invite, the team uses normal Sendmux limits and can request increases like any other team. The owner can approve or revoke agent sending from the **Agent access** card on the team page.
+
+Timing summary:
+
+- identity assertions expire after 15 minutes
+- agent access tokens expire after at most 1 hour
+- unclaimed agent registrations, claim tokens, and their owner approval window expire after 24 hours
+- other owner invitation links can last up to 7 days
+
+## Error reference
+
+| Endpoint | Status | Error | Meaning | Agent action |
+| --- | ---: | --- | --- | --- |
+| `https://app.sendmux.ai/agent-auth/agent/identity` | 400 | `invalid_request` | Body is not JSON, `type` is unsupported, a field is invalid, or `idempotency_key` was replayed with a different body. | Correct the request body. |
+| `https://app.sendmux.ai/agent-auth/agent/identity` | 409 | `invalid_request` | Requested mailbox local part is unavailable. | Retry without `mailbox_local_part` or choose another value. |
+| `https://app.sendmux.ai/agent-auth/agent/identity` | 429 | `temporarily_unavailable` | Registration rate limit reached. | Back off until `Retry-After`. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `unsupported_grant_type` | `grant_type` is not one of the documented values. | Use the assertion grant before owner approval, or the claim grant after owner approval. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `invalid_grant` | Identity assertion or claim token is invalid, expired, revoked, or bound to an expired registration. | Register again, use a fresh assertion, or use the original claim token. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `authorization_pending` | Owner approval for sending is not complete. | Retry after the `Retry-After` header. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `temporarily_unavailable` | Mailbox provisioning is still in progress. | Retry after the `Retry-After` header. |
+| `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 401 | `invalid_token` | Agent access token is missing, invalid, expired, or revoked. | Exchange a valid identity assertion for a fresh access token. |
+| `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 400 | `invalid_request` | Body is not JSON, email is invalid, or idempotency key conflicts. | Correct the request body. |
+| `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 403 | `access_denied` | Requested role is not available, or an owner invite is already pending. | Wait for the human owner or retry the same pending invite email. |
+| `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 429 | `temporarily_unavailable` | Invite rate limit reached. | Back off until `Retry-After`. |
+| `https://app.sendmux.ai/agent-auth/oauth2/revoke` | 400 | `invalid_request` | Form body is missing or malformed. | Send form-encoded `token`. |
+| `https://app.sendmux.ai/agent-auth/oauth2/revoke` | 400 | `unsupported_token_type` | `token_type_hint` is not `access_token`. | Use `access_token` or omit the hint. |
 
 ## Next steps
 

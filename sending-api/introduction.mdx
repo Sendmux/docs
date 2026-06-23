@@ -49,12 +49,13 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
   }'
 ```
 
-API keys are scoped to a team. Create and manage keys under **Settings > API Keys** in the Sendmux app. Keys used for sending require the `email.send` permission. Send-only keys and mailbox keys use the `smx_mbx_` prefix; root keys use `smx_root_`.
+API keys are scoped to a team. Create and manage keys under **Settings > API Keys** in the Sendmux app. Keys used for sending require the `email.send` permission. Send-only keys and mailbox keys use the `smx_mbx_` prefix; owner-approved agent tokens use `smx_agent_`; root keys use `smx_root_`.
 
 <Note>
-  Self-registered agent tokens use the `smx_agent_` prefix, but pre-claim agent
-  tokens do not include `email.send`. Agents invite their owner through
-  [agent access](/guides/agent-access), not by calling the Sending API.
+  Pre-claim agent tokens use the `smx_agent_` prefix, but they do not include
+  `email.send`. After the owner approves sending, the agent can request a
+  Sending-resource `smx_agent_` token through
+  [agent access](/guides/agent-access).
 </Note>
 
 ### Permissions
@@ -107,7 +108,7 @@ The Sending API uses the same envelope as the [Management API](/api/introduction
 
 ## Rate limits
 
-Each send-only or mailbox key used on the Sending API is rate-limited to **1,800 requests per 60 seconds**. A batch send counts as **1 request**, regardless of how many messages it contains.
+Each send-only key, mailbox key, or owner-approved agent token used on the Sending API is rate-limited to **1,800 requests per 60 seconds**. A batch send counts as **1 request**, regardless of how many messages it contains.
 
 Management API keys are limited separately to **600 requests per 60 seconds**. See the [Management API introduction](/api/introduction#rate-limits).
 

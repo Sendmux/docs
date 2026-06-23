@@ -78,7 +78,7 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 | Application code | Use an SDK package. |
 | Endpoint detail or uncommon operation | Use the API reference. |
 
-Use mailbox-scoped `smx_mbx_` keys for Sending and Mailbox work. Use team-scoped `smx_root_` keys for Management work. Self-registered agents can also use `smx_agent_` tokens for their allowed Mailbox API work. Pre-claim `smx_agent_` tokens do not include `email.send`.
+Use send-capable `smx_mbx_` keys or owner-approved Sending-resource `smx_agent_` tokens for Sending work. Use `smx_mbx_` keys or scoped `smx_agent_` tokens for allowed Mailbox work. Use team-scoped `smx_root_` keys for Management work. Pre-claim `smx_agent_` tokens do not include `email.send`.
 
 ## Next steps
 

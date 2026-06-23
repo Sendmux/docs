@@ -79,9 +79,9 @@ MCP exposes the product surfaces you grant.
 
 | Surface | Use it for | Access |
 | --- | --- | --- |
-| Mailbox | Search, read, organise, and send from granted mailboxes. | Hosted grant with Mailbox access, or an `smx_mbx_` key locally |
+| Mailbox | Search, read, organise, and send from granted mailboxes. | Hosted grant with Mailbox access, an `smx_mbx_` key, or a scoped `smx_agent_` token locally |
 | Management | Manage team resources such as domains, mailboxes, sending accounts, logs, metrics, billing, and webhooks. | Hosted grant with Management access, or an `smx_root_` key locally |
-| Sending | Send single or batch emails. | Hosted grant with Sending access, or an `smx_mbx_` key locally |
+| Sending | Send single or batch emails. | Hosted grant with Sending access, an `smx_mbx_` key, or an owner-approved Sending-resource `smx_agent_` token locally |
 
 Hosted MCP is the default when your client supports remote MCP with browser OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
 
@@ -149,7 +149,7 @@ SENDMUX_SENDING_API_KEY=smx_mbx_... \
 sendmux-mcp
 ```
 
-The server validates key prefixes before starting. Management requires a root key. Mailbox and Sending require a mailbox-scoped key.
+The server validates key prefixes before starting. Management requires `smx_root_`. Sending accepts a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox accepts an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Private HTTP
 
@@ -211,7 +211,7 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
   </Accordion>
 
   <Accordion title="Local server fails before starting">
-    Check the API key prefix. Management needs `smx_root_`; Mailbox and Sending need `smx_mbx_`.
+    Check the API key prefix. Management needs `smx_root_`; Sending accepts `smx_mbx_` or owner-approved Sending-resource `smx_agent_`; Mailbox accepts `smx_mbx_` or scoped `smx_agent_`.
   </Accordion>
 
   <Accordion title="HTTP server returns 401">
