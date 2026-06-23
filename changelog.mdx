@@ -15,6 +15,8 @@ Discovery metadata also now advertises the supported bearer-token method alongsi
 
 The same discovery hint is available from both the base Management API path and the mailbox entry point.
 
+Agents that already have credentials continue to receive the normal API response from those entry points.
+
   ## Bug fixes
 
 Unclaimed agent registrations are now cleaned up after their 24-hour expiry, including pre-claim tokens, pending owner invites, and the temporary agent mailbox.
