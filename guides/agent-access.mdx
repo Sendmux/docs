@@ -88,7 +88,7 @@ Fetch the protected-resource metadata, then follow its `authorization_servers` e
 https://app.sendmux.ai/.well-known/oauth-protected-resource/api/v1
 ```
 
-The authorisation-server metadata advertises the token and revocation endpoints. Its `agent_auth` block includes `register_uri`, `identity_endpoint`, `x_sendmux_proof_of_work_challenge_uri`, `x_sendmux_identity_invite_endpoint`, `identity_invite_endpoint`, and `revocation_uri`. The `x_sendmux_proof_of_work_challenge_uri` field points to the registration challenge endpoint. The `x_sendmux_identity_invite_endpoint` field is the Sendmux-specific owner invite extension. `identity_invite_endpoint` remains as a compatibility alias.
+The authorisation-server metadata advertises the token and revocation endpoints at the top level. Its `agent_auth` block includes `identity_endpoint`, `x_sendmux_proof_of_work_challenge_endpoint`, `x_sendmux_identity_invite_endpoint`, and `identity_types_supported`. The proof-of-work field points to the registration challenge endpoint. The invite field is the Sendmux-specific owner invite extension.
 
 ```text
 https://app.sendmux.ai/.well-known/oauth-authorization-server/agent-auth
