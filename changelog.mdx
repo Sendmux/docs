@@ -55,7 +55,7 @@ Sendmux SDKs are now available for TypeScript, Python, Go, PHP, and Ruby, with p
 
 The `sendmux` CLI is now available from npm, with profile management and JSON output across generated Management, Mailbox, and Sending commands.
 
-Product MCP is now available through hosted OAuth, with local stdio and self-hosted HTTP options when you run the server yourself. You can grant Management, Mailbox, Sending, or any combination, and agents only see the tools allowed by that grant.
+MCP is now available through hosted OAuth, with local stdio and self-hosted HTTP options when you run the server yourself. You can grant Management, Mailbox, Sending, or any combination, and agents only see the tools allowed by that grant.
 
 </Update>
 
@@ -162,7 +162,7 @@ All-product-line MCP connections no longer ask for a mailbox when an agent uses 
 <Update label="11 June 2026" tags={["Improvements"]} rss={{ title: "Hosted MCP can grant selected mailbox sets" }}>
   ## Hosted MCP
 
-Hosted Product MCP can now grant one or more selected mailboxes in the same connected app. Agents can search the granted mailbox set, target a mailbox for each mailbox action, and remain blocked from any mailbox that was not authorised.
+Hosted MCP can now grant one or more selected mailboxes in the same connected app. Agents can search the granted mailbox set, target a mailbox for each mailbox action, and remain blocked from any mailbox that was not authorised.
 
   ## Mailbox API
 
@@ -186,7 +186,7 @@ Local MCP setups can now use the same product-line selection for one, several, o
 
 Local all-product-line MCP setups can use separate keys for each product line, so teams can keep least-privilege key boundaries while still giving an agent the full curated toolset.
 
-Hosted Product MCP Sending tools now keep the same permission, sending-scope, and rate-limit checks as direct Sending API calls before each send request is accepted.
+Hosted MCP Sending tools now keep the same permission, sending-scope, and rate-limit checks as direct Sending API calls before each send request is accepted.
 
 ## Credentials
 

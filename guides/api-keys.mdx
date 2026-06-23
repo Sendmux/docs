@@ -22,7 +22,7 @@ Connected apps are different. They appear on the same credentials page for manag
 | Credential class | Created by | Secret lifetime | Where to manage it |
 | --- | --- | --- | --- |
 | **Manual API key** | A team member creates a key in Sendmux. | Long-lived until you rotate or revoke it. | **API Keys** with the **Manual keys** filter. |
-| **Connected app** | You authorise an app through OAuth, such as Product MCP. | 15-minute access tokens with rotating refresh tokens. | **API Keys** with the **Connected apps** filter. |
+| **Connected app** | You authorise an app through OAuth, such as MCP. | 15-minute access tokens with rotating refresh tokens. | **API Keys** with the **Connected apps** filter. |
 | **Agent access token** | An agent registers through agent access. | Short-lived access token. | Agent access flow, then normal team controls after owner acceptance. |
 
 Revoking a manual API key stops that key. Disconnecting a connected app stops that app refreshing access and using its existing connection.
@@ -47,7 +47,7 @@ Pre-claim agent tokens include `mailbox.read` and `email.receive`, not `email.se
 
 ## Connected apps
 
-Connected apps let tools such as Product MCP act with the product lines you authorise. During authorisation, you can choose Management, Mailbox, Sending, or a combination. If you choose Mailbox, you also choose the mailbox set the app can use. Sendmux then issues a short-lived access token for the app and a refresh token that rotates when used.
+Connected apps let tools such as MCP act with the product lines you authorise. During authorisation, you can choose Management, Mailbox, Sending, or a combination. If you choose Mailbox, you also choose the mailbox set the app can use. Sendmux then issues a short-lived access token for the app and a refresh token that rotates when used.
 
 When a connected app asks for Management access, permissions are grouped by area, including Analytics, Billing, Domains, Email, Keys, Logs, Mailboxes, Providers, Routing, Team, and Webhooks. Each group can be set to **None**, **Read**, **Full**, or **Customise**, so you can review broad access quickly and open individual scopes only when needed.
 

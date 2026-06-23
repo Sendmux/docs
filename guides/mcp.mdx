@@ -11,21 +11,21 @@ keywords:
   ]
 ---
 
-Sendmux has two MCP connections. Use Documentation MCP when you want an AI tool to search Sendmux docs. Use Product MCP when you want an agent to work with Sendmux tools you authorise.
+Sendmux has two MCP connections. Use Doc Search MCP when you want an AI tool to search Sendmux docs. Use MCP when you want an agent to work with Sendmux tools you authorise.
 
 | Connection | Use it for | Server |
 | --- | --- | --- |
-| Documentation MCP | Search Sendmux guides and API references. | `https://sendmux.ai/docs/mcp` |
-| Product MCP | Use Management, Mailbox, and Sending tools. | `https://mcp.sendmux.ai/mcp` or the local `sendmux-mcp` package |
+| Doc Search MCP | Search Sendmux guides and API references. | `https://sendmux.ai/docs/mcp` |
+| MCP | Use Management, Mailbox, and Sending tools. | `https://mcp.sendmux.ai/mcp` or the local `sendmux-mcp` package |
 
 <Info>
-  Product MCP exposes a curated agent toolset, not every API endpoint. Use the
+  MCP exposes a curated agent toolset, not every API endpoint. Use the
   SDKs, CLI, or API reference when you need full endpoint coverage.
 </Info>
 
-## Documentation MCP
+## Doc Search MCP
 
-Documentation MCP exposes `search_sendmux`.
+Doc Search MCP exposes `search_sendmux`.
 
 <AccordionGroup>
   <Accordion title="Claude Code" description="Add the docs server over HTTP.">
@@ -73,9 +73,9 @@ Documentation MCP exposes `search_sendmux`.
   </Accordion>
 </AccordionGroup>
 
-## Product MCP
+## MCP
 
-Product MCP exposes the product surfaces you grant.
+MCP exposes the product surfaces you grant.
 
 | Surface | Use it for | Access |
 | --- | --- | --- |
@@ -83,7 +83,7 @@ Product MCP exposes the product surfaces you grant.
 | Management | Manage team resources such as domains, mailboxes, sending accounts, logs, metrics, billing, and webhooks. | Hosted grant with Management access, or an `smx_root_` key locally |
 | Sending | Send single or batch emails. | Hosted grant with Sending access, or an `smx_mbx_` key locally |
 
-Hosted Product MCP is the default when your client supports remote MCP with browser OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
+Hosted MCP is the default when your client supports remote MCP with browser OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
 
 | Setting | Value |
 | --- | --- |
@@ -91,7 +91,7 @@ Hosted Product MCP is the default when your client supports remote MCP with brow
 | Authorisation server | `https://app.sendmux.ai` |
 | Health check | `https://mcp.sendmux.ai/health` |
 
-Use the Postman collection when you want to test Product MCP requests from Postman:
+Use the Postman collection when you want to test MCP requests from Postman:
 
 <a
   href="https://god.gw.postman.com/run-collection/6a35f8625c47dbcfb6327aa1?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D6a35f8625c47dbcfb6327aa1%26entityType%3Dcollection%26workspaceId%3Df4e271d9-e749-4386-b2ca-bee78917b3d1"
