@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-Teams separate people, billing, mailboxes, providers, logs, and API keys. Use roles to give each member only the access they need.
+Teams separate people, billing, mailboxes, providers, logs, API keys, and approved agent access. Use roles to give each member only the access they need.
 
 ## Roles
 
@@ -38,6 +38,12 @@ Owners can assign Admin, Developer, or Member. Admins can assign Developer or Me
     Pending invitations appear on the team page. Members join when they accept the email invitation.
   </Step>
 </Steps>
+
+## Approve agent sending
+
+When an agent invites an owner through [agent access](/guides/agent-access), the owner joins the team from the email invitation. After joining, open the team page and use the **Agent access** card to approve or revoke that agent's sending capability.
+
+Approval lets the agent request a send-capable `smx_agent_` token for its mailbox. Before approval, the agent's token can read and receive mail but cannot send.
 
 ## Change roles
 
@@ -66,6 +72,9 @@ Team deletion has a 7 day grace period. During that time, dashboard access and s
   </Card>
   <Card title="API keys" icon="key" href="/guides/api-keys">
     Create scoped credentials for apps and integrations.
+  </Card>
+  <Card title="Agent access" icon="robot" href="/guides/agent-access">
+    Let agents invite an owner and request approved sending.
   </Card>
   <Card title="Team limits" icon="gauge" href="/guides/team-limits">
     See default limits and request more capacity.

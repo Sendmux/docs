@@ -245,6 +245,8 @@ Cache-Control: no-store
 }
 ```
 
+Use the Sending-resource token for Sending API calls. Use the app-resource token for Mailbox API reads, receives, and mailbox sends.
+
 If the owner has joined but not approved sending yet, the token endpoint returns `503 authorization_pending` with `Retry-After: 10`.
 
 ```http
@@ -255,9 +257,10 @@ Content-Type: application/json
 
 {
   "from": { "email": "triage-agent@myagent.mx" },
-  "to": [{ "email": "owner@example.com" }],
+  "to": { "email": "owner@example.com" },
   "subject": "Hello from Sendmux",
-  "text": "Owner-approved agent sending is active."
+  "html_body": "<p>Owner-approved agent sending is active.</p>",
+  "text_body": "Owner-approved agent sending is active."
 }
 ```
 
@@ -287,8 +290,8 @@ Timing summary:
 
 - identity assertions expire after 15 minutes
 - agent access tokens expire after at most 1 hour
-- owner invites expire after 7 days
-- unclaimed registrations expire after 24 hours
+- unclaimed agent registrations, claim tokens, and their owner approval window expire after 24 hours
+- other owner invitation links can last up to 7 days
 
 ## Error reference
 
