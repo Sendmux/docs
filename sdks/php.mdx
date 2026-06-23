@@ -15,9 +15,9 @@ keywords:
 Use the PHP SDK when your application needs Composer packages for one or more Sendmux API surfaces.
 
 <Info>
-  Sending and Mailbox clients accept mailbox-compatible `smx_mbx_` keys or
-  scoped `smx_agent_` tokens. Management clients require team-scoped
-  `smx_root_` keys.
+  Sending clients require a send-capable `smx_mbx_` key. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  team-scoped `smx_root_` keys.
 </Info>
 
 ## Requirements
@@ -98,13 +98,13 @@ $mailboxes = ClientFactory::createMailboxesApi(
 
 | Surface | Package | Factory examples | API key |
 | --- | --- | --- | --- |
-| Sending | `sendmux/sending` | `createEmailsApi`, `createMetaApi` | `smx_mbx_` or scoped `smx_agent_` |
+| Sending | `sendmux/sending` | `createEmailsApi`, `createMetaApi` | `smx_mbx_` with `email.send` |
 | Mailbox | `sendmux/mailbox` | `createMailboxAPIApi` | `smx_mbx_` or scoped `smx_agent_` |
 | Management | `sendmux/management` | `createMailboxesApi`, `createDomainsApi`, `createWebhooksApi` | `smx_root_` |
 
 <Note>
-  The SDK accepts `smx_agent_` on mailbox-compatible clients, but the API still
-  enforces endpoint permissions. Pre-claim agent tokens cannot send email.
+  `smx_agent_` tokens are mailbox-compatible only. Self-registered agent tokens
+  include `mailbox.read` and `email.receive`, not `email.send`.
 </Note>
 
 Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
