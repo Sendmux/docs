@@ -67,7 +67,7 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 | `sendmux-cli` | Running Sendmux commands from a terminal. |
 | `sendmux-mcp-setup` | Connecting Sendmux MCP servers to an agent client. |
 | `sendmux-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
-| `sendmux-email-for-agents` | Giving an AI agent an inbox, a self-registration flow, or a human-approved send workflow. |
+| `sendmux-email-for-agents` | Giving an AI agent an inbox, a challenge-first self-registration flow, or a human-approved send workflow. |
 
 ## Choose the right surface
 
@@ -79,6 +79,8 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 | Endpoint detail or uncommon operation | Use the API reference. |
 
 Use send-capable `smx_mbx_` keys or owner-approved Sending-resource `smx_agent_` tokens for Sending work. Use `smx_mbx_` keys or scoped `smx_agent_` tokens for allowed Mailbox work. Use team-scoped `smx_root_` keys for Management work. Pre-claim `smx_agent_` tokens do not include `email.send`.
+
+When an agent has no Sendmux credential, start with [agent access](/guides/agent-access): request a registration challenge, solve it, register the mailbox with `proof_of_work`, exchange the identity assertion, then invite the human owner. If any agent-auth endpoint returns `429`, use `Retry-After` or `retry_after` before retrying.
 
 ## Next steps
 

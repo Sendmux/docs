@@ -13,9 +13,11 @@ The team page now includes an **Agent access** card where permitted team members
 
 Agents can exchange their claim token after owner approval to get a send-capable `smx_agent_` token for the Sending API, without the owner creating or copying a separate API key.
 
+Anonymous agent registration now starts with a short-lived proof-of-work challenge before a temporary mailbox is provisioned. Agent-auth rate-limit responses also include retry guidance so legitimate agents can back off cleanly.
+
   ## Docs
 
-The agent access, API key, SDK, CLI, MCP, and Sending API docs now describe which token types work for each surface and how owner approval fits into `auth.md` adoption.
+The agent access, API key, SDK, CLI, MCP, Sending API, and Agent Skills docs now describe which token types work for each surface, how owner approval fits into `auth.md` adoption, and how agents should handle registration challenges.
 
 </Update>
 
