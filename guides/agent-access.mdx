@@ -88,13 +88,13 @@ Fetch the protected-resource metadata, then follow its `authorization_servers` e
 https://app.sendmux.ai/.well-known/oauth-protected-resource/api/v1
 ```
 
-The authorisation-server metadata advertises the token and revocation endpoints at the top level. Its `agent_auth` block includes `identity_endpoint`, `x_sendmux_proof_of_work_challenge_endpoint`, `x_sendmux_identity_invite_endpoint`, and `identity_types_supported`. The proof-of-work extension points to the registration challenge endpoint. The invite field is the Sendmux-specific owner invite extension.
+The authorisation-server metadata advertises `token_endpoint` and `revocation_endpoint` at the top level. Its `agent_auth` block includes `identity_endpoint`, `x_sendmux_proof_of_work_challenge_endpoint`, `x_sendmux_identity_invite_endpoint`, and `identity_types_supported`. The proof-of-work extension points to the registration challenge endpoint. The invite field is the Sendmux-specific owner invite extension.
 
 ```text
 https://app.sendmux.ai/.well-known/oauth-authorization-server/agent-auth
 ```
 
-Sendmux does not expose `claim_endpoint`. Human ownership uses the invite flow below instead of an OTP claim ceremony.
+Sendmux does not publish an OTP `claim_endpoint`. Human ownership uses the invite flow below instead of an OTP claim ceremony.
 
 Unsupported methods today:
 
@@ -139,11 +139,37 @@ Cache-Control: no-store
     "signature": "<challenge_signature>"
   },
   "expires_at": "2026-06-22T22:05:00.000Z",
-  "payload_field": "proof_of_work"
+  "payload_field": "proof_of_work",
+  "proof_format": {
+    "encoding": "base64",
+    "content": "UTF-8 JSON",
+    "json_shape": {
+      "challenge": "exact challenge object from the challenge response",
+      "solution": {
+        "counter": "integer",
+        "derivedKey": "solver-returned hex string"
+      }
+    },
+    "registration_body": "must match the challenge request body exactly, except for the added proof_of_work field"
+  }
 }
 ```
 
 Solve the returned challenge and send the solved payload as the `proof_of_work` field on the registration request.
+
+Build `proof_of_work` as standard base64 of a UTF-8 JSON payload with this exact shape:
+
+```json
+{
+  "challenge": { "...": "the exact challenge object from the challenge response" },
+  "solution": {
+    "counter": 12345,
+    "derivedKey": "<solver-returned hex string>"
+  }
+}
+```
+
+Use the exact `challenge` object returned by the challenge endpoint. `solution.counter` is an integer, and `solution.derivedKey` is the hex string returned by your solver. The registration body must match the challenge request body exactly, except for the added `proof_of_work` field. If you change `mailbox_local_part`, `client_name`, or `idempotency_key`, request and solve a new challenge.
 
 ```http
 POST https://app.sendmux.ai/agent-auth/agent/identity HTTP/1.1
@@ -155,7 +181,7 @@ Idempotency-Key: idem_agent_registration_123
   "mailbox_local_part": "triage-agent",
   "client_name": "Triage Agent",
   "idempotency_key": "idem_agent_registration_123",
-  "proof_of_work": "<base64 solved proof payload>"
+  "proof_of_work": "<base64 UTF-8 JSON proof payload>"
 }
 
 HTTP/1.1 201 Created
@@ -343,8 +369,8 @@ Timing summary:
 | --- | ---: | --- | --- | --- |
 | `https://app.sendmux.ai/agent-auth/agent/identity/challenge` | 400 | `invalid_request` | Body is not JSON, `type` is unsupported, a field is invalid, or `proof_of_work` was included too early. | Correct the intended registration body and request a new challenge. |
 | `https://app.sendmux.ai/agent-auth/agent/identity/challenge` | 429 | `temporarily_unavailable` | Registration challenge rate limit reached. | Back off until `Retry-After`; the body also includes `retry_after` and `rate_limit_scope`. |
-| `https://app.sendmux.ai/agent-auth/agent/identity` | 400 | `proof_of_work_required` | Registration is missing `proof_of_work`. | Request a challenge, solve it, and retry registration with the solved payload. |
-| `https://app.sendmux.ai/agent-auth/agent/identity` | 400 | `invalid_request` | Body is not JSON, `type` is unsupported, a field is invalid, proof is invalid, proof is expired, proof was replayed, proof does not match the request, or `idempotency_key` was replayed with a different body. | Correct the request body or request a fresh challenge. |
+| `https://app.sendmux.ai/agent-auth/agent/identity` | 400 | `proof_of_work_required` | Registration is missing `proof_of_work`. | Request a challenge, solve it, encode `{ "challenge": <exact challenge>, "solution": { "counter": <integer>, "derivedKey": <hex> } }` as base64 UTF-8 JSON, and retry registration. |
+| `https://app.sendmux.ai/agent-auth/agent/identity` | 400 | `invalid_request` | Body is not JSON, `type` is unsupported, a field is invalid, proof is invalid or expired, proof was replayed, proof does not match the request, or `idempotency_key` was replayed with a different body. | Correct the body or request a fresh challenge for the exact body you will submit. |
 | `https://app.sendmux.ai/agent-auth/agent/identity` | 409 | `invalid_request` | Requested mailbox local part is unavailable. | Retry without `mailbox_local_part` or choose another value. |
 | `https://app.sendmux.ai/agent-auth/agent/identity` | 429 | `temporarily_unavailable` | Registration rate limit reached. | Back off until `Retry-After`; the body also includes `retry_after` and `rate_limit_scope`. |
 | `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `unsupported_grant_type` | `grant_type` is not one of the documented values. | Use the assertion grant before owner approval, or the claim grant after owner approval. |

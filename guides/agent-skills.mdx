@@ -80,7 +80,7 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 
 Use send-capable `smx_mbx_` keys or owner-approved Sending-resource `smx_agent_` tokens for Sending work. Use `smx_mbx_` keys or scoped `smx_agent_` tokens for allowed Mailbox work. Use team-scoped `smx_root_` keys for Management work. Pre-claim `smx_agent_` tokens do not include `email.send`.
 
-When an agent has no Sendmux credential, start with [agent access](/guides/agent-access): request a registration challenge, solve it, register the mailbox with `proof_of_work` at the identity endpoint, exchange the identity assertion, then invite the human owner. If any agent-auth endpoint returns `429`, use `Retry-After` or `retry_after` before retrying.
+When an agent has no Sendmux credential, start with [agent access](/guides/agent-access): request a registration challenge, solve it, register the mailbox at the `identity_endpoint` with `proof_of_work`, exchange the identity assertion, then invite the human owner. If any agent-auth endpoint returns `429`, use `Retry-After` or `retry_after` before retrying.
 
 ## Next steps
 
