@@ -21,6 +21,15 @@ Agent access lets an AI agent start with one constrained `@myagent.mx` mailbox b
 
 If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task, use that existing setup first. Register a new agent identity only when the agent has no usable Sendmux credential.
 
+## Success checklist
+
+- Request a registration challenge.
+- Solve the proof-of-work challenge.
+- Register with `proof_of_work`.
+- Exchange the `identity_assertion` for an `smx_agent_` access token.
+- Call `/api/v1/mailbox/me` with that token.
+- Do not stop after pre-claim token success. Next required action: create an owner invite or ask the user for the owner email to invite.
+
 ## How it works
 
 <Steps>
@@ -41,11 +50,12 @@ If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task
     Use the JWT bearer grant to exchange the identity assertion for an
     `smx_agent_` access token.
   </Step>
-  <Step title="Use the mailbox">
-    Pass the token as a Bearer token on allowed Mailbox API requests.
+  <Step title="Verify the mailbox">
+    Call `/api/v1/mailbox/me` with the token before inviting the owner.
   </Step>
-  <Step title="Invite the owner">
-    Ask Sendmux to send the owner invite. The agent token is not upgraded.
+  <Step title="Invite the owner or ask for the email">
+    If you know the owner email, ask Sendmux to send the invite. If you do not
+    know it, ask: `What owner email should I invite for approval?`
   </Step>
   <Step title="Wait for owner approval">
     After the owner accepts, they can approve sending for the agent mailbox from
@@ -171,6 +181,12 @@ Build `proof_of_work` as standard base64 of a UTF-8 JSON payload with this exact
 
 Use the exact `challenge` object returned by the challenge endpoint. `solution.counter` is an integer, and `solution.derivedKey` is the hex string returned by your solver. The registration body must match the challenge request body exactly, except for the added `proof_of_work` field. If you change `mailbox_local_part`, `client_name`, or `idempotency_key`, request and solve a new challenge.
 
+The public `auth.md` file includes a copy-paste proof helper for agents that need one:
+
+```bash
+curl https://app.sendmux.ai/auth.md
+```
+
 ```http
 POST https://app.sendmux.ai/agent-auth/agent/identity HTTP/1.1
 Content-Type: application/json
@@ -227,7 +243,7 @@ Cache-Control: no-store
 }
 ```
 
-If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After`.
+If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After: 10` and `retry_after: 10`.
 
 ## Use the mailbox
 
@@ -240,6 +256,8 @@ Authorization: Bearer smx_agent_...
 ```
 
 The token is mailbox-compatible, but permissions still apply. A pre-claim token can read and receive mail. It cannot send through the Mailbox API or Sending API.
+
+Do not stop after `/api/v1/mailbox/me` succeeds. If you know the human owner email, invite them next. If you do not know it, ask: `What owner email should I invite for approval?`
 
 ## Invite the owner
 
@@ -317,7 +335,7 @@ Cache-Control: no-store
 
 Use the Sending-resource token for Sending API calls. Use the app-resource token for Mailbox API reads, receives, and mailbox sends.
 
-If the owner has joined but not approved sending yet, the token endpoint returns `503 authorization_pending` with `Retry-After: 10`.
+If the owner has joined but not approved sending yet, the token endpoint returns `503 authorization_pending` with `Retry-After: 10` and `retry_after: 10`.
 
 ```http
 POST /api/v1/emails/send HTTP/1.1
@@ -373,10 +391,11 @@ Timing summary:
 | `https://app.sendmux.ai/agent-auth/agent/identity` | 400 | `invalid_request` | Body is not JSON, `type` is unsupported, a field is invalid, proof is invalid or expired, proof was replayed, proof does not match the request, or `idempotency_key` was replayed with a different body. | Correct the body or request a fresh challenge for the exact body you will submit. |
 | `https://app.sendmux.ai/agent-auth/agent/identity` | 409 | `invalid_request` | Requested mailbox local part is unavailable. | Retry without `mailbox_local_part` or choose another value. |
 | `https://app.sendmux.ai/agent-auth/agent/identity` | 429 | `temporarily_unavailable` | Registration rate limit reached. | Back off until `Retry-After`; the body also includes `retry_after` and `rate_limit_scope`. |
+| `https://app.sendmux.ai/agent-auth/agent/identity` | 503 | `server_error` | Registration is temporarily unavailable. | Stop and report the failure; do not retry repeatedly. |
 | `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `unsupported_grant_type` | `grant_type` is not one of the documented values. | Use the assertion grant before owner approval, or the claim grant after owner approval. |
 | `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `invalid_grant` | Identity assertion or claim token is invalid, expired, revoked, or bound to an expired registration. | Register again, use a fresh assertion, or use the original claim token. |
-| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `authorization_pending` | Owner approval for sending is not complete. | Retry after the `Retry-After` header. |
-| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `temporarily_unavailable` | Mailbox provisioning is still in progress. | Retry after the `Retry-After` header. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `authorization_pending` | Owner approval for sending is not complete. | Retry after the `Retry-After` header or `retry_after` body field. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `temporarily_unavailable` | Mailbox provisioning is still in progress. | Retry after the `Retry-After` header or `retry_after` body field. |
 | `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 401 | `invalid_token` | Agent access token is missing, invalid, expired, or revoked. | Exchange a valid identity assertion for a fresh access token. |
 | `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 400 | `invalid_request` | Body is not JSON, email is invalid, or idempotency key conflicts. | Correct the request body. |
 | `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 403 | `access_denied` | Requested role is not available, or an owner invite is already pending. | Wait for the human owner or retry the same pending invite email. |
