@@ -155,7 +155,7 @@ Cache-Control: no-store
 }
 ```
 
-Solve the returned challenge and send the solved payload as the `proof_of_work` field on the registration request.
+Solve the returned challenge and send the solved payload as the `proof_of_work` field on the registration request. Treat the returned `proof_format` object as the source of truth for the proof payload.
 
 Build `proof_of_work` as standard base64 of a UTF-8 JSON payload with this exact shape:
 
