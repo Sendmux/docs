@@ -15,6 +15,8 @@ Pending agent sending approvals are now surfaced in the account menu, so owners 
 
 The agent access recipe now keeps the owner-invite step directly after token setup and includes a copy-paste proof-of-work example, so agents can complete registration from `auth.md` without stopping after a receive-only token.
 
+When token exchange needs mailbox setup to finish, the response now includes retry timing in both the body and header so agents can back off cleanly.
+
 </Update>
 
 <Update label="23 June 2026" tags={["New features", "Improvements"]} rss={{ title: "Owners can approve agent sending" }}>
