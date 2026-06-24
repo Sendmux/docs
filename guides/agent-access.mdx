@@ -243,7 +243,7 @@ Cache-Control: no-store
 }
 ```
 
-If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After: 10` and `retry_after: 10`.
+If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After: 10` and `retry_after: 10`. Retry only expected `temporarily_unavailable` or `authorization_pending` token responses; stop and report a `server_error`.
 
 ## Use the mailbox
 
