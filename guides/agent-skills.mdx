@@ -19,9 +19,9 @@ Sendmux Agent Skills teach AI coding tools how to send email, read mailboxes, ma
 <Info>
   Skills do not grant Sendmux access by themselves. Create API keys, authorise
   MCP, or use agent access first, then let the skill choose the right surface
-  for the task. If you use agent access, save the returned `claim_token` in a
-  secure store such as 1Password, an OS keychain, or the agent platform's
-  encrypted secret store before inviting the owner.
+  for the task. If you use agent access, save the returned `claim_token` for
+  post-approval exchange, but keep the `identity_assertion` or pre-claim token
+  available until the owner invite returns `202`.
 </Info>
 
 ## Install
@@ -82,7 +82,7 @@ Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual
 
 Use send-capable `smx_mbx_` keys or owner-approved Sending-resource `smx_agent_` tokens for Sending work. Use `smx_mbx_` keys or scoped `smx_agent_` tokens for allowed Mailbox work. Use team-scoped `smx_root_` keys for Management work. Pre-claim `smx_agent_` tokens do not include `email.send`.
 
-When an agent has no Sendmux credential, start with [agent access](/guides/agent-access): request a registration challenge, solve it, register the mailbox at the `identity_endpoint` with `proof_of_work`, save the returned `claim_token` in a secure store such as 1Password, an OS keychain, or the agent platform's encrypted secret store, exchange the identity assertion, then invite the human owner. The claim token is required later for owner-approved sending and cannot be recovered if the raw value is lost. If any agent-auth endpoint returns `429`, use `Retry-After` or `retry_after` before retrying.
+When an agent has no Sendmux credential, start with [agent access](/guides/agent-access): request a registration challenge, solve it, register the mailbox at the `identity_endpoint` with `proof_of_work`, save the returned `claim_token` in a secure store such as 1Password, an OS keychain, or the agent platform's encrypted secret store, exchange the identity assertion, then invite the human owner with the pre-claim access token. The claim token is required later for owner-approved sending and cannot create the owner invite. If the agent loses both the identity assertion and pre-claim token before the invite returns `202`, register again and invite immediately. If any agent-auth endpoint returns `429`, use `Retry-After` or `retry_after` before retrying.
 
 ## Next steps
 
