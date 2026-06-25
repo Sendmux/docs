@@ -28,8 +28,10 @@ If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task
 - Register with `proof_of_work`.
 - Save the returned `claim_token` in a secure store before continuing.
 - Exchange the `identity_assertion` for an `smx_agent_` access token.
+- Keep the `identity_assertion` or pre-claim access token available until the owner invite returns `202`.
 - Call `/api/v1/mailbox/me` with that token.
 - Do not stop after pre-claim token success. Next required action: create an owner invite or ask the user for the owner email to invite.
+- Do not poll the claim-token grant before the owner invite returns `202`; after `202`, poll with `claim_token` and handle `authorization_pending` until the owner approves sending.
 
 ## Optional: install Sendmux skills
 
@@ -40,6 +42,14 @@ npx skills add Sendmux/skills
 ```
 
 Skills are optional. Agents that cannot install skills should continue with `auth.md` and this guide.
+
+## Critical ordering
+
+`claim_token` is for the post-approval token exchange. Save it, but do not use it to invite the owner.
+
+Use the `identity_assertion` to get a pre-claim `smx_agent_` access token, then use that token for `/api/v1/mailbox/me` and `POST /agent-auth/agent/identity/invite`. Keep the `identity_assertion` or pre-claim token available until the invite returns `202`.
+
+If you lose both the `identity_assertion` and pre-claim token before inviting the owner, register a fresh agent identity and invite immediately in the same flow.
 
 ## How it works
 
@@ -63,7 +73,8 @@ Skills are optional. Agents that cannot install skills should continue with `aut
   </Step>
   <Step title="Exchange the assertion">
     Use the JWT bearer grant to exchange the identity assertion for an
-    `smx_agent_` access token.
+    `smx_agent_` access token. Keep the assertion or token available until the
+    owner invite succeeds.
   </Step>
   <Step title="Verify the mailbox">
     Call `/api/v1/mailbox/me` with the token before inviting the owner.
@@ -242,6 +253,8 @@ Before exchanging the identity assertion or inviting the owner, save the raw `cl
 
 Sendmux cannot recover or reveal the raw `claim_token` later. If the raw claim token is lost, rerun registration and invite with a fresh agent identity.
 
+Saving `claim_token` alone is not enough to invite the owner. The invite must use the `identity_assertion`-derived pre-claim access token before that short-lived material is lost. Keep the `identity_assertion` or pre-claim token available until `POST /agent-auth/agent/identity/invite` returns `202 Accepted`.
+
 Do not store `claim_token` in chat, logs, repo files, screenshots, temporary prompts, or memory-only state that may disappear before owner approval. Store these fields together:
 
 - `claim_token`
@@ -276,7 +289,7 @@ Cache-Control: no-store
 }
 ```
 
-If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After: 10` and `retry_after: 10`. Retry only expected `temporarily_unavailable` or `authorization_pending` token responses; stop and report a `server_error`.
+If the mailbox is still being prepared, the token endpoint returns `503 temporarily_unavailable` with `Retry-After: 10` and `retry_after: 10`. Retry only expected `temporarily_unavailable` responses while exchanging the identity assertion; stop and report a `server_error`.
 
 ## Use the mailbox
 
@@ -319,6 +332,8 @@ Cache-Control: no-store
 ```
 
 The invite email goes to the owner. Membership starts only after that person verifies and accepts the invite. One live pre-claim owner invite can be pending per registration; retry the same request with the same `idempotency_key`.
+
+After this endpoint returns `202`, keep waiting for the owner. Before it returns `202`, do not switch to the claim-token grant; `claim_token` cannot create the invite.
 
 ## Wait for owner-approved sending
 
@@ -368,7 +383,7 @@ Cache-Control: no-store
 
 Use the Sending-resource token for Sending API calls. Use the app-resource token for Mailbox API reads, receives, and mailbox sends.
 
-If the owner has joined but not approved sending yet, the token endpoint returns `503 authorization_pending` with `Retry-After: 10` and `retry_after: 10`.
+If the owner has joined but not approved sending yet, the token endpoint returns `503 authorization_pending` with `Retry-After: 10` and `retry_after: 10`. If the owner invite has not been sent yet, go back to the pre-claim token from `identity_assertion`; the `claim_token` cannot create the invite.
 
 ```http
 POST /api/v1/emails/send HTTP/1.1
@@ -427,7 +442,7 @@ Timing summary:
 | `https://app.sendmux.ai/agent-auth/agent/identity` | 503 | `server_error` | Registration is temporarily unavailable. | Stop and report the failure; do not retry repeatedly. |
 | `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `unsupported_grant_type` | `grant_type` is not one of the documented values. | Use the assertion grant before owner approval, or the claim grant after owner approval. |
 | `https://app.sendmux.ai/agent-auth/oauth2/token` | 400 | `invalid_grant` | Identity assertion or claim token is invalid, expired, revoked, or bound to an expired registration. | Register again, use a fresh assertion, or use the original claim token. |
-| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `authorization_pending` | Owner approval for sending is not complete. | Retry after the `Retry-After` header or `retry_after` body field. |
+| `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `authorization_pending` | Owner approval for sending is not complete. | If the owner invite has not been sent, exchange `identity_assertion` for a pre-claim access token and send the invite first. Otherwise retry after `Retry-After` or `retry_after`. |
 | `https://app.sendmux.ai/agent-auth/oauth2/token` | 503 | `temporarily_unavailable` | Mailbox provisioning is still in progress. | Retry after the `Retry-After` header or `retry_after` body field. |
 | `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 401 | `invalid_token` | Agent access token is missing, invalid, expired, or revoked. | Exchange a valid identity assertion for a fresh access token. |
 | `https://app.sendmux.ai/agent-auth/agent/identity/invite` | 400 | `invalid_request` | Body is not JSON, email is invalid, or idempotency key conflicts. | Correct the request body. |
