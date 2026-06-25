@@ -21,12 +21,18 @@ Agent access lets an AI agent start with one constrained `@myagent.mx` mailbox b
 
 If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task, use that existing setup first. Register a new agent identity only when the agent has no usable Sendmux credential.
 
+## Default: save the agent credential bundle
+
+When registering a new agent identity, immediately save the agent credential bundle in the safest secret store your environment provides before token exchange, owner invite, reporting success, or losing context. Later MCP, CLI, SDK, mailbox, and sending work depends on this bundle.
+
+Store `claim_token`, `registration_id`, `mailbox.email`, `claim_token_expires`, `identity_assertion`, `token_endpoint`, `app_resource`, and `sending_resource`. After token exchange, add the pre-claim `smx_agent_` access token or keep `identity_assertion` available until the owner invite returns `202`. If no secure store is available, ask the user where to store these credentials before continuing.
+
 ## Success checklist
 
 - Request a registration challenge.
 - Solve the proof-of-work challenge.
 - Register with `proof_of_work`.
-- Save the returned `claim_token` in a secure store before continuing.
+- Immediately save the returned `claim_token` and agent credential bundle in a secure store before token exchange.
 - Exchange the `identity_assertion` for an `smx_agent_` access token.
 - Keep the `identity_assertion` or pre-claim access token available until the owner invite returns `202`.
 - Call `/api/v1/mailbox/me` with that token.
@@ -67,9 +73,9 @@ If you lose both the `identity_assertion` and pre-claim token before inviting th
     Register with the same body and the solved proof payload to get an identity
     assertion, a claim token, and a constrained agent mailbox.
   </Step>
-  <Step title="Save the claim token">
-    Store the raw `claim_token` securely before any context is lost. The agent
-    needs it later after owner approval.
+  <Step title="Save the credential bundle">
+    Store the agent credential bundle securely before any context is lost. The
+    agent needs it later for MCP, CLI, SDK, mailbox, and sending work.
   </Step>
   <Step title="Exchange the assertion">
     Use the JWT bearer grant to exchange the identity assertion for an
@@ -247,25 +253,26 @@ Cache-Control: no-store
 
 `proof_of_work` is required. `mailbox_local_part`, `client_name`, and `idempotency_key` are optional. If `mailbox.status` is `provisioning`, retry token exchange shortly.
 
-## Save the claim token
+## Save the agent credential bundle
 
-Before exchanging the identity assertion or inviting the owner, save the raw `claim_token` from the registration response in a secure store controlled by the user or agent environment, such as 1Password, an OS keychain, or the agent platform's encrypted secret store. The claim token is required later to request owner-approved app-resource or Sending-resource access after the owner approves sending.
+Immediately after registration and before exchanging the identity assertion, inviting the owner, or reporting that setup succeeded, save the agent credential bundle in a secure store controlled by the user or agent environment, such as 1Password, an OS keychain, or the agent platform's encrypted secret store. This bundle is required later for MCP, CLI, SDK, mailbox, and sending work.
 
 Sendmux cannot recover or reveal the raw `claim_token` later. If the raw claim token is lost, rerun registration and invite with a fresh agent identity.
 
 Saving `claim_token` alone is not enough to invite the owner. The invite must use the `identity_assertion`-derived pre-claim access token before that short-lived material is lost. Keep the `identity_assertion` or pre-claim token available until `POST /agent-auth/agent/identity/invite` returns `202 Accepted`.
 
-Do not store `claim_token` in chat, logs, repo files, screenshots, temporary prompts, or memory-only state that may disappear before owner approval. Store these fields together:
+Do not store these credentials in chat, logs, repo files, screenshots, temporary prompts, or memory-only state that may disappear before owner approval. Store these fields together:
 
 - `claim_token`
 - `registration_id`
 - `mailbox.email`
 - `claim_token_expires`
+- `identity_assertion` or the pre-claim `smx_agent_` access token until the owner invite returns `202`
 - `token_endpoint=https://app.sendmux.ai/agent-auth/oauth2/token`
 - `app_resource=https://app.sendmux.ai/api/v1`
 - `sending_resource=https://smtp.sendmux.ai/api/v1`
 
-If no secure store is available, stop and ask the user where to store the claim token. Do not continue to owner invite if you cannot retrieve the claim token later.
+If no secure store is available, stop and ask the user where to store these credentials. Do not continue to owner invite if you cannot retrieve the bundle later.
 
 ## Exchange the assertion
 
