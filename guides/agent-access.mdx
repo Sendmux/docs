@@ -240,7 +240,7 @@ Cache-Control: no-store
 
 Before exchanging the identity assertion or inviting the owner, save the raw `claim_token` from the registration response in a secure store controlled by the user or agent environment, such as 1Password, an OS keychain, or the agent platform's encrypted secret store. The claim token is required later to request owner-approved app-resource or Sending-resource access after the owner approves sending.
 
-Sendmux cannot recover or reveal the raw `claim_token` later because the service stores only a hash. If the raw claim token is lost, rerun registration and invite with a fresh agent identity.
+Sendmux cannot recover or reveal the raw `claim_token` later. If the raw claim token is lost, rerun registration and invite with a fresh agent identity.
 
 Do not store `claim_token` in chat, logs, repo files, screenshots, temporary prompts, or memory-only state that may disappear before owner approval. Store these fields together:
 
