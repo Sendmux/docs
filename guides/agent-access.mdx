@@ -31,7 +31,7 @@ If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task
 - Keep the `identity_assertion` or pre-claim access token available until the owner invite returns `202`.
 - Call `/api/v1/mailbox/me` with that token.
 - Do not stop after pre-claim token success. Next required action: create an owner invite or ask the user for the owner email to invite.
-- Do not poll the claim-token grant until after the owner invite has been sent and the owner has approved sending.
+- Do not poll the claim-token grant before the owner invite returns `202`; after `202`, poll with `claim_token` and handle `authorization_pending` until the owner approves sending.
 
 ## Optional: install Sendmux skills
 
