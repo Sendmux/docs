@@ -26,9 +26,20 @@ If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task
 - Request a registration challenge.
 - Solve the proof-of-work challenge.
 - Register with `proof_of_work`.
+- Save the returned `claim_token` in a secure store before continuing.
 - Exchange the `identity_assertion` for an `smx_agent_` access token.
 - Call `/api/v1/mailbox/me` with that token.
 - Do not stop after pre-claim token success. Next required action: create an owner invite or ask the user for the owner email to invite.
+
+## Optional: install Sendmux skills
+
+If your agent supports Skills, install the Sendmux pack before continuing.
+
+```bash
+npx skills add Sendmux/skills
+```
+
+Skills are optional. Agents that cannot install skills should continue with `auth.md` and this guide.
 
 ## How it works
 
@@ -45,6 +56,10 @@ If you already have Sendmux MCP, CLI, SDK, or an API key configured for the task
   <Step title="Create an anonymous agent identity">
     Register with the same body and the solved proof payload to get an identity
     assertion, a claim token, and a constrained agent mailbox.
+  </Step>
+  <Step title="Save the claim token">
+    Store the raw `claim_token` securely before any context is lost. The agent
+    needs it later after owner approval.
   </Step>
   <Step title="Exchange the assertion">
     Use the JWT bearer grant to exchange the identity assertion for an
@@ -220,6 +235,24 @@ Cache-Control: no-store
 ```
 
 `proof_of_work` is required. `mailbox_local_part`, `client_name`, and `idempotency_key` are optional. If `mailbox.status` is `provisioning`, retry token exchange shortly.
+
+## Save the claim token
+
+Before exchanging the identity assertion or inviting the owner, save the raw `claim_token` from the registration response in a secure store controlled by the user or agent environment, such as 1Password, an OS keychain, or the agent platform's encrypted secret store. The claim token is required later to request owner-approved app-resource or Sending-resource access after the owner approves sending.
+
+Sendmux cannot recover or reveal the raw `claim_token` later because the service stores only a hash. If the raw claim token is lost, rerun registration and invite with a fresh agent identity.
+
+Do not store `claim_token` in chat, logs, repo files, screenshots, temporary prompts, or memory-only state that may disappear before owner approval. Store these fields together:
+
+- `claim_token`
+- `registration_id`
+- `mailbox.email`
+- `claim_token_expires`
+- `token_endpoint=https://app.sendmux.ai/agent-auth/oauth2/token`
+- `app_resource=https://app.sendmux.ai/api/v1`
+- `sending_resource=https://smtp.sendmux.ai/api/v1`
+
+If no secure store is available, stop and ask the user where to store the claim token. Do not continue to owner invite if you cannot retrieve the claim token later.
 
 ## Exchange the assertion
 
