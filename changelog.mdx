@@ -33,7 +33,7 @@ Mailbox sending setup now recovers from partial setup states more reliably, so r
 
 Shared mailbox setup retries now treat already-complete sending setup steps as successful, preventing false failure alerts during automated recovery.
 
-Mailbox sending setup now handles already-existing delivery event notifications during recovery, so retries can complete instead of stopping on duplicate setup state.
+Mailbox sending setup recovery now treats already-existing delivery event notifications as complete, so retries can finish instead of stopping on duplicate setup state.
 
 </Update>
 
