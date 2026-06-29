@@ -4,6 +4,25 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="29 June 2026" tags={["New features", "Improvements", "Bug fixes"]} rss={{ title: "Shared mailbox availability is safer" }}>
+  ## Management API
+
+You can now check whether a mailbox address is available before you create it, including shared `@myagent.mx` addresses and custom-domain addresses.
+
+Availability checks now explain why an address cannot be used, including invalid addresses, unavailable domains, existing mailboxes, reserved addresses, and cleanup that is still in progress.
+
+  ## Mailboxes
+
+Shared `@myagent.mx` mailbox setup now relies on the verified shared domain identity with Amazon SES, instead of creating separate sender identities for each mailbox address.
+
+Deleting a mailbox now keeps its address unavailable until cleanup finishes, so recreating the same address no longer races with deletion.
+
+  ## Bug fixes
+
+Mailbox setup and deletion retries now recover more reliably after partial failures, so repeated attempts can continue from the last confirmed state instead of duplicating work.
+
+</Update>
+
 <Update label="28 June 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "First team setup is smoother" }}>
   ## Onboarding
 
