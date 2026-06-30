@@ -8546,7 +8546,7 @@
             "name": "from_date",
             "required": false,
             "schema": {
-              "description": "ISO 8601 start date",
+              "description": "ISO 8601 start date. Date-only values start at 00:00 UTC.",
               "type": "string"
             }
           },
@@ -8555,7 +8555,7 @@
             "name": "to_date",
             "required": false,
             "schema": {
-              "description": "ISO 8601 end date",
+              "description": "ISO 8601 end date. Date-only values include the full UTC day.",
               "type": "string"
             }
           },
@@ -8872,7 +8872,7 @@
             "name": "from_date",
             "required": false,
             "schema": {
-              "description": "ISO 8601 start date",
+              "description": "ISO 8601 start date. Date-only values start at 00:00 UTC.",
               "type": "string"
             }
           },
@@ -8881,7 +8881,7 @@
             "name": "to_date",
             "required": false,
             "schema": {
-              "description": "ISO 8601 end date",
+              "description": "ISO 8601 end date. Date-only values include the full UTC day.",
               "type": "string"
             }
           },
