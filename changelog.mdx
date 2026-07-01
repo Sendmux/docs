@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="1 July 2026" tags={["Bug fixes"]} rss={{ title: "SMTP sender acceptance is more reliable" }}>
+  ## Bug fixes
+
+SMTP sending now accepts valid sender addresses before choosing a delivery path, preventing a `MAIL FROM required` rejection for messages that should use your configured providers.
+
+If a message can only use Amazon SES and the sender domain is not configured in Sendmux, the rejection now explains that the domain must be configured for Amazon SES delivery.
+
+</Update>
+
 <Update label="30 June 2026" tags={["New features"]} rss={{ title: "GitHub sign-in is available" }}>
   ## Account access
 
