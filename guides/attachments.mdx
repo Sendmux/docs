@@ -69,6 +69,8 @@ The `download_url` is short-lived and grants access only to that attachment. Fet
 
 If the URL expires, re-read the message with `GET /mailbox/messages/{message_id}`, list or search messages again, or call the MCP `mailbox_get_attachment` tool to get a fresh `download_url`. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
 
+Realtime received-message events can include the same attachment metadata when it is available. Handle older events where `attachments` is omitted, then re-read message metadata before downloading.
+
 Range requests are still supported on attachment downloads, including short-lived URLs.
 
 ## Agent workflow
