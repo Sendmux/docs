@@ -17,6 +17,8 @@ The CLI can now attach local files directly on supported send commands, so file 
 
 SDK file helpers now attach local files without manual base64 encoding, and MCP attachment tools now guide agents toward local file paths or presigned uploads before falling back to tiny inline base64 content.
 
+When inline attachment content is too large, agent-facing errors now point to lower-token file path, presigned upload, CLI, and SDK helper options.
+
 </Update>
 
 <Update label="2 July 2026" tags={["Bug fixes"]} rss={{ title: "Transactional emails are easier to read" }}>
