@@ -9,7 +9,7 @@ rss: true
 
 Mailbox attachments can now be uploaded through short-lived presigned upload URLs. First authenticate to mint the URL, then upload the file bytes with the exact returned headers and no API key in the upload command.
 
-Mailbox direct uploads and presigned uploads share the same per-attachment size cap, and oversize uploads are rejected before a presigned URL is minted.
+Mailbox direct uploads and presigned uploads share the same 7,500,000 byte per-attachment cap, and oversize uploads are rejected before a presigned URL is minted.
 
   ## Developer tools
 
