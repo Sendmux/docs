@@ -1,7 +1,7 @@
 ---
 title: "Attachments"
-description: "Attach files to Sendmux HTTP send requests."
-keywords: ["attachments", "file uploads", "base64", "MIME types", "size limits"]
+description: "Send, upload, and download attachments with Sendmux."
+keywords: ["attachments", "file uploads", "file downloads", "base64", "MIME types", "size limits"]
 ---
 
 HTTP send requests can include up to 10 attachments. Each attachment is sent as base64 content inside the JSON body.
@@ -14,6 +14,8 @@ HTTP send requests can include up to 10 attachments. Each attachment is sent as 
 | Request body | 25 MB |
 
 Base64 content counts towards the request body size, so keep files below the full request limit.
+
+Mailbox attachment uploads are available for mailbox send workflows that need to upload a file first and then reference the returned blob ID when sending.
 
 ## Allowed files
 
@@ -51,11 +53,41 @@ Binary files are checked against their claimed file type. Text-based files are c
 
 If an attachment is too large, unsupported, or does not match its file type, the request fails with `validation_error` or `payload_too_large`. Fix the file and retry.
 
+## Download mailbox attachments
+
+Mailbox messages include attachment metadata when attachments are present:
+
+- `id`
+- `filename`
+- `content_type`
+- `size_bytes`
+- `content_id`
+- `disposition`
+- `download_url`
+
+The `download_url` is short-lived and grants access only to that attachment. Fetch it promptly with any HTTP client; no `Authorization` header is needed for the URL itself.
+
+If the URL expires, call the message or attachment metadata endpoint again to get a fresh `download_url`. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
+
+Range requests are still supported on attachment downloads, including short-lived URLs.
+
+## Agent workflow
+
+1. Wait for or list messages.
+2. Read the message metadata and find the attachment.
+3. Fetch `download_url` promptly.
+4. If the URL expired, re-read the message or attachment metadata and fetch the new URL.
+
+MCP clients should use the attachment metadata tool rather than trying to return raw binary content through the tool call.
+
 ## Related guides
 
 <Columns cols={2}>
   <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
     Add attachments to single or batch send requests.
+  </Card>
+  <Card title="Mailbox push delivery" icon="radio" href="/guides/mailbox-push-delivery">
+    Receive live mailbox events and then download attachments from message metadata.
   </Card>
   <Card title="Sending errors" icon="triangle-alert" href="/sending-api/errors">
     Handle validation and payload size errors.

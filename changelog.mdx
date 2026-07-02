@@ -4,6 +4,21 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="2 July 2026" tags={["New features", "Improvements"]} rss={{ title: "Mailbox attachments are easier for agents to use" }}>
+  ## Mailbox API
+
+Mailbox attachment metadata now includes short-lived `download_url` values that can be fetched without an `Authorization` header. Re-read the message or attachment metadata to renew the URL after it expires.
+
+Mailbox message lists, message reads, thread reads, search results that include attachments, and live mailbox events now return complete attachment metadata for agent workflows.
+
+  ## Developer tools
+
+MCP now includes tools to fetch fresh attachment metadata, upload attachments before sending, and wait briefly for new mail without manual polling.
+
+The SDKs and CLI have been regenerated from the updated Mailbox API, and the CLI can now follow mailbox events with `mailbox:stream-events --follow`.
+
+</Update>
+
 <Update label="1 July 2026" tags={["Bug fixes"]} rss={{ title: "SMTP sender acceptance is more reliable" }}>
   ## Bug fixes
 

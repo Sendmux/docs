@@ -2427,7 +2427,7 @@
           },
           "request": {
             "description": {
-              "content": "Streams one attachment from a message in the authenticated mailbox. Supports standard byte ranges.",
+              "content": "Streams one attachment from a message. Bearer authentication works as before; attachment metadata also provides short-lived download URLs for clients that cannot add an Authorization header. Supports standard byte ranges.",
               "type": "text/plain"
             },
             "header": [
@@ -2456,6 +2456,11 @@
                 ":attachment_id"
               ],
               "query": [
+                {
+                  "disabled": true,
+                  "key": "download_token",
+                  "value": "<string>"
+                },
                 {
                   "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
                   "disabled": true,
