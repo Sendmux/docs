@@ -26,7 +26,7 @@ Use this page to connect Sendmux MCP to your AI client. Prefer hosted OAuth when
 
 <CardGroup cols={3}>
   <Card title="Hosted OAuth" icon="shield-check" href="#hosted-oauth-clients">
-    Use this for Claude, Cursor, Codex, Gemini CLI, Qwen Code, Kiro, OpenCode, Zed, Visual Studio, and ChatGPT.
+    Use this for Claude, Cursor, Codex, Gemini CLI, Qwen Code, Kiro, OpenCode, Zed, Visual Studio, Hoot, and ChatGPT.
   </Card>
   <Card title="Local stdio" icon="terminal" href="#local-stdio-clients">
     Use this when your client can launch `sendmux-mcp` on your machine.
@@ -44,6 +44,7 @@ Use this page to connect Sendmux MCP to your AI client. Prefer hosted OAuth when
   | Cursor | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
   | Codex | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
   | ChatGPT | Hosted OAuth app | Remote HTTPS MCP app |
+  | Hoot | Hosted OAuth | Remote HTTP |
   | Gemini CLI | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
   | Qwen Code | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
   | Kiro | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
@@ -127,6 +128,18 @@ https://mcp.sendmux.ai/mcp
     Create a custom MCP app or connector that points to `https://mcp.sendmux.ai/mcp`. Developer mode or workspace app setup must be available on your plan or workspace.
 
     After ChatGPT scans the tools, complete the Sendmux authorisation prompt and test the app privately before publishing it to a workspace.
+  </Accordion>
+
+  <Accordion title="Hoot" description="Remote HTTP server with OAuth.">
+    Add a server with these settings:
+
+    | Setting | Value |
+    | --- | --- |
+    | URL | `https://mcp.sendmux.ai/mcp` |
+    | Transport | HTTP |
+    | Authentication | OAuth |
+
+    Leave the access token, custom OAuth endpoints, headers, client ID, and custom scopes empty unless Hoot adds a dedicated field for them.
   </Accordion>
 
   <Accordion title="Gemini CLI" description="Remote HTTP server in Gemini CLI settings.">
