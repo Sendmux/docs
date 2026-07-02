@@ -67,7 +67,7 @@ Mailbox messages include attachment metadata when attachments are present:
 
 The `download_url` is short-lived and grants access only to that attachment. Fetch it promptly with any HTTP client; no `Authorization` header is needed for the URL itself.
 
-If the URL expires, call the message or attachment metadata endpoint again to get a fresh `download_url`. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
+If the URL expires, re-read the message with `GET /mailbox/messages/{message_id}`, list or search messages again, or call the MCP `mailbox_get_attachment` tool to get a fresh `download_url`. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
 
 Range requests are still supported on attachment downloads, including short-lived URLs.
 
