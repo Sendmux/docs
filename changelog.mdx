@@ -4,6 +4,21 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="3 July 2026" tags={["New features", "Improvements"]} rss={{ title: "Outbound attachments are more efficient for agents" }}>
+  ## Mailbox API
+
+Mailbox attachments can now be uploaded through short-lived presigned upload URLs. First authenticate to mint the URL, then upload the file bytes with the exact returned headers and no API key in the upload command.
+
+Mailbox direct uploads and presigned uploads share the same per-attachment size cap, and oversize uploads are rejected before a presigned URL is minted.
+
+  ## Developer tools
+
+The CLI can now attach local files directly on supported send commands, so file bytes stay out of prompts and shell-generated base64 strings.
+
+SDK file helpers now attach local files without manual base64 encoding, and MCP attachment tools now guide agents toward local file paths or presigned uploads before falling back to tiny inline base64 content.
+
+</Update>
+
 <Update label="2 July 2026" tags={["Bug fixes"]} rss={{ title: "Transactional emails are easier to read" }}>
   ## Bug fixes
 

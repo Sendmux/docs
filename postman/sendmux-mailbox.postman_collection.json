@@ -28,6 +28,116 @@
       "item": [
         {
           "event": [],
+          "name": "Create a presigned mailbox attachment upload",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"content_type\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"size_bytes\": \"<integer>\"\n}"
+            },
+            "description": {
+              "content": "Creates a short-lived signed PUT URL for one attachment. The caller must be authenticated to mint the URL; the later PUT uses the signed URL, exact Content-Type, and exact Content-Length without sending an API key. The PUT returns a blob ID that can be supplied to `POST /mailbox/messages/send`.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a presigned mailbox attachment upload",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "attachment-uploads"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment upload URL created",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Invalid upload request",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment uploads unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
           "name": "Upload a mailbox attachment",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -3364,7 +3474,7 @@
               "raw": "{\n  \"attachments\": [\n    {\n      \"content\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"filename\": \"<string>\"\n    }\n  ],\n  \"bcc\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ],\n  \"cc\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ],\n  \"custom_headers\": {\n    \"key_0\": \"<string>\"\n  },\n  \"from\": {\n    \"email\": \"<email>\",\n    \"name\": \"<string,null>\"\n  },\n  \"html_body\": \"<string>\",\n  \"reply_to\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ],\n  \"subject\": \"<string>\",\n  \"text_body\": \"<string>\",\n  \"to\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string,null>\"\n    }\n  ]\n}"
             },
             "description": {
-              "content": "Creates and queues a message from the authenticated mailbox. Supply an `Idempotency-Key` header to safely retry. Attachments may use small inline base64 content or blob IDs returned by `POST /mailbox/attachments:upload`.",
+              "content": "Creates and queues a message from the authenticated mailbox. Supply an `Idempotency-Key` header to safely retry. Attachments may use small inline base64 content or blob IDs returned by `POST /mailbox/attachments:upload` or `POST /mailbox/attachment-uploads`.",
               "type": "text/plain"
             },
             "header": [
