@@ -12,10 +12,17 @@ HTTP send requests can include up to 10 attachments. Each attachment is sent as 
 | --- | --- |
 | Attachments per email | 10 |
 | Request body | 25 MB |
+| Mailbox upload attachment | 7,500,000 bytes |
 
 Base64 content counts towards the request body size, so keep files below the full request limit.
 
-Mailbox attachment uploads are available for mailbox send workflows that need to upload a file first and then reference the returned blob ID when sending.
+Mailbox attachment uploads are available for mailbox send workflows that need to upload a file first and then reference the returned blob ID when sending. Direct mailbox uploads and presigned mailbox uploads use the same per-attachment cap.
+
+## Upload before sending
+
+For local tools and SDK helpers, send the file path and let the tool read the bytes locally. For shell-capable or hosted agents, mint a short-lived presigned upload URL, then upload the file bytes with the exact returned method, headers, content type, and content length.
+
+The presigned upload URL does not include an API key. It can write only the single attachment it was minted for, expires quickly, and returns the same blob ID shape as a direct mailbox attachment upload.
 
 ## Allowed files
 
