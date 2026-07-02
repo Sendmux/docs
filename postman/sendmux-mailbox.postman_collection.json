@@ -2457,14 +2457,14 @@
               ],
               "query": [
                 {
-                  "disabled": true,
-                  "key": "download_token",
-                  "value": "<string>"
-                },
-                {
                   "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
                   "disabled": true,
                   "key": "mailbox_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "download_token",
                   "value": "<string>"
                 }
               ],
