@@ -11,6 +11,8 @@ Mailbox attachments can now be uploaded through short-lived presigned upload URL
 
 Mailbox direct uploads and presigned uploads share the same 7,500,000 byte per-attachment cap, and oversize uploads are rejected before a presigned URL is minted.
 
+Conditional message reads now refresh short-lived attachment download links instead of returning `304 Not Modified` when the cached message metadata needs a new link.
+
   ## Developer tools
 
 The CLI can now attach local files directly on supported send commands, so file bytes stay out of prompts and shell-generated base64 strings.
