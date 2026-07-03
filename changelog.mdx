@@ -4,6 +4,49 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="3 July 2026" tags={["New features", "Improvements"]} rss={{ title: "Outbound attachments are more efficient for agents" }}>
+  ## Mailbox API
+
+Mailbox attachments can now be uploaded through short-lived presigned upload URLs. First authenticate to mint the URL, then upload the file bytes with the exact returned headers and no API key in the upload command.
+
+Mailbox direct uploads and presigned uploads share the same 7,500,000 byte per-attachment cap, and oversize uploads are rejected before a presigned URL is minted.
+
+Conditional message reads now refresh short-lived attachment download links instead of returning `304 Not Modified` when the cached message metadata needs a new link.
+
+  ## Developer tools
+
+The CLI can now attach local files directly on supported send commands, so file bytes stay out of prompts and shell-generated base64 strings.
+
+SDK file helpers now attach local files without manual base64 encoding, and MCP attachment tools now guide agents toward local file paths or presigned uploads before falling back to tiny inline base64 content.
+
+When inline attachment content is too large, agent-facing errors now point to lower-token file path, presigned upload, CLI, and SDK helper options.
+
+</Update>
+
+<Update label="2 July 2026" tags={["Bug fixes"]} rss={{ title: "Transactional emails are easier to read" }}>
+  ## Bug fixes
+
+Transactional emails now use more reliable light backgrounds and stronger text contrast across inboxes, including verification, password reset, invite, billing, domain, and webhook alerts.
+
+Email buttons, footer text, and supporting details now use safer colour pairs, so messages stay readable in preview panes and clients that adjust display colours.
+
+</Update>
+
+<Update label="2 July 2026" tags={["New features", "Improvements"]} rss={{ title: "Mailbox attachments are easier for agents to use" }}>
+  ## Mailbox API
+
+Mailbox attachment metadata now includes short-lived `download_url` values that can be fetched without an `Authorization` header. Re-read the message or attachment metadata to renew the URL after it expires.
+
+Mailbox message lists, message reads, thread reads, search results that include attachments, and live mailbox events now return complete attachment metadata for agent workflows.
+
+  ## Developer tools
+
+MCP now includes tools to fetch fresh attachment metadata, upload attachments before sending, and wait briefly for new mail without manual polling.
+
+The SDKs and CLI have been regenerated from the updated Mailbox API, and the CLI can now follow mailbox events with `mailbox:stream-events --follow`.
+
+</Update>
+
 <Update label="1 July 2026" tags={["Bug fixes"]} rss={{ title: "SMTP sender acceptance is more reliable" }}>
   ## Bug fixes
 
