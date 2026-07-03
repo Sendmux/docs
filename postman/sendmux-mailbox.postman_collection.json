@@ -2537,7 +2537,7 @@
           },
           "request": {
             "description": {
-              "content": "Streams one attachment from a message. Bearer authentication works as before; attachment metadata also provides short-lived download URLs for clients that cannot add an Authorization header. Supports standard byte ranges.",
+              "content": "Streams one attachment from a message through the authenticated endpoint. Attachment metadata also provides short-lived download URLs for clients that cannot set request headers. Supports standard byte ranges.",
               "type": "text/plain"
             },
             "header": [
