@@ -79,13 +79,13 @@ https://mcp.sendmux.ai/mcp
 ```
 
 <AccordionGroup>
-  <Accordion title="Claude and Claude Desktop" description="Custom connector with browser authorisation.">
+  <Accordion title="Claude and Claude Desktop">
     Add a custom connector with server URL `https://mcp.sendmux.ai/mcp`, then connect and complete the Sendmux authorisation flow.
 
     On Team and Enterprise plans, an owner may need to add the custom connector for the organisation before members can connect it.
   </Accordion>
 
-  <Accordion title="Claude Code" description="Remote HTTP server with OAuth login from the client.">
+  <Accordion title="Claude Code">
     ```bash
     claude mcp add sendmux --transport http https://mcp.sendmux.ai/mcp
     ```
@@ -93,7 +93,7 @@ https://mcp.sendmux.ai/mcp
     Use `/mcp` in Claude Code if the server is listed as requiring authentication.
   </Accordion>
 
-  <Accordion title="Cursor" description="Remote MCP server in project or user config.">
+  <Accordion title="Cursor">
     Add this to `.cursor/mcp.json` for one project or `~/.cursor/mcp.json` for all projects.
 
     ```json
@@ -109,7 +109,7 @@ https://mcp.sendmux.ai/mcp
     Cursor opens the OAuth flow when the hosted server asks for authorisation.
   </Accordion>
 
-  <Accordion title="Codex" description="Remote server in trusted Codex config.">
+  <Accordion title="Codex">
     Add this to `~/.codex/config.toml` or a trusted project `.codex/config.toml`.
 
     ```toml
@@ -124,13 +124,13 @@ https://mcp.sendmux.ai/mcp
     ```
   </Accordion>
 
-  <Accordion title="ChatGPT" description="Custom MCP app or workspace connector.">
+  <Accordion title="ChatGPT">
     Create a custom MCP app or connector that points to `https://mcp.sendmux.ai/mcp`. Developer mode or workspace app setup must be available on your plan or workspace.
 
     After ChatGPT scans the tools, complete the Sendmux authorisation prompt and test the app privately before publishing it to a workspace.
   </Accordion>
 
-  <Accordion title="Hoot" description="Remote HTTP server with OAuth.">
+  <Accordion title="Hoot">
     Add a server with these settings:
 
     | Setting | Value |
@@ -142,7 +142,7 @@ https://mcp.sendmux.ai/mcp
     Leave the access token, custom OAuth endpoints, headers, client ID, and custom scopes empty unless Hoot adds a dedicated field for them.
   </Accordion>
 
-  <Accordion title="Gemini CLI" description="Remote HTTP server in Gemini CLI settings.">
+  <Accordion title="Gemini CLI">
     Add this to your Gemini CLI `settings.json`.
 
     ```json
@@ -159,7 +159,7 @@ https://mcp.sendmux.ai/mcp
     Then run `/mcp auth sendmux` inside Gemini CLI.
   </Accordion>
 
-  <Accordion title="Qwen Code" description="Remote HTTP server in Qwen Code settings.">
+  <Accordion title="Qwen Code">
     Add this to `.qwen/settings.json` for one project or `~/.qwen/settings.json` for all projects.
 
     ```json
@@ -176,7 +176,7 @@ https://mcp.sendmux.ai/mcp
     Use `/mcp auth` in Qwen Code if the server needs authentication.
   </Accordion>
 
-  <Accordion title="Kiro" description="Remote MCP server in workspace or user settings.">
+  <Accordion title="Kiro">
     Add this to `.kiro/settings/mcp.json` for one workspace or `~/.kiro/settings/mcp.json` for all workspaces.
 
     ```json
@@ -193,7 +193,7 @@ https://mcp.sendmux.ai/mcp
     Kiro opens the browser OAuth flow when the hosted server asks for authorisation.
   </Accordion>
 
-  <Accordion title="OpenCode" description="Remote MCP server in opencode config.">
+  <Accordion title="OpenCode">
     Add this to `opencode.json`.
 
     ```json
@@ -216,7 +216,7 @@ https://mcp.sendmux.ai/mcp
     ```
   </Accordion>
 
-  <Accordion title="Zed" description="Remote OAuth server in Zed settings.">
+  <Accordion title="Zed">
     Add this to Zed settings.
 
     ```json
@@ -232,7 +232,7 @@ https://mcp.sendmux.ai/mcp
     Do not add an `Authorization` header for hosted OAuth. Zed prompts for the standard MCP OAuth flow when no header is configured.
   </Accordion>
 
-  <Accordion title="Visual Studio" description="Remote MCP server with editor auth prompt.">
+  <Accordion title="Visual Studio">
     Add a remote MCP server with this JSON shape.
 
     ```json
@@ -270,7 +270,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
 ```
 
 <AccordionGroup>
-  <Accordion title="Claude Code" description="Command-launched stdio server.">
+  <Accordion title="Claude Code">
     ```bash
     claude mcp add sendmux-mailbox \
       --transport stdio \
@@ -279,7 +279,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Cursor" description="Project or user stdio server.">
+  <Accordion title="Cursor">
     ```json
     {
       "mcpServers": {
@@ -295,7 +295,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="VS Code" description="Stdio server with prompted secret input.">
+  <Accordion title="VS Code">
     Use an input variable so the key is not stored directly in `.vscode/mcp.json`.
 
     ```json
@@ -321,7 +321,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Codex" description="Stdio server with key inherited from the shell.">
+  <Accordion title="Codex">
     Run Codex with `SENDMUX_API_KEY` already set, then use `env_vars` so the value stays outside the config file.
 
     ```toml
@@ -331,7 +331,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Windsurf and Cascade" description="Stdio server in Windsurf MCP config.">
+  <Accordion title="Windsurf and Cascade">
     Add this to `~/.codeium/windsurf/mcp_config.json`.
 
     ```json
@@ -348,7 +348,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Cline" description="Stdio server in Cline MCP settings.">
+  <Accordion title="Cline">
     Add this through the Cline MCP settings JSON or `~/.cline/mcp.json`.
 
     ```json
@@ -367,7 +367,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Roo Code" description="Stdio server in Roo MCP settings.">
+  <Accordion title="Roo Code">
     Add this to the Roo MCP settings JSON.
 
     ```json
@@ -386,7 +386,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Gemini CLI" description="Stdio server in Gemini CLI settings.">
+  <Accordion title="Gemini CLI">
     Add this to Gemini CLI `settings.json`.
 
     ```json
@@ -404,7 +404,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Qwen Code" description="Stdio server in Qwen Code settings.">
+  <Accordion title="Qwen Code">
     Add this to `.qwen/settings.json` or `~/.qwen/settings.json`.
 
     ```json
@@ -422,7 +422,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Kiro" description="Stdio server in workspace or user settings.">
+  <Accordion title="Kiro">
     Add this to `.kiro/settings/mcp.json` or `~/.kiro/settings/mcp.json`.
 
     ```json
@@ -441,7 +441,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="OpenCode" description="Local MCP server in opencode config.">
+  <Accordion title="OpenCode">
     Add this to `opencode.json`.
 
     ```json
@@ -461,7 +461,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Zed" description="Local command server in Zed settings.">
+  <Accordion title="Zed">
     Add this to Zed settings.
 
     ```json
@@ -479,7 +479,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Warp local app" description="Command server in MCP server settings.">
+  <Accordion title="Warp local app">
     Paste this as an MCP server JSON snippet in **Settings** > **Agents** > **MCP servers**.
 
     ```json
@@ -497,7 +497,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="JetBrains AI Assistant" description="Stdio server in AI Assistant MCP settings.">
+  <Accordion title="JetBrains AI Assistant">
     Go to **Settings** > **Tools** > **AI Assistant** > **Model Context Protocol (MCP)** and add this JSON configuration over STDIO.
 
     ```json
@@ -515,7 +515,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="Continue" description="Stdio server YAML in the project.">
+  <Accordion title="Continue">
     Create `.continue/mcpServers/sendmux-mailbox.yaml`.
 
     ```yaml
@@ -531,7 +531,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
     ```
   </Accordion>
 
-  <Accordion title="GitHub Copilot CLI" description="Command-launched stdio server.">
+  <Accordion title="GitHub Copilot CLI">
     ```bash
     copilot mcp add sendmux-mailbox \
       --env SENDMUX_API_KEY=smx_mbx_... \
@@ -553,7 +553,7 @@ sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 Use `http://127.0.0.1:8765/mcp` as the client URL.
 
 <AccordionGroup>
-  <Accordion title="Claude Code" description="HTTP transport with bearer header.">
+  <Accordion title="Claude Code">
     ```bash
     claude mcp add sendmux-local \
       --transport http \
@@ -562,7 +562,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Cursor" description="HTTP server with static bearer header.">
+  <Accordion title="Cursor">
     ```json
     {
       "mcpServers": {
@@ -577,7 +577,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="VS Code" description="HTTP server with prompted bearer token.">
+  <Accordion title="VS Code">
     ```json
     {
       "servers": {
@@ -601,7 +601,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Codex" description="Remote server with bearer token from the shell.">
+  <Accordion title="Codex">
     ```toml
     [mcp_servers.sendmux_local]
     url = "http://127.0.0.1:8765/mcp"
@@ -609,7 +609,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Windsurf and Cascade" description="HTTP server in Windsurf MCP config.">
+  <Accordion title="Windsurf and Cascade">
     ```json
     {
       "mcpServers": {
@@ -624,7 +624,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Cline" description="HTTP server in Cline MCP settings.">
+  <Accordion title="Cline">
     ```json
     {
       "mcpServers": {
@@ -641,7 +641,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Roo Code" description="Streamable HTTP server in Roo settings.">
+  <Accordion title="Roo Code">
     ```json
     {
       "mcpServers": {
@@ -659,7 +659,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Gemini CLI" description="HTTP server in Gemini CLI settings.">
+  <Accordion title="Gemini CLI">
     ```json
     {
       "mcpServers": {
@@ -675,7 +675,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Qwen Code" description="HTTP server in Qwen Code settings.">
+  <Accordion title="Qwen Code">
     ```json
     {
       "mcpServers": {
@@ -691,7 +691,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Kiro" description="HTTP server in workspace or user settings.">
+  <Accordion title="Kiro">
     ```json
     {
       "mcpServers": {
@@ -707,7 +707,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="OpenCode" description="Remote MCP entry without OAuth.">
+  <Accordion title="OpenCode">
     ```json
     {
       "$schema": "https://opencode.ai/config.json",
@@ -726,7 +726,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Zed" description="HTTP server in Zed settings.">
+  <Accordion title="Zed">
     ```json
     {
       "context_servers": {
@@ -741,7 +741,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Warp local app" description="URL server in local agent settings.">
+  <Accordion title="Warp local app">
     ```json
     {
       "mcpServers": {
@@ -758,7 +758,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     Warp cloud agents should use a reachable private HTTPS endpoint, not a loopback URL on your laptop.
   </Accordion>
 
-  <Accordion title="JetBrains AI Assistant" description="HTTP server in AI Assistant MCP settings.">
+  <Accordion title="JetBrains AI Assistant">
     Use the HTTP option in the MCP settings.
 
     ```json
@@ -775,7 +775,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="Continue" description="Streamable HTTP server YAML in the project.">
+  <Accordion title="Continue">
     Create `.continue/mcpServers/sendmux-local.yaml`.
 
     ```yaml
@@ -791,7 +791,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="LM Studio" description="HTTP server using Cursor-style JSON.">
+  <Accordion title="LM Studio">
     LM Studio follows Cursor's `mcp.json` notation. Open **Program** > **Install** > **Edit mcp.json** and add:
 
     ```json
@@ -808,7 +808,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="GitHub Copilot CLI" description="HTTP server from the Copilot CLI.">
+  <Accordion title="GitHub Copilot CLI">
     ```bash
     copilot mcp add --transport http \
       --header "Authorization: Bearer local-mcp-token" \
@@ -816,7 +816,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
     ```
   </Accordion>
 
-  <Accordion title="GitHub Copilot coding agent" description="Reachable private HTTPS endpoint for cloud agents.">
+  <Accordion title="GitHub Copilot coding agent">
     Use repository-level MCP settings with a private HTTPS endpoint that the cloud agent can reach. Store the bearer token as an Agents secret or variable whose name starts with `COPILOT_MCP_`.
 
     ```json

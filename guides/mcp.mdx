@@ -28,13 +28,13 @@ Sendmux has two MCP connections. Use Doc Search MCP when you want an AI tool to 
 Doc Search MCP exposes `search_sendmux`.
 
 <AccordionGroup>
-  <Accordion title="Claude Code" description="Add the docs server over HTTP.">
+  <Accordion title="Claude Code">
     ```bash
     claude mcp add sendmux-docs --transport http https://sendmux.ai/docs/mcp
     ```
   </Accordion>
 
-  <Accordion title="Cursor" description="Add the docs server to project or user config.">
+  <Accordion title="Cursor">
     Add this server to `.cursor/mcp.json` for one project or `~/.cursor/mcp.json` for all projects.
 
     ```json
@@ -48,7 +48,7 @@ Doc Search MCP exposes `search_sendmux`.
     ```
   </Accordion>
 
-  <Accordion title="VS Code" description="Add the docs server to user or workspace config.">
+  <Accordion title="VS Code">
     Add this server to your user or workspace `mcp.json`.
 
     ```json
@@ -63,7 +63,7 @@ Doc Search MCP exposes `search_sendmux`.
     ```
   </Accordion>
 
-  <Accordion title="Codex" description="Add the docs server to trusted Codex config.">
+  <Accordion title="Codex">
     Add this server to `~/.codex/config.toml` or a trusted project `.codex/config.toml`.
 
     ```toml
@@ -166,7 +166,7 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
 ## Configuration reference
 
 <AccordionGroup>
-  <Accordion title="Environment variables" description="All local MCP server settings.">
+  <Accordion title="Environment variables">
     | Setting | Environment | Default |
     | --- | --- | --- |
     | Tool surfaces | `SENDMUX_MCP_SURFACES` | Required for `sendmux-mcp` |
@@ -184,7 +184,7 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
     | Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
   </Accordion>
 
-  <Accordion title="Command flags" description="Pass the same choices as CLI flags.">
+  <Accordion title="Command flags">
     ```bash
     sendmux-mcp \
       --surfaces mailbox,management,sending \
