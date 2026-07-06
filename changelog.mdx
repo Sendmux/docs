@@ -4,6 +4,17 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="6 July 2026" tags={["Improvements"]} rss={{ title: "Domain bounce handling is clearer" }}>
+  ## Domain verification
+
+Custom domains now show the extra bounce-handling DNS records needed for Amazon SES MAIL FROM, including the `bounce.` subdomain MX and TXT records.
+
+Domain verification now checks those bounce records separately and keeps already verified domains active while the extra DNS records are pending.
+
+The Management API now returns MAIL FROM status and DNS check results for domains, and zone file exports include the new records.
+
+</Update>
+
 <Update label="3 July 2026" tags={["New features", "Improvements"]} rss={{ title: "Outbound attachments are more efficient for agents" }}>
   ## Mailbox API
 
