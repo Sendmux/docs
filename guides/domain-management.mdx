@@ -2,7 +2,7 @@
 title: "Domains"
 description: "Add, verify, and manage custom domains for sending and receiving."
 keywords:
-  ["domains", "DNS", "SPF", "DKIM", "DMARC", "verification", "custom domain"]
+  ["domains", "DNS", "SPF", "DKIM", "DMARC", "MAIL FROM", "verification"]
 ---
 
 Use a custom domain when you want branded sending, hosted mailboxes, or both. Choose the domain mode when you add it: sending only avoids MX changes, while sending & receiving lets you create mailboxes after verification.
@@ -42,20 +42,21 @@ Use a custom domain when you want branded sending, hosted mailboxes, or both. Ch
   </Step>
   <Step title="Verify">
     Select **Verify** after the records have propagated. Sending-only domains
-    check ownership, sending policy, message policy, and email signing. Sending
-    & receiving domains also check inbound routing.
+    check ownership, sending policy, message policy, email signing, and bounce
+    handling. Sending & receiving domains also check inbound routing.
   </Step>
 </Steps>
 
 ## DNS records
 
-| Purpose        | Record | Required for                  | What it does                                   |
-| -------------- | ------ | ----------------------------- | ---------------------------------------------- |
-| Ownership      | TXT    | Both modes                    | Confirms you control the domain.               |
-| Email signing  | CNAME  | Both modes                    | Enables DKIM signing through Amazon SES.       |
-| Sending policy | TXT    | Both modes                    | Authorises Sendmux to send for the domain.     |
-| Message policy | TXT    | Both modes                    | Defines DMARC handling for suspicious mail.    |
-| Receive mail   | MX     | Sending & receiving           | Routes inbound mail for the domain to Sendmux. |
+| Purpose         | Record     | Required for        | What it does                                   |
+| --------------- | ---------- | ------------------- | ---------------------------------------------- |
+| Ownership       | TXT        | Both modes          | Confirms you control the domain.               |
+| Email signing   | CNAME      | Both modes          | Enables DKIM signing through Amazon SES.       |
+| Sending policy  | TXT        | Both modes          | Authorises Sendmux to send for the domain.     |
+| Message policy  | TXT        | Both modes          | Defines DMARC handling for suspicious mail.    |
+| Bounce handling | MX and TXT | Both modes          | Routes bounce handling through a subdomain.    |
+| Receive mail    | MX         | Sending & receiving | Routes inbound mail for the domain to Sendmux. |
 
 You can download the records as a zone file from the domain detail page.
 
@@ -89,6 +90,11 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
   <Accordion title="SPF is failing">
     Keep only one SPF record for the same domain name. Merge all `include:`
     values into the same TXT record.
+  </Accordion>
+  <Accordion title="Bounce handling is failing">
+    Check the MX and TXT records on the `bounce.{your-domain}` subdomain. The MX
+    record must use the target Sendmux shows, and the TXT record must match the
+    generated SPF value.
   </Accordion>
   <Accordion title="DMARC is failing">
     Check that the TXT record is published at `_dmarc.{your - domain}` and still
