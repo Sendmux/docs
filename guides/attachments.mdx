@@ -72,7 +72,7 @@ The response includes an `upload_url` and required `headers`. Send a `PUT` reque
 
 For local MCP clients, use `sending_upload_attachment` with `file_path` before `sending_send_email` or `sending_send_email_batch`. The tool reads the local file from a client-approved root and returns an `attachment_id`.
 
-For hosted MCP clients or shell-capable agents, use `sending_create_attachment_upload`, upload the file bytes to the returned `upload_url` with the returned headers, then pass the resulting `attachment_id` in the send request. Do not place file bytes or large base64 strings in the prompt.
+For hosted MCP clients or shell-capable agents, use `sending_create_attachment_upload`, upload the file bytes to the returned `upload_url` with the returned headers, then pass the resulting `attachment_id` in `sending_send_email` or `sending_send_email_batch`. Do not place file bytes or large base64 strings in the prompt.
 
 For mailbox sends, use `mailbox_upload_attachment` first and send with the returned `blob_id`. For inbound mailbox attachments, use `mailbox_read_attachment` first when you need text-like content.
 
