@@ -28,6 +28,696 @@
       "item": [
         {
           "event": [],
+          "name": "Create an attachment upload URL",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"content_type\": \"<string>\",\n  \"filename\": \"<string>\",\n  \"sha256\": \"<string>\",\n  \"size_bytes\": \"<integer>\"\n}"
+            },
+            "description": {
+              "content": "Create a short-lived upload URL and token that lets a remote client PUT one binary attachment without exposing the API key on the upload request. Requires `email.send` permission.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create an attachment upload URL",
+            "url": {
+              "host": [
+                "{{sending_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "attachment-uploads"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical URL for the temporary attachment upload intent.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment upload URL created",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Malformed request",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment exceeds the upload size cap",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment upload validation failed",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rate limit exceeded",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment upload service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Upload bytes to an attachment upload URL",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            },
+            "description": {
+              "content": "Upload the exact binary bytes for a previously-created attachment upload URL. This operation uses the short-lived upload token header returned by POST /emails/attachment-uploads, not a Sendmux API key.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "(Required) Short-lived upload token returned by POST /emails/attachment-uploads.",
+                "disabled": false,
+                "key": "X-Sendmux-Upload-Token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "name": "Upload bytes to an attachment upload URL",
+            "url": {
+              "host": [
+                "{{sending_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "attachment-uploads",
+                ":upload_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) Upload intent ID returned by POST /emails/attachment-uploads.",
+                  "disabled": false,
+                  "key": "upload_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical URL for the temporary uploaded attachment metadata.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment uploaded successfully",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Missing or invalid upload headers",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Upload token missing, invalid, or expired",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Upload intent not found or expired",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Upload already completed with different content",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Uploaded bytes do not match the expected size",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment validation failed",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment storage temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Upload an attachment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            },
+            "description": {
+              "content": "Upload binary attachment bytes and receive a temporary attachment_id for use in attachments[]. Requires `email.send` permission.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "Optional client-generated key to make the request idempotent for 24 hours. Replays under the same key return the cached response; a reused key with a different body returns 409 idempotency_conflict.",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Upload an attachment",
+            "url": {
+              "host": [
+                "{{sending_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "attachments"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Filename to associate with the uploaded attachment.",
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>"
+                },
+                {
+                  "description": "MIME type override for the uploaded attachment.",
+                  "disabled": true,
+                  "key": "content_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Canonical URL for the temporary uploaded attachment metadata.",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment uploaded successfully",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Missing or invalid upload metadata",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Idempotency conflict",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment exceeds the upload size cap",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment validation failed",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rate limit exceeded",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment storage temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get attachment metadata",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Return metadata for a temporary uploaded attachment owned by the authenticated team. File bytes are not returned.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get attachment metadata",
+            "url": {
+              "host": [
+                "{{sending_base_url}}"
+              ],
+              "path": [
+                "emails",
+                "attachments",
+                ":attachment_id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "(Required) Temporary attachment ID returned by an upload endpoint.",
+                  "disabled": false,
+                  "key": "attachment_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment metadata",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Insufficient permissions",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment not found or expired",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rate limit exceeded",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Attachment storage temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Attachments"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
           "name": "Send a single email",
           "protocolProfileBehavior": {
             "disableBodyPruning": true

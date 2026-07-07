@@ -4,7 +4,13 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="7 July 2026" tags={["Improvements"]} rss={{ title: "Inbound attachments are easier for agents to read" }}>
+<Update label="7 July 2026" tags={["Improvements"]} rss={{ title: "Attachments are easier for agents to move and read" }}>
+  ## Sending API
+
+Agents can now upload Sending API attachment bytes first and send by `attachment_id`, keeping normal files out of prompts and JSON base64 payloads.
+
+Hosted agents can mint a short-lived upload URL, upload with the returned headers and no Sendmux API key in the upload command, then attach the returned `attachment_id` to single or batch sends.
+
   ## Mailbox API
 
 Mailbox attachment download links are now shorter and use stable attachment refs, making them easier to pass through agent tools and command-line workflows.

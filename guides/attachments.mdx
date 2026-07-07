@@ -4,25 +4,83 @@ description: "Send, upload, and download attachments with Sendmux."
 keywords: ["attachments", "file uploads", "file downloads", "base64", "MIME types", "size limits"]
 ---
 
-HTTP send requests can include up to 10 attachments. Each attachment is sent as base64 content inside the JSON body.
+For the Sending API, upload file bytes first and send by `attachment_id`. Inline base64 attachments remain supported for small generated content and older integrations, but uploaded refs are the preferred path for normal files.
 
 ## Limits
 
 | Limit | Value |
 | --- | --- |
 | Attachments per email | 10 |
-| Request body | 25 MB |
+| Sending API binary upload | 18 MiB |
+| Final sent message | 25 MB |
 | Mailbox upload attachment | 7,500,000 bytes |
 
-Base64 content counts towards the request body size, so keep files below the full request limit.
+Base64 content counts towards the request body size and increases payload size. Upload refs avoid that overhead, but the final encoded email must still fit within the 25 MB message limit.
 
 Mailbox attachment uploads are available for mailbox send workflows that need to upload a file first and then reference the returned blob ID when sending. Direct mailbox uploads and presigned mailbox uploads use the same per-attachment cap.
 
-## Upload before sending
+## Upload before sending with the Sending API
+
+Upload bytes directly when your client has the API key:
+
+```bash
+SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
+ATTACHMENT_ID="$(
+  curl -sS -X POST "https://smtp.sendmux.ai/api/v1/emails/attachments?filename=invoice.pdf" \
+    -H "Authorization: Bearer smx_mbx_your_key_here" \
+    -H "Content-Type: application/pdf" \
+    -H "Content-Length: $SIZE_BYTES" \
+    --data-binary @invoice.pdf \
+  | jq -r '.data.attachment_id'
+)"
+```
+
+Then reference it from `POST /emails/send` or `POST /emails/send/batch`:
+
+```json
+{
+  "from": { "email": "hello@example.com" },
+  "to": [{ "email": "user@example.com" }],
+  "subject": "Invoice attached",
+  "html_body": "<p>Please find your invoice attached.</p>",
+  "attachments": [{ "attachment_id": "att_tz4a98xxat96iws9zmbrgj3a" }]
+}
+```
+
+## Delegated uploads
+
+Use a delegated upload when a browser, hosted agent, or another remote client needs to upload bytes without seeing your API key.
+
+```bash
+SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
+SHA256="$(shasum -a 256 invoice.pdf | awk '{print $1}')"
+
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/attachment-uploads \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"filename\": \"invoice.pdf\",
+    \"content_type\": \"application/pdf\",
+    \"size_bytes\": $SIZE_BYTES,
+    \"sha256\": \"$SHA256\"
+  }"
+```
+
+The response includes an `upload_url` and required `headers`. Send a `PUT` request to that URL with the exact file bytes and returned headers. The upload token can write only that attachment, expires quickly, and does not grant send access.
+
+## Agent and MCP workflows
+
+For local MCP clients, use `sending_upload_attachment` with `file_path` before `sending_send_email` or `sending_send_email_batch`. The tool reads the local file from a client-approved root and returns an `attachment_id`.
+
+For hosted MCP clients or shell-capable agents, use `sending_create_attachment_upload`, upload the file bytes to the returned `upload_url` with the returned headers, then pass the resulting `attachment_id` in the send request. Do not place file bytes or large base64 strings in the prompt.
+
+For mailbox sends, use `mailbox_upload_attachment` first and send with the returned `blob_id`. For inbound mailbox attachments, use `mailbox_read_attachment` first when you need text-like content.
+
+## Mailbox upload before sending
+
+Mailbox send workflows can also upload a file first and reference the returned blob ID when sending. Direct mailbox uploads and presigned mailbox uploads use the same per-attachment cap.
 
 For local tools and SDK helpers, send the file path and let the tool read the bytes locally. For shell-capable or hosted agents, mint a short-lived presigned upload URL, then upload the file bytes with the exact returned method, headers, content type, and content length.
-
-The presigned upload URL does not include an API key. It can write only the single attachment it was minted for, expires quickly, and returns the same blob ID shape as a direct mailbox attachment upload.
 
 ## Allowed files
 
@@ -30,7 +88,7 @@ Sendmux accepts common image, document, spreadsheet, presentation, text, calenda
 
 Binary files are checked against their claimed file type. Text-based files are checked by extension.
 
-## Add an attachment
+## Inline base64 compatibility
 
 ```json
 {
@@ -48,10 +106,13 @@ Binary files are checked against their claimed file type. Text-based files are c
 }
 ```
 
+Use this form only for small content that is already in memory. For files on disk, upload bytes first and use `attachment_id`.
+
 ## Fields
 
 | Field | Required | Notes |
 | --- | --- | --- |
+| `attachment_id` | Yes, for uploaded refs | Temporary ID returned by a Sending API upload endpoint. |
 | `filename` | Yes | Must include an allowed extension. |
 | `content` | Yes | Base64-encoded file content. |
 | `type` | No | Optional MIME type override. |
@@ -94,7 +155,7 @@ Do not construct attachment URLs manually.
 
 <Columns cols={2}>
   <Card title="Send by HTTP" icon="code" href="/guides/sending-via-http">
-    Add attachments to single or batch send requests.
+    Send uploaded attachment refs in single or batch requests.
   </Card>
   <Card title="Mailbox push delivery" icon="radio" href="/guides/mailbox-push-delivery">
     Receive live mailbox events and then download attachments from message metadata.

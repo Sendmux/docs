@@ -81,6 +81,7 @@ Common causes:
 - Missing required fields (`from`, `to`, `subject`, `html_body`)
 - Invalid email addresses
 - Attachment file type not in the allowed list
+- Uploaded attachment refs that expired or belong to a different team
 - Batch exceeds 100 messages
 
 ### idempotency_conflict
@@ -89,7 +90,7 @@ Common causes:
 
 ### payload_too_large
 
-**HTTP 413**: The request body exceeds the maximum allowed size. `html_body` and `text_body` are capped at 25MB each. The full request body, including base64-encoded attachments, must be 25MB or less. Attachments are also bounded by the 10-attachment maximum.
+**HTTP 413**: The request body, binary attachment upload, or final encoded message exceeds the maximum allowed size. `html_body` and `text_body` are capped at 25MB each. Inline base64 attachments count towards the JSON request body. Uploaded attachment bytes are capped separately, and the final sent message must still fit within 25MB.
 
 ### no_active_providers
 

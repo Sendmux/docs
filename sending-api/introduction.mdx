@@ -64,6 +64,10 @@ API keys are scoped to a team. Create and manage keys under **Settings > API Key
 | -------------------------------- | ------------------- |
 | `POST /api/v1/emails/send`       | `email.send`        |
 | `POST /api/v1/emails/send/batch` | `email.send`        |
+| `POST /api/v1/emails/attachments` | `email.send`       |
+| `GET /api/v1/emails/attachments/{attachment_id}` | `email.send` |
+| `POST /api/v1/emails/attachment-uploads` | `email.send` |
+| `PUT /api/v1/emails/attachment-uploads/{upload_id}` | Upload token |
 | `GET /api/v1/openapi.json`       | None (public)       |
 
 Account-management endpoints live in the Management API and use root API keys with `provider.*` permissions.
@@ -135,7 +139,8 @@ Single-resource `GET` responses return a weak `ETag`. Send it back in an `If-Non
 - **UTC ISO 8601 timestamps** in RFC 3339 format: `2026-03-19T10:30:00Z`
 - **Public IDs only**. Private numeric IDs are never exposed.
 - **`Cache-Control: no-store`** on all authenticated responses (the OpenAPI spec endpoint uses `public, max-age=3600`)
-- **JSON only**. Use `Content-Type: application/json`.
+- JSON endpoints use `Content-Type: application/json`.
+- Binary attachment upload endpoints use `Content-Type` for the file MIME type and send raw bytes with `application/octet-stream` or the file's MIME type.
 
 ## OpenAPI specification
 
