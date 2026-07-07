@@ -4,6 +4,19 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="7 July 2026" tags={["Improvements"]} rss={{ title: "Inbound attachments are easier for agents to read" }}>
+  ## Mailbox API
+
+Mailbox attachment download links are now shorter and use stable attachment refs, making them easier to pass through agent tools and command-line workflows.
+
+Existing short-lived download links keep the same expiry and safety model, while fresh message and attachment reads return the new compact link shape.
+
+  ## Developer tools
+
+MCP clients can now read text attachments directly through the mailbox attachment read tool, so agents no longer need a separate web fetch step for common files like Markdown recipes.
+
+</Update>
+
 <Update label="6 July 2026" tags={["Improvements"]} rss={{ title: "Domain bounce handling is clearer" }}>
   ## Domain verification
 

@@ -562,7 +562,7 @@ curl https://app.sendmux.ai/api/v1/mailbox/messages:batch-get \
               "size_bytes": 12345,
               "disposition": "attachment",
               "content_id": null,
-              "download_url": "/api/v1/mailbox/messages/msg_123/attachments/att_123"
+              "download_url": "/api/v1/mailbox/messages/msg_123/attachment-downloads/attref_abc123?download_token=..."
             }
           ]
         }
@@ -731,7 +731,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?strip_signa
         "size_bytes": 12345,
         "disposition": "attachment",
         "content_id": null,
-        "download_url": "/api/v1/mailbox/messages/msg_123/attachments/att_123"
+        "download_url": "/api/v1/mailbox/messages/msg_123/attachment-downloads/attref_abc123?download_token=..."
       }
     ]
   },
@@ -813,6 +813,12 @@ curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages/send \
 
 Small inline base64 attachments are still supported on `messages/send`, but the
 upload endpoint avoids large JSON request bodies.
+
+Message metadata can include a short-lived `download_url` for clients that need
+a no-header download link. Fetch it promptly without an `Authorization` header.
+If it expires, re-read message or attachment metadata to receive a fresh URL.
+MCP clients should prefer `mailbox_read_attachment` for text-like inbound
+attachments and use the returned link only for binary or oversized files.
 
 Attachment downloads support byte ranges:
 
