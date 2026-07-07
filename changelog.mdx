@@ -4,6 +4,27 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="7 July 2026" tags={["Improvements"]} rss={{ title: "Attachments are easier for agents to move and read" }}>
+  ## Sending API
+
+Agents can now upload Sending API attachment bytes first and send by `attachment_id`, keeping normal files out of prompts and JSON base64 payloads.
+
+Hosted agents can mint a short-lived upload URL, upload with the returned headers and no Sendmux API key in the upload command, then attach the returned `attachment_id` to single or batch sends.
+
+  ## Mailbox API
+
+Mailbox attachment download links are now shorter and use stable attachment refs, making them easier to pass through agent tools and command-line workflows.
+
+Existing short-lived download links keep the same expiry and safety model, while fresh message and attachment reads return the new compact link shape.
+
+  ## Developer tools
+
+MCP clients can now read text attachments directly through `mailbox_read_attachment`, so agents no longer need a separate web fetch step for common files like Markdown recipes.
+
+Hosted MCP Sending tools now support direct attachment uploads and delegated upload URLs, so agents do not need to handle API keys or base64 payloads.
+
+</Update>
+
 <Update label="6 July 2026" tags={["Improvements"]} rss={{ title: "Domain bounce handling is clearer" }}>
   ## Domain verification
 

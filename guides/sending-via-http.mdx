@@ -38,7 +38,7 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
   }'
 ```
 
-A successful request returns `201 Created` with a queued `message_id`.
+A successful request returns `200 OK` with a queued `message_id`.
 
 ## Send a batch
 
@@ -74,7 +74,7 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
 | `reply_to`        | Direct replies to a different address.                           |
 | `return_path`     | Set the envelope sender for bounce handling.                     |
 | `custom_headers`  | Add custom `X-*` headers to the outgoing message.                |
-| `attachments`     | Attach files as base64 content.                                  |
+| `attachments`     | Attach uploaded `attachment_id` refs, or tiny inline base64 content. |
 | `Idempotency-Key` | Safely retry a request without sending twice.                    |
 
 See the [Sending API reference](/sending-api/introduction) for the full schema.
