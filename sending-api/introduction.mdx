@@ -140,7 +140,7 @@ Single-resource `GET` responses return a weak `ETag`. Send it back in an `If-Non
 - **Public IDs only**. Private numeric IDs are never exposed.
 - **`Cache-Control: no-store`** on all authenticated responses (the OpenAPI spec endpoint uses `public, max-age=3600`)
 - JSON endpoints use `Content-Type: application/json`.
-- Binary attachment upload endpoints use `Content-Type` for the file MIME type and send raw bytes with `application/octet-stream` or the file's MIME type.
+- Binary attachment upload endpoints use `Content-Type` for the file MIME type and require the exact `Content-Length` for the raw byte body.
 
 ## OpenAPI specification
 

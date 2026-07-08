@@ -234,6 +234,12 @@
                 "value": "<string>"
               },
               {
+                "description": "(Required) Exact number of bytes in the binary request body.",
+                "disabled": false,
+                "key": "Content-Length",
+                "value": "<long>"
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/octet-stream"
               },
@@ -407,6 +413,12 @@
                 "disabled": true,
                 "key": "Idempotency-Key",
                 "value": "<string>"
+              },
+              {
+                "description": "(Required) Exact number of bytes in the binary request body.",
+                "disabled": false,
+                "key": "Content-Length",
+                "value": "<long>"
               },
               {
                 "key": "Content-Type",

@@ -4,7 +4,7 @@ description: "Send, upload, and download attachments with Sendmux."
 keywords: ["attachments", "file uploads", "file downloads", "base64", "MIME types", "size limits"]
 ---
 
-For the Sending API, upload file bytes first and send by `attachment_id`. Inline base64 attachments remain supported for small generated content and older integrations, but uploaded refs are the preferred path for normal files.
+For the Sending API, upload file bytes first and send by `attachment_id`. Inline base64 attachments remain supported for small generated content and older integrations, but uploaded refs are the preferred path for normal files. Direct and delegated binary uploads require the exact `Content-Length`; Sendmux SDK and CLI file helpers calculate it from the local file.
 
 ## Limits
 
@@ -66,7 +66,7 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/attachment-uploads \
   }"
 ```
 
-The response includes an `upload_url` and required `headers`. Send a `PUT` request to that URL with the exact file bytes and returned headers. The upload token can write only that attachment, expires quickly, and does not grant send access.
+The response includes an `upload_url` and required `headers`, including `Content-Type` and exact `Content-Length`. Send a `PUT` request to that URL with the exact file bytes and returned headers. The upload token can write only that attachment, expires quickly, and does not grant send access.
 
 ## Agent and MCP workflows
 

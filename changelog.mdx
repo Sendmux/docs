@@ -4,6 +4,13 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="8 July 2026" tags={["Bug fixes", "Improvements"]} rss={{ title: "Attachment uploads keep exact file sizes across tools" }}>
+  ## Sending API
+
+Binary attachment uploads now require the exact `Content-Length` header in the OpenAPI spec, Postman collection, SDKs, CLI, and MCP guidance. Sendmux file helpers calculate it from local files, so agents can upload attachments without placing file bytes in prompts.
+
+</Update>
+
 <Update label="7 July 2026" tags={["Improvements"]} rss={{ title: "Attachments are easier for agents to move and read" }}>
   ## Sending API
 
