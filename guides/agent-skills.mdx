@@ -25,9 +25,41 @@ Sendmux Agent Skills teach AI coding tools how to send email, read mailboxes, ma
   `identity_assertion` or pre-claim token until the owner invite returns `202`.
 </Info>
 
-## Install
+## Install from a marketplace
 
-Install the full pack with the `skills` CLI.
+Use the marketplace path when your AI tool supports plugins. It installs the full Sendmux pack and keeps marketplace updates separate from your project files.
+
+<AccordionGroup>
+  <Accordion title="Claude app, Claude Desktop, and Cowork">
+    1. Open **Customize**.
+    2. Go to **Plugins**.
+    3. In **Personal plugins**, click **+** and choose **Add marketplace**.
+    4. Choose **Add from a repository**.
+    5. Enter `Sendmux/skills`, then install the **Sendmux** plugin.
+  </Accordion>
+
+  <Accordion title="Claude Code">
+    ```text
+    /plugin marketplace add Sendmux/skills
+    /plugin install sendmux@sendmux
+    /reload-plugins
+    ```
+  </Accordion>
+
+  <Accordion title="Codex">
+    Add the marketplace first.
+
+    ```bash
+    codex plugin marketplace add Sendmux/skills
+    ```
+
+    Then open **Plugins** in the Codex app or `/plugins` in Codex CLI and install **Sendmux** from the Sendmux marketplace.
+  </Accordion>
+</AccordionGroup>
+
+## Install with Agent Skills
+
+Use `skills add` when your agent supports raw Agent Skills rather than plugin marketplaces.
 
 ```bash
 npx skills add Sendmux/skills
@@ -45,19 +77,15 @@ Update installed skills later.
 npx skills update
 ```
 
-Claude.ai and Claude Desktop do not use `skills add`. Upload a zipped individual skill folder through **Settings -> Capabilities/Features**.
-
 ## Supported targets
 
-| Agent target | Project path | Global path |
-| --- | --- | --- |
-| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
-| Cursor | `.agents/skills/` | `~/.cursor/skills/` |
-| Codex | `.agents/skills/` | `~/.codex/skills/` |
-| GitHub Copilot / VS Code | `.agents/skills/` | `~/.copilot/skills/` |
-| Windsurf | `.windsurf/skills/` | `~/.codeium/windsurf/skills/` |
-| Gemini CLI | `.agents/skills/` | `~/.gemini/skills/` |
-| Cline | `.agents/skills/` | `~/.agents/skills/` |
+| Target | Recommended install |
+| --- | --- |
+| Claude app, Claude Desktop, Cowork | Add marketplace from repository `Sendmux/skills`, then install **Sendmux**. |
+| Claude Code | `/plugin marketplace add Sendmux/skills`, then `/plugin install sendmux@sendmux`. |
+| Codex app and Codex CLI | `codex plugin marketplace add Sendmux/skills`, then install **Sendmux** from **Plugins** or `/plugins`. |
+| Agent Skills clients | `npx skills add Sendmux/skills`. |
+| Single-skill installs | `npx skills add Sendmux/skills --skill <skill-name>`. |
 
 ## What the pack teaches
 
