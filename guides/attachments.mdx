@@ -40,7 +40,7 @@ Then reference it from `POST /emails/send` or `POST /emails/send/batch`:
 ```json
 {
   "from": { "email": "hello@example.com" },
-  "to": [{ "email": "user@example.com" }],
+  "to": { "email": "user@example.com" },
   "subject": "Invoice attached",
   "html_body": "<p>Please find your invoice attached.</p>",
   "attachments": [{ "attachment_id": "att_tz4a98xxat96iws9zmbrgj3a" }]
@@ -108,14 +108,16 @@ Binary files are checked against their claimed file type. Text-based files are c
 
 Use this form only for small content that is already in memory. For files on disk, upload bytes first and use `attachment_id`.
 
-## Fields
+## Attachment fields
 
-| Field | Required | Notes |
+| Form | Required fields | Optional fields |
 | --- | --- | --- |
-| `attachment_id` | Yes, for uploaded refs | Temporary ID returned by a Sending API upload endpoint. |
-| `filename` | Yes | Must include an allowed extension. |
-| `content` | Yes | Base64-encoded file content. |
-| `type` | No | Optional MIME type override. |
+| Uploaded reference | `attachment_id` | None |
+| Inline base64 | `filename`, `content` | `type`, `encoding` |
+
+An uploaded reference contains only the temporary `attachment_id` returned by
+an upload endpoint. Inline attachments include a filename with an allowed
+extension and base64-encoded content. If supplied, `encoding` must be `base64`.
 
 ## What happens next
 

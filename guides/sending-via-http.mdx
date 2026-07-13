@@ -66,6 +66,10 @@ curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
   }'
 ```
 
+A batch can return `200 OK` while some messages fail. Check
+`data.summary.failed`, then inspect every item in `data.results` by `index`.
+Queued items include a `message_id`; failed items include `error` details.
+
 ## Useful options
 
 | Option            | Use it for                                                       |

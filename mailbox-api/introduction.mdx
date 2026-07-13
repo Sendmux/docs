@@ -60,6 +60,7 @@ Manual mailbox credentials are scoped to one mailbox. The same credential is als
 | `PATCH /mailbox/messages/{message_id}`                           | Update mutable message flags; `If-Match` adds stale-edit checks.  |
 | `DELETE /mailbox/messages/{message_id}`                          | Move or delete a message; `If-Match` adds stale-delete checks.    |
 | `POST /mailbox/attachments:upload`                               | Upload an attachment for a later send request.                    |
+| `POST /mailbox/attachment-uploads`                               | Create a short-lived URL for a later attachment upload.           |
 | `GET /mailbox/messages/{message_id}/attachments/{attachment_id}` | Download an attachment.                                           |
 | `POST /mailbox/messages/send`                                    | Send from the authenticated mailbox.                              |
 | `GET /mailbox/threads`                                           | List conversation threads with filters and cursor pagination.     |

@@ -173,6 +173,7 @@
               "POST /providers/limits/sending-accounts/request-increase",
               "GET /providers/shared-amazon-ses-limit-request",
               "POST /providers/shared-amazon-ses-limit-request",
+              "DELETE /providers/shared-amazon-ses-limit-request/{request_id}",
               "GET /providers/usage",
               "GET /providers",
               "POST /providers",
@@ -254,6 +255,7 @@
               "PATCH /mailbox/messages/{message_id}",
               "DELETE /mailbox/messages/{message_id}",
               "POST /mailbox/attachments:upload",
+              "POST /mailbox/attachment-uploads",
               "GET /mailbox/messages/{message_id}/attachments/{attachment_id}",
               "POST /mailbox/messages/send"
             ]
@@ -315,6 +317,15 @@
           {
             "group": "Emails",
             "pages": ["POST /emails/send", "POST /emails/send/batch"]
+          },
+          {
+            "group": "Attachments",
+            "pages": [
+              "POST /emails/attachments",
+              "GET /emails/attachments/{attachment_id}",
+              "POST /emails/attachment-uploads",
+              "PUT /emails/attachment-uploads/{upload_id}"
+            ]
           }
         ]
       }

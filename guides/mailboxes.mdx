@@ -51,6 +51,13 @@ Mailbox passwords can be used for:
 
 Use **New password** on the mailbox detail page to create another password. Use **Revoke** to disable one immediately.
 
+## Send from a mailbox
+
+Use a mailbox password as the SMTP password or as the bearer token for the
+[Sending API](/guides/sending-via-http). For mailbox-style workflows, call
+`POST /mailbox/messages/send` through the [Mailbox API](/mailbox-api/introduction)
+to send as the authenticated mailbox and track its submissions.
+
 ## Sender identity
 
 Open a mailbox and choose **Edit sender identity** to set:
