@@ -15,6 +15,8 @@ Passkey sign-in now starts with your email address, improving account privacy wh
 
 Google and GitHub sign-in now avoid linking an existing Sendmux account based only on a matching email address. Returning social sign-ins continue to use their already linked provider identity.
 
+Password recovery now invalidates older reset links and signs out existing sessions after a password change, so recovered accounts do not leave prior access active.
+
 </Update>
 
 <Update label="16 July 2026" tags={["Bug fixes"]} rss={{ title: "Agent attachment uploads are more reliable" }}>
