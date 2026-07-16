@@ -4,10 +4,16 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="16 July 2026" tags={["Improvements"]} rss={{ title: "Passkey sign-in is more private" }}>
+<Update
+  label="16 July 2026"
+  tags={["Improvements", "Bug fixes"]}
+  rss={{ title: "Account sign-in is safer and more private" }}
+>
   ## Account access
 
 Passkey sign-in now starts with your email address, improving account privacy while keeping existing passkeys compatible.
+
+Google and GitHub sign-in now avoid linking an existing Sendmux account based only on a matching email address. Returning social sign-ins continue to use their already linked provider identity.
 
 </Update>
 
