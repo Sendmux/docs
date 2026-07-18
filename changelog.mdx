@@ -5,6 +5,27 @@ rss: true
 ---
 
 <Update
+  label="18 July 2026"
+  tags={["New features", "Improvements", "Bug fixes"]}
+  rss={{ title: "Sending account transfers and account protection are improved" }}
+>
+  ## Sending account transfers
+
+You can now export supported non-secret sending account settings as a versioned JSON configuration file, then import it to update matched accounts. Passwords and connected-account credentials are never included or accepted in this format.
+
+  ## Improvements
+
+New and reset passwords now require at least 15 characters and are checked against known-compromised choices. Existing shorter passwords continue to work for sign-in.
+
+Password sign-in now uses the same failure behaviour for unknown accounts and incorrect passwords, reducing account disclosure.
+
+  ## Bug fixes
+
+CSV exports for sending accounts and delivery logs now write formula-like values as text, so spreadsheets do not treat exported data as formulas.
+
+</Update>
+
+<Update
   label="16 July 2026"
   tags={["Improvements", "Bug fixes"]}
   rss={{ title: "Account sign-in is safer and more private" }}
