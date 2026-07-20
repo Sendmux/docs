@@ -473,6 +473,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 503,
               "cookie": [],
               "header": [
@@ -792,6 +806,20 @@
               ],
               "name": "`If-Match` mismatch, or the domain cannot be upgraded in its current state.",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
@@ -1219,6 +1247,20 @@
               ],
               "name": "`If-Match` ETag does not match the server's current version, or the domain is send-only.",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
@@ -2029,6 +2071,20 @@
               ],
               "name": "Limit reached or idempotency conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             }
           ]
         },
@@ -2326,6 +2382,20 @@
               ],
               "name": "ETag conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
@@ -3340,6 +3410,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 422,
               "cookie": [],
               "header": [
@@ -3645,6 +3729,20 @@
               ],
               "name": "`If-Match` ETag does not match the server's current version.",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",

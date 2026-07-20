@@ -117,7 +117,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "Attachment too large",
+              "name": "Request body or attachment too large",
               "status": "Request Entity Too Large"
             },
             {
@@ -660,6 +660,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 422,
               "cookie": [],
               "header": [
@@ -977,6 +991,20 @@
               ],
               "name": "ETag conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             }
           ]
         },
@@ -1451,6 +1479,20 @@
               ],
               "name": "Mailbox API key required",
               "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
@@ -2008,6 +2050,20 @@
               ],
               "name": "State conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             }
           ]
         },
@@ -2104,6 +2160,20 @@
               ],
               "name": "Message not found",
               "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             }
           ]
         },
@@ -2200,6 +2270,20 @@
               ],
               "name": "State conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             }
           ]
         },
@@ -2526,6 +2610,20 @@
               ],
               "name": "ETag conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             }
           ]
         },
@@ -3557,6 +3655,20 @@
               ],
               "name": "Idempotency conflict",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
@@ -4989,6 +5101,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 422,
               "cookie": [],
               "header": [
@@ -5312,6 +5438,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 422,
               "cookie": [],
               "header": [
@@ -5446,6 +5586,20 @@
               ],
               "name": "Credential limit reached (`limit_exceeded`) or idempotency key conflict (`idempotency_conflict`).",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
@@ -6125,6 +6279,20 @@
               ],
               "name": "`If-Match` ETag does not match the server's current version.",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request body too large",
+              "status": "Request Entity Too Large"
             },
             {
               "_postman_previewlanguage": "json",
