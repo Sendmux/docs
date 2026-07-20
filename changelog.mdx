@@ -4,55 +4,6 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="20 July 2026" tags={["Improvements"]} rss={{ title: "New account setup verifies your email first" }}>
-  ## Improvements
-
-- New accounts now verify the email address before password or passkey setup, while existing addresses receive the same neutral on-screen response.
-
-</Update>
-
-<Update
-  label="18 July 2026"
-  tags={["New features", "Improvements", "Bug fixes"]}
-  rss={{ title: "Sending account transfers, attachments, and account protection are improved" }}
->
-  ## Sending account transfers
-
-You can now export supported non-secret sending account settings as a versioned JSON configuration file, then import it to update matched accounts. Passwords and connected-account credentials are never included or accepted in this format.
-
-  ## Improvements
-
-New and reset passwords now require at least 15 characters and are checked against known-compromised choices. Existing shorter passwords continue to work for sign-in.
-
-Password sign-in now uses the same failure behaviour for unknown accounts and incorrect passwords, reducing account disclosure.
-
-Large sending account imports now upload more reliably before processing starts.
-
-Inbox attachments now upload as soon as you select them. Draft saving and sending wait for every file to finish.
-
-  ## Bug fixes
-
-CSV exports for sending accounts and delivery logs now write formula-like values as text, so spreadsheets do not treat exported data as formulas.
-
-Oversized Management and Mailbox API JSON requests now return `413 payload_too_large` before being processed.
-
-</Update>
-
-<Update
-  label="16 July 2026"
-  tags={["Improvements", "Bug fixes"]}
-  rss={{ title: "Account sign-in is safer and more private" }}
->
-  ## Account access
-
-Passkey sign-in now starts with your email address, improving account privacy while keeping existing passkeys compatible.
-
-Google and GitHub sign-in now avoid linking an existing Sendmux account based only on a matching email address. Returning social sign-ins continue to use their already linked provider identity.
-
-Password recovery now invalidates older reset links and signs out existing sessions after a password change, so recovered accounts do not leave prior access active.
-
-</Update>
-
 <Update label="16 July 2026" tags={["Bug fixes"]} rss={{ title: "Agent attachment uploads are more reliable" }}>
   ## Bug fixes
 
