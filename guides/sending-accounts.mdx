@@ -5,6 +5,7 @@ keywords:
   [
     "sending accounts",
     "CSV import",
+    "JSON configuration",
     "bulk accounts",
     "SMTP",
     "Gmail",
@@ -63,21 +64,24 @@ Use your own provider when you need higher volume, a specific sender policy, or 
   </Step>
 </Steps>
 
-## Import accounts from CSV
+## Import accounts from a file
 
-Use CSV import to create or update many custom accounts at once.
+Use CSV to create or update custom accounts in bulk. Use a Sendmux JSON
+configuration file to transfer supported non-secret values without spreadsheet
+formatting.
 
 <Steps>
   <Step title="Open the importer">
     Open **Accounts**, select **Accounts**, then choose **Import Accounts**.
   </Step>
-  <Step title="Download the template">
-    Select **Download Template**. Keep the header row unchanged and add one
-    account per row.
+  <Step title="Choose the file format">
+    For CSV, select **Download template**, keep the header row unchanged, and
+    add one account per row. For JSON, export a configuration file from the
+    source team.
   </Step>
   <Step title="Review the rows">
-    Upload the CSV. Sendmux shows valid and invalid rows before it starts. Only
-    valid rows are imported.
+    Upload the CSV or JSON file. Sendmux shows the accepted rows before it
+    starts. CSV files also show any invalid rows, which are not imported.
   </Step>
   <Step title="Start the import">
     Select **Import**. You can close the tab while the import continues, then
@@ -91,9 +95,10 @@ Use CSV import to create or update many custom accounts at once.
 </Note>
 
 <Warning>
-  CSV import can update a connected Gmail or Outlook account, but it cannot
-  authorise a new one. Use **Add Account** to connect a new account that needs
-  to send.
+  JSON configuration files never contain or accept passwords or connected-account
+  credentials. Use them to update matched accounts. To create a new SMTP account,
+  use **Add Account** or a CSV with its password. Use **Add Account** to authorise
+  a new Gmail or Outlook account.
 </Warning>
 
 <AccordionGroup>
@@ -138,7 +143,13 @@ Use CSV import to create or update many custom accounts at once.
 
 ## Export or change accounts in bulk
 
-- Select **Accounts** > **Export Accounts** to download the custom accounts listed in **Accounts**. Passwords are always blank in the export.
+- Select **Accounts** > **Export accounts as CSV** for a spreadsheet-safe copy.
+  Formula-like values are written as text, so a leading apostrophe may appear.
+- Select **Accounts** > **Export accounts as JSON** to preserve supported
+  non-secret values exactly in a versioned configuration file. Version `1` is
+  currently supported. Files with another version or unknown fields are rejected.
+- Passwords and connected-account credentials are never included in either
+  export. CSV keeps its password column blank. JSON omits credential fields.
 - Search or filter by status, group, or type, then select accounts to activate, deactivate, update quotas, update tracking, or delete them.
 
 ## Monitor account health
