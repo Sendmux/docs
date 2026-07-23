@@ -58,6 +58,16 @@
             "pages": ["cli/index"]
           },
           {
+            "group": "Integrations",
+            "icon": "plug",
+            "pages": [
+              {
+                "group": "Email Marketing",
+                "pages": ["integrations/email-marketing/mailwizz"]
+              }
+            ]
+          },
+          {
             "group": "AI integrations",
             "icon": "robot",
             "pages": [
