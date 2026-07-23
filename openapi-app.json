@@ -14645,7 +14645,7 @@
                 }
               }
             },
-            "description": "Mailbox is deleted, or `Idempotency-Key` was replayed with a different request body."
+            "description": "Mailbox is deleted, a suspend is already in progress, or `Idempotency-Key` was replayed with a different request body."
           },
           "503": {
             "content": {
@@ -14734,7 +14734,7 @@
                 }
               }
             },
-            "description": "Mailbox is deleted, or `Idempotency-Key` was replayed with a different request body."
+            "description": "Mailbox is deleted, a resume is already in progress, or `Idempotency-Key` was replayed with a different request body."
           },
           "503": {
             "content": {

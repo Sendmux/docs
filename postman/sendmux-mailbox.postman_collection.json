@@ -5810,7 +5810,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "Mailbox is deleted, or `Idempotency-Key` was replayed with a different request body.",
+              "name": "Mailbox is deleted, a suspend is already in progress, or `Idempotency-Key` was replayed with a different request body.",
               "status": "Conflict"
             },
             {
@@ -5929,7 +5929,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "Mailbox is deleted, or `Idempotency-Key` was replayed with a different request body.",
+              "name": "Mailbox is deleted, a resume is already in progress, or `Idempotency-Key` was replayed with a different request body.",
               "status": "Conflict"
             },
             {
