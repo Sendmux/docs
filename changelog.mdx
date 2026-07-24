@@ -4,6 +4,17 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="24 July 2026" tags={["Bug fixes"]} rss={{ title: "Domain verification now recognises valid DNS policy changes" }}>
+  ## Bug fixes
+
+Domain verification now accepts valid combined SPF records and stronger DMARC policies, so tightening your DNS settings no longer marks a healthy domain as failed.
+
+Temporary DNS or provider lookup errors now leave the domain unchanged. Domains marked failed by the earlier check can return to active automatically after a complete successful verification.
+
+Domain-failure alerts now continue working when a domain's normal sending setup is unavailable, and queue acceptance is no longer reported as a sent message.
+
+</Update>
+
 <Update label="22 July 2026" tags={["Bug fixes"]} rss={{ title: "Billing checkout now recovers when the payment form cannot load" }}>
   ## Bug fixes
 
