@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="25 July 2026" tags={["Bug fixes"]} rss={{ title: "Domain verification now detects bounce-handling regressions" }}>
+  ## Bug fixes
+
+Verified domains no longer remain active when their required bounce-handling records or upstream provider setup later stop matching.
+
+Scheduled verification confirms the failure twice before marking the domain failed, so a temporary lookup problem does not change an active domain's status.
+
+</Update>
+
 <Update label="24 July 2026" tags={["Bug fixes"]} rss={{ title: "Domain verification now recognises valid DNS policy changes" }}>
   ## Bug fixes
 
