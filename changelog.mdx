@@ -4,10 +4,10 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="26 July 2026" tags={["Bug fixes"]} rss={{ title: "Accepted emails no longer retry during follow-up tracking failures" }}>
+<Update label="26 July 2026" tags={["Bug fixes"]} rss={{ title: "Accepted emails no longer resend during follow-up tracking failures" }}>
   ## Bug fixes
 
-Emails accepted by your configured provider no longer retry when delivery logging or usage tracking is temporarily unavailable. This prevents the same accepted email from being sent or charged twice.
+Emails accepted by your configured provider are no longer sent again when delivery logging or usage tracking is temporarily unavailable. This prevents duplicate delivery and charges after acceptance.
 
 </Update>
 
