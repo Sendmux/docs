@@ -4,6 +4,17 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="28 July 2026" tags={["Bug fixes"]} rss={{ title: "Outbound billing now counts recipients and account setup links expire safely" }}>
+  ## Bug fixes
+
+Outgoing usage now counts each accepted To, CC, and BCC recipient. A message sent to several recipients is billed by recipient, while addresses rejected before acceptance are not charged.
+
+Blind-copy addresses remain part of delivery without being exposed in the delivered message headers.
+
+Repeated account setup requests reuse work already in progress. When a newer setup email is issued, its link replaces the earlier link so only the latest setup link can be used.
+
+</Update>
+
 <Update label="27 July 2026" tags={["Bug fixes"]} rss={{ title: "Automatic sending account disabling now retries incomplete updates" }}>
   ## Bug fixes
 
