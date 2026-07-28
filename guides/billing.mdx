@@ -20,9 +20,13 @@ Sendmux charges email usage from the team balance.
 
 | Activity | Rate |
 | --- | --- |
-| Standard outgoing mail through your own providers | `$0.15 / 1,000 emails` |
-| Outgoing mail through the managed Amazon SES route | `$0.25 / 1,000 emails` |
+| Standard outgoing mail through your own providers | `$0.15 / 1,000 provider-accepted recipient occurrences` |
+| Outgoing mail through the managed Amazon SES route | `$0.25 / 1,000 provider-accepted recipient occurrences` |
 | Accepted inbound mail | `$0.15 / 1,000 emails` |
+
+For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is billed. Addresses rejected before provider acceptance are not charged.
+
+If the same address appears in more than one recipient field, each provider-accepted occurrence is billed separately.
 
 Inbound usage is counted when a message is accepted into a mailbox. Mail rejected by mailbox allow or block rules is not billed.
 
