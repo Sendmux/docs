@@ -320,6 +320,7 @@
             "additionalProperties": false,
             "properties": {
               "recipients": {
+                "description": "Ordered recipient outcome snapshot for this send",
                 "items": {
                   "$ref": "#/components/schemas/DeliveryLogRecipient"
                 },
@@ -338,6 +339,7 @@
         "additionalProperties": false,
         "properties": {
           "accepted_recipient_count": {
+            "description": "Recipient occurrences accepted by the provider",
             "maximum": 50,
             "minimum": 0,
             "type": "integer"
@@ -382,11 +384,13 @@
             ]
           },
           "recipient_count": {
+            "description": "Total recipient occurrences",
             "maximum": 50,
             "minimum": 0,
             "type": "integer"
           },
           "rejected_recipient_count": {
+            "description": "Recipient occurrences rejected by the provider",
             "maximum": 50,
             "minimum": 0,
             "type": "integer"
@@ -515,16 +519,19 @@
         "additionalProperties": false,
         "properties": {
           "email": {
+            "description": "Recipient email address",
             "format": "email",
             "type": "string"
           },
           "reason": {
+            "description": "Recipient-specific rejection reason when available",
             "type": [
               "string",
               "null"
             ]
           },
           "status": {
+            "description": "Provider acceptance outcome",
             "enum": [
               "accepted",
               "rejected"
@@ -532,6 +539,7 @@
             "type": "string"
           },
           "type": {
+            "description": "Recipient header type when known",
             "enum": [
               "to",
               "cc",
