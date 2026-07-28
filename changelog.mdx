@@ -7,7 +7,7 @@ rss: true
 <Update label="28 July 2026" tags={["Bug fixes"]} rss={{ title: "Outbound billing now counts recipients and account setup links expire safely" }}>
   ## Bug fixes
 
-Outgoing usage now counts each accepted To, CC, and BCC recipient. A message sent to several recipients is billed by recipient, while addresses rejected before acceptance are not charged.
+Outgoing usage now counts every accepted To, CC, and BCC recipient occurrence. If the same address appears more than once, each accepted occurrence is billed; addresses rejected before acceptance are not charged.
 
 Delivery log summaries show accepted and rejected recipient totals. Log details list each recipient outcome in sending order.
 
