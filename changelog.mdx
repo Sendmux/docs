@@ -7,7 +7,7 @@ rss: true
 <Update label="27 July 2026" tags={["Bug fixes"]} rss={{ title: "Automatic sending account disabling now retries incomplete updates" }}>
   ## Bug fixes
 
-Sendmux now keeps a sending account's recent failure history when automatic disabling cannot finish. The next failure retries the status change instead of clearing the evidence and incorrectly treating the account as disabled.
+If automatic disabling cannot finish, the sending account stays available for retry. Sendmux preserves its recent failure history. The next failure retries the status change instead of incorrectly treating the account as disabled.
 
 </Update>
 
