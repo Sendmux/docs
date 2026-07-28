@@ -311,9 +311,37 @@
         ],
         "type": "object"
       },
+      "DeliveryLogDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DeliveryLogItem"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "recipients": {
+                "items": {
+                  "$ref": "#/components/schemas/DeliveryLogRecipient"
+                },
+                "maxItems": 50,
+                "type": "array"
+              }
+            },
+            "required": [
+              "recipients"
+            ],
+            "type": "object"
+          }
+        ]
+      },
       "DeliveryLogItem": {
         "additionalProperties": false,
         "properties": {
+          "accepted_recipient_count": {
+            "maximum": 50,
+            "minimum": 0,
+            "type": "integer"
+          },
           "attempts": {
             "type": "number"
           },
@@ -352,6 +380,16 @@
               "string",
               "null"
             ]
+          },
+          "recipient_count": {
+            "maximum": 50,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "rejected_recipient_count": {
+            "maximum": 50,
+            "minimum": 0,
+            "type": "integer"
           },
           "sent_at": {
             "description": "ISO 8601 timestamp when email was sent",
@@ -415,7 +453,10 @@
           "attempts",
           "sent_at",
           "size_bytes",
-          "created_at"
+          "created_at",
+          "recipient_count",
+          "accepted_recipient_count",
+          "rejected_recipient_count"
         ],
         "type": "object"
       },
@@ -456,7 +497,7 @@
           {
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/DeliveryLogItem"
+                "$ref": "#/components/schemas/DeliveryLogDetail"
               },
               "meta": {
                 "$ref": "#/components/schemas/ResponseMeta"
@@ -469,6 +510,46 @@
           }
         ],
         "unevaluatedProperties": false
+      },
+      "DeliveryLogRecipient": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "format": "email",
+            "type": "string"
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "accepted",
+              "rejected"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "to",
+              "cc",
+              "bcc"
+            ],
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "email",
+          "type",
+          "status",
+          "reason"
+        ],
+        "type": "object"
       },
       "DomainDeletedResponse": {
         "allOf": [
