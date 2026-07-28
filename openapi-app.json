@@ -312,37 +312,16 @@
         "type": "object"
       },
       "DeliveryLogDetail": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/DeliveryLogItem"
-          },
-          {
-            "additionalProperties": false,
-            "properties": {
-              "recipients": {
-                "description": "Ordered recipient outcome snapshot for this send",
-                "items": {
-                  "$ref": "#/components/schemas/DeliveryLogRecipient"
-                },
-                "maxItems": 50,
-                "type": "array"
-              }
-            },
-            "required": [
-              "recipients"
-            ],
-            "type": "object"
-          }
-        ]
-      },
-      "DeliveryLogItem": {
         "additionalProperties": false,
         "properties": {
           "accepted_recipient_count": {
-            "description": "Recipient occurrences accepted by the provider",
+            "description": "Recipient occurrences accepted by the provider, or null when no recipient snapshot exists",
             "maximum": 50,
             "minimum": 0,
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
           },
           "attempts": {
             "type": "number"
@@ -384,16 +363,172 @@
             ]
           },
           "recipient_count": {
-            "description": "Total recipient occurrences",
+            "description": "Total recipient occurrences, or null when no recipient snapshot exists",
             "maximum": 50,
             "minimum": 0,
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "recipients": {
+            "description": "Ordered recipient outcome snapshot for this send, or null when no snapshot exists",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryLogRecipient"
+            },
+            "maxItems": 50,
+            "type": [
+              "array",
+              "null"
+            ]
           },
           "rejected_recipient_count": {
-            "description": "Recipient occurrences rejected by the provider",
+            "description": "Recipient occurrences rejected by the provider, or null when no recipient snapshot exists",
             "maximum": 50,
             "minimum": 0,
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "sent_at": {
+            "description": "ISO 8601 timestamp when email was sent",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sent_from_email": {
+            "description": "The actual from address used for delivery after transformation. NULL if no transformation occurred or for older log entries.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "size_bytes": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "sent",
+              "failed",
+              "rejected"
+            ],
+            "type": "string"
+          },
+          "status_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "subject": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "to_email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "provider_id",
+          "provider_name",
+          "message_id",
+          "from_email",
+          "sent_from_email",
+          "to_email",
+          "subject",
+          "status",
+          "status_reason",
+          "attempts",
+          "sent_at",
+          "size_bytes",
+          "created_at",
+          "recipient_count",
+          "accepted_recipient_count",
+          "rejected_recipient_count",
+          "recipients"
+        ],
+        "type": "object"
+      },
+      "DeliveryLogItem": {
+        "additionalProperties": false,
+        "properties": {
+          "accepted_recipient_count": {
+            "description": "Recipient occurrences accepted by the provider, or null when no recipient snapshot exists",
+            "maximum": 50,
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "attempts": {
+            "type": "number"
+          },
+          "created_at": {
+            "description": "ISO 8601 creation timestamp",
+            "type": "string"
+          },
+          "from_email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id": {
+            "description": "Log public ID",
+            "example": "dlog_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "message_id": {
+            "description": "Email Message-ID header",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "provider_id": {
+            "description": "Provider public ID",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "provider_name": {
+            "description": "Provider display name",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "recipient_count": {
+            "description": "Total recipient occurrences, or null when no recipient snapshot exists",
+            "maximum": 50,
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "rejected_recipient_count": {
+            "description": "Recipient occurrences rejected by the provider, or null when no recipient snapshot exists",
+            "maximum": 50,
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
           },
           "sent_at": {
             "description": "ISO 8601 timestamp when email was sent",
