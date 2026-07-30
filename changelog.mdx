@@ -4,6 +4,27 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update
+  label="30 July 2026"
+  tags={["Improvements", "Bug fixes"]}
+  rss={{ title: "Shared sending status and refreshed activity views now stay current" }}
+>
+  ## Shared sending status
+
+If Amazon SES disables Sendmux-managed shared sending, Sendmux now pauses only that shared route. Your customer-managed sending accounts, API, MCP, mailbox access, and the rest of your account remain available. If another eligible customer-managed sending account is available, queued email can continue through it.
+
+Affected teams see a persistent notice and updated deliverability status. Team owners and admins also receive a required service email so the restriction can be investigated safely before shared sending resumes.
+
+Domain status now reflects the latest Amazon SES identity, sending, and email-signing state, including when the status was last checked.
+
+  ## Bug fixes
+
+Sending and incoming logs now show refreshed data after you return to an inactive browser tab.
+
+Same-page refreshes no longer leave the page progress indicator running when the updated data loads in place.
+
+</Update>
+
 <Update label="28 July 2026" tags={["Bug fixes"]} rss={{ title: "Outbound billing now counts accepted recipient occurrences and newer account setup links replace older ones" }}>
   ## Bug fixes
 
@@ -96,7 +117,7 @@ Credit checks now also match the shared mailbox route before an email is accepte
 <Update label="20 July 2026" tags={["Improvements"]} rss={{ title: "New account setup verifies your email first" }}>
   ## Improvements
 
-- New accounts now verify the email address before password or passkey setup, while existing addresses receive the same neutral on-screen response.
+New accounts now verify the email address before password or passkey setup, while existing addresses receive the same neutral on-screen response.
 
 </Update>
 
@@ -485,8 +506,9 @@ MCP is now available through hosted OAuth, with local stdio and self-hosted HTTP
 <Update label="16 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox replies keep the current thread" }}>
   ## Bug fixes
 
-- Reply, reply all, and forward shortcuts now use the latest message in the open thread when no individual message is selected, so replies from sent conversations keep the right recipients.
-- Inbox refreshes now ignore late message updates after you switch folders, searches, or selected messages, so the reader stays aligned with your current view.
+Reply, reply all, and forward shortcuts now use the latest message in the open thread when no individual message is selected, so replies from sent conversations keep the right recipients.
+
+Inbox refreshes now ignore late message updates after you switch folders, searches, or selected messages, so the reader stays aligned with your current view.
 
 </Update>
 
@@ -504,17 +526,20 @@ Custom domains can now be set up for sending only, or for sending and receiving.
 
   ## Improvements
 
-- Domains that send and receive still include mailbox setup and MX records.
-- Sending-only domains can be switched to sending and receiving later.
-- The Management API now documents the domain mode field and the upgrade endpoint.
+Domains that send and receive still include mailbox setup and MX records.
+
+Sending-only domains can be switched to sending and receiving later.
+
+The Management API now documents the domain mode field and the upgrade endpoint.
 
 </Update>
 
 <Update label="14 June 2026" tags={["Bug fixes"]} rss={{ title: "Mailbox keys are only shown once they're ready" }}>
   ## Bug fixes
 
-- New mailbox keys now confirm access before they are shown, so you can use the returned key immediately.
-- If key setup is temporarily unavailable, the Management API now returns a retryable service unavailable response instead of showing a key that is not ready yet.
+New mailbox keys now confirm access before they are shown, so you can use the returned key immediately.
+
+If key setup is temporarily unavailable, the Management API now returns a retryable service unavailable response instead of showing a key that is not ready yet.
 
 </Update>
 
@@ -525,12 +550,17 @@ Inboxes now reset the compose window whenever you reply, reply all, or forward f
 
   ## Bug fixes
 
-- Reply and reply all now pre-fill the correct recipient from the selected message.
-- Inbox actions such as archiving or deleting now refresh the thread list after you navigate away and return, so changed messages do not reappear from cached page data.
-- Thread lists now stay aligned with the current mailbox, folder, and search even when a refresh finishes after you have switched views.
-- Starting another compose action now saves the current draft before replacing the compose window, including when the draft is minimised.
-- Inboxes with many messages now load thread lists more reliably by fetching attachment details only when a message is opened.
-- Message opens, draft autosaves, sends, and label actions now refresh only the current inbox data needed, so those actions feel faster in day-to-day use.
+Reply and reply all now pre-fill the correct recipient from the selected message.
+
+Inbox actions such as archiving or deleting now refresh the thread list after you navigate away and return, so changed messages do not reappear from cached page data.
+
+Thread lists now stay aligned with the current mailbox, folder, and search even when a refresh finishes after you have switched views.
+
+Starting another compose action now saves the current draft before replacing the compose window, including when the draft is minimised.
+
+Inboxes with many messages now load thread lists more reliably by fetching attachment details only when a message is opened.
+
+Message opens, draft autosaves, sends, and label actions now refresh only the current inbox data needed, so those actions feel faster in day-to-day use.
 
 </Update>
 
@@ -541,8 +571,9 @@ Team credential limits now count manual API keys and connected apps together. Qu
 
   ## Bug fixes
 
-- Creating a new connected app is now blocked when the team has reached its credential limit.
-- Re-authorising the same connected app still works at the limit because it replaces the existing connection instead of adding another credential.
+Creating a new connected app is now blocked when the team has reached its credential limit.
+
+Re-authorising the same connected app still works at the limit because it replaces the existing connection instead of adding another credential.
 
 </Update>
 
@@ -553,8 +584,9 @@ Connected app authorisation now groups permissions by area and lets you choose n
 
   ## Bug fixes
 
-- Connected app authorisation now grants only the permissions selected in the consent flow.
-- Re-authorising mailbox access now always uses the selected mailbox set instead of falling back to a single-mailbox grant shape.
+Connected app authorisation now grants only the permissions selected in the consent flow.
+
+Re-authorising mailbox access now always uses the selected mailbox set instead of falling back to a single-mailbox grant shape.
 
 </Update>
 
@@ -565,13 +597,15 @@ Sender allow/block rules on the mailbox detail page now save and persist reliabl
 
   ## Improvements
 
-- Wildcard patterns like `*@example.com` are now accepted and saved as the bare domain (`example.com`), which allows or blocks the entire sender domain at delivery.
-- When a rule can't be saved, the editor shows a persistent inline error explaining why, instead of only a brief notification.
-- The sender filters API now accepts the documented `note` field on rules, and rejects rule sets whose rule type contradicts the selected mode instead of silently dropping them.
+Wildcard patterns like `*@example.com` are now accepted and saved as the bare domain (`example.com`), which allows or blocks the entire sender domain at delivery.
+
+When a rule can't be saved, the editor shows a persistent inline error explaining why, instead of only a brief notification.
+
+The sender filters API now accepts the documented `note` field on rules, and rejects rule sets whose rule type contradicts the selected mode instead of silently dropping them.
 
   ## Bug fixes
 
-- Fixed saved sender rules not appearing on the mailbox page after a refresh.
+Fixed saved sender rules not appearing on the mailbox page after a refresh.
 
 </Update>
 
@@ -630,37 +664,42 @@ Hosted MCP authorisation now lets you choose the right team before granting acce
 
 ## Improvements
 
-- Connected app requests now use clearer team wording throughout the authorisation flow.
-- Authorisation checks now validate current team access again before creating connected app credentials.
+Connected app requests now use clearer team wording throughout the authorisation flow.
+
+Authorisation checks now validate current team access again before creating connected app credentials.
 
 ## Bug fixes
 
-- Hosted MCP requests now avoid a network path that could fail for otherwise valid agent actions.
-- Malformed authorisation requests with duplicate fields are now rejected more consistently.
+Hosted MCP requests now avoid a network path that could fail for otherwise valid agent actions.
+
+Malformed authorisation requests with duplicate fields are now rejected more consistently.
 
 </Update>
 
 <Update label="7 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox quota sync is more reliable" }}>
   ## Bug fixes
 
-- Inbox quota sync now tells clients when quota data should be refetched instead of returning an invalid sync error.
+Inbox quota sync now tells clients when quota data should be refetched instead of returning an invalid sync error.
 
 </Update>
 
 <Update label="6 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox keys and folder actions are more reliable" }}>
   ## Bug fixes
 
-- Newly-created inbox keys now confirm access before they are shown, so they work immediately for the inbox API, IMAP, SMTP, and JMAP.
-- Inbox folder deletion now retries brief setup delays after a folder is created or renamed, reducing transient delete failures.
-- Inbox deletion now retries temporary cleanup delays more reliably.
+Newly-created inbox keys now confirm access before they are shown, so they work immediately for the inbox API, IMAP, SMTP, and JMAP.
+
+Inbox folder deletion now retries brief setup delays after a folder is created or renamed, reducing transient delete failures.
+
+Inbox deletion now retries temporary cleanup delays more reliably.
 
 </Update>
 
 <Update label="4 June 2026" tags={["Bug fixes"]} rss={{ title: "Inbox updates are more reliable" }}>
   ## Bug fixes
 
-- Inbox folder and message update/delete requests now honour `If-Match` when you send it and avoid hidden stale-state checks when you make sequential changes without conditional headers.
-- Deleted inboxes and domains now clean up associated routing and filtering state more consistently.
+Inbox folder and message update/delete requests now honour `If-Match` when you send it and avoid hidden stale-state checks when you make sequential changes without conditional headers.
+
+Deleted inboxes and domains now clean up associated routing and filtering state more consistently.
 
 </Update>
 
@@ -671,9 +710,11 @@ Teams can now connect supported agent tools to Sendmux through a hosted MCP endp
 
 ## Improvements
 
-- The authorisation flow now has clear sign-in, consent, success, denied, and error states.
-- Headless clients can use scoped access tokens with the same permission checks as browser-based connections.
-- Agent tools now follow the same Sendmux role and key permissions used by the API, so unavailable actions stay hidden and blocked.
+The authorisation flow now has clear sign-in, consent, success, denied, and error states.
+
+Headless clients can use scoped access tokens with the same permission checks as browser-based connections.
+
+Agent tools now follow the same Sendmux role and key permissions used by the API, so unavailable actions stay hidden and blocked.
 
 </Update>
 
@@ -684,30 +725,35 @@ Inbox credentials now use provider-issued secrets while preserving Sendmux key I
 
 ## Improvements
 
-- Rotating an inbox credential now tracks the provider credential ID directly, so stale credentials can be cleaned up more reliably.
-- Mailbox roles now use the current managed-mailbox permission model for sending, receiving, and inbox access.
+Rotating an inbox credential now tracks the provider credential ID directly, so stale credentials can be cleaned up more reliably.
+
+Mailbox roles now use the current managed-mailbox permission model for sending, receiving, and inbox access.
 
 ## Bug fixes
 
-- Inbox provisioning now recovers more safely if external credential creation succeeds but the local operation has to retry.
+Inbox provisioning now recovers more safely if external credential creation succeeds but the local operation has to retry.
 
 </Update>
 
 <Update label="2 June 2026" tags={["Bug fixes"]} rss={{ title: "Shared mailbox creation is more reliable" }}>
   ## Bug fixes
 
-- Creating a mailbox on the shared Sendmux domain now checks the shared-domain setup before provisioning the mailbox, so generated addresses no longer fail when required domain records are missing.
-- Domain creation and deletion now consistently protect the shared Sendmux domain while still letting teams delete the mailboxes they created.
-- Sign-up legal links now use shorter labels so the agreement line fits better on narrow screens.
+Creating a mailbox on the shared Sendmux domain now checks the shared-domain setup before provisioning the mailbox, so generated addresses no longer fail when required domain records are missing.
+
+Domain creation and deletion now consistently protect the shared Sendmux domain while still letting teams delete the mailboxes they created.
+
+Sign-up legal links now use shorter labels so the agreement line fits better on narrow screens.
 
 </Update>
 
 <Update label="2 June 2026" tags={["Bug fixes"]} rss={{ title: "Signup tracking and reporting are more reliable" }}>
   ## Bug fixes
 
-- Sign-up, email verification, and checkout tracking now handles redirects more reliably.
-- Sensitive URL parameters are now removed from tracked page and referrer metadata.
-- A growth reporting view now loads grouped activation and revenue metrics without failing on aggregate sorting.
+Sign-up, email verification, and checkout tracking now handles redirects more reliably.
+
+Sensitive URL parameters are now removed from tracked page and referrer metadata.
+
+A growth reporting view now loads grouped activation and revenue metrics without failing on aggregate sorting.
 
 </Update>
 
@@ -722,15 +768,19 @@ Compose now handles send and draft saving more cleanly, so sent messages close o
 
 ## Improvements
 
-- Delivery log statuses now show short readable labels instead of raw provider event strings.
-- Dashboard hover details now avoid repeating the same health summary in more than one place.
-- Billing runway and usage-capacity cards now use clearer labels and more predictable interactions.
+Delivery log statuses now show short readable labels instead of raw provider event strings.
+
+Dashboard hover details now avoid repeating the same health summary in more than one place.
+
+Billing runway and usage-capacity cards now use clearer labels and more predictable interactions.
 
 ## Bug fixes
 
-- Draft autosave now backs off while a message is sending, reducing duplicate saves and avoidable rate-limit warnings.
-- Email buttons now render with a consistent background across email clients.
-- Deliverability alerts now count bounce rate and complaint rate separately when both need attention.
+Draft autosave now backs off while a message is sending, reducing duplicate saves and avoidable rate-limit warnings.
+
+Email buttons now render with a consistent background across email clients.
+
+Deliverability alerts now count bounce rate and complaint rate separately when both need attention.
 
 </Update>
 
@@ -741,13 +791,15 @@ The team overview health strip now uses clearer status colours, relative timing,
 
 ## Improvements
 
-- Status blocks now use filled healthy, warning, and issue states in light and dark mode.
-- Health details now stay concise on hover, with exact timestamps available where timing matters.
+Status blocks now use filled healthy, warning, and issue states in light and dark mode.
+
+Health details now stay concise on hover, with exact timestamps available where timing matters.
 
 ## Bug fixes
 
-- Quiet inbound periods no longer count as active issues when there is no mail to receive.
-- Activity date labels now stay stable instead of shifting by timezone.
+Quiet inbound periods no longer count as active issues when there is no mail to receive.
+
+Activity date labels now stay stable instead of shifting by timezone.
 
 </Update>
 
@@ -758,21 +810,24 @@ The team overview now presents health, sending, receiving, billing, domain, API 
 
 ## Improvements
 
-- The health strip now fills completed hours and shows the selected hour's sent, received, and failed counts directly in the summary.
-- Activity chart tooltips now match the dashboard style and stay compact while you inspect daily sending and receiving totals.
-- Domain status now uses the latest saved verification details so SPF, DKIM, and DMARC signals can be shown independently after checks run.
+The health strip now fills completed hours and shows the selected hour's sent, received, and failed counts directly in the summary.
+
+Activity chart tooltips now match the dashboard style and stay compact while you inspect daily sending and receiving totals.
+
+Domain status now uses the latest saved verification details so SPF, DKIM, and DMARC signals can be shown independently after checks run.
 
 ## Bug fixes
 
-- Empty or low-activity teams no longer show misleading healthy indicators, fake billing runway, or internal dashboard wording.
-- Duplicate API key names no longer trigger repeated-row rendering warnings in the overview.
+Empty or low-activity teams no longer show misleading healthy indicators, fake billing runway, or internal dashboard wording.
+
+Duplicate API key names no longer trigger repeated-row rendering warnings in the overview.
 
 </Update>
 
 <Update label="30 May 2026" tags={["Improvements"]} rss={{ title: "Sending infrastructure dependency security updates" }}>
   ## Improvements
 
-- The sending API and supporting test packages now use updated dependency versions that resolve current npm security advisories without changing the public API.
+The sending API and supporting test packages now use updated dependency versions that resolve current npm security advisories without changing the public API.
 
 </Update>
 
@@ -785,47 +840,61 @@ Activity charts now use cached rollups so dashboard refreshes stay fast for busy
 
 ## Improvements
 
-- The API reference now uses cleaner operation names and shared response models, improving generated SDK method names and response types.
-- The **Inboxes** sidebar item now shows an unread count when new mail is waiting.
-- The dashboard sidebar now separates feedback from account top-up controls more clearly.
+The API reference now uses cleaner operation names and shared response models, improving generated SDK method names and response types.
+
+The **Inboxes** sidebar item now shows an unread count when new mail is waiting.
+
+The dashboard sidebar now separates feedback from account top-up controls more clearly.
 
 ## Bug fixes
 
-- Email threads in **Inboxes** now keep message bodies readable in dark mode, including replies with their own text colours.
+Email threads in **Inboxes** now keep message bodies readable in dark mode, including replies with their own text colours.
 
 </Update>
 
 <Update label="28 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Inbox actions, sending limits, and compose fields are easier to use" }}>
   ## Improvements
 
-- New teams now start on the managed Amazon SES sending route with a 50-email daily limit before requesting a review.
-- Inboxes now let you move conversations into another folder from the context menu when that folder accepts mail.
-- The **Inboxes** compose window now turns completed recipients into tidy address chips after you move out of the field, while leaving unfinished input untouched.
-- The **Compose** button now sits above the inbox folder list for faster access.
-- Sending and receiving log tables now show relative times with the full date and time available on hover.
+New teams now start on the managed Amazon SES sending route with a 50-email daily limit before requesting a review.
+
+Inboxes now let you move conversations into another folder from the context menu when that folder accepts mail.
+
+The **Inboxes** compose window now turns completed recipients into tidy address chips after you move out of the field, while leaving unfinished input untouched.
+
+The **Compose** button now sits above the inbox folder list for faster access.
+
+Sending and receiving log tables now show relative times with the full date and time available on hover.
 
 ## Bug fixes
 
-- Long inbox threads now scroll inside the message reader instead of making the whole app page taller.
-- Closing a compose window with draft content now saves the pending draft before closing, while **Discard** still skips saving.
+Long inbox threads now scroll inside the message reader instead of making the whole app page taller.
+
+Closing a compose window with draft content now saves the pending draft before closing, while **Discard** still skips saving.
 
 </Update>
 
 <Update label="28 May 2026" tags={["Improvements","Bug fixes"]} rss={{ title: "Inbox layout, autosave, and log tables are easier to use" }}>
   ## Improvements
 
-- The dashboard sidebar now narrows on smaller screens and keeps **Documentation**, **Feedback**, balance, and **Top up** inside the scrollable menu.
-- The **Inboxes** page now gives more room to the open message on narrower desktop screens while keeping the folder menu and conversation list usable.
+The dashboard sidebar now narrows on smaller screens and keeps **Documentation**, **Feedback**, balance, and **Top up** inside the scrollable menu.
+
+The **Inboxes** page now gives more room to the open message on narrower desktop screens while keeping the folder menu and conversation list usable.
 
 ## Bug fixes
 
-- Sending and receiving log tables now fit typical browser widths without unnecessary horizontal scrolling.
-- Long message IDs in log tables now show a short readable prefix, so columns stay aligned while the full value remains available.
-- Drafts now autosave once the basic message details are present, and the **Drafts** count updates after the first save.
-- Inbox folder counts now only appear where they are meaningful: unread **Inbox**, all **Drafts**, and all **Spam**.
-- Mailbox filters now hide inactive or deleted mailbox addresses.
-- Incoming log senders now show the message sender instead of a message identifier.
-- The **Compose** keyboard hint is now easier to read.
+Sending and receiving log tables now fit typical browser widths without unnecessary horizontal scrolling.
+
+Long message IDs in log tables now show a short readable prefix, so columns stay aligned while the full value remains available.
+
+Drafts now autosave once the basic message details are present, and the **Drafts** count updates after the first save.
+
+Inbox folder counts now only appear where they are meaningful: unread **Inbox**, all **Drafts**, and all **Spam**.
+
+Mailbox filters now hide inactive or deleted mailbox addresses.
+
+Incoming log senders now show the message sender instead of a message identifier.
+
+The **Compose** keyboard hint is now easier to read.
 
 </Update>
 
@@ -842,15 +911,19 @@ The overview dashboard now shows incoming email totals, standard received mail, 
 
 ## Improvements
 
-- Webhook event selection now includes search, making it faster to choose the right events when setting up or editing a webhook.
-- The dashboard setup checklist now adapts better on small screens and keeps long task lists within the viewport.
+Webhook event selection now includes search, making it faster to choose the right events when setting up or editing a webhook.
+
+The dashboard setup checklist now adapts better on small screens and keeps long task lists within the viewport.
 
 ## Bug fixes
 
-- Inbox message bodies now use the selected light or dark theme, so rendered email content no longer appears with mismatched colours.
-- Draft conversations now open in edit mode from the Drafts folder, and edited drafts replace the previous draft when saved or sent.
-- Sent-folder conversations now sort by sent time and show the message from the selected folder instead of mixing in unrelated thread messages.
-- Inbox actions such as archive, delete, spam, and not spam now apply to the messages in the current folder, avoiding unexpected moves for the rest of the conversation.
+Inbox message bodies now use the selected light or dark theme, so rendered email content no longer appears with mismatched colours.
+
+Draft conversations now open in edit mode from the Drafts folder, and edited drafts replace the previous draft when saved or sent.
+
+Sent-folder conversations now sort by sent time and show the message from the selected folder instead of mixing in unrelated thread messages.
+
+Inbox actions such as archive, delete, spam, and not spam now apply to the messages in the current folder, avoiding unexpected moves for the rest of the conversation.
 
 </Update>
 
@@ -867,27 +940,43 @@ You can create, rename, recolour, delete, assign, and remove inbox labels from t
 
 ## Improvements
 
-- Mail actions now show progress with a subtle fade and status toast, so the inbox stays readable while an action completes.
-- The dashboard sidebar now has separate icons for **Inboxes** and **Mailboxes**.
-- The sidebar credit balance now stays usable in both expanded and collapsed modes.
-- Thread replies now refresh into the open conversation after sending.
-- Inboxes now refresh quietly in the background while the tab is visible, so new mail and folder counts stay current without interrupting your work.
-- The compose window now supports **Command + Enter** to send, with the shortcut shown on the send button.
-- Mailbox switchers now include search, so teams with many mailbox addresses can switch faster.
-- New teams now get an in-dashboard setup checklist that helps choose a sending, receiving, or combined workflow and tracks the key setup steps.
-- Mailbox quota bars now show live storage usage on the mailbox list instead of always showing zero usage.
+Mail actions now show progress with a subtle fade and status toast, so the inbox stays readable while an action completes.
+
+The dashboard sidebar now has separate icons for **Inboxes** and **Mailboxes**.
+
+The sidebar credit balance now stays usable in both expanded and collapsed modes.
+
+Thread replies now refresh into the open conversation after sending.
+
+Inboxes now refresh quietly in the background while the tab is visible, so new mail and folder counts stay current without interrupting your work.
+
+The compose window now supports **Command + Enter** to send, with the shortcut shown on the send button.
+
+Mailbox switchers now include search, so teams with many mailbox addresses can switch faster.
+
+New teams now get an in-dashboard setup checklist that helps choose a sending, receiving, or combined workflow and tracks the key setup steps.
+
+Mailbox quota bars now show live storage usage on the mailbox list instead of always showing zero usage.
 
 ## Bug fixes
 
-- Folder-specific actions now hide when they do not apply, such as spam actions for drafts.
-- Archive, spam, and delete actions now resolve the available mailbox folders before moving messages.
-- Attachment downloads now preserve the original file bytes and metadata.
-- Slow inbox actions now time out cleanly instead of leaving the page stuck in a processing state.
-- Reply sends now move out of drafts correctly after queuing.
-- Delete actions now create or use a Trash folder so deleted conversations remain accessible from the inbox folder list.
-- Label changes no longer alter the mailbox colour marker shown beside each conversation.
-- Inbox send confirmations now use the same action-toast styling as other message actions.
-- Opening an unread conversation now clears its unread styling and folder count immediately, then refreshes quietly in the background.
+Folder-specific actions now hide when they do not apply, such as spam actions for drafts.
+
+Archive, spam, and delete actions now resolve the available mailbox folders before moving messages.
+
+Attachment downloads now preserve the original file bytes and metadata.
+
+Slow inbox actions now time out cleanly instead of leaving the page stuck in a processing state.
+
+Reply sends now move out of drafts correctly after queuing.
+
+Delete actions now create or use a Trash folder so deleted conversations remain accessible from the inbox folder list.
+
+Label changes no longer alter the mailbox colour marker shown beside each conversation.
+
+Inbox send confirmations now use the same action-toast styling as other message actions.
+
+Opening an unread conversation now clears its unread styling and folder count immediately, then refreshes quietly in the background.
 
 </Update>
 
@@ -910,17 +999,27 @@ Deleted mailbox addresses can now be recreated cleanly. The new mailbox gets its
 
 ## Bug fixes
 
-- The consultation calendar loading state now separates the spinner from the loading text.
-- The final **Open dashboard** action now opens the new team's dashboard overview.
-- The use-case field label now has the same spacing as other setup fields.
-- The dashboard feedback form now opens with the intended wider layout, app typography, and reliable submission handling.
-- Creating the first mailbox password now recovers cleanly if part of the operation is interrupted.
-- Mailbox setup now waits for new mailbox accounts to be ready before applying sender details and creating the first password.
-- If mailbox password setup needs extra time, the generated password is still shown once instead of creating a credential you cannot see.
-- Recreating a deleted mailbox address now rebuilds sender rules reliably, so the new mailbox is created instead of showing a retry error.
-- Rotating or revoking a mailbox password now avoids leaving the mailbox without a working credential if part of the change needs to retry.
-- Mailbox password changes now count in-progress credentials toward the team API key limit, so limits stay consistent while a change is being processed.
-- Deleting and recreating the same mailbox address now works without old mailbox state blocking the new mailbox.
+The consultation calendar loading state now separates the spinner from the loading text.
+
+The final **Open dashboard** action now opens the new team's dashboard overview.
+
+The use-case field label now has the same spacing as other setup fields.
+
+The dashboard feedback form now opens with the intended wider layout, app typography, and reliable submission handling.
+
+Creating the first mailbox password now recovers cleanly if part of the operation is interrupted.
+
+Mailbox setup now waits for new mailbox accounts to be ready before applying sender details and creating the first password.
+
+If mailbox password setup needs extra time, the generated password is still shown once instead of creating a credential you cannot see.
+
+Recreating a deleted mailbox address now rebuilds sender rules reliably, so the new mailbox is created instead of showing a retry error.
+
+Rotating or revoking a mailbox password now avoids leaving the mailbox without a working credential if part of the change needs to retry.
+
+Mailbox password changes now count in-progress credentials toward the team API key limit, so limits stay consistent while a change is being processed.
+
+Deleting and recreating the same mailbox address now works without old mailbox state blocking the new mailbox.
 
 </Update>
 
@@ -957,15 +1056,19 @@ See [Mailbox API](/mailbox-api/introduction#attachments).
 
 ## Improvements
 
-- The Sending API docs now link directly to the account-management endpoints that control which accounts can send.
-- The Management API reference now has a dedicated **Sending accounts** group.
+The Sending API docs now link directly to the account-management endpoints that control which accounts can send.
+
+The Management API reference now has a dedicated **Sending accounts** group.
 
 ## Bug fixes
 
-- Mailbox credentials now stop working while their mailbox is suspended and work again after resume.
-- Sending from a suspended mailbox address is now blocked even when you use a broader sending credential.
-- Oversized uploaded attachments are now rejected before they can be used in a send request.
-- Oversized outbound messages are now rejected before partial send work starts, so clients get a clear `payload_too_large` response instead of a later send failure.
+Mailbox credentials now stop working while their mailbox is suspended and work again after resume.
+
+Sending from a suspended mailbox address is now blocked even when you use a broader sending credential.
+
+Oversized uploaded attachments are now rejected before they can be used in a send request.
+
+Oversized outbound messages are now rejected before partial send work starts, so clients get a clear `payload_too_large` response instead of a later send failure.
 
 </Update>
 
@@ -990,14 +1093,17 @@ Teams now have clear usage limits for domains, mailboxes, sending accounts, webh
 
 ## Improvements
 
-- Limit usage now appears at the bottom-right of the relevant dashboard pages, so it stays available without crowding the page header.
-- The API key limit now covers active root and mailbox-class credentials, including send-only and mailbox credentials.
-- The team limits guide now clarifies default limits, increase requests, and that email volume is not capped beyond existing sending limits.
-- Webhooks and mailbox realtime events use the same public `message.received` event names for inbound mailbox activity.
+Limit usage now appears at the bottom-right of the relevant dashboard pages, so it stays available without crowding the page header.
+
+The API key limit now covers active root and mailbox-class credentials, including send-only and mailbox credentials.
+
+The team limits guide now clarifies default limits, increase requests, and that email volume is not capped beyond existing sending limits.
+
+Webhooks and mailbox realtime events use the same public `message.received` event names for inbound mailbox activity.
 
 ## Bug fixes
 
-- Mailbox credential creation and rotation now respect the API key limit consistently.
+Mailbox credential creation and rotation now respect the API key limit consistently.
 
 </Update>
 
@@ -1008,19 +1114,27 @@ The dashboard is clearer for larger teams and longer mailbox or webhook names.
 
 ## Improvements
 
-- Mailbox lists now show `Name` before `Email`, with clearer column labels.
-- Long domain, mailbox, and webhook headings now stay on one line with cleaner truncation.
-- Long webhook endpoint URLs are clipped in lists and can be inspected from the hover tooltip.
-- Team menus now include a direct **Invite members** action.
+Mailbox lists now show `Name` before `Email`, with clearer column labels.
+
+Long domain, mailbox, and webhook headings now stay on one line with cleaner truncation.
+
+Long webhook endpoint URLs are clipped in lists and can be inspected from the hover tooltip.
+
+Team menus now include a direct **Invite members** action.
 
 ## Bug fixes
 
-- Invited team members are now taken into the invited team after accepting or signing up from an invitation, instead of being sent to create a new team.
-- Pending team invitations now appear in invitation history.
-- Pending team invitation banners now clear immediately after accepting or declining, without requiring a hard refresh.
-- Users with pending team invitations can now view and accept them without creating a separate team first.
-- Webhook 24h metric cards and charts now count recent deliveries consistently with the delivery log.
-- Sidebar account initials now come from the signed-in user's name or email.
+Invited team members are now taken into the invited team after accepting or signing up from an invitation, instead of being sent to create a new team.
+
+Pending team invitations now appear in invitation history.
+
+Pending team invitation banners now clear immediately after accepting or declining, without requiring a hard refresh.
+
+Users with pending team invitations can now view and accept them without creating a separate team first.
+
+Webhook 24h metric cards and charts now count recent deliveries consistently with the delivery log.
+
+Sidebar account initials now come from the signed-in user's name or email.
 
 </Update>
 
@@ -1033,9 +1147,11 @@ Use webhooks for server-to-server event delivery. Use the Mailbox API event stre
 
 ## Improvements
 
-- Webhook delivery logs now show attempts, retry timing, response status, latency, response previews, and retained request payloads from the last 7 days.
-- Failed-webhook emails now link directly to the delivery logs for the affected subscription.
-- Public event names now use product-shaped `message.*` names, including `message.received` and `message.received.spam`.
+Webhook delivery logs now show attempts, retry timing, response status, latency, response previews, and retained request payloads from the last 7 days.
+
+Failed-webhook emails now link directly to the delivery logs for the affected subscription.
+
+Public event names now use product-shaped `message.*` names, including `message.received` and `message.received.spam`.
 
 </Update>
 
@@ -1046,10 +1162,13 @@ The Mailbox API now supports filtered message query changes, so clients can poll
 
 ## Improvements
 
-- Session discovery now reports supported Mailbox API capabilities, current state tokens, request limits, and intentionally unavailable features.
-- Message responses now expose active keywords, and batch message updates can set or clear custom keywords for richer mailbox triage.
-- Batch message deletes can move up to 100 messages to Trash, or permanently delete them when requested.
-- Mailbox credentials now have tighter permissions so restricted mailbox capabilities stay unavailable outside the public API. They remain usable for SMTP and IMAP access.
+Session discovery now reports supported Mailbox API capabilities, current state tokens, request limits, and intentionally unavailable features.
+
+Message responses now expose active keywords, and batch message updates can set or clear custom keywords for richer mailbox triage.
+
+Batch message deletes can move up to 100 messages to Trash, or permanently delete them when requested.
+
+Mailbox credentials now have tighter permissions so restricted mailbox capabilities stay unavailable outside the public API. They remain usable for SMTP and IMAP access.
 
 </Update>
 
@@ -1062,11 +1181,15 @@ See the [Mailbox API](/mailbox-api/introduction).
 
 ## Improvements
 
-- Message searches support richer filters and snippet-only responses so clients can decide what to fetch next.
-- Sync now covers messages, folders, threads, submissions, identities, and quotas through typed change polling.
-- Message and folder writes now have stronger stale-state protection, with `If-Match` support on supported deletes as well as updates.
-- Attachment sends can now use a binary upload step before `messages/send`, and attachment downloads support byte-range requests.
-- Attachment contents remain download-only; clean content endpoints return attachment metadata without parsing files.
+Message searches support richer filters and snippet-only responses so clients can decide what to fetch next.
+
+Sync now covers messages, folders, threads, submissions, identities, and quotas through typed change polling.
+
+Message and folder writes now have stronger stale-state protection, with `If-Match` support on supported deletes as well as updates.
+
+Attachment sends can now use a binary upload step before `messages/send`, and attachment downloads support byte-range requests.
+
+Attachment contents remain download-only; clean content endpoints return attachment metadata without parsing files.
 
 </Update>
 
@@ -1081,12 +1204,13 @@ A new mailbox API lets you list folders and messages, read a message, send mail,
 
 ## Improvements
 
-- **One credential per mailbox.** Each mailbox now uses a single credential for sending and for mailbox access over SMTP, IMAP, and the API — simpler setup. "App passwords" are now called "Mailbox passwords".
-- Refreshed, more compact **Accounts**, domain, mailbox, and webhook pages, with DNS records and connection settings you can copy in a single click.
+**One credential per mailbox.** Each mailbox now uses a single credential for sending and for mailbox access over SMTP, IMAP, and the API — simpler setup. "App passwords" are now called "Mailbox passwords".
+
+Refreshed, more compact **Accounts**, domain, mailbox, and webhook pages, with DNS records and connection settings you can copy in a single click.
 
 ## Bug fixes
 
-- The mailbox quickstart example now works exactly as shown.
+The mailbox quickstart example now works exactly as shown.
 
 </Update>
 
@@ -1095,16 +1219,21 @@ A new mailbox API lets you list folders and messages, read a message, send mail,
 
 The [Management API](/api/introduction) is hardened for production use:
 
-- Consistent success and error response formats.
-- A request ID on every response for support correlation.
-- Cursor pagination on all list endpoints.
-- ETags and conditional requests (`If-None-Match` / `If-Match`) to save bandwidth and prevent lost updates.
-- [Idempotency keys](/guides/idempotency) so create requests can be retried safely.
-- Rate-limit responses now report the exact number of seconds until your limit resets.
+Consistent success and error response formats.
+
+A request ID on every response for support correlation.
+
+Cursor pagination on all list endpoints.
+
+ETags and conditional requests (`If-None-Match` / `If-Match`) to save bandwidth and prevent lost updates.
+
+[Idempotency keys](/guides/idempotency) so create requests can be retried safely.
+
+Rate-limit responses now report the exact number of seconds until your limit resets.
 
 ## Bug fixes
 
-- Fixed a rare timing issue that could cause a small number of valid emails to be incorrectly rejected; affected messages now send normally.
+Fixed a rare timing issue that could cause a small number of valid emails to be incorrectly rejected; affected messages now send normally.
 
 </Update>
 
@@ -1127,8 +1256,9 @@ A new **Deliverability** page tracks your bounce and complaint rates over rollin
 
 ## Bug fixes
 
-- Delivery, bounce, and complaint events are now recorded reliably to your event history.
-- Delivery-log statuses stay accurate even when provider events arrive out of order — a failed or bounced email is no longer shown as sent.
+Delivery, bounce, and complaint events are now recorded reliably to your event history.
+
+Delivery-log statuses stay accurate even when provider events arrive out of order — a failed or bounced email is no longer shown as sent.
 
 </Update>
 
@@ -1154,9 +1284,11 @@ Get an email when your team balance drops below a threshold you choose, with a o
 
 ## Improvements
 
-- Refreshed, on-brand transactional emails — responsive, dark-mode friendly, and personalised with your name.
-- The overview now tracks pending emails alongside sent, successful, and failed, and large numbers are shown compactly (for example 1.5k, 2M).
-- The dashboard and logs refresh automatically while you're viewing them and pause when the tab is in the background.
+Refreshed, on-brand transactional emails — responsive, dark-mode friendly, and personalised with your name.
+
+The overview now tracks pending emails alongside sent, successful, and failed, and large numbers are shown compactly (for example 1.5k, 2M).
+
+The dashboard and logs refresh automatically while you're viewing them and pause when the tab is in the background.
 
 </Update>
 
@@ -1165,12 +1297,18 @@ Get an email when your team balance drops below a threshold you choose, with a o
 
 Welcome to Sendmux. The initial release includes:
 
-- **Dashboard** — an at-a-glance overview with sending charts and a searchable, filterable delivery-log viewer with CSV export.
-- **Sending accounts** — connect accounts over SMTP or with Gmail and Microsoft 365 (including GCC High, DoD, and China clouds), organise them into groups, bulk-test connections, and import in bulk from CSV. See [Sending accounts](/guides/sending-accounts).
-- **Sending API** — send a single email or batches of up to 100 over a modern JSON REST interface, with structured sender and recipient objects, partial-success batch results, attachments, CC/BCC, and Reply-To. See the [Sending API](/sending-api/introduction).
-- **Read-only Management API** — query your sending accounts, email logs, metrics, and billing programmatically, with API-key authentication and a published OpenAPI spec.
-- **Scoped API keys** — restrict a sending key to specific accounts or a group, and see warnings before deleting anything a key depends on.
-- **Dollar-based billing** — a clear transaction history, automatic top-ups so your balance never runs dry, and promotion codes at checkout.
-- **Unlimited teams** — create and join as many teams as you need.
+**Dashboard** — an at-a-glance overview with sending charts and a searchable, filterable delivery-log viewer with CSV export.
+
+**Sending accounts** — connect accounts over SMTP or with Gmail and Microsoft 365 (including GCC High, DoD, and China clouds), organise them into groups, bulk-test connections, and import in bulk from CSV. See [Sending accounts](/guides/sending-accounts).
+
+**Sending API** — send a single email or batches of up to 100 over a modern JSON REST interface, with structured sender and recipient objects, partial-success batch results, attachments, CC/BCC, and Reply-To. See the [Sending API](/sending-api/introduction).
+
+**Read-only Management API** — query your sending accounts, email logs, metrics, and billing programmatically, with API-key authentication and a published OpenAPI spec.
+
+**Scoped API keys** — restrict a sending key to specific accounts or a group, and see warnings before deleting anything a key depends on.
+
+**Dollar-based billing** — a clear transaction history, automatic top-ups so your balance never runs dry, and promotion codes at checkout.
+
+**Unlimited teams** — create and join as many teams as you need.
 
 </Update>
