@@ -11,7 +11,7 @@ rss: true
 >
   ## Shared sending status
 
-If Amazon SES disables Sendmux-managed shared sending, Sendmux now pauses only that shared route. Your customer-managed sending accounts, API, MCP, mailbox access, and the rest of your account remain available. If another eligible customer-managed sending account is available, queued email can continue through it.
+If Amazon SES disables Sendmux-managed shared sending, Sendmux now pauses only that shared route. If Sendmux cannot confirm that shared sending is currently available, that shared route remains paused. Your customer-managed sending accounts, API, MCP, mailbox access, and the rest of your account remain available. If another eligible customer-managed sending account is available, queued email can continue through it.
 
 Affected teams see a persistent notice and updated deliverability status. Team owners and admins also receive a required service email so the restriction can be investigated safely before shared sending resumes.
 
