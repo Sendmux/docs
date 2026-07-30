@@ -15,6 +15,8 @@ If Amazon SES disables Sendmux-managed shared sending, Sendmux now pauses only t
 
 Sendmux rechecks availability immediately before handing email to Amazon SES, so email already in progress stops if the shared route was paused after it was selected.
 
+If that routing update is temporarily interrupted, Sendmux retries it during the next availability check.
+
 Affected teams see a persistent notice and updated deliverability status. Team owners and admins also receive a required service email so the restriction can be investigated safely before shared sending resumes.
 
 Domain status now reflects the latest Amazon SES identity, sending, and email-signing state, including when the status was last checked.
