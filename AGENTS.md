@@ -42,6 +42,7 @@
 - Use sentence case for headings
 - Bold for UI elements: Click **Settings**
 - Code formatting for file names, commands, paths, and code references
+- Never use Markdown bullet items in `changelog.mdx`; write standalone prose paragraphs.
 
 ## Content boundaries
 
