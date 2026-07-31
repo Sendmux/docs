@@ -40,7 +40,7 @@
             ]
           },
           {
-            "group": "SDKs",
+            "group": "SDKs and CLI",
             "icon": "code",
             "pages": [
               "sdks/index",
@@ -49,13 +49,14 @@
               "sdks/go",
               "sdks/php",
               "sdks/ruby",
-              "sdks/versioning-support"
+              "sdks/versioning-support",
+              "cli/index"
             ]
           },
           {
-            "group": "CLI",
-            "icon": "square-terminal",
-            "pages": ["cli/index"]
+            "group": "Use cases",
+            "icon": "bullseye",
+            "pages": ["use-cases/cold-email-outreach"]
           },
           {
             "group": "Integrations",
@@ -83,7 +84,8 @@
             "pages": [
               "guides/teams-access",
               "guides/account-settings",
-              "guides/api-keys"
+              "guides/api-keys",
+              "guides/billing"
             ]
           },
           {
@@ -113,11 +115,6 @@
             "group": "Monitoring",
             "icon": "chart-line",
             "pages": ["guides/dashboard-logs", "guides/deliverability"]
-          },
-          {
-            "group": "Billing",
-            "icon": "credit-card",
-            "pages": ["guides/billing"]
           },
           {
             "group": "Webhooks",
