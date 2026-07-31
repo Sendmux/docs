@@ -1,0 +1,290 @@
+---
+title: "Cold email outreach and GTM from your own inboxes"
+sidebarTitle: "Cold email outreach"
+description: "Sendmux is an email layer that routes cold outreach through inboxes you own. Add sending accounts, set per-account caps, and run your GTM motion from an AI tool."
+keywords:
+  [
+    "cold email outreach",
+    "AI GTM",
+    "GTM automation",
+    "GTM AI agent",
+    "cold email infrastructure",
+    "sending accounts",
+  ]
+"og:title": "Cold email outreach and GTM from your own inboxes"
+"og:description": "Add your own cold email inboxes to Sendmux, set caps and sender details, create a sending key, and connect an AI agent with a Sending-only grant."
+---
+
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
+Sendmux is an email layer that routes cold outreach through sending accounts you already own. You add each inbox, set its sender details and its per-hour and per-day caps, then create one sending key. Sendmux picks an eligible account for every message and holds anything over that account's current cap.
+
+That makes it the send rail underneath a GTM motion. Your tools pick the targets and write the copy. Sendmux decides which inbox carries each message and how fast.
+
+<Info>
+  You need a Sendmux team, at least one inbox you can supply SMTP credentials
+  for or a Gmail or Outlook account you can authorise, and a prospect list you
+  may lawfully contact.
+</Info>
+
+<SharedSesPolicy />
+
+## Do you need a domain for cold email?
+
+No. You do not add or verify a domain in Sendmux when you send through your own accounts. Each account already authenticates for its own domain at its own provider, so Sendmux hands the message to that provider and the provider signs it.
+
+| What you want to do | Domain needed in Sendmux |
+| --- | --- |
+| Send through your own accounts | No |
+| Send through the managed SES from Sendmux | Yes |
+| Receive mail or host mailboxes in Sendmux | Yes |
+
+<Note>
+  One failure mode is worth knowing. If the managed account is the only eligible
+  provider for a send and the sender domain is not verified, Sendmux rejects the
+  message and records it in [Logs](/guides/dashboard-logs#delivery-logs) rather
+  than returning a bounce.
+</Note>
+
+## Set up cold outreach in Sendmux
+
+<Steps>
+  <Step title="Add your cold email accounts">
+    Open **Accounts** and select **Add Account**, then choose **Custom SMTP**,
+    **Gmail**, or **Outlook / Microsoft 365**. Run **Test Connection** on SMTP
+    accounts before you route real traffic through them.
+
+    Any inbox provider that gives you SMTP credentials works as a Custom SMTP
+    account, including Mission Inbox, ScaledMail, Zapmail, and others. There is
+    no vendor-specific connector for these. You supply the host, port, username,
+    and password, and Sendmux treats the account like any other.
+
+    <Frame caption="Choose the connection type when you add a sending account.">
+      <img
+        src="/images/integrations/email-marketing/sendmux-add-sending-account.png"
+        alt="The Sendmux Add Account panel showing Custom SMTP, Gmail and Outlook connection types"
+      />
+    </Frame>
+
+    Running a pool of inboxes? Use **Import Accounts** with the CSV template
+    instead of adding them one at a time. See
+    [Import accounts from a file](/guides/sending-accounts#import-accounts-from-a-file).
+
+    <Frame caption="A pool of inboxes, each with its own delivery group and per-minute, per-hour and per-day caps.">
+      <img
+        src="/images/use-cases/cold-email-accounts-list.png"
+        alt="The Sendmux Accounts table listing several SMTP sending accounts with their delivery group, throughput caps and status"
+      />
+    </Frame>
+
+    Then set the per-account details that make a pool behave like separate
+    senders:
+
+    | Setting | What to set it to |
+    | --- | --- |
+    | **From email** and **From name** | The persona that owns this inbox. |
+    | **Reply-To** | Where replies should land. |
+    | **Quotas** | Per-second, minute, hour, or day caps. `0` means unlimited, and a range such as `5-10` is accepted. |
+    | **Distribution percentage** | `0` to `100`, default `100`. Weights traffic when several accounts are eligible. |
+
+    <Frame caption="Advanced settings hold the sender identity, the caps and the routing weight for one account.">
+      <img
+        src="/images/use-cases/cold-email-account-advanced.png"
+        alt="Advanced settings for one Sendmux sending account showing From Email, From Name, Reply-To, quotas, distribution percentage and delivery group"
+      />
+    </Frame>
+
+    Full reference:
+    [Add your own account](/guides/sending-accounts#add-your-own-account) and
+    [Advanced settings](/guides/sending-accounts#advanced-settings).
+  </Step>
+
+  <Step title="Pick how you will send">
+    Your sending route decides which credential you need, so choose before you
+    create anything.
+
+    | Route | Credential |
+    | --- | --- |
+    | SMTP, from an outreach tool or script | A sending key |
+    | HTTP, from your own code | A sending key |
+    | An AI client over hosted MCP | None. You authorise a connected app instead |
+
+    Sending through more than one route is fine. Create a key for the routes
+    that need one and authorise MCP separately.
+  </Step>
+
+  <Step title="Create a sending key, for SMTP and HTTP">
+    Skip this step if you only plan to send over hosted MCP.
+
+    Open **API Keys**, select **Create API Key**, and choose the **Sending key**
+    type. Pick whether the key routes through all providers, selected providers,
+    or a delivery group.
+
+    <Frame caption="Choose Sending Key. It covers the API, the CLI, MCP and AI agents.">
+      <img
+        src="/images/use-cases/cold-email-sending-key.png"
+        alt="The Sendmux Create API Key dialog with Infrastructure Key, Sending Key and Mailbox Key options, with Sending Key selected"
+      />
+    </Frame>
+
+    Copy the `smx_mbx_` value straight into your secrets manager. It is shown
+    once. See [Create a key](/guides/api-keys#create-a-key) and
+    [Key types](/guides/api-keys#key-types).
+
+    Then send:
+
+    - **SMTP.** Host `smtp.sendmux.ai`, port `587` with STARTTLS, password is
+      your sending key. See [Sending by SMTP](/guides/sending-via-smtp).
+    - **HTTP.** `POST` to the Sending API. See
+      [Sending by HTTP](/guides/sending-via-http).
+  </Step>
+
+  <Step title="Or connect an AI client over MCP">
+    Hosted MCP authorises a connected app and issues its own short-lived tokens.
+    It does not use a sending key, and connected apps never create `smx_mbx_`
+    secrets. See [Connected apps](/guides/api-keys#connected-apps) and the next
+    section.
+  </Step>
+</Steps>
+
+<Warning>
+  Contact only people you have a lawful basis to email. Say who you are, keep
+  the message relevant to the recipient, honour every suppression record, and
+  give people a clear way to stop hearing from you.
+</Warning>
+
+## Run your GTM motion from an AI tool
+
+Connect Sendmux to Claude or another MCP client and your agent can send through the same accounts, with the same caps, without you pasting a key into it.
+
+<Steps>
+  <Step title="Add the server">
+    Add `https://mcp.sendmux.ai/mcp` in your client. Per-client instructions are
+    in [Hosted OAuth clients](/guides/mcp-clients#hosted-oauth-clients).
+  </Step>
+  <Step title="Authorise the connection">
+    Sendmux asks you to pick a team, then which product lines the app may use.
+  </Step>
+  <Step title="Check the tools appear">
+    Confirm the sending tools are listed. See
+    [Verify the connection](/guides/mcp-clients#verify-the-connection).
+  </Step>
+</Steps>
+
+<Warning>
+  **Grant Sending API only.** Every product line is ticked when the
+  authorisation screen opens. Untick **Mailbox API** and **Management API** so
+  **Sending API** is the only one left. A Sending-only grant never asks you to
+  choose mailboxes, and you do not need to create one. Add **Mailbox API** later
+  if you also want the agent to read replies.
+</Warning>
+
+<Frame caption="Under Product lines, leave Sending API ticked and clear the other two.">
+  <img
+    src="/images/use-cases/cold-email-mcp-consent-sending-only.png"
+    alt="The Sendmux authorise connected app screen with Mailbox API and Management API unticked and Sending API ticked"
+  />
+</Frame>
+
+For what each surface covers and how long tokens last, see [MCP](/guides/mcp).
+
+## What each part does
+
+Keeping the boundary clear saves a lot of debugging later.
+
+| Your GTM stack | Sendmux |
+| --- | --- |
+| Prospect list, segments, and enrichment | Eligible account selection |
+| Message copy and personalisation | Sender details applied per account |
+| Send schedule and follow-up timing | Per-second, minute, hour, and day caps |
+| Reply reading and CRM updates | Delivery log, bounce and complaint events |
+
+## Choose fixed caps or ranges
+
+Use a fixed cap when you want one predictable ceiling per account. Use a range when you would rather the ceiling move inside boundaries you set. Sendmux picks a value when account information refreshes and holds that cap until the next refresh.
+
+A range varies the ceiling. It does not add a delay between individual messages, and it does not guarantee inbox placement. Targeting, authenticated sender domains, message quality, and account history all still decide what happens after Sendmux hands the message over.
+
+## Spread sends across several inboxes
+
+Distribution percentage weights traffic between accounts that are eligible for the same send. Delivery groups go further and keep a stream of traffic on a chosen subset of accounts. The key you authenticate with decides which applies. See [How routing works](/guides/delivery-groups#how-routing-works).
+
+<Tip>
+  Put each campaign, or each customer, on its own delivery group. One inbox
+  going bad then affects that group and nothing else.
+</Tip>
+
+## Add replies later
+
+Replies land wherever the **Reply-To** on each account points, which by default is the inbox provider you own. Nothing in Sendmux is required for that.
+
+You only need a Sendmux domain and mailbox when you want replies inside Sendmux, so an agent can read and act on them. That is also when the **Mailbox API** grant becomes worth adding to your MCP connection. See [Domain management](/guides/domain-management) and [Mailboxes](/guides/mailboxes).
+
+## Check before your first campaign
+
+- Every account tested and active.
+- From, Reply-To, and caps reviewed on each account, not just the first one.
+- Sending key stored in a secrets manager and scoped to the right providers, if
+  you send over SMTP or HTTP.
+- MCP grant limited to Sending API, unless you deliberately want mailbox access.
+- Prospect sourcing, suppression, and opt-out handling settled.
+- The opening message and every follow-up read end to end.
+
+Start small. Read the logs, watch bounces and complaints, then raise volume.
+
+## Common questions
+
+<AccordionGroup>
+  <Accordion title="Do I need a verified domain to send cold email?">
+    No, not when you send through your own accounts. Each account authenticates
+    at its own provider. A verified domain in Sendmux is needed only for the
+    managed account, or to receive mail.
+  </Accordion>
+
+  <Accordion title="Which inbox providers work with Sendmux?">
+    Any provider that gives you SMTP credentials, plus Gmail and Outlook or
+    Microsoft 365 through the connected-account flow. Cold email inbox providers
+    such as Mission Inbox, ScaledMail, and Zapmail connect as Custom SMTP
+    accounts.
+  </Accordion>
+
+  <Accordion title="Do I need a mailbox to use MCP for sending?">
+    No. A Sending-only grant does not ask you to choose a mailbox, and you do not
+    need to create one. Add the Mailbox API product line only when you
+    want an agent to read replies.
+  </Accordion>
+
+  <Accordion title="How many sending accounts can I add?">
+    Each team starts with 200 accounts you add yourself. The managed account does
+    not count towards that. See
+    [Account limits](/guides/sending-accounts#account-limits) and
+    [Default limits](/guides/team-limits#default-limits).
+  </Accordion>
+
+  <Accordion title="Can I use the free managed account for cold outreach?">
+    No. Managed Amazon SES is for transactional email only. Cold outreach,
+    marketing, and bulk promotional sending must go through accounts you own.
+  </Accordion>
+
+  <Accordion title="How do I see what was delivered?">
+    Open **Logs**. You can filter by status, account, and recipient, and export
+    the result. See [Filter logs](/guides/dashboard-logs#filter-logs).
+  </Accordion>
+</AccordionGroup>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Sending accounts" icon="envelope" href="/guides/sending-accounts">
+    Add accounts and set sender defaults, caps, and routing.
+  </Card>
+  <Card title="API keys" icon="key" href="/guides/api-keys">
+    Create, scope, rotate, and revoke the key your outreach tool uses.
+  </Card>
+  <Card title="MCP clients" icon="plug" href="/guides/mcp-clients">
+    Connect Claude and other AI clients to your sending accounts.
+  </Card>
+  <Card title="Deliverability" icon="shield-halved" href="/guides/deliverability">
+    Watch bounce rates, complaint rates, and account health.
+  </Card>
+</Columns>

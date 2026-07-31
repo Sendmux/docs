@@ -20,8 +20,10 @@ Use the HTTP Sending API for new integrations, batch sending, and retry-safe req
 - A team with sending access.
 - A send-only key or mailbox key with `email.send`.
 - Enough team balance for the messages you send.
-- A verified sending-only or sending & receiving custom domain, unless you are
-  testing with the shared domain.
+- A verified sending-only or sending & receiving custom domain **if you send
+  through the managed account**, unless you are testing with the shared domain.
+  Sends through your own sending accounts do not need one, because each account
+  already authenticates at its own provider.
 
 ## Send one email
 
