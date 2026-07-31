@@ -4,6 +4,17 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="31 July 2026" tags={["Bug fixes"]} rss={{ title: "Your new team setup now recovers from interrupted Amazon SES requests" }}>
+  ## Bug fixes
+
+When you create a new team, Sendmux now resumes setup automatically after Amazon SES temporarily limits a request or another temporary interruption stops the work. Your team no longer remains stuck.
+
+If you retry team setup while work is already in progress, Sendmux reuses that work instead of creating duplicate personal teams or sending accounts.
+
+When you delete a team, Sendmux now removes its Amazon SES setup even if an earlier interruption occurred before Sendmux saved the completed setup.
+
+</Update>
+
 <Update
   label="30 July 2026"
   tags={["Improvements", "Bug fixes"]}
