@@ -92,7 +92,23 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
     [Advanced settings](/guides/sending-accounts#advanced-settings).
   </Step>
 
-  <Step title="Create a sending key">
+  <Step title="Pick how you will send">
+    Your sending route decides which credential you need, so choose before you
+    create anything.
+
+    | Route | Credential |
+    | --- | --- |
+    | SMTP, from an outreach tool or script | A sending key |
+    | HTTP, from your own code | A sending key |
+    | An AI client over hosted MCP | None. You authorise a connected app instead |
+
+    Sending through more than one route is fine. Create a key for the routes
+    that need one and authorise MCP separately.
+  </Step>
+
+  <Step title="Create a sending key, for SMTP and HTTP">
+    Skip this step if you only plan to send over hosted MCP.
+
     Open **API Keys**, select **Create API Key**, and choose the **Sending key**
     type. Pick whether the key routes through all providers, selected providers,
     or a delivery group.
@@ -100,16 +116,20 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
     Copy the `smx_mbx_` value straight into your secrets manager. It is shown
     once. See [Create a key](/guides/api-keys#create-a-key) and
     [Key types](/guides/api-keys#key-types).
-  </Step>
 
-  <Step title="Send from your tool or your agent">
-    Three routes, same key:
+    Then send:
 
     - **SMTP.** Host `smtp.sendmux.ai`, port `587` with STARTTLS, password is
       your sending key. See [Sending by SMTP](/guides/sending-via-smtp).
     - **HTTP.** `POST` to the Sending API. See
       [Sending by HTTP](/guides/sending-via-http).
-    - **An AI client over MCP.** See the next section.
+  </Step>
+
+  <Step title="Or connect an AI client over MCP">
+    Hosted MCP authorises a connected app and issues its own short-lived tokens.
+    It does not use a sending key, and connected apps never create `smx_mbx_`
+    secrets. See [Connected apps](/guides/api-keys#connected-apps) and the next
+    section.
   </Step>
 </Steps>
 
@@ -183,7 +203,8 @@ You only need a Sendmux domain and mailbox when you want replies inside Sendmux,
 
 - Every account tested and active.
 - From, Reply-To, and caps reviewed on each account, not just the first one.
-- Sending key stored in a secrets manager and scoped to the right providers.
+- Sending key stored in a secrets manager and scoped to the right providers, if
+  you send over SMTP or HTTP.
 - MCP grant limited to Sending, unless you deliberately want mailbox access.
 - Prospect sourcing, suppression, and opt-out handling settled.
 - The opening message and every follow-up read end to end.
