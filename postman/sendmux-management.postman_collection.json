@@ -581,6 +581,40 @@
               ],
               "name": "Domain still has active mailboxes (error code `conflict`).",
               "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Unexpected server error.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Seconds to wait before retrying.",
+                  "disabled": true,
+                  "key": "Retry-After",
+                  "value": "30"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Deletion is temporarily unavailable; retry after the indicated delay.",
+              "status": "Service Unavailable"
             }
           ]
         },
@@ -1293,7 +1327,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "`If-Match` ETag does not match the server's current version, or the domain is send-only.",
+              "name": "`If-Match` ETag does not match the server's current version, the domain is send-only, or deletion is in progress.",
               "status": "Conflict"
             },
             {

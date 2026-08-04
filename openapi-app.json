@@ -8457,6 +8457,35 @@
               }
             },
             "description": "Domain still has active mailboxes (error code `conflict`)."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Unexpected server error."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Deletion is temporarily unavailable; retry after the indicated delay.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds to wait before retrying.",
+                "schema": {
+                  "example": 30,
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -8848,7 +8877,7 @@
                 }
               }
             },
-            "description": "`If-Match` ETag does not match the server's current version, or the domain is send-only."
+            "description": "`If-Match` ETag does not match the server's current version, the domain is send-only, or deletion is in progress."
           },
           "413": {
             "content": {

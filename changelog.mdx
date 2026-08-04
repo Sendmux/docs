@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="4 August 2026" tags={["Bug fixes"]} rss={{ title: "Domain deletion now recovers safely from interruptions" }}>
+  ## Bug fixes
+
+Temporary interruptions no longer lose domain deletion work. Sendmux retries it, and repeating the delete request reuses the same operation.
+
+Domain-wide filter updates are now blocked while deletion is in progress, preventing an older request from restoring rules after cleanup. If deletion needs more time, the Management API returns a clear retry response.
+
+</Update>
+
 <Update label="31 July 2026" tags={["Bug fixes"]} rss={{ title: "Your new team setup now recovers from interrupted Amazon SES requests" }}>
   ## Bug fixes
 
