@@ -56,7 +56,9 @@ Use your own provider when you need higher volume, a specific sender policy, or 
   <Step title="Complete setup">
     SMTP accounts need server address, port, protocol, username, password, and
     optional sender defaults. Connected accounts send you through the provider's
-    sign-in flow.
+    sign-in flow. See
+    [Connect Google and Microsoft accounts](/guides/connect-google-microsoft-accounts)
+    for administrator preparation, permissions, and large account pools.
   </Step>
   <Step title="Test the provider">
     For SMTP accounts, use **Test Connection** after saving. Fix any credential
@@ -98,7 +100,8 @@ formatting.
   JSON configuration files never contain or accept passwords or connected-account
   credentials. Use them to update matched accounts. To create a new SMTP account,
   use **Add Account** or a CSV with its password. Use **Add Account** to authorise
-  a new Gmail or Outlook account.
+  a new Gmail or Outlook account, or import its account record and select
+  **Authorise** from the pending account row.
 </Warning>
 
 <AccordionGroup>
@@ -121,7 +124,7 @@ formatting.
     | `password` or `smtp_password` | New SMTP account | SMTP password. Exports leave this blank. A blank value on update keeps the current password. |
     | `status` | No | `active` or `inactive`. New SMTP accounts default to `active`. |
     | `oauth_user_email` | New Gmail or Outlook account | Email address used to match the account. A new imported account remains pending. |
-    | `from_email`, `from_name` | No | Default sender address and display name. |
+    | `from_email`, `from_name` | No | Default sender address and display name. `from_email` applies only to SMTP accounts; connected accounts use `oauth_user_email`. |
     | `reply_to_email`, `reply_to_name` | No | Default reply-to address and display name. |
     | `tracking_domain` | No | Custom tracking hostname. |
     | `quota_second`, `quota_minute`, `quota_hour`, `quota_day` | No | `0` for unlimited, one number, or a range such as `5-10`, up to `100000000`. |
@@ -210,6 +213,13 @@ Each team starts with **200 sending accounts** that you add yourself. The manage
 ## Related guides
 
 <Columns cols={2}>
+  <Card
+    title="Connect Google and Microsoft accounts"
+    icon="key"
+    href="/guides/connect-google-microsoft-accounts"
+  >
+    Prepare administrator access and authorise connected accounts at scale.
+  </Card>
   <Card title="Delivery groups" icon="route" href="/guides/delivery-groups">
     Group providers and route selected keys or mailboxes through them.
   </Card>

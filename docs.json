@@ -95,6 +95,7 @@
               "guides/sending-via-http",
               "guides/sending-via-smtp",
               "guides/sending-accounts",
+              "guides/connect-google-microsoft-accounts",
               "guides/delivery-groups",
               "guides/http-provider",
               "guides/attachments",
