@@ -4,6 +4,21 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="5 August 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Connected account authorisation and navigation counts now stay accurate" }}>
+  ## Connected account authorisation
+
+Google and Microsoft connected accounts now request sending-only mailbox access. Sendmux no longer asks to read, change, or delete mailbox content, and the sender address always matches the mailbox that completed authorisation.
+
+Large account pools can now complete each mailbox authorisation without a shared attempt limit interrupting the batch. Imported accounts that need a connection show **Authorise** directly from their pending row.
+
+See [Connect Google and Microsoft accounts](/guides/connect-google-microsoft-accounts) for administrator preparation, permissions, and large account pools.
+
+  ## Navigation freshness
+
+Your balance, notification count, and inbox unread count now refresh after you return to an inactive browser tab. The inbox count stays current without requiring you to open **Inboxes** first.
+
+</Update>
+
 <Update label="4 August 2026" tags={["Bug fixes"]} rss={{ title: "Domain deletion now recovers safely from interruptions" }}>
   ## Bug fixes
 

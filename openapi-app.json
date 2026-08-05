@@ -5386,6 +5386,7 @@
         "additionalProperties": false,
         "properties": {
           "from_email": {
+            "description": "Default From email address for an SMTP account.",
             "example": "sender@example.com",
             "format": "email",
             "maxLength": 255,
@@ -5631,7 +5632,7 @@
             "type": "string"
           },
           "from_email": {
-            "description": "Default From email address.",
+            "description": "Default From email address. Connected Google and Microsoft accounts always use their authorised account address.",
             "type": [
               "string",
               "null"
@@ -6140,6 +6141,7 @@
         "additionalProperties": false,
         "properties": {
           "from_email": {
+            "description": "Default From email address for an SMTP account. Connected Google and Microsoft accounts keep their authorised account address.",
             "example": "sender@example.com",
             "format": "email",
             "maxLength": 255,
