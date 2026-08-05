@@ -94,8 +94,11 @@
             "pages": [
               "guides/sending-via-http",
               "guides/sending-via-smtp",
-              "guides/sending-accounts",
-              "guides/connect-google-microsoft-accounts",
+              {
+                "group": "Sending accounts",
+                "root": "guides/sending-accounts",
+                "pages": ["guides/connect-google-microsoft-accounts"]
+              },
               "guides/delivery-groups",
               "guides/http-provider",
               "guides/attachments",
