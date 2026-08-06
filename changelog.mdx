@@ -4,6 +4,13 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="6 August 2026" tags={["Bug fixes"]} rss={{ title: "Emails with uncertain provider responses no longer remain pending" }}>
+  ## Bug fixes
+
+If your configured provider does not confirm whether it accepted an email, Sendmux now closes the delivery as failed instead of leaving it pending. Sendmux does not send the email again automatically, preventing a possible duplicate delivery.
+
+</Update>
+
 <Update label="5 August 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Connected account authorisation and navigation counts now stay accurate" }}>
   ## Connected account authorisation
 
