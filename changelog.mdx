@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="7 August 2026" tags={["Bug fixes"]} rss={{ title: "Sending now moves past accounts with rejected sign-in details" }}>
+  ## Bug fixes
+
+If a configured sending account rejects its sign-in details before accepting an email, Sendmux now marks that account as needing attention and tries another eligible account. Each account that rejects authentication is tried at most once for that email.
+
+The rejected attempt releases its reserved sending capacity and credits. Only the account that accepts the email can produce a send charge. If no eligible account remains, the delivery is rejected without a send charge.
+
+</Update>
+
 <Update label="7 August 2026" tags={["Bug fixes"]} rss={{ title: "Connected account sends now stay on the authorised provider connection" }}>
   ## Bug fixes
 
