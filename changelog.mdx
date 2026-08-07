@@ -11,6 +11,10 @@ If a configured sending account rejects its sign-in details before accepting an 
 
 The rejected attempt releases its reserved sending capacity and credits. Only the account that accepts the email can produce a send charge. If no eligible account remains, the delivery is rejected without a send charge.
 
+Connection tests now update account status consistently whether you test one account or several. Accounts with rejected sign-in details show that they need attention, and a successful retest clears the previous connection error without changing whether the account is manually enabled.
+
+The **Accounts** page now refreshes after a background connection test, so the latest status appears without a manual reload.
+
 </Update>
 
 <Update label="7 August 2026" tags={["Bug fixes"]} rss={{ title: "Connected account sends now stay on the authorised provider connection" }}>
