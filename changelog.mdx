@@ -15,6 +15,8 @@ Connection tests now update account status consistently whether you test one acc
 
 The **Accounts** page now refreshes after a background connection test, so the latest status appears without a manual reload.
 
+Large connection tests continue in the background when they take longer than expected. Temporary interruptions while saving a completed result are retried, so closing the progress window does not leave an account pending.
+
 </Update>
 
 <Update label="7 August 2026" tags={["Bug fixes"]} rss={{ title: "Connected account sends now stay on the authorised provider connection" }}>
