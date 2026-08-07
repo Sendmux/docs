@@ -15,7 +15,7 @@ Connection tests now update account status consistently whether you test one acc
 
 The **Accounts** page now refreshes after a background connection test, so the latest status appears without a manual reload.
 
-Large connection tests continue in the background when they take longer than expected. Temporary interruptions while saving a completed result are retried, so closing the progress window does not leave an account pending.
+Large connection tests continue in the background when they take longer than expected. Temporary interruptions while saving a completed result are retried. If a result cannot be saved, the test closes as failed instead of leaving the account pending. Closing the progress window does not stop this work.
 
 </Update>
 
