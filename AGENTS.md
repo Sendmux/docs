@@ -6,6 +6,7 @@
 
 ## About this project
 
+- **Docs-only fast path:** After required local checks, push documentation-only changes directly to `main`; never open a PR or request AI review unless the diff includes executable code or tooling.
 - This is a documentation site built on [Mintlify](https://mintlify.com)
 - Pages are MDX files with YAML frontmatter
 - Configuration lives in `docs.json`
