@@ -4,7 +4,7 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="11 August 2026" tags={["Improvements"]} rss={{ title: "Free team limits and managed sending safeguards" }}>
+<Update label="11 August 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Free team limits and managed sending safeguards" }}>
   ## Free account safeguards
 
 Free accounts can create one team. Within that team, you can add up to one domain, one mailbox, one customer-managed sending account, one webhook, and two active credentials. Team access starts with the owner only. Existing resources remain in place; contact support or request an increase where the option is available if you need more capacity.
@@ -14,6 +14,10 @@ The same Free limits apply when you claim an agent-managed team.
 Creating a team now requires a human-verification check before any sending resources are prepared. Sendmux-managed sending for Free teams is limited to two recipients per hour and 50 per day.
 
 Sendmux-managed sending now pauses when complaints, repeated permanent bounces, or Amazon SES health findings require review. New managed sends are rejected while a team is held, queued messages remain paused, and sending resumes only after administrator review and a fresh healthy status check. Customer-managed sending accounts remain available.
+
+  ## Bug fixes
+
+Team pages now load correctly when they display a recently checked managed-sending status.
 
 </Update>
 
