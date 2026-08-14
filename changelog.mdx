@@ -4,6 +4,17 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="15 August 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Sending account connection tests now protect healthy account status" }}>
+  ## Improvements
+
+Connection tests now pace checks that target the same mail server. Large account pools can continue in the background without opening too many connections at once, and the progress window shows verified, failed, and deferred totals separately.
+
+  ## Bug fixes
+
+A timeout, connection reset, or temporarily busy mail server no longer changes a healthy sending account to an error. Deferred checks keep the account's existing status and can be tried again later. Sendmux also avoids automatically repeating the same connection attempt.
+
+</Update>
+
 <Update label="14 August 2026" tags={["Bug fixes"]} rss={{ title: "Account updates now finish reliably" }}>
   ## Bug fixes
 
