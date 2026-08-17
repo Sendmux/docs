@@ -302,12 +302,12 @@ Run:
 ```bash
 npm run confidentiality:check
 npm run external-links:check
-npx mint validate
-npx mint broken-links
+mint validate
+mint broken-links
 git diff --check main...HEAD
 ```
 
-Expected: every command exits `0`. If `npx mint` cannot run, use the installed `mint` binary with the same subcommands and report any unavailable command without claiming it passed.
+Expected: every command exits `0`. Report an unavailable `mint` command without claiming it passed.
 
 - [ ] **Step 4: Review scope and tracked diff**
 
