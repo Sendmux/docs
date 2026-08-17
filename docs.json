@@ -67,6 +67,49 @@
             ]
           },
           {
+            "group": "AI integrations",
+            "icon": "robot",
+            "pages": [
+              "ai-integrations/agent-access",
+              "ai-integrations/agent-skills",
+              {
+                "group": "MCP",
+                "root": "ai-integrations/mcp/index",
+                "pages": [
+                  {
+                    "group": "Client setup",
+                    "root": "ai-integrations/mcp/clients/index",
+                    "directory": "card",
+                    "pages": [
+                      "ai-integrations/mcp/clients/claude",
+                      "ai-integrations/mcp/clients/claude-code",
+                      "ai-integrations/mcp/clients/cursor",
+                      "ai-integrations/mcp/clients/codex",
+                      "ai-integrations/mcp/clients/chatgpt",
+                      "ai-integrations/mcp/clients/hoot",
+                      "ai-integrations/mcp/clients/gemini-cli",
+                      "ai-integrations/mcp/clients/qwen-code",
+                      "ai-integrations/mcp/clients/kiro",
+                      "ai-integrations/mcp/clients/opencode",
+                      "ai-integrations/mcp/clients/zed",
+                      "ai-integrations/mcp/clients/visual-studio",
+                      "ai-integrations/mcp/clients/vs-code",
+                      "ai-integrations/mcp/clients/windsurf-cascade",
+                      "ai-integrations/mcp/clients/cline",
+                      "ai-integrations/mcp/clients/roo-code",
+                      "ai-integrations/mcp/clients/warp",
+                      "ai-integrations/mcp/clients/jetbrains-ai-assistant",
+                      "ai-integrations/mcp/clients/continue",
+                      "ai-integrations/mcp/clients/lm-studio",
+                      "ai-integrations/mcp/clients/github-copilot-cli",
+                      "ai-integrations/mcp/clients/github-copilot-coding-agent"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "group": "Sending",
             "icon": "paper-plane",
             "pages": [
@@ -132,49 +175,6 @@
               {
                 "group": "Email Marketing",
                 "pages": ["integrations/email-marketing/mailwizz"]
-              }
-            ]
-          },
-          {
-            "group": "AI integrations",
-            "icon": "robot",
-            "pages": [
-              "ai-integrations/agent-access",
-              "ai-integrations/agent-skills",
-              {
-                "group": "MCP",
-                "root": "ai-integrations/mcp/index",
-                "pages": [
-                  {
-                    "group": "Client setup",
-                    "root": "ai-integrations/mcp/clients/index",
-                    "directory": "card",
-                    "pages": [
-                      "ai-integrations/mcp/clients/claude",
-                      "ai-integrations/mcp/clients/claude-code",
-                      "ai-integrations/mcp/clients/cursor",
-                      "ai-integrations/mcp/clients/codex",
-                      "ai-integrations/mcp/clients/chatgpt",
-                      "ai-integrations/mcp/clients/hoot",
-                      "ai-integrations/mcp/clients/gemini-cli",
-                      "ai-integrations/mcp/clients/qwen-code",
-                      "ai-integrations/mcp/clients/kiro",
-                      "ai-integrations/mcp/clients/opencode",
-                      "ai-integrations/mcp/clients/zed",
-                      "ai-integrations/mcp/clients/visual-studio",
-                      "ai-integrations/mcp/clients/vs-code",
-                      "ai-integrations/mcp/clients/windsurf-cascade",
-                      "ai-integrations/mcp/clients/cline",
-                      "ai-integrations/mcp/clients/roo-code",
-                      "ai-integrations/mcp/clients/warp",
-                      "ai-integrations/mcp/clients/jetbrains-ai-assistant",
-                      "ai-integrations/mcp/clients/continue",
-                      "ai-integrations/mcp/clients/lm-studio",
-                      "ai-integrations/mcp/clients/github-copilot-cli",
-                      "ai-integrations/mcp/clients/github-copilot-coding-agent"
-                    ]
-                  }
-                ]
               }
             ]
           },

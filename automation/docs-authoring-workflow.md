@@ -35,10 +35,11 @@ Use these placement tests:
 
 Audit sequence as well as placement whenever a top-level group is added, moved, renamed, or materially changed:
 
-- Order groups by the reader journey, not by when content was added.
+- Order groups by the reader journey and primary audience, not by when content was added.
+- Put primary-audience workflows immediately after implementation tools.
 - Keep paired core workflows adjacent.
 - Put required prerequisites before the task they unblock; optional configuration may follow the core workflow.
-- Keep operational guidance after the workflows it observes, then use cases and integrations, with administration last.
+- Keep operational guidance after the workflows it observes, then use cases and general integrations, with administration last.
 
 When one option clearly passes every test, you may keep, move, split, merge, or create a group inside an existing tab without another approval. Adding, removing, renaming, or redefining a top-level tab is an information-architecture decision for the operator.
 
