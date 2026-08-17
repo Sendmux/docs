@@ -1,0 +1,85 @@
+---
+title: "VS Code MCP setup"
+description: "Configure Sendmux MCP in VS Code."
+keywords: ["VS Code","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Local stdio
+
+Install the local package once:
+
+```bash
+pip install sendmux-mcp
+```
+
+Use a mailbox key for Mailbox or Sending:
+
+```bash
+export SENDMUX_MBX_KEY=smx_mbx_...
+```
+
+Use a root key for Management:
+
+```bash
+export SENDMUX_ROOT_KEY=smx_root_...
+```
+
+Use an input variable so the key is not stored directly in `.vscode/mcp.json`.
+
+```json
+{
+  "servers": {
+    "sendmux-mailbox": {
+      "type": "stdio",
+      "command": "sendmux-mcp-mailbox",
+      "env": {
+        "SENDMUX_API_KEY": "${input:sendmux-mailbox-key}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "sendmux-mailbox-key",
+      "description": "Sendmux mailbox API key",
+      "password": true
+    }
+  ]
+}
+```
+
+## Private HTTP
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+```json
+{
+  "servers": {
+    "sendmux-local": {
+      "type": "http",
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:sendmux-mcp-token}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "sendmux-mcp-token",
+      "description": "Sendmux local MCP bearer token",
+      "password": true
+    }
+  ]
+}
+```

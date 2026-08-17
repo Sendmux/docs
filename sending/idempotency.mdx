@@ -1,0 +1,74 @@
+---
+title: "Idempotency"
+description: "Use the Idempotency-Key header to make mutating requests safe to retry."
+keywords:
+  [
+    "idempotency",
+    "Idempotency-Key",
+    "retries",
+    "duplicate prevention",
+    "request replay",
+  ]
+---
+
+Network timeouts and client retries can send the same request more than once. `Idempotency-Key` lets Sendmux return the first result instead of running the operation again.
+
+## How it works
+
+<Steps>
+  <Step title="Send a stable key">
+    Add `Idempotency-Key` to the original mutating request. Use a value that
+    identifies the logical action, such as an order or invoice ID.
+  </Step>
+  <Step title="Retry with the same body">
+    If the same key and body arrive again within 24 hours, Sendmux returns the
+    original response.
+  </Step>
+  <Step title="Handle conflicts">
+    If the same key arrives with a different body, or while the first request is
+    still running, Sendmux returns `409 idempotency_conflict`.
+  </Step>
+</Steps>
+
+## Example
+
+```bash
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: order-confirmation-12345" \
+  -d '{
+    "from": { "email": "hello@example.com" },
+    "to": { "email": "user@example.com" },
+    "subject": "Order confirmation #12345",
+    "html_body": "<p>Your order has been confirmed.</p>"
+  }'
+```
+
+## Where it applies
+
+Use the header on mutating endpoints such as sending email, creating domains, creating mailboxes, suspending or resuming mailboxes, creating mailbox keys, creating sending accounts, activating or deactivating sending accounts, requesting sending-account limit increases, creating webhooks, rotating webhook secrets, and sending webhook test events.
+
+`GET` endpoints do not need it. Update and delete requests use their documented concurrency controls instead.
+
+## Key rules
+
+- Keep keys between 1 and 255 characters.
+- Reuse the same key for retries of the same operation.
+- Do not generate a new random key for each retry.
+- Do not put idempotency keys in the JSON body.
+- Treat `409 idempotency_conflict` on an in-flight request as retryable after a short wait.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/sending/http">
+    Use idempotency with single and batch sends.
+  </Card>
+  <Card title="Sending errors" icon="triangle-alert" href="/sending-api/errors#idempotency_conflict">
+    Handle conflicts from single and batch sends.
+  </Card>
+  <Card title="Management API errors" icon="triangle-alert" href="/api/errors#idempotency_conflict">
+    Handle conflicts from management requests.
+  </Card>
+</Columns>

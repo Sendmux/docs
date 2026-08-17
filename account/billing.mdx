@@ -1,0 +1,100 @@
+---
+title: "Billing"
+description: "Top up team balance, configure auto top-up, set low-balance alerts, and review transactions."
+keywords:
+  [
+    "billing",
+    "top-up",
+    "auto top-up",
+    "low-balance alerts",
+    "transactions",
+    "balance",
+  ]
+---
+
+Billing is team-scoped. Sendmux uses the team balance for paid email activity and records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
+
+## Email usage
+
+Sendmux charges email usage from the team balance.
+
+| Activity | Rate |
+| --- | --- |
+| Standard outgoing mail through your own providers | `$0.15 / 1,000 provider-accepted recipient occurrences` |
+| Outgoing mail through the managed Amazon SES route | `$0.25 / 1,000 provider-accepted recipient occurrences` |
+| Accepted inbound mail | `$0.15 / 1,000 emails` |
+
+For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is billed. Addresses rejected before provider acceptance are not charged.
+
+If the same address appears in more than one recipient field, each provider-accepted occurrence is billed separately.
+
+Inbound usage is counted when a message is accepted into a mailbox. Mail rejected by mailbox allow or block rules is not billed.
+
+Usage transactions can be grouped, so the transaction table may show one **Incoming email usage** line for several received messages in a short period.
+
+## Balance
+
+The Billing page shows current balance, purchased amount over the last 30 days, and consumed amount over the last 30 days.
+
+If balance is too low, sending requests can fail with `insufficient_credits`. Top up before retrying.
+
+## Manual top-up
+
+Choose a top-up amount, then complete checkout. Supported amounts are:
+
+```text
+$20, $50, $100, $250, $500, $1,000, $2,500, $5,000
+```
+
+The balance updates after the purchase completes.
+
+## Auto top-up
+
+Auto top-up adds balance when your team drops below a threshold.
+
+| Setting | Options |
+| --- | --- |
+| Balance threshold | $50, $100, $200, $500 |
+| Top-up amount | $100, $200, $500, $1,000, $2,000 |
+| Monthly limit | $500, $1,000, $2,000, $5,000, $10,000 |
+
+Use a monthly limit that covers expected usage but still caps unexpected spend.
+
+## Low-balance alerts
+
+Low-balance alerts email you when team balance drops below the selected threshold.
+
+```text
+$5, $10, $25, $50, $100, $250
+```
+
+Alerts are sent at most once every 24 hours for the same team and user.
+
+## Transactions
+
+The transaction table shows balance movements with type, amount, date, and description. Use it to reconcile purchases, auto top-ups, usage, refunds, and manual adjustments.
+
+## API access
+
+Use the Management API to read balance, summary, and transaction history from your own reporting tools.
+
+<Card title="Management API" icon="book-open" href="/api/introduction">
+  Open the generated Billing endpoint reference.
+</Card>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/sending/http">
+    Handle `insufficient_credits` on sending requests.
+  </Card>
+  <Card title="Team limits" icon="gauge" href="/account/team-limits">
+    See which limits are separate from balance.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/mailboxes">
+    Use sender rules to reject unwanted inbound mail before it is billed.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create keys for billing reporting.
+  </Card>
+</Columns>

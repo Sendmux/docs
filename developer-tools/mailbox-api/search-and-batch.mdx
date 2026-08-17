@@ -1,0 +1,280 @@
+---
+title: "Search and batch mailbox messages"
+description: "Filter, count, search, retrieve, update, and delete mailbox messages in batches."
+keywords: ["message search","batch messages","mailbox filters","message count"]
+---
+
+The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+
+## Retrieval precision APIs
+
+Use exact retrieval and count endpoints when you already know what you need.
+This keeps client payloads small and avoids fetching message bodies just to
+answer count or search-preview questions.
+
+### Rich message filters
+
+`GET /mailbox/messages` and `GET /mailbox/messages/count` support these
+filters. `GET /mailbox/messages/search-snippets` and
+`GET /mailbox/messages/query-changes` support the same filters except
+`thread_id`; pass `message_ids` when you already know the exact messages to
+snippet.
+
+| Parameter        | Purpose                                                        |
+| ---------------- | -------------------------------------------------------------- |
+| `folder_id`      | Restrict results to one folder.                                |
+| `thread_id`      | Restrict list/count to one thread. Not supported for snippets. |
+| `q`              | Search common address, subject, and body text.                 |
+| `from`           | Search the From header.                                        |
+| `to`             | Search the To header.                                          |
+| `cc`             | Search the Cc header.                                          |
+| `bcc`            | Search the Bcc header.                                         |
+| `subject`        | Search subject text.                                           |
+| `body`           | Search body text.                                              |
+| `header_name`    | Match messages with a specific header.                         |
+| `header_value`   | Match text inside `header_name`.                               |
+| `min_size_bytes` | Match messages at least this many bytes.                       |
+| `max_size_bytes` | Match messages smaller than this many bytes.                   |
+| `keyword`        | Match messages with a keyword, such as `$seen`.                |
+| `not_keyword`    | Match messages without a keyword.                              |
+| `after`          | Match messages received at or after this timestamp.            |
+| `before`         | Match messages received before this timestamp.                 |
+| `has_attachment` | Match messages with or without attachments.                    |
+| `is_unread`      | Match unread or read messages.                                 |
+
+<Note>
+  `thread_id` uses the thread's message order and cannot be combined with other
+  message filters. Use the thread content endpoint when you need cleaned bodies
+  for one conversation.
+</Note>
+
+### Count messages
+
+Use the count endpoint when you only need the number of matches.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/count?body=invoice&after=2026-05-01T00:00:00Z" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "total": 12,
+    "sync_state": "state_token"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+### Search snippets
+
+Use snippets to decide which matching messages deserve a full fetch. Snippets
+may include `<mark>` tags around matched terms.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/search-snippets?q=invoice&limit=5" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "snippets": [
+      {
+        "message_id": "msg_123",
+        "subject": "Question about <mark>invoice</mark>",
+        "preview": "Can you resend the <mark>invoice</mark> for April?"
+      }
+    ],
+    "not_found": [],
+    "sync_state": "state_token"
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Pass `message_ids` as a comma-separated list when you already have exact
+messages:
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/search-snippets?q=invoice&message_ids=msg_123,msg_456" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+### Batch get messages
+
+Use batch get when you have exact IDs and want one request instead of one call
+per message.
+
+```bash
+curl https://app.sendmux.ai/api/v1/mailbox/messages:batch-get \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ids": ["msg_123", "msg_456"],
+    "body_mode": "clean_json",
+    "part": "text",
+    "max_body_chars": 50000,
+    "strip_signature": true,
+    "strip_quotes": true,
+    "include_links": true,
+    "include_html": false,
+    "include_headers": "selected",
+    "include_attachments": "metadata"
+  }'
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "messages": [
+      {
+        "message": {
+          "id": "msg_123",
+          "thread_id": "thr_123",
+          "subject": "Invoice question",
+          "preview": "Can you resend the invoice?",
+          "has_attachments": true
+        },
+        "raw_body": null,
+        "content": {
+          "id": "msg_123",
+          "thread_id": "thr_123",
+          "subject": "Invoice question",
+          "body": {
+            "format": "text",
+            "text": "Can you resend the invoice?",
+            "html": null,
+            "is_truncated": false,
+            "truncated_at_chars": null,
+            "signature_stripped": false,
+            "quotes_stripped": false,
+            "extracted_links": []
+          },
+          "attachments": [
+            {
+              "id": "att_123",
+              "filename": "invoice.pdf",
+              "content_type": "application/pdf",
+              "size_bytes": 12345,
+              "disposition": "attachment",
+              "content_id": null,
+              "download_url": "/api/v1/mailbox/messages/msg_123/attachment-downloads/attref_abc123?download_token=..."
+            }
+          ]
+        }
+      }
+    ],
+    "not_found": [],
+    "states": {
+      "email_state": "state_token"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Batch body modes:
+
+| `body_mode`  | Output                                                                      |
+| ------------ | --------------------------------------------------------------------------- |
+| `none`       | Message summaries only.                                                     |
+| `raw`        | Message summaries plus `raw_body`. Supports `part=text`, `html`, or `both`. |
+| `clean_json` | Message summaries plus `content`. Supports the clean controls below.        |
+
+### Batch update messages
+
+Use batch update to set allowed flags and keywords on up to 100 messages in one
+state-safe request. `keywords` is a map where `true` sets a keyword and `false`
+clears it. Keyword names are normalised to lowercase. Lifecycle keywords such
+as `$draft` are read-only.
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-update \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ids": ["msg_123", "msg_456"],
+    "seen": true,
+    "keywords": {
+      "agent_triaged": true,
+      "needs_reply": false
+    },
+    "if_in_state": "message_state_token"
+  }'
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "updated": ["msg_123", "msg_456"],
+    "not_found": [],
+    "failed": [],
+    "states": {
+      "old_state": "message_state_token",
+      "new_state": "message_state_token_2"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+### Batch delete messages
+
+Use batch delete to move up to 100 messages to Trash. Set `permanent=true` only
+when the messages should be permanently removed.
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-delete \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ids": ["msg_123", "msg_456"],
+    "permanent": false,
+    "if_in_state": "message_state_token"
+  }'
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "deleted": ["msg_123", "msg_456"],
+    "not_found": [],
+    "failed": [],
+    "states": {
+      "old_state": "message_state_token",
+      "new_state": "message_state_token_2"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+<Note>
+  Batch update and delete accept `if_in_state` for stale-write protection. Use
+  the latest message state from message lists, detail reads, batch reads, or
+  change endpoints.
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox API introduction" icon="book-open" href="/mailbox-api/introduction"></Card>
+  <Card title="Message content" icon="file-text" href="/developer-tools/mailbox-api/message-content"></Card>
+</Columns>

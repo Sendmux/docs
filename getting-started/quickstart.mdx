@@ -1,0 +1,99 @@
+---
+title: "Quickstart"
+description: "Create a team, add a mailbox, send a test email, and watch the result in Sendmux."
+keywords:
+  [
+    "quickstart",
+    "getting started",
+    "first email",
+    "mailbox",
+    "send email",
+    "delivery logs",
+    "webhooks",
+  ]
+---
+
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
+This guide gets a new team to its first tracked email. Use the shared domain for a fast test, or add your own domain first if you want a branded sender.
+
+<Info>
+  Sign in at [app.sendmux.ai](https://app.sendmux.ai) before you start. You need
+  a team with access to sending and receiving settings.
+</Info>
+
+<SharedSesPolicy />
+
+## What you will set up
+
+- A team workspace.
+- A mailbox with a one-time password.
+- A test message sent through the Sending API.
+- A delivery log entry you can search and export.
+- Optional webhooks for delivery events.
+
+<Steps>
+  <Step title="Create or choose a team">
+    Open **Teams**, then create a team or choose an existing one. Team roles decide which pages and actions you can use.
+
+    See [Teams and access](/account/teams-and-access) if you need to invite someone or change roles.
+  </Step>
+
+  <Step title="Create a mailbox">
+    Open **Mailboxes** and select **Create mailbox**.
+
+    Pick a verified sending & receiving custom domain, or use the shared `myagent.mx` domain for a quick test. Choose a storage quota, then create the mailbox.
+
+    Sendmux shows the first mailbox password once. Store it now. You can create more mailbox passwords later, but you cannot reveal an old password again.
+
+    See [Mailboxes](/mailboxes) for sender identity, storage, and sender rules.
+  </Step>
+
+  <Step title="Send a test email">
+    Use the mailbox password as the bearer token for the Sending API.
+
+    ```bash
+    curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+      -H "Authorization: Bearer smx_mbx_your_key_here" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "from": { "email": "hello@myagent.mx", "name": "Your App" },
+        "to": { "email": "you@example.com", "name": "Your Name" },
+        "subject": "Hello from Sendmux",
+        "html_body": "<p>It works.</p>",
+        "text_body": "It works."
+      }'
+    ```
+
+    A successful response returns `200 OK` with an `eml_` message ID.
+  </Step>
+
+  <Step title="Check delivery">
+    Open **Logs** and search for the `eml_` message ID. Logs show sender, recipient, status, provider, attempts, and timestamp.
+
+    Use **Export CSV** when you need a filtered copy of the log data.
+  </Step>
+
+  <Step title="Add a webhook">
+    Open **Webhooks** and create a subscription if your application needs delivery events.
+
+    Copy the signing secret when it appears. Sendmux will not show it again. Always verify webhook signatures before processing events.
+  </Step>
+</Steps>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Domains" icon="globe" href="/domains">
+    Verify a custom domain for sending only, or for sending & receiving.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create scoped keys for sending, monitoring, and automation.
+  </Card>
+  <Card title="Delivery logs" icon="scroll-text" href="/monitoring/dashboard-logs">
+    Search, filter, refresh, and export delivery activity.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks/setup">
+    Receive signed events for deliveries and inbound mail.
+  </Card>
+</Columns>

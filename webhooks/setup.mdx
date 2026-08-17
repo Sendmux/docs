@@ -1,0 +1,101 @@
+---
+title: "Webhooks setup"
+description: "Subscribe to Sendmux events, verify signatures, and review delivery attempts."
+keywords: ["webhooks", "events", "signatures", "HMAC", "retries", "rotation"]
+---
+
+Webhooks POST events to your HTTPS endpoint when mail is delivered, rejected, bounced, complained about, or received by a mailbox.
+
+<Note>
+  Each team starts with **10 webhooks**. See [Team
+  limits](/account/team-limits).
+</Note>
+
+## Webhooks or realtime events
+
+Use webhooks when your backend should receive signed event POSTs, even while your app is offline. Use the [Mailbox API event stream](/mailbox-api/introduction#event-stream) when a mailbox client can keep a live Server-Sent Events connection open and needs immediate received-message updates.
+
+## Create a webhook
+
+<Steps>
+  <Step title="Open Webhooks">
+    Open **Webhooks** in the team workspace and select **Create webhook**.
+  </Step>
+  <Step title="Enter the endpoint">
+    Add a name, an HTTPS URL, and the event types you want to receive.
+  </Step>
+  <Step title="Choose filters">
+    Keep the webhook team-wide, or scope it to selected mailboxes.
+  </Step>
+  <Step title="Store the secret">
+    Copy the signing secret when it appears. It is shown once.
+  </Step>
+</Steps>
+
+## Process events
+
+Every delivery includes a JSON body and headers that identify the event.
+
+| Header | Use |
+| --- | --- |
+| `X-Sendmux-Signature` | Verify the payload with the webhook secret. |
+| `X-Sendmux-Event-Id` | Dedupe retries for the same event. |
+| `X-Sendmux-Event-Type` | Route the event in your application. |
+| `X-Sendmux-Delivery-Attempt` | Track retry attempts. |
+
+Verify the signature before acting on an event. See [Verify webhook signatures](/webhooks/verify-signatures).
+
+## Event types
+
+| Event type | When it fires |
+| --- | --- |
+| `message.delivered` | A recipient system accepted the message. |
+| `message.bounced` | A message bounced. |
+| `message.complained` | A recipient marked a message as spam. |
+| `message.rejected` | The sending system rejected the message before delivery. |
+| `message.delivery_delayed` | Delivery is delayed and still being retried. |
+| `message.received` | A mailbox received an inbound message. |
+| `message.received.spam` | A mailbox received an inbound message classified as spam. |
+| `sendmux.test` | A synthetic event for testing a webhook. |
+
+## Retries
+
+Your endpoint should return `2xx` quickly. Non-`2xx` responses and timeouts are retried across a 24-hour window.
+
+After the final failed attempt, Sendmux marks the webhook as failing and emails the team owner. Fix the endpoint, then disable and re-enable the webhook to resume delivery.
+
+## Review deliveries
+
+Open a webhook to review recent attempts, response status, latency, retry state, and retained payload availability. Delivery metadata and retained payloads are kept for 7 days.
+
+Use **Rotate secret** if a signing secret may have leaked. The new secret is shown once and is used for future deliveries.
+
+Use **Send test** to publish a `sendmux.test` event. Add `sendmux.test` to the webhook event list before testing.
+
+## API access
+
+Use the Management API when you need to create webhooks, list attempts, fetch retained payloads, rotate secrets, or send test events from your own tooling.
+
+<Card title="Management API" icon="book-open" href="/api/introduction">
+  Open the generated Webhooks endpoint reference.
+</Card>
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Verify signatures" icon="shield-check" href="/webhooks/verify-signatures">
+    Check webhook payloads before processing events.
+  </Card>
+  <Card title="Webhook replay" icon="rotate-ccw" href="/webhooks/replay">
+    See the coming-soon replay action.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/mailboxes">
+    Receive inbound mailbox events.
+  </Card>
+  <Card title="Mailbox API events" icon="radio" href="/mailbox-api/introduction#event-stream">
+    Stream live mailbox events with a mailbox key.
+  </Card>
+  <Card title="Delivery logs" icon="scroll-text" href="/monitoring/dashboard-logs">
+    Compare webhook events with delivery logs.
+  </Card>
+</Columns>

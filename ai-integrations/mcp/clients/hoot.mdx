@@ -1,0 +1,25 @@
+---
+title: "Hoot MCP setup"
+description: "Configure Sendmux MCP in Hoot."
+keywords: ["Hoot","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Hosted OAuth
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+Add a server with these settings:
+
+| Setting | Value |
+| --- | --- |
+| URL | `https://mcp.sendmux.ai/mcp` |
+| Transport | HTTP |
+| Authentication | OAuth |
+
+Leave the access token, custom OAuth endpoints, headers, client ID, and custom scopes empty unless Hoot adds a dedicated field for them.

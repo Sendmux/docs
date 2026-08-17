@@ -1,0 +1,81 @@
+---
+title: "Mailbox API attachments"
+description: "Upload outbound mailbox attachments and download attachments from received messages."
+keywords: ["mailbox attachments","attachment upload","attachment download","blob ID"]
+---
+
+The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+
+## Attachments
+
+Use `POST /mailbox/attachments:upload` for binary files up to 7.5 MB. Send the
+raw bytes in the request body, then pass the returned `blob_id` to
+`POST /mailbox/messages/send`. Final outbound messages, including bodies,
+headers, and encoded attachments, must fit inside the 25 MB raw message limit.
+
+```bash
+curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/pdf" \
+  --data-binary "@invoice.pdf"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "blob_id": "blob_123",
+    "filename": "invoice.pdf",
+    "content_type": "application/pdf",
+    "size_bytes": 12345
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Then send the uploaded attachment by ID:
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages/send \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": [{ "email": "customer@example.com" }],
+    "subject": "Invoice",
+    "text_body": "Attached is your invoice.",
+    "attachments": [
+      {
+        "filename": "invoice.pdf",
+        "content_type": "application/pdf",
+        "blob_id": "blob_123"
+      }
+    ]
+  }'
+```
+
+Small inline base64 attachments are still supported on `messages/send`, but the
+upload endpoint avoids large JSON request bodies.
+
+Message metadata can include a short-lived `download_url` for clients that need
+a no-header download link. Fetch it promptly without an `Authorization` header.
+If it expires, re-read message or attachment metadata to receive a fresh URL.
+MCP clients should prefer `mailbox_read_attachment` for text-like inbound
+attachments and use the returned link only for binary or oversized files.
+
+Attachment downloads support byte ranges:
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Range: bytes=0-1048575" \
+  --output invoice.part
+```
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox API introduction" icon="book-open" href="/mailbox-api/introduction"></Card>
+  <Card title="Synchronisation" icon="refresh-cw" href="/developer-tools/mailbox-api/sync"></Card>
+</Columns>

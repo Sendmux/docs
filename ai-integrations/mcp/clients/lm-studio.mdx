@@ -1,0 +1,34 @@
+---
+title: "LM Studio MCP setup"
+description: "Configure Sendmux MCP in LM Studio."
+keywords: ["LM Studio","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Private HTTP
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+LM Studio follows Cursor's `mcp.json` notation. Open **Program** > **Install** > **Edit mcp.json** and add:
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      }
+    }
+  }
+}
+```

@@ -1,0 +1,91 @@
+---
+title: "Mailbox threads"
+description: "List and read Mailbox API conversation threads and their messages."
+keywords: ["mailbox threads","conversation threads","thread messages","Mailbox API"]
+---
+
+The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+
+## Thread APIs
+
+Use thread endpoints when you need conversation-level context without fetching
+every body.
+
+### List threads
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/threads?q=invoice&participant=sender@example.com&folder_id=inbox&is_unread=true&limit=10" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "thr_123",
+      "subject": "Invoice question",
+      "message_count": 2,
+      "unread_count": 1,
+      "has_attachments": true,
+      "folder_ids": ["inbox"],
+      "participants": [
+        { "email": "sender@example.com", "name": "Sender" },
+        { "email": "agent@example.com", "name": "Agent" }
+      ],
+      "last_message": {
+        "id": "msg_456",
+        "thread_id": "thr_123",
+        "subject": "Re: Invoice question",
+        "preview": "Thanks, I found it.",
+        "has_attachments": false
+      },
+      "states": {
+        "thread_state": "thread_state_token",
+        "email_state": "message_state_token"
+      }
+    }
+  ],
+  "pagination": {
+    "has_more": false
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "query_state": "thread_query_state_token"
+  }
+}
+```
+
+Thread list filters:
+
+| Parameter        | Purpose                                            |
+| ---------------- | -------------------------------------------------- |
+| `q`              | Search common address, subject, and body text.     |
+| `participant`    | Match sender or recipient addresses.               |
+| `folder_id`      | Restrict results to one folder.                    |
+| `is_unread`      | Match unread or read threads.                      |
+| `has_attachment` | Match threads with or without attachment metadata. |
+| `after`          | Match threads with messages at or after this time. |
+| `before`         | Match threads with messages before this time.      |
+| `cursor`         | Continue from a previous page.                     |
+| `limit`          | Return `1` to `100` threads.                       |
+| `sort_direction` | Sort by most recent message, `desc` or `asc`.      |
+
+### Read a thread
+
+```bash
+curl https://app.sendmux.ai/api/v1/mailbox/threads/thr_123 \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+The response includes the same thread metadata as the list endpoint plus
+`message_ids` in chronological order. Use
+`GET /mailbox/threads/{thread_id}/messages` for paginated message summaries, or
+`GET /mailbox/threads/{thread_id}/content` when you need cleaned bodies.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox API introduction" icon="book-open" href="/mailbox-api/introduction"></Card>
+  <Card title="Search and batch operations" icon="search" href="/developer-tools/mailbox-api/search-and-batch"></Card>
+</Columns>

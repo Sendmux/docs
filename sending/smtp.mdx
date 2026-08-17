@@ -1,0 +1,68 @@
+---
+title: "Sending via SMTP"
+description: "Connect an SMTP-compatible app or mail client to Sendmux."
+keywords: ["SMTP", "STARTTLS", "TLS", "port 587", "port 2525", "relay"]
+---
+
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
+Use SMTP when an existing application, plugin, or mail client already supports SMTP delivery.
+
+<Info>
+  The SMTP password is your `smx_mbx_` send-only key, mailbox password, or owner-approved Sending-resource `smx_agent_` token.
+  Routing still follows that key or mailbox scope.
+</Info>
+
+<SharedSesPolicy />
+
+## Connection details
+
+| Setting | Value |
+| --- | --- |
+| **Host** | `smtp.sendmux.ai` |
+| **Port** | `587` with STARTTLS, or `2525` with STARTTLS |
+| **Username** | Any value, such as `smtpuser` |
+| **Password** | Your `smx_mbx_` send-only key, mailbox password, or owner-approved Sending-resource `smx_agent_` token |
+| **Authentication** | `LOGIN` or `PLAIN` |
+
+## Test with swaks
+
+```bash
+swaks --to user@example.com \
+  --from hello@example.com \
+  --server smtp.sendmux.ai:587 \
+  --auth LOGIN \
+  --auth-user smtpuser \
+  --auth-password "smx_mbx_your_key_here" \
+  --tls \
+  --header "Subject: Test email" \
+  --body "Hello from Sendmux"
+```
+
+## SMTP vs HTTP
+
+| Need | Use |
+| --- | --- |
+| Existing SMTP-only tool | SMTP |
+| New application integration | HTTP API |
+| Batch sending | HTTP API |
+| Built-in retry protection | HTTP API |
+| Native MIME message handling | SMTP |
+
+## What happens next
+
+Successful SMTP sends appear in **Logs** like HTTP sends. Use the message ID, sender, recipient, status, provider, and timestamp to trace delivery.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/sending/http">
+    Use the API for new integrations and batch sends.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create the credentials used as SMTP passwords.
+  </Card>
+  <Card title="Delivery logs" icon="scroll-text" href="/monitoring/dashboard-logs">
+    Search and export SMTP delivery results.
+  </Card>
+</Columns>

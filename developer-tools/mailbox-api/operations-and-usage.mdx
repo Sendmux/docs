@@ -1,0 +1,158 @@
+---
+title: "Mailbox operations and usage"
+description: "Work with sender identities, send submissions, quotas, and mailbox usage."
+keywords: ["sender identities","send submissions","mailbox quotas","mailbox usage"]
+---
+
+The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+
+## Operational resources
+
+Operational endpoints expose what an agent needs to send safely and monitor
+mailbox health without adding mutation authority.
+
+### Sender identities
+
+Use `GET /mailbox/identity` to read the mailbox's default sender name and
+signatures. Use `PATCH /mailbox/identity` to update `name`,
+`text_signature`, and `html_signature`.
+Mailbox API sends use this sender name by default and append the matching
+plain text or HTML signature when the send body includes that format.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/identity" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```bash
+curl -X PATCH "https://app.sendmux.ai/api/v1/mailbox/identity" \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Support",
+    "text_signature": "Regards",
+    "html_signature": "<p>Regards</p>"
+  }'
+```
+
+`GET /mailbox/identities` lists all sender identities available to the
+authenticated mailbox.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/identities" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "id_123",
+      "name": "Support",
+      "email": "support@example.com",
+      "reply_to": [],
+      "bcc": [],
+      "text_signature": "Regards",
+      "html_signature": "<p>Regards</p>",
+      "may_delete": false
+    }
+  ],
+  "pagination": {
+    "has_more": false
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "identity_state": "identity_state_token"
+  }
+}
+```
+
+### Send submissions
+
+Use submissions to inspect queued, sent, failed, or cancelled send lifecycle
+records separately from the `messages/send` request that created them.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/submissions?email_ids=msg_123&limit=10" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+Useful filters:
+
+| Parameter        | Purpose                                        |
+| ---------------- | ---------------------------------------------- |
+| `identity_ids`   | Comma-separated identity IDs.                  |
+| `email_ids`      | Comma-separated message IDs.                   |
+| `thread_ids`     | Comma-separated thread IDs.                    |
+| `undo_status`    | Match a specific submission undo state.        |
+| `after`          | Match submissions sent at or after this time.  |
+| `before`         | Match submissions sent before this time.       |
+| `cursor`         | Continue from a previous page.                 |
+| `limit`          | Return `1` to `100` submissions.               |
+| `sort_by`        | Sort by `send_at`, `email_id`, or `thread_id`. |
+| `sort_direction` | Sort `asc` or `desc`.                          |
+
+Read one submission with `GET /mailbox/submissions/{submission_id}`. Poll
+`GET /mailbox/submissions/changes?since_state=...` to sync submission object
+changes.
+
+### Quotas and usage
+
+Use quotas for detailed limits and `usage` for a compact health view.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/usage" \
+  -H "Authorization: Bearer smx_mbx_your_key_here"
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "resources": [
+      {
+        "quota_id": "quota_123",
+        "name": "Mailbox storage",
+        "resource_type": "octets",
+        "scope": "account",
+        "types": ["Mail"],
+        "used": 536870912,
+        "hard_limit": 1073741824,
+        "warn_limit": 858993459,
+        "soft_limit": null,
+        "percent_used": 50,
+        "limit_status": "ok"
+      }
+    ],
+    "states": {
+      "quota_state": "quota_state_token"
+    }
+  },
+  "meta": {
+    "request_id": "req_clxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
+```
+
+Quota filters:
+
+| Parameter        | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| `name`           | Match quota name text.                   |
+| `scope`          | Match `account`, `domain`, or `global`.  |
+| `resource_type`  | Match `count` or `octets`.               |
+| `type`           | Match a resource family, such as `Mail`. |
+| `cursor`         | Continue from a previous page.           |
+| `limit`          | Return `1` to `100` quotas.              |
+| `sort_by`        | Sort by `name` or `used`.                |
+| `sort_direction` | Sort `asc` or `desc`.                    |
+
+Poll `GET /mailbox/quotas/changes?since_state=...` to sync quota changes.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox API introduction" icon="book-open" href="/mailbox-api/introduction"></Card>
+  <Card title="Threads" icon="messages-square" href="/developer-tools/mailbox-api/threads"></Card>
+</Columns>

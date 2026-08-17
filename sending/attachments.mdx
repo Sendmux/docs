@@ -1,0 +1,168 @@
+---
+title: "Attachments"
+description: "Send, upload, and download attachments with Sendmux."
+keywords: ["attachments", "file uploads", "file downloads", "base64", "MIME types", "size limits"]
+---
+
+For the Sending API, upload file bytes first and send by `attachment_id`. Inline base64 attachments remain supported for small generated content and older integrations, but uploaded refs are the preferred path for normal files. Direct and delegated binary uploads require the exact `Content-Length`; Sendmux SDK and CLI file helpers calculate it from the local file.
+
+## Limits
+
+| Limit | Value |
+| --- | --- |
+| Attachments per email | 10 |
+| Sending API binary upload | 18 MiB |
+| Final sent message | 25 MB |
+| Mailbox upload attachment | 7,500,000 bytes |
+
+Base64 content counts towards the request body size and increases payload size. Upload refs avoid that overhead, but the final encoded email must still fit within the 25 MB message limit.
+
+Mailbox attachment uploads are available for mailbox send workflows that need to upload a file first and then reference the returned blob ID when sending. Direct mailbox uploads and presigned mailbox uploads use the same per-attachment cap.
+
+## Upload before sending with the Sending API
+
+Upload bytes directly when your client has the API key:
+
+```bash
+SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
+ATTACHMENT_ID="$(
+  curl -sS -X POST "https://smtp.sendmux.ai/api/v1/emails/attachments?filename=invoice.pdf" \
+    -H "Authorization: Bearer smx_mbx_your_key_here" \
+    -H "Content-Type: application/pdf" \
+    -H "Content-Length: $SIZE_BYTES" \
+    --data-binary @invoice.pdf \
+  | jq -r '.data.attachment_id'
+)"
+```
+
+Then reference it from `POST /emails/send` or `POST /emails/send/batch`:
+
+```json
+{
+  "from": { "email": "hello@example.com" },
+  "to": { "email": "user@example.com" },
+  "subject": "Invoice attached",
+  "html_body": "<p>Please find your invoice attached.</p>",
+  "attachments": [{ "attachment_id": "att_tz4a98xxat96iws9zmbrgj3a" }]
+}
+```
+
+## Delegated uploads
+
+Use a delegated upload when a browser, hosted agent, or another remote client needs to upload bytes without seeing your API key.
+
+```bash
+SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
+SHA256="$(shasum -a 256 invoice.pdf | awk '{print $1}')"
+
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/attachment-uploads \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"filename\": \"invoice.pdf\",
+    \"content_type\": \"application/pdf\",
+    \"size_bytes\": $SIZE_BYTES,
+    \"sha256\": \"$SHA256\"
+  }"
+```
+
+The response includes an `upload_url` and required `headers`, including `Content-Type` and exact `Content-Length`. Send a `PUT` request to that URL with the exact file bytes and returned headers. The upload token can write only that attachment, expires quickly, and does not grant send access.
+
+## Agent and MCP workflows
+
+For local MCP clients, use `sending_upload_attachment` with `file_path` before `sending_send_email` or `sending_send_email_batch`. The tool reads the local file from a client-approved root and returns an `attachment_id`.
+
+For hosted MCP clients or shell-capable agents, use `sending_create_attachment_upload`, upload the file bytes to the returned `upload_url` with the returned headers, then pass the resulting `attachment_id` in `sending_send_email` or `sending_send_email_batch`. Do not place file bytes or large base64 strings in the prompt.
+
+For mailbox sends, use `mailbox_upload_attachment` first and send with the returned `blob_id`. For inbound mailbox attachments, use `mailbox_read_attachment` first when you need text-like content.
+
+## Mailbox upload before sending
+
+Mailbox send workflows can also upload a file first and reference the returned blob ID when sending. Direct mailbox uploads and presigned mailbox uploads use the same per-attachment cap.
+
+For local tools and SDK helpers, send the file path and let the tool read the bytes locally. For shell-capable or hosted agents, mint a short-lived presigned upload URL, then upload the file bytes with the exact returned method, headers, content type, and content length.
+
+## Allowed files
+
+Sendmux accepts common image, document, spreadsheet, presentation, text, calendar, and contact formats. Executables and archives are rejected.
+
+Binary files are checked against their claimed file type. Text-based files are checked by extension.
+
+## Inline base64 compatibility
+
+```json
+{
+  "from": { "email": "hello@example.com" },
+  "to": { "email": "user@example.com" },
+  "subject": "Invoice attached",
+  "html_body": "<p>Please find your invoice attached.</p>",
+  "attachments": [
+    {
+      "filename": "invoice-2026-03.pdf",
+      "content": "JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZw...",
+      "type": "application/pdf"
+    }
+  ]
+}
+```
+
+Use this form only for small content that is already in memory. For files on disk, upload bytes first and use `attachment_id`.
+
+## Attachment fields
+
+| Form | Required fields | Optional fields |
+| --- | --- | --- |
+| Uploaded reference | `attachment_id` | None |
+| Inline base64 | `filename`, `content` | `type`, `encoding` |
+
+An uploaded reference contains only the temporary `attachment_id` returned by
+an upload endpoint. Inline attachments include a filename with an allowed
+extension and base64-encoded content. If supplied, `encoding` must be `base64`.
+
+## What happens next
+
+If an attachment is too large, unsupported, or does not match its file type, the request fails with `validation_error` or `payload_too_large`. Fix the file and retry.
+
+## Download mailbox attachments
+
+Mailbox messages include attachment metadata when attachments are present:
+
+- `id`
+- `filename`
+- `content_type`
+- `size_bytes`
+- `content_id`
+- `disposition`
+- `download_url`
+
+The `download_url` is short-lived and grants access only to that attachment. Fetch it promptly with any HTTP client; no `Authorization` header is needed for the URL itself.
+
+If the URL expires, re-read the message with `GET /mailbox/messages/{message_id}`, list or search messages again, or call the MCP `mailbox_get_attachment` tool to get a fresh `download_url`. MCP clients that need attachment text should call `mailbox_read_attachment` first; it returns inline text for text-like attachments and returns a resource link for binary or oversized files. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
+
+Realtime received-message events can include the same attachment metadata when it is available. Handle older events where `attachments` is omitted, then re-read message metadata before downloading.
+
+Range requests are still supported on attachment downloads, including short-lived URLs.
+
+## Agent workflow
+
+1. Wait for or list messages.
+2. Read the message metadata and find the attachment.
+3. For MCP, call `mailbox_read_attachment` with the message ID and attachment ID.
+4. Use returned inline text directly, or fetch the returned link promptly for binary or oversized files.
+5. If the URL expired, re-read the message or attachment metadata and fetch the new URL.
+
+Do not construct attachment URLs manually.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Send by HTTP" icon="code" href="/sending/http">
+    Send uploaded attachment refs in single or batch requests.
+  </Card>
+  <Card title="Mailbox push delivery" icon="radio" href="/mailboxes/push-delivery">
+    Receive live mailbox events and then download attachments from message metadata.
+  </Card>
+  <Card title="Sending errors" icon="triangle-alert" href="/sending-api/errors">
+    Handle validation and payload size errors.
+  </Card>
+</Columns>

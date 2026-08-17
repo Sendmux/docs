@@ -1,0 +1,29 @@
+---
+title: "Visual Studio MCP setup"
+description: "Configure Sendmux MCP in Visual Studio."
+keywords: ["Visual Studio","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Hosted OAuth
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+Add a remote MCP server with this JSON shape.
+
+```json
+{
+  "servers": {
+    "sendmux": {
+      "url": "https://mcp.sendmux.ai/mcp"
+    }
+  }
+}
+```
+
+Click **Auth** above the server in the MCP configuration file, then complete the Sendmux authorisation flow.

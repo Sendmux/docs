@@ -1,0 +1,19 @@
+---
+title: "Claude and Claude Desktop MCP setup"
+description: "Configure Sendmux MCP in Claude and Claude Desktop."
+keywords: ["Claude and Claude Desktop","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Hosted OAuth
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+Add a custom connector with server URL `https://mcp.sendmux.ai/mcp`, then connect and complete the Sendmux authorisation flow.
+
+On Team and Enterprise plans, an owner may need to add the custom connector for the organisation before members can connect it.

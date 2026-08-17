@@ -1,0 +1,67 @@
+---
+title: "Continue MCP setup"
+description: "Configure Sendmux MCP in Continue."
+keywords: ["Continue","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Local stdio
+
+Install the local package once:
+
+```bash
+pip install sendmux-mcp
+```
+
+Use a mailbox key for Mailbox or Sending:
+
+```bash
+export SENDMUX_MBX_KEY=smx_mbx_...
+```
+
+Use a root key for Management:
+
+```bash
+export SENDMUX_ROOT_KEY=smx_root_...
+```
+
+Create `.continue/mcpServers/sendmux-mailbox.yaml`.
+
+```yaml
+name: Sendmux mailbox MCP
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Sendmux mailbox
+    type: stdio
+    command: sendmux-mcp-mailbox
+    env:
+      SENDMUX_API_KEY: smx_mbx_...
+```
+
+## Private HTTP
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+Create `.continue/mcpServers/sendmux-local.yaml`.
+
+```yaml
+name: Sendmux local MCP
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Sendmux local
+    type: streamable-http
+    url: http://127.0.0.1:8765/mcp
+    headers:
+      Authorization: Bearer local-mcp-token
+```

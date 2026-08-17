@@ -1,0 +1,117 @@
+---
+title: "Sending by HTTP"
+description: "Send single or batch email requests through the Sendmux Sending API."
+keywords: ["HTTP API", "send email", "batch send", "JSON", "Sending API"]
+---
+
+import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
+
+Use the HTTP Sending API for new integrations, batch sending, and retry-safe requests.
+
+<Info>
+  Routing follows the send-only key or mailbox key you authenticate with. You cannot
+  choose a provider or delivery group inside an individual send request.
+</Info>
+
+<SharedSesPolicy />
+
+## Prerequisites
+
+- A team with sending access.
+- A send-only key or mailbox key with `email.send`.
+- Enough team balance for the messages you send.
+- A verified sending-only or sending & receiving custom domain **if you send
+  through the managed account**, unless you are testing with the shared domain.
+  Sends through your own sending accounts do not need one, because each account
+  already authenticates at its own provider.
+
+## Send one email
+
+```bash
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "from": { "email": "hello@example.com", "name": "Your App" },
+    "to": { "email": "user@example.com", "name": "Jane Doe" },
+    "subject": "Welcome",
+    "html_body": "<p>Thanks for signing up.</p>",
+    "text_body": "Thanks for signing up."
+  }'
+```
+
+A successful request returns `200 OK` with a queued `message_id`.
+
+## Send a batch
+
+Send up to 100 messages in one request. The response reports each message by its input index.
+
+```bash
+curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
+  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {
+        "from": { "email": "hello@example.com" },
+        "to": { "email": "alice@example.com" },
+        "subject": "Hello Alice",
+        "html_body": "<p>Hi Alice.</p>"
+      },
+      {
+        "from": { "email": "hello@example.com" },
+        "to": { "email": "bob@example.com" },
+        "subject": "Hello Bob",
+        "html_body": "<p>Hi Bob.</p>"
+      }
+    ]
+  }'
+```
+
+A batch can return `200 OK` while some messages fail. Check
+`data.summary.failed`, then inspect every item in `data.results` by `index`.
+Queued items include a `message_id`; failed items include `error` details.
+
+## Useful options
+
+| Option            | Use it for                                                       |
+| ----------------- | ---------------------------------------------------------------- |
+| `cc`, `bcc`       | Add more recipients. Each list can contain up to 100 recipients. |
+| `reply_to`        | Direct replies to a different address.                           |
+| `return_path`     | Set the envelope sender for bounce handling.                     |
+| `custom_headers`  | Add custom `X-*` headers to the outgoing message.                |
+| `attachments`     | Attach uploaded `attachment_id` refs, or tiny inline base64 content. |
+| `Idempotency-Key` | Safely retry a request without sending twice.                    |
+
+See the [Sending API reference](/sending-api/introduction) for the full schema.
+
+## Error handling
+
+Check the `ok` field. If it is `false`, read `error.code`, `error.message`, and `meta.request_id`.
+
+```js
+const data = await response.json();
+
+if (!data.ok) {
+  console.error(data.error.code, data.error.message, data.meta.request_id);
+}
+```
+
+Use [Sending API errors](/sending-api/errors) for retry and support guidance.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="SMTP sending" icon="send" href="/sending/smtp">
+    Use SMTP when an existing tool only supports SMTP delivery.
+  </Card>
+  <Card title="Attachments" icon="paperclip" href="/sending/attachments">
+    Add files to HTTP send requests.
+  </Card>
+  <Card title="Idempotency" icon="repeat" href="/sending/idempotency">
+    Make send retries safe with `Idempotency-Key`.
+  </Card>
+  <Card title="Sending accounts" icon="mail" href="/sending/accounts">
+    Connect providers and control routing before you send.
+  </Card>
+</Columns>

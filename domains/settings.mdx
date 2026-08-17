@@ -1,0 +1,47 @@
+---
+title: "Domain settings"
+description: "Understand domain-level inbound settings for sending and receiving domains."
+keywords:
+  [
+    "domain settings",
+    "catch-all",
+    "default labels",
+    "domain webhook",
+    "coming soon",
+  ]
+---
+
+The **Settings** section appears on sending & receiving domain detail pages. Sending-only domains hide these settings until receiving is enabled.
+
+## Planned controls
+
+| Control | Purpose |
+| --- | --- |
+| **Catch-all mailbox** | Route mail sent to any address on the domain to one mailbox. |
+| **Default labels** | Apply labels to every message received on the domain. |
+| **Webhook** | Notify a URL when the domain receives a message. |
+
+## What to use now
+
+- Create explicit mailboxes for each address you need.
+- Use mailbox sender rules to allow or block inbound senders.
+- Use domain sender rules through the Management API when one rule set should apply across every mailbox on a sending & receiving domain.
+- Use team webhooks for delivery and inbound events.
+
+## What happens next
+
+More domain-level inbound controls will appear here as they become editable. Sending-only domains can be switched to sending & receiving from the domain detail page first.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Domains" icon="globe" href="/domains">
+    Add, verify, and upgrade custom domains.
+  </Card>
+  <Card title="Mailboxes" icon="inbox" href="/mailboxes">
+    Create explicit addresses and mailbox-level sender rules.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks/setup">
+    Subscribe to inbound and delivery events.
+  </Card>
+</Columns>

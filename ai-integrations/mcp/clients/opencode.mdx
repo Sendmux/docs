@@ -1,0 +1,103 @@
+---
+title: "OpenCode MCP setup"
+description: "Configure Sendmux MCP in OpenCode."
+keywords: ["OpenCode","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Hosted OAuth
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+Add this to `opencode.json`.
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sendmux": {
+      "type": "remote",
+      "url": "https://mcp.sendmux.ai/mcp",
+      "enabled": true
+    }
+  }
+}
+```
+
+Authenticate when prompted, or run:
+
+```bash
+opencode mcp auth sendmux
+```
+
+## Local stdio
+
+Install the local package once:
+
+```bash
+pip install sendmux-mcp
+```
+
+Use a mailbox key for Mailbox or Sending:
+
+```bash
+export SENDMUX_MBX_KEY=smx_mbx_...
+```
+
+Use a root key for Management:
+
+```bash
+export SENDMUX_ROOT_KEY=smx_root_...
+```
+
+Add this to `opencode.json`.
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sendmux-mailbox": {
+      "type": "local",
+      "command": ["sendmux-mcp-mailbox"],
+      "environment": {
+        "SENDMUX_API_KEY": "smx_mbx_..."
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
+## Private HTTP
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sendmux-local": {
+      "type": "remote",
+      "url": "http://127.0.0.1:8765/mcp",
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "enabled": true
+    }
+  }
+}
+```

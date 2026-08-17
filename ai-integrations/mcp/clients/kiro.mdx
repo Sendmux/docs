@@ -1,0 +1,93 @@
+---
+title: "Kiro MCP setup"
+description: "Configure Sendmux MCP in Kiro."
+keywords: ["Kiro","MCP client","Sendmux MCP","MCP setup"]
+---
+
+Use this page to connect Sendmux MCP to your AI client.
+
+## Hosted OAuth
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+Add this to `.kiro/settings/mcp.json` for one workspace or `~/.kiro/settings/mcp.json` for all workspaces.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "url": "https://mcp.sendmux.ai/mcp",
+      "disabled": false
+    }
+  }
+}
+```
+
+Kiro opens the browser OAuth flow when the hosted server asks for authorisation.
+
+## Local stdio
+
+Install the local package once:
+
+```bash
+pip install sendmux-mcp
+```
+
+Use a mailbox key for Mailbox or Sending:
+
+```bash
+export SENDMUX_MBX_KEY=smx_mbx_...
+```
+
+Use a root key for Management:
+
+```bash
+export SENDMUX_ROOT_KEY=smx_root_...
+```
+
+Add this to `.kiro/settings/mcp.json` or `~/.kiro/settings/mcp.json`.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-mailbox": {
+      "command": "sendmux-mcp-mailbox",
+      "args": [],
+      "env": {
+        "SENDMUX_API_KEY": "${SENDMUX_MBX_KEY}"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
+## Private HTTP
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+```json
+{
+  "mcpServers": {
+    "sendmux-local": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer local-mcp-token"
+      },
+      "disabled": false
+    }
+  }
+}
+```

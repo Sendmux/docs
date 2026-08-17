@@ -32,25 +32,38 @@
           {
             "group": "Getting started",
             "icon": "play",
-            "pages": [
-              "index",
-              "guides/quickstart",
-              "guides/postman-collection",
-              "guides/team-limits"
-            ]
+            "pages": ["index", "getting-started/quickstart"]
           },
           {
-            "group": "SDKs and CLI",
+            "group": "Developer tools",
             "icon": "code",
             "pages": [
-              "sdks/index",
-              "sdks/typescript",
-              "sdks/python",
-              "sdks/go",
-              "sdks/php",
-              "sdks/ruby",
-              "sdks/versioning-support",
-              "cli/index"
+              {
+                "group": "SDKs",
+                "root": "developer-tools/sdks/index",
+                "pages": [
+                  "developer-tools/sdks/typescript",
+                  "developer-tools/sdks/python",
+                  "developer-tools/sdks/go",
+                  "developer-tools/sdks/php",
+                  "developer-tools/sdks/ruby",
+                  "developer-tools/sdks/versioning-support"
+                ]
+              },
+              "developer-tools/cli",
+              "developer-tools/postman",
+              {
+                "group": "Mailbox API guides",
+                "pages": [
+                  "developer-tools/mailbox-api/targeting-and-capabilities",
+                  "developer-tools/mailbox-api/operations-and-usage",
+                  "developer-tools/mailbox-api/threads",
+                  "developer-tools/mailbox-api/search-and-batch",
+                  "developer-tools/mailbox-api/message-content",
+                  "developer-tools/mailbox-api/attachments",
+                  "developer-tools/mailbox-api/sync"
+                ]
+              }
             ]
           },
           {
@@ -72,61 +85,115 @@
             "group": "AI integrations",
             "icon": "robot",
             "pages": [
-              "guides/agent-access",
-              "guides/agent-skills",
-              "guides/mcp",
-              "guides/mcp-clients"
+              "ai-integrations/agent-access",
+              "ai-integrations/agent-skills",
+              {
+                "group": "MCP",
+                "root": "ai-integrations/mcp/index",
+                "pages": [
+                  {
+                    "group": "Client setup",
+                    "root": "ai-integrations/mcp/clients/index",
+                    "directory": "card",
+                    "pages": [
+                      "ai-integrations/mcp/clients/claude",
+                      "ai-integrations/mcp/clients/claude-code",
+                      "ai-integrations/mcp/clients/cursor",
+                      "ai-integrations/mcp/clients/codex",
+                      "ai-integrations/mcp/clients/chatgpt",
+                      "ai-integrations/mcp/clients/hoot",
+                      "ai-integrations/mcp/clients/gemini-cli",
+                      "ai-integrations/mcp/clients/qwen-code",
+                      "ai-integrations/mcp/clients/kiro",
+                      "ai-integrations/mcp/clients/opencode",
+                      "ai-integrations/mcp/clients/zed",
+                      "ai-integrations/mcp/clients/visual-studio",
+                      "ai-integrations/mcp/clients/vs-code",
+                      "ai-integrations/mcp/clients/windsurf-cascade",
+                      "ai-integrations/mcp/clients/cline",
+                      "ai-integrations/mcp/clients/roo-code",
+                      "ai-integrations/mcp/clients/warp",
+                      "ai-integrations/mcp/clients/jetbrains-ai-assistant",
+                      "ai-integrations/mcp/clients/continue",
+                      "ai-integrations/mcp/clients/lm-studio",
+                      "ai-integrations/mcp/clients/github-copilot-cli",
+                      "ai-integrations/mcp/clients/github-copilot-coding-agent"
+                    ]
+                  }
+                ]
+              }
             ]
           },
           {
-            "group": "Teams and access",
+            "group": "Account and billing",
             "icon": "users",
             "pages": [
-              "guides/teams-access",
-              "guides/account-settings",
-              "guides/api-keys",
-              "guides/billing"
+              {
+                "group": "Account and access",
+                "pages": [
+                  "account/teams-and-access",
+                  "account/account-settings",
+                  "account/api-keys"
+                ]
+              },
+              {
+                "group": "Billing and limits",
+                "pages": ["account/billing", "account/team-limits"]
+              }
             ]
           },
           {
             "group": "Sending",
             "icon": "paper-plane",
             "pages": [
-              "guides/sending-via-http",
-              "guides/sending-via-smtp",
+              {
+                "group": "Send email",
+                "pages": [
+                  "sending/http",
+                  "sending/smtp",
+                  "sending/attachments",
+                  "sending/idempotency"
+                ]
+              },
               {
                 "group": "Sending accounts",
-                "root": "guides/sending-accounts",
-                "pages": ["guides/connect-google-microsoft-accounts"]
-              },
-              "guides/delivery-groups",
-              "guides/http-provider",
-              "guides/attachments",
-              "guides/idempotency"
+                "root": "sending/accounts/index",
+                "pages": [
+                  "sending/accounts/google-microsoft",
+                  "sending/accounts/delivery-groups",
+                  "sending/accounts/http-provider"
+                ]
+              }
             ]
+          },
+          {
+            "group": "Domains",
+            "icon": "globe",
+            "pages": ["domains/index", "domains/settings"]
           },
           {
             "group": "Receiving",
             "icon": "inbox",
             "pages": [
-              "guides/domain-management",
-              "guides/mailboxes",
-              "guides/domain-settings",
-              "guides/mailbox-push-delivery"
+              {
+                "group": "Mailboxes",
+                "root": "mailboxes/index",
+                "pages": ["mailboxes/push-delivery"]
+              }
             ]
           },
           {
             "group": "Monitoring",
             "icon": "chart-line",
-            "pages": ["guides/dashboard-logs", "guides/deliverability"]
+            "pages": ["monitoring/dashboard-logs", "monitoring/deliverability"]
           },
           {
             "group": "Webhooks",
             "icon": "link",
             "pages": [
-              "guides/webhooks-setup",
-              "guides/webhooks-verify-signatures",
-              "guides/webhook-replay"
+              "webhooks/setup",
+              "webhooks/verify-signatures",
+              "webhooks/replay"
             ]
           }
         ]
@@ -240,9 +307,12 @@
             "pages": ["mailbox-api/introduction", "mailbox-api/errors"]
           },
           {
-            "group": "Mailbox",
+            "group": "Mailboxes",
+            "pages": ["GET /mailbox/mailboxes"]
+          },
+          {
+            "group": "Session and identity",
             "pages": [
-              "GET /mailbox/mailboxes",
               "GET /mailbox/me",
               "GET /mailbox/session",
               "GET /mailbox/identity",
@@ -265,10 +335,15 @@
               "GET /mailbox/messages/{message_id}/content",
               "PATCH /mailbox/messages/{message_id}",
               "DELETE /mailbox/messages/{message_id}",
+              "POST /mailbox/messages/send"
+            ]
+          },
+          {
+            "group": "Attachments",
+            "pages": [
               "POST /mailbox/attachments:upload",
               "POST /mailbox/attachment-uploads",
-              "GET /mailbox/messages/{message_id}/attachments/{attachment_id}",
-              "POST /mailbox/messages/send"
+              "GET /mailbox/messages/{message_id}/attachments/{attachment_id}"
             ]
           },
           {
@@ -418,15 +493,15 @@
   "redirects": [
     {
       "source": "/api-reference/webhooks/verify-signatures",
-      "destination": "/guides/webhooks-verify-signatures"
+      "destination": "/webhooks/verify-signatures"
     },
     {
       "source": "/api-reference/domains",
-      "destination": "/guides/domain-management"
+      "destination": "/domains"
     },
     {
       "source": "/api-reference/webhooks/introduction",
-      "destination": "/guides/webhooks-setup"
+      "destination": "/webhooks/setup"
     },
     {
       "source": "/api-reference",
@@ -439,6 +514,186 @@
     {
       "source": "/api",
       "destination": "/api/introduction"
+    },
+    {
+      "source": "/guides/account-settings",
+      "destination": "/account/account-settings",
+      "permanent": true
+    },
+    {
+      "source": "/guides/agent-access",
+      "destination": "/ai-integrations/agent-access",
+      "permanent": true
+    },
+    {
+      "source": "/guides/agent-skills",
+      "destination": "/ai-integrations/agent-skills",
+      "permanent": true
+    },
+    {
+      "source": "/guides/api-keys",
+      "destination": "/account/api-keys",
+      "permanent": true
+    },
+    {
+      "source": "/guides/attachments",
+      "destination": "/sending/attachments",
+      "permanent": true
+    },
+    {
+      "source": "/guides/billing",
+      "destination": "/account/billing",
+      "permanent": true
+    },
+    {
+      "source": "/guides/connect-google-microsoft-accounts",
+      "destination": "/sending/accounts/google-microsoft",
+      "permanent": true
+    },
+    {
+      "source": "/guides/dashboard-logs",
+      "destination": "/monitoring/dashboard-logs",
+      "permanent": true
+    },
+    {
+      "source": "/guides/deliverability",
+      "destination": "/monitoring/deliverability",
+      "permanent": true
+    },
+    {
+      "source": "/guides/delivery-groups",
+      "destination": "/sending/accounts/delivery-groups",
+      "permanent": true
+    },
+    {
+      "source": "/guides/domain-management",
+      "destination": "/domains",
+      "permanent": true
+    },
+    {
+      "source": "/guides/domain-settings",
+      "destination": "/domains/settings",
+      "permanent": true
+    },
+    {
+      "source": "/guides/http-provider",
+      "destination": "/sending/accounts/http-provider",
+      "permanent": true
+    },
+    {
+      "source": "/guides/idempotency",
+      "destination": "/sending/idempotency",
+      "permanent": true
+    },
+    {
+      "source": "/guides/mailbox-push-delivery",
+      "destination": "/mailboxes/push-delivery",
+      "permanent": true
+    },
+    {
+      "source": "/guides/mailboxes",
+      "destination": "/mailboxes",
+      "permanent": true
+    },
+    {
+      "source": "/guides/mcp-clients",
+      "destination": "/ai-integrations/mcp/clients",
+      "permanent": true
+    },
+    {
+      "source": "/guides/mcp",
+      "destination": "/ai-integrations/mcp",
+      "permanent": true
+    },
+    {
+      "source": "/guides/postman-collection",
+      "destination": "/developer-tools/postman",
+      "permanent": true
+    },
+    {
+      "source": "/guides/quickstart",
+      "destination": "/getting-started/quickstart",
+      "permanent": true
+    },
+    {
+      "source": "/guides/sending-accounts",
+      "destination": "/sending/accounts",
+      "permanent": true
+    },
+    {
+      "source": "/guides/sending-via-http",
+      "destination": "/sending/http",
+      "permanent": true
+    },
+    {
+      "source": "/guides/sending-via-smtp",
+      "destination": "/sending/smtp",
+      "permanent": true
+    },
+    {
+      "source": "/guides/team-limits",
+      "destination": "/account/team-limits",
+      "permanent": true
+    },
+    {
+      "source": "/guides/teams-access",
+      "destination": "/account/teams-and-access",
+      "permanent": true
+    },
+    {
+      "source": "/guides/webhook-replay",
+      "destination": "/webhooks/replay",
+      "permanent": true
+    },
+    {
+      "source": "/guides/webhooks-setup",
+      "destination": "/webhooks/setup",
+      "permanent": true
+    },
+    {
+      "source": "/guides/webhooks-verify-signatures",
+      "destination": "/webhooks/verify-signatures",
+      "permanent": true
+    },
+    {
+      "source": "/sdks",
+      "destination": "/developer-tools/sdks",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/typescript",
+      "destination": "/developer-tools/sdks/typescript",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/python",
+      "destination": "/developer-tools/sdks/python",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/go",
+      "destination": "/developer-tools/sdks/go",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/php",
+      "destination": "/developer-tools/sdks/php",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/ruby",
+      "destination": "/developer-tools/sdks/ruby",
+      "permanent": true
+    },
+    {
+      "source": "/sdks/versioning-support",
+      "destination": "/developer-tools/sdks/versioning-support",
+      "permanent": true
+    },
+    {
+      "source": "/cli",
+      "destination": "/developer-tools/cli",
+      "permanent": true
     }
   ]
 }

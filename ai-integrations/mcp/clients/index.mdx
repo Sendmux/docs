@@ -1,0 +1,153 @@
+---
+title: "MCP client setup"
+sidebarTitle: "MCP clients"
+description: "Configure Sendmux MCP in supported AI clients."
+keywords:
+  [
+    "MCP clients",
+    "sendmux-mcp",
+    "Claude Code",
+    "Cursor",
+    "Codex",
+    "Gemini CLI",
+    "Qwen Code",
+    "Zed",
+  ]
+---
+
+Use this page to connect Sendmux MCP to your AI client. Prefer hosted OAuth when your client supports it. Use local stdio or private HTTP when the client cannot complete hosted OAuth.
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+<Info>
+  This page connects live Sendmux MCP tools. To install the Sendmux skills or
+  plugin marketplace first, use [Agent skills](/ai-integrations/agent-skills).
+</Info>
+
+## Choose a setup
+
+<CardGroup cols={3}>
+  <Card title="Hosted OAuth" icon="shield-check" href="#hosted-oauth-clients">
+    Use this for Claude, Cursor, Codex, Gemini CLI, Qwen Code, Kiro, OpenCode, Zed, Visual Studio, Hoot, and ChatGPT.
+  </Card>
+  <Card title="Local stdio" icon="terminal" href="#local-stdio-clients">
+    Use this when your client can launch `sendmux-mcp` on your machine.
+  </Card>
+  <Card title="Private HTTP" icon="network" href="#private-http-clients">
+    Use this when your client needs a URL or runs outside your laptop.
+  </Card>
+</CardGroup>
+
+<Accordion title="Compatibility matrix">
+  | Client | Recommended setup | Works with |
+  | --- | --- | --- |
+  | Claude and Claude Desktop | Hosted OAuth | Custom connector |
+  | Claude Code | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+  | Cursor | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+  | Codex | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+  | ChatGPT | Hosted OAuth app | Remote HTTPS MCP app |
+  | Hoot | Hosted OAuth | Remote HTTP |
+  | Gemini CLI | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+  | Qwen Code | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+  | Kiro | Hosted OAuth | Remote HTTP, local stdio, private HTTP |
+  | OpenCode | Hosted OAuth | Remote MCP, local MCP |
+  | Zed | Hosted OAuth | Remote OAuth, local command, private HTTP |
+  | Visual Studio | Hosted OAuth | Remote HTTP, local stdio |
+  | VS Code | Local stdio or private HTTP | Local stdio, private HTTP |
+  | Windsurf and Cascade | Local stdio or private HTTP | Local stdio, private HTTP |
+  | Cline | Local stdio or private HTTP | Local stdio, private HTTP |
+  | Roo Code | Local stdio or private HTTP | Local stdio, private HTTP |
+  | Warp local app | Local stdio or private HTTP | Local command, URL server |
+  | JetBrains AI Assistant | Local stdio or private HTTP | Local stdio, private HTTP |
+  | Continue | Local stdio or private HTTP | Local stdio, private HTTP |
+  | LM Studio | Private HTTP | Remote MCP using Cursor-style JSON |
+  | GitHub Copilot CLI | Local stdio or private HTTP | Local, HTTP |
+  | GitHub Copilot coding agent | Private HTTP | Repository MCP config with secrets |
+</Accordion>
+
+<Info>
+  A client can still use Sendmux when hosted OAuth is not listed. Use local
+  stdio if the client can launch commands, or private HTTP if it needs a URL.
+</Info>
+
+<a id="hosted-oauth-clients" />
+
+## Hosted OAuth clients (Recommended)
+
+Use the hosted endpoint when the client supports remote MCP OAuth:
+
+```text
+https://mcp.sendmux.ai/mcp
+```
+
+## Local stdio clients
+
+Install the local package once:
+
+```bash
+pip install sendmux-mcp
+```
+
+Use a mailbox key for Mailbox or Sending:
+
+```bash
+export SENDMUX_MBX_KEY=smx_mbx_...
+```
+
+Use a root key for Management:
+
+```bash
+export SENDMUX_ROOT_KEY=smx_root_...
+```
+
+## Private HTTP clients
+
+Start a local HTTP MCP server:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Use `http://127.0.0.1:8765/mcp` as the client URL.
+
+## Verify the connection
+
+<Steps>
+  <Step title="Reconnect the server">
+    Restart or reconnect the MCP server in the client.
+  </Step>
+
+  <Step title="Check the tools">
+    Open the client's MCP server list or tool picker and confirm Sendmux tools appear.
+  </Step>
+
+  <Step title="Select a mailbox when needed">
+    For a hosted multi-mailbox grant, call `mailbox_list_granted_mailboxes` before mailbox-specific work.
+  </Step>
+
+  <Step title="Check private HTTP auth">
+    For private HTTP, confirm the client sends `Authorization: Bearer local-mcp-token`.
+  </Step>
+</Steps>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="MCP overview" icon="plug" href="/ai-integrations/mcp">
+    Compare Doc Search MCP, hosted MCP, local stdio, and private HTTP.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create mailbox and root keys for local MCP.
+  </Card>
+  <Card title="Agent skills" icon="sparkles" href="/ai-integrations/agent-skills">
+    Teach AI coding agents the Sendmux workflows and efficient defaults.
+  </Card>
+  <Card title="CLI" icon="terminal" href="/developer-tools/cli">
+    Run Sendmux workflows from your terminal.
+  </Card>
+</CardGroup>

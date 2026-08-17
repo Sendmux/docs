@@ -129,11 +129,11 @@ curl https://app.sendmux.ai/api/v1/providers \
 
 ### limit_exceeded
 
-**HTTP 409**: Your team has reached the create limit for this resource. This can apply to domains, mailboxes, sending accounts, webhooks, or active API keys. Request an increase from the relevant page in the Sendmux app, or delete an existing item before retrying. See [Team limits](/guides/team-limits).
+**HTTP 409**: Your team has reached the create limit for this resource. This can apply to domains, mailboxes, sending accounts, webhooks, or active API keys. Request an increase from the relevant page in the Sendmux app, or delete an existing item before retrying. See [Team limits](/account/team-limits).
 
 ### idempotency_conflict
 
-**HTTP 409**: Returned when an `Idempotency-Key` request header is reused while the original request is still running, or with a request body whose fingerprint differs from the original. Wait and retry for an in-flight request. Use a fresh key for a different request. See the [Idempotency](/guides/idempotency) guide.
+**HTTP 409**: Returned when an `Idempotency-Key` request header is reused while the original request is still running, or with a request body whose fingerprint differs from the original. Wait and retry for an in-flight request. Use a fresh key for a different request. See the [Idempotency](/sending/idempotency) guide.
 
 ### validation_error
 

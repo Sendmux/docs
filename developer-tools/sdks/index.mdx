@@ -1,0 +1,81 @@
+---
+title: "SDKs"
+sidebarTitle: "Overview"
+description: "Choose a Sendmux SDK package and the API surface it should use."
+keywords:
+  [
+    "SDKs",
+    "TypeScript",
+    "Python",
+    "Go",
+    "PHP",
+    "Ruby",
+    "Sending API",
+    "Mailbox API",
+    "Management API",
+  ]
+---
+
+Sendmux SDKs give your application package-managed clients for the Sending, Mailbox, and Management APIs.
+
+Use an umbrella package when one application needs more than one API surface. Use a surface package when you want a smaller dependency for one job.
+
+<Info>
+  Create the credential in Sendmux before you install a package. Sending
+  clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients use
+  team-scoped `smx_root_` keys.
+</Info>
+
+## Choose a surface
+
+| Surface | Use it for | API key |
+| --- | --- | --- |
+| Sending | Send single or batch emails. | `smx_mbx_` or owner-approved `smx_agent_` with `email.send` |
+| Mailbox | Read, search, and organise mailbox data. Mailbox keys can also send from the mailbox. | `smx_mbx_` or scoped `smx_agent_` |
+| Management | Manage team resources such as domains, sending accounts, mailboxes, webhooks, logs, metrics, and billing data. | `smx_root_` |
+
+<Note>
+  Pre-claim `smx_agent_` tokens are mailbox-compatible only. Owner-approved Sending-resource `smx_agent_` tokens can send. Pre-claim self-registered agent tokens include `mailbox.read` and `email.receive`, not `email.send`.
+</Note>
+
+## Choose a package family
+
+| Language | Umbrella package | Surface packages |
+| --- | --- | --- |
+| TypeScript | `@sendmux/sdk` | `@sendmux/sending`, `@sendmux/mailbox`, `@sendmux/management` |
+| Python | `sendmux-sdk` | `sendmux-sending`, `sendmux-mailbox`, `sendmux-management` |
+| Go | `sendmux.ai/go` | `sending`, `mailbox`, `management`, and `sdk` subpackages |
+| PHP | `sendmux/sdk` | `sendmux/sending`, `sendmux/mailbox`, `sendmux/management` |
+| Ruby | `sendmux-sdk` | `sendmux-sending`, `sendmux-mailbox`, `sendmux-management` |
+
+## Related developer tools
+
+<CardGroup cols={2}>
+  <Card title="CLI" icon="terminal" href="/developer-tools/cli">
+    Install the Sendmux CLI with Snap, Homebrew, or npm for terminal workflows.
+  </Card>
+  <Card title="MCP servers" icon="plug" href="/ai-integrations/mcp">
+    Connect AI tools to Sendmux docs and authorised product tools.
+  </Card>
+</CardGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Versioning and support" icon="rotate" href="/developer-tools/sdks/versioning-support">
+    Understand package releases, compatibility, and support details.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create scoped credentials before using an SDK.
+  </Card>
+  <Card title="Sending API" icon="paper-plane" href="/sending-api/introduction">
+    Review the Sending API contract used by sending SDK packages.
+  </Card>
+  <Card title="Management API" icon="chart-line" href="/api/introduction">
+    Review the Management API contract used by management SDK packages.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Review the Mailbox API contract used by mailbox SDK packages.
+  </Card>
+</CardGroup>
