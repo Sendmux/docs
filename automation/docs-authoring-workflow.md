@@ -19,6 +19,7 @@ Placement: Tab → group → subgroup → page
 Disposition: keep, move, split, or merge
 Reader task: <one sentence>
 Sibling fit: <why these neighbouring pages belong together>
+Sequence fit: <why the parent group appears before and after its neighbours>
 ```
 
 For an existing page, reconsider its full scope after the planned edit. Prior placement is evidence, not proof that the page remains correctly placed.
@@ -31,6 +32,13 @@ Use these placement tests:
 - Page count does not determine category boundaries. Create a group only when it clarifies the reader's choice.
 - Add a group root only when readers need an introduction or decision page before choosing a child page.
 - Prefer the shallowest hierarchy that preserves those distinctions; never flatten distinct tasks merely to reduce depth.
+
+Audit sequence as well as placement whenever a top-level group is added, moved, renamed, or materially changed:
+
+- Order groups by the reader journey, not by when content was added.
+- Keep paired core workflows adjacent.
+- Put required prerequisites before the task they unblock; optional configuration may follow the core workflow.
+- Keep operational guidance after the workflows it observes, then use cases and integrations, with administration last.
 
 When one option clearly passes every test, you may keep, move, split, merge, or create a group inside an existing tab without another approval. Adding, removing, renaming, or redefining a top-level tab is an information-architecture decision for the operator.
 

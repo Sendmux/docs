@@ -67,6 +67,60 @@
             ]
           },
           {
+            "group": "Sending",
+            "icon": "paper-plane",
+            "pages": [
+              {
+                "group": "Send email",
+                "pages": [
+                  "sending/http",
+                  "sending/smtp",
+                  "sending/attachments",
+                  "sending/idempotency"
+                ]
+              },
+              {
+                "group": "Sending accounts",
+                "root": "sending/accounts/index",
+                "pages": [
+                  "sending/accounts/google-microsoft",
+                  "sending/accounts/delivery-groups",
+                  "sending/accounts/http-provider"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Receiving",
+            "icon": "inbox",
+            "pages": [
+              {
+                "group": "Mailboxes",
+                "root": "mailboxes/index",
+                "pages": ["mailboxes/push-delivery"]
+              }
+            ]
+          },
+          {
+            "group": "Domains",
+            "icon": "globe",
+            "pages": ["domains/index", "domains/settings"]
+          },
+          {
+            "group": "Monitoring",
+            "icon": "chart-line",
+            "pages": ["monitoring/dashboard-logs", "monitoring/deliverability"]
+          },
+          {
+            "group": "Webhooks",
+            "icon": "link",
+            "pages": [
+              "webhooks/setup",
+              "webhooks/verify-signatures",
+              "webhooks/replay"
+            ]
+          },
+          {
             "group": "Use cases",
             "icon": "bullseye",
             "pages": ["use-cases/cold-email-outreach"]
@@ -140,60 +194,6 @@
                 "group": "Billing and limits",
                 "pages": ["account/billing", "account/team-limits"]
               }
-            ]
-          },
-          {
-            "group": "Sending",
-            "icon": "paper-plane",
-            "pages": [
-              {
-                "group": "Send email",
-                "pages": [
-                  "sending/http",
-                  "sending/smtp",
-                  "sending/attachments",
-                  "sending/idempotency"
-                ]
-              },
-              {
-                "group": "Sending accounts",
-                "root": "sending/accounts/index",
-                "pages": [
-                  "sending/accounts/google-microsoft",
-                  "sending/accounts/delivery-groups",
-                  "sending/accounts/http-provider"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Domains",
-            "icon": "globe",
-            "pages": ["domains/index", "domains/settings"]
-          },
-          {
-            "group": "Receiving",
-            "icon": "inbox",
-            "pages": [
-              {
-                "group": "Mailboxes",
-                "root": "mailboxes/index",
-                "pages": ["mailboxes/push-delivery"]
-              }
-            ]
-          },
-          {
-            "group": "Monitoring",
-            "icon": "chart-line",
-            "pages": ["monitoring/dashboard-logs", "monitoring/deliverability"]
-          },
-          {
-            "group": "Webhooks",
-            "icon": "link",
-            "pages": [
-              "webhooks/setup",
-              "webhooks/verify-signatures",
-              "webhooks/replay"
             ]
           }
         ]

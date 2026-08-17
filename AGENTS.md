@@ -4,6 +4,7 @@
 
 - For every new, moved, or materially edited reader-facing documentation page or prose block, read and follow `automation/docs-authoring-workflow.md` from placement audit through QuillBot preservation and release checks.
 - Reconsider an existing page's location whenever its scope changes; prior placement is evidence, not proof that the page still belongs there.
+- Order top-level documentation groups by the reader journey: onboarding → implementation tools → adjacent core workflows → configuration → operations → use cases and integrations → administration; reassess neighbouring groups whenever one changes.
 
 ## About this project
 
