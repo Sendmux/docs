@@ -1,8 +1,9 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
-
 # Documentation project instructions
+
+## Documentation authoring workflow
+
+- For every new, moved, or materially edited reader-facing documentation page or prose block, read and follow `automation/docs-authoring-workflow.md` from placement audit through QuillBot preservation and release checks.
+- Reconsider an existing page's location whenever its scope changes; prior placement is evidence, not proof that the page still belongs there.
 
 ## About this project
 
