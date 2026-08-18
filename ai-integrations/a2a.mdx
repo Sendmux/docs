@@ -1,0 +1,173 @@
+---
+title: "A2A"
+description: "Discover and connect A2A-compatible agents to Sendmux with OAuth."
+keywords:
+  [
+    "A2A",
+    "Agent2Agent Protocol",
+    "Agent Card",
+    "OAuth",
+    "AI agents",
+    "Sendmux A2A",
+  ]
+---
+
+Use A2A when an agent platform needs to discover Sendmux and call mailbox, management, or sending operations through a standard agent endpoint. Sendmux publishes an Agent Card and uses OAuth for hosted access.
+
+## Choose A2A or MCP
+
+| Connection | Choose it when |
+| --- | --- |
+| A2A | Your agent platform supports A2A 1.0 over HTTP+JSON and exchanges structured agent messages. |
+| [MCP](/ai-integrations/mcp) | Your AI client discovers and calls MCP tools. |
+
+Both connections expose curated Sendmux operations. Authorisation grants remain limited to the product surfaces, permissions, and mailboxes you select.
+
+## Discover Sendmux
+
+Start with the Agent Card. It describes the service URL, protocol version, supported skills, capabilities, and OAuth security scheme.
+
+| Resource | URL |
+| --- | --- |
+| Agent Card | `https://a2a.sendmux.ai/.well-known/agent-card.json` |
+| A2A service | `https://a2a.sendmux.ai/a2a/v1` |
+| OAuth protected-resource metadata | `https://a2a.sendmux.ai/.well-known/oauth-protected-resource` |
+| OAuth authorisation-server metadata | `https://app.sendmux.ai/.well-known/oauth-authorization-server` |
+
+The Agent Card advertises A2A protocol version `1.0`, the `HTTP+JSON` binding, and `application/json` input and output.
+
+## Authorise access
+
+<Steps>
+  <Step title="Fetch the Agent Card">
+    Give its well-known URL to your A2A client so the client can discover the
+    service and OAuth configuration.
+  </Step>
+  <Step title="Start OAuth">
+    Use the advertised authorisation-code flow with PKCE. Your client opens
+    Sendmux in a browser.
+  </Step>
+  <Step title="Choose the grant">
+    Select a team, the Mailbox, Management, or Sending surfaces, and mailbox
+    access where relevant.
+  </Step>
+  <Step title="Send the access token">
+    Include the resulting Bearer token on requests to the A2A service URL.
+  </Step>
+</Steps>
+
+<Warning>
+  A2A access tokens are audience-bound to `https://a2a.sendmux.ai/a2a/v1`.
+  They cannot authorise MCP requests. MCP tokens cannot authorise A2A
+  requests.
+</Warning>
+
+## Send an operation
+
+Send a `message:send` request with exactly one JSON `DataPart`. Put the selected Sendmux operation and its inputs in the part's `data` value. Your A2A client handles the surrounding message envelope.
+
+```json
+{
+  "operationId": "managementListDomains",
+  "pathParameters": {},
+  "query": { "limit": 10 },
+  "headers": {},
+  "body": null,
+  "mailboxId": null
+}
+```
+
+| Field | Use |
+| --- | --- |
+| `operationId` | Required. Selects one curated hosted Sendmux operation. |
+| `pathParameters` | Supplies every placeholder in the selected operation path, with no additional keys. |
+| `query` | Supplies query parameters as scalar values or lists of scalar values. |
+| `headers` | Supplies headers required by the selected Sendmux operation. Send the OAuth Bearer token on the A2A request instead. |
+| `body` | Supplies a JSON request body. |
+| `bodyBase64` | Supplies a base64-encoded non-JSON body. Do not send it together with `body`. |
+| `mailboxId` | Targets one granted mailbox when the OAuth grant includes more than one. |
+
+The Agent Card groups operations into three skills. These common operation IDs are useful starting points:
+
+| Skill | Operation ID | Use |
+| --- | --- | --- |
+| Mailbox | `mailboxListGrantedMailboxes` | List the mailboxes available to the grant before choosing `mailboxId`. |
+| Mailbox | `mailboxListMessages` | List message summaries using mailbox filters and cursors. |
+| Management | `managementListDomains` | List team sending domains. |
+| Management | `managementListMailboxes` | List team mailboxes. |
+| Sending | `sendingSendEmail` | Send one outbound email. |
+
+Use the [Mailbox API](/mailbox-api/introduction), [Management API](/api/introduction), or [Sending API](/sending-api/introduction) reference to check the path, query, header, and body fields for an operation. A2A exposes a curated set rather than every API operation.
+
+## Read the result
+
+Sendmux returns one JSON `DataPart`. Its `data` contains the upstream HTTP status, safe response headers, and either a JSON body or a base64-encoded body.
+
+```json
+{
+  "ok": true,
+  "status": 200,
+  "headers": {
+    "content-type": "application/json"
+  },
+  "body": {}
+}
+```
+
+For non-JSON responses, the result contains `bodyBase64` instead of `body`. Validation and authorisation failures use a compact error value:
+
+```json
+{
+  "ok": false,
+  "status": 403,
+  "error": {
+    "code": "insufficient_permissions"
+  }
+}
+```
+
+## Supported skills and limits
+
+| Skill | Available work |
+| --- | --- |
+| Mailbox | Read, search, organise, and send mail through granted mailboxes. |
+| Management | Manage domains, mailboxes, logs, metrics, billing, and webhooks. |
+| Sending | Send email and manage outbound attachments through Sending routes. |
+
+The A2A endpoint is immediate and stateless. It does not advertise or route streaming, push notifications, persistent tasks, or task cancellation.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The service returns 401">
+    Complete OAuth for the A2A resource and send the resulting Bearer token on
+    the A2A request. A token issued for MCP is not valid here.
+  </Accordion>
+  <Accordion title="The result contains insufficient_permissions">
+    Reconnect and grant the product surface and permissions required by the
+    selected operation. For mailbox operations, also confirm that the target
+    mailbox belongs to the grant.
+  </Accordion>
+  <Accordion title="The result contains invalid_request">
+    Send exactly one JSON `DataPart`. Check the `operationId`, match
+    `pathParameters` exactly to the operation path, and send only one of `body`
+    or `bodyBase64`.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
+    Compare hosted and local MCP connections for tool-based clients.
+  </Card>
+  <Card title="Agent access" icon="robot" href="/ai-integrations/agent-access">
+    Create a constrained agent identity when the agent has no existing Sendmux credential.
+  </Card>
+  <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
+    Review mailbox operations and request fields.
+  </Card>
+  <Card title="Sending API" icon="paper-plane" href="/sending-api/introduction">
+    Review outbound sending operations and request fields.
+  </Card>
+</CardGroup>

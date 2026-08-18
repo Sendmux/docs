@@ -72,6 +72,7 @@
             "pages": [
               "ai-integrations/agent-access",
               "ai-integrations/agent-skills",
+              "ai-integrations/a2a",
               {
                 "group": "MCP",
                 "root": "ai-integrations/mcp/index",
