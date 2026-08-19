@@ -24,17 +24,18 @@ The app calls these **sending accounts**. The Management API calls the same reso
 
 The managed account is active by default. It is best for first sends and low-volume traffic.
 
-| Setting              | Value              |
-| -------------------- | ------------------ |
-| Starting limit       | 50 emails per day  |
-| Limit reset          | 00:00 UTC          |
-| Setup                | None               |
-| Editable credentials | No                 |
-| Delivery groups      | Not supported      |
+| Setting               | Free                   | Pro                       |
+| --------------------- | ---------------------- | ------------------------- |
+| Starting hourly limit | 2 accepted recipients  | 100 accepted recipients   |
+| Starting daily limit  | 10 accepted recipients | 1,000 accepted recipients |
+| Daily reset           | 00:00 UTC              | 00:00 UTC                 |
+| Setup                 | None                   | None                      |
+| Editable credentials  | No                     | No                        |
+| Delivery groups       | Not supported          | Not supported             |
 
 <SharedSesPolicy />
 
-When usage reaches 80% of the daily limit, **Request increase** appears on **Accounts**. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API. Submit the request once. Sendmux reviews it and emails the outcome.
+Free limits are fixed. When a Free team reaches a managed sending limit, upgrade to Pro. On Pro, **Request increase** appears on **Accounts** at 80% of the daily limit. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API.
 
 <Warning>
   If the managed account is inactive and no other active provider exists, sends
@@ -56,9 +57,9 @@ Use your own provider when you need higher volume, a specific sender policy, or 
   <Step title="Complete setup">
     SMTP accounts need server address, port, protocol, username, password, and
     optional sender defaults. Connected accounts send you through the provider's
-    sign-in flow. See
-    [Google and Microsoft setup](/sending/accounts/google-microsoft)
-    for administrator preparation, permissions, and large account pools.
+    sign-in flow. See [Google and Microsoft
+    setup](/sending/accounts/google-microsoft) for administrator preparation,
+    permissions, and large account pools.
   </Step>
   <Step title="Test the provider">
     For SMTP accounts, use **Test Connection** after saving. Fix any credential
@@ -92,16 +93,17 @@ formatting.
 </Steps>
 
 <Note>
-  New accounts count towards your team's sending account limit. Updating an
-  existing account does not. Only one import can run for a team at a time.
+  Free teams can add one account of their own. Pro has no plan-level sending
+  account count limit. Updating an existing account does not add another
+  account. Only one import can run for a team at a time.
 </Note>
 
 <Warning>
-  JSON configuration files never contain or accept passwords or connected-account
-  credentials. Use them to update matched accounts. To create a new SMTP account,
-  use **Add Account** or a CSV with its password. Use **Add Account** to authorise
-  a new Gmail or Outlook account, or import its account record and select
-  **Authorise** from the pending account row.
+  JSON configuration files never contain or accept passwords or
+  connected-account credentials. Use them to update matched accounts. To create
+  a new SMTP account, use **Add Account** or a CSV with its password. Use **Add
+  Account** to authorise a new Gmail or Outlook account, or import its account
+  record and select **Authorise** from the pending account row.
 </Warning>
 
 <AccordionGroup>
@@ -132,6 +134,7 @@ formatting.
 
     Header names are case-insensitive. The shorter SMTP headers in the template
     and their `smtp_`-prefixed alternatives are both accepted.
+
   </Accordion>
 
   <Accordion title="How updates are matched">
@@ -141,6 +144,7 @@ formatting.
 
     An import is not all-or-nothing. Review the created, updated, and failed
     totals, correct any failed rows, then import those rows again.
+
   </Accordion>
 </AccordionGroup>
 
@@ -172,24 +176,25 @@ connection details.
 
 Use the [Management API](/api/introduction#sending-account-management) when you need to automate account operations.
 
-| Task                                         | Endpoint                                                                           |
-| -------------------------------------------- | ---------------------------------------------------------------------------------- |
-| List accounts                                | `GET /providers`                                                                   |
-| Add a custom SMTP account                    | `POST /providers`                                                                  |
-| Update account metadata or SMTP settings     | `PATCH /providers/{public_id}`                                                     |
-| Activate or deactivate an account            | `POST /providers/{public_id}/activate` or `POST /providers/{public_id}/deactivate` |
-| Test a custom SMTP account                   | `POST /providers/{public_id}/test`                                                 |
-| Read usage and limits                        | `GET /providers/usage`, `GET /providers/limits`                                    |
-| Request more custom-account capacity         | `POST /providers/limits/sending-accounts/request-increase`                         |
-| Request shared Amazon SES daily limit review | `POST /providers/shared-amazon-ses-limit-request`                                  |
-| Cancel a pending shared-account limit request | `DELETE /providers/shared-amazon-ses-limit-request/{request_id}`                  |
+| Task                                                          | Endpoint                                                                           |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| List accounts                                                 | `GET /providers`                                                                   |
+| Add a custom SMTP account                                     | `POST /providers`                                                                  |
+| Update account metadata or SMTP settings                      | `PATCH /providers/{public_id}`                                                     |
+| Activate or deactivate an account                             | `POST /providers/{public_id}/activate` or `POST /providers/{public_id}/deactivate` |
+| Test a custom SMTP account                                    | `POST /providers/{public_id}/test`                                                 |
+| Read usage and limits                                         | `GET /providers/usage`, `GET /providers/limits`                                    |
+| Request more custom-account capacity on an eligible paid team | `POST /providers/limits/sending-accounts/request-increase`                         |
+| Request shared Amazon SES daily limit review                  | `POST /providers/shared-amazon-ses-limit-request`                                  |
+| Cancel a pending shared-account limit request                 | `DELETE /providers/shared-amazon-ses-limit-request/{request_id}`                   |
 
 Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
 
 <Warning>
   The shared Amazon SES account is platform-managed. API clients can read it,
-  activate or deactivate it, and request a daily limit increase. They cannot
-  edit its credentials, quotas, routing weight, sender defaults, or delete it.
+  activate or deactivate it. Pro teams can request a daily limit review. Free
+  teams must upgrade for more capacity. API clients cannot edit its credentials,
+  quotas, routing weight, sender defaults, or delete it.
 </Warning>
 
 ## Advanced settings
@@ -208,7 +213,7 @@ Advanced settings let you tune the provider without changing every send request.
 
 ## Account limits
 
-Each team starts with **200 sending accounts** that you add yourself. The managed account does not count towards this limit. When usage reaches 80%, **Request increase** appears on **Accounts**, and API clients can call `POST /providers/limits/sending-accounts/request-increase`.
+Free teams can add **one** account of their own. Pro has no plan-level sending account count limit. The managed account does not count towards this limit.
 
 ## Related guides
 
@@ -220,10 +225,18 @@ Each team starts with **200 sending accounts** that you add yourself. The manage
   >
     Prepare administrator access and authorise connected accounts at scale.
   </Card>
-  <Card title="Delivery groups" icon="route" href="/sending/accounts/delivery-groups">
+  <Card
+    title="Delivery groups"
+    icon="route"
+    href="/sending/accounts/delivery-groups"
+  >
     Group providers and route selected keys or mailboxes through them.
   </Card>
-  <Card title="HTTP provider" icon="send" href="/sending/accounts/http-provider">
+  <Card
+    title="HTTP provider"
+    icon="send"
+    href="/sending/accounts/http-provider"
+  >
     See what the coming-soon provider type means.
   </Card>
   <Card title="Domains" icon="globe" href="/domains">

@@ -1,33 +1,33 @@
 ---
 title: "Team limits"
-description: "Default Sendmux team limits, when increase requests appear, and what happens at the hard limit."
+description: "Compare fixed Free limits with Pro resource capacity and sending safeguards."
 keywords:
   [
     "team limits",
+    "Free plan",
+    "Pro plan",
     "resource limits",
-    "increase request",
-    "domains",
     "mailboxes",
     "sending accounts",
-    "webhooks",
-    "API keys",
-    "credentials",
+    "email limits",
   ]
 ---
 
-Sendmux sets team-level limits for resources that can grow quickly. You can request more capacity from the relevant page when usage reaches the request threshold.
+Free is intended for testing and small agent workflows. Its limits are fixed. Pro removes plan-level resource count limits and keeps usage-based billing.
 
-## Default limits
+Each account can own one active Free team. Every additional active team needs its own Pro subscription or Enterprise agreement.
 
-Each new team starts with these limits:
+## Resource limits
 
-| Resource         | Default limit | Guide                                        |
-| ---------------- | ------------- | -------------------------------------------- |
-| Domains          | 25            | [Domains](/domains)         |
-| Mailboxes        | 50            | [Mailboxes](/mailboxes)               |
-| Sending accounts | 200           | [Sending accounts](/sending/accounts) |
-| Webhooks         | 10            | [Webhooks setup](/webhooks/setup)     |
-| Credentials      | 100           | [API keys](/account/api-keys)                 |
+| Resource                               | Free               | Pro                                |
+| -------------------------------------- | ------------------ | ---------------------------------- |
+| Teams per account                      | 1 active Free team | Each Pro team is billed separately |
+| Domains                                | 1                  | No plan count limit                |
+| Mailboxes                              | 2                  | No plan count limit                |
+| Your own or connected sending accounts | 1                  | No plan count limit                |
+| Webhooks                               | 1                  | No plan count limit                |
+| Credentials                            | 2                  | No plan count limit                |
+| Team members                           | Owner only         | No plan count limit                |
 
 <Note>
   Credentials include manual API keys across all key types and connected apps.
@@ -35,23 +35,30 @@ Each new team starts with these limits:
   finishes. The **API Keys** page shows both credential classes in that total.
 </Note>
 
-## Request an increase
+## Fixed Free limits
 
-When a resource reaches **80%** of its current limit, Sendmux shows **Request increase** near the usage text on that page. API clients can request more sending-account capacity with `POST /providers/limits/sending-accounts/request-increase`. Submit the request once. The page then shows the pending request state.
+Free limits are hard constraints. When a Free team reaches one, the app prompts the owner to upgrade to Pro instead of sending an increase request to an administrator.
 
-You can have one pending request per team and resource. Sendmux emails the requester when the request is approved or denied. Approved increases apply immediately.
+API resource creation returns `409 limit_exceeded` at a fixed resource limit. A Free request to `POST /providers/limits/sending-accounts/request-increase` returns `403 insufficient_permissions`.
 
 ## At the hard limit
 
-When usage reaches the full limit, creation is blocked for that resource until the limit is raised or you delete an existing item.
+Delete an existing resource or upgrade the team to Pro. Retrying without either change will return the same error.
 
-API create requests return `409 limit_exceeded` when the limit has been reached. This error is not retryable. Request an increase or reduce usage before trying again.
+Existing resources and balances are preserved when a team moves between Free and Pro.
 
 ## Email volume
 
-Sendmux does not add a separate cap to incoming or outgoing email volume through this team-limit system.
+Free teams can send to at most 10 accepted recipients per UTC day across all sending routes. A message with one To recipient and two CC recipients counts as three accepted recipients.
 
-Sending through the managed Amazon SES account still follows its daily sending limit. Request a review from **Accounts** or with `POST /providers/shared-amazon-ses-limit-request`. Your own providers may also enforce provider-side sending limits.
+Managed Amazon SES adds these safeguards:
+
+| Plan | Hourly limit                      | Daily limit                         | More capacity                                   |
+| ---- | --------------------------------- | ----------------------------------- | ----------------------------------------------- |
+| Free | 2 accepted recipients             | 10 accepted recipients              | Upgrade to Pro                                  |
+| Pro  | Starts at 100 accepted recipients | Starts at 1,000 accepted recipients | Request a review from **Accounts** at 80% usage |
+
+Pro does not have a Sendmux-wide outgoing volume cap. Managed sending limits, configured quotas, provider limits, and account health controls still apply.
 
 ## Related guides
 
@@ -60,7 +67,7 @@ Sending through the managed Amazon SES account still follows its daily sending l
     Add and verify custom domains.
   </Card>
   <Card title="Sending accounts" icon="send" href="/sending/accounts">
-    Add providers and request managed account limit increases.
+    Add providers and review managed sending limits.
   </Card>
   <Card title="Webhooks" icon="webhook" href="/webhooks/setup">
     Subscribe to delivery and mailbox events.

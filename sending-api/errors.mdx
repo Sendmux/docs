@@ -70,7 +70,11 @@ These codes are shared with the Management API. Their semantics are identical to
 
 ### insufficient_credits
 
-**HTTP 402**: Your team's balance is too low to send this email or batch. Top up your balance under **Billing**.
+**HTTP 402**: A Pro team's balance is too low to send this email or batch. Top up the team balance under **Billing**.
+
+### billing_restricted
+
+**HTTP 403**: Sending is blocked because a Free team's credit is depleted or the team is read-only. Upgrade an active Free team to Pro. Contact support if a paid team is unexpectedly read-only.
 
 ### validation_error
 

@@ -2,26 +2,19 @@
 title: "Teams and access"
 description: "Create teams, invite members, assign roles, and schedule team deletion."
 keywords:
-  [
-    "teams",
-    "members",
-    "roles",
-    "invitations",
-    "team deletion",
-    "access",
-  ]
+  ["teams", "members", "roles", "invitations", "team deletion", "access"]
 ---
 
 Teams separate people, billing, mailboxes, providers, logs, API keys, and approved agent access. Use roles to give each member only the access they need.
 
 ## Roles
 
-| Role | Access |
-| --- | --- |
-| **Owner** | Full access, including team deletion. |
-| **Admin** | Full access except team deletion. |
+| Role          | Access                                                       |
+| ------------- | ------------------------------------------------------------ |
+| **Owner**     | Full access, including team deletion.                        |
+| **Admin**     | Full access except team deletion.                            |
 | **Developer** | Sending, receiving, providers, API keys, logs, and webhooks. |
-| **Member** | Dashboard and logs only. |
+| **Member**    | Dashboard and logs only.                                     |
 
 Owners can assign Admin, Developer, or Member. Admins can assign Developer or Member. The Owner role is set when the team is created and cannot be assigned by another member.
 
@@ -32,10 +25,12 @@ Owners can assign Admin, Developer, or Member. Admins can assign Developer or Me
     Open **Teams**, choose the team, then open **Members**.
   </Step>
   <Step title="Send the invitation">
-    Select **Invite members**, enter one or more email addresses, and choose a role.
+    Select **Invite members**, enter one or more email addresses, and choose a
+    role.
   </Step>
   <Step title="Track pending invitations">
-    Pending invitations appear on the team page. Members join when they accept the email invitation.
+    Pending invitations appear on the team page. Members join when they accept
+    the email invitation.
   </Step>
 </Steps>
 
@@ -77,9 +72,9 @@ Team deletion has a 7 day grace period. During that time, dashboard access and s
     Let agents invite an owner and request approved sending.
   </Card>
   <Card title="Team limits" icon="gauge" href="/account/team-limits">
-    See default limits and request more capacity.
+    Compare fixed Free limits with Pro capacity.
   </Card>
   <Card title="Billing" icon="credit-card" href="/account/billing">
-    Top up team balance and review transactions.
+    Compare plans, manage balance, and review transactions.
   </Card>
 </Columns>
