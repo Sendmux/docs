@@ -9,14 +9,15 @@ Use a custom domain when you want branded sending, hosted mailboxes, or both. Ch
 
 ## Domain options
 
-| Option                              | Best for                                            | DNS required   |
-| ----------------------------------- | --------------------------------------------------- | -------------- |
-| `myagent.mx` shared domain          | Fast tests and simple agents                        | No             |
-| Custom domain, sending only         | Branded outbound mail while another inbox receives  | TXT and CNAME  |
-| Custom domain, sending & receiving  | Branded mailboxes hosted in Sendmux                 | TXT, CNAME, MX |
+| Option                             | Best for                                           | DNS required   |
+| ---------------------------------- | -------------------------------------------------- | -------------- |
+| `myagent.mx` shared domain         | Fast tests and simple agents                       | No             |
+| Custom domain, sending only        | Branded outbound mail while another inbox receives | TXT and CNAME  |
+| Custom domain, sending & receiving | Branded mailboxes hosted in Sendmux                | TXT, CNAME, MX |
 
 <Note>
-  Each team starts with **25 domains**. See [Team limits](/account/team-limits).
+  Free includes **1 domain**. Pro has no plan-level domain count limit. See
+  [Team limits](/account/team-limits).
 </Note>
 
 ## Add a domain
@@ -92,9 +93,9 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
     values into the same TXT record.
   </Accordion>
   <Accordion title="Bounce handling is failing">
-    Check the MX and TXT records on the `bounce.{your-domain}` subdomain. The MX
-    record must use the target Sendmux shows, and the TXT record must match the
-    generated SPF value.
+    Check the MX and TXT records on the `bounce.{your-domain}` subdomain. The
+    MX record must use the target Sendmux shows, and the TXT record must match
+    the generated SPF value.
   </Accordion>
   <Accordion title="DMARC is failing">
     Check that the TXT record is published at `_dmarc.{your - domain}` and still
@@ -116,11 +117,7 @@ After deletion, remove the DNS records from your DNS provider if you no longer n
 
 Use the Management API when you want to create, list, upgrade, verify, or delete domains from your own tooling. Keep API shape, permissions, and error handling in the generated reference so your client follows the current contract.
 
-<Card
-  title="Management API"
-  icon="book-open"
-  href="/api/introduction"
->
+<Card title="Management API" icon="book-open" href="/api/introduction">
   Open the generated Domains endpoint reference.
 </Card>
 

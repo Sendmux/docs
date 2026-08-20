@@ -40,6 +40,8 @@ For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is
 
 If the same address appears in more than one recipient field, each provider-accepted occurrence is billed separately.
 
+If a provider's result is unknown, Sendmux keeps the reservation on hold for up to 24 hours while it reconciles the send. The hold is not a usage charge and cannot start an auto top-up by itself. If no result arrives, Sendmux releases the hold.
+
 Inbound usage is counted for each distinct mailbox that receives the message. One message delivered to two mailboxes counts as two deliveries. Mail rejected by mailbox allow or block rules is not billed.
 
 Storage is measured from mailbox usage and prorated by calendar day. One decimal GB is 1,000,000,000 bytes.

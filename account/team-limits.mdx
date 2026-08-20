@@ -51,9 +51,11 @@ Existing resources and balances are preserved when a team moves between Free and
 
 Free teams can send to at most 10 accepted recipients per UTC day across all sending routes. A message with one To recipient and two CC recipients counts as three accepted recipients.
 
-Sendmux reserves this capacity before accepting the message. In-flight recipients count towards the limit until their provider outcome is known, so concurrent sends cannot cross the cap.
+Sendmux reserves capacity before accepting the message. Just before a queued message reaches its provider, Sendmux assigns that capacity to the current UTC day. If that day is already full, the queued message waits for the next UTC reset.
 
-When a Free team has no daily capacity left, the HTTP Sending API returns `429 daily_limit_exceeded` before queueing the message. SMTP returns `550 5.7.1 Daily sending limit reached. Upgrade to Pro to continue.` The HTTP response includes `Retry-After` for the next `00:00 UTC` reset.
+In-flight recipients count towards the limit until their provider outcome is known, so concurrent sends cannot cross the cap. A reservation is not a usage charge. Outgoing usage is charged only for provider-accepted recipient occurrences.
+
+When a Free team has no daily capacity left, the HTTP Sending API returns `429 daily_limit_exceeded` before queueing the message. SMTP returns `550 5.7.1 Daily sending limit reached. Upgrade to Pro to continue.` The HTTP response includes `Retry-After` for the next `00:00 UTC` reset. Messages already accepted into the queue wait instead of crossing the new day's limit.
 
 Managed Amazon SES adds these safeguards:
 
