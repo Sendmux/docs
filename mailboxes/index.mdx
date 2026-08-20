@@ -16,8 +16,8 @@ keywords:
 A mailbox is one email address on a verified sending & receiving custom domain or on the shared `myagent.mx` domain. It can send mail, receive mail, hold messages, and have its own passwords and sender rules.
 
 <Note>
-  Each team starts with **50 active mailboxes**. See [Team
-  limits](/account/team-limits).
+  Free includes **2 active mailboxes**. Pro has no plan-level mailbox count
+  limit. See [Team limits](/account/team-limits).
 </Note>
 
 ## Create a mailbox
@@ -72,10 +72,10 @@ These values become the mailbox defaults. Individual API sends can still provide
 
 Sender rules control inbound mail for the mailbox. Open a mailbox and use the **Sender rules** card to add rules, then choose **Save rules**.
 
-| Rule type | Behaviour                                                                          |
-| --------- | ---------------------------------------------------------------------------------- |
-| **Allow** | Deliver only mail that matches a rule. Every other sender is rejected.             |
-| **Block** | Reject mail that matches a rule. Every other sender is delivered.                  |
+| Rule type | Behaviour                                                              |
+| --------- | ---------------------------------------------------------------------- |
+| **Allow** | Deliver only mail that matches a rule. Every other sender is rejected. |
+| **Block** | Reject mail that matches a rule. Every other sender is delivered.      |
 
 A mailbox can use allow rules or block rules, not both at the same time. Clear all rules before switching rule type. Removing every rule turns filtering off, so all senders are delivered again.
 
@@ -83,11 +83,11 @@ A mailbox can use allow rules or block rules, not both at the same time. Clear a
 
 Each rule matches the sender's envelope address. Three formats are accepted:
 
-| Pattern              | Matches                                              |
-| -------------------- | ---------------------------------------------------- |
-| `name@example.com`   | That exact address only.                             |
-| `example.com`        | Every address at that domain.                        |
-| `*@example.com`      | Saved as `example.com` — every address at the domain. |
+| Pattern            | Matches                                               |
+| ------------------ | ----------------------------------------------------- |
+| `name@example.com` | That exact address only.                              |
+| `example.com`      | Every address at that domain.                         |
+| `*@example.com`    | Saved as `example.com` — every address at the domain. |
 
 Patterns are case-insensitive and stored in lowercase. Each rule can carry an optional note (up to 255 characters) to record why it exists — notes never affect matching. A mailbox or domain can hold up to 1,000 rules.
 

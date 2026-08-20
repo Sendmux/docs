@@ -19,11 +19,11 @@ Connected apps are different. They appear on the same credentials page for manag
 
 ## Credential classes
 
-| Credential class | Created by | Secret lifetime | Where to manage it |
-| --- | --- | --- | --- |
-| **Manual API key** | A team member creates a key in Sendmux. | Long-lived until you rotate or revoke it. | **API Keys** with the **Manual keys** filter. |
-| **Connected app** | You authorise an app through OAuth, such as MCP. | 15-minute access tokens with rotating refresh tokens. | **API Keys** with the **Connected apps** filter. |
-| **Agent access token** | An agent registers through agent access. | Short-lived access token. | Agent access flow, then the **Agent access** card on the team page after owner acceptance. |
+| Credential class       | Created by                                       | Secret lifetime                                       | Where to manage it                                                                         |
+| ---------------------- | ------------------------------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Manual API key**     | A team member creates a key in Sendmux.          | Long-lived until you rotate or revoke it.             | **API Keys** with the **Manual keys** filter.                                              |
+| **Connected app**      | You authorise an app through OAuth, such as MCP. | 15-minute access tokens with rotating refresh tokens. | **API Keys** with the **Connected apps** filter.                                           |
+| **Agent access token** | An agent registers through agent access.         | Short-lived access token.                             | Agent access flow, then the **Agent access** card on the team page after owner acceptance. |
 
 Revoking a manual API key stops that key. Disconnecting a connected app stops that app refreshing access and using its existing connection.
 
@@ -44,8 +44,9 @@ Owners approve or revoke agent sending from the **Agent access** card on the
 team page after accepting the agent invite.
 
 <Note>
-  Each team starts with **100 active credentials** across manual API keys and
-  connected apps. See [Team limits](/account/team-limits).
+  Free includes **2 active credentials** across manual API keys and connected
+  apps. Pro has no plan-level credential count limit. See [Team
+  limits](/account/team-limits).
 </Note>
 
 ## Connected apps
@@ -59,14 +60,13 @@ Connected apps do not create `smx_root_` or `smx_mbx_` secrets. They are listed 
 To manage connected apps:
 
 <Steps>
-  <Step title="Open API keys">
-    Open **API Keys** in the team workspace.
-  </Step>
+  <Step title="Open API keys">Open **API Keys** in the team workspace.</Step>
   <Step title="Filter to connected apps">
     Use the credential filter and select **Connected apps**.
   </Step>
   <Step title="Disconnect an app">
-    Select the disconnect action beside the app. This revokes its refresh token and grant immediately.
+    Select the disconnect action beside the app. This revokes its refresh token
+    and grant immediately.
   </Step>
 </Steps>
 
@@ -81,7 +81,8 @@ Re-authorising the same app updates the existing connection instead of creating 
     through all providers, selected providers, or delivery groups.
   </Step>
   <Step title="Store the secret">
-    Copy the generated `smx_root_` or `smx_mbx_` value. Sendmux will not show it again.
+    Copy the generated `smx_root_` or `smx_mbx_` value. Sendmux will not show it
+    again.
   </Step>
 </Steps>
 
@@ -121,7 +122,11 @@ Mailbox keys also stop working while their mailbox is suspended, and work again 
   <Card title="Send by HTTP" icon="code" href="/sending/http">
     Use a sending key to queue messages through the API.
   </Card>
-  <Card title="Delivery groups" icon="route" href="/sending/accounts/delivery-groups">
+  <Card
+    title="Delivery groups"
+    icon="route"
+    href="/sending/accounts/delivery-groups"
+  >
     Route sending keys through selected provider groups.
   </Card>
   <Card title="Mailboxes" icon="inbox" href="/mailboxes">

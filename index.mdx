@@ -3,7 +3,8 @@ title: "Welcome to Sendmux"
 sidebarTitle: "Welcome"
 description: "Learn what Sendmux does, where to start, and which guides or API references to use next."
 canonical: "https://sendmux.ai/docs"
-keywords: ["sendmux", "email", "API", "SMTP", "deliverability", "transactional email"]
+keywords:
+  ["sendmux", "email", "API", "SMTP", "deliverability", "transactional email"]
 ---
 
 import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
@@ -22,25 +23,13 @@ Sendmux gives your product or AI agent one workspace to send, receive, route, an
 ## Set up your workspace
 
 <CardGroup cols={2}>
-  <Card
-    title="Quickstart"
-    icon="rocket"
-    href="/getting-started/quickstart"
-  >
+  <Card title="Quickstart" icon="rocket" href="/getting-started/quickstart">
     Create a team, add a mailbox, send a test email, and check the result.
   </Card>
-  <Card
-    title="Teams and access"
-    icon="users"
-    href="/account/teams-and-access"
-  >
+  <Card title="Teams and access" icon="users" href="/account/teams-and-access">
     Invite members, assign roles, and manage team access.
   </Card>
-  <Card
-    title="API keys"
-    icon="key"
-    href="/account/api-keys"
-  >
+  <Card title="API keys" icon="key" href="/account/api-keys">
     Create scoped keys for sending, management, and mailbox access.
   </Card>
   <Card
@@ -50,19 +39,11 @@ Sendmux gives your product or AI agent one workspace to send, receive, route, an
   >
     Update your profile, sessions, password, and passkeys.
   </Card>
-  <Card
-    title="Billing"
-    icon="wallet"
-    href="/account/billing"
-  >
+  <Card title="Billing" icon="wallet" href="/account/billing">
     Top up balance, configure alerts, and review transactions.
   </Card>
-  <Card
-    title="Team limits"
-    icon="gauge"
-    href="/account/team-limits"
-  >
-    Understand defaults, increase requests, and hard limits.
+  <Card title="Team limits" icon="gauge" href="/account/team-limits">
+    Compare fixed Free limits with Pro capacity.
   </Card>
 </CardGroup>
 
@@ -78,7 +59,11 @@ Sendmux gives your product or AI agent one workspace to send, receive, route, an
   <Card title="Mailbox API" icon="code" href="/mailbox-api/introduction">
     Send, read, and manage messages for one mailbox.
   </Card>
-  <Card title="Mailbox push delivery" icon="bell-ring" href="/mailboxes/push-delivery">
+  <Card
+    title="Mailbox push delivery"
+    icon="bell-ring"
+    href="/mailboxes/push-delivery"
+  >
     Review the push delivery option shown during mailbox setup.
   </Card>
 </CardGroup>
@@ -89,7 +74,11 @@ Sendmux gives your product or AI agent one workspace to send, receive, route, an
   <Card title="Sending accounts" icon="envelope" href="/sending/accounts">
     Use the managed route, add or import accounts, and monitor health.
   </Card>
-  <Card title="Delivery groups" icon="route" href="/sending/accounts/delivery-groups">
+  <Card
+    title="Delivery groups"
+    icon="route"
+    href="/sending/accounts/delivery-groups"
+  >
     Route selected keys or mailboxes through grouped providers.
   </Card>
   <Card title="Send by HTTP" icon="code" href="/sending/http">
@@ -116,7 +105,11 @@ Sendmux gives your product or AI agent one workspace to send, receive, route, an
 ## Monitor and automate
 
 <CardGroup cols={2}>
-  <Card title="Dashboard and logs" icon="list" href="/monitoring/dashboard-logs">
+  <Card
+    title="Dashboard and logs"
+    icon="list"
+    href="/monitoring/dashboard-logs"
+  >
     Monitor activity, filter delivery logs, and export log data.
   </Card>
   <Card title="Deliverability" icon="signal" href="/monitoring/deliverability">
@@ -125,14 +118,23 @@ Sendmux gives your product or AI agent one workspace to send, receive, route, an
   <Card title="Webhooks" icon="webhook" href="/webhooks/setup">
     Subscribe to events and review delivery attempts.
   </Card>
-  <Card title="Verify signatures" icon="shield-check" href="/webhooks/verify-signatures">
+  <Card
+    title="Verify signatures"
+    icon="shield-check"
+    href="/webhooks/verify-signatures"
+  >
     Verify webhook deliveries before trusting payloads.
   </Card>
-  <Card title="AI integrations" icon="robot" href="/ai-integrations/agent-skills">
+  <Card
+    title="AI integrations"
+    icon="robot"
+    href="/ai-integrations/agent-skills"
+  >
     Install Sendmux skills or connect AI tools.
   </Card>
   <Card title="Agent access" icon="robot" href="/ai-integrations/agent-access">
-    Let agents follow `auth.md`, invite an owner, and request owner-approved sending.
+    Let agents follow `auth.md`, invite an owner, and request owner-approved
+    sending.
   </Card>
 </CardGroup>
 

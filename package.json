@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Tooling to generate and drift-check the Sendmux Postman collections from the committed OpenAPI specs.",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "confidentiality:check": "node scripts/check-confidentiality.mjs",
     "external-links:check": "node scripts/check-external-links.mjs",
     "postman:emit": "node scripts/emit-postman-collections.mjs",

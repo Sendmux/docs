@@ -2887,6 +2887,20 @@
             {
               "_postman_previewlanguage": "json",
               "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Free plan limits are fixed; upgrade to Pro to add more sending accounts",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
               "code": 409,
               "cookie": [],
               "header": [
@@ -3013,6 +3027,20 @@
               ],
               "name": "Request submitted",
               "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Free plan limits are fixed; upgrade to Pro to increase the managed sending limit",
+              "status": "Forbidden"
             },
             {
               "_postman_previewlanguage": "json",

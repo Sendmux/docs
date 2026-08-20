@@ -27,11 +27,11 @@ https://smtp.sendmux.ai/api/v1
 ```
 
 <Note>
-  This is a different base URL from the [Management
-  API](/api/introduction) (`app.sendmux.ai`).
+  This is a different base URL from the [Management API](/api/introduction)
+  (`app.sendmux.ai`).
 </Note>
 
-Use the Management API to manage the accounts that the Sending API can use: list accounts, add custom SMTP accounts, activate or deactivate accounts, test SMTP connections, read usage, and request limit increases. See [Sending account management](/api/introduction#sending-account-management).
+Use the Management API to manage the accounts that the Sending API can use: list accounts, add custom SMTP accounts, activate or deactivate accounts, test SMTP connections, read usage, and request limit reviews when eligible. See [Sending account management](/api/introduction#sending-account-management).
 
 ## Authentication
 
@@ -54,21 +54,21 @@ API keys are scoped to a team. Create and manage keys under **Settings > API Key
 <Note>
   Pre-claim agent tokens use the `smx_agent_` prefix, but they do not include
   `email.send`. After the owner approves sending, the agent can request a
-  Sending-resource `smx_agent_` token through
-  [agent access](/ai-integrations/agent-access).
+  Sending-resource `smx_agent_` token through [agent
+  access](/ai-integrations/agent-access).
 </Note>
 
 ### Permissions
 
-| Endpoint                         | Required permission |
-| -------------------------------- | ------------------- |
-| `POST /api/v1/emails/send`       | `email.send`        |
-| `POST /api/v1/emails/send/batch` | `email.send`        |
-| `POST /api/v1/emails/attachments` | `email.send`       |
-| `GET /api/v1/emails/attachments/{attachment_id}` | `email.send` |
-| `POST /api/v1/emails/attachment-uploads` | `email.send` |
-| `PUT /api/v1/emails/attachment-uploads/{upload_id}` | Upload token |
-| `GET /api/v1/openapi.json`       | None (public)       |
+| Endpoint                                            | Required permission |
+| --------------------------------------------------- | ------------------- |
+| `POST /api/v1/emails/send`                          | `email.send`        |
+| `POST /api/v1/emails/send/batch`                    | `email.send`        |
+| `POST /api/v1/emails/attachments`                   | `email.send`        |
+| `GET /api/v1/emails/attachments/{attachment_id}`    | `email.send`        |
+| `POST /api/v1/emails/attachment-uploads`            | `email.send`        |
+| `PUT /api/v1/emails/attachment-uploads/{upload_id}` | Upload token        |
+| `GET /api/v1/openapi.json`                          | None (public)       |
 
 Account-management endpoints live in the Management API and use root API keys with `provider.*` permissions.
 

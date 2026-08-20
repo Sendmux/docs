@@ -1,34 +1,50 @@
 ---
 title: "Billing"
-description: "Top up team balance, configure auto top-up, set low-balance alerts, and review transactions."
+description: "Compare Free and Pro, understand per-event usage charges, manage team balance, and review transactions."
 keywords:
   [
     "billing",
+    "pricing",
+    "Free plan",
+    "Pro plan",
+    "email usage",
     "top-up",
-    "auto top-up",
-    "low-balance alerts",
     "transactions",
-    "balance",
   ]
 ---
 
-Billing is team-scoped. Sendmux uses the team balance for paid email activity and records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
+Billing is scoped to each team. Free has no monthly charge. Pro costs $7 per team each month, plus usage. Existing Free teams stay on Free until an owner upgrades them.
 
-## Email usage
+## Plans
 
-Sendmux charges email usage from the team balance.
+| Plan       | Base charge            | Usage and balance                         | Resource limits                     |
+| ---------- | ---------------------- | ----------------------------------------- | ----------------------------------- |
+| Free       | $0                     | Starts with $1 credit; no top-ups         | Fixed Free limits                   |
+| Pro        | $7 per team each month | Usage-based; manual and automatic top-ups | No plan-level resource count limits |
+| Enterprise | Contract               | Custom payment and credit terms           | Custom terms                        |
 
-| Activity | Rate |
-| --- | --- |
-| Standard outgoing mail through your own providers | `$0.15 / 1,000 provider-accepted recipient occurrences` |
-| Outgoing mail through the managed Amazon SES route | `$0.25 / 1,000 provider-accepted recipient occurrences` |
-| Accepted inbound mail | `$0.15 / 1,000 emails` |
+Provider quotas, safety controls, and account health restrictions still apply on every plan.
+
+## Usage rates
+
+Sendmux charges each billable event individually. The per-1,000 column is only an equivalent rate for comparison; you do not buy or consume email in blocks of 1,000.
+
+| Activity                                             | Billing unit                           | Rate per unit | Equivalent per 1,000 |
+| ---------------------------------------------------- | -------------------------------------- | ------------- | -------------------- |
+| Outgoing mail through your own or connected provider | Provider-accepted recipient occurrence | $0.000500     | $0.50                |
+| Outgoing mail through managed Amazon SES             | Provider-accepted recipient occurrence | $0.000750     | $0.75                |
+| Inbound mail                                         | Distinct mailbox delivery              | $0.000500     | $0.50                |
+| Mailbox storage                                      | Decimal GB-month                       | $0.02         | Not applicable       |
 
 For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is billed. Addresses rejected before provider acceptance are not charged.
 
 If the same address appears in more than one recipient field, each provider-accepted occurrence is billed separately.
 
-Inbound usage is counted when a message is accepted into a mailbox. Mail rejected by mailbox allow or block rules is not billed.
+If a provider's result is unknown, Sendmux keeps the reservation on hold for up to 24 hours while it reconciles the send. The hold is not a usage charge and cannot start an auto top-up by itself. If no result arrives, Sendmux releases the hold.
+
+Inbound usage is counted for each distinct mailbox that receives the message. One message delivered to two mailboxes counts as two deliveries. Mail rejected by mailbox allow or block rules is not billed.
+
+Storage is measured from mailbox usage and prorated by calendar day. One decimal GB is 1,000,000,000 bytes.
 
 Usage transactions can be grouped, so the transaction table may show one **Incoming email usage** line for several received messages in a short period.
 
@@ -36,27 +52,29 @@ Usage transactions can be grouped, so the transaction table may show one **Incom
 
 The Billing page shows current balance, purchased amount over the last 30 days, and consumed amount over the last 30 days.
 
-If balance is too low, sending requests can fail with `insufficient_credits`. Top up before retrying.
+Free teams start with $1 credit and cannot buy more credit. When that credit is depleted, upgrade the team to Pro to continue sending. Pro teams can top up before retrying a request that fails with `insufficient_credits`.
+
+Existing balances remain on the team when its plan changes.
 
 ## Manual top-up
 
-Choose a top-up amount, then complete checkout. Supported amounts are:
+Manual top-up is available on Pro. Choose an amount, then complete checkout. Supported amounts are:
 
 ```text
-$20, $50, $100, $250, $500, $1,000, $2,500, $5,000
+$10, $20, $50, $100, $250, $500, $1,000, $2,500, $5,000
 ```
 
 The balance updates after the purchase completes.
 
 ## Auto top-up
 
-Auto top-up adds balance when your team drops below a threshold.
+Auto top-up is available on Pro and adds balance when your team drops below a threshold.
 
-| Setting | Options |
-| --- | --- |
-| Balance threshold | $50, $100, $200, $500 |
-| Top-up amount | $100, $200, $500, $1,000, $2,000 |
-| Monthly limit | $500, $1,000, $2,000, $5,000, $10,000 |
+| Setting           | Options                                                          |
+| ----------------- | ---------------------------------------------------------------- |
+| Balance threshold | $1, $5, $10, $25, $50, $100, $200, $500                          |
+| Top-up amount     | $10, $20, $50, $100, $200, $500, $1,000, $2,000                  |
+| Monthly limit     | $10, $25, $50, $100, $250, $500, $1,000, $2,000, $5,000, $10,000 |
 
 Use a monthly limit that covers expected usage but still caps unexpected spend.
 
@@ -86,10 +104,10 @@ Use the Management API to read balance, summary, and transaction history from yo
 
 <Columns cols={2}>
   <Card title="Send by HTTP" icon="code" href="/sending/http">
-    Handle `insufficient_credits` on sending requests.
+    Handle billing errors on sending requests.
   </Card>
   <Card title="Team limits" icon="gauge" href="/account/team-limits">
-    See which limits are separate from balance.
+    Compare fixed Free limits with Pro.
   </Card>
   <Card title="Mailboxes" icon="inbox" href="/mailboxes">
     Use sender rules to reject unwanted inbound mail before it is billed.

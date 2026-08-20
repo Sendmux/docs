@@ -31,7 +31,7 @@ curl https://app.sendmux.ai/api/v1/providers \
   -H "Authorization: Bearer smx_root_your_key_here"
 ```
 
-API keys are scoped to a team and carry specific permissions. Create and manage keys under **Settings > API Keys** in the Sendmux app. Each team starts with **100 active credentials** across manual API keys and connected apps; manual keys include root keys, send-only keys, and mailbox-scoped keys. See [Team limits](/account/team-limits).
+API keys are scoped to a team and carry specific permissions. Create and manage keys under **Settings > API Keys** in the Sendmux app. Free includes **2 active credentials** across manual API keys and connected apps. Pro has no plan-level credential count limit. Manual keys include root keys, send-only keys, and mailbox-scoped keys. See [Team limits](/account/team-limits).
 
 ### Permissions
 
@@ -160,7 +160,7 @@ Use the Management API's **Sending accounts** group to manage accounts used by t
 
 Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
 
-The shared Amazon SES account is protected. You can read it, activate or deactivate it, and request a daily limit increase. You cannot edit its credentials, quotas, routing weight, sender defaults, or delete it through the API.
+The shared Amazon SES account is protected. You can read, activate, or deactivate it. Pro teams can request a daily limit review. Free teams must upgrade for more capacity. You cannot edit its credentials, quotas, routing weight, sender defaults, or delete it through the API.
 
 ## Conventions
 

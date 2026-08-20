@@ -902,7 +902,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "Rate limit exceeded (Retry-After header included)",
+              "name": "Rate limit exceeded or Free daily sending limit reached (Retry-After header included)",
               "status": "Too Many Requests"
             },
             {
@@ -1096,7 +1096,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "Rate limit exceeded",
+              "name": "Rate limit exceeded or Free daily sending limit reached (Retry-After header included)",
               "status": "Too Many Requests"
             },
             {

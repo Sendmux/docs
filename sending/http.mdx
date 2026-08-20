@@ -9,8 +9,8 @@ import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 Use the HTTP Sending API for new integrations, batch sending, and retry-safe requests.
 
 <Info>
-  Routing follows the send-only key or mailbox key you authenticate with. You cannot
-  choose a provider or delivery group inside an individual send request.
+  Routing follows the send-only key or mailbox key you authenticate with. You
+  cannot choose a provider or delivery group inside an individual send request.
 </Info>
 
 <SharedSesPolicy />
@@ -74,14 +74,14 @@ Queued items include a `message_id`; failed items include `error` details.
 
 ## Useful options
 
-| Option            | Use it for                                                       |
-| ----------------- | ---------------------------------------------------------------- |
-| `cc`, `bcc`       | Add more recipients. Each list can contain up to 100 recipients. |
-| `reply_to`        | Direct replies to a different address.                           |
-| `return_path`     | Set the envelope sender for bounce handling.                     |
-| `custom_headers`  | Add custom `X-*` headers to the outgoing message.                |
+| Option            | Use it for                                                           |
+| ----------------- | -------------------------------------------------------------------- |
+| `cc`, `bcc`       | Add more recipients. Each list can contain up to 100 recipients.     |
+| `reply_to`        | Direct replies to a different address.                               |
+| `return_path`     | Set the envelope sender for bounce handling.                         |
+| `custom_headers`  | Add custom `X-*` headers to the outgoing message.                    |
 | `attachments`     | Attach uploaded `attachment_id` refs, or tiny inline base64 content. |
-| `Idempotency-Key` | Safely retry a request without sending twice.                    |
+| `Idempotency-Key` | Safely retry a request without sending twice.                        |
 
 See the [Sending API reference](/sending-api/introduction) for the full schema.
 
@@ -98,6 +98,8 @@ if (!data.ok) {
 ```
 
 Use [Sending API errors](/sending-api/errors) for retry and support guidance.
+
+On Free, accepted and in-flight recipients share a limit of 10 per UTC day. When a new request would cross it, Sendmux returns `429 daily_limit_exceeded` before queueing that message. A queued message that reaches a full UTC day waits for the next reset. Wait for the `Retry-After` period or upgrade to Pro.
 
 ## Related guides
 

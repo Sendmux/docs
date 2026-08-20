@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
+import { randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { publishCollectionsTransactionally } from "./lib/postman-publication.mjs";
 
 const repoRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const args = parseArgs(process.argv.slice(2));
@@ -22,25 +25,31 @@ if (!apiKey) {
 
 const mappings = JSON.parse(await readFile(mappingsPath, "utf8"));
 const drift = [];
+const publications = [];
 
 for (const mapping of mappings) {
   validateMapping(mapping);
 
   const localCollection = await readJson(join(postmanDir, mapping.fileName));
+  publications.push({ mapping, collection: localCollection });
 
-  if (args.write) {
-    await updateHostedCollection(mapping, localCollection);
-    console.log(`Updated hosted Postman collection: ${mapping.label}`);
-    continue;
-  }
+  if (args.write) continue;
 
   const hostedCollection = await getHostedCollection(mapping);
   const localCanonical = `${stableStringify(normaliseCollection(localCollection))}\n`;
   const hostedCanonical = `${stableStringify(normaliseCollection(hostedCollection))}\n`;
 
   if (localCanonical !== hostedCanonical) {
-    const localKeepPath = join(repoRoot, ".tmp/postman-hosted", `${mapping.fileName}.local.normalized.json`);
-    const hostedKeepPath = join(repoRoot, ".tmp/postman-hosted", `${mapping.fileName}.hosted.normalized.json`);
+    const localKeepPath = join(
+      repoRoot,
+      ".tmp/postman-hosted",
+      `${mapping.fileName}.local.normalized.json`,
+    );
+    const hostedKeepPath = join(
+      repoRoot,
+      ".tmp/postman-hosted",
+      `${mapping.fileName}.hosted.normalized.json`,
+    );
     await writeText(localKeepPath, localCanonical);
     await writeText(hostedKeepPath, hostedCanonical);
     drift.push({ mapping, localKeepPath, hostedKeepPath });
@@ -48,7 +57,45 @@ for (const mapping of mappings) {
 }
 
 if (args.write) {
-  console.log("Hosted Postman collections synced from postman/*.postman_collection.json.");
+  const timestamp = new Date().toISOString().replaceAll(":", "-");
+  const backupPath = join(
+    repoRoot,
+    ".tmp/postman-hosted-backups",
+    `${timestamp}-${randomUUID()}.json`,
+  );
+  const evidencePath = join(
+    repoRoot,
+    ".tmp/postman-hosted/publication-evidence.json",
+  );
+  const evidence = await publishCollectionsTransactionally({
+    publications,
+    fetchHostedCollection: getHostedCollection,
+    replaceHostedCollection: updateHostedCollection,
+    writeBackup: async (backup) =>
+      writeText(backupPath, `${JSON.stringify(backup, null, 2)}\n`, {
+        flag: "wx",
+      }),
+    collectionsMatch,
+  });
+  await writeText(
+    evidencePath,
+    `${JSON.stringify(
+      {
+        schemaVersion: 1,
+        publishedAt: new Date().toISOString(),
+        commitSha: process.env.GITHUB_SHA ?? null,
+        backupPath,
+        ...evidence,
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  console.log(
+    `Hosted Postman collections updated and verified: ${evidence.updated.join(", ")}.`,
+  );
+  console.log(`Pre-publication backup: ${backupPath}`);
+  console.log(`Publication evidence: ${evidencePath}`);
 } else if (drift.length > 0) {
   const messages = drift.map(({ mapping, localKeepPath, hostedKeepPath }) =>
     [
@@ -65,7 +112,9 @@ if (args.write) {
     ].join("\n"),
   );
 } else {
-  console.log("Hosted Postman collections match postman/*.postman_collection.json.");
+  console.log(
+    "Hosted Postman collections match postman/*.postman_collection.json.",
+  );
 }
 
 function parseArgs(argv) {
@@ -90,7 +139,9 @@ function parseArgs(argv) {
       process.exit(0);
     }
 
-    throw new Error("Usage: node scripts/check-hosted-postman-collections.mjs [--write]");
+    throw new Error(
+      "Usage: node scripts/check-hosted-postman-collections.mjs [--write]",
+    );
   }
 
   return parsed;
@@ -111,7 +162,9 @@ async function readJson(path) {
 async function getHostedCollection(mapping) {
   const response = await postmanFetch(`/collections/${mapping.collectionUid}`);
   if (!response.collection || typeof response.collection !== "object") {
-    throw new Error(`Postman API response for ${mapping.label} did not include a collection object.`);
+    throw new Error(
+      `Postman API response for ${mapping.label} did not include a collection object.`,
+    );
   }
   return response.collection;
 }
@@ -127,6 +180,13 @@ async function updateHostedCollection(mapping, localCollection) {
     method: "PUT",
     body: JSON.stringify({ collection }),
   });
+}
+
+function collectionsMatch(left, right) {
+  return (
+    stableStringify(normaliseCollection(left)) ===
+    stableStringify(normaliseCollection(right))
+  );
 }
 
 async function postmanFetch(path, options = {}) {
@@ -145,12 +205,16 @@ async function postmanFetch(path, options = {}) {
     try {
       parsed = JSON.parse(body);
     } catch {
-      throw new Error(`Postman API returned non-JSON ${response.status} response for ${path}: ${body.slice(0, 200)}`);
+      throw new Error(
+        `Postman API returned non-JSON ${response.status} response for ${path}: ${body.slice(0, 200)}`,
+      );
     }
   }
 
   if (!response.ok) {
-    throw new Error(`Postman API ${response.status} for ${path}: ${JSON.stringify(parsed)}`);
+    throw new Error(
+      `Postman API ${response.status} for ${path}: ${JSON.stringify(parsed)}`,
+    );
   }
 
   return parsed;
@@ -161,9 +225,9 @@ function collectionIdFromUid(uid) {
   return parts.join("-");
 }
 
-async function writeText(path, content) {
+async function writeText(path, content, options = {}) {
   await mkdir(dirname(path), { recursive: true });
-  await writeFile(path, content);
+  await writeFile(path, content, options);
 }
 
 function normaliseCollection(collection) {
@@ -227,7 +291,11 @@ function normaliseValue(value, contextKey = "") {
           return undefined;
         }
 
-        if (Array.isArray(normalised) && normalised.length === 0 && ["event", "query", "variable"].includes(key)) {
+        if (
+          Array.isArray(normalised) &&
+          normalised.length === 0 &&
+          ["event", "query", "variable"].includes(key)
+        ) {
           return undefined;
         }
 
@@ -238,7 +306,11 @@ function normaliseValue(value, contextKey = "") {
 }
 
 function hasStructuredUrl(value) {
-  return Array.isArray(value.host) || Array.isArray(value.path) || Array.isArray(value.query);
+  return (
+    Array.isArray(value.host) ||
+    Array.isArray(value.path) ||
+    Array.isArray(value.query)
+  );
 }
 
 function stableStringify(value) {
