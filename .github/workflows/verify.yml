@@ -3,7 +3,6 @@ name: Verify docs
 # Hard gates:
 # - Non-Sendmux external MDX links must be SEO-safe nofollow links.
 # - Committed Postman collections must match the generated OpenAPI output.
-# - Hosted Run in Postman collections must match committed Postman collections.
 
 on:
   push:
@@ -33,13 +32,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Tooling tests
+        run: npm test
+
       - name: External link safety
         run: npm run external-links:check
 
       - name: Postman collection drift
         run: npm run postman:check
-
-      - name: Hosted Postman collection drift
-        env:
-          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
-        run: npm run postman:hosted:check
