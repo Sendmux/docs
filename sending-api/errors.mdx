@@ -76,6 +76,12 @@ These codes are shared with the Management API. Their semantics are identical to
 
 **HTTP 403**: Sending is blocked because a Free team's credit is depleted or the team is read-only. Upgrade an active Free team to Pro. Contact support if a paid team is unexpectedly read-only.
 
+### daily_limit_exceeded
+
+**HTTP 429**: A Free team's accepted and in-flight recipients have reached the limit of 10 for the current UTC day. The message is rejected before it enters the delivery queue. Wait for the `Retry-After` period or upgrade the team to Pro before retrying.
+
+In a batch response, individual messages can fail with `daily_limit_exceeded` while earlier messages are queued. If every message hits the daily cap, the whole request returns this code.
+
 ### validation_error
 
 **HTTP 422**: The request body failed schema validation. Check the `param` field for the specific field that caused the error.
