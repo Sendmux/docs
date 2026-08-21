@@ -24,18 +24,18 @@ The app calls these **sending accounts**. The Management API calls the same reso
 
 The managed account is active by default. It is best for first sends and low-volume traffic.
 
-| Setting               | Free                   | Pro                       |
-| --------------------- | ---------------------- | ------------------------- |
-| Starting hourly limit | 2 accepted recipients  | 100 accepted recipients   |
-| Starting daily limit  | 10 accepted recipients | 1,000 accepted recipients |
-| Daily reset           | 00:00 UTC              | 00:00 UTC                 |
-| Setup                 | None                   | None                      |
-| Editable credentials  | No                     | No                        |
-| Delivery groups       | Not supported          | Not supported             |
+| Setting               | Value                  |
+| --------------------- | ---------------------- |
+| Starting hourly limit | 2 accepted recipients  |
+| Starting daily limit  | 50 accepted recipients |
+| Daily reset           | 00:00 UTC              |
+| Setup                 | None                   |
+| Editable credentials  | No                     |
+| Delivery groups       | Not supported          |
 
 <SharedSesPolicy />
 
-Free limits are fixed. When a Free team reaches a managed sending limit, upgrade to Pro. On Pro, **Request increase** appears on **Accounts** at 80% of the daily limit. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API.
+When usage reaches 80% of the daily limit, **Request increase** appears on **Accounts**. Alternatively, you can call `POST /providers/shared-amazon-ses-limit-request` from the Management API. You need to submit the request only once. Sendmux reviews it and emails the outcome.
 
 <Warning>
   If the managed account is inactive and no other active provider exists, sends
@@ -93,9 +93,8 @@ formatting.
 </Steps>
 
 <Note>
-  Free teams can add one account of their own. Pro has no plan-level sending
-  account count limit. Updating an existing account does not add another
-  account. Only one import can run for a team at a time.
+  New accounts count towards your team's sending account limit. Updating an
+  existing account does not. Only one import can run for a team at a time.
 </Note>
 
 <Warning>
@@ -184,7 +183,7 @@ Use the [Management API](/api/introduction#sending-account-management) when you 
 | Activate or deactivate an account                             | `POST /providers/{public_id}/activate` or `POST /providers/{public_id}/deactivate` |
 | Test a custom SMTP account                                    | `POST /providers/{public_id}/test`                                                 |
 | Read usage and limits                                         | `GET /providers/usage`, `GET /providers/limits`                                    |
-| Request more custom-account capacity on an eligible paid team | `POST /providers/limits/sending-accounts/request-increase`                         |
+| Request more custom-account capacity                         | `POST /providers/limits/sending-accounts/request-increase`                         |
 | Request shared Amazon SES daily limit review                  | `POST /providers/shared-amazon-ses-limit-request`                                  |
 | Cancel a pending shared-account limit request                 | `DELETE /providers/shared-amazon-ses-limit-request/{request_id}`                   |
 
@@ -192,9 +191,9 @@ Connected account setup still starts in the Sendmux app. After connection, the A
 
 <Warning>
   The shared Amazon SES account is platform-managed. API clients can read it,
-  activate or deactivate it. Pro teams can request a daily limit review. Free
-  teams must upgrade for more capacity. API clients cannot edit its credentials,
-  quotas, routing weight, sender defaults, or delete it.
+  activate or deactivate it, and request a daily limit increase. API clients
+  cannot edit its credentials, quotas, routing weight, sender defaults, or
+  delete it.
 </Warning>
 
 ## Advanced settings
@@ -213,7 +212,7 @@ Advanced settings let you tune the provider without changing every send request.
 
 ## Account limits
 
-Free teams can add **one** account of their own. Pro has no plan-level sending account count limit. The managed account does not count towards this limit.
+New Free teams may add **one** account of their own. The managed account is not included in this limit. The **Accounts** page displays your current limit and allows you to request more capacity when usage reaches 80%.
 
 ## Related guides
 

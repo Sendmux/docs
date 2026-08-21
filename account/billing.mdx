@@ -1,29 +1,19 @@
 ---
 title: "Billing"
-description: "Compare Free and Pro, understand per-event usage charges, manage team balance, and review transactions."
+description: "Understand per-event usage charges, manage team balance, and review transactions."
 keywords:
   [
     "billing",
     "pricing",
-    "Free plan",
-    "Pro plan",
     "email usage",
     "top-up",
+    "auto top-up",
     "transactions",
+    "balance",
   ]
 ---
 
-Billing is scoped to each team. Free has no monthly charge. Pro costs \$7 per team each month, plus usage. Existing Free teams stay on Free until an owner upgrades them.
-
-## Plans
-
-| Plan       | Base charge            | Usage and balance                         | Resource limits                     |
-| ---------- | ---------------------- | ----------------------------------------- | ----------------------------------- |
-| Free       | \$0                    | Starts with \$1 credit; no top-ups        | Fixed Free limits                   |
-| Pro        | \$7 per team each month | Usage-based; manual and automatic top-ups | No plan-level resource count limits |
-| Enterprise | Contract               | Custom payment and credit terms           | Custom terms                        |
-
-Provider quotas, safety controls, and account health restrictions still apply on every plan.
+Billing is scoped to each team. Sendmux uses the team balance for billable email and storage usage, then records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
 
 ## Usage rates
 
@@ -31,9 +21,9 @@ Sendmux charges each billable event individually. The per-1,000 column is only a
 
 | Activity                                             | Billing unit                           | Rate per unit | Equivalent per 1,000 |
 | ---------------------------------------------------- | -------------------------------------- | ------------- | -------------------- |
-| Outgoing mail through your own or connected provider | Provider-accepted recipient occurrence | \$0.000500    | \$0.50               |
-| Outgoing mail through managed Amazon SES             | Provider-accepted recipient occurrence | \$0.000750    | \$0.75               |
-| Inbound mail                                         | Distinct mailbox delivery              | \$0.000500    | \$0.50               |
+| Outgoing mail through your own or connected provider | Provider-accepted recipient occurrence | \$0.000150    | \$0.15               |
+| Outgoing mail through managed Amazon SES             | Provider-accepted recipient occurrence | \$0.000250    | \$0.25               |
+| Inbound mail                                         | Distinct mailbox delivery              | \$0.000150    | \$0.15               |
 | Mailbox storage                                      | Decimal GB-month                       | \$0.02        | Not applicable       |
 
 For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is billed. Addresses rejected before provider acceptance are not charged.
@@ -52,13 +42,11 @@ Usage transactions can be grouped, so the transaction table may show one **Incom
 
 The Billing page shows current balance, purchased amount over the last 30 days, and consumed amount over the last 30 days.
 
-Free teams start with \$1 credit and cannot buy more credit. When that credit is depleted, upgrade the team to Pro to continue sending. Pro teams can top up before retrying a request that fails with `insufficient_credits`.
-
-Existing balances remain on the team when its plan changes.
+Every new team is credited with \$1. If your balance is insufficient, sending requests may fail with `insufficient_credits`. Top up before retrying.
 
 ## Manual top-up
 
-Manual top-up is available on Pro. Choose an amount, then complete checkout. Supported amounts are:
+Select an amount and finish the checkout process. The supported amounts are:
 
 ```text
 $10, $20, $50, $100, $250, $500, $1,000, $2,500, $5,000
@@ -68,7 +56,7 @@ The balance updates after the purchase completes.
 
 ## Auto top-up
 
-Auto top-up is available on Pro and adds balance when your team drops below a threshold.
+Auto top-up adds balance when your team drops below a threshold.
 
 | Setting           | Options                                                          |
 | ----------------- | ---------------------------------------------------------------- |
@@ -107,7 +95,7 @@ Use the Management API to read balance, summary, and transaction history from yo
     Handle billing errors on sending requests.
   </Card>
   <Card title="Team limits" icon="gauge" href="/account/team-limits">
-    Compare fixed Free limits with Pro.
+    Review resource limits and request more capacity.
   </Card>
   <Card title="Mailboxes" icon="inbox" href="/mailboxes">
     Use sender rules to reject unwanted inbound mail before it is billed.
