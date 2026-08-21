@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { publishCollectionsTransactionally } from "../scripts/lib/postman-publication.mjs";
@@ -122,5 +123,17 @@ test("fails loudly when rollback cannot be verified", async () => {
         JSON.stringify(left) === JSON.stringify(right),
     }),
     /rollback was incomplete.*Management/s,
+  );
+});
+
+test("uploads hidden Postman evidence files to the retained artifact", async () => {
+  const workflow = await readFile(
+    new URL("../.github/workflows/publish-postman.yml", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(
+    workflow,
+    /name: Preserve publication evidence[\s\S]*?path: \.tmp\/postman-hosted\*[\s\S]*?include-hidden-files: true/,
   );
 });
