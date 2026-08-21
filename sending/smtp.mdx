@@ -53,12 +53,6 @@ swaks --to user@example.com \
 
 Successful SMTP sends appear in **Logs** like HTTP sends. Use the message ID, sender, recipient, status, provider, and timestamp to trace delivery.
 
-## Free daily limit
-
-Free teams can send to 10 accepted recipients per UTC day across SMTP and HTTP. Sendmux reserves capacity before returning `250`, so concurrent SMTP sessions cannot cross the cap.
-
-When no daily capacity remains, SMTP returns `550 5.7.1 Daily sending limit reached. Upgrade to Pro to continue.` The message is not queued. Retry after `00:00 UTC` or upgrade the team to Pro.
-
 ## Related guides
 
 <Columns cols={2}>

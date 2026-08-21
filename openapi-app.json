@@ -15861,7 +15861,7 @@
                 }
               }
             },
-            "description": "Free plan limits are fixed; upgrade to Pro to add more sending accounts"
+            "description": "The team is not eligible to request a sending account limit increase"
           },
           "409": {
             "content": {
@@ -15956,7 +15956,7 @@
                 }
               }
             },
-            "description": "Free plan limits are fixed; upgrade to Pro to increase the managed sending limit"
+            "description": "The team is not eligible to request a managed sending limit increase"
           },
           "404": {
             "content": {
