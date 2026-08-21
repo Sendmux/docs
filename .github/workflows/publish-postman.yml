@@ -64,5 +64,6 @@ jobs:
         with:
           name: postman-publication-${{ github.run_id }}
           path: .tmp/postman-hosted*
+          include-hidden-files: true
           if-no-files-found: warn
           retention-days: 30
