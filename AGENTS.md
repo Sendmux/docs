@@ -2,7 +2,7 @@
 
 ## Documentation authoring workflow
 
-- For every new, moved, or materially edited reader-facing documentation page or prose block, read and follow `automation/docs-authoring-workflow.md` from placement audit through WriteHuman preservation and release checks.
+- For every new, moved, or materially edited reader-facing documentation page or prose block, read and follow `automation/docs-authoring-workflow.md` from placement audit through the canonical `AA-claude-prompts/undetectable-finalisation.md` Humanizer preservation and release checks.
 - Reconsider an existing page's location whenever its scope changes; prior placement is evidence, not proof that the page still belongs there.
 - Order top-level documentation groups for this developer-first audience: onboarding → developer tools → AI workflows → adjacent core workflows → configuration → operations → use cases and general integrations → administration; reassess neighbouring groups whenever one changes.
 
