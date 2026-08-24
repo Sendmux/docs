@@ -427,7 +427,7 @@ Revocation is idempotent. Unknown or already-revoked access tokens still return 
 
 Each anonymous registration gets exactly one constrained `@myagent.mx` mailbox. Proof-of-work challenges are short-lived, and registration plus invite endpoints are rate limited. When an agent is rate limited, `429` responses include `Retry-After`, `retry_after`, and `rate_limit_scope` so the agent can back off before retrying. Unclaimed registrations expire after 24 hours. Sendmux revokes pre-claim access tokens and reclaims the agent mailbox after expiry.
 
-After the owner accepts the invite, the team uses normal Sendmux limits and can request increases like any other team. The owner can approve or revoke agent sending from the **Agent access** card on the team page.
+After the owner accepts the invite, the team uses normal Sendmux limits. Free teams must upgrade to Pro for more capacity. Eligible paid teams can request reviews where the app offers them. The owner can approve or revoke agent sending from the **Agent access** card on the team page.
 
 Timing summary:
 

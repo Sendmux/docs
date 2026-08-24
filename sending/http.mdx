@@ -99,6 +99,8 @@ if (!data.ok) {
 
 Use [Sending API errors](/sending-api/errors) for retry and support guidance.
 
+On Free, accepted and in-flight recipients share a limit of 50 per UTC day. When a new request would cross it, Sendmux returns `429 daily_limit_exceeded` before queueing that message. A queued message that reaches a full UTC day waits for the next reset. Wait for the `Retry-After` period or upgrade to Pro.
+
 ## Related guides
 
 <Columns cols={2}>
