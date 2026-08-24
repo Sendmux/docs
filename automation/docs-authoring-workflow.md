@@ -1,6 +1,6 @@
 # Documentation authoring workflow
 
-Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the humanisation gate before release when the change qualifies.
+Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the Humanizer gate before release when the change qualifies.
 
 ## 1. Read before writing
 
@@ -8,7 +8,7 @@ Use this workflow for every new, moved, or materially edited reader-facing docum
 2. Read the complete `navigation` tree in `docs.json`; do not inspect only the page's current group.
 3. Search all MDX, snippets, OpenAPI prose, and redirects for the subject and its synonyms.
 4. Read two or three sibling pages that serve the same reader task.
-5. Verify technical and product claims from their owning source. The verified pre-humanisation copy is the frozen baseline.
+5. Verify technical and product claims from their owning source. The verified pre-Humanizer copy is the frozen baseline.
 
 ## 2. Decide the information architecture
 
@@ -56,29 +56,23 @@ Use only sections that help the reader complete the task. Where applicable, prog
 
 Keep one reader intent per page. Split a page when its sections serve different navigation destinations or reader goals; merge pages when they duplicate one task and neither has an independent purpose.
 
-## 4. Determine whether humanisation is required
+## 4. Determine whether Humanizer is required
 
-The WriteHuman pass is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
+Humanizer is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
 
-It is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `WriteHuman: skipped — <exact exemption>` when skipping it. A paragraph shorter than 60 characters cannot be submitted; hand-edit it against the voice rules and record it as a skip with that reason.
+Humanizer is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Humanizer: skipped — <exact exemption>` when skipping it.
 
-## 5. Humanise eligible prose with the WriteHuman MCP
+## 5. Humanise eligible prose
 
-Treat WriteHuman as an untrusted candidate generator, never as a source of facts. The reviewed baseline stays authoritative for every fact and every claim.
+Follow `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/undetectable-finalisation.md` and route all transport through `/Users/rj/Desktop/GIT-REPOS/ja-k8s/scripts/undetectable.mjs`. Never use a humaniser MCP, browser interface, private endpoint, or alternative provider.
 
-Read and apply `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/writehuman-finalisation.md`. That contract owns the generic mechanics: prose-unit inventory and IDs, frozen surfaces, opaque sentinels for inline URLs, code tokens, citations and image markup, the 60-editable-character eligibility floor, `language: "auto"` and `tone: "standard"`, one unit per call, the 0.90 qualifying floor followed by fidelity-first selection, exact-byte restoration, `detect_ai_text` verification, the two-call cap, and the acceptance ledger.
+Use the `University` / `Article` mapping. This workflow additionally protects supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, verified factual claims, frontmatter, heading hierarchy, code, tables, list structure, image markup, FAQ questions, link destinations, Australian English, and the repository's concise developer-docs voice.
 
-This workflow adds, and never weakens, the following documentation-specific constraints:
-
-1. Inventory protected spans from the docs source before the first call: supplied SEO and long-tail keywords, technical entities, commands, source links, numbers, units, product/protocol/provider names, schema fields, and verified factual claims.
-2. Partition at H2/H3 boundaries and work through one section at a time, so a section's units stay together for the preservation gate in section 6.
-3. Keep OpenAPI-rendered prose, snippet includes, and changelog entries within the same frozen-structure rules as shipped MDX.
-4. Never accept a new claim, example, recommendation, number, capability, keyword, entity, or source introduced by WriteHuman.
-5. A unit marked `ineligible-manual` or `blocked-manual-review` never ships silently: carry it into the section 6 gate and the section 7 report.
+Any eligible unit that cannot pass the canonical acceptance checks blocks release and requires manual review. Do not publish the frozen baseline as if it passed Humanizer.
 
 ## 6. Pass the preservation gate
 
-Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. Restore the missing occurrence or retain the baseline sentence; never weaken the gate.
+Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. Restore the missing occurrence inside an accepted output or mark the unit blocked for manual review; never weaken the gate or substitute the frozen baseline as a passing Humanizer output.
 
 Compare the frozen baseline and final copy and confirm:
 
@@ -92,14 +86,14 @@ Read baseline and final copy side by side once more. The gate passes only when e
 
 ## 7. Verify and report
 
-Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. A WriteHuman pass never replaces technical verification or browser review.
+Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. A Humanizer pass never replaces technical verification or browser review.
 
 Report:
 
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-WriteHuman: <run — preserved, <N> paragraphs | skipped — exact exemption | held — <N> blocks for manual review>
+Humanizer: <run — preserved | skipped — exact exemption>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
