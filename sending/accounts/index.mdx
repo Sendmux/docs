@@ -35,7 +35,7 @@ The managed account is active by default. It is best for first sends and low-vol
 
 <SharedSesPolicy />
 
-When usage reaches 80% of the daily limit, **Request increase** appears on **Accounts**. Alternatively, you can call `POST /providers/shared-amazon-ses-limit-request` from the Management API. You need to submit the request only once. Sendmux reviews it and emails the outcome.
+Free managed-sending limits are fixed. Upgrade to Pro for more capacity. On Pro, **Request increase** appears on **Accounts** at 80% of the managed Amazon SES daily limit. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API. Submit the request once; Sendmux reviews it and emails the outcome.
 
 <Warning>
   If the managed account is inactive and no other active provider exists, sends
@@ -190,10 +190,11 @@ Use the [Management API](/api/introduction#sending-account-management) when you 
 Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
 
 <Warning>
-  The shared Amazon SES account is platform-managed. API clients can read it,
-  activate or deactivate it, and request a daily limit increase. API clients
-  cannot edit its credentials, quotas, routing weight, sender defaults, or
-  delete it.
+  The shared Amazon SES account is managed by the platform. API clients can
+  read it, activate or deactivate it, and request a daily limit review for an
+  eligible Pro or legacy team. They cannot edit its credentials, quotas,
+  routing weight, or sender defaults, and cannot delete it. Free limits are
+  fixed.
 </Warning>
 
 ## Advanced settings
@@ -212,7 +213,10 @@ Advanced settings let you tune the provider without changing every send request.
 
 ## Account limits
 
-New Free teams may add **one** account of their own. The managed account is not included in this limit. The **Accounts** page displays your current limit and allows you to request more capacity when usage reaches 80%.
+| Plan | Your own sending accounts | More capacity |
+| ---- | ------------------------- | ------------- |
+| Free | 1; the managed account does not count | Delete an account or upgrade to Pro |
+| Pro  | No plan-level count limit | Provider quotas and safety controls still apply |
 
 ## Related guides
 

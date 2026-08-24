@@ -4,10 +4,12 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="24 August 2026" tags={["Improvements"]} rss={{ title: "Free daily sending limit increases to 50 recipients" }}>
-  ## Free daily sending limit
+<Update label="24 August 2026" tags={["New features", "Improvements"]} rss={{ title: "New teams move to Free and Pro pricing immediately" }}>
+  ## Free and Pro rollout for new teams
 
-Free teams can now send up to 50 provider-accepted recipients per UTC day across SMTP and HTTP. The limit remains fixed. When a team needs more capacity, the owner can upgrade to Pro.
+When you create a new team, it starts on Free and current per-event usage rates apply immediately. An owner can upgrade it to Pro. Team creation time, not account signup time, decides the initial cohort. Teams created before this rollout keep their existing pricing until 24 September 2026 at 02:00 UTC unless an owner upgrades them earlier.
+
+Free includes two mailboxes and allows up to 50 provider-accepted recipients per UTC day across all sending routes. These limits are fixed, so if you need more capacity, delete an unused resource or upgrade to Pro.
 
 </Update>
 
@@ -16,7 +18,7 @@ Free teams can now send up to 50 provider-accepted recipients per UTC day across
 <Update label="22 August 2026" tags={["New features", "Improvements"]} rss={{ title: "Free and Pro plans add fixed limits and per-event pricing" }}>
   ## Free and Pro plans
 
-From 24 September 2026 at 02:00 UTC, Free includes two mailboxes and up to 50 provider-accepted recipients per UTC day across all sending routes. Free limits are fixed, so reaching one prompts the team owner to upgrade to Pro instead of requesting a higher allowance.
+For legacy teams, Free includes two mailboxes and allows up to 50 provider-accepted recipients per UTC day across all sending routes from 24 September 2026 at 02:00 UTC. These limits are fixed, so if one is reached, the team owner must upgrade to Pro instead of requesting a higher allowance.
 
 Pro costs \$7 per team each month, plus usage, with no plan-level resource count limits. Provider quotas, safety controls, and account health restrictions still apply. Outgoing mail through your own or connected provider costs \$0.000500 per provider-accepted recipient occurrence. Sendmux-managed Amazon SES sending costs \$0.000750 per accepted recipient. Inbound mail costs \$0.000500 per distinct mailbox delivery. Each event is billed individually, not in blocks of 1,000.
 

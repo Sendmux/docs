@@ -16,21 +16,48 @@ keywords:
 Billing is scoped to each team. Sendmux uses the team balance for billable email and storage usage, then records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
 
 <Info>
-  Free and Pro plan changes take effect on 24 September 2026 at 02:00 UTC.
-  Until then, the current rates and balance controls below still apply. See [the
-  plan and pricing announcement](/changelog) for upcoming limits and rates.
+  New teams start on Free and use the current usage rates immediately. An owner
+  can upgrade the team to Pro. Teams created before this rollout keep their
+  legacy pricing until 24 September 2026 at 02:00 UTC unless an owner upgrades
+  them earlier. The team's creation time, not the account signup time,
+  determines the initial cohort.
 </Info>
 
-## Usage rates
+## Plans
+
+| Plan       | Base price                      | Capacity                                                                 | Balance controls                         |
+| ---------- | ------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------- |
+| Free       | \$0                             | Fixed Free limits                                                        | Cannot buy credit or use auto top-up     |
+| Pro        | \$7 per team each month + usage | No plan-level resource count or accepted-recipient limit                 | Manual and automatic top-ups available  |
+| Enterprise | Custom                          | Contract terms                                                           | Contract terms                           |
+
+With Free, you get two mailboxes and can send to up to 50 provider-accepted recipients per UTC day across all sending routes. These limits are fixed. If you hit one, delete an unused resource or upgrade to Pro. Provider quotas, safety controls, account health restrictions, and managed Amazon SES limits still apply on Pro.
+
+Every account can have one active Free team. Existing paid access, resources, and balances remain in place during the rollout.
+
+## Current usage rates
+
+These rates apply immediately to Free and Pro teams. Enterprise rates follow the team's contract. For remaining legacy teams, the current standard rates apply from 24 September 2026 at 02:00 UTC.
 
 Sendmux charges each billable event individually. The per-1,000 column is only an equivalent rate for comparison; you do not buy or consume email in blocks of 1,000.
 
 | Activity                                             | Billing unit                           | Rate per unit | Equivalent per 1,000 |
 | ---------------------------------------------------- | -------------------------------------- | ------------- | -------------------- |
-| Outgoing mail through your own or connected provider | Provider-accepted recipient occurrence | \$0.000150    | \$0.15               |
-| Outgoing mail through managed Amazon SES             | Provider-accepted recipient occurrence | \$0.000250    | \$0.25               |
-| Inbound mail                                         | Distinct mailbox delivery              | \$0.000150    | \$0.15               |
+| Outgoing mail through your own or connected provider | Provider-accepted recipient occurrence | \$0.000500    | \$0.50               |
+| Outgoing mail through managed Amazon SES             | Provider-accepted recipient occurrence | \$0.000750    | \$0.75               |
+| Inbound mail                                         | Distinct mailbox delivery              | \$0.000500    | \$0.50               |
 | Mailbox storage                                      | Decimal GB-month                       | \$0.02        | Not applicable       |
+
+### Legacy team rates
+
+Legacy teams can keep these rates until 24 September 2026 at 02:00 UTC unless an owner upgrades earlier:
+
+| Activity                                             | Rate per unit | Equivalent per 1,000 |
+| ---------------------------------------------------- | ------------- | -------------------- |
+| Outgoing mail through your own or connected provider | \$0.000150    | \$0.15               |
+| Outgoing mail through managed Amazon SES             | \$0.000250    | \$0.25               |
+| Inbound mail                                         | \$0.000150    | \$0.15               |
+| Mailbox storage                                      | \$0.02        | Not applicable       |
 
 For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is billed. Addresses rejected before provider acceptance are not charged.
 
@@ -48,11 +75,11 @@ Usage transactions can be grouped, so the transaction table may show one **Incom
 
 The Billing page shows current balance, purchased amount over the last 30 days, and consumed amount over the last 30 days.
 
-Every new team is credited with \$1. If your balance is insufficient, sending requests may fail with `insufficient_credits`. Top up before retrying.
+When a new team is set up, it receives \$1 in credit. Current usage charges consume that balance even on Free. Once depleted, a Free team cannot buy more credit and must upgrade to Pro. Other eligible teams can top up before retrying a request that failed for insufficient credit.
 
 ## Manual top-up
 
-Select an amount and finish the checkout process. The supported amounts are:
+Manual top-up is available to Pro, Enterprise, and eligible legacy teams. Choose how much you want to add and complete checkout. The supported amounts are:
 
 ```text
 $10, $20, $50, $100, $250, $500, $1,000, $2,500, $5,000
@@ -62,7 +89,7 @@ The balance updates after the purchase completes.
 
 ## Auto top-up
 
-Auto top-up adds balance when your team drops below a threshold.
+On Free, you can't use auto top-up. For eligible teams, it adds balance when the team's balance drops below a threshold.
 
 | Setting           | Options                                                          |
 | ----------------- | ---------------------------------------------------------------- |
@@ -101,7 +128,7 @@ Use the Management API to read balance, summary, and transaction history from yo
     Handle billing errors on sending requests.
   </Card>
   <Card title="Team limits" icon="gauge" href="/account/team-limits">
-    Review resource limits and request more capacity.
+    Review Free hard limits and Pro capacity.
   </Card>
   <Card title="Mailboxes" icon="inbox" href="/mailboxes">
     Use sender rules to reject unwanted inbound mail before it is billed.
