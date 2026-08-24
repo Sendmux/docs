@@ -1,6 +1,6 @@
 # Documentation authoring workflow
 
-Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the QuillBot gate before release when the change qualifies.
+Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the humanisation gate before release when the change qualifies.
 
 ## 1. Read before writing
 
@@ -8,7 +8,7 @@ Use this workflow for every new, moved, or materially edited reader-facing docum
 2. Read the complete `navigation` tree in `docs.json`; do not inspect only the page's current group.
 3. Search all MDX, snippets, OpenAPI prose, and redirects for the subject and its synonyms.
 4. Read two or three sibling pages that serve the same reader task.
-5. Verify technical and product claims from their owning source. The verified pre-QuillBot copy is the frozen baseline.
+5. Verify technical and product claims from their owning source. The verified pre-humanisation copy is the frozen baseline.
 
 ## 2. Decide the information architecture
 
@@ -56,28 +56,25 @@ Use only sections that help the reader complete the task. Where applicable, prog
 
 Keep one reader intent per page. Split a page when its sections serve different navigation destinations or reader goals; merge pages when they duplicate one task and neither has an independent purpose.
 
-## 4. Determine whether QuillBot is required
+## 4. Determine whether humanisation is required
 
-QuillBot is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
+The WriteHuman pass is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
 
-QuillBot is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `QuillBot: skipped — <exact exemption>` when skipping it.
+It is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `WriteHuman: skipped — <exact exemption>` when skipping it. A paragraph shorter than 60 characters cannot be submitted; hand-edit it against the voice rules and record it as a skip with that reason.
 
-## 5. Humanise eligible prose with QuillBot
+## 5. Humanise eligible prose with the WriteHuman MCP
 
-Treat QuillBot as an untrusted candidate generator, never as a source of facts.
+Treat WriteHuman as an untrusted candidate generator, never as a source of facts. The reviewed baseline stays authoritative for every fact and every claim.
 
-1. Use only the official QuillBot interface through browser or computer-use capability. Never use the local `quillbot-api` repository or a private or undocumented endpoint.
-2. Reuse the operator's authenticated QuillBot Premium session. Before each submission, visibly verify Humanizer and English (AU).
-3. If signed out, retrieve the username and concealed credential from the `QuillBot Agents` item in the `AgentSecrets` vault with `op` inside the browser-control process. Keep credentials in memory only. Never print, log, persist, commit, screenshot, or expose them in snapshots or errors.
-4. Stop the QuillBot-gated change for MFA, CAPTCHA, additional consent, ambiguous UI, unavailable Premium access, unavailable Humanizer or English (AU), failed authentication, or missing output. Never request a pasted credential or use an undocumented fallback.
-5. Inventory exact protected spans: supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, and verified factual claims.
-6. Add supported terms and keywords to Freeze Words. Freeze Words does not replace the final comparison because symbols, special characters, and dashes may be unsupported.
-7. Partition at H2/H3 boundaries and process one section sequentially. Submit only contiguous prose paragraphs and FAQ-answer prose.
-8. Keep frontmatter, headings, FAQ questions, code, tables, list structure, image markup, and link destinations outside QuillBot.
-9. Require returned paragraph count and order to match. Otherwise discard the section output and retry paragraph by paragraph.
-10. Compare each candidate with its source paragraph. Restore every changed or removed protected span, then review grammar and meaning.
-11. Keep only useful flow and rhythm changes. If factual equivalence, qualification, grammar, or placement remains uncertain, retain the exact baseline sentence.
-12. Never accept a new claim, example, recommendation, number, capability, keyword, entity, or source introduced by QuillBot.
+Read and apply `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/writehuman-finalisation.md`. That contract owns the generic mechanics: prose-unit inventory and IDs, frozen surfaces, opaque sentinels for inline URLs, code tokens, citations and image markup, the 60-editable-character eligibility floor, `language: "auto"` and `tone: "standard"`, one unit per call, the 0.90 qualifying floor followed by fidelity-first selection, exact-byte restoration, `detect_ai_text` verification, the two-call cap, and the acceptance ledger.
+
+This workflow adds, and never weakens, the following documentation-specific constraints:
+
+1. Inventory protected spans from the docs source before the first call: supplied SEO and long-tail keywords, technical entities, commands, source links, numbers, units, product/protocol/provider names, schema fields, and verified factual claims.
+2. Partition at H2/H3 boundaries and work through one section at a time, so a section's units stay together for the preservation gate in section 6.
+3. Keep OpenAPI-rendered prose, snippet includes, and changelog entries within the same frozen-structure rules as shipped MDX.
+4. Never accept a new claim, example, recommendation, number, capability, keyword, entity, or source introduced by WriteHuman.
+5. A unit marked `ineligible-manual` or `blocked-manual-review` never ships silently: carry it into the section 6 gate and the section 7 report.
 
 ## 6. Pass the preservation gate
 
@@ -95,14 +92,14 @@ Read baseline and final copy side by side once more. The gate passes only when e
 
 ## 7. Verify and report
 
-Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. A QuillBot pass never replaces technical verification or browser review.
+Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. A WriteHuman pass never replaces technical verification or browser review.
 
 Report:
 
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-QuillBot: <run — preserved | skipped — exact exemption>
+WriteHuman: <run — preserved, <N> paragraphs | skipped — exact exemption | held — <N> blocks for manual review>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
