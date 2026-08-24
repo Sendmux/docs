@@ -2895,7 +2895,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "The team is not eligible to request a sending account limit increase",
+              "name": "Free plan limits are fixed; upgrade to Pro to add more sending accounts",
               "status": "Forbidden"
             },
             {
@@ -3039,7 +3039,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "The team is not eligible to request a managed sending limit increase",
+              "name": "Free plan limits are fixed; upgrade to Pro to increase the managed sending limit",
               "status": "Forbidden"
             },
             {
