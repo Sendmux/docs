@@ -1,29 +1,27 @@
 ---
 title: "Team limits"
-description: "Review team resource limits, request more capacity, and understand managed sending safeguards."
+description: "Review Free hard limits, Pro capacity, and managed sending safeguards."
 keywords:
   [
     "team limits",
     "Free account",
     "resource limits",
-    "increase request",
+    "hard limits",
     "mailboxes",
     "sending accounts",
     "email limits",
   ]
 ---
 
-Sendmux sets team-level limits for resources that can grow quickly. When usage reaches the request threshold, you can go to the related page to request an increase in capacity.
+Sendmux sets resource limits for each team. Free limits are fixed. Pro has no plan-level resource count limits. Provider quotas, safety controls, account health restrictions, and managed Amazon SES limits still apply.
 
-Each Free account can create one active team. Existing teams keep their current resources and approved limits.
-
-## New Free account limits
+## Free limits
 
 | Resource                               | Starting limit |
 | -------------------------------------- | -------------- |
 | Active teams per account               | 1              |
 | Domains                                | 1              |
-| Mailboxes                              | 1              |
+| Mailboxes                              | 2              |
 | Your own or connected sending accounts | 1              |
 | Webhooks                               | 1              |
 | Credentials                            | 2              |
@@ -35,17 +33,21 @@ Each Free account can create one active team. Existing teams keep their current 
   finishes. The **API Keys** page shows both credential classes in that total.
 </Note>
 
-## Request an increase
+## Free limits are hard
 
-When a resource reaches **80%** of its current limit, Sendmux shows **Request increase** near the usage text on that page. API clients can request more sending-account capacity with `POST /providers/limits/sending-accounts/request-increase`.
+A Free team cannot request a higher resource or managed-sending allowance. To get more capacity, delete an existing resource or upgrade to Pro. The app shows the upgrade path, and the Management API returns an upgrade message for a Free team.
 
-Each team and each resource can have one pending request at a time. Requests should be submitted only once. Sendmux emails the requester when the request is approved or denied. Increases, once approved, take effect immediately.
+Legacy teams can keep using an increase request where the app offers it until 24 September 2026 at 02:00 UTC. Each team and resource can have one pending request at a time. Once approved, an increase takes effect immediately.
 
 ## At the hard limit
 
-Creation is blocked when your usage hits the full limit until you either raise the limit, or delete an existing resource.
+Creation is blocked when usage reaches the full limit. A Free team must delete an existing resource or upgrade to Pro.
 
-API creation requests generate `409 limit_exceeded`. This error cannot be retried unless the capacity is adjusted.
+API creation requests generate `409 limit_exceeded`. Retrying the same request cannot succeed until capacity is available.
+
+## Pro capacity
+
+Pro has no plan-level limit on domains, mailboxes, sending accounts, webhooks, active credentials, team members, or provider-accepted recipients. It does not remove configured provider quotas, API rate limits, safety controls, account health restrictions, or managed Amazon SES safeguards.
 
 ## Email volume
 
