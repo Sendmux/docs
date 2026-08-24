@@ -93,7 +93,7 @@ Report:
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-Humanizer: <run — preserved | skipped — exact exemption>
+Humanizer: <run — preserved | skipped — exact exemption | held — <N> blocked-manual-review units>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
