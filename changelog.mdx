@@ -4,28 +4,6 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="24 August 2026" tags={["New features", "Improvements"]} rss={{ title: "New teams move to Free and Pro pricing immediately" }}>
-  ## Free and Pro rollout for new teams
-
-When you create a new team, it starts on Free and current per-event usage rates apply immediately. An owner can upgrade it to Pro. Team creation time, not account signup time, decides the initial cohort. Teams created before this rollout keep their existing pricing until 24 September 2026 at 02:00 UTC unless an owner upgrades them earlier.
-
-Free includes two mailboxes and allows up to 50 provider-accepted recipients per UTC day across all sending routes. These limits are fixed, so if you need more capacity, delete an unused resource or upgrade to Pro.
-
-</Update>
-
-{/* Product source verified through Sendmux commit 33c2d4a. */}
-
-<Update label="22 August 2026" tags={["New features", "Improvements"]} rss={{ title: "Free and Pro plans add fixed limits and per-event pricing" }}>
-  ## Free and Pro plans
-
-For legacy teams, Free includes two mailboxes and allows up to 50 provider-accepted recipients per UTC day across all sending routes from 24 September 2026 at 02:00 UTC. These limits are fixed, so if one is reached, the team owner must upgrade to Pro instead of requesting a higher allowance.
-
-Pro costs \$7 per team each month, plus usage, with no plan-level resource count limits. Provider quotas, safety controls, and account health restrictions still apply. Outgoing mail through your own or connected provider costs \$0.000500 per provider-accepted recipient occurrence. Sendmux-managed Amazon SES sending costs \$0.000750 per accepted recipient. Inbound mail costs \$0.000500 per distinct mailbox delivery. Each event is billed individually, not in blocks of 1,000.
-
-Existing Free teams stay on Free, but Free teams cannot purchase extra credit. When a Free balance is depleted, the owner must upgrade to Pro to continue sending. From the effective date, each account can own one active Free team; additional Free teams become read-only unless they move to Pro. Existing paid access, resources, and balances remain in place through the change.
-
-</Update>
-
 <Update label="19 August 2026" tags={["Bug fixes"]} rss={{ title: "Agents now reauthorise cleanly after access expires or is revoked" }}>
   ## Bug fixes
 
@@ -100,7 +78,7 @@ Account and administrative changes now finish reliably after they are saved. The
 <Update label="11 August 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Free team limits and managed sending safeguards" }}>
   ## Free account safeguards
 
-Free accounts can create one team. Within that team, you can add up to one domain, one mailbox, one customer-managed sending account, one webhook, and two active credentials. Team access starts with the owner only. Existing resources remain in place; contact support or request an increase where the option is available if you need more capacity.
+Free accounts can create one team. Current Free resource limits are listed in [Team limits](/account/team-limits), and an owner can upgrade to Pro for more capacity.
 
 The same Free limits apply when you claim an agent-managed team.
 
@@ -1262,9 +1240,9 @@ Oversized outbound messages are now rejected before partial send work starts, so
 <Update label="24 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "Inbound billing, realtime mailbox events, and clearer team limits" }}>
   ## Inbound email billing
 
-Accepted inbound mail is now billed at `$0.15 / 1,000 emails`, matching standard outgoing usage. Mail rejected by mailbox sender rules is not billed.
+Accepted inbound mail is billed per distinct mailbox delivery. Mail rejected by mailbox sender rules is not billed. See [Billing](/account/billing) for the current rate.
 
-See [Billing](/guides/billing) and [Mailboxes](/guides/mailboxes).
+See [Billing](/account/billing) and [Mailboxes](/mailboxes).
 
 ## Realtime mailbox events
 
@@ -1276,7 +1254,7 @@ See the [Mailbox API event stream](/mailbox-api/introduction#event-stream).
 
 ## Team limits
 
-Teams now have clear usage limits for domains, mailboxes, sending accounts, webhooks, and active API keys. When your team reaches 80% of a limit, you can request an increase from the relevant dashboard page and receive an email when the request is reviewed.
+Teams have clear usage limits for domains, mailboxes, sending accounts, webhooks, and active API keys. Free limits are fixed, and owners can upgrade to Pro for more capacity.
 
 ## Improvements
 
@@ -1284,7 +1262,7 @@ Limit usage now appears at the bottom-right of the relevant dashboard pages, so 
 
 The API key limit now covers active root and mailbox-class credentials, including send-only and mailbox credentials.
 
-The team limits guide now clarifies default limits, increase requests, and that email volume is not capped beyond existing sending limits.
+The team limits guide explains Free hard limits, Pro capacity, and managed Amazon SES safeguards.
 
 Webhooks and mailbox realtime events use the same public `message.received` event names for inbound mailbox activity.
 
@@ -1383,7 +1361,7 @@ Attachment contents remain download-only; clean content endpoints return attachm
 <Update label="14 May 2026" tags={["New features","Improvements","Bug fixes"]} rss={{ title: "A managed Amazon SES sending route with daily limits, a new mailbox API, and one credential per mailbox" }}>
   ## Managed Amazon SES sending route
 
-Every team now gets a managed Amazon SES sending route out of the box — ready to send immediately, with no setup. It's capped at 50 emails per day to protect your sending reputation. When you reach 80% of the cap you can request an increase in one click from the **Accounts** page; we review each request and email you the outcome.
+Every team gets a managed Amazon SES sending route out of the box, ready to send without provider setup. Free is limited to two provider-accepted recipients per hour and 50 per UTC day. Pro starts at 100 per hour and 1,000 per UTC day, with reviews available from the **Accounts** page at 80% of the daily limit.
 
 ## New mailbox API
 

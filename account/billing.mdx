@@ -16,11 +16,10 @@ keywords:
 Billing is scoped to each team. Sendmux uses the team balance for billable email and storage usage, then records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
 
 <Info>
-  New teams start on Free and use the current usage rates immediately. An owner
-  can upgrade the team to Pro. Teams created before this rollout keep their
-  legacy pricing until 24 September 2026 at 02:00 UTC unless an owner upgrades
-  them earlier. The team's creation time, not the account signup time,
-  determines the initial cohort.
+  Teams created before 24 August 2026 keep their previous pricing and limits
+  until 24 September 2026 at 02:00 UTC unless an owner upgrades sooner. Current
+  Free or Pro terms apply after that. Existing resources, balances, and paid
+  access remain in place; extra Free teams become read-only until upgraded.
 </Info>
 
 ## Plans
@@ -33,11 +32,11 @@ Billing is scoped to each team. Sendmux uses the team balance for billable email
 
 With Free, you get two mailboxes and can send to up to 50 provider-accepted recipients per UTC day across all sending routes. These limits are fixed. If you hit one, delete an unused resource or upgrade to Pro. Provider quotas, safety controls, account health restrictions, and managed Amazon SES limits still apply on Pro.
 
-Every account can have one active Free team. Existing paid access, resources, and balances remain in place during the rollout.
+Every account can have one active Free team.
 
 ## Current usage rates
 
-These rates apply immediately to Free and Pro teams. Enterprise rates follow the team's contract. For remaining legacy teams, the current standard rates apply from 24 September 2026 at 02:00 UTC.
+These rates apply to Free and Pro teams. Enterprise rates follow the team's contract.
 
 Sendmux charges each billable event individually. The per-1,000 column is only an equivalent rate for comparison; you do not buy or consume email in blocks of 1,000.
 
@@ -47,17 +46,6 @@ Sendmux charges each billable event individually. The per-1,000 column is only a
 | Outgoing mail through managed Amazon SES             | Provider-accepted recipient occurrence | \$0.000750    | \$0.75               |
 | Inbound mail                                         | Distinct mailbox delivery              | \$0.000500    | \$0.50               |
 | Mailbox storage                                      | Decimal GB-month                       | \$0.02        | Not applicable       |
-
-### Legacy team rates
-
-Legacy teams can keep these rates until 24 September 2026 at 02:00 UTC unless an owner upgrades earlier:
-
-| Activity                                             | Rate per unit | Equivalent per 1,000 |
-| ---------------------------------------------------- | ------------- | -------------------- |
-| Outgoing mail through your own or connected provider | \$0.000150    | \$0.15               |
-| Outgoing mail through managed Amazon SES             | \$0.000250    | \$0.25               |
-| Inbound mail                                         | \$0.000150    | \$0.15               |
-| Mailbox storage                                      | \$0.02        | Not applicable       |
 
 For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is billed. Addresses rejected before provider acceptance are not charged.
 
@@ -79,7 +67,7 @@ When a new team is set up, it receives \$1 in credit. Current usage charges cons
 
 ## Manual top-up
 
-Manual top-up is available to Pro, Enterprise, and eligible legacy teams. Choose how much you want to add and complete checkout. The supported amounts are:
+Manual top-up is available to Pro and Enterprise teams. Choose how much you want to add and complete checkout. The supported amounts are:
 
 ```text
 $10, $20, $50, $100, $250, $500, $1,000, $2,500, $5,000
