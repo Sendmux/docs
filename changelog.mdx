@@ -4,6 +4,19 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="26 August 2026" tags={["Bug fixes"]} rss={{ title: "Mailbox creation and settings access now avoid preventable errors" }}>
+  ## Bug fixes
+
+Mailbox names with a dot at the beginning or end, or two dots in a row, are now rejected before setup begins. But valid names with a single dot inside continue to work.
+
+Mailboxes that are still being set up now open without trying to load features that are not ready yet. You can still view and delete the mailbox while setup is pending.
+
+When your session expires, the notification settings will now take you back to the sign-in page instead of giving you an error message.
+
+Email event records containing null characters now process normally instead of retrying indefinitely.
+
+</Update>
+
 <Update label="26 August 2026" tags={["New features", "Improvements", "Bug fixes"]} rss={{ title: "Pro checkout, additional teams, and password reset now work reliably" }}>
   ## Additional Pro teams
 
