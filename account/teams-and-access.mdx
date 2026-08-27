@@ -65,7 +65,11 @@ Use **Remove member** beside the person you want to remove. Removed members lose
 
 Only an Owner can delete a team. Open **Team settings**, choose **Delete team**, then type the team name to confirm.
 
-Team deletion has a 7 day grace period. During that time, dashboard access and sending are paused. You can cancel deletion before the grace period ends. After deletion completes, team resources are removed and cannot be restored.
+Team deletion has a 7-day grace period. During this time, dashboard, API, approved agent, mailbox, and sending access are paused. A delivery already accepted by your provider may finish; Sendmux does not send it again automatically.
+
+For paid teams, the subscription stays active until the current billing period ends. If you cancel team deletion, Sendmux removes the scheduled subscription cancellation only if team deletion created it. A cancellation you chose stays in place.
+
+Only mailboxes that were active when deletion was scheduled are restored. Other service restrictions can keep the team paused. After deletion, team resources cannot be restored.
 
 ## Related guides
 

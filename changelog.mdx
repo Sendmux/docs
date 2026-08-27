@@ -4,6 +4,19 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="27 August 2026" tags={["Improvements"]} rss={{ title: "Team billing contacts and safer suspension and deletion" }}>
+  ## Team billing contacts
+
+Checkout can now use a team billing email that differs from your sign-in email. Sendmux uses it for receipts and billing messages; membership still controls ownership and access.
+
+  ## Safer team suspension and deletion
+
+When a team is suspended or scheduled for deletion, dashboard, API, approved agent, mailbox, and sending access now pause together. A provider-accepted delivery may finish, but Sendmux does not send it again automatically.
+
+Paid subscriptions stay active until the current billing period ends. Cancelling team deletion restores previously active mailboxes and removes only a subscription cancellation created by the deletion. A cancellation you chose stays in place.
+
+</Update>
+
 <Update label="26 August 2026" tags={["Bug fixes"]} rss={{ title: "Mailbox creation and settings access now avoid preventable errors" }}>
   ## Bug fixes
 
