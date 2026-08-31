@@ -62,6 +62,8 @@ Humanizer is required when the change adds reader-facing prose, changes sentence
 
 Humanizer is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Humanizer: skipped — <exact exemption>` when skipping it.
 
+This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before any provider request and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
+
 ## 5. Humanise eligible prose
 
 Follow `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/undetectable-finalisation.md` and route all transport through `/Users/rj/Desktop/GIT-REPOS/ja-k8s/scripts/undetectable.mjs`. Never use a humaniser MCP, browser interface, private endpoint, or alternative provider.
@@ -93,7 +95,7 @@ Report:
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-Humanizer: <run — preserved | skipped — exact exemption | held — <N> blocked-manual-review units>
+Humanizer: <run — preserved | skipped — exact exemption or ineligible-technical | held — <N> blocked-manual-review units>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
