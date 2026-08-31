@@ -37,7 +37,9 @@ Use an umbrella package when one application needs more than one API surface. Us
 | Management | Manage team resources such as domains, sending accounts, mailboxes, webhooks, logs, metrics, and billing data. | `smx_root_` |
 
 <Note>
-  Pre-claim `smx_agent_` tokens are mailbox-compatible only. Owner-approved Sending-resource `smx_agent_` tokens can send. Pre-claim self-registered agent tokens include `mailbox.read` and `email.receive`, not `email.send`.
+  Durable `smx_agent_` tokens are mailbox-compatible and include `mailbox.read`
+  and `email.receive`, not `email.send`. After owner acceptance and approval,
+  exchange the durable token for a one-hour Sending-resource token before sending.
 </Note>
 
 ## Choose a package family

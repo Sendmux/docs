@@ -92,7 +92,9 @@ Surface packages expose `createSendingClient`, `createMailboxClient`, and `creat
 | Management | `@sendmux/management` | `createManagementClient` | `smx_root_` |
 
 <Note>
-  Pre-claim `smx_agent_` tokens are mailbox-compatible only. Owner-approved Sending-resource `smx_agent_` tokens can send. Pre-claim self-registered agent tokens include `mailbox.read` and `email.receive`, not `email.send`.
+  Durable `smx_agent_` tokens are mailbox-compatible and include `mailbox.read`
+  and `email.receive`, not `email.send`. After owner acceptance and approval,
+  exchange the durable token for a one-hour Sending-resource token before sending.
 </Note>
 
 Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
