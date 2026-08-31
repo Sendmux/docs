@@ -55,6 +55,10 @@ The `retryable` field tells you whether retrying the same request is likely to s
 
 When `retryable` is `true` for a `429` or `503`, the response also carries a `Retry-After` HTTP header with the recommended wait in seconds. Honour that value rather than retrying immediately.
 
+<Card title="Service status" icon="chart-line" href="https://status.sendmux.ai">
+  Check current service availability before retrying persistent `503` responses.
+</Card>
+
 ```http
 HTTP/1.1 429 Too Many Requests
 Retry-After: 30

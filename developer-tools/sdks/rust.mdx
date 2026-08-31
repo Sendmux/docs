@@ -1,0 +1,194 @@
+---
+title: "Rust SDK"
+description: "Install and configure the Sendmux Rust SDK crate."
+keywords:
+  [
+    "Rust SDK",
+    "sendmux crate",
+    "sendmux::sending",
+    "sendmux::mailbox",
+    "sendmux::management",
+    "Sendmux SDKs",
+  ]
+---
+
+Use the Rust SDK when your application needs clients for the Sending, Mailbox, or Management API.
+
+<Info>
+  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  team-scoped `smx_root_` keys.
+</Info>
+
+## Requirements
+
+- Rust 1.82 or newer.
+- You need a Sendmux API key for the specific surface you're trying to access.
+- An async context for API calls.
+
+## Install
+
+The Rust SDK is one crate with three surface modules.
+
+```bash
+cargo add sendmux
+```
+
+## Create a client
+
+Import the surface client from the `sendmux` crate.
+
+<CodeGroup>
+
+```rust Sending
+use sendmux::sending::SendingClient;
+
+fn sending_client() -> sendmux::Result<SendingClient> {
+    SendingClient::new(
+        std::env::var("SENDMUX_MAILBOX_API_KEY")
+            .expect("SENDMUX_MAILBOX_API_KEY is required"),
+    )
+}
+```
+
+```rust Mailbox
+use sendmux::mailbox::MailboxClient;
+
+fn mailbox_client() -> sendmux::Result<MailboxClient> {
+    MailboxClient::new(
+        std::env::var("SENDMUX_MAILBOX_API_KEY")
+            .expect("SENDMUX_MAILBOX_API_KEY is required"),
+    )
+}
+```
+
+```rust Management
+use sendmux::management::ManagementClient;
+
+fn management_client() -> sendmux::Result<ManagementClient> {
+    ManagementClient::new(
+        std::env::var("SENDMUX_ROOT_API_KEY")
+            .expect("SENDMUX_ROOT_API_KEY is required"),
+    )
+}
+```
+
+</CodeGroup>
+
+Call this async function from your application to send a message.
+
+```rust
+use sendmux::sending::{Address, EmailSendRequest, SendingClient};
+
+pub async fn send_welcome() -> sendmux::Result<()> {
+    let client = SendingClient::new(
+        std::env::var("SENDMUX_MAILBOX_API_KEY")
+            .expect("SENDMUX_MAILBOX_API_KEY is required"),
+    )?;
+
+    let response = client
+        .send_email(&EmailSendRequest::new(
+            Address::new("sender@example.com").with_name("Example App"),
+            Address::new("user@example.com"),
+            "Welcome to Sendmux",
+            "<p>Hello from Rust.</p>",
+        ))
+        .await?;
+
+    println!(
+        "queued {} via {}",
+        response.data.message_id,
+        response.request_id()
+    );
+    Ok(())
+}
+```
+
+## Choose a surface
+
+| Surface | Module | Client or helper | API key |
+| --- | --- | --- | --- |
+| Sending | `sendmux::sending` | `SendingClient`, `sendmux::sending` | `smx_mbx_` or owner-approved `smx_agent_` with `email.send` |
+| Mailbox | `sendmux::mailbox` | `MailboxClient`, `sendmux::mailbox` | `smx_mbx_` or scoped `smx_agent_` |
+| Management | `sendmux::management` | `ManagementClient`, `sendmux::management` | `smx_root_` |
+
+<Note>
+  `sending`, `mailbox`, and `management` are modules inside the `sendmux` crate. They are not separate installable crates.
+</Note>
+
+Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+
+## Shared API behaviour
+
+Surface clients validate API key prefixes, attach bearer auth, and return a response with data, metadata, and the HTTP status.
+
+### Typed and raw JSON coverage
+
+Sending has typed request and response models. Mailbox and Management expose typed surface clients with raw JSON helpers. Their operation helpers return JSON values rather than the typed Sending models.
+
+### Pagination
+
+Mailbox and Management list helpers return paginated data as JSON. Read `pagination.has_more` and `pagination.next_cursor` according to the relevant API reference. The crate does not currently provide a typed cursor iterator for these surfaces.
+
+### Retries and rate limits
+
+The crate sends each request once. When `sendmux::Error::Api` reports `retryable` as `true`, follow the API retry guidance before sending the request again.
+
+### Idempotency and ETags
+
+Use `RequestOptions` when an operation accepts optional header values.
+
+```rust
+use sendmux::core::RequestOptions;
+
+let send_options = RequestOptions::new().idempotency_key("order-123");
+let update_options = RequestOptions::new().if_match(etag);
+
+let _ = (send_options, update_options);
+```
+
+Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-None-Match` with single-resource endpoints that support ETags.
+
+### Errors
+
+SDK methods return `sendmux::Result<Response<T>>`. API failures map to `sendmux::Error::Api` with the status, machine-readable code, retryable flag, raw response body, and request ID when available.
+
+```rust
+use sendmux::sending::{EmailSendRequest, SendingClient};
+
+pub async fn send_and_report(
+    client: &SendingClient,
+    request: &EmailSendRequest,
+) -> sendmux::Result<()> {
+    match client.send_email(request).await {
+        Ok(response) => {
+            println!("request id: {}", response.request_id());
+            Ok(())
+        }
+        Err(sendmux::Error::Api(error)) => {
+            eprintln!("{} {:?}", error.message, error.request_id);
+            Err(sendmux::Error::Api(error))
+        }
+        Err(error) => Err(error),
+    }
+}
+```
+
+Keep the request ID when contacting support.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="SDK overview" icon="code" href="/developer-tools/sdks">
+    Choose the right package family and API surface.
+  </Card>
+  <Card title="Versioning and support" icon="rotate" href="/developer-tools/sdks/versioning-support">
+    Check compatibility, support, and upgrade guidance.
+  </Card>
+  <Card title="Management API" icon="chart-line" href="/api/introduction">
+    Review the Management API contract used by `sendmux::management`.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create and scope the credentials used by SDK clients.
+  </Card>
+</CardGroup>

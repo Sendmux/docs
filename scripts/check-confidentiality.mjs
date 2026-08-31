@@ -50,7 +50,6 @@ const hardForbiddenTerms = [
   { label: "MariaDB", pattern: wordPattern("MariaDB") },
   { label: "MySQL", pattern: wordPattern("MySQL") },
   { label: "ClickHouse", pattern: wordPattern("ClickHouse") },
-  { label: "Rust", pattern: wordPattern("Rust") },
   { label: "Wrangler", pattern: wordPattern("Wrangler") },
 ];
 
@@ -60,6 +59,7 @@ const sdkAllowlistExamples = [
   "Go",
   "PHP",
   "Ruby",
+  "Rust",
   "@sendmux/",
   "sendmux-",
   "sendmux.ai/go",
@@ -68,16 +68,42 @@ const sdkAllowlistExamples = [
   "sendmux-mcp",
 ];
 
+const scopedForbiddenTerms = [
+  {
+    label: "Rust",
+    pattern: wordPattern("Rust"),
+    allowedOccurrences: [
+      { filePattern: /^developer-tools\/sdks\/.*\.mdx$/ },
+      {
+        filePattern: /^docs\.json$/,
+        linePattern: /"developer-tools\/sdks\/rust"/i,
+      },
+    ],
+  },
+];
+
+const forbiddenTerms = [...hardForbiddenTerms, ...scopedForbiddenTerms];
+
 const findings = [];
 
 for await (const file of shippedFiles(root)) {
   const text = await readFile(file, "utf8");
   const lines = text.split(/\r?\n/);
+  const relativeFile = path.relative(root, file);
   for (const [index, line] of lines.entries()) {
-    for (const term of hardForbiddenTerms) {
+    for (const term of forbiddenTerms) {
+      if (
+        term.allowedOccurrences?.some(
+          ({ filePattern, linePattern }) =>
+            filePattern.test(relativeFile) &&
+            (!linePattern || linePattern.test(line)),
+        )
+      ) {
+        continue;
+      }
       if (term.pattern.test(line)) {
         findings.push({
-          file: path.relative(root, file),
+          file: relativeFile,
           line: index + 1,
           term: term.label,
           text: line.trim(),
