@@ -47,6 +47,7 @@
                   "developer-tools/sdks/go",
                   "developer-tools/sdks/php",
                   "developer-tools/sdks/ruby",
+                  "developer-tools/sdks/rust",
                   "developer-tools/sdks/versioning-support"
                 ]
               },

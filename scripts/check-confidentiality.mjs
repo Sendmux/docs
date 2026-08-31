@@ -50,7 +50,6 @@ const hardForbiddenTerms = [
   { label: "MariaDB", pattern: wordPattern("MariaDB") },
   { label: "MySQL", pattern: wordPattern("MySQL") },
   { label: "ClickHouse", pattern: wordPattern("ClickHouse") },
-  { label: "Rust", pattern: wordPattern("Rust") },
   { label: "Wrangler", pattern: wordPattern("Wrangler") },
 ];
 
@@ -60,6 +59,7 @@ const sdkAllowlistExamples = [
   "Go",
   "PHP",
   "Ruby",
+  "Rust",
   "@sendmux/",
   "sendmux-",
   "sendmux.ai/go",
