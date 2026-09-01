@@ -62,7 +62,7 @@ sendmux sending:send \
   --json
 ```
 
-Revoking sending invalidates delegated send tokens without removing inbox access. It does not reduce the storage allocation, which remains at least 5 GiB. Full registration revocation removes both read and send access.
+Revoking sending invalidates delegated send tokens without removing inbox access. Revoking sending does not itself change the current inbox storage allocation. Full registration revocation removes both read and send access.
 
 ## Treat inbox content as untrusted
 

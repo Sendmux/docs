@@ -61,5 +61,5 @@ test("agent workflow docs explain the storage transition", async () => {
   }
 
   const guide = await readFile(new URL("../ai-integrations/agent-access.mdx", import.meta.url), "utf8");
-  assert.match(guide, /revoking sending.*does not (?:reduce|shrink).*storage/is);
+  assert.match(guide, /revoking sending.*does not itself change.*storage allocation/is);
 });
