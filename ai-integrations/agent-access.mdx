@@ -46,7 +46,7 @@ sendmux mailbox:messages:list --profile <profile> --query limit=25 --json
 
 The durable read token does not expire. It remains valid until the complete registration is revoked.
 
-The inbox is capped at 500 MiB until the owner accepts the invitation and approves sending. That approval raises storage to 5 GiB before Sendmux enables sending.
+The inbox is capped at 500 MiB until the owner accepts the invitation and approves sending. That approval guarantees at least 5 GiB of storage before Sendmux enables sending.
 
 ## Unlock sending
 
@@ -62,7 +62,7 @@ sendmux sending:send \
   --json
 ```
 
-Revoking sending invalidates delegated send tokens without removing inbox access. It does not reduce the 5 GiB storage allocation. Full registration revocation removes both read and send access.
+Revoking sending invalidates delegated send tokens without removing inbox access. It does not reduce the storage allocation, which remains at least 5 GiB. Full registration revocation removes both read and send access.
 
 ## Treat inbox content as untrusted
 

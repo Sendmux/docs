@@ -57,7 +57,7 @@ test("agent workflow docs explain the storage transition", async () => {
   for (const file of files) {
     const content = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
     assert.match(content, /500 MiB/, `${file} must state the pre-owner storage cap`);
-    assert.match(content, /5 GiB/, `${file} must state the owner-approved storage allocation`);
+    assert.match(content, /at least 5 GiB/, `${file} must state the owner-approved storage floor`);
   }
 
   const guide = await readFile(new URL("../ai-integrations/agent-access.mdx", import.meta.url), "utf8");

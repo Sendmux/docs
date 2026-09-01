@@ -77,7 +77,7 @@ sendmux agent:invite-owner owner@example.com --profile my-agent --json
 
 The durable profile can read and receive mail without an expiry date unless the complete registration is revoked. After the owner accepts the invitation and approves sending, Sending commands automatically exchange the durable credential for a one-hour `email.send` token.
 
-The self-registered inbox is capped at 500 MiB before approval. Sending approval raises it to 5 GiB before the CLI can obtain a delegated sending token. Revoking sending later does not shrink the inbox.
+The self-registered inbox is capped at 500 MiB before approval. Sending approval raises it to at least 5 GiB before the CLI can obtain a delegated sending token. Revoking sending later does not shrink the inbox.
 
 ## Configure profiles
 
