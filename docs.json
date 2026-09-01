@@ -108,6 +108,19 @@
                     ]
                   }
                 ]
+              },
+              {
+                "group": "Agent frameworks",
+                "root": "ai-integrations/frameworks/index",
+                "directory": "card",
+                "pages": [
+                  "ai-integrations/frameworks/mastra",
+                  "ai-integrations/frameworks/langgraph",
+                  "ai-integrations/frameworks/crewai",
+                  "ai-integrations/frameworks/ai-sdk",
+                  "ai-integrations/frameworks/openai-agents-sdk",
+                  "ai-integrations/frameworks/google-adk"
+                ]
               }
             ]
           },

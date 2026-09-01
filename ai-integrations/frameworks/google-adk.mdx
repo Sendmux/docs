@@ -1,0 +1,191 @@
+---
+title: "Google ADK"
+description: "Add Sendmux mailbox and sending tools to a Google ADK agent with an MCP toolset."
+keywords:
+  [
+    "Google ADK",
+    "Agent Development Kit",
+    "McpToolset",
+    "StreamableHTTPConnectionParams",
+    "sendmux-mcp",
+  ]
+---
+
+Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofollow noopener noreferrer" target="_blank">Google Agent Development Kit</a> agent a Sendmux mailbox. `McpToolset` retrieves MCP tools as ADK tools, and the framework loads and closes them around each agent invocation.
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+## Requirements
+
+- Python 3.10 or newer.
+- `google-adk` installed.
+- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+
+## Install
+
+```bash
+pip install google-adk sendmux-mcp
+```
+
+## Connect over local stdio
+
+The toolset launches the server and passes your key through the subprocess environment.
+
+```python agent.py
+import os
+
+from google.adk.agents import LlmAgent
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+from mcp import StdioServerParameters
+
+sendmux_toolset = McpToolset(
+    connection_params=StdioServerParameters(
+        command="sendmux-mcp-mailbox",
+        args=[],
+        env={"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"]},
+    ),
+)
+
+root_agent = LlmAgent(
+    name="inbox_agent",
+    instruction=(
+        "You triage the mailbox you have been granted. "
+        "Search before you read, and quote the message you acted on."
+    ),
+    tools=[sendmux_toolset],
+)
+```
+
+Run more than one surface by switching to the `sendmux-mcp` entry point:
+
+```python
+connection_params=StdioServerParameters(
+    command="sendmux-mcp",
+    args=[],
+    env={
+        "SENDMUX_MCP_SURFACES": "mailbox,sending",
+        "SENDMUX_MAILBOX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"],
+        "SENDMUX_SENDING_API_KEY": os.environ["SENDMUX_SENDING_API_KEY"],
+    },
+)
+```
+
+## Connect over private HTTP
+
+Use this when the agent runs somewhere it cannot spawn a process. Start the server yourself:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Then connect with streamable HTTP connection parameters:
+
+```python
+import os
+
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+
+sendmux_toolset = McpToolset(
+    connection_params=StreamableHTTPConnectionParams(
+        url="http://127.0.0.1:8765/mcp",
+        headers={
+            "Authorization": f"Bearer {os.environ['SENDMUX_MCP_HTTP_BEARER_TOKEN']}"
+        },
+    ),
+)
+```
+
+## Narrow what the agent can reach
+
+`tool_filter` limits the toolset to named tools. A triage agent that never sends is safer than one that could.
+
+```python
+sendmux_toolset = McpToolset(
+    connection_params=StdioServerParameters(
+        command="sendmux-mcp-mailbox",
+        args=[],
+        env={"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"]},
+    ),
+    tool_filter=[
+        "mailbox_list_messages",
+        "mailbox_search_message_snippets",
+        "mailbox_get_message",
+    ],
+)
+```
+
+<Note>
+  Open your MCP tool listing after connecting to confirm the exact names your
+  key exposes. Tool names are generated from the current public API surfaces.
+</Note>
+
+## Give each user their own mailbox
+
+Mailbox-scoped keys are the isolation boundary. Build a toolset per tenant so the agent working one tenant structurally cannot read another tenant's mail.
+
+```python
+def toolset_for(mailbox_key: str) -> McpToolset:
+    return McpToolset(
+        connection_params=StdioServerParameters(
+            command="sendmux-mcp-mailbox",
+            args=[],
+            env={"SENDMUX_API_KEY": mailbox_key},
+        ),
+    )
+```
+
+For a per-request key over private HTTP, supply `header_provider` instead. It runs at session creation and merges its headers into every tool call.
+
+## Sending stays gated
+
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The agent sees no tools">
+    Confirm the surfaces the server started with. `sendmux-mcp` requires
+    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not. Check
+    `tool_filter` as well, since it hides everything it does not name.
+  </Accordion>
+
+  <Accordion title="The subprocess exits immediately">
+    Check the key prefix. Mailbox accepts `smx_mbx_` or a scoped `smx_agent_`,
+    Sending accepts a send-capable `smx_mbx_` or an owner-approved
+    Sending-resource `smx_agent_`, and Management requires `smx_root_`.
+  </Accordion>
+
+  <Accordion title="A stdio server is refused when loaded from agent config">
+    ADK blocks stdio MCP servers declared in external agent configuration unless
+    you set `ADK_ALLOW_CONFIG_STDIO_MCP_SERVERS=1`. Define the toolset in code,
+    or opt in only for configurations you trust.
+  </Accordion>
+
+  <Accordion title="Private HTTP returns 401">
+    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` through
+    `headers` or `header_provider`.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Agent frameworks" icon="layer-group" href="/ai-integrations/frameworks">
+    Compare connections across frameworks.
+  </Card>
+  <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
+    Review environment variables and tool discovery.
+  </Card>
+  <Card title="A2A" icon="network" href="/ai-integrations/a2a">
+    Reach Sendmux through an A2A agent endpoint.
+  </Card>
+  <Card title="Python SDK" icon="code" href="/developer-tools/sdks/python">
+    Call Sendmux directly when you want full endpoint coverage.
+  </Card>
+</CardGroup>

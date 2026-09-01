@@ -1,0 +1,189 @@
+---
+title: "CrewAI"
+description: "Attach Sendmux mailbox and sending tools to a CrewAI agent or crew."
+keywords:
+  [
+    "CrewAI",
+    "crewai-tools",
+    "MCPServerAdapter",
+    "CrewAI email",
+    "sendmux-mcp",
+  ]
+---
+
+Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener noreferrer" target="_blank">CrewAI</a> agent a Sendmux mailbox. `MCPServerAdapter` returns CrewAI tools that map one to one onto the MCP tools your key allows.
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+## Requirements
+
+- Python 3.10 or newer.
+- `crewai` and `crewai-tools` with MCP support installed.
+- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+
+## Install
+
+```bash
+pip install crewai "crewai-tools[mcp]" sendmux-mcp
+```
+
+## Connect over local stdio
+
+Stdio is the recommended connection for CrewAI, because the adapter passes your key through the subprocess environment.
+
+```python crew.py
+import os
+
+from crewai import Agent, Crew, Task
+from crewai_tools import MCPServerAdapter
+from mcp import StdioServerParameters
+
+server_params = StdioServerParameters(
+    command="sendmux-mcp-mailbox",
+    args=[],
+    env={"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"], **os.environ},
+)
+
+with MCPServerAdapter(server_params) as tools:
+    triage = Agent(
+        role="Inbox triage specialist",
+        goal="Find the mail that needs a human today and summarise why",
+        backstory="You work one granted mailbox and never guess at content you have not read.",
+        tools=tools,
+    )
+
+    task = Task(
+        description="Review mail received in the last 24 hours and list what needs a reply.",
+        agent=triage,
+        expected_output="A short list of messages, each with the sender and the reason it needs attention.",
+    )
+
+    crew = Crew(agents=[triage], tasks=[task])
+    print(crew.kickoff())
+```
+
+Run more than one surface by switching to the `sendmux-mcp` entry point:
+
+```python
+server_params = StdioServerParameters(
+    command="sendmux-mcp",
+    args=[],
+    env={
+        "SENDMUX_MCP_SURFACES": "mailbox,sending",
+        "SENDMUX_MAILBOX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"],
+        "SENDMUX_SENDING_API_KEY": os.environ["SENDMUX_SENDING_API_KEY"],
+        **os.environ,
+    },
+)
+```
+
+## Limit which tools the crew gets
+
+Pass tool names to the adapter when an agent should only reach part of a surface. A triage agent that never sends is safer than one that could.
+
+```python
+with MCPServerAdapter(
+    server_params,
+    "mailbox_list_messages",
+    "mailbox_search_message_snippets",
+    "mailbox_get_message",
+) as tools:
+    agent = Agent(role="Inbox triage specialist", goal="Summarise what needs attention", tools=tools)
+```
+
+<Note>
+  Open your MCP tool listing after connecting to confirm the exact names your
+  key exposes. Tool names are generated from the current public API surfaces.
+</Note>
+
+## Manage the connection yourself
+
+Use manual management when the crew outlives a single block. Always stop the adapter.
+
+```python
+mcp_server_adapter = MCPServerAdapter(server_params, connect_timeout=60)
+try:
+    tools = mcp_server_adapter.tools
+    agent = Agent(role="Inbox triage specialist", goal="Summarise what needs attention", tools=tools)
+    crew = Crew(agents=[agent], tasks=[task])
+    crew.kickoff()
+finally:
+    mcp_server_adapter.stop()
+```
+
+## Remote servers
+
+`MCPServerAdapter` also accepts a streamable HTTP server:
+
+```python
+server_params = {"url": "http://127.0.0.1:8765/mcp", "transport": "streamable-http"}
+```
+
+<Warning>
+  CrewAI does not document custom request headers for its HTTP transports, and
+  private HTTP mode requires `SENDMUX_MCP_HTTP_BEARER_TOKEN` unless you start it
+  with `--allow-unauthenticated-http`. Use the stdio connection above when the
+  crew needs an authenticated Sendmux connection.
+</Warning>
+
+## Give each user their own mailbox
+
+Mailbox-scoped keys are the isolation boundary. Build the server parameters per tenant so the crew working one tenant structurally cannot read another tenant's mail.
+
+```python
+def server_params_for(mailbox_key: str) -> StdioServerParameters:
+    return StdioServerParameters(
+        command="sendmux-mcp-mailbox",
+        args=[],
+        env={"SENDMUX_API_KEY": mailbox_key, **os.environ},
+    )
+```
+
+## Sending stays gated
+
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The adapter returns no tools">
+    Confirm the surfaces the server started with. `sendmux-mcp` requires
+    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+  </Accordion>
+
+  <Accordion title="The subprocess exits immediately">
+    Check the key prefix. Mailbox accepts `smx_mbx_` or a scoped `smx_agent_`,
+    Sending accepts a send-capable `smx_mbx_` or an owner-approved
+    Sending-resource `smx_agent_`, and Management requires `smx_root_`.
+  </Accordion>
+
+  <Accordion title="The process hangs after kickoff">
+    Call `mcp_server_adapter.stop()` in a `finally` block, or use the context
+    manager so the connection closes for you.
+  </Accordion>
+
+  <Accordion title="You granted more than one mailbox">
+    Start the workflow with `mailbox_list_granted_mailboxes` and pass the
+    returned `mailbox_id` to tools that act on one mailbox.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Agent frameworks" icon="layer-group" href="/ai-integrations/frameworks">
+    Compare connections across frameworks.
+  </Card>
+  <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
+    Review environment variables and tool discovery.
+  </Card>
+  <Card title="Mailbox API guides" icon="inbox" href="/developer-tools/mailbox-api/operations-and-usage">
+    Understand mailbox operations and usage limits.
+  </Card>
+  <Card title="Python SDK" icon="code" href="/developer-tools/sdks/python">
+    Call Sendmux directly when you want full endpoint coverage.
+  </Card>
+</CardGroup>

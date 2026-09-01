@@ -64,6 +64,28 @@ Humanizer is not required for an exact technical-token correction, metadata-only
 
 This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before any provider request and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
 
+### Reference-class pages
+
+A page earns the `reference-class` disposition by surviving a failed Humanizer run, never by assertion.
+
+Qualify a page when all four hold:
+
+- Its reader task is to make a named external system work against a Sendmux surface: API reference, SDK reference, MCP or framework integration, client setup.
+- Its prose exists to sequence and qualify code, configuration, and exact identifiers. No section persuades, compares, or markets.
+- A completed Humanizer run over its eligible units is recorded in a ledger under `automation/ledgers/`, carrying every unit's before text, after text, and verdict.
+- That run failed on at least half the units. Count a unit failed when the provider returned it unchanged, when the output reduced a protected occurrence, or when the output changed a fact, a warning, a prerequisite, or a reader instruction.
+
+For a qualifying page:
+
+- Keep the frozen baseline byte-identically.
+- Run the section 6 preservation gate against the baseline regardless. Structure, protected occurrences, and factual equivalence still apply.
+- Add a voice pass against the voice profile covering em dashes, hype words, Australian English, and sentence length.
+- Report `Humanizer: reference-class — <N> units, ledger at <path>`.
+
+The disposition covers one page and lapses when that page changes materially. It never covers a landing page, a use-case page, a comparison page, a changelog entry, or any page whose job is to persuade.
+
+First recorded application: `ai-integrations/frameworks/*` on 2026-09-01, ledger at `automation/ledgers/2026-09-01-ai-integrations-frameworks.md`. Fifty-five eligible units, forty-nine failed across two provider strengths.
+
 ## 5. Humanise eligible prose
 
 Follow `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/undetectable-finalisation.md` and route all transport through `/Users/rj/Desktop/GIT-REPOS/ja-k8s/scripts/undetectable.mjs`. Never use a humaniser MCP, browser interface, private endpoint, or alternative provider.
@@ -95,7 +117,7 @@ Report:
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-Humanizer: <run — preserved | skipped — exact exemption or ineligible-technical | held — <N> blocked-manual-review units>
+Humanizer: <run — preserved | skipped — exact exemption or ineligible-technical | reference-class — <N> units, ledger at <path> | held — <N> blocked-manual-review units>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```

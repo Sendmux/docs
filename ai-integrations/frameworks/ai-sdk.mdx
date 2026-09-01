@@ -1,0 +1,187 @@
+---
+title: "AI SDK"
+description: "Use Sendmux mailbox and sending tools from the AI SDK with generateText or streamText."
+keywords:
+  [
+    "AI SDK",
+    "@ai-sdk/mcp",
+    "createMCPClient",
+    "generateText",
+    "sendmux-mcp",
+  ]
+---
+
+Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener noreferrer" target="_blank">AI SDK</a> to Sendmux. `createMCPClient` converts MCP tools into AI SDK tools, so they drop straight into `generateText` or `streamText`.
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+## Requirements
+
+- A project with `ai` and `@ai-sdk/mcp` installed.
+- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- Python available in the same runtime if you use the local stdio connection.
+
+## Install
+
+<CodeGroup>
+
+```bash AI SDK
+npm install ai @ai-sdk/mcp
+```
+
+```bash Sendmux MCP
+pip install sendmux-mcp
+```
+
+</CodeGroup>
+
+## Connect over private HTTP
+
+HTTP is the better fit for most AI SDK deployments, because serverless and edge runtimes usually cannot spawn a process. Start the server where your key can live:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Then connect and send the bearer token on every request:
+
+```typescript
+import { createMCPClient } from "@ai-sdk/mcp";
+
+const mcpClient = await createMCPClient({
+  transport: {
+    type: "http",
+    url: "http://127.0.0.1:8765/mcp",
+    headers: {
+      Authorization: `Bearer ${process.env.SENDMUX_MCP_HTTP_BEARER_TOKEN}`,
+    },
+  },
+});
+```
+
+## Connect over local stdio
+
+Use this when your process can launch the server itself.
+
+```typescript
+import { createMCPClient } from "@ai-sdk/mcp";
+import { Experimental_StdioMCPTransport } from "@ai-sdk/mcp/mcp-stdio";
+
+const mcpClient = await createMCPClient({
+  transport: new Experimental_StdioMCPTransport({
+    command: "sendmux-mcp-mailbox",
+    args: [],
+    env: { SENDMUX_API_KEY: process.env.SENDMUX_MAILBOX_API_KEY! },
+  }),
+});
+```
+
+## Run the agent
+
+Fetch the tools, pass them to the model, and close the client when the call finishes.
+
+```typescript app/triage.ts
+import { createMCPClient } from "@ai-sdk/mcp";
+import { generateText, isStepCount } from "ai";
+
+let mcpClient;
+
+try {
+  mcpClient = await createMCPClient({
+    transport: {
+      type: "http",
+      url: "http://127.0.0.1:8765/mcp",
+      headers: {
+        Authorization: `Bearer ${process.env.SENDMUX_MCP_HTTP_BEARER_TOKEN}`,
+      },
+    },
+  });
+
+  const tools = await mcpClient.tools();
+
+  const result = await generateText({
+    model: "openai/gpt-4o",
+    tools,
+    stopWhen: isStepCount(5),
+    system:
+      "You triage the mailbox you have been granted. Search before you read, and quote the message you acted on.",
+    prompt: "What arrived overnight that needs a reply?",
+  });
+
+  console.log(result.text);
+} finally {
+  await mcpClient?.close();
+}
+```
+
+When you stream, close the client in `onEnd` so the connection does not outlive the response:
+
+```typescript
+const result = await streamText({
+  model: "openai/gpt-4o",
+  tools,
+  prompt: "Summarise today's unread mail.",
+  onEnd: async () => {
+    await mcpClient.close();
+  },
+});
+```
+
+<Note>
+  Spreading several tool sets into one object lets later sets override earlier
+  tools with the same name. Keep Sendmux in its own client, or namespace the
+  others, when you connect more than one MCP server.
+</Note>
+
+## Give each user their own mailbox
+
+Mailbox-scoped keys are the isolation boundary. Create the client per request with that tenant's key so the agent working one tenant structurally cannot read another tenant's mail. Close it when the request ends.
+
+## Sending stays gated
+
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and start the server with it as `SENDMUX_SENDING_API_KEY`.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="tools() returns nothing">
+    Confirm the surfaces the server started with. `sendmux-mcp` requires
+    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+  </Accordion>
+
+  <Accordion title="The HTTP transport returns 401">
+    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` in the
+    transport `headers`.
+  </Accordion>
+
+  <Accordion title="The HTTP transport returns 403 origin_forbidden">
+    Add the calling origin to `SENDMUX_MCP_ALLOWED_ORIGINS` on the server.
+  </Accordion>
+
+  <Accordion title="Connections build up under load">
+    Close the client in `finally`, or in `onEnd` when streaming. Every request
+    that opens a client has to close one.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Agent frameworks" icon="layer-group" href="/ai-integrations/frameworks">
+    Compare connections across frameworks.
+  </Card>
+  <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
+    Review environment variables and tool discovery.
+  </Card>
+  <Card title="Mailbox API guides" icon="inbox" href="/developer-tools/mailbox-api/threads">
+    Work with threads and conversation state.
+  </Card>
+  <Card title="TypeScript SDK" icon="code" href="/developer-tools/sdks/typescript">
+    Call Sendmux directly when you want full endpoint coverage.
+  </Card>
+</CardGroup>

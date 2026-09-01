@@ -1,0 +1,198 @@
+---
+title: "Mastra"
+description: "Give a Mastra agent a Sendmux mailbox and sending access through MCP."
+keywords:
+  [
+    "Mastra",
+    "@mastra/mcp",
+    "MCPClient",
+    "Mastra agent email",
+    "sendmux-mcp",
+  ]
+---
+
+Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener noreferrer" target="_blank">Mastra</a> agent to Sendmux so it can read, search, and reply from a mailbox you grant it.
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+## Requirements
+
+- A Mastra project with `@mastra/core` and `@mastra/mcp` installed.
+- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- Python available in the same runtime if you use the local stdio connection.
+
+## Install
+
+<CodeGroup>
+
+```bash Mastra
+npm install @mastra/mcp
+```
+
+```bash Sendmux MCP
+pip install sendmux-mcp
+```
+
+</CodeGroup>
+
+## Connect over local stdio
+
+Mastra launches the server as a child process and passes your key through the process environment.
+
+```typescript mcp/client.ts
+import { MCPClient } from "@mastra/mcp";
+
+export const mcpClient = new MCPClient({
+  id: "sendmux",
+  servers: {
+    sendmux: {
+      command: "sendmux-mcp-mailbox",
+      args: [],
+      env: {
+        SENDMUX_API_KEY: process.env.SENDMUX_MAILBOX_API_KEY!,
+      },
+    },
+  },
+});
+```
+
+Run more than one surface in a single server by using the `sendmux-mcp` entry point instead:
+
+```typescript
+sendmux: {
+  command: "sendmux-mcp",
+  args: [],
+  env: {
+    SENDMUX_MCP_SURFACES: "mailbox,sending",
+    SENDMUX_MAILBOX_API_KEY: process.env.SENDMUX_MAILBOX_API_KEY!,
+    SENDMUX_SENDING_API_KEY: process.env.SENDMUX_SENDING_API_KEY!,
+  },
+}
+```
+
+## Connect over private HTTP
+
+Use this when your Mastra service runs somewhere it cannot spawn a process. Start the server yourself:
+
+```bash
+SENDMUX_API_KEY=smx_mbx_... \
+SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
+```
+
+Then point `MCPClient` at it and send the bearer token on every request:
+
+```typescript mcp/client.ts
+import { MCPClient } from "@mastra/mcp";
+
+export const mcpClient = new MCPClient({
+  id: "sendmux",
+  servers: {
+    sendmux: {
+      url: new URL("http://127.0.0.1:8765/mcp"),
+      requestInit: {
+        headers: {
+          Authorization: `Bearer ${process.env.SENDMUX_MCP_HTTP_BEARER_TOKEN}`,
+        },
+      },
+    },
+  },
+});
+```
+
+## Give the tools to an agent
+
+Load the tools once at startup when the key is the same for every request.
+
+```typescript agents/inbox-agent.ts
+import { Agent } from "@mastra/core/agent";
+import { mcpClient } from "../mcp/client";
+
+export const inboxAgent = new Agent({
+  id: "inbox-agent",
+  name: "Inbox agent",
+  instructions: `
+    You triage the mailbox you have been granted.
+    Search before you read, and quote the message you acted on.
+  `,
+  model: "openai/gpt-4o",
+  tools: await mcpClient.listTools(),
+});
+```
+
+## Give each user their own mailbox
+
+When the key changes per tenant, per customer, or per agent, build the client at request time and pass its toolsets into the call instead of binding them to the agent.
+
+```typescript
+import { MCPClient } from "@mastra/mcp";
+
+const mcp = new MCPClient({
+  servers: {
+    sendmux: {
+      command: "sendmux-mcp-mailbox",
+      args: [],
+      env: { SENDMUX_API_KEY: tenantMailboxKey },
+    },
+  },
+});
+
+const response = await inboxAgent.stream("What needs a reply today?", {
+  toolsets: await mcp.listToolsets(),
+});
+```
+
+<Note>
+  A mailbox-scoped key is the isolation boundary. An agent holding one
+  structurally cannot read another tenant's mail, so provision a key per
+  mailbox rather than sharing one across tenants.
+</Note>
+
+## Sending stays gated
+
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="No tools appear on the agent">
+    Confirm the surfaces the server started with. `sendmux-mcp` requires
+    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+  </Accordion>
+
+  <Accordion title="The server exits before Mastra connects">
+    Check the key prefix. Mailbox accepts `smx_mbx_` or a scoped `smx_agent_`,
+    Sending accepts a send-capable `smx_mbx_` or an owner-approved
+    Sending-resource `smx_agent_`, and Management requires `smx_root_`.
+  </Accordion>
+
+  <Accordion title="Private HTTP returns 401">
+    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` on every
+    request through `requestInit.headers`.
+  </Accordion>
+
+  <Accordion title="You granted more than one mailbox">
+    Start the workflow with `mailbox_list_granted_mailboxes` and pass the
+    returned `mailbox_id` to tools that act on one mailbox.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Agent frameworks" icon="layer-group" href="/ai-integrations/frameworks">
+    Compare connections across frameworks.
+  </Card>
+  <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
+    Review environment variables and tool discovery.
+  </Card>
+  <Card title="Mailbox API guides" icon="inbox" href="/developer-tools/mailbox-api/targeting-and-capabilities">
+    Understand targeting, search, threads, and sync.
+  </Card>
+  <Card title="TypeScript SDK" icon="code" href="/developer-tools/sdks/typescript">
+    Call Sendmux directly when you want full endpoint coverage.
+  </Card>
+</CardGroup>

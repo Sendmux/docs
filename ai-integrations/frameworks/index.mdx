@@ -1,0 +1,106 @@
+---
+title: "Agent frameworks"
+sidebarTitle: "Agent frameworks"
+description: "Give an agent built on any major framework its own mailbox and sending access."
+keywords:
+  [
+    "agent frameworks",
+    "Mastra",
+    "LangGraph",
+    "CrewAI",
+    "AI SDK",
+    "OpenAI Agents SDK",
+    "Google ADK",
+    "sendmux-mcp",
+  ]
+---
+
+Use this section to wire Sendmux into an agent you are building in code. Every framework here reaches Sendmux through MCP, so the tools your agent gets are the tools your key or grant allows.
+
+<Info>
+  These pages cover frameworks you build agents with. To configure Sendmux in a
+  coding assistant such as Claude Code or Cursor, use
+  [MCP client setup](/ai-integrations/mcp/clients).
+</Info>
+
+<Warning>
+  Replace placeholder keys and tokens before running any snippet. Do not commit
+  `smx_root_`, `smx_mbx_`, or private HTTP bearer tokens to version control.
+</Warning>
+
+## Choose a connection
+
+Framework agents run without a browser, so pick the connection your runtime can complete.
+
+| Connection | Use it when | How the key travels |
+| --- | --- | --- |
+| Local stdio | Your process can launch `sendmux-mcp` on the same machine. | Process environment |
+| Private HTTP | Your agent runs elsewhere, or your framework only accepts a URL. | `Authorization` header |
+| Hosted OAuth | Your framework can complete a browser MCP OAuth flow or hold an OAuth client provider. | Sendmux-issued token |
+
+Local stdio is the shortest path for a single service. Private HTTP suits containers, serverless runtimes, and any framework whose MCP client sends headers but cannot spawn a process.
+
+<Note>
+  The local package installs from PyPI, so a stdio connection needs Python
+  available in the same runtime. Choose private HTTP when your service runs
+  somewhere that cannot install it.
+</Note>
+
+## Pick your framework
+
+<CardGroup cols={3}>
+  <Card title="Mastra" icon="square-terminal" href="/ai-integrations/frameworks/mastra">
+    Connect with `@mastra/mcp` and hand the tools to an Agent.
+  </Card>
+  <Card title="LangGraph" icon="diagram-project" href="/ai-integrations/frameworks/langgraph">
+    Load tools through the LangChain MCP adapters.
+  </Card>
+  <Card title="CrewAI" icon="users" href="/ai-integrations/frameworks/crewai">
+    Attach tools to a crew with `MCPServerAdapter`.
+  </Card>
+  <Card title="AI SDK" icon="code" href="/ai-integrations/frameworks/ai-sdk">
+    Use `createMCPClient` with `generateText` or `streamText`.
+  </Card>
+  <Card title="OpenAI Agents SDK" icon="robot" href="/ai-integrations/frameworks/openai-agents-sdk">
+    Pass a server into `mcp_servers` on an Agent.
+  </Card>
+  <Card title="Google ADK" icon="layer-group" href="/ai-integrations/frameworks/google-adk">
+    Add an `McpToolset` to an `LlmAgent`.
+  </Card>
+</CardGroup>
+
+## What your agent can do
+
+Tool names are generated from the current public API surfaces, so open your framework's tool listing after connecting to see what a given key or grant exposes.
+
+| Surface | Typical agent work | Key |
+| --- | --- | --- |
+| Mailbox | List, search, read, thread, label, and reply from granted mailboxes. | `smx_mbx_` or scoped `smx_agent_` |
+| Sending | Send single or batch email. | Send-capable `smx_mbx_`, or owner-approved Sending-resource `smx_agent_` |
+| Management | Provision mailboxes, domains, sending accounts, and webhooks. | `smx_root_` |
+
+<Warning>
+  Give an agent the narrowest surface that completes its task. A mailbox-scoped
+  key confines the agent to the mail you granted it. A `smx_root_` key does not.
+</Warning>
+
+## Sending stays gated
+
+A durable `smx_agent_` token carries `mailbox.read` and `email.receive`, not `email.send`. A named human owner has to accept the invite and approve sending before the agent exchanges that token for a one-hour Sending-resource token. Build the approval step into your agent's flow rather than around it.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
+    Review connection modes, environment variables, and tool discovery.
+  </Card>
+  <Card title="Agent access" icon="user-shield" href="/ai-integrations/agent-access">
+    Register an agent and complete owner approval.
+  </Card>
+  <Card title="Agent skills" icon="sparkles" href="/ai-integrations/agent-skills">
+    Install the skills pack so agents reach for Sendmux by default.
+  </Card>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create and scope the credentials your agent uses.
+  </Card>
+</CardGroup>
