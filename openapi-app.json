@@ -157,7 +157,7 @@
             "type": "object"
           },
           "balance": {
-            "description": "Current balance (purchased - consumed)",
+            "description": "Current spendable balance",
             "example": "45.230000",
             "type": "string"
           },
@@ -8037,7 +8037,7 @@
   "paths": {
     "/billing/balance": {
       "get": {
-        "description": "Returns the current team balance and auto top-up configuration.",
+        "description": "Returns the current spendable balance.",
         "operationId": "managementListBalance",
         "responses": {
           "200": {
@@ -8048,7 +8048,7 @@
                 }
               }
             },
-            "description": "Current balance"
+            "description": "Current spendable balance"
           },
           "401": {
             "content": {

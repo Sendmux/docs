@@ -34,7 +34,7 @@
           },
           "request": {
             "description": {
-              "content": "Returns the current team balance and auto top-up configuration.",
+              "content": "Returns the current spendable balance.",
               "type": "text/plain"
             },
             "header": [
@@ -69,7 +69,7 @@
                   "value": "application/json"
                 }
               ],
-              "name": "Current balance",
+              "name": "Current spendable balance",
               "status": "OK"
             },
             {
