@@ -1,6 +1,6 @@
 # Documentation authoring workflow
 
-Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the Humanizer gate before release when the change qualifies.
+Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the provider-neutral humanisation gate before release when the change qualifies.
 
 ## 1. Read before writing
 
@@ -8,7 +8,7 @@ Use this workflow for every new, moved, or materially edited reader-facing docum
 2. Read the complete `navigation` tree in `docs.json`; do not inspect only the page's current group.
 3. Search all MDX, snippets, OpenAPI prose, and redirects for the subject and its synonyms.
 4. Read two or three sibling pages that serve the same reader task.
-5. Verify technical and product claims from their owning source. The verified pre-Humanizer copy is the frozen baseline.
+5. Verify technical and product claims from their owning source. The verified pre-humanisation copy is the frozen baseline.
 
 ## 2. Decide the information architecture
 
@@ -56,47 +56,27 @@ Use only sections that help the reader complete the task. Where applicable, prog
 
 Keep one reader intent per page. Split a page when its sections serve different navigation destinations or reader goals; merge pages when they duplicate one task and neither has an independent purpose.
 
-## 4. Determine whether Humanizer is required
+## 4. Determine whether humanisation is required
 
-Humanizer is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
+Humanisation is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
 
-Humanizer is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Humanizer: skipped — <exact exemption>` when skipping it.
+Humanisation is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Humanisation: skipped — <exact exemption>` when skipping it.
 
-This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before any provider request and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
+This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before the guard and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
 
-### Reference-class pages
+Historical `reference-class` ledgers remain byte-identical evidence only. They do not authorise a current material edit, current source fallback, or release while any prose unit is eligible.
 
-A page earns the `reference-class` disposition by surviving a failed Humanizer run, never by assertion.
+## 5. Apply the fail-loud guard
 
-Qualify a page when all four hold:
+Follow `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/humanisation-finalisation.md`. When the inventory contains eligible prose, invoke `/Users/rj/Desktop/GIT-REPOS/ja-k8s/scripts/humanise.mjs run` as one plain command and require its exact `humanisation-provider-unavailable` failure. Never use an external humanisation service, secret, MCP humaniser, browser interface, historical output, reviewed-source fallback, or inline rewrite.
 
-- Its reader task is to make a named external system work against a Sendmux surface: API reference, SDK reference, MCP or framework integration, client setup.
-- Its prose exists to sequence and qualify code, configuration, and exact identifiers. No section persuades, compares, or markets.
-- A completed Humanizer run over its eligible units is recorded in a ledger under `automation/ledgers/`, carrying every unit's before text, after text, and verdict.
-- That run failed on at least half the units. Count a unit failed when the provider returned it unchanged, when the output reduced a protected occurrence, or when the output changed a fact, a warning, a prerequisite, or a reader instruction.
+This workflow additionally protects supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, verified factual claims, frontmatter, heading hierarchy, code, tables, list structure, image markup, FAQ questions, link destinations, Australian English, and the repository's concise developer-docs voice.
 
-For a qualifying page:
-
-- Keep the frozen baseline byte-identically.
-- Run the section 6 preservation gate against the baseline regardless. Structure, protected occurrences, and factual equivalence still apply.
-- Add a voice pass against the voice profile covering em dashes, hype words, Australian English, and sentence length.
-- Report `Humanizer: reference-class — <N> units, ledger at <path>`.
-
-The disposition covers one page and lapses when that page changes materially. It never covers a landing page, a use-case page, a comparison page, a changelog entry, or any page whose job is to persuade.
-
-First recorded application: `ai-integrations/frameworks/*` on 2026-09-01, ledger at `automation/ledgers/2026-09-01-ai-integrations-frameworks.md`. Fifty-five eligible units, forty-nine failed across two provider strengths.
-
-## 5. Humanise eligible prose
-
-Follow `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/undetectable-finalisation.md` and route all transport through `/Users/rj/Desktop/GIT-REPOS/ja-k8s/scripts/undetectable.mjs`. Never use a humaniser MCP, browser interface, private endpoint, or alternative provider.
-
-Use the `University` / `Article` mapping. This workflow additionally protects supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, verified factual claims, frontmatter, heading hierarchy, code, tables, list structure, image markup, FAQ questions, link destinations, Australian English, and the repository's concise developer-docs voice.
-
-Any eligible unit that cannot pass the canonical acceptance checks blocks release and requires manual review. Do not publish the frozen baseline as if it passed Humanizer.
+Record every eligible unit as `blocked-manual-review` with reason `humanisation-provider-unavailable` and zero candidate attempts. Preserve every ineligible unit byte-identically with its existing manual checks. Any eligible unit blocks release. Do not publish the frozen baseline as if it passed humanisation.
 
 ## 6. Pass the preservation gate
 
-Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. Restore the missing occurrence inside an accepted output or mark the unit blocked for manual review; never weaken the gate or substitute the frozen baseline as a passing Humanizer output.
+Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. Eligible output cannot advance while the guard is active; never weaken the gate or substitute the frozen baseline as a passing humanisation result.
 
 Compare the frozen baseline and final copy and confirm:
 
@@ -110,14 +90,14 @@ Read baseline and final copy side by side once more. The gate passes only when e
 
 ## 7. Verify and report
 
-Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. A Humanizer pass never replaces technical verification or browser review.
+Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. Humanisation evidence never replaces technical verification or browser review.
 
 Report:
 
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-Humanizer: <run — preserved | skipped — exact exemption or ineligible-technical | reference-class — <N> units, ledger at <path> | held — <N> blocked-manual-review units>
+Humanisation: <skipped — exact exemption or ineligible-technical | held — <N> blocked-manual-review units, reason humanisation-provider-unavailable>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
