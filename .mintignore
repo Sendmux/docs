@@ -12,3 +12,6 @@ scripts/
 package.json
 package-lock.json
 AGENTS.md
+
+# Agent-only workflow and historical ledgers (not docs content)
+automation/
