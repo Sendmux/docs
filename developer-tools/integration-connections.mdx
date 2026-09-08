@@ -1,0 +1,97 @@
+---
+title: "Test an integration connection"
+description: "Validate a Sendmux credential and label its connection without sending email."
+keywords: ["connection test", "API authentication", "viaSocket", "Zapier", "Make", "n8n", "Activepieces"]
+---
+
+Use a connection endpoint to check a credential before running a workflow. The response identifies the team and credential, lists its permissions, and provides a connection label.
+
+## Choose the endpoint
+
+| API | Connection test | Credential requirement |
+| --- | --- | --- |
+| Sending | `GET https://smtp.sendmux.ai/api/v1/me` | A Sending credential with `email.send`. |
+| Management | `GET https://app.sendmux.ai/api/v1/me` | A root API key; no additional read permission. |
+| Mailbox | `GET https://app.sendmux.ai/api/v1/mailbox/connection` | A mailbox credential or supported Mailbox access token; no additional read permission. |
+
+Use the same credential for the connection test and the workflow. A send-only key does not need a Management key to connect. Root API keys are rejected by the Mailbox connection endpoint; mailbox keys are rejected by the Management connection endpoint.
+
+These checks do not send email, check credits or provider readiness, read mailbox storage, or require a mailbox selection. A successful connection test confirms authentication for that API. Each workflow action still enforces its permissions and service requirements.
+
+<Note>
+  `GET /mailbox/me` remains available for mailbox details and storage usage. Use
+  `GET /mailbox/connection` when testing authentication.
+</Note>
+
+## Configure the connection test
+
+<Steps>
+  <Step title="Store the credential">
+    Create a key with the permissions your workflow needs under **API Keys** in
+    the Sendmux app. Save it in your integration platform's credential store.
+  </Step>
+  <Step title="Make an authenticated GET request">
+    Select the endpoint above and send `Authorization: Bearer` followed by the
+    credential. The request needs no body or query parameters.
+  </Step>
+  <Step title="Read the result">
+    Accept an HTTP `200` response with `ok: true`. Use `data.label` as the display
+    label, `data.team.id` as the stable account identifier, and
+    `data.credential.id` when you need to distinguish credentials for the same team.
+  </Step>
+</Steps>
+
+For example, with a Sending key stored in the `SENDMUX_API_KEY` environment variable:
+
+```bash
+curl --fail-with-body https://smtp.sendmux.ai/api/v1/me \
+  --header "Authorization: Bearer $SENDMUX_API_KEY"
+```
+
+## Response fields
+
+The response uses the standard `{ ok, data, meta }` envelope.
+
+| Field | Meaning |
+| --- | --- |
+| `data.team.id` | Stable public identifier of the authenticated team. |
+| `data.team.name` | Current team name. |
+| `data.credential.id` | Public identifier of this API key, agent token, or connected-app grant. |
+| `data.credential.type` | `api_key`, `agent_token`, or `oauth`. |
+| `data.credential.name` | Key or application name; `null` when no name applies. |
+| `data.label` | Team name and credential name when available. Names may change; do not use the label as an identifier. |
+| `data.permissions` | Permissions available to this credential. Actions may require additional permissions. |
+| `data.mailboxes` | Authorised mailbox identifiers and email addresses, when applicable. An empty array does not mean the team has no mailboxes. |
+| `meta.request_id` | Request identifier to include when contacting support. |
+
+The response does not expose the key creator's profile, a credential secret, or a mailbox password. A credential identifies access to a team or mailbox; it does not necessarily identify a human user.
+
+## Handle connection failures
+
+| HTTP status | Handling |
+| --- | --- |
+| `401` | Authentication failed. Ask the user to reconnect or replace the credential. |
+| `403` | The credential cannot access this API, or lacks its required permission. Check the endpoint and credential scope. |
+| `429` | Wait at least the `Retry-After` interval before trying again. |
+| `503` | Authentication is temporarily unavailable. Keep the connection and retry after `Retry-After`. |
+
+Do not shorten the server's retry interval or disconnect a saved credential because of a temporary `429` or `503` response. If your workflow cannot wait that long, report the delay and retry later.
+
+Authenticated responses include `Cache-Control: no-store`. Authentication is checked again on conditional requests using `If-None-Match`; a matching representation returns a bodyless `304`. Omit this header for a connector's initial connection test so it receives the response fields.
+
+## Automation platforms
+
+For viaSocket, Zapier, Make, n8n, or Activepieces, configure the platform's API-key connection test with the same GET request and response-field mapping above. This is also suitable for a custom HTTP workflow.
+
+Keep connection validation separate from sending a test email. Use credentials scoped to the actions your integration exposes. Platform-specific OAuth, trigger, and publishing requirements are separate from this API-key connection check.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="API keys" icon="key" href="/account/api-keys">
+    Create and manage scoped credentials.
+  </Card>
+  <Card title="Postman collections" icon="code" href="/developer-tools/postman">
+    Try the connection request in the matching API collection.
+  </Card>
+</Columns>

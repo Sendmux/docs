@@ -53,6 +53,7 @@
               },
               "developer-tools/cli",
               "developer-tools/postman",
+              "developer-tools/integration-connections",
               {
                 "group": "Mailbox API guides",
                 "pages": [
@@ -222,7 +223,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": ["api/introduction", "api/errors"]
+            "pages": ["api/introduction", "api/errors", "GET /me"]
           },
           {
             "group": "Domains",
@@ -328,6 +329,7 @@
           {
             "group": "Session and identity",
             "pages": [
+              "GET /mailbox/connection",
               "GET /mailbox/me",
               "GET /mailbox/session",
               "GET /mailbox/identity",
@@ -407,13 +409,13 @@
       {
         "tab": "Sending API",
         "openapi": {
-          "source": "https://smtp.sendmux.ai/api/v1/openapi.json",
+          "source": "openapi-sending.json",
           "directory": "api"
         },
         "groups": [
           {
             "group": "Overview",
-            "pages": ["sending-api/introduction", "sending-api/errors"]
+            "pages": ["sending-api/introduction", "sending-api/errors", "GET /me"]
           },
           {
             "group": "Emails",

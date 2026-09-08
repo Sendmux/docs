@@ -39,8 +39,11 @@ Manual mailbox credentials are scoped to one mailbox. The same credential is als
 
 ## Current endpoints
 
+Use `GET /mailbox/connection` to [test an integration connection](/developer-tools/integration-connections) without checking storage or selecting a mailbox. `GET /mailbox/me` keeps its existing mailbox details and storage-usage behaviour.
+
 | Endpoint                                                         | Purpose                                                           |
 | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `GET /mailbox/connection`                                       | Test authentication without selecting or reading a mailbox.       |
 | `GET /mailbox/mailboxes`                                         | List and search mailboxes granted to the bearer token.            |
 | `GET /mailbox/me`                                                | Return the mailbox associated with the bearer token.              |
 | `GET /mailbox/session`                                           | Return supported capabilities, limits, and current state tokens.  |

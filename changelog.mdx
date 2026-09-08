@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="8 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "API connection checks" }}>
+  ## API connection checks
+
+The Management API adds `GET /api/v1/me`, the Mailbox API adds `GET /api/v1/mailbox/connection`, and the Sending API adds `GET /api/v1/me`. Each authenticated check returns the team, credential identity, connection label, permissions and authorised mailboxes. Sending checks require `email.send`; Mailbox checks require no mailbox selector. See [integration connection checks](/developer-tools/integration-connections).
+
+Sending requests now check current credential, mailbox and team status on every authentication. Revoked credentials and inactive mailboxes cannot continue through a cached authentication result. Temporary authentication dependencies return `503` with `Retry-After`; an exhausted request limit returns `429`.
+
+</Update>
+
 <Update label="2 September 2026" tags={["Improvements"]} rss={{ title: "Free email attribution is now clearly separated from message content" }}>
   ## Free email attribution
 

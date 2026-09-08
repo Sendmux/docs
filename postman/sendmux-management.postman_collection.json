@@ -1962,6 +1962,195 @@
       "item": [
         {
           "event": [],
+          "name": "Get Management connection",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Validate this credential and return its team, connection label, permissions and authorised mailboxes. No additional read permission or mailbox selection is required. Mailbox storage and sending availability are not checked. No user profile or secrets are returned.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "ETag from a previous response. A match returns 304 with no body after rechecking authentication.",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get Management connection",
+            "url": {
+              "host": [
+                "{{management_base_url}}"
+              ],
+              "path": [
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Always no-store.",
+                  "disabled": true,
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "description": "",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "description": "Request identifier.",
+                  "disabled": true,
+                  "key": "X-Request-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Connection information",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Always no-store.",
+                  "disabled": true,
+                  "key": "Cache-Control",
+                  "value": "string"
+                },
+                {
+                  "description": "Request identifier.",
+                  "disabled": true,
+                  "key": "X-Request-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Connection information is unchanged. Authentication is checked on every request.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication required",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Credential is not authorised for this API",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "",
+                  "disabled": true,
+                  "key": "Retry-After",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Rate limit exceeded",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Unexpected server error",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "",
+                  "disabled": true,
+                  "key": "Retry-After",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Authentication service temporarily unavailable",
+              "status": "Service Unavailable"
+            }
+          ]
+        }
+      ],
+      "name": "Connection"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "event": [],
+      "item": [
+        {
+          "event": [],
           "name": "List sending accounts",
           "protocolProfileBehavior": {
             "disableBodyPruning": true

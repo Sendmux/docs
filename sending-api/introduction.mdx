@@ -60,6 +60,8 @@ API keys are scoped to a team. Create and manage keys under **Settings > API Key
 
 ### Permissions
 
+Use `GET /me` to [test an integration connection](/developer-tools/integration-connections) without sending email. It requires `email.send` and returns the team, credential, permissions, and connection label.
+
 | Endpoint                                            | Required permission |
 | --------------------------------------------------- | ------------------- |
 | `POST /api/v1/emails/send`                          | `email.send`        |
