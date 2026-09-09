@@ -1,0 +1,51 @@
+{
+  "artifact": "changelog.mdx#2026-09-09-free-footer-separator",
+  "reviewedAt": "2026-09-09 11:49",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "e6d2b2bb2bc370d1c0554441d2048796c0d9a1533e30181ad7c9456d86836f3a",
+  "sourceEvidence": [
+    "Sendmux/smtp-proxy@56ee56a5c0f3d402b661c22fe487d9cabecc6338:app/consumer/lib/email-content-processing.js:918-937",
+    "Sendmux/smtp-proxy@56ee56a5c0f3d402b661c22fe487d9cabecc6338:app/consumer/lib/email-sending.js:331-332"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-09-free-footer-separator#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "Whole changelog entry contains fewer than 50 eligible words; source kept byte-identical under the current contract.",
+      "eligibleWords": 33,
+      "editableCharacters": 197,
+      "sourceSha256": "403072aed05ac156a2a9c552a03b61cef6c3b76deb005056a50ec82dbcc6d15e",
+      "finalSha256": "403072aed05ac156a2a9c552a03b61cef6c3b76deb005056a50ec82dbcc6d15e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Free",
+        "---",
+        "Email sent via Sendmux",
+        "supported plain-text and HTML bodies"
+      ],
+      "manualChecks": [
+        "Exact approved blank-gap, separator-line and attribution-line order matches both source templates.",
+        "Supported-body qualifier preserved; eligibility and protected-content exclusions remain unchanged.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure details.",
+        "Historical entries, frontmatter, update order and all existing links unchanged.",
+        "Rendered changelog paragraph matches source at the expected URL; no browser console errors."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "title",
+    "heading",
+    "update label",
+    "tags",
+    "rss title",
+    "inline separator code"
+  ],
+  "blockedManualReviewCount": 0
+}
