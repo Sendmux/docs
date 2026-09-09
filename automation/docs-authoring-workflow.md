@@ -1,6 +1,6 @@
 # Documentation authoring workflow
 
-Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the provider-neutral humanisation gate before release when the change qualifies.
+Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the humanisation finalisation gate before release when the change qualifies.
 
 ## 1. Read before writing
 
@@ -62,21 +62,23 @@ Humanisation is required when the change adds reader-facing prose, changes sente
 
 Humanisation is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Humanisation: skipped — <exact exemption>` when skipping it.
 
-This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before the guard and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
+This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before any provider call and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
 
-Historical `reference-class` ledgers remain byte-identical evidence only. They do not authorise a current material edit, current source fallback, or release while any prose unit is eligible.
+Historical `reference-class` ledgers remain byte-identical evidence only. They do not authorise a material edit or replace the ledger required by the canonical contract.
 
-## 5. Apply the fail-loud guard
+## 5. Apply the canonical finalisation contract
 
-Follow `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/humanisation-finalisation.md`. When the inventory contains eligible prose, invoke `/Users/rj/Desktop/GIT-REPOS/ja-k8s/scripts/humanise.mjs run` as one plain command and require its exact `humanisation-provider-unavailable` failure. Never use an external humanisation service, secret, MCP humaniser, browser interface, historical output, reviewed-source fallback, or inline rewrite.
+Read `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/humanisation-finalisation.md` before finalisation. Its eligibility, transport, repair, retry, scoring, and ledger rules are authoritative.
+
+Inventory the prose units and freeze their protected spans. Use the contract's `ineligible-manual` route for qualifying short units or a whole piece below the submission floor, preserving source bytes and recording manual checks. Process eligible submissions through **detect, humanise, repair, re-detect, ledger**. Follow the contract's reviewer decision for retries and its conditions for retaining the reviewed source; provider errors require `blocked-manual-review` with the exact error.
 
 This workflow additionally protects supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, verified factual claims, frontmatter, heading hierarchy, code, tables, list structure, image markup, FAQ questions, link destinations, Australian English, and the repository's concise developer-docs voice.
 
-Record every eligible unit as `blocked-manual-review` with reason `humanisation-provider-unavailable` and zero candidate attempts. Preserve every ineligible unit byte-identically with its existing manual checks. Any eligible unit blocks release. Do not publish the frozen baseline as if it passed humanisation.
+Record exactly one disposition per unit in a hash-bound ledger, with zero `blocked-manual-review` rows before release. Keep provider output and review files private; preserve historical ledgers byte-identically.
 
 ## 6. Pass the preservation gate
 
-Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. Eligible output cannot advance while the guard is active; never weaken the gate or substitute the frozen baseline as a passing humanisation result.
+Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. A passing ledger does not replace these preservation checks.
 
 Compare the frozen baseline and final copy and confirm:
 
@@ -97,7 +99,7 @@ Report:
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-Humanisation: <skipped — exact exemption or ineligible-technical | held — <N> blocked-manual-review units, reason humanisation-provider-unavailable>
+Humanisation: <skipped — exact exemption | finalised — dispositions and ledger path | held — blocked-manual-review count and exact reason>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
