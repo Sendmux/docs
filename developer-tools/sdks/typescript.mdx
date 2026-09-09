@@ -15,14 +15,14 @@ keywords:
 Use the TypeScript SDK when your application needs package-managed clients for one or more Sendmux API surfaces.
 
 <Info>
-  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
-  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management API-key clients require
   team-scoped `smx_root_` keys.
 </Info>
 
 ## Requirements
 
-- A Sendmux API key for the surface you are calling.
+- An API key or [REST OAuth grant](/developer-tools/oauth) for the surface you are calling.
 - An application that can install packages from npm.
 
 ## Install
@@ -48,6 +48,22 @@ npm install @sendmux/management
 ```
 
 </CodeGroup>
+
+## OAuth access tokens
+
+Set `accessToken` to a bare token string or a synchronous or asynchronous provider. Do not also set `apiKey`.
+
+```typescript
+import { createMailboxClient } from "@sendmux/mailbox";
+
+const client = createMailboxClient({
+  accessToken: () => process.env.SENDMUX_ACCESS_TOKEN!,
+});
+```
+
+The provider runs before each request. Your application owns secure token storage, expiry checks, and refresh coordination; see [OAuth for REST APIs](/developer-tools/oauth#refresh-and-disconnect). The same token option is available for Sending and Management clients.
+
+The `@sendmux/ai-sdk` wrapper accepts the same `accessToken` option in `sendmux(...)`. To use all three tools, request `mailbox.read` and `email.send` and select one mailbox at consent; the tools do not supply a mailbox selector.
 
 ## Create a client
 

@@ -13,6 +13,19 @@ Support diagnostics require a fresh administrator passkey check and expire after
 
 </Update>
 
+<Update label="9 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Scoped OAuth API connections" }}>
+  ## OAuth API connections
+
+Connect the Sending, Mailbox and Management APIs with scoped OAuth access. Users choose a team, permissions and mailboxes, and can revoke access. The CLI adds browser login and logout; SDKs accept access tokens or token providers. API-key connections remain supported.
+
+  ## Bug fixes
+
+SDK retries respect server delays and explicit `retryable: false` responses, while preserving request identifiers and idempotency keys. OAuth access follows the authorising user's current team permissions.
+
+The HTTP `Bearer` scheme accepts case variations and one or more spaces; token bytes remain case-sensitive.
+
+</Update>
+
 <Update label="9 September 2026" tags={["Bug fixes"]} rss={{ title: "Free email footer separator" }}>
   ## Bug fixes
 

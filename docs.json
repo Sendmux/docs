@@ -54,6 +54,7 @@
               "developer-tools/cli",
               "developer-tools/postman",
               "developer-tools/integration-connections",
+              "developer-tools/oauth",
               {
                 "group": "Mailbox API guides",
                 "pages": [

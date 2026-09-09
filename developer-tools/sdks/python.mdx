@@ -15,15 +15,15 @@ keywords:
 Use the Python SDK when your application needs Sendmux API clients with API-key validation, retry handling, cursor helpers, and typed API errors.
 
 <Info>
-  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
-  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management API-key clients require
   team-scoped `smx_root_` keys.
 </Info>
 
 ## Requirements
 
 - Python 3.10 or newer.
-- A Sendmux API key for the surface you are calling.
+- An API key or [REST OAuth grant](/developer-tools/oauth) for the surface you are calling.
 
 ## Install
 
@@ -48,6 +48,23 @@ pip install sendmux-management
 ```
 
 </CodeGroup>
+
+## OAuth access tokens
+
+Set `access_token` to a bare token string or callable. Do not also set `api_key`.
+
+```python
+import os
+from sendmux_mailbox import create_mailbox_client
+
+client = create_mailbox_client(
+    access_token=lambda: os.environ["SENDMUX_ACCESS_TOKEN"],
+)
+```
+
+The provider runs before each request. Your application owns secure token storage, expiry checks, and refresh coordination; see [OAuth for REST APIs](/developer-tools/oauth#refresh-and-disconnect). The same token option is available for Sending and Management clients.
+
+The `langchain-sendmux` wrapper accepts the same `access_token` option in `SendmuxToolkit(...)`. To use all three tools, request `mailbox.read` and `email.send` and select one mailbox at consent; the tools do not supply a mailbox selector.
 
 ## Create a client
 

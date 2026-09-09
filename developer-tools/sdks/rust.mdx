@@ -15,15 +15,15 @@ keywords:
 Use the Rust SDK when your application needs clients for the Sending, Mailbox, or Management API.
 
 <Info>
-  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
-  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management API-key clients require
   team-scoped `smx_root_` keys.
 </Info>
 
 ## Requirements
 
 - Rust 1.82 or newer.
-- You need a Sendmux API key for the specific surface you're trying to access.
+- An API key or [REST OAuth grant](/developer-tools/oauth) for the surface you are calling.
 - An async context for API calls.
 
 ## Install
@@ -33,6 +33,23 @@ The Rust SDK is one crate with three surface modules.
 ```bash
 cargo add sendmux
 ```
+
+## OAuth access tokens
+
+Use `new_with_access_token` for a bare token or `new_with_token_provider` for an asynchronous provider.
+
+```rust
+use sendmux::mailbox::MailboxClient;
+
+fn oauth_client() -> sendmux::Result<MailboxClient> {
+    MailboxClient::new_with_token_provider(|| async {
+        Ok(std::env::var("SENDMUX_ACCESS_TOKEN")
+            .expect("SENDMUX_ACCESS_TOKEN is required"))
+    })
+}
+```
+
+The provider runs before each request. Your application owns secure token storage, expiry checks, and refresh coordination; see [OAuth for REST APIs](/developer-tools/oauth#refresh-and-disconnect). The same token option is available for Sending and Management clients.
 
 ## Create a client
 

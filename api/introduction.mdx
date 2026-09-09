@@ -26,7 +26,7 @@ https://app.sendmux.ai/api/v1
 
 ## Authentication
 
-Authenticate using an API key from the Sendmux app. Pass it as a Bearer token in the `Authorization` header.
+Authenticate using a root API key or a [REST OAuth access token](/developer-tools/oauth) with Management access. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
 curl https://app.sendmux.ai/api/v1/providers \
@@ -37,7 +37,7 @@ API keys are scoped to a team and carry permissions. Create and manage them unde
 
 ### Permissions
 
-Resource endpoints require their listed permissions. `GET /me` validates a root API key without an additional read permission; see [Test an integration connection](/developer-tools/integration-connections). Keys with wildcard permissions (e.g. `domain.*`) satisfy any permission in that namespace, and the built-in `root:full` role includes every wildcard.
+Resource endpoints require their listed permissions. `GET /me` validates a root API key or Management OAuth grant without an additional read permission; see [Test an integration connection](/developer-tools/integration-connections). Keys with wildcard permissions (e.g. `domain.*`) satisfy any permission in that namespace, and the built-in `root:full` role includes every wildcard.
 
 | Endpoint group   | Required permission(s)                                                                                                                                                                                                                           |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

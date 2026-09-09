@@ -28,7 +28,7 @@ https://app.sendmux.ai/api/v1
 
 ## Authentication
 
-Authenticate with a mailbox credential, connected-app access token, or agent access token from Sendmux. Pass it as a Bearer token in the `Authorization` header.
+Authenticate with a mailbox credential, [REST OAuth access token](/developer-tools/oauth), or agent access token from Sendmux. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
 curl https://app.sendmux.ai/api/v1/mailbox/me \
@@ -36,6 +36,8 @@ curl https://app.sendmux.ai/api/v1/mailbox/me \
 ```
 
 Manual mailbox credentials are scoped to one mailbox. The same credential is also accepted as the mailbox password for SMTP submission and IMAP retrieval. Connected-app tokens can be granted one or more mailboxes, and each mailbox request is limited to that granted set. Agent access tokens use the `smx_agent_` prefix and are limited by their granted scopes. Root API keys are rejected on Mailbox API endpoints.
+
+OAuth access tokens are for HTTP requests; they are not SMTP or IMAP passwords.
 
 ## Current endpoints
 

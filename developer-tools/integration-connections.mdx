@@ -10,9 +10,9 @@ Use a connection endpoint to check a credential before running a workflow. The r
 
 | API | Connection test | Credential requirement |
 | --- | --- | --- |
-| Sending | `GET https://smtp.sendmux.ai/api/v1/me` | A Sending credential with `email.send`. |
-| Management | `GET https://app.sendmux.ai/api/v1/me` | A root API key; no additional read permission. |
-| Mailbox | `GET https://app.sendmux.ai/api/v1/mailbox/connection` | A mailbox credential or supported Mailbox access token; no additional read permission. |
+| Sending | `GET https://smtp.sendmux.ai/api/v1/me` | A Sending credential or REST OAuth grant with `email.send`. |
+| Management | `GET https://app.sendmux.ai/api/v1/me` | A root API key or REST OAuth grant with Management access; no additional read permission. |
+| Mailbox | `GET https://app.sendmux.ai/api/v1/mailbox/connection` | A mailbox credential or supported access token with Mailbox access; no additional read permission. |
 
 Use the same credential for the connection test and the workflow. A send-only key does not need a Management key to connect. Root API keys are rejected by the Mailbox connection endpoint; mailbox keys are rejected by the Management connection endpoint.
 
@@ -22,6 +22,8 @@ These checks do not send email, check credits or provider readiness, read mailbo
   `GET /mailbox/me` remains available for mailbox details and storage usage. Use
   `GET /mailbox/connection` when testing authentication.
 </Note>
+
+For user-approved access, complete [OAuth authorisation](/developer-tools/oauth) and use the resulting access token in the same connection test.
 
 ## Configure the connection test
 
