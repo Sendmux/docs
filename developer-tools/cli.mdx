@@ -19,9 +19,10 @@ keywords:
 Use the `sendmux` CLI when you want terminal access to the same Management, Mailbox, and Sending API surfaces exposed by the SDKs.
 
 <Info>
-  Sending commands accept a send-capable `smx_mbx_` key or owner-approved
+  OAuth profiles use the scopes approved during [sign-in](/developer-tools/oauth).
+  API-key Sending commands accept a send-capable `smx_mbx_` key or owner-approved
   agent profile. Mailbox commands accept `smx_mbx_` keys or durable agent
-  profiles. Management commands require team-scoped
+  profiles. Management API-key commands require team-scoped
   `smx_root_` keys.
 </Info>
 
@@ -53,6 +54,27 @@ Check the installed command.
 sendmux --version
 sendmux --help
 ```
+
+## Sign in with OAuth
+
+Create a separate profile for a user-approved connection. Repeat `--scope` for each required permission.
+
+```bash
+sendmux auth:login work --scope mailbox.read --scope email.send
+sendmux mailbox:get-connection --profile work --json
+```
+
+The command opens your browser for consent and uses a loopback callback on the same computer. Use `--no-browser` to open the printed URL yourself. Existing profiles are not overwritten.
+
+OAuth profiles store tokens in a local file with restricted permissions. The CLI refreshes expiring tokens and serialises concurrent refreshes. An uncertain refresh fails and requires a new login; it does not replay the old refresh token.
+
+```bash
+sendmux auth:logout work
+```
+
+Logout revokes the connection before removing the profile. A failed revocation keeps the profile for retry. Logout can also clear a login interrupted before tokens were saved.
+
+For automation that manages its own tokens, supply `SENDMUX_ACCESS_TOKEN` through the process environment. This token is not refreshed by the CLI. Do not set it alongside an API key.
 
 ## Register an agent inbox
 
@@ -108,7 +130,7 @@ sendmux profiles:show management
 
 ## Authentication order
 
-Every API command resolves credentials in this order:
+An API command first uses `SENDMUX_ACCESS_TOKEN` when set. Supplying an API key at the same time is an error. Otherwise, it resolves credentials in this order:
 
 1. `--api-key`
 2. `SENDMUX_API_KEY`

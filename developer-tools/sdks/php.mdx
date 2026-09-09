@@ -15,8 +15,8 @@ keywords:
 Use the PHP SDK when your application needs Composer packages for one or more Sendmux API surfaces.
 
 <Info>
-  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
-  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management API-key clients require
   team-scoped `smx_root_` keys.
 </Info>
 
@@ -24,7 +24,7 @@ Use the PHP SDK when your application needs Composer packages for one or more Se
 
 - PHP 8.2 or newer.
 - Composer.
-- A Sendmux API key for the surface you are calling.
+- An API key or [REST OAuth grant](/developer-tools/oauth) for the surface you are calling.
 
 ## Install
 
@@ -33,22 +33,40 @@ Install the umbrella package when one application needs more than one API surfac
 <CodeGroup>
 
 ```bash Umbrella
-composer require sendmux/sdk:^1.0
+composer require sendmux/sdk:^2.0
 ```
 
 ```bash Sending
-composer require sendmux/sending:^1.0
+composer require sendmux/sending:^2.0
 ```
 
 ```bash Mailbox
-composer require sendmux/mailbox:^1.0
+composer require sendmux/mailbox:^2.0
 ```
 
 ```bash Management
-composer require sendmux/management:^1.0
+composer require sendmux/management:^2.0
 ```
 
 </CodeGroup>
+
+## OAuth access tokens
+
+`ClientFactory::createMailboxAPIApiWithAccessToken()` accepts a bare token or a callable returning one. Every Sending, Mailbox and Management factory has a corresponding `WithAccessToken` method.
+
+```php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Sendmux\Mailbox\ClientFactory;
+
+$mailboxApi = ClientFactory::createMailboxAPIApiWithAccessToken(
+    static fn (): string => getenv('SENDMUX_ACCESS_TOKEN') ?: ''
+);
+```
+
+Token providers run on each request and retry. OAuth clients do not follow redirects. Token storage and refresh coordination remain your application's responsibility; see [OAuth for REST APIs](/developer-tools/oauth#refresh-and-disconnect).
 
 ## Create a client
 
@@ -112,7 +130,7 @@ Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management
 
 ## Shared API behaviour
 
-Surface factories validate API key prefixes, configure bearer auth, and add retry middleware to generated API clients.
+API-key factories validate key prefixes. Both credential modes configure bearer auth and add retry middleware to generated API clients.
 
 ### Pagination
 
@@ -122,7 +140,7 @@ List responses use cursor pagination with `pagination.has_more` and `pagination.
 
 Surface clients use `RetryMiddleware::create()` by default. It retries safe methods and retry-safe `POST` requests that include `Idempotency-Key`, then honours `Retry-After` and `X-RateLimit-Reset` response headers.
 
-Pass `RetryOptions` into a factory method to change attempts, delays, or jitter.
+Pass `RetryOptions` into a factory method to change attempts, local backoff, jitter, or `maxElapsedMilliseconds`. Server retry delays are never shortened to fit local backoff limits. If another attempt would exceed the retry budget, the client returns the last response with its retry metadata; the budget does not interrupt an in-flight request. Responses with `error.retryable: false` are not retried.
 
 ### Idempotency and ETags
 

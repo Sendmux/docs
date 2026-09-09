@@ -35,7 +35,7 @@ Use the Management API to manage the accounts that the Sending API can use: list
 
 ## Authentication
 
-Authenticate using an API key with the `email.send` permission. Pass it as a Bearer token in the `Authorization` header.
+Authenticate using an API key or [REST OAuth access token](/developer-tools/oauth) with the `email.send` permission. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
 curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \

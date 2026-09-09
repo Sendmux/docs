@@ -1,0 +1,117 @@
+---
+title: "OAuth for REST APIs"
+description: "Configure scoped OAuth access to the Sending, Mailbox, and Management APIs."
+keywords: ["OAuth", "PKCE", "API authentication", "access token", "refresh token", "integration"]
+---
+
+Use the authorisation-code flow with S256 PKCE to request user-approved access to the Sendmux REST APIs. The user selects a team, permissions, and any required mailboxes on the consent screen.
+
+## Endpoints and resource
+
+| Setting | Value |
+| --- | --- |
+| Issuer | `https://app.sendmux.ai` |
+| Discovery | `https://app.sendmux.ai/.well-known/oauth-authorization-server` |
+| Client registration | `POST https://app.sendmux.ai/oauth/register` |
+| Authorisation | `GET https://app.sendmux.ai/oauth/authorize` |
+| Token exchange and refresh | `POST https://app.sendmux.ai/oauth/token` |
+| Revocation | `POST https://app.sendmux.ai/oauth/revoke` |
+| REST resource | `https://sendmux.ai/api` |
+| Grant types | `authorization_code`, `refresh_token` |
+| PKCE method | `S256` |
+| Client authentication | `none`, `client_secret_basic`, `client_secret_post` |
+
+Include `resource=https://sendmux.ai/api` when registering a REST client and when requesting authorisation, exchanging a code, or refreshing a token. A client's registered resource is the default when later requests omit it.
+
+The REST resource covers all three API base URLs. A token still needs the approved surface, operation scopes, and mailbox selection. Hosted MCP, A2A, and agent-registration tokens retain their separate resources; they are not interchangeable with REST OAuth tokens.
+
+## Register the client
+
+Send JSON to the registration endpoint. Register a web connector's exact HTTPS callback URL. Native clients use `application_type: "native"`, a loopback IP callback, and `token_endpoint_auth_method: "none"`; the callback port may change between requests.
+
+```json
+{
+  "client_name": "Email workflow",
+  "application_type": "web",
+  "redirect_uris": ["https://connector.example/oauth/callback"],
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "client_secret_basic",
+  "resource": "https://sendmux.ai/api",
+  "scope": "email.send mailbox.read"
+}
+```
+
+Store the returned `client_id` and any `client_secret` in the connector's protected credential store. A public client uses `none`; never embed a client secret in distributed applications.
+
+## Authorisation request
+
+| Query parameter | Requirement |
+| --- | --- |
+| `response_type` | `code` |
+| `client_id` | Registered client identifier. |
+| `redirect_uri` | Registered callback URL; exact match except a native loopback port. |
+| `scope` | Space-separated scopes supported by discovery and permitted by the registration. |
+| `resource` | `https://sendmux.ai/api` |
+| `state` | Unpredictable value bound to this login attempt. |
+| `code_challenge_method` | `S256` |
+| `code_challenge` | Unpadded base64url SHA-256 digest of a fresh PKCE verifier. |
+
+Open the authorisation URL in the user's browser. At the callback, require the original `state` and an `iss` value exactly equal to the discovered issuer. Handle an OAuth error before exchanging a code.
+
+## Exchange the code
+
+Send form-encoded parameters to the token endpoint. The client authentication method must match its registration.
+
+| Form field | Value |
+| --- | --- |
+| `grant_type` | `authorization_code` |
+| `code` | Code returned to the callback. |
+| `redirect_uri` | The callback used in the authorisation request. |
+| `code_verifier` | Original PKCE verifier, 43–128 characters. |
+| `resource` | `https://sendmux.ai/api` |
+| `client_id` | Required for public clients and `client_secret_post`. |
+| `client_secret` | Only for `client_secret_post`; use HTTP Basic authentication for `client_secret_basic`. |
+
+Store `access_token`, `refresh_token`, `scope`, and the expiry calculated from `expires_in`. Send the access token as `Authorization: Bearer` to the API, then use its [connection endpoint](/developer-tools/integration-connections) to validate and label the connection.
+
+## Permissions and mailbox selection
+
+| Task | Example scope |
+| --- | --- |
+| Send through the Sending API | `email.send` |
+| Read mailbox messages or open the event stream | `mailbox.read` |
+| Read sending accounts through the Management API | `provider.read` |
+| Read webhook subscriptions | `webhook.read` |
+
+Use the operation's OpenAPI security requirements for its exact scopes. Access remains limited by the current grant, client registration, authorising user's team membership and permissions, and selected mailboxes. Removing the user or withdrawing required permissions invalidates delegated access.
+
+For mailbox operations, pass `mailbox_id` when the grant contains several mailboxes. The connection check and granted-mailbox listing do not require a selection. A mailbox event stream requires `mailbox.read` and closes by the credential's expiry; refresh and reconnect using the documented [sync flow](/developer-tools/mailbox-api/sync).
+
+OAuth access tokens authenticate HTTP APIs. They are not SMTP or IMAP passwords.
+
+## Refresh and disconnect
+
+| Refresh form field | Value |
+| --- | --- |
+| `grant_type` | `refresh_token` |
+| `refresh_token` | Latest stored refresh token. |
+| `resource` | `https://sendmux.ai/api` |
+| `scope` | Optional subset of the current scopes; omit to retain them. |
+
+Authenticate the refresh request using the registered client method. Persist the returned token pair atomically and serialise refreshes for each connection. Refresh tokens rotate; replay of a consumed token revokes the grant. After an uncertain refresh response, require a new login instead of replaying the old token.
+
+To disconnect, send `token` and `token_type_hint=refresh_token` to the revocation endpoint with the registered client authentication. Delete the saved connection after revocation succeeds. Revocation or permission changes are checked on new API requests and event-stream connections; an already-open stream closes at its credential deadline.
+
+## SDK and CLI use
+
+The SDK's access-token provider runs before each request. Your application owns token storage and refresh coordination. The [CLI](/developer-tools/cli) manages browser login, protected local profiles, refresh rotation, and logout.
+
+<Columns cols={2}>
+  <Card title="Test an integration connection" icon="plug" href="/developer-tools/integration-connections">
+    Configure the GET check and response-field mapping.
+  </Card>
+  <Card title="SDKs" icon="code" href="/developer-tools/sdks/index">
+    Select a client and its authentication configuration.
+  </Card>
+</Columns>

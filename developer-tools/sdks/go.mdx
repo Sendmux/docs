@@ -15,23 +15,45 @@ keywords:
 Use the Go SDK when your application needs importable clients for the Sending, Mailbox, or Management API.
 
 <Info>
-  Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
-  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients require
+  For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
+  `smx_mbx_` keys or scoped `smx_agent_` tokens. Management API-key clients require
   team-scoped `smx_root_` keys.
 </Info>
 
 ## Requirements
 
 - Go 1.23 or newer.
-- A Sendmux API key for the surface you are calling.
+- An API key or [REST OAuth grant](/developer-tools/oauth) for the surface you are calling.
 
 ## Install
 
 The Go SDK is one module with surface subpackages.
 
 ```bash
-go get sendmux.ai/go@v1.0.0
+go get sendmux.ai/go@latest
 ```
+
+## OAuth access tokens
+
+Use `NewWithAccessToken` for a bare token or `NewWithTokenProvider` for a function that receives the request context.
+
+```go
+package example
+
+import (
+    "context"
+    "os"
+    "sendmux.ai/go/mailbox"
+)
+
+func oauthClient() (*mailbox.Client, error) {
+    return mailbox.NewWithTokenProvider(func(ctx context.Context) (string, error) {
+        return os.Getenv("SENDMUX_ACCESS_TOKEN"), nil
+    })
+}
+```
+
+The provider runs before each request. Your application owns secure token storage, expiry checks, and refresh coordination; see [OAuth for REST APIs](/developer-tools/oauth#refresh-and-disconnect). The same token option is available for Sending and Management clients.
 
 ## Create a client
 
