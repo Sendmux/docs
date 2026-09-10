@@ -1,0 +1,97 @@
+{
+  "artifacts": [
+    "changelog.mdx#2026-09-10-support-access-history",
+    "account/teams-and-access.mdx#support-access-history"
+  ],
+  "reviewedAt": "2026-09-10 15:39",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "e6d2b2bb2bc370d1c0554441d2048796c0d9a1533e30181ad7c9456d86836f3a",
+  "sourceEvidence": [
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/server/team-support-access-history.ts:35-83",
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/constants/role-permissions.ts:34-40",
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/server/admin/team-diagnostics.ts:19",
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/actions/admin-team-diagnostics.actions.ts:98-150",
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/server/admin/team-diagnostics-data.ts:33-48",
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/server/admin/team-diagnostics-activity.ts:58-71",
+    "Sendmux/sendmux@9ee5e2df1729ff53cf30b4896fa5698fbd91a6e5:src/app/(dashboard)/teams/[teamSlug]/_components/support-access-history-card.tsx:58-88"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-10-support-access-history#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry has 44 eligible words across two adjacent paragraphs, below the 50-word submission floor; source preserved byte-identically without mixing artifacts.",
+      "eligibleWords": 19,
+      "editableCharacters": 119,
+      "sourceSha256": "55ccc4a6b6a0d06e53b2f5799e8d9a283c292c53c7853e8170c2b1dff8a701ca",
+      "finalSha256": "55ccc4a6b6a0d06e53b2f5799e8d9a283c292c53c7853e8170c2b1dff8a701ca",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": ["team owner", "can", "support access history", "reason category", "time", "duration", "metadata scope"],
+      "manualChecks": [
+        "Owner permission and displayed fields match the permission map, bounded history projection and rendered card.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure details.",
+        "Historical entries, frontmatter, headings, update labels, tags, RSS metadata and links preserved outside the new entry.",
+        "Desktop and mobile changelog previews show the exact paragraph at the expected URL with no browser errors or failed resources."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "changelog.mdx#2026-09-10-support-access-history#p002",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry has 44 eligible words across two adjacent paragraphs, below the 50-word submission floor; source preserved byte-identically without padding.",
+      "eligibleWords": 25,
+      "editableCharacters": 185,
+      "sourceSha256": "322f9771c57b73935a9bb9b5f4c9611e5f68dbc5e52ec983566c79a885be5db5",
+      "finalSha256": "322f9771c57b73935a9bb9b5f4c9611e5f68dbc5e52ec983566c79a885be5db5",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": ["require", "fresh administrator passkey check", "expire", "15 minutes", "read-only", "Message bodies", "attachments", "credentials", "raw payloads", "excluded"],
+      "manualChecks": [
+        "Fresh team-bound passkey verification, 15-minute lease and read-only metadata queries match source.",
+        "All exclusion qualifiers remain explicit; no claim of zero security risk or permission to impersonate a customer.",
+        "Concise factual Australian English with no prohibited internal terminology or stylistic artefacts.",
+        "Desktop and mobile changelog previews retain the full paragraph without clipping, browser errors or failed resources."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "account/teams-and-access.mdx#support-access-history#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new guide section contains 39 readable words, 36 with the frozen UI label removed, below the 50-word submission floor; unrelated historical prose is not resubmitted or used as padding.",
+      "eligibleWords": 36,
+      "editableCharacters": 253,
+      "sourceSha256": "cb8f62cc3f9307be936c45cb211608b6d13cf6098d608cea608f40c3631d0a75",
+      "finalSha256": "cb8f62cc3f9307be936c45cb211608b6d13cf6098d608cea608f40c3631d0a75",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "frozenInline": ["**Support access history**"],
+      "protectedAnchors": ["team page", "diagnostic metadata", "reason", "duration", "scope", "Only owners", "sender", "recipient", "subject fields", "Message bodies", "attachments", "credentials", "raw payloads", "excluded"],
+      "manualChecks": [
+        "The exact UI label and location match the team page card; permission enforcement restricts history to owners.",
+        "Sender, recipient and subject fields match the metadata projection; excluded data remains explicitly excluded.",
+        "Concise factual Australian English; no invented claims, internal implementation terms or stylistic artefacts.",
+        "Desktop and mobile guide previews show the exact paragraph at the expected URL with no browser errors or failed resources.",
+        "The remainder of the guide is byte-identical except the intentional Admin role table correction."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": ["frontmatter", "headings", "update label", "tags", "RSS title", "UI label", "tables", "existing links and historical prose"],
+  "intentionalFrozenCorrection": "The Admin role table cell now excludes support access history, matching the new owner-only permission; all other table rows are unchanged.",
+  "blockedManualReviewCount": 0
+}

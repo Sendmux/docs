@@ -20,11 +20,15 @@ It activates after confirmed checkout.
 | Role          | Access                                                       |
 | ------------- | ------------------------------------------------------------ |
 | **Owner**     | Full access, including team deletion.                        |
-| **Admin**     | Full access except team deletion.                            |
+| **Admin**     | Full access except team deletion and support access history. |
 | **Developer** | Sending, receiving, providers, API keys, logs, and webhooks. |
 | **Member**    | Dashboard and logs only.                                     |
 
 Owners can assign Admin, Developer, or Member. Admins can assign Developer or Member. The Owner role is set when the team is created and cannot be assigned by another member.
+
+## Support access history
+
+On your team page, **Support access history** shows when support accessed diagnostic metadata, the reason, duration and scope. Only owners can view it. Metadata includes sender, recipient and subject fields. Message bodies, attachments, credentials and raw payloads are excluded.
 
 ## Invite members
 
