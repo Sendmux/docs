@@ -532,6 +532,14 @@
       "destination": "/api/introduction"
     },
     {
+      "source": "/mailbox-api",
+      "destination": "/mailbox-api/introduction"
+    },
+    {
+      "source": "/sending-api",
+      "destination": "/sending-api/introduction"
+    },
+    {
       "source": "/guides/account-settings",
       "destination": "/account/account-settings",
       "permanent": true
