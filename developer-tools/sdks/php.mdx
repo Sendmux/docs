@@ -68,6 +68,10 @@ $mailboxApi = ClientFactory::createMailboxAPIApiWithAccessToken(
 
 Token providers run on each request and retry. OAuth clients do not follow redirects. Token storage and refresh coordination remain your application's responsibility; see [OAuth for REST APIs](/developer-tools/oauth#refresh-and-disconnect).
 
+<Note>
+  OAuth factories attach credentials through their HTTP client. If you build a request with a `*Request()` method, send it through `ClientFactory::httpClient(accessToken: $token)`; the request object itself has no factory OAuth header.
+</Note>
+
 ## Create a client
 
 PHP packages expose factory methods for each generated API group.
