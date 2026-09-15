@@ -3,8 +3,11 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
+import { parseArgs } from "node:util";
 
 const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json"];
+const semver = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/;
+const usage = "Usage: check-mcp-docs-contract.mjs --check|--write [--sdk PATH]";
 
 function git(sdkDir, args) {
   const result = spawnSync("git", ["-C", sdkDir, ...args], { encoding: "utf8" });
@@ -14,6 +17,24 @@ function git(sdkDir, args) {
 
 function validDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(`${value}T00:00:00Z`).toISOString().startsWith(value);
+}
+
+function parseCliArgs(args) {
+  try {
+    const { values, tokens } = parseArgs({
+      args,
+      options: { check: { type: "boolean" }, write: { type: "boolean" }, sdk: { type: "string" } },
+      strict: true,
+      allowPositionals: false,
+      tokens: true,
+    });
+    const modes = tokens.filter((token) => token.kind === "option" && ["check", "write"].includes(token.name));
+    const sdkOptions = tokens.filter((token) => token.kind === "option" && token.name === "sdk");
+    if (modes.length !== 1 || sdkOptions.length > 1 || values.sdk === "") throw new Error("Specify exactly one mode and at most one non-empty --sdk PATH");
+    return { mode: values.write ? "write" : "check", sdkDir: values.sdk };
+  } catch (error) {
+    throw new Error(`${usage}\n${error.message}`);
+  }
 }
 
 export function renderSnippet(p) {
@@ -42,7 +63,7 @@ export async function checkContract({ sdkDir, pin }) {
   const contract = JSON.parse(readFileSync(resolve(sdkDir, owned[3]), "utf8"));
   const { package: pkg, protocols, runtime_protocols: runtimeProtocols, tools, hosted, uploads } = contract;
   assert.match(pkg.identity, /\S/, "package.identity");
-  assert.match(pkg.version, /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/, "package.version");
+  assert.ok(typeof pkg.version === "string" && semver.test(pkg.version), "package.version must be valid SemVer 2.0.0");
   for (const [name, values] of [["protocols", protocols], ["runtime_protocols", runtimeProtocols]]) {
     assert.ok(Array.isArray(values) && values.length > 0, `${name} must be non-empty`);
     assert.equal(new Set(values).size, values.length, `${name} must be unique`);
@@ -54,26 +75,21 @@ export async function checkContract({ sdkDir, pin }) {
   assert.ok(Number.isInteger(tools.count) && tools.count >= 0, "tools.count must be a non-negative integer");
   assert.equal(hosted.resource, "https://mcp.sendmux.ai/mcp", "hosted.resource");
   assert.deepEqual(hosted.transports, ["streamable-http"], "hosted.transports");
-  assert.ok(Number.isInteger(uploads.inline_decoded_max_bytes), "uploads.inline_decoded_max_bytes");
+  assert.equal(uploads.inline_decoded_max_bytes, 32768, "uploads.inline_decoded_max_bytes must remain 32768 for the documented 32 KiB cap");
   assert.equal(uploads.mailbox.tool, "mailbox_upload_attachment", "uploads.mailbox.tool");
-  assert.ok(uploads.mailbox.modes.includes("presign_upload_url"), "uploads.mailbox presigned mode");
-  assert.equal(uploads.mailbox.presigned_max_bytes, uploads.mailbox.request_schema_max_bytes, "mailbox upload limits");
+  assert.equal(uploads.mailbox.inline_property, "content_base64", "uploads.mailbox.inline_property");
+  assert.deepEqual(uploads.mailbox.modes, ["content_base64", "presign_upload_url"], "mailbox modes must remain content_base64 and presign_upload_url");
+  assert.deepEqual([uploads.mailbox.presigned_max_bytes, uploads.mailbox.request_schema_max_bytes], [7500000, 7500000], "mailbox upload limits must remain 7500000 bytes");
   assert.equal(uploads.sending.presigned_tool, "sending_create_attachment_upload", "uploads.sending.presigned_tool");
   assert.equal(uploads.sending.limit_authority, "upload intent response max_size_bytes", "uploads.sending.limit_authority");
   return { contract, projection: { identity: pkg.identity, version: pkg.version, protocols, runtimeProtocols, toolCount: tools.count, resource: hosted.resource, transports: hosted.transports } };
 }
 
 async function main() {
-  const args = process.argv.slice(2);
-  const mode = args.includes("--write") ? "write" : args.includes("--check") ? "check" : null;
-  if (!mode || args.some((arg) => ["--pin", "--snippet"].includes(arg))) throw new Error("Usage: check-mcp-docs-contract.mjs --check|--write [--sdk PATH]");
-  const value = (flag) => {
-    const index = args.indexOf(flag);
-    return index < 0 ? undefined : args[index + 1];
-  };
+  const { mode, sdkDir: sdkArgument } = parseCliArgs(process.argv.slice(2));
   const config = JSON.parse(readFileSync(resolve("scripts/mcp-docs-sdk.json"), "utf8"));
   const pin = config.commit;
-  const sdkDir = value("--sdk") ?? process.env.SENDMUX_SDK_CHECKOUT;
+  const sdkDir = sdkArgument ?? process.env.SENDMUX_SDK_CHECKOUT;
   if (!sdkDir) throw new Error(`Missing SDK checkout for ${pin}; set SENDMUX_SDK_CHECKOUT or pass --sdk PATH`);
   const snippet = resolve("snippets/mcp-release-facts.mdx");
   const result = await checkContract({ sdkDir: resolve(sdkDir), pin });
