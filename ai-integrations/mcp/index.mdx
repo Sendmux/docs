@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpReleaseFacts from "/snippets/mcp-release-facts.mdx";
+
 Sendmux has two MCP connections. Use Doc Search MCP when you want an AI tool to search Sendmux docs. Use MCP when you want an agent to work with Sendmux tools you authorise.
 
 | Connection | Use it for | Server |
@@ -84,6 +86,8 @@ MCP exposes the product surfaces you grant.
 | Sending | Send single or batch emails. | Hosted grant with Sending access, an `smx_mbx_` key, or an owner-approved Sending-resource `smx_agent_` token locally |
 
 Hosted MCP is the default when your client supports remote MCP with browser OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
+
+<McpReleaseFacts />
 
 | Setting | Value |
 | --- | --- |
@@ -185,13 +189,13 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
     | Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
   </Accordion>
 
-  <Accordion title="Command flags">
+  <Accordion title="Protected environment input">
     ```bash
-    sendmux-mcp \
-      --surfaces mailbox,management,sending \
-      --mailbox-api-key smx_mbx_... \
-      --management-api-key smx_root_... \
-      --sending-api-key smx_mbx_...
+    SENDMUX_MCP_SURFACES=mailbox,management,sending \
+    SENDMUX_MAILBOX_API_KEY="$SENDMUX_MAILBOX_KEY" \
+    SENDMUX_MANAGEMENT_API_KEY="$SENDMUX_ROOT_KEY" \
+    SENDMUX_SENDING_API_KEY="$SENDMUX_SENDING_KEY" \
+    sendmux-mcp
     ```
   </Accordion>
 </AccordionGroup>
