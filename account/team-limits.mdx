@@ -13,7 +13,7 @@ keywords:
   ]
 ---
 
-Sendmux sets resource limits for each team. Free limits are fixed. Pro has no plan-level resource count limits. Provider quotas, safety controls, account health restrictions, and managed Amazon SES limits still apply.
+Sendmux sets resource limits for each team. Free limits are fixed. Pro uses adjustable allowances for domains, mailboxes, sending accounts, webhooks, credentials, and team members. Provider quotas, safety controls, account health restrictions, and managed Amazon SES limits still apply.
 
 ## Free limits
 
@@ -45,7 +45,9 @@ API creation requests generate `409 limit_exceeded`. Retrying the same request c
 
 ## Pro capacity
 
-Pro has no plan-level limit on domains, mailboxes, sending accounts, webhooks, active credentials, team members, or provider-accepted recipients. It does not remove configured provider quotas, API rate limits, safety controls, account health restrictions, or managed Amazon SES safeguards.
+The app shows your team's current usage and allowance for domains, mailboxes, sending accounts, webhooks, active credentials, and team members. At 80% usage, **Request increase** becomes available for administrator review. An approved increase sets a new allowance. You can request another increase when usage reaches 80% of that allowance.
+
+Provider-accepted recipients do not use these resource allowances. Pro does not remove configured provider quotas, API rate limits, safety controls, account health restrictions, or managed Amazon SES safeguards.
 
 ## Email volume
 
