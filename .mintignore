@@ -16,3 +16,4 @@ AGENTS.md
 # Agent-only workflow and historical ledgers (not docs content)
 automation/
 .tmp/
+evidence/

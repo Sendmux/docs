@@ -4,6 +4,21 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="16 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Account variables and per-message delivery groups" }}>
+  ## Account variables
+
+Each sending account can store custom template variables, including shared Amazon SES accounts. Edit one account or bulk merge, replace or remove keys. `[DP_VAR_SIGNATURE_URL]` inserts the selected account’s `signature_url` in the subject or body; values are inserted raw without escaping or recursive expansion. See [template variables](/sending/template-variables).
+
+  ## Per-message delivery groups
+
+Choose delivery groups per message with the HTTP `delivery_group` field or SMTP `X-Sendmux-Delivery-Group` header. Hints narrow the eligible providers within the credential’s scope; shared-domain senders keep their forced route. Applied group IDs appear in delivery logs and exports. See [per-message routing](/sending/accounts/delivery-groups#per-message-routing).
+
+  ## Bug fixes
+
+Template tags in encoded subjects are now substituted before delivery.
+
+</Update>
+
 <Update label="11 September 2026" tags={["Bug fixes"]} rss={{ title: "SDK mailbox stream compatibility" }}>
   ## Bug fixes
 

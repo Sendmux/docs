@@ -135,6 +135,7 @@
                 "pages": [
                   "sending/http",
                   "sending/smtp",
+                  "sending/template-variables",
                   "sending/attachments",
                   "sending/idempotency"
                 ]
