@@ -16,6 +16,6 @@ Preservation: Before adding this receipt, all 156 unrelated tracked files, six p
 
 Torn down: The owned tab was closed and its filtered readback was empty; the user's existing browser remained open. All ten recorded signed process/group handles returned ESRCH and port 65533 returned ECONNREFUSED. Mintlify had listened on all interfaces, not loopback only. No container, temporary checkout or browser profile was created.
 
-Evidence: Private `.claude/pr527-pr65-doc-correction-report.md` and `...-final-receipt.json` retain exact handles, source preservation and gate results. Raw Mintlify log SHA-256 `488fcfee72ce31dfb06a9bffc841aed52f69e554bcd670a28c32d5a932e935d1`; preview log `8731569e5fa46eb520dde55e7dddd9c8c91be68a3453382a21ef25d5f7b975f0`. Screenshots are in the tool transcript, not fabricated filesystem paths.
+Evidence: Private `.claude/pr527-pr65-doc-correction-report.md` and `.claude/pr527-pr65-doc-correction-final-receipt.json` retain exact handles, source preservation and gate results. Raw Mintlify log SHA-256 `488fcfee72ce31dfb06a9bffc841aed52f69e554bcd670a28c32d5a932e935d1`; preview log `8731569e5fa46eb520dde55e7dddd9c8c91be68a3453382a21ef25d5f7b975f0`. Screenshots are in the tool transcript, not fabricated filesystem paths.
 
 Status: Final docs commit and preparation-branch push must follow both product commit timestamps. Public documentation and hosted Postman publication still require compatible backend acceptance. No unrelated work was added.
