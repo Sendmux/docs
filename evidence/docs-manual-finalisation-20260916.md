@@ -16,7 +16,7 @@ The 17-unit ledger has 17 unique `pass-source-preserved-manual` rows and zero `b
 - `oauth-p1`
 - `sending-attachments-p4`
 
-The private ledger SHA-256 is `bb5dcc0523538633df9084630b12527db89ca9af174d1ef75549fc7071f6f6fd`. The private preservation receipt records per-file and per-unit source/final hashes, the operator exception, actual manual checks, historical attempt provenance, and separate dispositions for all other inventoried ineligible/frozen units.
+The private 17-unit ledger SHA-256 is `bb5dcc0523538633df9084630b12527db89ca9af174d1ef75549fc7071f6f6fd`. The private preservation receipt hash-binds that ledger, which contains the per-unit source/final hashes, actual manual checks, and historical attempt provenance. It also hash-binds the separate three-row canonical `ineligible-manual` ledger at SHA-256 `87d706975d9fe9c6eb727888c210f8c864a2049e987ae9f242e5dfc031fb1e2f` and records per-file hashes, the operator exception, and the other inventoried frozen/generated dispositions.
 
 For the 11 historically submitted units, the ledger retains actual pre-attempt-2 source scores of 26 (Atlassian), 26 (OAuth), and 23 (Sending). The Atlassian raw score remains absent; OAuth and Sending retain their actual raw score of 1; all final scores remain absent because no acceptable provider candidate existed. The six historically unsubmitted units retain absent transport, attempt, and score fields.
 
@@ -28,7 +28,7 @@ The finalisation check bound each source hash to the retained manifests or prose
 
 Whole-file source changes are exactly one `;` to `:` substitution in each owned page. Frontmatter, headings, code, links, tables, list/component structure, factual wording, qualifications, warnings, and every other byte remain unchanged.
 
-The pre-existing dirty `changelog.mdx` remains byte-identical at SHA-256 `c84c0340f84d60afae07f9add4b1c2179bbd2e690559b458ad2e8c679766e589` and was not staged. The 33 historical humanisation artifacts remain byte-identical: their sorted file-hash list still hashes to `050b965d48d442a315e610c27648cefcbc96b15e2aa6085e82dfee15ed9b750c`.
+The pre-existing dirty `changelog.mdx` remains byte-identical at SHA-256 `c84c0340f84d60afae07f9add4b1c2179bbd2e690559b458ad2e8c679766e589` and was not staged. The historical humanisation directory contains 39 files recursively. Its 33 top-level files remain byte-identical, with sorted file-hash-list SHA-256 `050b965d48d442a315e610c27648cefcbc96b15e2aa6085e82dfee15ed9b750c`; all six nested `source-before/` and `source-final/` snapshot hashes also match the retained whole-file hashes.
 
 The `sending-upload-token` no-send-access qualification is retained under the owning OpenAPI authentication split cited in `.claude/task-5-walter-repairability-review.md`. This is contract evidence, not a new production negative-authentication journey.
 
@@ -36,7 +36,7 @@ The `sending-upload-token` no-send-access qualification is retained under the ow
 
 - Placement: existing Guides → AI integrations → MCP → Client setup → Atlassian; Developer tools → OAuth; Guides → Sending → Attachments.
 - Disposition: keep all three pages in place; reader tasks and navigation do not change.
-- Humanisation: finalised through the approved manual source-retention exception; 17 `pass-source-preserved-manual`, zero blocked rows.
+- Humanisation: finalised through the approved manual source-retention exception for 17 `pass-source-preserved-manual` units, plus the canonical route for three separately ledgered `ineligible-manual` units; zero blocked rows.
 - Preservation: protected terms, claims, code tokens, numbers, links, and structure retain their reviewed source occurrences; only the three authorised punctuation bytes differ.
 - Technical documentation self-review: the bounded unit set retains verified facts, second-person active developer-docs voice, Australian English, timeless wording, usable procedure structure, and descriptive links. This was not authority for broader wording changes.
 
@@ -45,6 +45,9 @@ The `sending-upload-token` no-send-access qualification is retained under the ow
 | Check | Result |
 | --- | --- |
 | Exact 17-unit source/final hash, occurrence, protected-anchor, and one-character whole-file diff check | Pass |
+| Three-row canonical `ineligible-manual` ledger: source/final hashes, unchanged occurrence, required fields, and manual checks | Pass |
+| Historical evidence inventory: 33 top-level-file digest plus six nested snapshot hashes | Pass |
+| Protected dirty `changelog.mdx` SHA-256 | Pass: `c84c0340f84d60afae07f9add4b1c2179bbd2e690559b458ad2e8c679766e589` |
 | `git diff --check` | Pass |
 | `SENDMUX_SDK_CHECKOUT=/Users/rj/Desktop/GIT-REPOS/sendmux-docs/.claude/artifacts/task5-docs-sdk-46c36fe npm test` | Pass: 37/37, zero skipped |
 | `npm run confidentiality:check` | Pass |
@@ -63,7 +66,7 @@ Journeys: not run. This is a three-byte punctuation-only finalisation with no ch
 
 ## Resource teardown
 
-No server, browser, process, container, namespace, provider, email, database, or production resource was created. All 43 exact fixture/Postman temporary paths printed by the initial and configured check runs were individually verified absent after use.
+All 43 exact fixture/Postman temporary paths printed by the earlier finalisation checks were individually verified absent. This evidence-correction task started no persistent resource.
 
 ## Completion
 
@@ -71,14 +74,14 @@ No server, browser, process, container, namespace, provider, email, database, or
 
 Correctness: source → retained manifest/inventory → current final unit traced for all 17 rows; only three authorised punctuation bytes changed.
 
-Tests: existing suite 37/37 with exact SDK fixture; static, Postman, Mintlify, diff, and preservation checks pass; no added or removed tests.
+Tests: focused ledger, inventory, changelog-hash, JSON, diff, and preservation checks pass. The unchanged 37-test, static, Postman, and Mintlify results above were not rerun for this evidence-only correction; no tests were added or removed.
 
 Journeys: not run — punctuation-only, no behavioural or structural change; independent review pending.
 
-Evidence: this file plus private `.claude/manual-finalisation-17-ledger.jsonl`, `.claude/manual-finalisation-17-preservation.json`, and `.claude/manual-finalisation-17-report.md`.
+Evidence: this file plus private `.claude/manual-finalisation-17-ledger.jsonl`, `.claude/manual-finalisation-ineligible-ledger.jsonl`, `.claude/manual-finalisation-17-preservation.json`, and `.claude/manual-finalisation-17-report.md`.
 
 Status: local preparation only; ROOT owns generated snapshot adoption, the release-facts pin, remote integration, and publication.
 
-Torn down: 43 exact temporary paths verified absent; no persistent handle was created.
+Torn down: all 43 exact earlier temporary paths are absent; this evidence-correction task started no persistent resource.
 
 Parked: fresh generated MCP release-facts pin; ROOT publication; independent review; production/manual Atlassian acceptance.
