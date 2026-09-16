@@ -2259,7 +2259,7 @@
                   "language": "json"
                 }
               },
-              "raw": "{\n  \"from_email\": \"<string,null-email>\",\n  \"from_name\": \"<string,null>\",\n  \"name\": \"<string>\",\n  \"percentage\": \"<integer>\",\n  \"quotas\": {\n    \"per_day\": \"<integer>\",\n    \"per_hour\": \"<integer>\",\n    \"per_minute\": \"<integer>\",\n    \"per_second\": \"<integer>\"\n  },\n  \"reply_to_email\": \"<string,null-email>\",\n  \"reply_to_name\": \"<string,null>\",\n  \"smtp_host\": \"<string>\",\n  \"smtp_password\": \"<string>\",\n  \"smtp_port\": \"<integer>\",\n  \"smtp_protocol\": \"<string>\",\n  \"smtp_username\": \"<string>\",\n  \"tracking_domain\": \"<string,null>\",\n  \"variables\": {\n    \"key_0\": \"<string>\"\n  }\n}"
+              "raw": "{\n  \"from_email\": \"<string,null-email>\",\n  \"from_name\": \"<string,null>\",\n  \"name\": \"<string>\",\n  \"percentage\": \"<integer>\",\n  \"quotas\": {\n    \"per_day\": \"<integer>\",\n    \"per_hour\": \"<integer>\",\n    \"per_minute\": \"<integer>\",\n    \"per_second\": \"<integer>\"\n  },\n  \"reply_to_email\": \"<string,null-email>\",\n  \"reply_to_name\": \"<string,null>\",\n  \"smtp_host\": \"<string>\",\n  \"smtp_password\": \"<string>\",\n  \"smtp_port\": \"<integer>\",\n  \"smtp_protocol\": \"<string>\",\n  \"smtp_username\": \"<string>\",\n  \"tracking_domain\": \"<string,null>\"\n}"
             },
             "description": {
               "content": "Creates a custom SMTP sending account. Supply an `Idempotency-Key` header to safely retry on network errors. The SMTP password is stored securely and is never returned.",
@@ -2553,7 +2553,7 @@
                   "language": "json"
                 }
               },
-              "raw": "{\n  \"from_email\": \"<string,null-email>\",\n  \"from_name\": \"<string,null>\",\n  \"name\": \"<string>\",\n  \"percentage\": \"<integer>\",\n  \"quotas\": {\n    \"per_day\": \"<integer>\",\n    \"per_hour\": \"<integer>\",\n    \"per_minute\": \"<integer>\",\n    \"per_second\": \"<integer>\"\n  },\n  \"reply_to_email\": \"<string,null-email>\",\n  \"reply_to_name\": \"<string,null>\",\n  \"smtp_host\": \"<string>\",\n  \"smtp_password\": \"<string>\",\n  \"smtp_port\": \"<integer>\",\n  \"smtp_protocol\": \"<string>\",\n  \"smtp_username\": \"<string>\",\n  \"tracking_domain\": \"<string,null>\",\n  \"variables\": {\n    \"key_0\": \"<string>\"\n  }\n}"
+              "raw": "{\n  \"from_email\": \"<string,null-email>\",\n  \"from_name\": \"<string,null>\",\n  \"name\": \"<string>\",\n  \"percentage\": \"<integer>\",\n  \"quotas\": {\n    \"per_day\": \"<integer>\",\n    \"per_hour\": \"<integer>\",\n    \"per_minute\": \"<integer>\",\n    \"per_second\": \"<integer>\"\n  },\n  \"reply_to_email\": \"<string,null-email>\",\n  \"reply_to_name\": \"<string,null>\",\n  \"smtp_host\": \"<string>\",\n  \"smtp_password\": \"<string>\",\n  \"smtp_port\": \"<integer>\",\n  \"smtp_protocol\": \"<string>\",\n  \"smtp_username\": \"<string>\",\n  \"tracking_domain\": \"<string,null>\"\n}"
             },
             "description": {
               "content": "Updates a custom sending account. The shared Amazon SES account cannot be edited here; use activate/deactivate and the limit-request endpoint for the allowed shared-account actions.",

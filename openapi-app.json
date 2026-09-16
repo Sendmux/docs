@@ -440,20 +440,6 @@
             "description": "ISO 8601 creation timestamp",
             "type": "string"
           },
-          "delivery_group": {
-            "description": "Applied per-message delivery group public IDs, or null for absent, ignored or historical hints",
-            "items": {
-              "maxLength": 128,
-              "minLength": 6,
-              "type": "string"
-            },
-            "maxItems": 50,
-            "minItems": 1,
-            "type": [
-              "array",
-              "null"
-            ]
-          },
           "from_email": {
             "type": [
               "string",
@@ -567,7 +553,6 @@
           "id",
           "provider_id",
           "provider_name",
-          "delivery_group",
           "message_id",
           "from_email",
           "sent_from_email",
@@ -604,20 +589,6 @@
           "created_at": {
             "description": "ISO 8601 creation timestamp",
             "type": "string"
-          },
-          "delivery_group": {
-            "description": "Applied per-message delivery group public IDs, or null for absent, ignored or historical hints",
-            "items": {
-              "maxLength": 128,
-              "minLength": 6,
-              "type": "string"
-            },
-            "maxItems": 50,
-            "minItems": 1,
-            "type": [
-              "array",
-              "null"
-            ]
           },
           "from_email": {
             "type": [
@@ -721,7 +692,6 @@
           "id",
           "provider_id",
           "provider_name",
-          "delivery_group",
           "message_id",
           "from_email",
           "sent_from_email",
@@ -3003,7 +2973,7 @@
                 "type": "array"
               },
               "meta": {
-                "$ref": "#/components/schemas/MailboxIdentityListMeta"
+                "$ref": "#/components/schemas/ResponseMeta"
               },
               "pagination": {
                 "$ref": "#/components/schemas/CursorPagination"
@@ -3017,21 +2987,6 @@
           }
         ],
         "unevaluatedProperties": false
-      },
-      "MailboxIdentityListMeta": {
-        "additionalProperties": false,
-        "properties": {
-          "identity_state": {
-            "type": "string"
-          },
-          "request_id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "request_id"
-        ],
-        "type": "object"
       },
       "MailboxIdentityResponse": {
         "allOf": [
@@ -3787,7 +3742,7 @@
                 "type": "array"
               },
               "meta": {
-                "$ref": "#/components/schemas/MailboxSyncMeta"
+                "$ref": "#/components/schemas/ResponseMeta"
               },
               "pagination": {
                 "$ref": "#/components/schemas/CursorPagination"
@@ -3801,21 +3756,6 @@
           }
         ],
         "unevaluatedProperties": false
-      },
-      "MailboxQueryMeta": {
-        "additionalProperties": false,
-        "properties": {
-          "query_state": {
-            "type": "string"
-          },
-          "request_id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "request_id"
-        ],
-        "type": "object"
       },
       "MailboxQuota": {
         "additionalProperties": false,
@@ -3894,7 +3834,7 @@
                 "type": "array"
               },
               "meta": {
-                "$ref": "#/components/schemas/MailboxQueryMeta"
+                "$ref": "#/components/schemas/ResponseMeta"
               },
               "pagination": {
                 "$ref": "#/components/schemas/CursorPagination"
@@ -4932,7 +4872,7 @@
                 "type": "array"
               },
               "meta": {
-                "$ref": "#/components/schemas/MailboxQueryMeta"
+                "$ref": "#/components/schemas/ResponseMeta"
               },
               "pagination": {
                 "$ref": "#/components/schemas/CursorPagination"
@@ -5060,21 +5000,6 @@
           }
         ],
         "unevaluatedProperties": false
-      },
-      "MailboxSyncMeta": {
-        "additionalProperties": false,
-        "properties": {
-          "request_id": {
-            "type": "string"
-          },
-          "sync_state": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "request_id"
-        ],
-        "type": "object"
       },
       "MailboxThread": {
         "allOf": [
@@ -5206,54 +5131,6 @@
         ],
         "unevaluatedProperties": false
       },
-      "MailboxThreadMessagesMeta": {
-        "additionalProperties": false,
-        "properties": {
-          "request_id": {
-            "type": "string"
-          },
-          "sync_state": {
-            "type": "string"
-          },
-          "thread_id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "request_id",
-          "thread_id"
-        ],
-        "type": "object"
-      },
-      "MailboxThreadMessageSummaryCursorListResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/SuccessEnvelope"
-          },
-          {
-            "properties": {
-              "data": {
-                "items": {
-                  "$ref": "#/components/schemas/MailboxMessageSummary"
-                },
-                "type": "array"
-              },
-              "meta": {
-                "$ref": "#/components/schemas/MailboxThreadMessagesMeta"
-              },
-              "pagination": {
-                "$ref": "#/components/schemas/CursorPagination"
-              }
-            },
-            "required": [
-              "data",
-              "pagination"
-            ],
-            "type": "object"
-          }
-        ],
-        "unevaluatedProperties": false
-      },
       "MailboxThreadSummary": {
         "additionalProperties": false,
         "properties": {
@@ -5351,7 +5228,7 @@
                 "type": "array"
               },
               "meta": {
-                "$ref": "#/components/schemas/MailboxQueryMeta"
+                "$ref": "#/components/schemas/ResponseMeta"
               },
               "pagination": {
                 "$ref": "#/components/schemas/CursorPagination"
@@ -5604,14 +5481,10 @@
           },
           "update": {
             "type": "boolean"
-          },
-          "update_variables": {
-            "type": "boolean"
           }
         },
         "required": [
           "update",
-          "update_variables",
           "delete",
           "activate",
           "deactivate",
@@ -5804,9 +5677,6 @@
               "string",
               "null"
             ]
-          },
-          "variables": {
-            "$ref": "#/components/schemas/ProviderVariables"
           }
         },
         "required": [
@@ -6029,9 +5899,6 @@
             "description": "ISO 8601 last update timestamp",
             "example": "2026-05-25T02:18:00Z",
             "type": "string"
-          },
-          "variables": {
-            "$ref": "#/components/schemas/ProviderVariables"
           }
         },
         "required": [
@@ -6061,8 +5928,7 @@
           "created_at",
           "updated_at",
           "last_tested_at",
-          "last_used_at",
-          "variables"
+          "last_used_at"
         ],
         "type": "object"
       },
@@ -6075,7 +5941,7 @@
             "properties": {
               "data": {
                 "items": {
-                  "$ref": "#/components/schemas/ProviderListItem"
+                  "$ref": "#/components/schemas/ProviderItem"
                 },
                 "type": "array"
               },
@@ -6154,208 +6020,6 @@
           }
         ],
         "unevaluatedProperties": false
-      },
-      "ProviderListItem": {
-        "additionalProperties": false,
-        "properties": {
-          "allowed_actions": {
-            "$ref": "#/components/schemas/ProviderAllowedActions"
-          },
-          "created_at": {
-            "description": "ISO 8601 creation timestamp",
-            "example": "2026-05-25T02:18:00Z",
-            "type": "string"
-          },
-          "from_email": {
-            "description": "Default From email address. Connected Google and Microsoft accounts always use their authorised account address.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "from_name": {
-            "description": "Default From display name.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "has_refresh_token": {
-            "description": "Whether an OAuth account has an active connection token.",
-            "type": "boolean"
-          },
-          "has_smtp_password": {
-            "description": "Whether a custom SMTP password is stored.",
-            "type": "boolean"
-          },
-          "id": {
-            "description": "Sending account public ID",
-            "example": "dprov_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "type": "string"
-          },
-          "is_active": {
-            "description": "Whether this account is enabled for sending.",
-            "type": "boolean"
-          },
-          "is_editable": {
-            "description": "False when the account is platform-managed.",
-            "type": "boolean"
-          },
-          "is_shared": {
-            "description": "True for the team's shared Amazon SES account.",
-            "type": "boolean"
-          },
-          "last_tested_at": {
-            "description": "Last connection test timestamp.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "last_used_at": {
-            "description": "Last send timestamp.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "name": {
-            "description": "Display name",
-            "example": "Transactional SMTP",
-            "type": "string"
-          },
-          "oauth_email": {
-            "description": "Connected account email for OAuth accounts.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "percentage": {
-            "description": "Routing weight percentage.",
-            "example": 100,
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "quotas": {
-            "$ref": "#/components/schemas/ProviderQuotas"
-          },
-          "reply_to_email": {
-            "description": "Default Reply-To email address.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "reply_to_name": {
-            "description": "Default Reply-To display name.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "smtp_host": {
-            "description": "SMTP host for custom SMTP accounts.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "smtp_port": {
-            "description": "SMTP port for custom SMTP accounts.",
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "smtp_protocol": {
-            "description": "SMTP security mode.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "smtp_username": {
-            "description": "SMTP username for custom SMTP accounts.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "status": {
-            "description": "Current sending account status.",
-            "enum": [
-              "active",
-              "inactive",
-              "error",
-              "pending"
-            ],
-            "example": "active",
-            "type": "string"
-          },
-          "status_reason": {
-            "description": "Public-safe reason for the current status.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "tracking_domain": {
-            "description": "Custom tracking hostname.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "type": {
-            "description": "Sending account type. `amazon_ses` is the shared managed account.",
-            "enum": [
-              "smtp",
-              "gmail_api",
-              "outlook_api",
-              "amazon_ses"
-            ],
-            "example": "smtp",
-            "type": "string"
-          },
-          "updated_at": {
-            "description": "ISO 8601 last update timestamp",
-            "example": "2026-05-25T02:18:00Z",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "type",
-          "status",
-          "status_reason",
-          "is_active",
-          "is_shared",
-          "is_editable",
-          "allowed_actions",
-          "smtp_host",
-          "smtp_port",
-          "smtp_protocol",
-          "smtp_username",
-          "has_smtp_password",
-          "from_email",
-          "from_name",
-          "reply_to_email",
-          "reply_to_name",
-          "oauth_email",
-          "has_refresh_token",
-          "quotas",
-          "percentage",
-          "tracking_domain",
-          "created_at",
-          "updated_at",
-          "last_tested_at",
-          "last_used_at"
-        ],
-        "type": "object"
       },
       "ProviderQuotaRange": {
         "additionalProperties": false,
@@ -6768,9 +6432,6 @@
               "string",
               "null"
             ]
-          },
-          "variables": {
-            "$ref": "#/components/schemas/ProviderVariables"
           }
         },
         "type": "object"
@@ -6860,23 +6521,6 @@
           }
         ],
         "unevaluatedProperties": false
-      },
-      "ProviderVariables": {
-        "additionalProperties": {
-          "maxLength": 4096,
-          "type": "string"
-        },
-        "description": "Per-account string variables. PATCH omission preserves the current map, a supplied map replaces it, and an empty map clears it. Detail responses return an empty map when no variables are set.",
-        "example": {
-          "signature_url": "https://example.com/signature"
-        },
-        "maxProperties": 50,
-        "propertyNames": {
-          "maxLength": 64,
-          "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$",
-          "type": "string"
-        },
-        "type": "object"
       },
       "ResourceLimitSnapshot": {
         "additionalProperties": false,
@@ -14898,7 +14542,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MailboxThreadMessageSummaryCursorListResponse"
+                  "$ref": "#/components/schemas/MailboxMessageSummaryCursorListResponse"
                 }
               }
             },
