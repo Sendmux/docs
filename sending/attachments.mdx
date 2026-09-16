@@ -90,7 +90,7 @@ For real Sending files in hosted or local MCP, call `sending_create_attachment_u
 
 For real Mailbox files in hosted or local MCP, call `mailbox_upload_attachment` with `presign_upload_url=true`, `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, then send with the returned `blob_id`. The presigned request cap is 7,500,000 bytes.
 
-Use MCP `content_base64` only for tiny agent-authored content. Decoded content is capped at 32 KiB; it is not the normal path for real files. SDK and CLI file helpers can accept local paths because they run outside MCP model context. For inbound Mailbox attachments, call `mailbox_read_attachment` first when you need text-like content.
+Use MCP `content_base64` only for tiny agent-authored content. Decoded content is capped at 32 KiB: it is not the normal path for real files. SDK and CLI file helpers can accept local paths because they run outside MCP model context. For inbound Mailbox attachments, call `mailbox_read_attachment` first when you need text-like content.
 
 ## Mailbox upload before sending
 

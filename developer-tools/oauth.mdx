@@ -21,7 +21,7 @@ Use the authorisation-code flow with S256 PKCE to request user-approved access t
 | PKCE method | `S256` |
 | Client authentication | `none`, `client_secret_basic`, `client_secret_post` |
 
-Include `resource=https://sendmux.ai/api` when you want registration to restrict the client to the REST resource. Omitting `resource` during dynamic client registration creates no registration restriction; an explicit value remains an exact restriction. Request `resource=https://sendmux.ai/api` during authorisation, code exchange, and refresh. If one of those later REST requests omits the resource, that request defaults to the REST resource. The approved grant and token audience remain bound to the exact selected resource, and cross-resource use fails closed.
+Include `resource=https://sendmux.ai/api` when you want registration to restrict the client to the REST resource. Omitting `resource` during dynamic client registration creates no registration restriction: an explicit value remains an exact restriction. Request `resource=https://sendmux.ai/api` during authorisation, code exchange, and refresh. If one of those later REST requests omits the resource, that request defaults to the REST resource. The approved grant and token audience remain bound to the exact selected resource, and cross-resource use fails closed.
 
 The REST resource covers all three API base URLs. A token still needs the approved surface, operation scopes, and mailbox selection. Hosted MCP, A2A, and agent-registration tokens retain their separate resources; they are not interchangeable with REST OAuth tokens.
 
