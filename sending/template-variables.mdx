@@ -41,6 +41,8 @@ Valid custom tags whose keys are unset become empty strings. Values are inserted
 
 Subject substitutions remove control characters so a value cannot inject another email header. Body values retain their original content. Substitution supports plain text, HTML, quoted-printable, and base64 message content, including encoded subjects.
 
+Sendmux does not substitute template tags inside attachments, signed or encrypted message parts, or attached emails.
+
 Variables belong to the selected provider, not the recipient or credential. Passwords, access tokens, and other connection secrets have no built-in template tags.
 
 ## Built-in tags
@@ -68,6 +70,8 @@ Select accounts in **Accounts**, then open **Update Variables** and choose a mod
 | **Merge keys** | Add supplied keys and overwrite matching keys; retain other keys. |
 | **Replace all** | Replace each account's entire map with the supplied map; an empty map clears it. |
 | **Remove keys** | Remove the named keys; retain other keys and values. |
+
+When **Replace all** has no keys, select **Confirm clear** to remove all variables from the selected accounts, or **Cancel clear** to leave them unchanged.
 
 Limits apply to each resulting map, including keys already on the account. Review the reported failures after a bulk edit, then open an affected account to verify its values.
 
