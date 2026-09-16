@@ -4,7 +4,7 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="16 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Account variables and per-message delivery groups" }}>
+<Update label="17 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Account variables and per-message delivery groups" }}>
   ## Account variables
 
 Each sending account can store custom template variables, including shared Amazon SES accounts. Edit one account or bulk merge, replace or remove keys. `[DP_VAR_SIGNATURE_URL]` inserts the selected account’s `signature_url` in the subject or body; values are inserted raw without escaping or recursive expansion. See [template variables](/sending/template-variables).
@@ -19,7 +19,7 @@ Template tags in encoded subjects are now substituted before delivery.
 
 </Update>
 
-<Update label="11 September 2026" tags={["Bug fixes"]} rss={{ title: "Hosted MCP OAuth registration" }}>
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "Hosted MCP OAuth registration" }}>
   ## Bug fixes
 
 Hosted MCP clients using automatic OAuth registration can now register without a Sendmux-specific resource. Modern clients may identify themselves with a public HTTPS metadata document. Sendmux binds each approval and token to the exact selected service resource, so REST, MCP and A2A tokens remain separate.
