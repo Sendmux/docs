@@ -1,0 +1,101 @@
+---
+title: "Template variables"
+description: "Insert values from the selected sending account into email subjects and bodies."
+keywords: ["template variables", "provider variables", "signature URL", "sending accounts", "email templates"]
+---
+
+Use template tags when each sending account needs its own signature, link, or sender details. Sendmux substitutes values from the provider selected for that message in the subject, plain-text body, and HTML body.
+
+## Set account variables
+
+<Steps>
+  <Step title="Open the account">
+    Open **Accounts** and edit a sending account. For the managed Amazon SES account, select **Edit variables** from its menu.
+  </Step>
+  <Step title="Add a key and value">
+    In **Variables**, add `signature_url` with the URL for that account. Select **Save variables**.
+  </Step>
+  <Step title="Use the tag">
+    Insert `[DP_VAR_SIGNATURE_URL]` into your email template. Send a test message and inspect its delivered content and selected provider in **Logs**.
+  </Step>
+</Steps>
+
+For example, use the variable in an HTML link:
+
+```html
+<p>Thanks,<br>[DP_FROM_NAME]</p>
+<p><a href="[DP_VAR_SIGNATURE_URL]">View my signature</a></p>
+```
+
+All provider types support variables. On the shared Amazon SES account, variables are editable while protected connection settings stay locked.
+
+## Key and value limits
+
+Each account can store at most 50 keys. Keys contain 1–64 ASCII characters and must match `^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$`. Start with a lowercase letter; use lowercase letters, digits, and single underscores between nonempty segments. Leading, trailing, and repeated underscores are invalid.
+
+Each value is a string of at most 4,096 Unicode code points. An empty string is valid. To form a tag, uppercase the key and add the `DP_VAR_` prefix inside brackets: `signature_url` becomes `[DP_VAR_SIGNATURE_URL]`.
+
+## Substitution rules
+
+Valid custom tags whose keys are unset become empty strings. Values are inserted raw: Sendmux does not escape HTML, encode URLs, or expand template tags inside another value. Prepare each value for the context where you insert it.
+
+Subject substitutions remove control characters so a value cannot inject another email header. Body values retain their original content. Substitution supports plain text, HTML, quoted-printable, and base64 message content, including encoded subjects.
+
+Sendmux does not substitute template tags inside attachments, signed or encrypted message parts, or attached emails.
+
+Variables belong to the selected provider, not the recipient or credential. Passwords, access tokens, and other connection secrets have no built-in template tags.
+
+## Built-in tags
+
+These seven tags read the selected provider's configured values:
+
+| Tag | Source and fallback |
+| --- | --- |
+| `[DP_NAME]` | Account display name; empty if unset. |
+| `[DP_USERNAME]` | Provider username; empty if unset. |
+| `[DP_FROM_EMAIL]` | Configured **From email**; empty if unset. |
+| `[DP_FROM_NAME]` | Configured **From name**; empty if unset. |
+| `[DP_REPLY_TO_EMAIL]` | Configured **Reply-To** address; empty if unset. |
+| `[DP_TRACKING_DOMAIN]` | Configured **Tracking domain**; empty if unset. |
+| `[DP_FROM_DOMAIN]` | Domain from the configured **From email**, then the username if it is an email address; empty if neither has a valid domain. |
+
+The sender-related tags read provider settings. An unset setting does not fall back to the sender supplied in your message.
+
+## Edit several accounts
+
+Select accounts in **Accounts**, then open **Update Variables** and choose a mode:
+
+| Mode | Result |
+| --- | --- |
+| **Merge keys** | Add supplied keys and overwrite matching keys; retain other keys. |
+| **Replace all** | Replace each account's entire map with the supplied map; an empty map clears it. |
+| **Remove keys** | Remove the named keys; retain other keys and values. |
+
+When **Replace all** has no keys, select **Confirm clear** to remove all variables from the selected accounts, or **Cancel clear** to leave them unchanged.
+
+Limits apply to each resulting map, including keys already on the account. Review the reported failures after a bulk edit, then open an affected account to verify its values.
+
+## Management API
+
+The provider detail response includes `variables`, returning `{}` when unset. Include the optional map when creating a provider or updating it with `PATCH /providers/{public_id}`:
+
+```json
+{
+  "variables": {
+    "signature_url": "https://example.com/signatures/team-b"
+  }
+}
+```
+
+Omitting `variables` from a PATCH preserves the existing map. Supplying it replaces the map, and `{ "variables": {} }` clears all keys. Provider list and delivery-group summaries omit variable values; fetch the provider detail when you need them.
+
+## Related guides
+
+<Columns cols={2}>
+  <Card title="Delivery groups" icon="route" href="/sending/accounts/delivery-groups">
+    Restrict a message to providers in selected groups.
+  </Card>
+  <Card title="Sending accounts" icon="mail" href="/sending/accounts">
+    Configure the providers that supply template values.
+  </Card>
+</Columns>

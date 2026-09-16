@@ -1,0 +1,87 @@
+{
+  "reviewedAt": "2026-09-16 12:03",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "sourceEvidence": [
+    "sendmux-mailbox-variables-routing/src/actions/bulk-provider-actions.ts:614",
+    "sendmux-mailbox-variables-routing/src/server/api-v1/providers.ts:704",
+    "smtp-proxy-mailbox-variables-routing/app/shared/delivery-group-routing.js:17",
+    "smtp-proxy-mailbox-variables-routing/app/http-api/v1/routes/send-email.js:195",
+    "smtp-proxy-mailbox-variables-routing/app/consumer/lib/email-content-processing.js:535"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-16-mailbox-variables-routing-p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic reference paragraph; every clause describes a source-verified API, UI, routing or MIME behaviour. No narrative or promotional prose.",
+      "editableCharacters": 297,
+      "sourceSha256": "f88d329f4f630102094be7b407ae904a64dcac79eed381897d267cdec61a072b",
+      "finalSha256": "f88d329f4f630102094be7b407ae904a64dcac79eed381897d267cdec61a072b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Every behavioural claim traced to the cited implementation and focused passing regressions.",
+        "API fields, header, UI modes, scope boundaries, raw/nonrecursive insertion and links preserved.",
+        "Concise Australian English; no internal implementation or promotional claims."
+      ],
+      "disposition": "ineligible-technical",
+      "protectedAnchors": [
+        "`[DP_VAR_SIGNATURE_URL]`",
+        "`signature_url`",
+        "[template variables](/sending/template-variables)"
+      ]
+    },
+    {
+      "id": "changelog.mdx#2026-09-16-mailbox-variables-routing-p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic reference paragraph; every clause describes a source-verified API, UI, routing or MIME behaviour. No narrative or promotional prose.",
+      "editableCharacters": 266,
+      "sourceSha256": "cba22ddd8f726989a2a2800cb3d461c66de092f8bc5830822ae7f12d180b7520",
+      "finalSha256": "cba22ddd8f726989a2a2800cb3d461c66de092f8bc5830822ae7f12d180b7520",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Every behavioural claim traced to the cited implementation and focused passing regressions.",
+        "API fields, header, UI modes, scope boundaries, raw/nonrecursive insertion and links preserved.",
+        "Concise Australian English; no internal implementation or promotional claims."
+      ],
+      "disposition": "ineligible-technical",
+      "protectedAnchors": [
+        "`delivery_group`",
+        "`X-Sendmux-Delivery-Group`",
+        "[per-message routing](/sending/accounts/delivery-groups#per-message-routing)"
+      ]
+    },
+    {
+      "id": "changelog.mdx#2026-09-16-mailbox-variables-routing-p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic reference paragraph; every clause describes a source-verified API, UI, routing or MIME behaviour. No narrative or promotional prose.",
+      "editableCharacters": 70,
+      "sourceSha256": "832c313cdc523afe658ab0e8093ef2f0e4001aa2195b9b8e3e33cdb650886531",
+      "finalSha256": "832c313cdc523afe658ab0e8093ef2f0e4001aa2195b9b8e3e33cdb650886531",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Every behavioural claim traced to the cited implementation and focused passing regressions.",
+        "API fields, header, UI modes, scope boundaries, raw/nonrecursive insertion and links preserved.",
+        "Concise Australian English; no internal implementation or promotional claims."
+      ],
+      "disposition": "ineligible-technical",
+      "protectedAnchors": []
+    }
+  ]
+}

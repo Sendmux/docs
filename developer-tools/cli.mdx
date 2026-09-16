@@ -108,14 +108,12 @@ Save API keys as local CLI profiles so you do not pass a key on every command.
 <CodeGroup>
 
 ```bash Mailbox profile
-sendmux profiles:set mailbox \
-  --api-key "$SENDMUX_MAILBOX_KEY" \
+SENDMUX_API_KEY="$SENDMUX_MAILBOX_KEY" sendmux profiles:set mailbox \
   --default
 ```
 
 ```bash Management profile
-sendmux profiles:set management \
-  --api-key "$SENDMUX_ROOT_KEY"
+SENDMUX_API_KEY="$SENDMUX_ROOT_KEY" sendmux profiles:set management
 ```
 
 </CodeGroup>
@@ -137,6 +135,8 @@ An API command first uses `SENDMUX_ACCESS_TOKEN` when set. Supplying an API key 
 3. `--profile`
 4. `SENDMUX_PROFILE`
 5. the configured default profile
+
+`profiles:set` accepts `--api-key` as a reference option, but environment input keeps expanded credentials out of child-process arguments.
 
 `--base-url` overrides the API base URL for one command. `SENDMUX_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
 

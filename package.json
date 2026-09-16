@@ -8,6 +8,8 @@
     "test": "node --test tests/*.test.mjs",
     "confidentiality:check": "node scripts/check-confidentiality.mjs",
     "external-links:check": "node scripts/check-external-links.mjs",
+    "mcp-docs:emit": "node scripts/check-mcp-docs-contract.mjs --write",
+    "mcp-docs:check": "node scripts/check-mcp-docs-contract.mjs --check",
     "postman:emit": "node scripts/emit-postman-collections.mjs",
     "postman:check": "node scripts/check-postman-collections.mjs",
     "postman:hosted:check": "node scripts/check-hosted-postman-collections.mjs",

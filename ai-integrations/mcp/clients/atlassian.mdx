@@ -1,0 +1,61 @@
+---
+title: "Connect Atlassian to Sendmux MCP"
+sidebarTitle: "Atlassian"
+description: "Add hosted Sendmux MCP as a custom external server in Atlassian administration."
+keywords: ["Atlassian MCP", "external MCP server", "Sendmux MCP", "OAuth", "DCR"]
+---
+
+Use this how-to to connect an Atlassian site to hosted Sendmux MCP. You need Atlassian organisation administrator access and a Sendmux user who can approve the intended team, product surfaces, and mailboxes. This page does not cover local servers, private HTTP, or Atlassian's built-in system integrations.
+
+## Add the server
+
+<Steps>
+  <Step title="Open connected apps">
+    In Atlassian administration, open **Apps > Sites**, select the site, and open **Connected apps**.
+  </Step>
+  <Step title="Choose a custom MCP server">
+    Open the dropdown beside **Explore apps**, choose **Add external MCP server**, then choose **Custom MCP server**.
+  </Step>
+  <Step title="Enter the connection details">
+    Enter **MCP URL** as `https://mcp.sendmux.ai/mcp`, **MCP server name** as `Sendmux`, and **Authentication** as **OAuth**. The hosted endpoint uses Streamable HTTP and OAuth 2.1 authorisation code with PKCE and dynamic client registration (DCR). You do not need a manually created Sendmux client ID or secret.
+  </Step>
+  <Step title="Authorise the grant">
+    Complete Sendmux browser authorisation. Select only the team, product surfaces, and mailboxes needed for this connection.
+  </Step>
+  <Step title="Verify the connection">
+    Confirm Sendmux appears in **Connected apps** and its tools appear. Invoke one read-only connection or list tool from a granted surface. This verifies your configuration: it does not automatically certify Atlassian as a client.
+  </Step>
+</Steps>
+
+See Atlassian's <a href="https://support.atlassian.com/organization-administration/docs/add-an-external-mcp-server-from-atlassian-administration/" rel="nofollow noopener noreferrer" target="_blank">external MCP server setup procedure</a> for the administration workflow.
+
+## Manage tools
+
+Open **Apps > Sites**, select the site, then open **Connected apps > Actions > View app details > Tools selection**. Deselect a tool to deactivate it. Sendmux mutations remain governed by the selected grant and each tool's behaviour.
+
+See Atlassian's <a href="https://support.atlassian.com/organization-administration/docs/configure-tools-for-an-external-mcp-server/" rel="nofollow noopener noreferrer" target="_blank">external MCP tool configuration guide</a>.
+
+<Warning>
+  Uninstalling the external server removes its tools for all users and breaks workflows that depend on them. Deactivate individual tools when you need a narrower change.
+</Warning>
+
+See Atlassian's <a href="https://support.atlassian.com/organization-administration/docs/remove-an-external-mcp-server-from-atlassian-administration/" rel="nofollow noopener noreferrer" target="_blank">external MCP server removal guidance</a> before uninstalling.
+
+## Troubleshoot `invalid_target`
+
+OAuth keeps four boundaries separate: a registration can restrict an exact resource, an authorisation request asks for a resource, the approved grant binds that resource, and the access token carries the same audience. Omitting `resource` during DCR creates no registration restriction. If a later authorisation, code-exchange, or refresh request omits the resource, only that later REST request defaults to `https://sendmux.ai/api`.
+
+For hosted MCP, `invalid_target` means the requested resource does not match an explicitly restricted registration or is not an exact supported resource. Confirm **MCP URL** is exactly `https://mcp.sendmux.ai/mcp` and **Authentication** is **OAuth**. Do not reuse a REST or A2A registration, broaden an existing restriction, weaken resource checks, change scopes, or uninstall and re-add the server as a workaround.
+
+If the documented configuration still fails, record the non-secret error and request identifier and contact [Sendmux support](mailto:contact@sendmux.ai). Do not include tokens or capability URLs.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="MCP client setup" icon="plug" href="/ai-integrations/mcp/clients">
+    Compare documented hosted, local, and private HTTP configurations.
+  </Card>
+  <Card title="MCP overview" icon="shield-check" href="/ai-integrations/mcp">
+    Review hosted grants, product surfaces, and connection modes.
+  </Card>
+</Columns>
