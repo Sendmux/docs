@@ -51,7 +51,7 @@ Replace the example IDs with your groups' public IDs. Sendmux trims surrounding 
 
 The hint can only narrow the credential's authorised providers. Shared-domain sending ignores it and retains its forced route. See [Delivery groups](/sending/accounts/delivery-groups#restrict-one-message) for the scope rules.
 
-Invalid, unknown, foreign-team, or disallowed hints receive a permanent `550` response. Temporary service failures remain retryable. Sendmux removes the routing header before delivery.
+Unless shared-domain routing ignores the hint, invalid, unknown, foreign-team, or disallowed hints receive a permanent `550` response. Temporary service failures remain retryable. Sendmux removes the routing header before delivery.
 
 Use [template variables](/sending/template-variables) in subjects and bodies to insert values from the selected account.
 
