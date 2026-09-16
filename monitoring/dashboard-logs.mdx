@@ -40,6 +40,8 @@ Delivery logs show message-level activity for the selected team.
 | Provider | Provider used for the attempt. |
 | Attempts | Number of delivery attempts recorded. |
 
+Applied delivery-group public IDs appear with the provider. The Management API exposes them as `delivery_group`, and CSV exports include a **Delivery Groups** column. The value is `null` in the API, or blank in the export, when no hint was applied, a shared-domain override ignored it, or the log predates this field. Later status updates preserve the applied IDs.
+
 ## Filter logs
 
 The default date range starts 7 days back. You can filter by:
