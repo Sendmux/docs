@@ -2,7 +2,7 @@
 
 Recorded: 2026-09-16 20:02
 
-Status: local release draft, not published. Application commit4506336c implements the policy and the approved design. The operator approved the signed-in localhost design, then requested and received the verified Billing transaction empty-state adjustment. Production rollout remains separately gated.
+Status: temporary-branch release draft, not published. Application review-fix commit `c8dde437a51bb8f53760a306be04c3f1cd01cf4b` implements the policy, approved design, reservation-aware capacity display, and Billing transaction empty state. Its 4,267 unit tests, 368 integration tests, and fresh production-build browser journey passed. Production rollout remains separately gated.
 
 Placement: existing Account and billing > Billing and limits, Sending > Sending accounts, and global Product updates. Page scope and navigation remain unchanged.
 
@@ -15,6 +15,18 @@ Validation: prior unchanged docs tooling suite12/12, confidentiality, external-l
 Humanisation: five policy units plus three changelog reference paragraphs use the scoped atomic technical-reference exception or frozen-table rule in automation/docs-authoring-workflow.md. Every clause is a source-backed product assertion or reader instruction; no promotional/narrative prose or provider call. Headings, Update metadata and exact CTA are frozen. Canonical hash rows below carry zero blocked units. Private full reports are MAIN sendmux/.claude/artifacts/pro-resource-allowances/docs-implementation-report.md and changelog-humanisation-ledger.json; the earlier report predates this changelog draft.
 
 Release: app push gate requires docs pushed after the product commit. Docs repo normally publishes directly to main. The operator explicitly approved a temporary unpublished docs branch so the app PR can be reviewed before live publication. Push only agent/pro-resource-allowances; main publication and product rollout remain separately gated.
+
+## Review correction preparation
+
+The unreleased Pro changelog now states: “Capacity displays now account for resources being created.” This records the verified correction that active reservations reduce displayed remaining capacity and affect the local reached-limit state while committed usage and server-controlled request eligibility remain distinct.
+
+Placement remains the existing 16 September 2026 update under **Billing and credentials**. No navigation, published history, policy page, specification, generated artifact, or API contract changed. The separate review-only snapshot commit `349b2e37da0aecfb5da33c4d81a12471c39d75f6` remains excludable and must not be treated as a main-publication change.
+
+Humanisation: the added standalone paragraph is 58 readable characters and 8 words. The changelog addition is below the 50-word provider submission floor, so it was manually checked and retained byte-identically as `ineligible-manual`; zero provider calls were made. The hash-bound supplemental ledger is `.claude/artifacts/pro-resource-allowances/changelog-review-correction-ledger.json` and has zero blocked rows.
+
+Review-correction validation: docs tooling 12/12, confidentiality, external links, Postman drift check, Mintlify build validation, broken links, and `git diff --check` passed. The sentence occurs once inside the existing top unreleased update. No preview server or browser was started for this standalone prose line; Mintlify validated its MDX rendering. The final `changelog.mdx` SHA-256 is `be638e15c8b61311cf14195aec742ae830ab5bb1686987dac98bb06a2bd101c7`; the supplemental ledger SHA-256 is `5ee1908b47ac9e098bfe0963beb92342060bc0e7acabf13492cda07cf5544fe0`.
+
+Status: authorised for commit and push only to the temporary `agent/pro-resource-allowances` branch after application commit `c8dde437a51bb8f53760a306be04c3f1cd01cf4b`. Main publication, merge, migration, conversion, and deployment remain separately gated.
 
 ```json
 [
