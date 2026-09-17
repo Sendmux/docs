@@ -4,11 +4,11 @@
   "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
   "contractSha256": "7e8f8150d3e75414aa962bd01e09d0efad1a0be5f6e0e18e856c3e547862ea3e",
   "sourceEvidence": [
-    "Sendmux/smtp-proxy@565744febef60fa173ba17fe3f77f51301d4c4f8:app/consumer/lib/email-content-processing.js:893-915",
-    "Sendmux/smtp-proxy@565744febef60fa173ba17fe3f77f51301d4c4f8:app/consumer/lib/email-content-processing.js:1390-1418",
-    "Sendmux/smtp-proxy@565744febef60fa173ba17fe3f77f51301d4c4f8:app/consumer/lib/provider-cache.js:128-132",
-    "Sendmux/smtp-proxy@565744febef60fa173ba17fe3f77f51301d4c4f8:app/consumer/lib/provider-cache.js:253",
-    "Sendmux/smtp-proxy@565744febef60fa173ba17fe3f77f51301d4c4f8:app/tests/unit/email-content-processing-reply-to.test.js"
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/email-content-processing.js:893-915",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/email-content-processing.js:1390-1418",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/provider-cache.js:128-132",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/provider-cache.js:253",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/tests/unit/email-content-processing-reply-to.test.js"
   ],
   "units": [
     {
