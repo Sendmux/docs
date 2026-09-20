@@ -1,0 +1,59 @@
+{
+  "artifact": "changelog.mdx#2026-09-20-sdk-account-variables-and-routing",
+  "reviewedAt": "2026-09-20 16:32",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "0d1b9a7487f77638c6f0a5ec02cde52103374ac07f6b0473a60502cf1967f4c8",
+  "sourceEvidence": [
+    "Sendmux/sendmux-sdk@origin/main:packages/ts/management/CHANGELOG.md 2.0.0 (managementListProviders returns ProviderListItem without variables; managementGetProvider returns ProviderItem with required variables)",
+    "Sendmux/sendmux-sdk@origin/main:packages/python/management/CHANGELOG.md 2.0.0 (integrate combined provider variables and delivery routing, 81bbf22)",
+    "Sendmux/sendmux-sdk@origin/main:packages/ruby/sdk/CHANGELOG.md 2.0.0 (management_get_provider returns ProviderItem with a required variables hash)",
+    "Sendmux/sendmux-sdk@origin/main:go/CHANGELOG.md 2.0.0 (module path is sendmux.ai/go/v2, tag go/v2.0.0; ProviderItem.Variables added; EmailSendRequest.DeliveryGroup narrows the eligible provider pool for one send)",
+    "Registry verification 2026-09-20: registry.npmjs.org @sendmux/management 2.0.1, @sendmux/mailbox 2.0.1, @sendmux/sdk 2.0.1; pypi.org sendmux-management 2.0.0, sendmux-sdk 3.0.0; rubygems.org sendmux-sdk 2.0.0; proxy.golang.org sendmux.ai/go/v2 v2.0.0",
+    "sendmux-sdk/.claude/artifacts/l9/registry-verification.txt (captured registry responses)"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-20-sdk-account-variables-and-routing#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry is a single paragraph of 44 eligible words, below the 50-word submission floor; source preserved byte-identically without padding or mixing artifacts.",
+      "eligibleWords": 44,
+      "editableCharacters": 304,
+      "sourceSha256": "d7c0524d66723c2ae1c6b50d65cc144e6f8102eda838ebb863337fea1ae0879c",
+      "finalSha256": "d7c0524d66723c2ae1c6b50d65cc144e6f8102eda838ebb863337fea1ae0879c",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "TypeScript",
+        "Python",
+        "Ruby",
+        "Go",
+        "sendmux.ai/go/v2",
+        "README",
+        "1.x",
+        "sending-account variables",
+        "delivery group"
+      ],
+      "manualChecks": [
+        "Behaviour matches the shipped SDKs: the TypeScript, Python, Ruby and Go major releases add provider/sending-account variables and a per-message delivery group; provider list responses return a summary entry without variables while the single-provider read returns them; the Go module path moves to sendmux.ai/go/v2 with v1 unchanged and not retracted.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor or library names. SDK language names and public package and module names are permitted by the SDK/CLI/MCP allowlist delta in CLAUDE.md.",
+        "No distribution-channel claim is made: Homebrew (still 1.6.0) and Chocolatey (1.7.1 awaiting moderation) are deliberately unmentioned so the entry cannot become false.",
+        "Historical entries, frontmatter, update order, tags, RSS titles and links unchanged; entry inserted newest-first with the closed-set New features tag and no bullet points."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "heading",
+    "update label",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "blockedManualReviewCount": 0
+}

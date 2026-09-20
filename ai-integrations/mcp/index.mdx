@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpReleaseFacts from "/snippets/mcp-release-facts.mdx";
+
 Sendmux has two MCP connections. Use Doc Search MCP when you want an AI tool to search Sendmux docs. Use MCP when you want an agent to work with Sendmux tools you authorise.
 
 | Connection | Use it for | Server |
@@ -85,6 +87,8 @@ MCP exposes the product surfaces you grant.
 
 Hosted MCP is the default when your client supports remote MCP with browser OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
 
+<McpReleaseFacts />
+
 | Setting | Value |
 | --- | --- |
 | Server URL | `https://mcp.sendmux.ai/mcp` |
@@ -118,7 +122,7 @@ When you connect, Sendmux asks you to choose a team, product surfaces, and mailb
   <Card title="Local stdio" icon="terminal" href="/ai-integrations/mcp/clients#local-stdio-clients">
     Use when your coding agent can launch a local command on your machine.
   </Card>
-  <Card title="Private HTTP" icon="network" href="/ai-integrations/mcp/clients#private-http-clients">
+  <Card title="Private HTTP" icon="network-wired" iconType="solid" href="/ai-integrations/mcp/clients#private-http-clients">
     Use when a client needs a URL but you run the MCP package yourself.
   </Card>
 </CardGroup>
@@ -185,13 +189,13 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
     | Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
   </Accordion>
 
-  <Accordion title="Command flags">
+  <Accordion title="Protected environment input">
     ```bash
-    sendmux-mcp \
-      --surfaces mailbox,management,sending \
-      --mailbox-api-key smx_mbx_... \
-      --management-api-key smx_root_... \
-      --sending-api-key smx_mbx_...
+    SENDMUX_MCP_SURFACES=mailbox,management,sending \
+    SENDMUX_MAILBOX_API_KEY="$SENDMUX_MAILBOX_KEY" \
+    SENDMUX_MANAGEMENT_API_KEY="$SENDMUX_ROOT_KEY" \
+    SENDMUX_SENDING_API_KEY="$SENDMUX_SENDING_KEY" \
+    sendmux-mcp
     ```
   </Accordion>
 </AccordionGroup>
@@ -231,7 +235,7 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="A2A" icon="network" href="/ai-integrations/a2a">
+  <Card title="A2A" icon="network-wired" iconType="solid" href="/ai-integrations/a2a">
     Use Sendmux through an A2A 1.0 agent endpoint with hosted OAuth.
   </Card>
   <Card title="MCP clients" icon="plug" href="/ai-integrations/mcp/clients">

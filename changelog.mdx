@@ -4,6 +4,13 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="20 September 2026" tags={["New features"]} rss={{ title: "Account variables and per-message routing in the SDKs" }}>
+  ## Account variables and routing in the SDKs
+
+New major versions of the TypeScript, Python, Ruby and Go SDKs read and write sending-account variables and set a delivery group per message. Account lists return a summary entry, so fetch one account to read its variables. Go moves to the `sendmux.ai/go/v2` module path. Each package README carries a 1.x migration guide.
+
+</Update>
+
 <Update label="19 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP tool results validate against their schemas" }}>
   ## Bug fixes
 
@@ -24,6 +31,32 @@ Fixed delegated attachment uploads rejecting files sent with a generic binary co
 Fixed sign-in and token refresh for MCP clients such as Atlassian that leave out the OAuth resource indicator on the token request; tokens are still issued only for the server the user approved.
 
 </Update>
+<Update label="17 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Account variables and per-message delivery groups" }}>
+  ## Account variables
+
+Each sending account can store custom template variables, including shared Amazon SES accounts. Edit one account or bulk merge, replace or remove keys. `[DP_VAR_SIGNATURE_URL]` inserts the selected account’s `signature_url` in the subject or body; values are inserted raw without escaping or recursive expansion. See [template variables](/sending/template-variables).
+
+  ## Per-message delivery groups
+
+Choose delivery groups per message with the HTTP `delivery_group` field or SMTP `X-Sendmux-Delivery-Group` header. Hints narrow the eligible providers within the credential’s scope; shared-domain senders keep their forced route. Applied group IDs appear in delivery logs and exports. See [per-message routing](/sending/accounts/delivery-groups#restrict-one-message).
+
+  ## Bug fixes
+
+Template tags in encoded subjects are now substituted before delivery.
+
+Bulk **Replace all** edits with no keys require confirmation before clearing the selected accounts' variables.
+
+Template tags are no longer substituted inside attachments, signed or encrypted message parts, or attached emails.
+
+</Update>
+
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "Hosted MCP OAuth registration" }}>
+  ## Bug fixes
+
+Hosted MCP clients using automatic OAuth registration can now register without a Sendmux-specific resource. Modern clients may identify themselves with a public HTTPS metadata document. Sendmux binds each approval and token to the exact selected service resource, so REST, MCP and A2A tokens remain separate.
+
+</Update>
+
 
 <Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "Reply-To addresses preserved" }}>
   ## Bug fixes

@@ -90,6 +90,7 @@
                       "ai-integrations/mcp/clients/cursor",
                       "ai-integrations/mcp/clients/codex",
                       "ai-integrations/mcp/clients/chatgpt",
+                      "ai-integrations/mcp/clients/atlassian",
                       "ai-integrations/mcp/clients/hoot",
                       "ai-integrations/mcp/clients/gemini-cli",
                       "ai-integrations/mcp/clients/qwen-code",
@@ -135,6 +136,7 @@
                 "pages": [
                   "sending/http",
                   "sending/smtp",
+                  "sending/template-variables",
                   "sending/attachments",
                   "sending/idempotency"
                 ]
