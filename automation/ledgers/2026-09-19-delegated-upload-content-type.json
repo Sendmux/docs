@@ -1,0 +1,51 @@
+{
+  "artifact": "changelog.mdx#2026-09-19-delegated-upload-content-type",
+  "reviewedAt": "2026-09-19 10:30",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "7e8f8150d3e75414aa962bd01e09d0efad1a0be5f6e0e18e856c3e547862ea3e",
+  "sourceEvidence": [
+    "Sendmux/smtp-proxy@5defd0166d0f29a15e02800af578313f1dd6301a:app/http-api/v1/lib/attachment-service.js:191-221",
+    "Sendmux/smtp-proxy@5defd0166d0f29a15e02800af578313f1dd6301a:app/http-api/v1/lib/attachment-service.js:590",
+    "Sendmux/smtp-proxy@5defd0166d0f29a15e02800af578313f1dd6301a:app/tests/unit/sending-attachment-service.test.js",
+    "Sendmux/smtp-proxy@5defd0166d0f29a15e02800af578313f1dd6301a:app/http-api/v1/schemas/registry.js:271-311"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-19-delegated-upload-content-type#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry is a single paragraph of 33 eligible words, below the 50-word submission floor; source preserved byte-identically without padding or mixing artifacts.",
+      "eligibleWords": 33,
+      "editableCharacters": 210,
+      "sourceSha256": "6546717b00f6b053982f2ca428013f7ed05e4048f29080a6aed8f2674c10c62e",
+      "finalSha256": "6546717b00f6b053982f2ca428013f7ed05e4048f29080a6aed8f2674c10c62e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "delegated attachment uploads",
+        "generic binary content type",
+        "declared when the upload was created",
+        "explicitly conflicting type"
+      ],
+      "manualChecks": [
+        "Behaviour matches validateAttachmentUploadHeaders: an absent or application/octet-stream Content-Type, or the intent's media type (case-insensitive, parameters ignored), is accepted; a different media type is still rejected with 400 invalid_parameter; the stored content_type is the intent's.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor or library names; the public OpenAPI contract is unchanged.",
+        "Historical entries, frontmatter, update order, tags, RSS titles and links unchanged; entry inserted newest-first with the closed-set Bug fixes tag."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "heading",
+    "update label",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "blockedManualReviewCount": 0
+}

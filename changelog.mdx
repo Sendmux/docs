@@ -4,6 +4,26 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="19 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP tool results validate against their schemas" }}>
+  ## Bug fixes
+
+Fixed several hosted MCP tools — mailbox details, message and thread reads, and webhook creation — returning results that failed schema validation in MCP clients.
+
+</Update>
+
+<Update label="19 September 2026" tags={["Bug fixes"]} rss={{ title: "Attachment uploads accept generic content types" }}>
+  ## Bug fixes
+
+Fixed delegated attachment uploads rejecting files sent with a generic binary content type; the content type declared when the upload was created is now used, and only an explicitly conflicting type is refused.
+
+</Update>
+
+<Update label="18 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP token exchange without a resource indicator" }}>
+  ## Bug fixes
+
+Fixed sign-in and token refresh for MCP clients such as Atlassian that leave out the OAuth resource indicator on the token request; tokens are still issued only for the server the user approved.
+
+</Update>
 <Update label="17 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Account variables and per-message delivery groups" }}>
   ## Account variables
 
@@ -27,6 +47,23 @@ Template tags are no longer substituted inside attachments, signed or encrypted 
   ## Bug fixes
 
 Hosted MCP clients using automatic OAuth registration can now register without a Sendmux-specific resource. Modern clients may identify themselves with a public HTTPS metadata document. Sendmux binds each approval and token to the exact selected service resource, so REST, MCP and A2A tokens remain separate.
+
+</Update>
+
+
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "Reply-To addresses preserved" }}>
+  ## Bug fixes
+
+Reply-To addresses on your messages are now delivered unchanged when the sending account has no Reply-To override. Previously the domain could be replaced with the account's sending domain.
+
+A sending account's Reply-To Name now applies as the default display name when a message's Reply-To has none.
+
+</Update>
+
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "OAuth fallback compatibility" }}>
+  ## Bug fixes
+
+MCP connections support standard OAuth fallback URLs for client registration, authorisation and token exchange. Existing OAuth URLs and access controls are unchanged.
 
 </Update>
 

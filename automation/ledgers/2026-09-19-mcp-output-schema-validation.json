@@ -1,0 +1,54 @@
+{
+  "artifact": "changelog.mdx#2026-09-19-mcp-output-schema-validation",
+  "reviewedAt": "2026-09-19 13:16",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "0d1b9a7487f77638c6f0a5ec02cde52103374ac07f6b0473a60502cf1967f4c8",
+  "sourceEvidence": [
+    "Sendmux/sendmux@87a219287814e5fd796f93c15a3111f828aaf37b:src/app/api/v1/_lib/schemas/mailboxes.ts:54-62 (MailboxMe extended a registered strict base)",
+    "Sendmux/sendmux@87a219287814e5fd796f93c15a3111f828aaf37b:src/app/api/v1/_lib/schemas/webhooks.ts:267-275 (WebhookSubscriptionWithSecret)",
+    "Sendmux/sendmux@87a219287814e5fd796f93c15a3111f828aaf37b:src/app/api/v1/_lib/schemas/mailbox-api.ts:133,398,859 (MailboxMessage, MailboxThread, MailboxRealtimeMessage)",
+    "Sendmux/sendmux agent/mcp-output-schema: tests/unit/api/v1-openapi-closed-object-composition.test.ts (RED on main: additionalProperties rejections; GREEN after flattening)",
+    "sendmux-sdk-live-fixtures-20260919/.claude/l11b-report.md section 1 (mailbox_get_me, mailbox_get_message, mailbox_get_thread, management_create_webhook: 'Tool returned data that does not match its declared output schema')"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-19-mcp-output-schema-validation#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry is a single paragraph of 25 eligible words, below the 50-word submission floor; source preserved byte-identically without padding or mixing artifacts.",
+      "eligibleWords": 25,
+      "editableCharacters": 162,
+      "sourceSha256": "1a1c0aa4f64d7b2beb7b933e4dfcdf62f5666994ad97b9ee974074779222f849",
+      "finalSha256": "1a1c0aa4f64d7b2beb7b933e4dfcdf62f5666994ad97b9ee974074779222f849",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "hosted MCP tools",
+        "mailbox details",
+        "message and thread reads",
+        "webhook creation",
+        "schema validation",
+        "MCP clients"
+      ],
+      "manualChecks": [
+        "Behaviour matches the fix: the MailboxMe, MailboxMessage, MailboxThread, MailboxRealtimeMessage and WebhookSubscriptionWithSecret response components now emit as single closed objects instead of an allOf of two closed objects, so MCP clients that validate tool results against the published schema accept mailbox_get_me, mailbox_get_message, mailbox_get_thread and management_create_webhook results; the wire payloads are unchanged.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor or library names; MCP is a public protocol name already used by existing entries.",
+        "Historical entries, frontmatter, update order, tags, RSS titles and links unchanged; entry inserted newest-first with the closed-set Bug fixes tag."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "heading",
+    "update label",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "blockedManualReviewCount": 0
+}
