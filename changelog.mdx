@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="20 September 2026" tags={["Bug fixes"]} rss={{ title: "Message reply headers are documented" }}>
+  ## Bug fixes
+
+The API reference for a single mailbox message now documents the `message_id`, `in_reply_to`, `references` and `reply_to` fields it has always returned. Clients that validate responses against the published schema no longer reject a message read.
+
+Nullable fields across the mailbox and management references now describe themselves correctly, so a message without a sender, a conversation without a last message, and a mailbox without a send scope all validate as documented.
+
+</Update>
+
 <Update label="20 September 2026" tags={["New features"]} rss={{ title: "Account variables and per-message routing in the SDKs" }}>
   ## Account variables and routing in the SDKs
 
