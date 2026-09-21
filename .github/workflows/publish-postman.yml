@@ -33,6 +33,24 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
 
+      - name: Read MCP SDK pin
+        id: mcp-sdk
+        run: |
+          commit="$(node -e '
+            const commit = require("./scripts/mcp-docs-sdk.json").commit;
+            if (!/^[0-9a-f]{40}$/.test(commit)) throw new Error("MCP SDK pin must be one complete 40-character commit ID");
+            process.stdout.write(commit);
+          ')"
+          printf 'commit=%s\n' "$commit" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout pinned MCP SDK source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          repository: Sendmux/sendmux-sdk
+          ref: ${{ steps.mcp-sdk.outputs.commit }}
+          path: .tmp/mcp-docs-sdk
+
       - name: Setup Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
@@ -43,6 +61,8 @@ jobs:
         run: npm ci
 
       - name: Verify publication source
+        env:
+          SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
         run: |
           npm test
           npm run external-links:check
