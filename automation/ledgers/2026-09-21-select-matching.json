@@ -1,0 +1,650 @@
+{
+  "artifact": "select-matching documentation set",
+  "reviewedAt": "2026-09-21 22:20",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "sourceEvidence": [
+    "sendmux app components provider-list.tsx, bulk-provider-variables-dialog.tsx and inboxes-page-client.tsx in the cliff-carriage worktree",
+    "sendmux app browser coverage tests/browser/sendmux-provider-variables.spec.ts"
+  ],
+  "units": [
+    {
+      "id": "sending/accounts/index.mdx#bulk-selection#l001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 366,
+      "sourceSha256": "7caa226db7a4c309252f81d23151147b8015df133177aecb3c54d76f1f34ada2",
+      "finalSha256": "7caa226db7a4c309252f81d23151147b8015df133177aecb3c54d76f1f34ada2",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "**Accounts**",
+        "visible page",
+        "every matching account",
+        "all accounts",
+        "all custom accounts",
+        "completed and failed account counts"
+      ],
+      "manualChecks": [
+        "Verified the dashboard Accounts menu prepares an unfiltered custom-account selection before CSV or JSON export; current row and matching selection scopes apply to bulk changes.",
+        "Checked concise Australian English, factual scope and hard bans; the corrected source bytes are retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/index.mdx#bulk-variables#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 340,
+      "sourceSha256": "7c7a32960bd18a85ea206a5025f55dfc568f8686fbf5421d7347be2596c35d9b",
+      "finalSha256": "7c7a32960bd18a85ea206a5025f55dfc568f8686fbf5421d7347be2596c35d9b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "**Update Variables**",
+        "**Add or update**",
+        "**Replace all**",
+        "**Remove**",
+        "**Apply changes**"
+      ],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#bulk-table#r001",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Table content is frozen under the contract.",
+      "editableCharacters": 81,
+      "sourceSha256": "c6b75a770a0f6616ac2d44707a5824c690aa84966a428d35177fda0db9321bfe",
+      "finalSha256": "c6b75a770a0f6616ac2d44707a5824c690aa84966a428d35177fda0db9321bfe",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "**Add or update**"
+      ],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "sending/template-variables.mdx#bulk-table#r002",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Table content is frozen under the contract.",
+      "editableCharacters": 61,
+      "sourceSha256": "a6acc839773f8047e99277b28e42443878ec60af76327ebe1dce3991bc682dce",
+      "finalSha256": "a6acc839773f8047e99277b28e42443878ec60af76327ebe1dce3991bc682dce",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "**Remove**"
+      ],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "sending/template-variables.mdx#bulk-apply#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 216,
+      "sourceSha256": "6944a958f6b794a313a680370fb2f178ecc6b2c53eefd882b933880c78e47daf",
+      "finalSha256": "6944a958f6b794a313a680370fb2f178ecc6b2c53eefd882b933880c78e47daf",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "**Apply changes**",
+        "each resulting map"
+      ],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p001",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 180,
+      "sourceSha256": "fa0627319ea099a1525d0f7828a168ae940cddcfac0036dd88e90c87d4d1f77b",
+      "finalSha256": "fa0627319ea099a1525d0f7828a168ae940cddcfac0036dd88e90c87d4d1f77b",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "fa0627319ea099a1525d0f7828a168ae940cddcfac0036dd88e90c87d4d1f77b",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "decline-retry-retain-reviewed-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p002",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 121,
+      "sourceSha256": "531061dfec8a6221d5dedbb3ed6621c688e676939b86f6252c8afed1a1a143d2",
+      "finalSha256": "531061dfec8a6221d5dedbb3ed6621c688e676939b86f6252c8afed1a1a143d2",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "531061dfec8a6221d5dedbb3ed6621c688e676939b86f6252c8afed1a1a143d2",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "decline-retry-retain-reviewed-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p003",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 99,
+      "sourceSha256": "4520b248a59905d57e14d4ca9989eb0c66223efe86b862d9dfa5d6e9c72af118",
+      "finalSha256": "4520b248a59905d57e14d4ca9989eb0c66223efe86b862d9dfa5d6e9c72af118",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Verified against the shared selection control and the conversation processor: some message batches can succeed before another fails.",
+        "Checked Australian English, exact scope and concise factual instructions; corrected source retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "supersededSourceSha256": "86792d977b3396fa35a3605a0d17ae6a79a857f80daf21eefcc7618abb44d1c9",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "4520b248a59905d57e14d4ca9989eb0c66223efe86b862d9dfa5d6e9c72af118",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "retain-corrected-never-submitted-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p004",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 165,
+      "sourceSha256": "28b3548e9bc8b2a1c6040633e080b1cf567cabf3f15cafd9c7974b03a8a439d3",
+      "finalSha256": "28b3548e9bc8b2a1c6040633e080b1cf567cabf3f15cafd9c7974b03a8a439d3",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "28b3548e9bc8b2a1c6040633e080b1cf567cabf3f15cafd9c7974b03a8a439d3",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "decline-retry-retain-reviewed-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p005",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 143,
+      "sourceSha256": "f3b6814aab28f5fe3f07046f46bda4b2d7dc177e646d71ccea5a8de36e8ab2f5",
+      "finalSha256": "f3b6814aab28f5fe3f07046f46bda4b2d7dc177e646d71ccea5a8de36e8ab2f5",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "f3b6814aab28f5fe3f07046f46bda4b2d7dc177e646d71ccea5a8de36e8ab2f5",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "decline-retry-retain-reviewed-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p006",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 242,
+      "sourceSha256": "f5cc1811ed8f2274ce75e1ec49ba2a7e89e37737ac03c9e0a3797cf9cd595744",
+      "finalSha256": "f5cc1811ed8f2274ce75e1ec49ba2a7e89e37737ac03c9e0a3797cf9cd595744",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux"
+      ],
+      "manualChecks": [
+        "Verified against the shared selection control and the conversation processor: some message batches can succeed before another fails.",
+        "Checked Australian English, exact scope and concise factual instructions; corrected source retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "supersededSourceSha256": "9dc1769c1469bda092f5f6a81c45c59109f9e6bef9f303040395c749fc5a67d6",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "f5cc1811ed8f2274ce75e1ec49ba2a7e89e37737ac03c9e0a3797cf9cd595744",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "retain-corrected-never-submitted-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 138,
+      "sourceSha256": "7ea93b606d73d44f4bb87668a861a5fbddf5970b9124ce78f669e7b6f6310e4e",
+      "finalSha256": "7ea93b606d73d44f4bb87668a861a5fbddf5970b9124ce78f669e7b6f6310e4e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 86,
+      "sourceSha256": "1ced6ce1dc9b32de1436a8f5a7337674d2ed7a165f28086c46744ab95341fc00",
+      "finalSha256": "1ced6ce1dc9b32de1436a8f5a7337674d2ed7a165f28086c46744ab95341fc00",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 32,
+      "sourceSha256": "d3fbe8c2cfb532ff97dedfdbfca45d13eacfac27eb49f5df0de47c917bfdc7c0",
+      "finalSha256": "d3fbe8c2cfb532ff97dedfdbfca45d13eacfac27eb49f5df0de47c917bfdc7c0",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 37,
+      "sourceSha256": "51b4284b38e0cb1c308c47ab0fbd3dd248f6bfd5d82a3a9b82fa14d7fc2b7ed5",
+      "finalSha256": "51b4284b38e0cb1c308c47ab0fbd3dd248f6bfd5d82a3a9b82fa14d7fc2b7ed5",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 52,
+      "sourceSha256": "8cd9a5918a43bae9b23d92980a54fbd440b697e3f52b2bcd25ad3590d2f3fd94",
+      "finalSha256": "8cd9a5918a43bae9b23d92980a54fbd440b697e3f52b2bcd25ad3590d2f3fd94",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-006",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 41,
+      "sourceSha256": "65dce641569d144019715e88a25245fbcf2cef00fda099e0035f6733ebcb3466",
+      "finalSha256": "65dce641569d144019715e88a25245fbcf2cef00fda099e0035f6733ebcb3466",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-007",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 14,
+      "sourceSha256": "15cda2621210e545c90864410854e2c8c9dc89bf3c6ff779c29e90c66deaa5c6",
+      "finalSha256": "15cda2621210e545c90864410854e2c8c9dc89bf3c6ff779c29e90c66deaa5c6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-008",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 123,
+      "sourceSha256": "78e3dcf7469959d683898c3c13aa5050070e6528c2e2755822642e75284477ac",
+      "finalSha256": "78e3dcf7469959d683898c3c13aa5050070e6528c2e2755822642e75284477ac",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-009",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 65,
+      "sourceSha256": "f7dcccd72edeebc7dd3b751f57b7c29e9d549456c60355e35a99f5c2f51ea462",
+      "finalSha256": "f7dcccd72edeebc7dd3b751f57b7c29e9d549456c60355e35a99f5c2f51ea462",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#technical-010",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Every clause is an atomic source-backed dashboard behaviour or reader instruction; no narrative or promotional prose.",
+      "editableCharacters": 59,
+      "sourceSha256": "688a4c8997aa557f814839b687f6bdcaeacdbb1a24eca7a27fc3231421234f87",
+      "finalSha256": "688a4c8997aa557f814839b687f6bdcaeacdbb1a24eca7a27fc3231421234f87",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "changelog.mdx#2026-09-21#p001",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 255,
+      "sourceSha256": "2df71930a8b737802380a8c18be17cdb6e757e263499702bea0557df317994e7",
+      "finalSha256": "2df71930a8b737802380a8c18be17cdb6e757e263499702bea0557df317994e7",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "**Accounts**",
+        "visible page",
+        "every matching account",
+        "all accounts",
+        "all custom accounts",
+        "completed and failed account counts"
+      ],
+      "manualChecks": [
+        "Verified the dashboard Accounts menu prepares an unfiltered custom-account selection before CSV or JSON export; current row and matching selection scopes apply to bulk changes.",
+        "Checked concise Australian English, factual scope and hard bans; the corrected source bytes are retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "2df71930a8b737802380a8c18be17cdb6e757e263499702bea0557df317994e7",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "retain-corrected-never-submitted-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "changelog.mdx#2026-09-21#p002",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 246,
+      "sourceSha256": "460a7dd1d04452a509c6b96646cc9958bfdc1a0c6df38f591015c0efc20c9906",
+      "finalSha256": "460a7dd1d04452a509c6b96646cc9958bfdc1a0c6df38f591015c0efc20c9906",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "460a7dd1d04452a509c6b96646cc9958bfdc1a0c6df38f591015c0efc20c9906",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "decline-retry-retain-reviewed-source",
+        "additionalProviderSubmission": false
+      }
+    },
+    {
+      "id": "changelog.mdx#2026-09-21#p003",
+      "eligibility": "eligible",
+      "eligibilityReason": "Eligible prose retained after source-bound operator approval and completed manual checks; prior attempt/source history is preserved.",
+      "editableCharacters": 86,
+      "sourceSha256": "f2866d0c9080ad4148da61f38bb738c546497a9a75d7cc8f0f51a6fccd1951d8",
+      "finalSha256": "f2866d0c9080ad4148da61f38bb738c546497a9a75d7cc8f0f51a6fccd1951d8",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Compared with the dashboard implementation and browser coverage in the app source; exact UI labels, scope qualifiers and result behaviour are preserved.",
+        "Checked concise Australian English, factual scope and hard bans; source bytes retained.",
+        "Rechecked the current source hash against the explicitly approved packet; meaning, scope, UI labels, Australian English and hard bans remain as reviewed; source retained byte-identically."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-21 22:20",
+        "sourceSha256": "f2866d0c9080ad4148da61f38bb738c546497a9a75d7cc8f0f51a6fccd1951d8",
+        "authority": "Roshan approved the source-retention packet and the separate publication packet in this task.",
+        "decision": "decline-retry-retain-reviewed-source",
+        "additionalProviderSubmission": false
+      }
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "headings",
+    "component markup",
+    "link destinations",
+    "navigation structure",
+    "historical changelog entries"
+  ],
+  "providerOutcomes": [
+    "Inbox attempt 1: frozen-content-mismatch",
+    "Changelog attempt 1: ambiguous-paragraph-mapping",
+    "Post-review source correction: account export wording changed to all custom accounts; no provider submission."
+  ],
+  "blockedManualReviewCount": 0,
+  "sourceFiles": {
+    "sending/accounts/index.mdx": "61a0ec03c549546caabc070d0f5a23db4e0e2c62107937924a056cb3fe52e30a",
+    "sending/template-variables.mdx": "a78e6de9d7e9db051a69457a01979bd6f8d81ca71beb66f9e7f846327f0ed4b7",
+    "mailboxes/inbox.mdx": "d7e073eb32ab51da7d170181b6c0a51562b632682e3e6c097e34219f54dba543",
+    "docs.json": "12b00732a87c3f12d16c8764779c9e6c5b0d51439d5386f39943c49b302fc5d0",
+    "changelog.mdx": "0df4d8a1d59403ecece163592d0692a7160ed3ab5d0a21b9ee28cac3eb297f03"
+  },
+  "publicationApproval": {
+    "reviewedAt": "2026-09-21 22:20",
+    "scope": "Exact source files identified in the separately approved documentation publication packet; source retention finalised, required gates still apply.",
+    "sourceFiles": {
+      "sending/accounts/index.mdx": "61a0ec03c549546caabc070d0f5a23db4e0e2c62107937924a056cb3fe52e30a",
+      "sending/template-variables.mdx": "a78e6de9d7e9db051a69457a01979bd6f8d81ca71beb66f9e7f846327f0ed4b7",
+      "mailboxes/inbox.mdx": "d7e073eb32ab51da7d170181b6c0a51562b632682e3e6c097e34219f54dba543",
+      "docs.json": "12b00732a87c3f12d16c8764779c9e6c5b0d51439d5386f39943c49b302fc5d0",
+      "changelog.mdx": "0df4d8a1d59403ecece163592d0692a7160ed3ab5d0a21b9ee28cac3eb297f03"
+    }
+  }
+}

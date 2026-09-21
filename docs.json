@@ -159,7 +159,7 @@
               {
                 "group": "Mailboxes",
                 "root": "mailboxes/index",
-                "pages": ["mailboxes/push-delivery"]
+                "pages": ["mailboxes/inbox", "mailboxes/push-delivery"]
               }
             ]
           },

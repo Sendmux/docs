@@ -156,7 +156,11 @@ formatting.
   currently supported. Files with another version or unknown fields are rejected.
 - Passwords and connected-account credentials are never included in either
   export. CSV keeps its password column blank. JSON omits credential fields.
-- Search or filter by status, group, or type, then select accounts to activate, deactivate, update quotas, update tracking, or delete them.
+- Search or filter by status, group, or type. Select the visible page, every
+  matching account, or all accounts, then activate, deactivate, update quotas,
+  update tracking, change groups, update variables, or delete the selection.
+  Use the **Accounts** menu to export all custom accounts. Large changes
+  continue in the background and show completed and failed account counts.
 
 ## Monitor account health
 
@@ -215,7 +219,11 @@ Advanced settings let you tune the provider without changing every send request.
 
 Edit an account's **Variables** to store values such as `signature_url`. Insert `[DP_VAR_SIGNATURE_URL]` into a subject or body to use the value from the provider selected for that message.
 
-To edit several accounts, select them and open **Update Variables**. **Merge keys** adds or overwrites supplied keys, **Replace all** replaces each map, and **Remove keys** deletes named keys. Each resulting map must satisfy the limits. Review any reported failures after applying the edit.
+To edit several accounts, select them and open **Update Variables**. Choose
+**Add or update** to add supplied keys and overwrite matching keys, **Replace
+all** to replace each map, or **Remove** to delete named keys. Select **Apply
+changes** to start the update. Each resulting map must satisfy the limits.
+Review any reported failures after applying the edit.
 
 See [Template variables](/sending/template-variables) for the key rule, value limits, built-in tags, raw insertion behaviour, and Management API examples.
 
