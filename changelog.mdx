@@ -4,6 +4,13 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="22 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP sign-in with unsupported grant types" }}>
+  ## Bug fixes
+
+Fixed MCP sign-in for clients whose published OAuth client metadata lists grant types our authorisation server does not offer, such as Claude. The supported grant types are now kept instead of the connection request being refused, so custom connectors that use the client's published identity or automatic registration can sign in.
+
+</Update>
+
 <Update label="21 September 2026" tags={["Improvements"]} rss={{ title: "Complete selections and background bulk changes" }}>
   ## Improvements
 

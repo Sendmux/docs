@@ -44,6 +44,8 @@ Send JSON to the registration endpoint. Register a web connector's exact HTTPS c
 
 Store the returned `client_id` and any `client_secret` in the connector's protected credential store. A public client uses `none`; never embed a client secret in distributed applications.
 
+Grant types and response types the server does not offer are dropped from the registration rather than refused; the response lists the values that were accepted.
+
 ## Authorisation request
 
 | Query parameter | Requirement |
