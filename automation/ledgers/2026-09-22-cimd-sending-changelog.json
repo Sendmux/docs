@@ -1,0 +1,35 @@
+{
+  "artifact": "Sending OAuth connection correction changelog",
+  "reviewedAt": "2026-09-22 14:27",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "f782ea953a53f489d62a12224f28568b2ee37c7da37966d9d7af6be37b505b14",
+  "sourceEvidence": [
+    "smtp-proxy/app/shared/auth-service.js:613 matches the canonical external client ID where present, preserving all other grant constraints.",
+    "smtp-proxy/app/tests/unit/auth-service-revocation.test.js:211 onward: published Codex and Claude identity cases use the real HTTP route and PostgreSQL; original predicate failed HTTP200 expected/401 received."
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-22-cimd-sending#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "Entire new piece is below the 50-word submission floor; no padding or cross-artifact batching.",
+      "eligibleWords": 19,
+      "sourceSha256": "f3637d1ec492370a4a940e0dcf24011d3502390174247fead1d218e0d186efd9",
+      "finalSha256": "f3637d1ec492370a4a940e0dcf24011d3502390174247fead1d218e0d186efd9",
+      "changedFromSource": false,
+      "transportSubmissions": 0,
+      "manualChecks": {
+        "facts": true,
+        "voice": true,
+        "hardBans": true,
+        "protectedAssertions": true
+      },
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "blockedManualReviewCount": 0,
+  "preservation": {
+    "existingChangelogBytesUnchanged": true,
+    "sourceFinalBytesEqual": true
+  },
+  "productCommit": "0b831f785ae01ab8d06addfdd0345be9740257ef"
+}
