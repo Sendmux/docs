@@ -12,13 +12,6 @@ function fixture(t, label) {
   return root;
 }
 
-function workflowRun(name) {
-  const source = readFileSync(resolve(".github/workflows/verify.yml"), "utf8");
-  const match = source.match(new RegExp(`      - name: ${name}\\n(?:        [^\\n]+\\n)*?        run: \\|\\n((?:          .*(?:\\n|$))+)`));
-  assert.ok(match, `workflow step exists: ${name}`);
-  return match[1].replace(/^          /gm, "");
-}
-
 function bashBlockAfter(heading) {
   const source = readFileSync(resolve("sending/attachments.mdx"), "utf8");
   const start = source.indexOf(`${heading}\n`);
@@ -28,13 +21,13 @@ function bashBlockAfter(heading) {
   return match[1];
 }
 
-test("real MCP SDK pin workflow step emits a healthy pin and fails malformed input", (t) => {
-  const step = workflowRun("Read MCP SDK pin");
+test("MCP SDK pin command emits a healthy pin and fails malformed input", (t) => {
+  const command = resolve("scripts/read-mcp-docs-sdk-pin.mjs");
   for (const [label, config, status] of [["healthy", { commit: "a".repeat(40) }, 0], ["malformed", {}, 1]]) {
     const root = fixture(t, `workflow-${label}`); mkdirSync(join(root, "scripts")); writeFileSync(join(root, "scripts/mcp-docs-sdk.json"), `${JSON.stringify(config)}\n`);
-    const output = join(root, "github-output"); const run = spawnSync("/bin/bash", ["-e", "-c", step], { cwd: root, env: { ...process.env, GITHUB_OUTPUT: output }, encoding: "utf8" });
+    const run = spawnSync(process.execPath, [command], { cwd: root, encoding: "utf8" });
     assert.equal(run.status, status, `${label}: ${run.stderr}`);
-    if (status === 0) assert.equal(readFileSync(output, "utf8"), `commit=${config.commit}\n`); else assert.equal(existsSync(output), false);
+    if (status === 0) assert.equal(run.stdout, `${config.commit}\n`); else assert.equal(run.stdout, "");
   }
 });
 
