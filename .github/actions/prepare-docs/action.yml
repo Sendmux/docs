@@ -1,0 +1,50 @@
+name: Prepare and verify docs
+description: Install the docs tooling and run its credential-free release checks.
+
+runs:
+  using: composite
+  steps:
+    - name: Read MCP SDK pin
+      id: mcp-sdk
+      shell: bash
+      run: |
+        commit="$(node scripts/read-mcp-docs-sdk-pin.mjs)"
+        printf 'commit=%s\n' "$commit" >> "$GITHUB_OUTPUT"
+
+    - name: Checkout pinned MCP SDK source
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        persist-credentials: false
+        repository: Sendmux/sendmux-sdk
+        ref: ${{ steps.mcp-sdk.outputs.commit }}
+        path: .tmp/mcp-docs-sdk
+
+    - name: Setup Node.js
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+      with:
+        node-version: 22
+        cache: npm
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Tooling tests
+      shell: bash
+      run: npm test
+      env:
+        SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
+
+    - name: MCP docs contract drift
+      shell: bash
+      run: npm run mcp-docs:check
+      env:
+        SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
+
+    - name: External link safety
+      shell: bash
+      run: npm run external-links:check
+
+    - name: Postman collection drift
+      shell: bash
+      run: npm run postman:check

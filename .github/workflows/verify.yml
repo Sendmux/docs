@@ -25,45 +25,5 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Read MCP SDK pin
-        id: mcp-sdk
-        run: |
-          commit="$(node -e '
-            const commit = require("./scripts/mcp-docs-sdk.json").commit;
-            if (!/^[0-9a-f]{40}$/.test(commit)) throw new Error("MCP SDK pin must be one complete 40-character commit ID");
-            process.stdout.write(commit);
-          ')"
-          printf 'commit=%s\n' "$commit" >> "$GITHUB_OUTPUT"
-
-      - name: Checkout pinned MCP SDK source
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-          repository: Sendmux/sendmux-sdk
-          ref: ${{ steps.mcp-sdk.outputs.commit }}
-          path: .tmp/mcp-docs-sdk
-
-      - name: Setup Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Tooling tests
-        run: npm test
-        env:
-          SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
-
-      - name: MCP docs contract drift
-        run: npm run mcp-docs:check
-        env:
-          SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
-
-      - name: External link safety
-        run: npm run external-links:check
-
-      - name: Postman collection drift
-        run: npm run postman:check
+      - name: Prepare and verify docs
+        uses: ./.github/actions/prepare-docs
