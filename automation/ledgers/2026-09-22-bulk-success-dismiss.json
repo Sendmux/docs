@@ -1,0 +1,94 @@
+{
+  "artifact": "Bulk Accounts completion and variable form changelog",
+  "reviewedAt": "2026-09-22 14:38",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "scope": [
+    "Two paragraphs in the Bulk account update confirmations release entry.",
+    "Title, heading, date, tags, frontmatter and unchanged historical entries remain frozen."
+  ],
+  "eligibleSubmissionCount": 0,
+  "providerAttempts": 0,
+  "blockedManualReviewCount": 0,
+  "entrySha256": "f09f46f970ad1a287028acb0b857bc14729e8435d10906b3c127b0edb0272049",
+  "sourceFiles": {
+    "changelog.mdx": "3841ee296be83f1fb8fe38c2546f3aac4b37085cdfb3980cf922b7458cdfdfcf"
+  },
+  "units": [
+    {
+      "id": "changelog.mdx#p001",
+      "sourcePath": "changelog.mdx",
+      "sourceLine": 10,
+      "sourceLocator": "RSS title: Bulk account update confirmations; paragraph 1",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "All changed body prose in this standalone release entry totals 45 words, below the 50-word submission floor. Historical entries and app UI are separate artifacts.",
+      "editableCharacters": 202,
+      "wordCount": 35,
+      "sourceSha256": "70f6d6d03b5455a172df0262ef4750c4dfdbdf3fd52a934be909cee4f555c14f",
+      "finalSha256": "70f6d6d03b5455a172df0262ef4750c4dfdbdf3fd52a934be909cee4f555c14f",
+      "changedFromSource": false,
+      "frozenInline": [
+        "**Accounts**",
+        "**Update variables**"
+      ],
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Verified each factual claim and full-success qualification against the cited source; failed variable drafts and results remain available.",
+        "Checked plain concise voice, Australian English, hard bans and confidentiality; no speculative promise.",
+        "Source and final prose bytes, bold labels, paragraph order and protected occurrence counts are identical."
+      ],
+      "disposition": "ineligible-manual",
+      "protectedAssertions": [
+        "src/hooks/use-dashboard-bulk-operation.ts:53-59 clears only completed zero-failure operations.",
+        "provider-list.tsx:384-393 emits the Accounts full-success toast; :1247-1250 clears completed variable progress.",
+        "bulk-provider-variables-dialog.tsx:61-101 calls completeUpdate only on full success, clearing rows, removal keys, operation mode, error, failures and clear confirmation; failure paths preserve draft fields."
+      ]
+    },
+    {
+      "id": "changelog.mdx#p002",
+      "sourcePath": "changelog.mdx",
+      "sourceLine": 12,
+      "sourceLocator": "RSS title: Bulk account update confirmations; paragraph 2",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "All changed body prose in this standalone release entry totals 45 words, below the 50-word submission floor. Historical entries and app UI are separate artifacts.",
+      "editableCharacters": 50,
+      "wordCount": 10,
+      "sourceSha256": "63c1ff9a8942f719786c2b26cb5e50d0040f8b0cfde6e1af6dfcf4a8ee5f9c35",
+      "finalSha256": "63c1ff9a8942f719786c2b26cb5e50d0040f8b0cfde6e1af6dfcf4a8ee5f9c35",
+      "changedFromSource": false,
+      "frozenInline": [
+        "**Update Group**"
+      ],
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Verified each factual claim and full-success qualification against the cited source; failed variable drafts and results remain available.",
+        "Checked plain concise voice, Australian English, hard bans and confidentiality; no speculative promise.",
+        "Source and final prose bytes, bold labels, paragraph order and protected occurrence counts are identical."
+      ],
+      "disposition": "ineligible-manual",
+      "protectedAssertions": [
+        "bulk-group-modal.tsx:60-70 associates the Group label above a full-width picker.",
+        "account-group-picker.tsx:71 forwards ID/classes to the dropdown trigger."
+      ]
+    }
+  ],
+  "placement": {
+    "path": "Navbar / RSS -> Product updates -> changelog.mdx",
+    "disposition": "keep",
+    "readerTask": "Understand completion feedback, fresh variable fields after full success and Group field layout.",
+    "siblingFit": "Dated user-visible changes remain standalone paragraphs.",
+    "sequenceFit": "Newest first; changelog remains outside sidebar navigation."
+  },
+  "publicationStatus": "Approved for docs publication after the verified product commit.",
+  "productCommit": "02010b4a09442beb8fe6f47e215eaa2d851c0824",
+  "releaseChronology": "Product committed at 2026-09-22T15:03:26+10:00; docs publication follows this product commit."
+}
