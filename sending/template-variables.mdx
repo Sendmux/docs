@@ -1,10 +1,10 @@
 ---
 title: "Template variables"
-description: "Insert values from the selected sending account into email subjects and bodies."
+description: "Insert values from the selected sending account into sender display names, email subjects and bodies."
 keywords: ["template variables", "provider variables", "signature URL", "sending accounts", "email templates"]
 ---
 
-Use template tags when each sending account needs its own signature, link, or sender details. Sendmux substitutes values from the provider selected for that message in the subject, plain-text body, and HTML body.
+Use template tags to insert values from the selected sending account into `From`, `Reply-To` and `Sender` display names, the subject, and supported plain-text and HTML bodies.
 
 ## Set account variables
 
@@ -37,9 +37,29 @@ Each value is a string of at most 4,096 Unicode code points. An empty string is 
 
 ## Substitution rules
 
-Valid custom tags whose keys are unset become empty strings. Values are inserted raw: Sendmux does not escape HTML, encode URLs, or expand template tags inside another value. Prepare each value for the context where you insert it.
+Valid custom tags whose keys are unset become empty strings. Values do not expand template tags inside another value. Body values are inserted raw: Sendmux does not escape HTML or encode URLs. Prepare each value for the context where you insert it.
 
 Subject substitutions remove control characters so a value cannot inject another email header. Body values retain their original content. Substitution supports plain text, HTML, quoted-printable, and base64 message content, including encoded subjects.
+
+### Display names
+
+Built-in `[DP_*]` and custom `[DP_VAR_*]` tags work in the display names of `From`, `Reply-To` and `Sender`, including encoded names. Literal text around each tag is preserved. These names also support substitution when the message has no subject.
+
+For example, use the selected account's configured **From name**:
+
+```text
+From: "[DP_FROM_NAME]" <hello@example.com>
+```
+
+Sendmux removes C0/C1 control characters, including carriage returns and line feeds, from each rendered name and limits it to 255 Unicode code points. Names are encoded for email headers so commas, quotes and angle brackets remain name text.
+
+An empty result becomes an unnamed address. Existing **From name** and **Reply-To name** defaults then apply where they normally would; `Sender` has no default. Substitution preserves each address, its order and any address group. Existing sender address routing and explicit **Reply-To** address overrides still apply. A default **Reply-To name** alone does not collapse a list of reply addresses.
+
+### Excluded locations
+
+Template substitution does not change any address component or any other header, including `To`, `Cc`, `Bcc`, `Message-ID`, `Date`, `Received`, `DKIM-Signature`, `List-*`, `Content-*`, `X-Sendmux-*` and custom `X-*` headers.
+
+These restrictions protect recipient addresses, routing metadata, identifiers and security fields. Excluded means no template substitution; existing header stripping and rewriting still apply.
 
 Sendmux does not substitute template tags inside attachments, signed or encrypted message parts, or attached emails.
 
