@@ -1,0 +1,63 @@
+{
+  "artifact": "Inbox bulk update feedback changelog",
+  "reviewedAt": "2026-09-24 20:05",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "scope": [
+    "One new body paragraph in the Inbox bulk update feedback release entry.",
+    "Date, title, heading, tags, frontmatter and existing entries remain frozen."
+  ],
+  "eligibleSubmissionCount": 0,
+  "providerAttempts": 0,
+  "blockedManualReviewCount": 0,
+  "entrySha256": "5b3573ada7490ec2437a74e64a899c4ecfeb3be336e361fa92d43e272222ab8e",
+  "entryHashBasis": "Exact complete new Update block, excluding surrounding blank lines.",
+  "sourceFiles": {
+    "changelog.mdx": "a11bace3dc36fdfa28baf4c6f2d7801d352464281bbca8c77da78ab4c0b5b33f"
+  },
+  "units": [
+    {
+      "id": "changelog.mdx#p001",
+      "sourcePath": "changelog.mdx",
+      "sourceLine": 10,
+      "sourceLocator": "RSS title: Inbox bulk update feedback; paragraph 1",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The standalone release entry contains 37 body words, below the 50-word submission floor.",
+      "editableCharacters": 226,
+      "wordCount": 37,
+      "sourceSha256": "874c4d469fc3e68b5b42f15debb83e50b6f072297b9a0bf9087ab1dc0653a998",
+      "finalSha256": "874c4d469fc3e68b5b42f15debb83e50b6f072297b9a0bf9087ab1dc0653a998",
+      "changedFromSource": false,
+      "frozenInline": [
+        "**Inbox**",
+        "**Dismiss**"
+      ],
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Verified the completed-view ordering and failure retention against the product source and approved localhost journey.",
+        "Checked concise plain English, Australian spelling, confidentiality and no unsupported claim.",
+        "Source and final prose bytes, bold labels and paragraph order are unchanged."
+      ],
+      "disposition": "ineligible-manual",
+      "protectedAssertions": [
+        "inboxes-page-client.tsx:3553-3567 toasts only after a successful list reload and zero-failure completion.",
+        "use-dashboard-bulk-operation.ts:53-68 waits for the observer before dismissing full success.",
+        "inboxes-page-client.tsx:1427-1487 retains failed feedback and places Dismiss on the summary row."
+      ]
+    }
+  ],
+  "placement": {
+    "path": "Navbar / RSS -> Product updates -> changelog.mdx",
+    "disposition": "keep",
+    "readerTask": "Know when Inbox bulk feedback clears and how failures remain reviewable.",
+    "siblingFit": "Dated product changes remain separate Update blocks.",
+    "sequenceFit": "Newest first; changelog remains outside sidebar navigation."
+  },
+  "publicationStatus": "Prepared for docs publication after the product commit.",
+  "productCommit": "0b7797d2ac6ec700a6f506b4c3988868d04eaf45",
+  "releaseChronology": "Product commit 2026-09-24T20:08:11+10:00; docs publication follows this product commit."
+}
