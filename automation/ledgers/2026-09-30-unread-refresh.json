@@ -1,0 +1,48 @@
+{
+  "artifact": "changelog.mdx#2026-09-30-unread-refresh",
+  "reviewedAt": "2026-09-30 11:39",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "f782ea953a53f489d62a12224f28568b2ee37c7da37966d9d7af6be37b505b14",
+  "sourceEvidence": [
+    "Sendmux/sendmux@21c35218a2b6c04819a9667325e2116e2920e5a0:src/server/inbox-personal-unread.ts:294",
+    "Sendmux/sendmux@21c35218a2b6c04819a9667325e2116e2920e5a0:tests/integration/inbox-personal-unread.test.ts:762"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-30-unread-refresh#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "Whole changelog entry contains9 eligible words, below50-word submission floor; preserve exact source without padding.",
+      "eligibleWords": 8,
+      "editableCharacters": 52,
+      "sourceSha256": "bd9c9da810c8e439a8f4b087ba5e7b31ec60a556dbf70053b82de41236c04787",
+      "finalSha256": "bd9c9da810c8e439a8f4b087ba5e7b31ec60a556dbf70053b82de41236c04787",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "unread refresh",
+        "some Inboxes"
+      ],
+      "manualChecks": [
+        "Source21c35218 changes requested-state comparison used by both refresh and audit catch-up; real-DB mismatch cases red then green.",
+        "Scope limited to unread refresh getting stuck; does not claim every stale state diagnosed or displayed counts verified.",
+        "Concise Australian English; no prohibited internal infrastructure terms or invented claims.",
+        "Rendered local changelog shows exact new paragraph at newest date with existing history retained."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "headings",
+    "date",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "blockedManualReviewCount": 0
+}
