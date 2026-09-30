@@ -2,7 +2,7 @@
 
 Product source: `a1b91954f08d2d1605cb69e0589e6c99d10bddb4`, committed 2026-09-30T22:45:16+10:00.
 Docs base: `cff4bbe259ed9f10990c75be4295d913c4a75149` (fresh origin/main).
-Publication label: 30 September 2026; root supplied intended actual release date. Reconfirm label if publication slips.
+Publication label: 1 October 2026; actual release crossed Melbourne midnight. Date metadata only changed on parent instruction after product main `aef94c0d` CI `36721896904` succeeded; approved body copy and 191-schema contracts preserved.
 
 Status: reconciled release candidate, committed after product source; not pushed or published by this preparation. Coordinated product rollout/publication remains root-owned.
 
