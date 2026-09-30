@@ -1,0 +1,122 @@
+{
+  "contract": "AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "automation/docs-authoring-workflow.md",
+  "scope": "Only the four materially changed prose units; unchanged page prose and historical ledgers remain untouched.",
+  "reviewedAt": "2026-09-30T05:10:15.468171+00:00",
+  "blockedManualReview": 0,
+  "rows": [
+    {
+      "id": "account/billing#p001",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 297,
+      "sourceSha256": "91ba14b52d62a4b57f4bfafd80d40f9448a38dda81e2ac3e071d08d553e0c7be",
+      "finalSha256": "91ba14b52d62a4b57f4bfafd80d40f9448a38dda81e2ac3e071d08d553e0c7be",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact source bytes retained",
+        "Claims and scope verified against guarded activation receipt and owning source",
+        "AU English and concise developer-docs voice checked",
+        "No internal architecture or private cohort facts",
+        "Dates, units, negations, plan names and link destination retained"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Changed explanatory whole piece totals 45 words after its atomic technical-reference units are excluded; below the 50-word submission floor.",
+      "sourceEvidence": [
+        "guarded activation receipt: 2026-09-30T05:00:36.706Z\u201305:00:47.443Z; zero drift",
+        "scripts/billing-v2-activation.mjs:226-230,427-486"
+      ],
+      "frozenInline": []
+    },
+    {
+      "id": "account/billing#p002",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 108,
+      "sourceSha256": "ea79d5b9c2319186f2ebc1d111f9b1ac847878e01fdb4fa1c6c15779ed2f6ce4",
+      "finalSha256": "ea79d5b9c2319186f2ebc1d111f9b1ac847878e01fdb4fa1c6c15779ed2f6ce4",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact source bytes retained",
+        "Claims and scope verified against guarded activation receipt and owning source",
+        "AU English and concise developer-docs voice checked",
+        "No internal architecture or private cohort facts",
+        "Dates, units, negations, plan names and link destination retained"
+      ],
+      "disposition": "ineligible-technical",
+      "eligibilityReason": "One atomic rate-applicability reference paragraph; every clause states the source-backed eligible plans or contract exception.",
+      "sourceEvidence": [
+        "src/lib/billing/policy.ts:167-182"
+      ],
+      "frozenInline": []
+    },
+    {
+      "id": "account/billing#p003",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 160,
+      "sourceSha256": "ea42a245bc5c4ef3b417fc2f9d305dbf61d9367c8f78b1552ce41c817febefab",
+      "finalSha256": "ea42a245bc5c4ef3b417fc2f9d305dbf61d9367c8f78b1552ce41c817febefab",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact source bytes retained",
+        "Claims and scope verified against guarded activation receipt and owning source",
+        "AU English and concise developer-docs voice checked",
+        "No internal architecture or private cohort facts",
+        "Dates, units, negations, plan names and link destination retained"
+      ],
+      "disposition": "ineligible-technical",
+      "eligibilityReason": "One atomic top-up reference paragraph; every clause states supported plans or gives the checkout instruction introducing the unchanged supported-amounts reference.",
+      "sourceEvidence": [
+        "src/actions/team-credits.action.ts:107-119",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/billing/_components/team-credit-balance.tsx:66-73"
+      ],
+      "frozenInline": []
+    },
+    {
+      "id": "changelog#p001",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 245,
+      "sourceSha256": "fa652537eed5dcc4c57861a9ed0fdd918dff20b22dbcb41103d231501917ce00",
+      "finalSha256": "fa652537eed5dcc4c57861a9ed0fdd918dff20b22dbcb41103d231501917ce00",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact source bytes retained",
+        "Claims and scope verified against guarded activation receipt and owning source",
+        "AU English and concise developer-docs voice checked",
+        "No internal architecture or private cohort facts",
+        "Dates, units, negations, plan names and link destination retained"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete new entry is 40 words, below the 50-word submission floor.",
+      "sourceEvidence": [
+        "guarded activation receipt: 2026-09-30T05:00:36.706Z\u201305:00:47.443Z; zero drift",
+        "scripts/billing-v2-activation.mjs:226-230,427-486"
+      ],
+      "frozenInline": [
+        "[billing](/account/billing)"
+      ]
+    }
+  ]
+}
