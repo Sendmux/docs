@@ -5,7 +5,7 @@ import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { parseArgs } from "node:util";
 
-const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json"];
+const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json", "packages/ts/mcp/package.json"];
 const semver = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/;
 const usage = "Usage: check-mcp-docs-contract.mjs --check|--write [--sdk PATH]";
 
@@ -39,10 +39,10 @@ function parseCliArgs(args) {
 
 export function renderSnippet(p) {
   const transports = p.transports.map((value) => value === "streamable-http" ? "Streamable HTTP" : value).join(", ");
-  return `<Info>\n  Package identity: \`${p.identity}\`\n\n  Package version: \`${p.version}\`\n\n  Hosted resource: \`${p.resource}\`\n\n  Hosted transport: ${transports}\n\n  Curated tool count: ${p.toolCount}\n\n  Certified protocol versions: ${p.protocols.map((v) => `\`${v}\``).join(", ")}\n\n  Runtime-accepted protocol versions: ${p.runtimeProtocols.map((v) => `\`${v}\``).join(", ")}. Runtime acceptance provides compatibility; it does not certify each version.\n</Info>\n`;
+  return `<Info>\n  PyPI package: \`${p.identity}\`\n\n  PyPI version: \`${p.version}\`\n\n  npm package: \`${p.npmIdentity}\`\n\n  npm version: \`${p.npmVersion}\`\n\n  Registry metadata version: \`${p.registryVersion}\`\n\n  Hosted resource: \`${p.resource}\`\n\n  Hosted transport: ${transports}\n\n  Curated tool count: ${p.toolCount}\n\n  Certified protocol versions: ${p.protocols.map((v) => `\`${v}\``).join(", ")}\n\n  Runtime-accepted protocol versions: ${p.runtimeProtocols.map((v) => `\`${v}\``).join(", ")}. Runtime acceptance provides compatibility; it does not certify each version.\n</Info>\n`;
 }
 
-const renderedFields = [["package.identity", "Package identity:"], ["package.version", "Package version:"], ["hosted.resource", "Hosted resource:"], ["hosted.transports", "Hosted transport:"], ["tools.count", "Curated tool count:"], ["protocols", "Certified protocol versions:"], ["runtime_protocols", "Runtime-accepted protocol versions:"]];
+const renderedFields = [["package.identity", "PyPI package:"], ["package.version", "PyPI version:"], ["npm.identity", "npm package:"], ["npm.version", "npm version:"], ["registry.version", "Registry metadata version:"], ["hosted.resource", "Hosted resource:"], ["hosted.transports", "Hosted transport:"], ["tools.count", "Curated tool count:"], ["protocols", "Certified protocol versions:"], ["runtime_protocols", "Runtime-accepted protocol versions:"]];
 
 export function changedRenderedFields(actual, expected) {
   const lineFor = (text, label) => text.split(/\r?\n/).find((line) => line.trimStart().startsWith(label));
@@ -59,7 +59,8 @@ export async function checkContract({ sdkDir, pin }) {
     if (!disk.equals(blob)) throw new Error(`${path} differs from pinned Git blob ${pin}`);
   }
   const { verifyRegistryVersion } = await import(pathToFileURL(resolve(sdkDir, "scripts/check-mcp.mjs")));
-  verifyRegistryVersion(resolve(sdkDir, "packages/python/mcp"));
+  const registry = verifyRegistryVersion(resolve(sdkDir, "packages/python/mcp"), resolve(sdkDir, "packages/ts/mcp"));
+  const npmPackage = JSON.parse(readFileSync(resolve(sdkDir, owned[4]), "utf8"));
   const contract = JSON.parse(readFileSync(resolve(sdkDir, owned[3]), "utf8"));
   const { package: pkg, protocols, runtime_protocols: runtimeProtocols, tools, hosted, uploads } = contract;
   assert.match(pkg.identity, /\S/, "package.identity");
@@ -82,7 +83,7 @@ export async function checkContract({ sdkDir, pin }) {
   assert.deepEqual([uploads.mailbox.presigned_max_bytes, uploads.mailbox.request_schema_max_bytes], [7500000, 7500000], "mailbox upload limits must remain 7500000 bytes");
   assert.equal(uploads.sending.presigned_tool, "sending_create_attachment_upload", "uploads.sending.presigned_tool");
   assert.equal(uploads.sending.limit_authority, "upload intent response max_size_bytes", "uploads.sending.limit_authority");
-  return { contract, projection: { identity: pkg.identity, version: pkg.version, protocols, runtimeProtocols, toolCount: tools.count, resource: hosted.resource, transports: hosted.transports } };
+  return { contract, projection: { identity: pkg.identity, version: pkg.version, npmIdentity: npmPackage.name, npmVersion: npmPackage.version, registryVersion: registry.version, protocols, runtimeProtocols, toolCount: tools.count, resource: hosted.resource, transports: hosted.transports } };
 }
 
 async function main() {

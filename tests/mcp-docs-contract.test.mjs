@@ -9,11 +9,16 @@ import { changedRenderedFields, checkContract, renderSnippet } from "../scripts/
 const candidate = process.env.SENDMUX_SDK_CHECKOUT;
 if (!candidate) throw new Error("SENDMUX_SDK_CHECKOUT must name the pinned SDK checkout used by fixture tests");
 const checker = resolve("scripts/check-mcp-docs-contract.mjs");
-const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json"];
+const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json", "packages/ts/mcp/package.json"];
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 const writeJson = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
+const fixtureRoots = new Set();
+const assertFixture = (root) => {
+  assert.ok(fixtureRoots.has(root) && root.startsWith(`${resolve(tmpdir())}/mcp-docs-contract-`), "Git mutation must stay in an owned temporary fixture");
+};
 
 function commit(root, message) {
+  assertFixture(root);
   execFileSync("git", ["add", "."], { cwd: root });
   execFileSync("git", ["-c", "user.name=Test", "-c", "user.email=test@example.com", "commit", "-qm", message], { cwd: root });
   return execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
@@ -21,9 +26,11 @@ function commit(root, message) {
 
 function fixture(t, label) {
   const root = mkdtempSync(join(tmpdir(), `mcp-docs-contract-${label}-`));
+  fixtureRoots.add(root);
   process.stderr.write(`# fixture-owned ${label} ${root}\n`);
   t.after(() => { rmSync(root, { recursive: true, force: true }); assert.equal(existsSync(root), false, `fixture absent: ${label}`); });
   for (const path of owned) { mkdirSync(dirname(join(root, path)), { recursive: true }); cpSync(join(candidate, path), join(root, path)); }
+  assertFixture(root);
   execFileSync("git", ["init", "-q"], { cwd: root });
   return { root, pin: commit(root, "fixture") };
 }
@@ -40,12 +47,31 @@ function docsFixture(t, label, pin, snippet) {
 const runCliArgs = (cwd, args, env = {}) => spawnSync(process.execPath, [checker, ...args], { cwd, encoding: "utf8", env: { ...process.env, ...env } });
 const runCli = (cwd, sdkDir, mode) => runCliArgs(cwd, [mode, "--sdk", sdkDir]);
 
+test("projection shows independent npm, PyPI, and registry versions", async (t) => {
+  const sdk = fixture(t, "independent-versions");
+  const before = await checkContract({ sdkDir: sdk.root, pin: sdk.pin });
+  const npmPackage = readJson(join(sdk.root, owned[4]));
+  const registry = readJson(join(sdk.root, owned[2]));
+  assert.equal(before.projection.npmVersion, npmPackage.version);
+  assert.equal(before.projection.registryVersion, registry.version);
+  assert.equal(before.projection.version, before.contract.package.version);
+  const bump = (value) => { const parts = value.split(".").map(Number); parts[2] += 1; return parts.join("."); };
+  npmPackage.version = bump(npmPackage.version);
+  registry.version = bump(registry.version);
+  registry.packages.find((entry) => entry.registryType === "npm").version = npmPackage.version;
+  writeJson(join(sdk.root, owned[4]), npmPackage);
+  writeJson(join(sdk.root, owned[2]), registry);
+  const after = await checkContract({ sdkDir: sdk.root, pin: commit(sdk.root, "npm and metadata release") });
+  assert.deepEqual(changedRenderedFields(renderSnippet(before.projection), renderSnippet(after.projection)), ["npm.version", "registry.version"]);
+  assert.equal(after.projection.version, before.projection.version, "PyPI remains unchanged by npm and registry releases");
+});
+
 function coherentVersionChange(root, version) {
   const contractPath = join(root, owned[3]); const contract = readJson(contractPath);
   if (!version) { const parts = contract.package.version.split(".").map(Number); parts[2] += 1; version = parts.join("."); }
   contract.package.version = version; writeJson(contractPath, contract);
   const pyproject = join(root, owned[1]); writeFileSync(pyproject, readFileSync(pyproject, "utf8").replace(/version = "[^"]+"/, `version = "${contract.package.version}"`));
-  const registryPath = join(root, owned[2]); const registry = readJson(registryPath); registry.version = contract.package.version; registry.packages.find((entry) => entry.identifier === contract.package.identity).version = contract.package.version; writeJson(registryPath, registry);
+  const registryPath = join(root, owned[2]); const registry = readJson(registryPath); registry.packages.find((entry) => entry.registryType === "pypi" && entry.identifier === contract.package.identity).version = contract.package.version; writeJson(registryPath, registry);
   return contract;
 }
 
@@ -85,7 +111,7 @@ test("trust boundary rejects malformed, wrong-head, missing-input, changed-blob,
   const sdk = fixture(t, "trust"); await assert.rejects(checkContract({ sdkDir: sdk.root, pin: "main" }), /40-character/); await assert.rejects(checkContract({ sdkDir: sdk.root, pin: "0".repeat(40) }), /resolves to/);
   const missing = fixture(t, "missing"); rmSync(join(missing.root, owned[3])); await assert.rejects(checkContract({ sdkDir: missing.root, pin: missing.pin }), /ENOENT|no such file/i);
   const changed = fixture(t, "changed"); writeFileSync(join(changed.root, owned[3]), `${readFileSync(join(changed.root, owned[3]), "utf8")}\n`); await assert.rejects(checkContract({ sdkDir: changed.root, pin: changed.pin }), /differs from pinned Git blob/);
-  const joint = fixture(t, "mutant-no-git-blob-check"); coherentVersionChange(joint.root); assert.equal(readJson(join(joint.root, owned[3])).package.version, readJson(join(joint.root, owned[2])).version, "RED mutant/no-git-blob-check accepts coherent uncommitted inputs"); await assert.rejects(checkContract({ sdkDir: joint.root, pin: joint.pin }), /differs from pinned Git blob/, "GREEN Git-blob check rejects mutant fixture");
+  const joint = fixture(t, "mutant-no-git-blob-check"); coherentVersionChange(joint.root); assert.equal(readJson(join(joint.root, owned[3])).package.version, readJson(join(joint.root, owned[2])).packages.find((entry) => entry.registryType === "pypi").version, "RED mutant/no-git-blob-check accepts coherent uncommitted inputs"); await assert.rejects(checkContract({ sdkDir: joint.root, pin: joint.pin }), /differs from pinned Git blob/, "GREEN Git-blob check rejects mutant fixture");
 });
 
 test("private and unrelated committed changes do not affect projection", async (t) => {
