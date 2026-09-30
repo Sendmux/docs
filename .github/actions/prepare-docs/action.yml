@@ -81,3 +81,7 @@ runs:
     - name: Postman collection drift
       shell: bash
       run: npm run postman:check
+
+    - name: MCP discovery contract
+      shell: bash
+      run: npm run mcp-discovery:check
