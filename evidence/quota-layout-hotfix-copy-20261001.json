@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-10-01T09:39:37+10:00",
+  "artifact": "changelog.mdx newest Update block",
+  "artifactSha256": "be880969bad2ee084c1879fef9764479956ad485fb6ec969a322321d267caa0a",
+  "wordCount": 26,
+  "providerCalls": 0,
+  "eligibilityReason": "Whole changed changelog entry contains fewer than 50 prose words; canonical contract requires ineligible-manual for this set. No padding or mixing with historical entries.",
+  "frozenStructure": [
+    "Update label, tags and rss.title",
+    "Improvements and Bug fixes headings"
+  ],
+  "rows": [
+    {
+      "id": "changelog.mdx#quota-layout-hotfix-p001",
+      "eligibility": "whole-artifact-below-50-word-submission-floor",
+      "editableCharacters": 50,
+      "sourceSha256": "ef7beea7cc0392836d4b89dbc943c8946155c5ea8e13cd9592f2bd809d19851b",
+      "finalSha256": "ef7beea7cc0392836d4b89dbc943c8946155c5ea8e13cd9592f2bd809d19851b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Source diff confirms the described presentation/copy change.",
+        "No allowance-policy, entitlement, billing-state or API claim added.",
+        "Plain English and AU spelling checked.",
+        "No internal implementation names, URLs, secrets, invented numbers or promotional claims.",
+        "Source and final bytes identical."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "changelog.mdx#quota-layout-hotfix-p002",
+      "eligibility": "whole-artifact-below-50-word-submission-floor",
+      "editableCharacters": 121,
+      "sourceSha256": "7b64e264f2b34d2a39de5f660290172547c00da2a421fd498e056bedde2a1927",
+      "finalSha256": "7b64e264f2b34d2a39de5f660290172547c00da2a421fd498e056bedde2a1927",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Source diff confirms the described presentation/copy change.",
+        "No allowance-policy, entitlement, billing-state or API claim added.",
+        "Plain English and AU spelling checked.",
+        "No internal implementation names, URLs, secrets, invented numbers or promotional claims.",
+        "Source and final bytes identical."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "draftSource": "quota-layout-hotfix/changelog-draft.md",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "productCommit": "83eccab4a0c963b6694193bf84a0c57d12fc4fe3",
+  "releaseChronology": "Product commit precedes this docs commit; docs push precedes product push.",
+  "productCommittedAt": "2026-10-01T09:49:58+10:00"
+}
