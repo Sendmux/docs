@@ -1,0 +1,47 @@
+{
+  "contract": "AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "automation/docs-authoring-workflow.md",
+  "scope": "Only the corrected unknown-provider-hold paragraph; historical ledgers byte-identical.",
+  "reviewedAt": "2026-09-30T07:11:15.566276+00:00",
+  "blockedManualReview": 0,
+  "rows": [
+    {
+      "id": "account/billing#unknown-provider-hold",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 266,
+      "sourceSha256": "b5797e2a8365fff2655152484c10fbcef6a7f95b0176905dd59fdd61006c6763",
+      "finalSha256": "b5797e2a8365fff2655152484c10fbcef6a7f95b0176905dd59fdd61006c6763",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "24-hour threshold verified; expiry report does not release held credit",
+        "No invented resolution deadline or promise of automatic release",
+        "Hold is not posted usage; unchanged no-auto-top-up assertion preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Surrounding text, tables, frontmatter, headings, URLs and code unchanged"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed explanatory piece is 46 words, below the canonical 50-word submission floor; no unrelated content added to reach it.",
+      "sourceEvidence": [
+        "src/utils/credit-reservations.ts:150,932-993,1005-1009",
+        "tests/integration/credit-reservations.test.ts:864-930",
+        "workers/src/tasks/billing-reconciliation.ts:40-71"
+      ],
+      "protectedAnchors": [
+        "Sendmux",
+        "unknown",
+        "24 hours",
+        "not automatically released",
+        "not a usage charge",
+        "cannot start an auto top-up by itself"
+      ],
+      "frozenInline": []
+    }
+  ]
+}
