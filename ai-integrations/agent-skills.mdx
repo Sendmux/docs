@@ -70,6 +70,13 @@ Install one skill when you only need a focused workflow.
 npx skills add Sendmux/skills --skill sendmux-send-email
 ```
 
+Install a focused inbox or outbound email workflow:
+
+```bash
+npx skills add Sendmux/skills --skill agent-email-inbox
+npx skills add Sendmux/skills --skill email-for-ai-agents
+```
+
 Update installed skills later.
 
 ```bash
@@ -90,6 +97,8 @@ npx skills update
 
 | Skill | Use when |
 | --- | --- |
+| `agent-email-inbox` | Triaging an authorised inbox and drafting replies without sending or changing messages. |
+| `email-for-ai-agents` | Sending an approved email with scoped access and an idempotent retry. |
 | `sendmux-getting-started` | Choosing a Sendmux surface, setting up authentication, or making a first verified call. |
 | `sendmux-attachments` | Uploading, downloading, inspecting, or sending attachments without placing file bytes in model context. |
 | `sendmux-send-email` | Sending one transactional email or batching multiple sends. |
