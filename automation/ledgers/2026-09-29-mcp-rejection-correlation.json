@@ -1,0 +1,47 @@
+{
+  "artifact": "MCP grant rejection request-ID changelog",
+  "reviewedAt": "2026-09-29 12:02",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "Placement kept: navbar Product updates, newest-first changelog.mdx entry, outside navigation tabs. One standalone paragraph has 42 readable characters and 8 words, below eligibility and provider submission floors. Preserve source unchanged, no provider call or padding.",
+  "sourceEvidence": [
+    "Sendmux/sendmux agent/mcp-rejection-correlation src/server/mcp/proxy.ts:330-331,635-671: revoked grants return invalid_grant401 with server-generated meta.request_id and X-Request-Id.",
+    "Native transport receipt: sendmux-mcp2.1.3 error text retains the actual generated request ID; no claim of production deployment or all pre-app errors."
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-29-mcp-rejection-correlation#p001",
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Under 50 readable characters; entire piece also below 50-word submission floor.",
+      "sourceSha256": "eab7b9852932e4e5b9627453bfe98edfc0f1c71b4db5f310838987fc7a7be3f6",
+      "finalSha256": "eab7b9852932e4e5b9627453bfe98edfc0f1c71b4db5f310838987fc7a7be3f6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Concise source-backed English; no internal implementation terms or new capability claim.",
+        "MCP grant errors only; does not claim coverage of every MCP error.",
+        "Historical entries/frontmatter preserved byte-identically."
+      ]
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "headings",
+    "update label",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "sourceFiles": {
+    "changelog.mdx": "a11bace3dc36fdfa28baf4c6f2d7801d352464281bbca8c77da78ab4c0b5b33f"
+  },
+  "finalFiles": {
+    "changelog.mdx": "5eb0d603b857b813834a64132e391e88e3fd6dce6b4d0dafa3f725b9597503a4"
+  },
+  "blockedManualReviewCount": 0,
+  "publicationStatus": "prepared-not-published"
+}
