@@ -1,0 +1,110 @@
+{
+  "artifact": "mcp-cimd-grant-types documentation set",
+  "reviewedAt": "2026-09-22 07:08",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "f782ea953a53f489d62a12224f28568b2ee37c7da37966d9d7af6be37b505b14",
+  "workflow": "automation/docs-authoring-workflow.md sections 1-7. Placement kept: changelog.mdx newest-first entry, and developer-tools/oauth.mdx (Guides -> Developer tools -> OAuth for REST APIs -> Register the client) gains one paragraph after the credential-storage paragraph; the page has no published-client-identity section, so nothing else was added. Section 4: both added units are reader-facing prose, so humanisation applies. The 51-word changelog unit was submitted once over the REST transport (the Walter MCP connector was not connected in this session); the 26-word oauth unit is below the 50-word submission floor and cannot be batched with another artifact.",
+  "sourceEvidence": [
+    "Sendmux/sendmux agent/mcp-cimd-grant-types (staged on f1b2c7a1 = v1.8.251, worktree sendmux-mcp-cimd-grant-types, ships as app v1.8.252): src/server/mcp/client-registration.ts:61-78 (normaliseDynamicClientRegistrationRequest keeps the supported subset of grant_types and response_types per RFC 7591 section 2 and rejects only when nothing supported remains; the existing password and token rejections are unchanged)",
+    "Sendmux/sendmux agent/mcp-cimd-grant-types (staged on f1b2c7a1 = v1.8.251, worktree sendmux-mcp-cimd-grant-types, ships as app v1.8.252): src/server/mcp/client-id-metadata.ts:22-30 (clientMetadataSchema accepts string lists for grant_types and response_types instead of a closed enum) and :51-77 (a rejected document is logged with its issue paths, never its body)",
+    "Sendmux/sendmux agent/mcp-cimd-grant-types (staged on f1b2c7a1 = v1.8.251, worktree sendmux-mcp-cimd-grant-types, ships as app v1.8.252): tests/unit/server/mcp-client-registration.test.ts and tests/unit/server/mcp-cimd-authorization.test.ts (five cases RED on the v1.8.251 source and GREEN after: keeps the supported grant types / response types instead of rejecting the registration; loads the client and keeps the supported grant types; keeps the supported response types when the document also lists one this server does not offer; logs a rejected document)",
+    "Sendmux/sendmux agent/mcp-cimd-grant-types (staged on f1b2c7a1 = v1.8.251, worktree sendmux-mcp-cimd-grant-types, ships as app v1.8.252): evidence/mcp-cimd-grant-types-20260922.md (symptom: the Claude Desktop custom connector using the client's published identity was refused with 'Connection request unavailable' because the published document lists urn:ietf:params:oauth:grant-type:jwt-bearer beside authorization_code and refresh_token; the same gate refused automatic registration)",
+    "RFC 7591 section 2 (the authorisation server may substitute requested client metadata) and section 3.2.1 (the registration response echoes the accepted values; src/server/mcp/registration-handler.ts already does this), which the oauth.mdx sentence describes"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-22-mcp-cimd-grant-types#p001",
+      "eligibility": "eligible",
+      "eligibilityReason": "One 51-word paragraph with no frozen inline bytes, at or above the 50-word submission floor; submitted once as the whole batch.",
+      "eligibleWords": 51,
+      "editableCharacters": 331,
+      "sourceSha256": "a5b3692271961d8991d0f06b1652c23a7c2d09cc152308bc775c2651574791c3",
+      "finalSha256": "a5b3692271961d8991d0f06b1652c23a7c2d09cc152308bc775c2651574791c3",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 85,
+      "scoreRaw": 1,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "MCP",
+        "OAuth",
+        "Claude",
+        "sign-in",
+        "client metadata",
+        "grant types",
+        "authorisation server",
+        "custom connectors",
+        "published identity",
+        "automatic registration"
+      ],
+      "manualChecks": [
+        "Behaviour matches the staged fix: a registration or published client metadata document that lists a grant type or response type this server does not offer now keeps the supported values (client-registration.ts:61-78; client-id-metadata.ts:22-30), where the previous code refused the registration or dropped the document and the authorisation page showed 'Connection request unavailable'; the 'published identity' path (client ID metadata document) and the 'automatic registration' path (dynamic registration) are both covered by the RED-to-GREEN tests.",
+        "Concise factual Australian English ('authorisation'); standalone prose paragraph, no bullet points, no em dash or semicolon; no internal infrastructure, vendor, library or language names. MCP and OAuth are public protocol names already used by existing entries; Claude names the customer's own client, as Atlassian does in the 18 September 2026 entry.",
+        "Attempt-1 output reviewed against the source: the client name was attached to the grant types instead of the client, two entity names were invented, the mechanism claim changed and a future-tense modal was added. None of these is fixable by substitution or deletion alone, so the exact reviewed source was restored under contract steps 2-3 and the restore was recorded as a repair receipt with an empty repairs list (journal finalSha256 equals sourceSha256). scoreFinal is unavailable by design: the detector cannot establish semantic safety for a restored unit.",
+        "Entry label, tags, RSS title, frontmatter and every historical entry preserved byte-identically; entry inserted newest-first with the closed-set Bug fixes tag; Update open and close tags still alternate."
+      ],
+      "disposition": "pass-source-preserved-manual",
+      "sourceRetention": {
+        "reviewedAt": "2026-09-22 07:08",
+        "sourceSha256": "a5b3692271961d8991d0f06b1652c23a7c2d09cc152308bc775c2651574791c3",
+        "authority": "Contract step 3: a unit whose facts or meaning need sentence rewriting is restored from source as in step 2, and a mechanical rejection (protected-anchor-mismatch) needs no operator decision. A second provider attempt remains the operator's call and was not spent.",
+        "decision": "restore-reviewed-source-after-attempt-1",
+        "additionalProviderSubmission": false,
+        "providerTaskId": "688197dd-7492-49cd-a1c6-32761a0357c1",
+        "journal": ".claude/artifacts/mcp-cimd-grant-types-docs/humanisation/changelog-journal.jsonl (machine-local, private; raw output and review notes stay there)"
+      }
+    },
+    {
+      "id": "developer-tools/oauth.mdx#register-the-client#p003",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The only prose added to this artifact is one 26-word paragraph (161 editable characters), below the 50-word submission floor; the contract forbids mixing artifacts to reach the floor, so the piece is ledgered ineligible-manual with byte-identical source and manual voice, factual and hard-ban checks.",
+      "eligibleWords": 26,
+      "editableCharacters": 161,
+      "sourceSha256": "3ea65b5971107bd1f24e5eaa15c9bdf40a3543594f3510f1ca2c1ea2736ffccb",
+      "finalSha256": "3ea65b5971107bd1f24e5eaa15c9bdf40a3543594f3510f1ca2c1ea2736ffccb",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Grant types",
+        "response types",
+        "does not offer",
+        "dropped",
+        "rather than refused",
+        "lists the values that were accepted"
+      ],
+      "manualChecks": [
+        "Behaviour matches the staged fix: normaliseDynamicClientRegistrationRequest filters grant_types and response_types to the supported set and rejects only when nothing supported remains (client-registration.ts:61-78); registration-handler.ts already echoes the accepted values in the registration response (RFC 7591 section 3.2.1), which is what the sentence tells the reader.",
+        "Concise developer-docs voice in the page's own register; Australian English; no internal infrastructure, vendor, library or language names; the sentence stands as its own paragraph after the credential-storage paragraph, so the existing paragraph, the JSON example and the endpoint table stay byte-identical.",
+        "Placement kept: Guides -> Developer tools -> OAuth for REST APIs -> Register the client. The page has no published-client-identity section, so no second copy was added."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "headings",
+    "update label",
+    "tags",
+    "rss title",
+    "code blocks and inline code",
+    "tables",
+    "link destinations",
+    "historical changelog entries"
+  ],
+  "providerOutcomes": [
+    "Changelog attempt 1 (REST transport version 1, task 688197dd-7492-49cd-a1c6-32761a0357c1): protected-anchor-mismatch raised on the completed output; the output was reviewed and found broken beyond token repair, so the unit was restored from source under contract step 3 and the repair receipt records an empty repairs list. No further submission was made.",
+    "Oauth unit: no submission (below the 50-word floor)."
+  ],
+  "sourceFiles": {
+    "changelog.mdx": "3180a6700c71e9d2373febac4ee1301218091f59cb3f6bc6e07a6ab3e73282fc",
+    "developer-tools/oauth.mdx": "04d4be0aa2185af2f5f0c8dbbb1b3e8569df68a35256c8bff59c71e516f1a02b"
+  },
+  "blockedManualReviewCount": 0
+}

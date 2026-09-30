@@ -1,0 +1,84 @@
+{
+  "contract": "AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "automation/docs-authoring-workflow.md",
+  "scope": "Optional preserved-paid Pro guide addition and exact final product changelog; earlier hold paragraph ledger byte-identical.",
+  "reviewedAt": "2026-09-30T10:05:41.135622+00:00",
+  "blockedManualReview": 0,
+  "rows": [
+    {
+      "id": "account/billing#optional-legacy-pro",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 147,
+      "sourceSha256": "6c68f68e4fadcdd2d8297efcec2c208587f7f44ffe76773f98808b578a9d53e6",
+      "finalSha256": "6c68f68e4fadcdd2d8297efcec2c208587f7f44ffe76773f98808b578a9d53e6",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact source retained",
+        "Price700cents per team each month plus usage unchanged",
+        "Upgrade is chosen by customer; no automatic Pro activation",
+        "Checkout reuses existing flow, activated only after confirmed payment",
+        "AU English, concise voice and confidentiality checked",
+        "No new rate/entitlement or resource/balance mutation claimed"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Complete newly changed piece contains 29 words, below50-word submission floor. Prior accepted hold paragraph remains byte-identical under its existing receipt/ledger.",
+      "sourceEvidence": [
+        "billing/page.tsx:138-142 local diff",
+        "billing/_components/team-credit-balance.tsx:579-584 local diff",
+        "src/components/upgrade-to-pro-button.tsx:31-62,80-86",
+        "src/server/billing/checkout-service.ts:75-89",
+        "src/server/billing/checkout.ts:57-69",
+        "src/lib/billing/policy.ts:85-101",
+        "src/server/billing/stripe-billing-runtime.ts:478-488"
+      ],
+      "frozenInline": [
+        "**Upgrade to Pro**",
+        "**Billing**"
+      ]
+    },
+    {
+      "id": "changelog#optional-legacy-pro",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 182,
+      "sourceSha256": "6ad1e8d32cd85fa359b952f2204b218b717aee859da5c66b1ebe57622537719d",
+      "finalSha256": "6ad1e8d32cd85fa359b952f2204b218b717aee859da5c66b1ebe57622537719d",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact source retained",
+        "Price700cents per team each month plus usage unchanged",
+        "Upgrade is chosen by customer; no automatic Pro activation",
+        "Checkout reuses existing flow, activated only after confirmed payment",
+        "AU English, concise voice and confidentiality checked",
+        "No new rate/entitlement or resource/balance mutation claimed"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Complete newly changed piece contains 31 words, below50-word submission floor. Prior accepted hold paragraph remains byte-identical under its existing receipt/ledger.",
+      "sourceEvidence": [
+        "billing/page.tsx:138-142 local diff",
+        "billing/_components/team-credit-balance.tsx:579-584 local diff",
+        "src/components/upgrade-to-pro-button.tsx:31-62,80-86",
+        "src/server/billing/checkout-service.ts:75-89",
+        "src/server/billing/checkout.ts:57-69",
+        "src/lib/billing/policy.ts:85-101",
+        "src/server/billing/stripe-billing-runtime.ts:478-488",
+        "billing/_components/team-credit-balance.tsx:168-170 local diff"
+      ],
+      "frozenInline": [
+        "**Upgrade to Pro**",
+        "**Billing**"
+      ]
+    }
+  ]
+}

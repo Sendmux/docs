@@ -15,9 +15,9 @@ headers, and encoded attachments, must fit inside the 25 MB raw message limit.
 
 ```bash
 curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \
-  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  --header @- \
   -H "Content-Type: application/pdf" \
-  --data-binary "@invoice.pdf"
+  --data-binary "@invoice.pdf" <<< "Authorization: Bearer $SENDMUX_API_KEY"
 ```
 
 ```json
@@ -39,7 +39,7 @@ Then send the uploaded attachment by ID:
 
 ```bash
 curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages/send \
-  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  --header @- \
   -H "Content-Type: application/json" \
   -d '{
     "to": [{ "email": "customer@example.com" }],
@@ -52,7 +52,7 @@ curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages/send \
         "blob_id": "blob_123"
       }
     ]
-  }'
+  }' <<< "Authorization: Bearer $SENDMUX_API_KEY"
 ```
 
 Small inline base64 attachments are still supported on `messages/send`, but the
@@ -68,14 +68,14 @@ Attachment downloads support byte ranges:
 
 ```bash
 curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123" \
-  -H "Authorization: Bearer smx_mbx_your_key_here" \
+  --header @- \
   -H "Range: bytes=0-1048575" \
-  --output invoice.part
+  --output invoice.part <<< "Authorization: Bearer $SENDMUX_API_KEY"
 ```
 
 ## Next steps
 
 <Columns cols={2}>
   <Card title="Mailbox API introduction" icon="book-open" href="/mailbox-api/introduction"></Card>
-  <Card title="Synchronisation" icon="refresh-cw" href="/developer-tools/mailbox-api/sync"></Card>
+  <Card title="Synchronisation" icon="arrows-rotate" iconType="solid" href="/developer-tools/mailbox-api/sync"></Card>
 </Columns>

@@ -1,0 +1,1281 @@
+{
+  "artifacts": [
+    "monitoring/dashboard-logs.mdx#delivery-group",
+    "sending-api/errors.mdx#delivery-group-errors",
+    "sending/accounts/delivery-groups.mdx#per-message-routing",
+    "sending/accounts/index.mdx#template-variables",
+    "sending/http.mdx#delivery-group",
+    "sending/smtp.mdx#delivery-group",
+    "sending/template-variables.mdx"
+  ],
+  "reviewedAt": "2026-09-16 11:40",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "14dcebb2485bd75c3e786570f9a5943c7f1a80290882a62b66ebbc04e673368a",
+  "sourceEvidence": [
+    "sendmux-mailbox-variables-routing/src/schemas/provider-variables.ts:3-64",
+    "sendmux-mailbox-variables-routing/src/actions/bulk-provider-actions.ts:614-700",
+    "sendmux-mailbox-variables-routing/src/server/api-v1/providers.ts:579-755",
+    "smtp-proxy-mailbox-variables-routing/app/consumer/lib/email-content-processing.js:10-20,530-580,687-708",
+    "smtp-proxy-mailbox-variables-routing/app/shared/delivery-group-routing.js:1-120",
+    "smtp-proxy-mailbox-variables-routing/app/haraka/plugins/queue/bullmq.js:180-227",
+    "smtp-proxy-mailbox-variables-routing/app/http-api/v1/routes/send-email.js:531-570",
+    "smtp-proxy-mailbox-variables-routing/app/http-api/v1/routes/send-batch.js:293-309",
+    "smtp-proxy-mailbox-variables-routing/app/consumer/lib/provider-cache.js:248-272",
+    "smtp-proxy-mailbox-variables-routing/app/shared/credit-service.js:418-443"
+  ],
+  "units": [
+    {
+      "id": "monitoring/dashboard-logs.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 338,
+      "sourceSha256": "2a2a5173013e97353f6d0ff76deb4605277f96a9a351b463e4d17f7b210b64c5",
+      "finalSha256": "2a2a5173013e97353f6d0ff76deb4605277f96a9a351b463e4d17f7b210b64c5",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "API",
+        "CSV",
+        "Delivery Groups",
+        "Management API",
+        "`delivery_group`",
+        "`null`",
+        "group",
+        "no"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending-api/errors.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 198,
+      "sourceSha256": "201d6760058d114e0707954e53e40e2e3b17d6c4580f4f167eaf9be1b55a3689",
+      "finalSha256": "201d6760058d114e0707954e53e40e2e3b17d6c4580f4f167eaf9be1b55a3689",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "422",
+        "50",
+        "HTTP",
+        "`X-Sendmux-Delivery-Group`",
+        "`custom_headers`",
+        "`delivery_group`",
+        "`false`",
+        "`retryable`",
+        "at most",
+        "group",
+        "no"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending-api/errors.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 85,
+      "sourceSha256": "b57cb054bf22362ba4777e799eb2677b63c1ba96021fcf22cc5975fb137b1450",
+      "finalSha256": "b57cb054bf22362ba4777e799eb2677b63c1ba96021fcf22cc5975fb137b1450",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "422",
+        "HTTP",
+        "`false`",
+        "`retryable`",
+        "group"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending-api/errors.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 130,
+      "sourceSha256": "4db410fdc1a97b43df57f22901f2dea3ac73faa1a027feb19605ed8c92cb7d0b",
+      "finalSha256": "4db410fdc1a97b43df57f22901f2dea3ac73faa1a027feb19605ed8c92cb7d0b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "403",
+        "HTTP",
+        "`false`",
+        "`retryable`",
+        "group"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending-api/errors.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 183,
+      "sourceSha256": "d694ce53c2a059ce40d65e68656f0bac6fb7a5e6f74d923c69ad8a963c04ccd4",
+      "finalSha256": "d694ce53c2a059ce40d65e68656f0bac6fb7a5e6f74d923c69ad8a963c04ccd4",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "422",
+        "HTTP",
+        "`false`",
+        "`retryable`",
+        "all",
+        "cannot",
+        "group",
+        "providers"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending-api/errors.mdx#p005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 184,
+      "sourceSha256": "1f027b5340e9cad75cf507565f1b6cbc5c1704ac22ff91cd1dd553d01290901b",
+      "finalSha256": "1f027b5340e9cad75cf507565f1b6cbc5c1704ac22ff91cd1dd553d01290901b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 148,
+      "sourceSha256": "dfe0effdf787e80942bad2ce06e2aa6fb24444f6e38efea84b9a8d3aab2420ea",
+      "finalSha256": "dfe0effdf787e80942bad2ce06e2aa6fb24444f6e38efea84b9a8d3aab2420ea",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "group",
+        "providers"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 220,
+      "sourceSha256": "4322d209c0049c52b8793d9e918627bcd58f1b1b5fcea2f23ad05b366314de30",
+      "finalSha256": "4322d209c0049c52b8793d9e918627bcd58f1b1b5fcea2f23ad05b366314de30",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "never",
+        "no",
+        "providers"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 170,
+      "sourceSha256": "ce99e251350b532d2e1132461e5e96a00b8b81f2a37ed5bd47d15ee2f54923ad",
+      "finalSha256": "ce99e251350b532d2e1132461e5e96a00b8b81f2a37ed5bd47d15ee2f54923ad",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "HTTP",
+        "SMTP",
+        "`X-Sendmux-Delivery-Group`",
+        "`delivery_group`",
+        "group"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 281,
+      "sourceSha256": "ac58c202c8144cfdda69518a2ba87f61b08b8188cf689d4f96a2454afed5f8c3",
+      "finalSha256": "ac58c202c8144cfdda69518a2ba87f61b08b8188cf689d4f96a2454afed5f8c3",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "50",
+        "HTTP",
+        "SMTP",
+        "Sendmux",
+        "`custom_headers`",
+        "at most",
+        "must"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 58,
+      "sourceSha256": "31eac30794cb692478493170c3906b704b42937e12ed5e5f7f30c3d00408c05a",
+      "finalSha256": "31eac30794cb692478493170c3906b704b42937e12ed5e5f7f30c3d00408c05a",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p006",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 227,
+      "sourceSha256": "fea69dc59f2d26adf6573d6d4d96aa903256edf1d22eacf766915c80d33dcdeb",
+      "finalSha256": "fea69dc59f2d26adf6573d6d4d96aa903256edf1d22eacf766915c80d33dcdeb",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "group"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p007",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The unit has 33 readable characters after frozen inline bytes are removed, below the 50-character unit floor; source preserved byte-identically.",
+      "editableCharacters": 33,
+      "sourceSha256": "c2d87afdb3d6d1b249b6cf3ece06474804b0c311e1e344fa9a369bdba96b6c24",
+      "finalSha256": "c2d87afdb3d6d1b249b6cf3ece06474804b0c311e1e344fa9a369bdba96b6c24",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p008",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 149,
+      "sourceSha256": "d60574a88963f420734212c4378bc0c7cebbd80aa83f601cbb54c1c363378998",
+      "finalSha256": "d60574a88963f420734212c4378bc0c7cebbd80aa83f601cbb54c1c363378998",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p009",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 152,
+      "sourceSha256": "1c19ffd8226f4857e7943dedf895ea0f9778962ffefa3ab84455f6601f522bcb",
+      "finalSha256": "1c19ffd8226f4857e7943dedf895ea0f9778962ffefa3ab84455f6601f522bcb",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`delivery_group`",
+        "`null`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/delivery-groups.mdx#p010",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 137,
+      "sourceSha256": "b8b67bfdf100a0b6d25d75ead14133afac708f57817082bc1d8890550c06ade6",
+      "finalSha256": "b8b67bfdf100a0b6d25d75ead14133afac708f57817082bc1d8890550c06ade6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "none"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/index.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 336,
+      "sourceSha256": "0b8feee8c8e1877484a63df536bff453842cf99e954f82d7261b8870c4605606",
+      "finalSha256": "0b8feee8c8e1877484a63df536bff453842cf99e954f82d7261b8870c4605606",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "API",
+        "Amazon SES",
+        "cannot"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/index.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 146,
+      "sourceSha256": "bfafd737471a35190c639ad7907e71b9ac1d449446af811a57131a1a56bd069c",
+      "finalSha256": "bfafd737471a35190c639ad7907e71b9ac1d449446af811a57131a1a56bd069c",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Variables",
+        "`[DP_VAR_SIGNATURE_URL]`",
+        "`signature_url`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/index.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 274,
+      "sourceSha256": "1e539281bd4fdab25f5eb7b19934399e832cebec04a468c33da47e1d7af0c1d6",
+      "finalSha256": "1e539281bd4fdab25f5eb7b19934399e832cebec04a468c33da47e1d7af0c1d6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Merge keys",
+        "Remove keys",
+        "Replace all",
+        "Variables",
+        "must"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/accounts/index.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 123,
+      "sourceSha256": "41f8a5584e0582e48cc292659d99cec7ff9e85ff485dc810c95bcabaf0add6aa",
+      "finalSha256": "41f8a5584e0582e48cc292659d99cec7ff9e85ff485dc810c95bcabaf0add6aa",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Management API"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/http.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 125,
+      "sourceSha256": "5ad9389e715e4b7705705d72eec2568e8f9315798eacd891509c2f5fe75e5491",
+      "finalSha256": "5ad9389e715e4b7705705d72eec2568e8f9315798eacd891509c2f5fe75e5491",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`delivery_group`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/http.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 122,
+      "sourceSha256": "a49c38525d8ec47637b4e25c34f82cce73ff0499651e3dfc59f3b07f2bf9af19",
+      "finalSha256": "a49c38525d8ec47637b4e25c34f82cce73ff0499651e3dfc59f3b07f2bf9af19",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`delivery_group`",
+        "`messages`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/http.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 224,
+      "sourceSha256": "f9609c1412b9e12503f2138c3d7abcfea9552a0108690b3a3be4b5e09b14bbfc",
+      "finalSha256": "f9609c1412b9e12503f2138c3d7abcfea9552a0108690b3a3be4b5e09b14bbfc",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "50",
+        "at most"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/http.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 153,
+      "sourceSha256": "10fa8deb84cd60918bcd9dce1b6c76f109d3df6f4b8db8b62b80776c12611bc6",
+      "finalSha256": "10fa8deb84cd60918bcd9dce1b6c76f109d3df6f4b8db8b62b80776c12611bc6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "HTTP",
+        "`X-Sendmux-Delivery-Group`",
+        "`custom_headers`",
+        "cannot"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/http.mdx#p005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 97,
+      "sourceSha256": "fcf2e14ec596f4f1d53601f1ac6b16527e9c84f04d8af65a71b7a1733e29f85b",
+      "finalSha256": "fcf2e14ec596f4f1d53601f1ac6b16527e9c84f04d8af65a71b7a1733e29f85b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/smtp.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 60,
+      "sourceSha256": "2bf29c253874b62e89ec985c48e8a38139dbafd2c1a009e5747218b3a3199f85",
+      "finalSha256": "2bf29c253874b62e89ec985c48e8a38139dbafd2c1a009e5747218b3a3199f85",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Delivery-Group`",
+        "group"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/smtp.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 318,
+      "sourceSha256": "38002719a38f84d1e9d379ef4b433ac73458fc5eaa61a518dafff1f0ead02de8",
+      "finalSha256": "38002719a38f84d1e9d379ef4b433ac73458fc5eaa61a518dafff1f0ead02de8",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "50",
+        "Sendmux"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/smtp.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 167,
+      "sourceSha256": "627787d2782d06dc10c97ee223b5a3e7a3be52136119301cca9ab63486449b5a",
+      "finalSha256": "627787d2782d06dc10c97ee223b5a3e7a3be52136119301cca9ab63486449b5a",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "providers"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/smtp.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 179,
+      "sourceSha256": "ad9cb7d151405e347804b86d7e1583ca9ff16e5ced0b647c05e7efc9403670f6",
+      "finalSha256": "ad9cb7d151405e347804b86d7e1583ca9ff16e5ced0b647c05e7efc9403670f6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "`550`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/smtp.mdx#p005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 89,
+      "sourceSha256": "e7b2391a55ef086335c95bf23b1583a0558a0fd3b278c653e531ece9e909abef",
+      "finalSha256": "e7b2391a55ef086335c95bf23b1583a0558a0fd3b278c653e531ece9e909abef",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 212,
+      "sourceSha256": "08c97011d39fcc6cb07842bd1bfc5abffc13075a7398eb5b6b11ecfd6e8eded1",
+      "finalSha256": "08c97011d39fcc6cb07842bd1bfc5abffc13075a7398eb5b6b11ecfd6e8eded1",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 114,
+      "sourceSha256": "b68ea1107f45391f9110746a640da0589fe043acbe4f4b4baea550bc1247d2db",
+      "finalSha256": "b68ea1107f45391f9110746a640da0589fe043acbe4f4b4baea550bc1247d2db",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Amazon SES"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 72,
+      "sourceSha256": "775d1f8a4648eb7346c25e8ab3db38e6c524479b70cacac6b1d8160fcb6919c4",
+      "finalSha256": "775d1f8a4648eb7346c25e8ab3db38e6c524479b70cacac6b1d8160fcb6919c4",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Variables",
+        "`signature_url`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 118,
+      "sourceSha256": "ad4f450ec312a3a73eb3c88997b88a91f5713555b8a0ce0acf0bf8b442d79552",
+      "finalSha256": "ad4f450ec312a3a73eb3c88997b88a91f5713555b8a0ce0acf0bf8b442d79552",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Logs",
+        "`[DP_VAR_SIGNATURE_URL]`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p005",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The unit has 46 readable characters after frozen inline bytes are removed, below the 50-character unit floor; source preserved byte-identically.",
+      "editableCharacters": 46,
+      "sourceSha256": "6a42b5fac635555ce0d365b12c0305eadf97bc5b0186b895034afb91b5362d8a",
+      "finalSha256": "6a42b5fac635555ce0d365b12c0305eadf97bc5b0186b895034afb91b5362d8a",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "sending/template-variables.mdx#p006",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 143,
+      "sourceSha256": "159c05311c4462b1869592ada55767f76ee3ef95c0ada1138db31fb608de3d7e",
+      "finalSha256": "159c05311c4462b1869592ada55767f76ee3ef95c0ada1138db31fb608de3d7e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Amazon SES"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p007",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 260,
+      "sourceSha256": "53da1a8dca6865dbeb0b9fb2b0730a0f95913c68bede52902e7b8127f278b329",
+      "finalSha256": "53da1a8dca6865dbeb0b9fb2b0730a0f95913c68bede52902e7b8127f278b329",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "1–64",
+        "50",
+        "`^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$`",
+        "at most",
+        "must"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p008",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 167,
+      "sourceSha256": "52859150348f69fa6ce02a2232c3259fee75d0e76b0b83a7a150414425778786",
+      "finalSha256": "52859150348f69fa6ce02a2232c3259fee75d0e76b0b83a7a150414425778786",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "4,096",
+        "`DP_VAR_`",
+        "`[DP_VAR_SIGNATURE_URL]`",
+        "`signature_url`",
+        "at most"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p009",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 230,
+      "sourceSha256": "94241eae2a640407099d1dcf82de989700d718494c2dc1da89db8f92260b555e",
+      "finalSha256": "94241eae2a640407099d1dcf82de989700d718494c2dc1da89db8f92260b555e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p010",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 251,
+      "sourceSha256": "9a293237459ae3c315834f1da62c9d88a6d72161017de85d1b5af3bb6818a48a",
+      "finalSha256": "9a293237459ae3c315834f1da62c9d88a6d72161017de85d1b5af3bb6818a48a",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "cannot"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p011",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 162,
+      "sourceSha256": "2f258a54832bdb07f1e40d2932e1cfe2b0d3b8ca1e7c421c2e830bff6834fec8",
+      "finalSha256": "2f258a54832bdb07f1e40d2932e1cfe2b0d3b8ca1e7c421c2e830bff6834fec8",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Variables",
+        "no"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p012",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 64,
+      "sourceSha256": "abf2cc56f6e6dc7f8f98eafbb57773344e13d72138810b70460d57deada7c953",
+      "finalSha256": "abf2cc56f6e6dc7f8f98eafbb57773344e13d72138810b70460d57deada7c953",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p013",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 123,
+      "sourceSha256": "2bf35199b4b644315bc648e63e3c790c507ff884074942be02e3b17af6c7f490",
+      "finalSha256": "2bf35199b4b644315bc648e63e3c790c507ff884074942be02e3b17af6c7f490",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p014",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 74,
+      "sourceSha256": "33e25d8c03745101715990bc5754ff1da6c9a9db5abaccfb3b6acc579998bdaf",
+      "finalSha256": "33e25d8c03745101715990bc5754ff1da6c9a9db5abaccfb3b6acc579998bdaf",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Variables"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p015",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 174,
+      "sourceSha256": "1a2521fc04b11409ceb4b856aa9658a07697a7f4734de04c2d1b3f476f895c09",
+      "finalSha256": "1a2521fc04b11409ceb4b856aa9658a07697a7f4734de04c2d1b3f476f895c09",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p016",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 134,
+      "sourceSha256": "d57671edcc995a7dd0b35ae5223be021d21856da1d2b1aa7d0fea76894f7816b",
+      "finalSha256": "d57671edcc995a7dd0b35ae5223be021d21856da1d2b1aa7d0fea76894f7816b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`PATCH /providers/{public_id}`",
+        "`variables`",
+        "`{}`"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p017",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 214,
+      "sourceSha256": "bb08a5321d14568470607c07a5352a17a139e112a41b9bd624af9c7c31b79f5b",
+      "finalSha256": "bb08a5321d14568470607c07a5352a17a139e112a41b9bd624af9c7c31b79f5b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "PATCH",
+        "`variables`",
+        "`{ \"variables\": {} }`",
+        "all",
+        "group"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p018",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 51,
+      "sourceSha256": "153e86c810938bd7d5d22b6a62f140e6a223f9b586153df1a313ea9f8ecb5193",
+      "finalSha256": "153e86c810938bd7d5d22b6a62f140e6a223f9b586153df1a313ea9f8ecb5193",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "providers"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "sending/template-variables.mdx#p019",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic technical reference or reader instruction: every clause is verified against the product contract, every editable word carries the assertion or action, and the unit contains no narrative or promotional prose.",
+      "editableCharacters": 52,
+      "sourceSha256": "cbcbea52cf548018152032065c72b81b7e748d108364ebf71055326d219d7f7a",
+      "finalSha256": "cbcbea52cf548018152032065c72b81b7e748d108364ebf71055326d219d7f7a",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "providers"
+      ],
+      "manualChecks": [
+        "Claim checked against the frozen app/proxy contract and owning source.",
+        "Meaning, limits, qualifiers, Australian English, links, code tokens, and UI labels preserved byte-identically.",
+        "No internal implementation detail, hype, or invented capability."
+      ],
+      "disposition": "ineligible-technical"
+    }
+  ],
+  "excludedFrozen": [
+    "frontmatter",
+    "headings",
+    "tables",
+    "code blocks",
+    "commands",
+    "URLs and link destinations",
+    "UI labels and JSX structure",
+    "docs.json navigation token"
+  ],
+  "preservation": [
+    "All reviewed prose units are byte-identical to the frozen source.",
+    "Protected limits, statuses, error codes, API fields, template tags, modals, negations, and qualifiers retain their occurrences.",
+    "The corrected multi-group sentence describes the union of selected groups and full route eligibility."
+  ],
+  "frozenArtifact": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs/.claude/artifacts/mailbox-variables-routing/docs-humanisation/frozen",
+  "blockedManualReviewCount": 0
+}

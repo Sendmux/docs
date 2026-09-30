@@ -1,0 +1,83 @@
+{
+  "artifact": "sending/accounts/index.mdx#account-address-fields",
+  "reviewedAt": "2026-09-18 09:50",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "7e8f8150d3e75414aa962bd01e09d0efad1a0be5f6e0e18e856c3e547862ea3e",
+  "sourceEvidence": [
+    "Sendmux/smtp-proxy@cae36209eea3d7c725df819aecc8a26a6506aa72:app/consumer/lib/email-content-processing.js:855-891",
+    "Sendmux/smtp-proxy@cae36209eea3d7c725df819aecc8a26a6506aa72:app/consumer/lib/email-content-processing.js:893-915",
+    "Sendmux/smtp-proxy@cae36209eea3d7c725df819aecc8a26a6506aa72:app/consumer/lib/email-content-processing.js:1375-1418",
+    "Sendmux/smtp-proxy@cae36209eea3d7c725df819aecc8a26a6506aa72:app/tests/unit/email-content-processing-from-name.test.js",
+    "Sendmux/smtp-proxy@cae36209eea3d7c725df819aecc8a26a6506aa72:app/tests/unit/email-content-processing-reply-to.test.js"
+  ],
+  "units": [
+    {
+      "id": "sending/accounts/index.mdx#account-address-fields#c001",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "CSV field table cell; tables are frozen under the contract. Edited as an intentional factual correction, not humanised.",
+      "eligibleWords": 30,
+      "sourceSha256": "e63849305bfc9a2005a27ae85e5b24534d21c90ee6b267908b069ec362e33a12",
+      "finalSha256": "e63849305bfc9a2005a27ae85e5b24534d21c90ee6b267908b069ec362e33a12",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "repairs": [],
+      "manualChecks": [
+        "from_email replaces the From address on every message for SMTP accounts (consumer From block, both paths); from_name is used only when the message omits a display name.",
+        "SMTP-only qualifier and oauth_user_email note preserved verbatim."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "sending/accounts/index.mdx#account-address-fields#c002",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "CSV field table cell; tables are frozen under the contract. Edited as an intentional factual correction, not humanised.",
+      "eligibleWords": 21,
+      "sourceSha256": "e631b4ad5b8a8c4f36ccbb3959c85833ab3507125d15b32c2b9ccc38ebe6c894",
+      "finalSha256": "e631b4ad5b8a8c4f36ccbb3959c85833ab3507125d15b32c2b9ccc38ebe6c894",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "repairs": [],
+      "manualChecks": [
+        "reply_to_email replaces or adds the Reply-To on every message (consumer Reply-To block, both paths); reply_to_name is used only when the message Reply-To has no name."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "sending/accounts/index.mdx#account-address-fields#c003",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Advanced-settings table cell; tables are frozen under the contract. Edited as an intentional factual correction, not humanised.",
+      "eligibleWords": 12,
+      "sourceSha256": "a5a53bcbd288f8433821e243393c946ac8104334a9ca6652ffaf7ee39ea61a57",
+      "finalSha256": "a5a53bcbd288f8433821e243393c946ac8104334a9ca6652ffaf7ee39ea61a57",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "repairs": [],
+      "manualChecks": [
+        "Matches the SMTP-only From override; connected accounts are described separately in sending/accounts/google-microsoft.mdx:35."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "sending/accounts/index.mdx#account-address-fields#c004",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Advanced-settings table cell; tables are frozen under the contract. Edited as an intentional factual correction, not humanised.",
+      "eligibleWords": 11,
+      "sourceSha256": "399ab0b5be98ced45c41e14c751dcb430dabc58897d186effc284ab5e9c2197d",
+      "finalSha256": "399ab0b5be98ced45c41e14c751dcb430dabc58897d186effc284ab5e9c2197d",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "repairs": [],
+      "manualChecks": [
+        "from_name is a default only; an explicit message sender name wins (v1.2.86 e2d56d6, from-name tests)."
+      ],
+      "disposition": "excluded-frozen"
+    }
+  ],
+  "frozen": ["frontmatter", "headings", "tables (edited cells recorded above)", "existing links and historical prose"],
+  "intentionalFrozenCorrection": "Four table cells now describe from_email and reply_to_email as per-message overrides and from_name/reply_to_name as defaults, matching the consumer; the Reply-To advanced-settings row and every other cell are unchanged.",
+  "blockedManualReviewCount": 0
+}

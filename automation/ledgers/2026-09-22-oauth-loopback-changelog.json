@@ -1,0 +1,59 @@
+{
+  "artifact": "OAuth loopback changelog entry",
+  "reviewedAt": "2026-09-22 11:50",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "f782ea953a53f489d62a12224f28568b2ee37c7da37966d9d7af6be37b505b14",
+  "workflow": "automation/docs-authoring-workflow.md sections 1-7. Placement kept: changelog.mdx newest-first dated entry, navbar Product updates outside navigation tabs. One 21-word source-backed paragraph is below the 50-word whole-piece submission floor; preserve it byte-identically with manual checks. No provider call, padding, or cross-artifact batching.",
+  "sourceEvidence": [
+    "Sendmux/sendmux agent/oauth-loopback: src/server/mcp/authorization.ts:315-338 removes the published-metadata-specific early rejection while retaining native-client and literal-loopback checks; callback host, path, and query still match exactly.",
+    "Sendmux/sendmux .claude/artifacts/oauth-loopback/unit-receipt.json and unit-report.md: captured Codex published-metadata callback-port regression failed before the correction and passed after it; production client acceptance is a separate release gate.",
+    "Sendmux/docs developer-tools/oauth.mdx:30,55,72 already documents variable native loopback callback ports and exact token-exchange callback binding."
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-22-oauth-loopback#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The entire new changelog piece is one paragraph below the 50-word provider submission floor; canonical Inventory prose units requires ineligible-manual as a set without padding or mixing artifacts.",
+      "eligibleWords": 21,
+      "editableCharacters": 136,
+      "sourceSha256": "faf1e614c1f160330491eb5c2abcae20bc5aa8c284d6d9399b16ff61d48e4bad",
+      "finalSha256": "faf1e614c1f160330491eb5c2abcae20bc5aa8c284d6d9399b16ff61d48e4bad",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Codex",
+        "sign-in",
+        "local callback port",
+        "differs",
+        "published OAuth metadata"
+      ],
+      "manualChecks": [
+        "The paragraph describes only the corrected rejection of native Codex requests when the callback port differs from published metadata. It makes no claim that actual production-client acceptance has completed.",
+        "Concise factual English; one standalone paragraph; no bullets, padding, invented limitation, internal infrastructure terms, em dash, or semicolon. OAuth describes the public protocol and Codex the customer client.",
+        "Exact source/final paragraph hash equality verified. Existing frontmatter and historical entries remain byte-identical; Bug fixes is an existing allowed tag and the new entry is first."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "headings",
+    "update label",
+    "tags",
+    "rss title",
+    "historical changelog entries"
+  ],
+  "sourceFiles": {
+    "changelog.mdx": "d39ac4207f982e1cac89b596b006e98f3a5c1da6538c2bd8451d18f935a7885d"
+  },
+  "finalFiles": {
+    "changelog.mdx": "c95c956c0987f225d361e76477fc596c1deca257bfbd755b6cba236cf0acd91d"
+  },
+  "blockedManualReviewCount": 0,
+  "publicationStatus": "prepared-not-published"
+}

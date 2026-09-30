@@ -1,0 +1,54 @@
+{
+  "artifact": "changelog.mdx#2026-09-20-openapi-nullable-anyof",
+  "reviewedAt": "2026-09-20 20:58",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "0d1b9a7487f77638c6f0a5ec02cde52103374ac07f6b0473a60502cf1967f4c8",
+  "workflow": "automation/docs-authoring-workflow.md section 4; the whole piece is one 29-word unit, below the contract's 50-word submission floor, so it is ledgered ineligible-manual as a set",
+  "sourceEvidence": [
+    "Sendmux/sendmux agent/openapi-nullable-anyof@add8a343afb701f3108d19bc41a878cf181dc6af:src/app/api/v1/_lib/schemas/registry.ts (nullableReference = z.union([schema, z.null()]); collapseDuplicateAnyOfBranches in generateOpenApiSpec)",
+    "Sendmux/sendmux@add8a343:src/app/api/v1/_lib/schemas/mailbox-api.ts, mailboxes.ts, providers.ts (the eight …OrNull registrations removed; their 15 field uses wrapped with nullableReference)",
+    "Sendmux/sendmux agent/openapi-nullable-anyof: tests/unit/api/v1-openapi-closed-object-composition.test.ts (RED on v1.8.249: 8 *OrNull components and 17 $ref …OrNull sites; GREEN after) and tests/unit/api/v1-mailbox-message-schema-truth.test.ts (strict JSON Schema 2020-12 accepts null and the referenced model for 13 fields)",
+    "sendmux-docs agent/openapi-nullable-anyof: openapi-app.json regenerated from that commit — 199 → 191 components, 15 anyOf [$ref, null] sites, 0 duplicate branches, Postman collections unchanged"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-20-openapi-nullable-anyof#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The whole piece is one 29-word paragraph, below the 50-word submission floor; the contract ledgers such a piece ineligible-manual as a set, with byte-identical source and manual voice, factual and hard-ban checks.",
+      "eligibleWords": 29,
+      "editableCharacters": 171,
+      "sourceSha256": "95f5ea292571ff1e43f319f601d953200b56c69ec7c60573bd578a7d2def04aa",
+      "finalSha256": "95f5ea292571ff1e43f319f601d953200b56c69ec7c60573bd578a7d2def04aa",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "Mailbox",
+        "Management",
+        "API references",
+        "`null`",
+        "`OrNull`",
+        "canonical model"
+      ],
+      "manualChecks": [
+        "Behaviour matches the change: every nullable field's schema now references the canonical component with null as the alternative, the eight OrNull components published on 20 September are gone from the document, and wire payloads are unchanged.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor, library or language names.",
+        "Entry label, tags, RSS title, frontmatter and every historical entry preserved byte-identically; prose paragraph, no bullet points."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "heading",
+    "update label",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "blockedManualReviewCount": 0
+}

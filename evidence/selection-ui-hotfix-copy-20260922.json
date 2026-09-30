@@ -1,0 +1,288 @@
+{
+  "artifact": "Selection UI hotfix docs copy",
+  "reviewedAt": "2026-09-22 10:32",
+  "productCommit": "5acf6da35073cd33491f3b64ffd8f1b2cb146e97",
+  "releaseChronology": "Product committed at 2026-09-22 10:37 before this docs commit; exact source hashes verified at 2026-09-22 10:39.",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "scope": [
+    "Seven changed Inbox selection reference units and two new release-entry paragraphs.",
+    "Headings, frontmatter, labels and unchanged historical copy remain frozen."
+  ],
+  "eligibleSubmissionCount": 0,
+  "providerAttempts": 0,
+  "blockedManualReviewCount": 0,
+  "units": [
+    {
+      "id": "mailboxes/inbox.mdx#p001",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 23,
+      "sourceTextSha256": "c203b9cc83bd19a01a4e6393e98af596dd5c70ebf7dea1ea93a11d81b04f6431",
+      "finalTextSha256": "c203b9cc83bd19a01a4e6393e98af596dd5c70ebf7dea1ea93a11d81b04f6431",
+      "editableCharacters": 79,
+      "wordCount": 13,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p002",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 25,
+      "sourceTextSha256": "9cd643a9ba576a553c501fcead50abe6e8e0d738e7b9753e2f6fee5b97641d69",
+      "finalTextSha256": "9cd643a9ba576a553c501fcead50abe6e8e0d738e7b9753e2f6fee5b97641d69",
+      "editableCharacters": 75,
+      "wordCount": 11,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p003",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 26,
+      "sourceTextSha256": "2d8b310ed7d4d135e9e900f63ec906cb9ed3937a1d6967267e9e46fe0bd51616",
+      "finalTextSha256": "2d8b310ed7d4d135e9e900f63ec906cb9ed3937a1d6967267e9e46fe0bd51616",
+      "editableCharacters": 77,
+      "wordCount": 12,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p004",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 27,
+      "sourceTextSha256": "aad9a8d2a52b64da61ecb70b08d2873c5635c4f0480f515988a2c7ab4bda65c4",
+      "finalTextSha256": "aad9a8d2a52b64da61ecb70b08d2873c5635c4f0480f515988a2c7ab4bda65c4",
+      "editableCharacters": 190,
+      "wordCount": 25,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p005",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 30,
+      "sourceTextSha256": "0d546dc490a2d0679d5d71d6dad106d0d440553867caa91436edefc34113d164",
+      "finalTextSha256": "0d546dc490a2d0679d5d71d6dad106d0d440553867caa91436edefc34113d164",
+      "editableCharacters": 203,
+      "wordCount": 30,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p006",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 34,
+      "sourceTextSha256": "ae1be543ea64db2e26443eafe6d5f9a7e0a6fc56f329dfda529847cef3964f45",
+      "finalTextSha256": "ae1be543ea64db2e26443eafe6d5f9a7e0a6fc56f329dfda529847cef3964f45",
+      "editableCharacters": 143,
+      "wordCount": 24,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "mailboxes/inbox.mdx#p007",
+      "sourcePath": "mailboxes/inbox.mdx",
+      "sourceLine": 37,
+      "sourceTextSha256": "63a85a4425d04cb3dbf8caafc75ac209acd476f9267b5c067d9c852d76f1888a",
+      "finalTextSha256": "63a85a4425d04cb3dbf8caafc75ac209acd476f9267b5c067d9c852d76f1888a",
+      "editableCharacters": 220,
+      "wordCount": 37,
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference instruction or scope definition; every clause is a source-backed assertion or reader instruction, with no narrative or promotional prose. Scoped docs workflow enables this disposition.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/inbox-selection-toolbar.tsx:50-193 scope options, visible IDs, filtered matching and toolbar replacement",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/inboxes/_components/inboxes-page-client.tsx:1171-1207 query/filter chips and 4435-4450 keyboard search restoration",
+        "src/hooks/use-inbox-dashboard-selection.ts:23-27 preserves mailbox/folder and drops filters for all scope"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "changelog.mdx#p008",
+      "sourcePath": "changelog.mdx",
+      "sourceLine": 10,
+      "sourceTextSha256": "3e9fff22c21c3453f24529012f178f81edece47e28d45b2b9897d095c562cfd1",
+      "finalTextSha256": "3e9fff22c21c3453f24529012f178f81edece47e28d45b2b9897d095c562cfd1",
+      "editableCharacters": 149,
+      "wordCount": 20,
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "All changed body prose in this standalone release entry totals 39 words, below the 50-word submission floor. Historical entries are frozen and are not mixed into this artifact.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/dashboard-selection-control.tsx:31-51 combined control and scope labels",
+        "src/components/inbox-selection-toolbar.tsx:57-195 selection replacement/count menu/filter chips",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/accounts/_components/bulk-action-toolbar.tsx: Update Variables disabled without selection spinner"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "changelog.mdx#p009",
+      "sourcePath": "changelog.mdx",
+      "sourceLine": 12,
+      "sourceTextSha256": "fec7c8c5f6f78d4a64c04d075ccf0f7acdfe0a3420b6feeb7eed092a48db0e1a",
+      "finalTextSha256": "fec7c8c5f6f78d4a64c04d075ccf0f7acdfe0a3420b6feeb7eed092a48db0e1a",
+      "editableCharacters": 138,
+      "wordCount": 19,
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "All changed body prose in this standalone release entry totals 39 words, below the 50-word submission floor. Historical entries are frozen and are not mixed into this artifact.",
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "changedFromSource": false,
+      "protectedAssertions": [
+        "src/components/dashboard-selection-control.tsx:31-51 combined control and scope labels",
+        "src/components/inbox-selection-toolbar.tsx:57-195 selection replacement/count menu/filter chips",
+        "src/app/(dashboard)/teams/[teamSlug]/(restricted)/accounts/_components/bulk-action-toolbar.tsx: Update Variables disabled without selection spinner"
+      ],
+      "manualChecks": [
+        "Verified wording, limits, conditions and labels against the cited source.",
+        "Checked concise voice, Australian English, confidentiality and no invented claims.",
+        "Preserved reviewed source bytes exactly."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "sourceFiles": {
+    "changelog.mdx": "b657feb31fd5349d1bf049ff5822f18c2476379361cd61c699744a354e519747",
+    "mailboxes/inbox.mdx": "8a94add042496652219c6cbe89f5b8846b306c9435fe7e8105017416f583d96a"
+  },
+  "placement": {
+    "path": "Guides -> Receiving -> Mailboxes -> Manage Inbox conversations",
+    "disposition": "keep",
+    "readerTask": "Select and update conversations within the active mailbox/folder scope",
+    "siblingFit": "Mailbox provisioning, conversation management and push delivery answer distinct tasks at the same level.",
+    "sequenceFit": "Receiving follows Sending before configuration and operations; no navigation changes."
+  }
+}

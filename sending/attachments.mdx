@@ -27,10 +27,10 @@ Upload bytes directly when your client has the API key:
 SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
 ATTACHMENT_ID="$(
   curl -sS -X POST "https://smtp.sendmux.ai/api/v1/emails/attachments?filename=invoice.pdf" \
-    -H "Authorization: Bearer smx_mbx_your_key_here" \
+    --header @- \
     -H "Content-Type: application/pdf" \
     -H "Content-Length: $SIZE_BYTES" \
-    --data-binary @invoice.pdf \
+    --data-binary @invoice.pdf <<< "Authorization: Bearer $SENDMUX_API_KEY" \
   | jq -r '.data.attachment_id'
 )"
 ```
@@ -55,32 +55,48 @@ Use a delegated upload when a browser, hosted agent, or another remote client ne
 SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
 SHA256="$(shasum -a 256 invoice.pdf | awk '{print $1}')"
 
-curl -X POST https://smtp.sendmux.ai/api/v1/emails/attachment-uploads \
-  -H "Authorization: Bearer smx_mbx_your_key_here" \
-  -H "Content-Type: application/json" \
-  -d "{
-    \"filename\": \"invoice.pdf\",
-    \"content_type\": \"application/pdf\",
-    \"size_bytes\": $SIZE_BYTES,
-    \"sha256\": \"$SHA256\"
-  }"
+UPLOAD_INTENT="$({
+  curl -sS -X POST https://smtp.sendmux.ai/api/v1/emails/attachment-uploads \
+    --header @- \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"filename\": \"invoice.pdf\",
+      \"content_type\": \"application/pdf\",
+      \"size_bytes\": $SIZE_BYTES,
+      \"sha256\": \"$SHA256\"
+    }" <<< "Authorization: Bearer $SENDMUX_API_KEY"
+})"
+
+ATTACHMENT_ID="$(
+  printf '%s' "$UPLOAD_INTENT" \
+  | jq -r '
+      .data as $upload
+      | "request = \($upload.method | @json)",
+        "url = \($upload.upload_url | @json)",
+        ($upload.headers | to_entries[] | "header = \("\(.key): \(.value)" | @json)")
+    ' \
+  | curl -sS --config - --data-binary @invoice.pdf \
+  | jq -r '.data.attachment_id'
+)"
 ```
 
-The response includes an `upload_url` and required `headers`, including `Content-Type` and exact `Content-Length`. Send a `PUT` request to that URL with the exact file bytes and returned headers. The upload token can write only that attachment, expires quickly, and does not grant send access.
+The intent supplies the upload method, short-lived `upload_url`, `max_size_bytes`, and every required header. The upload response supplies the `attachment_id`. The pipeline feeds the capability URL and headers to curl through standard input, so they do not enter child-process arguments.
+
+The upload token can write only that attachment, expires quickly, and does not grant send access.
 
 ## Agent and MCP workflows
 
-For local MCP clients, use `sending_upload_attachment` with `file_path` before `sending_send_email` or `sending_send_email_batch`. The tool reads the local file from a client-approved root and returns an `attachment_id`.
+For real Sending files in hosted or local MCP, call `sending_create_attachment_upload` with `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, honour the returned `max_size_bytes`, then pass the returned `attachment_id` to `sending_send_email` or `sending_send_email_batch`.
 
-For hosted MCP clients or shell-capable agents, use `sending_create_attachment_upload`, upload the file bytes to the returned `upload_url` with the returned headers, then pass the resulting `attachment_id` in `sending_send_email` or `sending_send_email_batch`. Do not place file bytes or large base64 strings in the prompt.
+For real Mailbox files in hosted or local MCP, call `mailbox_upload_attachment` with `presign_upload_url=true`, `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, then send with the returned `blob_id`. The presigned request cap is 7,500,000 bytes.
 
-For mailbox sends, use `mailbox_upload_attachment` first and send with the returned `blob_id`. For inbound mailbox attachments, use `mailbox_read_attachment` first when you need text-like content.
+Use MCP `content_base64` only for tiny agent-authored content. Decoded content is capped at 32 KiB: it is not the normal path for real files. SDK and CLI file helpers can accept local paths because they run outside MCP model context. For inbound Mailbox attachments, call `mailbox_read_attachment` first when you need text-like content.
 
 ## Mailbox upload before sending
 
 Mailbox send workflows can also upload a file first and reference the returned blob ID when sending. Direct mailbox uploads and presigned mailbox uploads use the same per-attachment cap.
 
-For local tools and SDK helpers, send the file path and let the tool read the bytes locally. For shell-capable or hosted agents, mint a short-lived presigned upload URL, then upload the file bytes with the exact returned method, headers, content type, and content length.
+SDK and CLI helpers can read a local path. MCP clients instead request a short-lived presigned upload URL, then upload the bytes outside model context with the exact returned method, headers, content type, and content length.
 
 ## Allowed files
 
@@ -162,7 +178,7 @@ Do not construct attachment URLs manually.
   <Card title="Mailbox push delivery" icon="radio" href="/mailboxes/push-delivery">
     Receive live mailbox events and then download attachments from message metadata.
   </Card>
-  <Card title="Sending errors" icon="triangle-alert" href="/sending-api/errors">
+  <Card title="Sending errors" icon="triangle-exclamation" iconType="solid" href="/sending-api/errors">
     Handle validation and payload size errors.
   </Card>
 </Columns>

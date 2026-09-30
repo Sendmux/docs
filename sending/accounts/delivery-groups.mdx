@@ -1,6 +1,6 @@
 ---
 title: "Delivery groups"
-description: "Group sending providers and route selected keys or mailboxes through them."
+description: "Group sending providers, scope credentials, and restrict individual messages to authorised groups."
 keywords:
   [
     "delivery groups",
@@ -16,13 +16,46 @@ Delivery groups let you route a sending key or mailbox through a named set of pr
 
 ## How routing works
 
-Routing is chosen by the key or mailbox you authenticate with. There is no per-request header or body field that selects a provider or delivery group.
+The key or mailbox you authenticate with defines the providers available to you. An optional per-message delivery-group hint narrows that selection.
 
 | Scope                    | Result                                                  |
 | ------------------------ | ------------------------------------------------------- |
 | **All active providers** | Sendmux can use any active provider on the team.        |
 | **Specific providers**   | Sendmux can use only the providers selected on the key. |
 | **Delivery group**       | Sendmux can use only providers in the selected group.   |
+
+Groups have no activation setting. Their availability depends on eligible member providers, including provider status and sending limits. An empty eligible pool never falls back to providers outside the requested groups.
+
+## Restrict one message
+
+For HTTP, set `delivery_group` to one group public ID or a nonempty array in the send body. In a batch, set it on each message. For SMTP, use one `X-Sendmux-Delivery-Group` header with comma-separated public IDs.
+
+Sendmux trims surrounding whitespace, removes duplicate IDs, and accepts at most 50 groups. Empty entries are invalid. SMTP also rejects repeated occurrences of the header and strips the header before delivery. HTTP callers must use the dedicated field; the header is reserved in `custom_headers`.
+
+The credential's scope determines how the hint is applied:
+
+| Credential scope | Hint behaviour |
+| --- | --- |
+| **All active providers** (`all`) | Select only eligible providers in the requested team-owned groups. |
+| **Delivery group(s)** (`group`) | Requested IDs must be a subset of the credential's groups. |
+| **Specific providers** (`providers`) | Reject the hint. |
+| Shared-domain override | Ignore the hint and retain the forced route, with a warning. |
+| No hint | Retain the credential's existing routing behaviour. |
+
+Shared-domain routing takes precedence, even if the hint is malformed. Otherwise, Sendmux validates syntax, credential scope and group subset, then team-owned existence. A valid group ID from another team is treated as unknown.
+
+Routing failures use these codes:
+
+| Condition | HTTP status and code | SMTP |
+| --- | --- | --- |
+| Malformed or ambiguous hint | `422 invalid_delivery_group` | Permanent `550` |
+| Unknown or other-team group | `422 delivery_group_not_found` | Permanent `550` |
+| Outside the credential's groups | `403 delivery_group_not_allowed` | Permanent `550` |
+| Provider-scoped credential | `422 delivery_group_scope_invalid` | Permanent `550` |
+
+Batch responses retain errors at each message's input index, including when every message fails routing. Temporary service failures remain retryable.
+
+Delivery logs expose the applied public IDs in nullable `delivery_group`. Absent, ignored, and historical hints have `null`. Later status updates preserve the applied groups.
 
 ## Create a group
 
@@ -47,7 +80,7 @@ Routing is chosen by the key or mailbox you authenticate with. There is no per-r
 
 Create or edit a sending key and choose **Delivery group(s)** under sending scope. Select one or more groups.
 
-If a selected group has no active providers, sends through that key fail until a provider is added or reactivated.
+If none of the selected groups has an eligible provider, sends through that key fail until a provider is added or becomes eligible again.
 
 ## Route a mailbox
 

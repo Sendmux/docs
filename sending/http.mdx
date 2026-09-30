@@ -9,8 +9,8 @@ import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 Use the HTTP Sending API for new integrations, batch sending, and retry-safe requests.
 
 <Info>
-  Routing follows the send-only key or mailbox key you authenticate with. You
-  cannot choose a provider or delivery group inside an individual send request.
+  Routing follows the credential you authenticate with. Use `delivery_group` to
+  restrict an individual message to authorised delivery groups.
 </Info>
 
 <SharedSesPolicy />
@@ -74,6 +74,20 @@ Queued items include a `message_id`; failed items include `error` details.
 
 ## Useful options
 
+### Select delivery groups
+
+Add `delivery_group` to a single-send body or to each message in `messages` for a batch. It accepts one public ID or a nonempty array of public IDs:
+
+```json
+{ "delivery_group": ["dgrp_group_a", "dgrp_group_b"] }
+```
+
+Replace the example IDs with your groups' public IDs. Use at most 50 groups; surrounding whitespace is trimmed and repeated IDs are deduplicated. Each batch message can select different groups, within the credential's scope.
+
+Use the dedicated field for HTTP requests. `X-Sendmux-Delivery-Group` is reserved and cannot be supplied through `custom_headers`. See [Delivery groups](/sending/accounts/delivery-groups#restrict-one-message) for scope rules and shared-domain overrides.
+
+### Other options
+
 | Option            | Use it for                                                           |
 | ----------------- | -------------------------------------------------------------------- |
 | `cc`, `bcc`       | Add recipients, up to 50 recipients total across To, CC, and BCC.   |
@@ -82,6 +96,8 @@ Queued items include a `message_id`; failed items include `error` details.
 | `custom_headers`  | Add custom `X-*` headers to the outgoing message.                    |
 | `attachments`     | Attach uploaded `attachment_id` refs, or tiny inline base64 content. |
 | `Idempotency-Key` | Safely retry a request without sending twice.                        |
+
+Use [template variables](/sending/template-variables) in the subject or body to insert values from the selected sending account.
 
 See the [Sending API reference](/sending-api/introduction) for the full schema.
 

@@ -1,0 +1,64 @@
+{
+  "artifact": "changelog.mdx#2026-09-17-reply-to-preserved",
+  "reviewedAt": "2026-09-17 22:29",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "7e8f8150d3e75414aa962bd01e09d0efad1a0be5f6e0e18e856c3e547862ea3e",
+  "sourceEvidence": [
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/email-content-processing.js:893-915",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/email-content-processing.js:1390-1418",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/provider-cache.js:128-132",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/consumer/lib/provider-cache.js:253",
+    "Sendmux/smtp-proxy@654509a7a4facb686c263999d4e3c20a26928641:app/tests/unit/email-content-processing-reply-to.test.js"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-17-reply-to-preserved#p001",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry has 46 eligible words across two adjacent paragraphs, below the 50-word submission floor; source preserved byte-identically without padding or mixing artifacts.",
+      "eligibleWords": 28,
+      "editableCharacters": 189,
+      "sourceSha256": "052d5028ff5fe175387d1df26242ed18455c523a753f0fa3e5031568dbf5ce79",
+      "finalSha256": "052d5028ff5fe175387d1df26242ed18455c523a753f0fa3e5031568dbf5ce79",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": ["Reply-To", "unchanged", "no Reply-To override", "Previously", "domain", "sending domain"],
+      "manualChecks": [
+        "Behaviour matches both consumer paths: Reply-To untouched unless the account sets reply_to_email; the former domain replacement is removed and covered by the regression test on both paths.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor or relay names.",
+        "Historical entries, frontmatter, update order, tags, RSS titles and links unchanged; same-day label reuse follows existing file precedent.",
+        "Mintlify build validation, confidentiality and external-link gates passed on the committed file."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "changelog.mdx#2026-09-17-reply-to-preserved#p002",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "The new changelog entry has 46 eligible words across two adjacent paragraphs, below the 50-word submission floor; source preserved byte-identically without padding or mixing artifacts.",
+      "eligibleWords": 18,
+      "editableCharacters": 109,
+      "sourceSha256": "520fb9ec25aa9ba0c901e969ade31667960d393a981a1b51dac58534153873e2",
+      "finalSha256": "520fb9ec25aa9ba0c901e969ade31667960d393a981a1b51dac58534153873e2",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": ["Reply-To Name", "default display name", "has none"],
+      "manualChecks": [
+        "Default-only semantics match the code: reply_to_name is applied only when the message Reply-To carries no name, and an explicit message name wins; the provider cache now loads the field.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure details.",
+        "Wording is consistent with sending/accounts/index.mdx, which already describes reply_to_name as a default display name."
+      ],
+      "disposition": "ineligible-manual"
+    }
+  ],
+  "frozen": ["frontmatter", "heading", "update label", "tags", "rss title", "historical entries"],
+  "blockedManualReviewCount": 0
+}

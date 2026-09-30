@@ -4,7 +4,7 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="16 September 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Pro resource allowances and approval requests" }}>
+<Update label="30 September 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Pro resource allowances and approval requests" }}>
   ## Pro resource allowances
 
 Pro teams see current usage and allowances for mailboxes, domains, sending accounts, webhooks, credentials, and members in Billing and on resource pages.
@@ -16,6 +16,208 @@ At 80% usage, permitted team members can select **Request increase**. A Sendmux 
 Pro allowances survive subscription renewals and downgrades followed by upgrades. Concurrent rotations of the same API key produce one replacement. Billing transaction history has a consistent empty state on desktop and mobile.
 
 Capacity displays now account for resources being created.
+
+</Update>
+
+<Update label="30 September 2026" tags={["Improvements"]} rss={{ title: "Optional Pro upgrade for paid legacy teams" }}>
+  ## Improvements
+
+Paid legacy teams can choose **Upgrade to Pro** beside their top-up controls on **Billing**. The Pro description lists outgoing email, incoming mailbox deliveries and storage alongside the $7 monthly plan price.
+
+</Update>
+
+<Update label="30 September 2026" tags={["Improvements"]} rss={{ title: "Legacy billing cutover" }}>
+  ## Improvements
+
+Legacy teams use current usage rates from 30 September 2026 at 05:00 UTC. Unpaid teams use Free limits; extra Free teams are read-only until upgraded. Resources, balances and paid access remain. No team was automatically subscribed to Pro. See [billing](/account/billing).
+
+</Update>
+
+<Update label="30 September 2026" tags={["Bug fixes"]} rss={{ title: "Inbox unread refresh" }}>
+  ## Bug fixes
+
+Fixed unread refresh getting stuck for some Inboxes.
+
+</Update>
+
+<Update label="29 September 2026" tags={["Improvements", "Bug fixes"]} rss={{ title: "Dashboard update notices and Inbox label fixes" }}>
+  ## Improvements
+
+The dashboard shows when an update is available. Its **Reload** button warns about unsaved work, with **Keep editing** and **Discard and reload** options.
+
+  ## Bug fixes
+
+If creating an Inbox label fails, its name and colour stay in the form.
+
+</Update>
+
+<Update label="29 September 2026" tags={["Bug fixes"]} rss={{ title: "Request IDs for MCP grant errors" }}>
+  ## Bug fixes
+
+MCP grant errors now include a request ID.
+
+</Update>
+
+<Update label="24 September 2026" tags={["Bug fixes"]} rss={{ title: "Inbox bulk update feedback" }}>
+  ## Bug fixes
+
+In **Inbox**, the progress bar stays until the conversation list reflects a successful bulk change. A confirmation then appears and the bar clears. Failed and partly successful changes stay visible for review, with **Dismiss** beside the summary.
+
+</Update>
+
+<Update label="24 September 2026" tags={["Improvements"]} rss={{ title: "Provider tags in sender names" }}>
+  ## Improvements
+
+Provider tags now work in `From`, `Reply-To` and `Sender` display names, including encoded names. Subject and supported body substitution continue unchanged. Address components and all other headers remain excluded. See [template variables](/sending/template-variables) for the complete scope and safety rules.
+
+</Update>
+
+<Update label="22 September 2026" tags={["Bug fixes"]} rss={{ title: "Bulk account update confirmations" }}>
+  ## Bug fixes
+
+After a fully successful bulk update, **Accounts** shows a confirmation and clears the progress bar. **Update variables** also clears its fields for the next selection. Failed variable updates keep their values and results for review.
+
+**Update Group** now places its label above a full-width dropdown.
+
+</Update>
+
+<Update label="22 September 2026" tags={["Bug fixes"]} rss={{ title: "Sending connection checks after MCP sign-in" }}>
+  ## Bug fixes
+
+Fixed Sending connection checks returning an authentication error after successful MCP sign-in when the client uses published OAuth metadata.
+
+</Update>
+
+<Update label="22 September 2026" tags={["Bug fixes"]} rss={{ title: "Codex sign-in with local callback ports" }}>
+  ## Bug fixes
+
+Fixed Codex sign-in requests being rejected when the local callback port differs from the port in the client's published OAuth metadata.
+
+</Update>
+
+<Update label="22 September 2026" tags={["Bug fixes"]} rss={{ title: "Billing, signup and mailbox reliability fixes" }}>
+  ## Bug fixes
+
+Fixed inbound email usage charges getting stuck.
+
+Signup rejects email addresses longer than 254 characters.
+
+Dashboard requests stop loading when a connection fails, so you can retry.
+
+New mailboxes activate only after mail access is verified.
+
+</Update>
+
+<Update label="22 September 2026" tags={["Improvements"]} rss={{ title: "Clearer account and Inbox selection" }}>
+  ## Improvements
+
+Account selection uses one aligned dropdown and clearer scope labels. **Update Variables** stays disabled without a spinner while selection prepares.
+
+Inbox selection replaces search with actions and removable filters. Its count menu selects loaded, unread, matching, or all conversations.
+
+</Update>
+
+<Update label="22 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP sign-in with unsupported grant types" }}>
+  ## Bug fixes
+
+Fixed MCP sign-in for clients whose published OAuth client metadata lists grant types our authorisation server does not offer, such as Claude. The supported grant types are now kept instead of the connection request being refused, so custom connectors that use the client's published identity or automatic registration can sign in.
+
+</Update>
+
+<Update label="21 September 2026" tags={["Improvements"]} rss={{ title: "Complete selections and background bulk changes" }}>
+  ## Improvements
+
+In **Accounts**, you can select the visible page, every matching account, or all accounts before changing account settings. The **Accounts** menu exports all custom accounts. Large updates continue in the background and report completed and failed account counts.
+
+In **Inbox**, you can select conversations beyond the newest 50 shown in the list, then archive, delete, mark, star, or label the selection when every mailbox supports the action. Changing the mailbox, folder, search, or filters clears the selection.
+
+Bulk account variable modes now use the labels **Add or update**, **Remove**, and **Replace all**.
+
+</Update>
+
+<Update label="20 September 2026" tags={["Improvements"]} rss={{ title: "Nullable fields reference their canonical model" }}>
+  ## Improvements
+
+Nullable object fields in the Mailbox and Management API references now reference their canonical model and accept `null`, instead of pointing at a separate `OrNull` copy of that model.
+
+</Update>
+
+<Update label="20 September 2026" tags={["Bug fixes"]} rss={{ title: "Message reply headers are documented" }}>
+  ## Bug fixes
+
+The API reference for a single mailbox message now documents the `message_id`, `in_reply_to`, `references` and `reply_to` fields it has always returned. Clients that validate responses against the published schema no longer reject a message read.
+
+Nullable fields across the mailbox and management references now describe themselves correctly, so a message without a sender, a conversation without a last message, and a mailbox without a send scope all validate as documented.
+
+</Update>
+
+<Update label="20 September 2026" tags={["New features"]} rss={{ title: "Account variables and per-message routing in the SDKs" }}>
+  ## Account variables and routing in the SDKs
+
+New major versions of the TypeScript, Python, Ruby and Go SDKs read and write sending-account variables and set a delivery group per message. Account lists return a summary entry, so fetch one account to read its variables. Go moves to the `sendmux.ai/go/v2` module path. Each package README carries a 1.x migration guide.
+
+</Update>
+
+<Update label="19 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP tool results validate against their schemas" }}>
+  ## Bug fixes
+
+Fixed several hosted MCP tools — mailbox details, message and thread reads, and webhook creation — returning results that failed schema validation in MCP clients.
+
+</Update>
+
+<Update label="19 September 2026" tags={["Bug fixes"]} rss={{ title: "Attachment uploads accept generic content types" }}>
+  ## Bug fixes
+
+Fixed delegated attachment uploads rejecting files sent with a generic binary content type; the content type declared when the upload was created is now used, and only an explicitly conflicting type is refused.
+
+</Update>
+
+<Update label="18 September 2026" tags={["Bug fixes"]} rss={{ title: "MCP token exchange without a resource indicator" }}>
+  ## Bug fixes
+
+Fixed sign-in and token refresh for MCP clients such as Atlassian that leave out the OAuth resource indicator on the token request; tokens are still issued only for the server the user approved.
+
+</Update>
+<Update label="17 September 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Account variables and per-message delivery groups" }}>
+  ## Account variables
+
+Each sending account can store custom template variables, including shared Amazon SES accounts. Edit one account or bulk merge, replace or remove keys. `[DP_VAR_SIGNATURE_URL]` inserts the selected account’s `signature_url` in the subject or body; values are inserted raw without escaping or recursive expansion. See [template variables](/sending/template-variables).
+
+  ## Per-message delivery groups
+
+Choose delivery groups per message with the HTTP `delivery_group` field or SMTP `X-Sendmux-Delivery-Group` header. Hints narrow the eligible providers within the credential’s scope; shared-domain senders keep their forced route. Applied group IDs appear in delivery logs and exports. See [per-message routing](/sending/accounts/delivery-groups#restrict-one-message).
+
+  ## Bug fixes
+
+Template tags in encoded subjects are now substituted before delivery.
+
+Bulk **Replace all** edits with no keys require confirmation before clearing the selected accounts' variables.
+
+Template tags are no longer substituted inside attachments, signed or encrypted message parts, or attached emails.
+
+</Update>
+
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "Hosted MCP OAuth registration" }}>
+  ## Bug fixes
+
+Hosted MCP clients using automatic OAuth registration can now register without a Sendmux-specific resource. Modern clients may identify themselves with a public HTTPS metadata document. Sendmux binds each approval and token to the exact selected service resource, so REST, MCP and A2A tokens remain separate.
+
+</Update>
+
+
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "Reply-To addresses preserved" }}>
+  ## Bug fixes
+
+Reply-To addresses on your messages are now delivered unchanged when the sending account has no Reply-To override. Previously the domain could be replaced with the account's sending domain.
+
+A sending account's Reply-To Name now applies as the default display name when a message's Reply-To has none.
+
+</Update>
+
+<Update label="17 September 2026" tags={["Bug fixes"]} rss={{ title: "OAuth fallback compatibility" }}>
+  ## Bug fixes
+
+MCP connections support standard OAuth fallback URLs for client registration, authorisation and token exchange. Existing OAuth URLs and access controls are unchanged.
 
 </Update>
 

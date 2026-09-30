@@ -1,0 +1,85 @@
+{
+  "artifact": "changelog.mdx#2026-09-20-mailbox-message-schema-truth",
+  "reviewedAt": "2026-09-20 18:22",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "0d1b9a7487f77638c6f0a5ec02cde52103374ac07f6b0473a60502cf1967f4c8",
+  "workflow": "automation/docs-authoring-workflow.md section 4 (enables ineligible-technical for one atomic technical-reference unit)",
+  "sourceEvidence": [
+    "Sendmux/sendmux agent/mailbox-message-schema-truth@8fa8c3e3c85de372389a629b0fe723615a4180d0:src/server/api-v1/mailbox-api.ts:707-722 (mapMessageDetail emits message_id, in_reply_to, references, reply_to)",
+    "Sendmux/sendmux@8fa8c3e3c85de372389a629b0fe723615a4180d0:src/app/api/v1/_lib/schemas/mailbox-api.ts:144-176 (MailboxMessage now declares those four fields)",
+    "Sendmux/sendmux@8fa8c3e3c85de372389a629b0fe723615a4180d0:src/app/api/v1/_lib/schemas/mailbox-api.ts:29,123,220,425 (MailboxAddressOrNull, MailboxMessageSummaryOrNull replace inline .nullable() on registered schemas)",
+    "Sendmux/sendmux@8fa8c3e3c85de372389a629b0fe723615a4180d0:src/app/api/v1/_lib/schemas/mailboxes.ts:29-31 (MailboxSendScope carries its own nullability)",
+    "Sendmux/sendmux agent/mailbox-message-schema-truth: tests/unit/api/v1-mailbox-message-schema-truth.test.ts (RED on origin/main: \"must NOT have additional properties ... message_id, in_reply_to, references, reply_to\" and \"/from ... must be object\"; GREEN after the schema change)",
+    "sendmux-sdk-l11c-mcp/.claude/l11c-report.md section \"Residual failure\" (mailbox_get_message rejected for the same four properties on the live MCP cohort)"
+  ],
+  "units": [
+    {
+      "id": "changelog.mdx#2026-09-20-mailbox-message-schema-truth#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic reference paragraph. Both clauses are source-backed assertions about the published response schema and the client behaviour that follows from it; no narrative, transitional or promotional prose, and every editable word carries the assertion.",
+      "eligibleWords": 33,
+      "editableCharacters": 199,
+      "sourceSha256": "43e5020b65454631d38a701d413d76d1c7a21c50cab094ebef63c764f680e60b",
+      "finalSha256": "43e5020b65454631d38a701d413d76d1c7a21c50cab094ebef63c764f680e60b",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`message_id`",
+        "`in_reply_to`",
+        "`references`",
+        "`reply_to`",
+        "API reference",
+        "published schema"
+      ],
+      "manualChecks": [
+        "Behaviour matches the fix: mapMessageDetail already returned all four fields, MailboxMessage now declares them, and the wire payload is unchanged — only the published declaration moved.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor, library or language names.",
+        "Field names, entry order, label, tags, RSS title, frontmatter and every historical entry preserved byte-identically."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "changelog.mdx#2026-09-20-mailbox-message-schema-truth#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "Atomic reference paragraph. Each named case is a source-backed assertion about one published nullable field; no narrative, transitional or promotional prose, and every editable word carries the assertion.",
+      "eligibleWords": 35,
+      "editableCharacters": 228,
+      "sourceSha256": "1c9d62b5ec0542cea0d2ac300e0473326f57b1a314b6dbdb89389e960c97c3ea",
+      "finalSha256": "1c9d62b5ec0542cea0d2ac300e0473326f57b1a314b6dbdb89389e960c97c3ea",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "mailbox",
+        "management",
+        "sender",
+        "last message",
+        "send scope"
+      ],
+      "manualChecks": [
+        "Each named case traces to one published field that previously failed validation on null: MailboxMessage.from, MailboxThread.last_message and Mailbox.send_scope; proven by the added nullable cases in tests/unit/api/v1-mailbox-message-schema-truth.test.ts.",
+        "Concise factual Australian English; no hype, invented claims or internal infrastructure, vendor, library or language names.",
+        "Reader-facing field semantics unchanged; no qualification, limit or prerequisite altered."
+      ],
+      "disposition": "ineligible-technical"
+    }
+  ],
+  "frozen": [
+    "frontmatter",
+    "heading",
+    "update label",
+    "tags",
+    "rss title",
+    "historical entries"
+  ],
+  "blockedManualReviewCount": 0
+}

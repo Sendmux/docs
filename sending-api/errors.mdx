@@ -94,6 +94,24 @@ Common causes:
 - Uploaded attachment refs that expired or belong to a different team
 - Batch exceeds 100 messages
 
+### invalid_delivery_group
+
+**HTTP 422**: The per-message `delivery_group` hint is malformed or ambiguous. Supply one group public ID or a nonempty array, with at most 50 groups and no empty entries. Use the dedicated field instead of `X-Sendmux-Delivery-Group` in `custom_headers`. `retryable` is `false`.
+
+### delivery_group_not_found
+
+**HTTP 422**: A requested delivery group does not exist or belongs to another team. `retryable` is `false`.
+
+### delivery_group_not_allowed
+
+**HTTP 403**: A requested group is outside the credential's configured delivery groups. Narrow the hint to an authorised subset. `retryable` is `false`.
+
+### delivery_group_scope_invalid
+
+**HTTP 422**: The credential is scoped to specific providers and cannot use a delivery-group hint. Omit the hint or use a credential with an appropriate group or all-provider scope. `retryable` is `false`.
+
+These routing errors remain indexed in batch results, including when every message fails routing. Shared-domain sending ignores the hint before routing validation. See [Delivery groups](/sending/accounts/delivery-groups#restrict-one-message).
+
 ### idempotency_conflict
 
 **HTTP 409**: Returned when the same `Idempotency-Key` request header is reused while the original request is still running, or with a request body that does not match the original body fingerprint. Wait and retry for an in-flight request. Use a fresh key for a different request.
