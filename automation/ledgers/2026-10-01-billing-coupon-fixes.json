@@ -1,0 +1,268 @@
+{
+  "contract": "AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "automation/docs-authoring-workflow.md",
+  "scope": "Manual top-up promo-code guidance, credential capacity and billing-restriction guidance, and candidate billing-coupon changelog; historical ledgers byte-identical.",
+  "reviewedAt": "2026-10-01T05:34:54.885598+00:00",
+  "blockedManualReview": 0,
+  "rows": [
+    {
+      "id": "account/api-keys.mdx#credential-limit",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 199,
+      "sourceSha256": "27a0b60688e92635721808060f7c7427cf136104d19c5fe592df127846ce3ae7",
+      "finalSha256": "27a0b60688e92635721808060f7c7427cf136104d19c5fe592df127846ce3ae7",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed piece in this artifact is 38 words, below the canonical 50-word submission floor; unrelated prose was not added to reach it.",
+      "sourceEvidence": [
+        "src/server/team-resource-limits.ts:632-655",
+        "src/actions/api-key-actions.ts:38-44",
+        "src/app/api/v1/mailboxes/[public_id]/keys/route.ts:119-127"
+      ],
+      "protectedAnchors": [
+        "Free",
+        "2 active credentials",
+        "connected apps",
+        "Pro",
+        "below"
+      ],
+      "frozenInline": [
+        "**2 active credentials**",
+        "[Team\n  limits](/account/team-limits)"
+      ]
+    },
+    {
+      "id": "api/introduction.mdx#credential-limit",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 368,
+      "sourceSha256": "bc3d815b334bebb38c8f81d44247daf9c41c298b64bdd002737e3c77067432e9",
+      "finalSha256": "bc3d815b334bebb38c8f81d44247daf9c41c298b64bdd002737e3c77067432e9",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-technical",
+      "eligibilityReason": "One atomic credential-authentication reference paragraph; every clause is a source-backed assertion or reader instruction, every editable word carries that assertion or instruction, and no narrative or promotional prose occurs. Scoped documentation workflow explicitly enables this disposition.",
+      "sourceEvidence": [
+        "src/server/team-resource-limits.ts:632-655",
+        "src/actions/api-key-actions.ts:38-44",
+        "src/app/api/v1/mailboxes/[public_id]/keys/route.ts:119-127"
+      ],
+      "protectedAnchors": [
+        "Free",
+        "2 active credentials",
+        "Pro",
+        "below",
+        "API keys",
+        "connected apps"
+      ],
+      "frozenInline": [
+        "**Settings > API Keys**",
+        "**2 active credentials**",
+        "[Team limits](/account/team-limits)"
+      ]
+    },
+    {
+      "id": "account/team-limits.mdx#credential-capacity",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 109,
+      "sourceSha256": "18e8801cde731cf7a95af1f04f3de8684279d8b28908f6e7c6f243db694370f9",
+      "finalSha256": "18e8801cde731cf7a95af1f04f3de8684279d8b28908f6e7c6f243db694370f9",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed piece in this artifact is 17 words, below the canonical 50-word submission floor; unrelated prose was not added to reach it.",
+      "sourceEvidence": [
+        "src/server/team-resource-limits.ts:632-655",
+        "src/actions/api-key-actions.ts:38-44",
+        "src/app/api/v1/mailboxes/[public_id]/keys/route.ts:119-127"
+      ],
+      "protectedAnchors": [
+        "below",
+        "limit"
+      ],
+      "frozenInline": []
+    },
+    {
+      "id": "changelog.mdx#topup-promo",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 123,
+      "sourceSha256": "73e2c3ed021b1c60affab33843abfda6bbc72359d5b4b0eb904f568af93f90cb",
+      "finalSha256": "73e2c3ed021b1c60affab33843abfda6bbc72359d5b4b0eb904f568af93f90cb",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete new changelog entry contains 48 body words across two natural paragraphs, below the canonical 50-word submission floor; no padding or cross-artifact batching.",
+      "sourceEvidence": [
+        "src/server/billing/checkout.ts:79-90",
+        "src/server/billing/stripe-billing-reconciler.ts:120-143"
+      ],
+      "protectedAnchors": [
+        "100%",
+        "full selected credit amount"
+      ],
+      "frozenInline": []
+    },
+    {
+      "id": "changelog.mdx#restriction-guidance",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 196,
+      "sourceSha256": "5f15a39db4f14c4aae116d9679b9de932ca113fc9d3e7350178681f2b1311d8c",
+      "finalSha256": "5f15a39db4f14c4aae116d9679b9de932ca113fc9d3e7350178681f2b1311d8c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete new changelog entry contains 48 body words across two natural paragraphs, below the canonical 50-word submission floor; no padding or cross-artifact batching.",
+      "sourceEvidence": [
+        "src/server/team-resource-limits.ts:632-655",
+        "src/actions/api-key-actions.ts:38-44",
+        "src/app/api/v1/mailboxes/[public_id]/keys/route.ts:119-127",
+        "smtp-proxy/app/shared/credit-admission.js:95-103",
+        "smtp-proxy/app/consumer/lib/credit-reservation-workflow.js:77-89"
+      ],
+      "protectedAnchors": [
+        "Paid teams",
+        "Billing",
+        "below",
+        "limit"
+      ],
+      "frozenInline": []
+    },
+    {
+      "id": "sending-api/errors.mdx#billing-restricted",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 187,
+      "sourceSha256": "a25d8bc2ff0817bef827fec8e9f8a5a9cb68f4970090993dd66a5935efe1b282",
+      "finalSha256": "a25d8bc2ff0817bef827fec8e9f8a5a9cb68f4970090993dd66a5935efe1b282",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "HTTP 403 billing_restricted remains permanent; generic billing-review guidance verified from source",
+        "Free depleted-credit upgrade and paid read-only support advice preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Code, headings and links unchanged"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed piece is 33 words, below the canonical 50-word submission floor; no unrelated content added.",
+      "sourceEvidence": [
+        "smtp-proxy/app/shared/credit-admission.js:95-103",
+        "smtp-proxy/app/consumer/lib/credit-reservation-workflow.js:77-89",
+        "smtp-proxy/app/lib/billing-admission.js:3-16"
+      ],
+      "protectedAnchors": [
+        "HTTP 403",
+        "Billing",
+        "Free",
+        "Pro",
+        "must",
+        "paid",
+        "read-only"
+      ],
+      "frozenInline": [
+        "**HTTP 403**",
+        "**Billing**"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#manual-topup-promo",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 174,
+      "sourceSha256": "a0c61225f7cd0ae1857f9f8e90216c99bf1efb782a6a72fe5d1390c878a7a1b8",
+      "finalSha256": "a0c61225f7cd0ae1857f9f8e90216c99bf1efb782a6a72fe5d1390c878a7a1b8",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed piece is 29 words, below the canonical 50-word submission floor; unrelated prose was not added to reach it.",
+      "sourceEvidence": [
+        "src/server/billing/checkout.ts:79-90",
+        "src/server/billing/stripe-billing-reconciler.ts:120-143"
+      ],
+      "protectedAnchors": [
+        "promo code",
+        "selected credit amount",
+        "checkout completes",
+        "100%",
+        "zero"
+      ],
+      "frozenInline": []
+    }
+  ]
+}

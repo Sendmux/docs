@@ -74,7 +74,7 @@ These codes are shared with the Management API. Their semantics are identical to
 
 ### billing_restricted
 
-**HTTP 403**: Sending is blocked because a Free team's credit is depleted or the team is read-only. Upgrade an active Free team to Pro. Contact support if a paid team is unexpectedly read-only.
+**HTTP 403**: Sending is blocked by the team's billing status. Review **Billing** before retrying. A Free team with depleted credit must upgrade to Pro. Contact support if a paid team is unexpectedly read-only.
 
 ### daily_limit_exceeded
 
