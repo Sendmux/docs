@@ -45,14 +45,36 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
     ```
   </Accordion>
 
-  <Accordion title="Codex">
-    Add the marketplace first.
+  <Accordion title="Codex and ChatGPT desktop">
+    Add the marketplace with the Codex CLI:
 
     ```bash
     codex plugin marketplace add Sendmux/skills
     ```
 
-    Then open **Plugins** in the Codex app or `/plugins` in Codex CLI and install **Sendmux** from the Sendmux marketplace.
+    In Codex, open **Plugins** in the app or `/plugins` in the CLI, then install **Sendmux** from the Sendmux marketplace.
+
+    For Work mode or Codex in the ChatGPT desktop app:
+
+    <Steps>
+      <Step title="Restart ChatGPT desktop">
+        Restart the ChatGPT desktop app after adding the marketplace.
+      </Step>
+      <Step title="Install Sendmux">
+        Open the **Plugins Directory**, choose the **Sendmux** marketplace, and install the **Sendmux** plugin.
+      </Step>
+      <Step title="Check the skills">
+        Start a new chat and check that `agent-email-inbox` and `email-for-ai-agents` are available.
+      </Step>
+    </Steps>
+
+    To refresh the marketplace's Git snapshot, run:
+
+    ```bash
+    codex plugin marketplace upgrade sendmux
+    ```
+
+    After refreshing, restart your client and check the installed Sendmux skills in a new chat.
   </Accordion>
 </AccordionGroup>
 
@@ -90,6 +112,7 @@ npx skills update
 | Claude app, Claude Desktop, Cowork | Add marketplace from repository `Sendmux/skills`, then install **Sendmux**. |
 | Claude Code | `/plugin marketplace add Sendmux/skills`, then `/plugin install sendmux@sendmux`. |
 | Codex app and Codex CLI | `codex plugin marketplace add Sendmux/skills`, then install **Sendmux** from **Plugins** or `/plugins`. |
+| ChatGPT desktop (Work mode or Codex) | Add `Sendmux/skills` with the Codex CLI, restart ChatGPT desktop, then install **Sendmux** from the **Plugins Directory**. |
 | Agent Skills clients | `npx skills add Sendmux/skills`. |
 | Single-skill installs | `npx skills add Sendmux/skills --skill <skill-name>`. |
 
