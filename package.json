@@ -13,7 +13,8 @@
     "postman:emit": "node scripts/emit-postman-collections.mjs",
     "postman:check": "node scripts/check-postman-collections.mjs",
     "postman:hosted:check": "node scripts/check-hosted-postman-collections.mjs",
-    "postman:hosted:sync": "node scripts/check-hosted-postman-collections.mjs --write"
+    "postman:hosted:sync": "node scripts/check-hosted-postman-collections.mjs --write",
+    "mcp-discovery:check": "node scripts/check-mcp-discovery.mjs"
   },
   "devDependencies": {
     "openapi-to-postmanv2": "6.0.1"

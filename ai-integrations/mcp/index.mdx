@@ -127,6 +127,27 @@ When you connect, Sendmux asks you to choose a team, product surfaces, and mailb
   </Card>
 </CardGroup>
 
+## npm bridge
+
+Requires Node.js 22 or later. Run the npm bridge:
+
+```bash
+npx -y sendmux-mcp
+```
+
+The bridge connects stdio clients to the hosted server through browser OAuth. Tools follow your hosted grant.
+
+```json
+{
+  "mcpServers": {
+    "sendmux": {
+      "command": "npx",
+      "args": ["-y", "sendmux-mcp"]
+    }
+  }
+}
+```
+
 ## Local package
 
 Install the local package from PyPI:

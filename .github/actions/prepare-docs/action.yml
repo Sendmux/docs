@@ -25,6 +25,38 @@ runs:
         node-version: 22
         cache: npm
 
+    - name: Resolve approved skills release
+      id: skills-release
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        tag="$(gh release view --repo Sendmux/skills --json tagName --jq .tagName)"
+        gh release download "$tag" --repo Sendmux/skills --pattern acceptance.json --output "$RUNNER_TEMP/skills-acceptance.json"
+        revision="$(node -e 'const r = require(process.argv[1]); if (!r.accepted || !/^[0-9a-f]{40}$/.test(r.skills?.proposed?.revision ?? "")) throw new Error("Missing approved skills revision"); process.stdout.write(r.skills.proposed.revision)' "$RUNNER_TEMP/skills-acceptance.json")"
+        printf 'tag=%s\nrevision=%s\n' "$tag" "$revision" >> "$GITHUB_OUTPUT"
+
+    - name: Checkout approved skills source
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        persist-credentials: false
+        repository: Sendmux/skills
+        ref: ${{ steps.skills-release.outputs.revision }}
+        path: .tmp/skills-release
+        fetch-depth: 0
+
+    - name: Verify skills release acceptance
+      shell: bash
+      env:
+        SKILLS_TAG: ${{ steps.skills-release.outputs.tag }}
+        SKILLS_REVISION: ${{ steps.skills-release.outputs.revision }}
+      run: |
+        set -euo pipefail
+        test "$(git -C .tmp/skills-release rev-parse "refs/tags/$SKILLS_TAG^{commit}")" = "$SKILLS_REVISION"
+        node .tmp/skills-release/scripts/skill-compatibility.mjs --verify-skills-receipt "$RUNNER_TEMP/skills-acceptance.json" \
+          --skills-root "$GITHUB_WORKSPACE/.tmp/skills-release" --revision "$SKILLS_REVISION"
+
     - name: Install dependencies
       shell: bash
       run: npm ci
@@ -34,6 +66,7 @@ runs:
       run: npm test
       env:
         SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
+        SENDMUX_SKILLS_ROOT: .tmp/skills-release
 
     - name: MCP docs contract drift
       shell: bash
@@ -48,3 +81,7 @@ runs:
     - name: Postman collection drift
       shell: bash
       run: npm run postman:check
+
+    - name: MCP discovery contract
+      shell: bash
+      run: npm run mcp-discovery:check
