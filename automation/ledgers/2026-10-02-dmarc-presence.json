@@ -1,0 +1,140 @@
+{
+  "contract": "AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "automation/docs-authoring-workflow.md",
+  "reviewedAt": "2026-10-01T23:35:11.302923+00:00",
+  "blockedManualReview": 0,
+  "rows": [
+    {
+      "id": "src/app/api/v1/_lib/schemas/domains.ts#dmarc",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 46,
+      "sourceSha256": "4bcf551d2ff149c8528092c6f2d281acbb225641ff3afd0f8be4b2f46ce5a9d3",
+      "finalSha256": "4bcf551d2ff149c8528092c6f2d281acbb225641ff3afd0f8be4b2f46ce5a9d3",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact frozen source retained; presence-only facts checked against shared verifier",
+        "Protected protocol tags and qualifiers preserved; AU English checked",
+        "Em dashes 0; semicolons 0; curly quotes 0; banned vocabulary 0",
+        "No internal stack names, rhetoric or invented claims",
+        "MDX frontmatter, headings, code, tables and links preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Changed piece in this artifact totals below 50 words; unit has 7 words. Canonical submission floor prevents provider use; no padding or cross-artifact batching.",
+      "protectedAnchors": [
+        "DMARC",
+        "v=DMARC1"
+      ],
+      "sourceEvidence": [
+        "src/lib/dns-verification.ts:272",
+        "src/lib/dns-verification.ts:345"
+      ]
+    },
+    {
+      "id": "domains/index.mdx#dmarc-presence",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 103,
+      "sourceSha256": "e2e2685dbb97be442c3178d1a0f8c5c70aeda78cc3b613e116e09edcb475af0e",
+      "finalSha256": "e2e2685dbb97be442c3178d1a0f8c5c70aeda78cc3b613e116e09edcb475af0e",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact frozen source retained; presence-only facts checked against shared verifier",
+        "Protected protocol tags and qualifiers preserved; AU English checked",
+        "Em dashes 0; semicolons 0; curly quotes 0; banned vocabulary 0",
+        "No internal stack names, rhetoric or invented claims",
+        "MDX frontmatter, headings, code, tables and links preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Changed piece in this artifact totals below 50 words; unit has 19 words. Canonical submission floor prevents provider use; no padding or cross-artifact batching.",
+      "protectedAnchors": [
+        "DMARC",
+        "only",
+        "TXT",
+        "`_dmarc.{your-domain}`",
+        "`v=DMARC1`"
+      ],
+      "sourceEvidence": [
+        "src/lib/dns-verification.ts:272",
+        "src/lib/dns-verification.ts:345"
+      ]
+    },
+    {
+      "id": "domains/index.mdx#dmarc-troubleshooting",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 93,
+      "sourceSha256": "addb9160c668cbefad72ac2fffc48a3d11a9d78a3a96894d034982cf633c1c34",
+      "finalSha256": "addb9160c668cbefad72ac2fffc48a3d11a9d78a3a96894d034982cf633c1c34",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact frozen source retained; presence-only facts checked against shared verifier",
+        "Protected protocol tags and qualifiers preserved; AU English checked",
+        "Em dashes 0; semicolons 0; curly quotes 0; banned vocabulary 0",
+        "No internal stack names, rhetoric or invented claims",
+        "MDX frontmatter, headings, code, tables and links preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Changed piece in this artifact totals below 50 words; unit has 17 words. Canonical submission floor prevents provider use; no padding or cross-artifact batching.",
+      "protectedAnchors": [
+        "TXT",
+        "`v=DMARC1`",
+        "`_dmarc.{your-domain}`",
+        "do not"
+      ],
+      "sourceEvidence": [
+        "src/lib/dns-verification.ts:272",
+        "src/lib/dns-verification.ts:345"
+      ]
+    },
+    {
+      "id": "changelog.mdx#dmarc-presence",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 118,
+      "sourceSha256": "02c8d5063e079af24e2f853346a1e9af8e87782696dc79ee18d6b8915abf217d",
+      "finalSha256": "02c8d5063e079af24e2f853346a1e9af8e87782696dc79ee18d6b8915abf217d",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact frozen source retained; presence-only facts checked against shared verifier",
+        "Protected protocol tags and qualifiers preserved; AU English checked",
+        "Em dashes 0; semicolons 0; curly quotes 0; banned vocabulary 0",
+        "No internal stack names, rhetoric or invented claims",
+        "MDX frontmatter, headings, code, tables and links preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "Changed piece in this artifact totals below 50 words; unit has 18 words. Canonical submission floor prevents provider use; no padding or cross-artifact batching.",
+      "protectedAnchors": [
+        "any",
+        "published",
+        "DMARC",
+        "`v=DMARC1`",
+        "`p=none`"
+      ],
+      "sourceEvidence": [
+        "src/lib/dns-verification.ts:272",
+        "src/lib/dns-verification.ts:345"
+      ]
+    }
+  ]
+}

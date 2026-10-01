@@ -63,6 +63,8 @@ Use a custom domain when you want branded sending, hosted mailboxes, or both. Ch
 
 You can download the records as a zone file from the domain detail page.
 
+For DMARC, verification checks only that a TXT record at `_dmarc.{your-domain}` contains `v=DMARC1`. You can keep your existing policy.
+
 ## Enable receiving later
 
 Open the sending-only domain and choose **Switch to sending & receiving**. Sendmux adds the MX requirement, resets the domain to pending, and asks you to verify again. Add the MX record before creating mailboxes.
@@ -100,8 +102,8 @@ Sendmux rechecks domains every six hours. A short DNS issue does not immediately
     the generated SPF value.
   </Accordion>
   <Accordion title="DMARC is failing">
-    Check that the TXT record is published at `_dmarc.{your - domain}` and still
-    includes the policy value Sendmux generated.
+    Publish a TXT record containing `v=DMARC1` at `_dmarc.{your-domain}`. The
+    policy and other fields do not affect verification.
   </Accordion>
   <Accordion title="Email signing is still pending">
     DKIM records can take longer to verify. Confirm all three CNAME records are
