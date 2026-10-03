@@ -1,6 +1,6 @@
 ---
-title: "Test an integration connection"
-description: "Validate a Sendmux credential and label its connection without sending email."
+title: "Connect an integration and manage its inboxes"
+description: "Validate a Sendmux connection, select an authorised inbox and manage its lifecycle."
 keywords: ["connection test", "API authentication", "viaSocket", "Zapier", "Make", "n8n", "Activepieces"]
 ---
 
@@ -11,8 +11,8 @@ Use a connection endpoint to check a credential before running a workflow. The r
 | API | Connection test | Credential requirement |
 | --- | --- | --- |
 | Sending | `GET https://smtp.sendmux.ai/api/v1/me` | A Sending credential or REST OAuth grant with `email.send`. |
-| Management | `GET https://app.sendmux.ai/api/v1/me` | A root API key or REST OAuth grant with Management access; no additional read permission. |
-| Mailbox | `GET https://app.sendmux.ai/api/v1/mailbox/connection` | A mailbox credential or supported access token with Mailbox access; no additional read permission. |
+| Management | `GET https://app.sendmux.ai/api/v1/me` | A root or integration API key, or REST OAuth grant with Management access; no additional read permission. |
+| Mailbox | `GET https://app.sendmux.ai/api/v1/mailbox/connection` | A mailbox or integration credential, or supported access token with Mailbox access; no additional read permission. |
 
 Use the same credential for the connection test and the workflow. A send-only key does not need a Management key to connect. Root API keys are rejected by the Mailbox connection endpoint; mailbox keys are rejected by the Management connection endpoint.
 
@@ -86,6 +86,52 @@ Authenticated responses include `Cache-Control: no-store`. Authentication is che
 For viaSocket, Zapier, Make, n8n, or Activepieces, configure the platform's API-key connection test with the same GET request and response-field mapping above. This is also suitable for a custom HTTP workflow.
 
 Keep connection validation separate from sending a test email. Use credentials scoped to the actions your integration exposes. Platform-specific OAuth, trigger, and publishing requirements are separate from this API-key connection check.
+
+## Manage native inboxes with an integration credential
+
+An integration credential has access to all current and future inboxes in its Sendmux team, subject to its permissions and sending restrictions. Use a dedicated team for an integration that should own only its native inboxes. Ordinary root keys, single-mailbox keys and connected-app grants keep their existing scopes.
+
+<Info>
+  This procedure requires an explicitly issued **Mailbox Integration** credential. A successful connection test does not issue one or widen an existing credential's access.
+</Info>
+
+<Steps>
+  <Step title="Confirm the team and workspace owner">
+    Validate the integration credential with a connection endpoint and record `data.team.id`. Before creating, accessing or retiring a native inbox, confirm that the requesting workspace owns that inbox in your integration's records. Team-wide Sendmux access does not enforce your integration's workspace boundaries.
+  </Step>
+  <Step title="Create an inbox and retain its ID">
+    Use `POST /mailboxes` with `mailbox.admin.create`. Supply an `email` on a verified domain available to the team, and retain the returned `data.mailbox.id` and `data.mailbox.email`. Reuse the same `Idempotency-Key` and request body if the response is lost.
+
+    ```bash
+    curl -X POST https://app.sendmux.ai/api/v1/mailboxes \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: native-inbox-create-1" \
+      -d '{"email":"agent@example.com","display_name":"Agent"}'
+    ```
+
+    Integration provisioning does not return a separate mailbox credential. Use the integration credential to access the new inbox. Creating the inbox does not grant extra sender addresses beyond the applicable sending policies.
+  </Step>
+  <Step title="Select the inbox on Mailbox API requests">
+    Use `GET /mailboxes` with `mailbox.admin.read` to list the team's inboxes. Pass exactly one `mailbox_id` on Mailbox API operations, even when the team has only one inbox. The connection test itself needs no mailbox selection.
+
+    ```bash
+    curl --get https://app.sendmux.ai/api/v1/mailbox/messages \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      --data-urlencode "mailbox_id=$MAILBOX_ID" \
+      --data-urlencode "limit=10"
+    ```
+
+    Set `MAILBOX_ID` to the retained inbox public ID. Missing selection returns `400`; an unknown, foreign or inactive inbox returns `404`. Reading requires `mailbox.read`; saving drafts also requires `mailbox.drafts.write`, and sending or scheduling also requires `email.send`.
+  </Step>
+  <Step title="Retire the owned inbox and reconcile costs">
+    Stop new work for the inbox in your integration, then call `DELETE /mailboxes/{public_id}` with `mailbox.admin.delete`. Confirm the response has `data.deleted: true` and the expected `data.id`. Keep the inbox ID and original team identity for [cost reconciliation](/developer-tools/mailbox-costs).
+
+    A successful deletion does not make pending costs final. Read the retained cumulative cost window until its overall state is `final`. Keep pending readings open, and never replace a failed read with zero. Revoking the integration credential stops access to every inbox it covers; it is not a substitute for retiring one inbox.
+  </Step>
+</Steps>
+
+Monid-native workflows use newly provisioned inboxes in the dedicated team. Linking an existing account is outside this workflow. Monid connection onboarding, native credits and final usage settlement are separate integration requirements.
 
 ## Next steps
 

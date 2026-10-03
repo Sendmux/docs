@@ -1,0 +1,49 @@
+---
+title: "Read mailbox costs for integrations"
+description: "Reconcile the posted cost of one mailbox across incoming email, outgoing email and storage."
+keywords: ["mailbox cost", "usage reconciliation", "integration billing", "posted email cost"]
+---
+
+Use the Management API to reconcile the cost of a mailbox your team owns. Keep the mailbox ID returned when you create it. A root or integration credential needs `mailbox.admin.read` and team-wide mailbox access; a mailbox-scoped credential cannot read this endpoint.
+
+## Read a cumulative window
+
+Set `MAILBOX_ID` to the saved public ID and set `WINDOW_START` and `WINDOW_END` to timestamps with timezones. Request the same start with a later end to read cumulative usage for that period:
+
+```bash
+curl --fail-with-body --get "https://app.sendmux.ai/api/v1/mailboxes/$MAILBOX_ID/usage" \
+  --header "Authorization: Bearer $SENDMUX_API_KEY" \
+  --data-urlencode "start=$WINDOW_START" \
+  --data-urlencode "end=$WINDOW_END"
+```
+
+The window includes its start and excludes its end. It can span zero to 366 days. Supply each boundary once, with no more than millisecond precision. Save the original start when retrying a period; each response already totals usage from that start, so do not add successive cumulative readings together.
+
+## Wait for the final cost
+
+The response has `incoming`, `outgoing` and `storage` lines, plus a total `posted_amount` in USD. Each line and the overall response has a `state` of `pending` or `final`. Use the total only when the overall state is `final`. A `200` response with `pending` means some usage or posting is still being reconciled; it does not mean the unreported cost is zero.
+
+`incurred_amount` records email cost before posting. `unbillable_amount` records email usage that was not charged. For storage, `raw_amount` and `allocated_amount` show the calculation before posting. Charge or reconcile only the `posted_amount` values after finality. The total is the sum of the three posted lines; do not add it to those lines again.
+
+Amounts and quantities are decimal strings. Posted USD amounts have six decimal places; storage `raw_amount` has 18. Keep these values as decimal amounts when reconciling costs.
+
+## Check coverage and timing
+
+The incoming and outgoing lines report `coverage_started_at`. A window beginning before the available coverage remains `pending`, even if its recorded total is zero. Incoming finality requires complete recorded deliveries and resolved posting; outgoing finality requires complete recorded acceptance and posting. Storage finality requires completed posting through the window, or through the final storage cutoff for a closed mailbox. The overall state becomes `final` only when all three lines are final. Reading this endpoint does not start or finish settlement.
+
+Outgoing usage belongs to the time Sendmux first records the provider's acceptance, rather than the timestamp reported by the sending server. A delayed confirmation can therefore fall into a later billing period. Repeated confirmation of the same acceptance keeps its original recorded time.
+
+When storage billing covers an interval before per-mailbox tracking began, that earlier cost is attributed to the first covered calendar month. It is not backfilled into earlier monthly readings. This changes where that cost appears in per-mailbox windows, not the team's posted storage charge.
+
+## Read costs after deletion
+
+After deleting a mailbox, read its retained cost window with the same mailbox ID and an authorised credential for the original team. A foreign or unknown ID returns `404`. If the request returns `503`, keep the previous reading and retry after `Retry-After`; do not replace a failed read with zero. A revoked credential must be reauthorised before retrying.
+
+Retained readings require the original team and credential to remain active. Keep a pending reading open for reconciliation; deletion or a successful HTTP response alone does not establish a final cost.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Billing" icon="credit-card" href="/account/billing"></Card>
+  <Card title="Test an integration connection" icon="plug" href="/developer-tools/integration-connections"></Card>
+</Columns>
