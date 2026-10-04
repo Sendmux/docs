@@ -1,0 +1,535 @@
+{
+  "schemaVersion": 1,
+  "status": "Local technical-token correction applied; source-only evidence; render, visual approval and release outstanding",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md:18-22,45-47",
+  "baselineHead": "a40f474a710a15d4396ffd3c5fa7fed4efca6552",
+  "humanisation": "skipped — exact technical-token correction per automation/docs-authoring-workflow.md:59–63",
+  "pages": {
+    "webhooks/setup.mdx": {
+      "candidateSha256": "209195ef489d4e8676c9490a022daf924428a31d76a72ff421f4f7166ce82c1d",
+      "baselineFileSha256": "15395713bd795ceca96b96b9e98db5d59b73a41018fc937b472d5d730a7d06b1",
+      "proseUnits": 21
+    }
+  },
+  "technicalCorrection": {
+    "page": "webhooks/setup.mdx",
+    "originalSha256": "15395713bd795ceca96b96b9e98db5d59b73a41018fc937b472d5d730a7d06b1",
+    "proposedSha256": "209195ef489d4e8676c9490a022daf924428a31d76a72ff421f4f7166ce82c1d",
+    "substitutions": [
+      {
+        "line": 96,
+        "before": "rotate-ccw",
+        "after": "rotate-left",
+        "attribute": "icon",
+        "count": 1
+      },
+      {
+        "line": 111,
+        "before": "scroll-text",
+        "after": "scroll",
+        "attribute": "icon",
+        "count": 1
+      }
+    ],
+    "prose": "21 prior rows inherited identically; no wording, heading, link, structure or layout change; exactly two attribute-value substitutions",
+    "sourceEvidence": "evidence/monid-docs-icon-20261003.md",
+    "approvalBoundary": "Before-push explicit localhost visual approval remains required; proposal is not approval."
+  },
+  "priorEvidence": [
+    {
+      "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness-current-20261003/automation/ledgers/2026-10-03-monid-pr-prerequisites-current.json",
+      "sha256": "1797f442f846e8045618d74022800ed9dc1c72f581b1596f5a7636fba8cb4806"
+    },
+    {
+      "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness-current-20261003/automation/ledgers/2026-09-30-monid-stable-guides.json",
+      "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b"
+    }
+  ],
+  "providerSubmissions": 0,
+  "blockedManualReviewCount": 0,
+  "units": [
+    {
+      "id": "webhooks/setup.mdx#p001",
+      "line": 7,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 130,
+      "sourceSha256": "137fbeaf0d9417b980203a895cfffbabba3e0ac7effd5abb73006156633dc97a",
+      "finalSha256": "137fbeaf0d9417b980203a895cfffbabba3e0ac7effd5abb73006156633dc97a",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p002",
+      "line": 10,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 194,
+      "sourceSha256": "d2ec58f21414cd90e36c7dd6ab8267ce1313b38efc42570c4f2820d54fbd8505",
+      "finalSha256": "d2ec58f21414cd90e36c7dd6ab8267ce1313b38efc42570c4f2820d54fbd8505",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p003",
+      "line": 17,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 249,
+      "sourceSha256": "909af94ab880993a5cb787066b7997bc915e6b630d52540a756ec9675ffec025",
+      "finalSha256": "909af94ab880993a5cb787066b7997bc915e6b630d52540a756ec9675ffec025",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p004",
+      "line": 23,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 62,
+      "sourceSha256": "9ee7584110d534425f945039e7b9b64572ca4cab32d0f2908d5ae4db70b34098",
+      "finalSha256": "9ee7584110d534425f945039e7b9b64572ca4cab32d0f2908d5ae4db70b34098",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p005",
+      "line": 26,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 66,
+      "sourceSha256": "0caaf63575b933d33f07733317c980162a3afb4fb8f3827422f165a9086ee0fc",
+      "finalSha256": "0caaf63575b933d33f07733317c980162a3afb4fb8f3827422f165a9086ee0fc",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p006",
+      "line": 29,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 62,
+      "sourceSha256": "738488b1a8abe389892c2a70b9595fe99bf0e0fea8abe5d6a01e8ce9cc1440ae",
+      "finalSha256": "738488b1a8abe389892c2a70b9595fe99bf0e0fea8abe5d6a01e8ce9cc1440ae",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p007",
+      "line": 32,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 58,
+      "sourceSha256": "b2dbed49a5b1b1fb35adf4d8cd6d3936398d828abd9ffb71675cec3712508c54",
+      "finalSha256": "b2dbed49a5b1b1fb35adf4d8cd6d3936398d828abd9ffb71675cec3712508c54",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p008",
+      "line": 38,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 72,
+      "sourceSha256": "017c7b3f3d2043bfb797fa066e654e46090da153f969d395142ff3cd9e5c980e",
+      "finalSha256": "017c7b3f3d2043bfb797fa066e654e46090da153f969d395142ff3cd9e5c980e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p009",
+      "line": 49,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 78,
+      "sourceSha256": "85c2dc42156a0baef445050ea41a89df51f4d4c262751150ceee39b348b2d893",
+      "finalSha256": "85c2dc42156a0baef445050ea41a89df51f4d4c262751150ceee39b348b2d893",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p010",
+      "line": 66,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 101,
+      "sourceSha256": "776d06a5d70cc84e1c3f2e2681112cb35089e30fb8a7aa2ed0d402075941bf8f",
+      "finalSha256": "776d06a5d70cc84e1c3f2e2681112cb35089e30fb8a7aa2ed0d402075941bf8f",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p011",
+      "line": 68,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 172,
+      "sourceSha256": "ba748468b517e40e4439bc07cce64b4e555ac1daf8dd959b005e5e5b19b1f4f9",
+      "finalSha256": "ba748468b517e40e4439bc07cce64b4e555ac1daf8dd959b005e5e5b19b1f4f9",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p012",
+      "line": 72,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 176,
+      "sourceSha256": "b289c3ddbb533555528ba349dfa156a545d2193f09e6eef5f610c529dbe14662",
+      "finalSha256": "b289c3ddbb533555528ba349dfa156a545d2193f09e6eef5f610c529dbe14662",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p013",
+      "line": 74,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 118,
+      "sourceSha256": "90f17dcada2cb1b841180cf8a82acf5a2727159aecb658adef7ce43172e576ad",
+      "finalSha256": "90f17dcada2cb1b841180cf8a82acf5a2727159aecb658adef7ce43172e576ad",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p014",
+      "line": 76,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 79,
+      "sourceSha256": "694ec2ff1a3e1f39ad71f8c6bf63dac065b6e4d9a5d2caf16d5422d4dbd19f29",
+      "finalSha256": "694ec2ff1a3e1f39ad71f8c6bf63dac065b6e4d9a5d2caf16d5422d4dbd19f29",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p015",
+      "line": 80,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 155,
+      "sourceSha256": "d2a3d2f5b67b79fa6c85609ac131e695ab091e3dc899bf27db6cc6494fe649b1",
+      "finalSha256": "d2a3d2f5b67b79fa6c85609ac131e695ab091e3dc899bf27db6cc6494fe649b1",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p016",
+      "line": 83,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 47,
+      "sourceSha256": "08bf2e086ded1b9fd2d99d3f583e1d0cb35ad031738fce83fe4fb277cd0ac42f",
+      "finalSha256": "08bf2e086ded1b9fd2d99d3f583e1d0cb35ad031738fce83fe4fb277cd0ac42f",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p017",
+      "line": 94,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 48,
+      "sourceSha256": "ee1abed4a5bd9ef7a9dbecfb6a5a5b9501996176e9ac9656f8c9951e516222d2",
+      "finalSha256": "ee1abed4a5bd9ef7a9dbecfb6a5a5b9501996176e9ac9656f8c9951e516222d2",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p018",
+      "line": 97,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 34,
+      "sourceSha256": "c6642146ba433144fa67d437a2430d4131c021c63bd1f145d23c86af96b2bae2",
+      "finalSha256": "c6642146ba433144fa67d437a2430d4131c021c63bd1f145d23c86af96b2bae2",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p019",
+      "line": 100,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 31,
+      "sourceSha256": "9faca332048bb0d33fb3587f882ac4eb078f8955052de72f83d86470021995a6",
+      "finalSha256": "9faca332048bb0d33fb3587f882ac4eb078f8955052de72f83d86470021995a6",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p020",
+      "line": 107,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 46,
+      "sourceSha256": "2453d3d8900891c9971fa06e7f712397af13d5f10e4248aed01fe6c9c2a88560",
+      "finalSha256": "2453d3d8900891c9971fa06e7f712397af13d5f10e4248aed01fe6c9c2a88560",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p021",
+      "line": 114,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 42,
+      "sourceSha256": "41820622138f6b3c94206a21b25e44143045c59f8b8ea6c996a360a62a2f2d0f",
+      "finalSha256": "41820622138f6b3c94206a21b25e44143045c59f8b8ea6c996a360a62a2f2d0f",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    }
+  ]
+}
