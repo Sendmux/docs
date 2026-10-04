@@ -54,6 +54,7 @@
               "developer-tools/cli",
               "developer-tools/postman",
               "developer-tools/integration-connections",
+              "developer-tools/mailbox-costs",
               "developer-tools/oauth",
               {
                 "group": "Mailbox API guides",
@@ -61,6 +62,7 @@
                   "developer-tools/mailbox-api/targeting-and-capabilities",
                   "developer-tools/mailbox-api/operations-and-usage",
                   "developer-tools/mailbox-api/threads",
+                  "developer-tools/mailbox-api/saved-drafts",
                   "developer-tools/mailbox-api/search-and-batch",
                   "developer-tools/mailbox-api/message-content",
                   "developer-tools/mailbox-api/attachments",
@@ -248,6 +250,7 @@
               "GET /mailboxes",
               "POST /mailboxes",
               "GET /mailboxes/{public_id}",
+              "GET /mailboxes/{public_id}/usage",
               "PATCH /mailboxes/{public_id}",
               "DELETE /mailboxes/{public_id}",
               "POST /mailboxes/{public_id}/suspend",
@@ -280,6 +283,13 @@
               "POST /providers/{public_id}/activate",
               "POST /providers/{public_id}/deactivate",
               "POST /providers/{public_id}/test"
+            ]
+          },
+          {
+            "group": "Sending policies",
+            "pages": [
+              "GET /mailbox-send-policies/{scope}/{public_id}",
+              "PUT /mailbox-send-policies/{scope}/{public_id}"
             ]
           },
           {
@@ -352,9 +362,22 @@
               "GET /mailbox/messages/{message_id}",
               "GET /mailbox/messages/{message_id}/body",
               "GET /mailbox/messages/{message_id}/content",
+              "GET /mailbox/messages/{message_id}/raw",
               "PATCH /mailbox/messages/{message_id}",
               "DELETE /mailbox/messages/{message_id}",
               "POST /mailbox/messages/send"
+            ]
+          },
+          {
+            "group": "Saved drafts",
+            "pages": [
+              "GET /mailbox/drafts",
+              "POST /mailbox/drafts",
+              "GET /mailbox/drafts/{draftId}",
+              "PATCH /mailbox/drafts/{draftId}",
+              "DELETE /mailbox/drafts/{draftId}",
+              "POST /mailbox/drafts/{draftId}/send",
+              "PATCH /mailbox/drafts/{draftId}/schedule"
             ]
           },
           {
@@ -362,7 +385,9 @@
             "pages": [
               "POST /mailbox/attachments:upload",
               "POST /mailbox/attachment-uploads",
-              "GET /mailbox/messages/{message_id}/attachments/{attachment_id}"
+              "GET /mailbox/messages/{message_id}/attachments/{attachment_id}",
+              "POST /mailbox/messages/{message_id}/attachments/{attachment_id}/text",
+              "GET /mailbox/messages/{message_id}/attachments/{attachment_id}/text"
             ]
           },
           {

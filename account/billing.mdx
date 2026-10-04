@@ -65,11 +65,15 @@ For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is
 
 If the same address appears in more than one recipient field, each provider-accepted occurrence is billed separately.
 
-If a provider's result is unknown, Sendmux keeps the reservation on hold while it reconciles the send. After 24 hours, unresolved holds are due for review; they are not automatically released. The hold is not a usage charge and cannot start an auto top-up by itself.
+Outgoing usage is assigned to the time Sendmux first records the provider's acceptance. Delayed confirmation can therefore appear in a later billing period than the sending server's timestamp. Repeated confirmation keeps the original recorded time.
+
+If a provider's result is unknown, Sendmux keeps the reservation on hold while it reconciles the send. After 24 hours, the unresolved send is due for review; Sendmux does not treat missing confirmation as a rejection or release the hold without a known outcome. The hold is not a usage charge and cannot start an auto top-up by itself.
 
 Inbound usage is counted for each distinct mailbox that receives the message. One message delivered to two mailboxes counts as two deliveries. Mail rejected by mailbox allow or block rules is not billed.
 
 Storage is measured from mailbox usage and prorated by calendar day. One decimal GB is 1,000,000,000 bytes.
+
+For [per-mailbox cost readings](/developer-tools/mailbox-costs), storage cost from before tracking began is attributed to the first covered calendar month. Earlier monthly readings do not receive that cost. The team's posted storage charge stays the same.
 
 Usage transactions can be grouped, so the transaction table may show one **Incoming email usage** line for several received messages in a short period.
 

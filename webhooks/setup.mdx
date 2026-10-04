@@ -39,7 +39,9 @@ Every delivery includes a JSON body and headers that identify the event.
 
 | Header                       | Use                                         |
 | ---------------------------- | ------------------------------------------- |
-| `X-Sendmux-Signature`        | Verify the payload with the webhook secret. |
+| `X-Sendmux-Signature-V2`     | Verify the timestamp and exact body bytes.  |
+| `X-Sendmux-Timestamp`        | Check the signed Unix timestamp in seconds. |
+| `X-Sendmux-Signature`        | Verify the body with the legacy signature.  |
 | `X-Sendmux-Event-Id`         | Dedupe retries for the same event.          |
 | `X-Sendmux-Event-Type`       | Route the event in your application.        |
 | `X-Sendmux-Delivery-Attempt` | Track retry attempts.                       |
@@ -91,7 +93,7 @@ Use the Management API when you need to create webhooks, list attempts, fetch re
   >
     Check webhook payloads before processing events.
   </Card>
-  <Card title="Webhook replay" icon="rotate-ccw" href="/webhooks/replay">
+  <Card title="Webhook replay" icon="rotate-left" href="/webhooks/replay">
     See the coming-soon replay action.
   </Card>
   <Card title="Mailboxes" icon="inbox" href="/mailboxes">
@@ -106,7 +108,7 @@ Use the Management API when you need to create webhooks, list attempts, fetch re
   </Card>
   <Card
     title="Delivery logs"
-    icon="scroll-text"
+    icon="scroll"
     href="/monitoring/dashboard-logs"
   >
     Compare webhook events with delivery logs.

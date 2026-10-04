@@ -56,6 +56,8 @@ curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?strip_signa
       "format": "text",
       "text": "Clean body text...",
       "html": null,
+      "cleaned_html": null,
+      "html_cleaning": null,
       "is_truncated": false,
       "truncated_at_chars": null,
       "signature_stripped": true,
@@ -100,6 +102,87 @@ Clean content controls:
   metadata or downloaded separately. PDF, CSV, Office document, and OCR parsing
   are not part of these APIs.
 </Note>
+
+## Read cleaned HTML
+
+Set `include_html=true` on the content endpoint to receive both the original `body.html` and `body.cleaned_html`. The stripping options apply to the cleaned copy. Recognised quote and signature containers are removed; surviving markup, links and inline-image references are preserved. Unrecognised formats remain unchanged.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?include_html=true&strip_quotes=true&strip_signature=true" \
+  -H "Authorization: Bearer $SENDMUX_API_KEY"
+```
+
+`body.html_cleaning` contains a `status` and separate `quotes_stripped` and `signature_stripped` flags. The existing `body.quotes_stripped` and `body.signature_stripped` flags describe the text output.
+
+| HTML cleaning status | Result |
+| --- | --- |
+| `complete` | `cleaned_html` contains the processed HTML, including an empty string if all content was removed. |
+| `source_truncated` | The source exceeded `max_body_chars` or was already truncated; `cleaned_html` is `null`. |
+| `limit_exceeded` | Cleaning exceeded 20,000 elements or 128 nested elements; `cleaned_html` is `null`. |
+
+Both added fields are `null` when HTML is absent or not requested. Cleaning does not sanitise HTML. Apply your own sanitisation and rendering restrictions before displaying either HTML field.
+
+## Download the original message
+
+`GET /mailbox/messages/{message_id}/raw` returns the stored message bytes as `message/rfc822`, including headers and encoded attachments. It requires `mailbox.read` access to that message and supports `ETag` and `If-None-Match`.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/raw" \
+  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  --output message.eml
+```
+
+The `/body` endpoint returns decoded body fields in JSON. Use `/raw` when you need the original `.eml` bytes.
+
+## Extract attachment text
+
+Use attachment text extraction when you need readable content from a file rather than the message body. It requires `mailbox.read` access to the source message. Extraction adds no charge; the mailbox's normal email and storage charges still apply.
+
+<Steps>
+  <Step title="Request text from the source attachment">
+    Take the message and attachment IDs from authorised message metadata. Send `POST` to the attachment's `/text` URL; no request body or `Idempotency-Key` is needed.
+
+    ```bash
+    curl -X POST \
+      "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
+      -H "Authorization: Bearer $SENDMUX_API_KEY"
+    ```
+
+    Integration credentials and connected apps with several granted inboxes must also pass the selected `mailbox_id` query parameter.
+  </Step>
+  <Step title="Poll the same extraction">
+    A `202` response has `data.status` of `pending` or `running`. Read `GET` on the same URL until `data.status` is `complete`. GET does not start another conversion.
+
+    ```bash
+    curl \
+      "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
+      -H "Authorization: Bearer $SENDMUX_API_KEY"
+    ```
+
+    An HTTP `200` means conversion completed; check `data.outcome` before using `data.text`. Only `ready` contains extracted Markdown text. Other completed outcomes contain an empty string.
+  </Step>
+  <Step title="Check limits and keep the original available">
+    Check `data.truncated` before treating extracted text as complete. Download the [original attachment](/developer-tools/mailbox-api/attachments) when you need its full content or extraction cannot complete.
+  </Step>
+</Steps>
+
+The input limit is 7,500,000 bytes, and conversion runs for at most 30 seconds. `max_bytes` limits UTF-8 text output: the default is 262,144 bytes and the maximum is 1,048,576 bytes. It also limits cached responses. OCR is unavailable.
+
+Repeated POST requests reuse the same current source extraction for 24 hours. Read `data.expires_at`; after expiry, GET returns `404` and another POST is needed. Current mailbox access and source availability are checked before cached text is returned, including conditional GET requests. Deleting the source or losing access prevents further reads.
+
+Completed outcomes explain why text is unavailable:
+
+| Outcome | Handling |
+| --- | --- |
+| `unsupported` | Download the original and use a reader that supports its format. |
+| `encrypted` | Use the original with an authorised reader that can open it. |
+| `malformed` | Check the original file or request a usable replacement. |
+| `ocr_required` | Use your own OCR workflow on the original file. |
+| `resource_limit` | Use the original or a smaller file within the limits. |
+| `source_unavailable` | Check that the source message and attachment still exist. |
+| `failed` | Keep the original available and retain the request ID for support. |
+
+For HTTP `429` or `503`, wait at least the `Retry-After` interval. A `404` can mean the source or unexpired extraction is unavailable; confirm source access before requesting another conversion. Do not treat an empty result or failed request as proof that the original file contains no text.
 
 ## Next steps
 

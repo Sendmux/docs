@@ -4,14 +4,16 @@ description: "Verify the HMAC-SHA256 signature on every Sendmux webhook delivery
 keywords: ["signature verification", "HMAC", "SHA-256", "webhook security"]
 ---
 
-Every webhook POST includes `X-Sendmux-Signature` in the form `sha256=<hex>`. Verify it before you process the event.
+Every webhook POST includes `X-Sendmux-Signature-V2: v1=<hex>` and `X-Sendmux-Timestamp: <Unix seconds>`. Verify the signature and timestamp before processing the event. The legacy `X-Sendmux-Signature: sha256=<hex>` header remains available.
 
 ## What to sign
 
-- Use the raw request body bytes.
 - Use the webhook signing secret returned when the subscription was created or rotated.
-- Compute `HMAC-SHA256` and compare the full `sha256=<hex>` value.
-- Compare in constant time.
+- Join `X-Sendmux-Timestamp`, a literal full stop (`.`), and the raw request body bytes.
+- Compute HMAC-SHA256 and compare it with `v1` in constant time.
+- Reject timestamps outside your freshness window. The example accepts at most 300 seconds of clock difference in either direction.
+
+Each retry has a fresh timestamp and signature. Its event ID and body stay unchanged. After verification, deduplicate by the signed body's `id`; freshness checks do not prevent duplicates within the accepted window.
 
 <Warning>
   Do not parse and re-serialise the JSON before verification. That can change
@@ -23,55 +25,66 @@ Every webhook POST includes `X-Sendmux-Signature` in the form `sha256=<hex>`. Ve
 ```js
 const encoder = new TextEncoder();
 
-function toHex(buffer) {
-  return [...new Uint8Array(buffer)]
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-function constantTimeEqual(a, b) {
-  if (a.length !== b.length) return false;
-
-  let result = 0;
-  for (let i = 0; i < a.length; i += 1) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-  return result === 0;
-}
-
 export async function verifySendmuxWebhook(request, secret) {
-  const rawBody = await request.text();
+  const received = request.headers.get("X-Sendmux-Signature-V2") ?? "";
+  const timestampHeader = request.headers.get("X-Sendmux-Timestamp") ?? "";
+  const match = /^v1=([a-f0-9]{64})$/.exec(received);
+  if (!match || !/^[0-9]{1,10}$/.test(timestampHeader)) return { ok: false };
+
+  const timestamp = Number(timestampHeader);
+  if (Math.abs(Math.floor(Date.now() / 1000) - timestamp) > 300) {
+    return { ok: false };
+  }
+
+  const rawBody = new Uint8Array(await request.arrayBuffer());
+  const prefix = encoder.encode(`${timestampHeader}.`);
+  const signed = new Uint8Array(prefix.length + rawBody.length);
+  signed.set(prefix);
+  signed.set(rawBody, prefix.length);
+  const signature = Uint8Array.from(match[1].match(/../g), (hex) =>
+    Number.parseInt(hex, 16),
+  );
   const key = await crypto.subtle.importKey(
     "raw",
     encoder.encode(secret),
     { name: "HMAC", hash: "SHA-256" },
     false,
-    ["sign"],
+    ["verify"],
   );
-
-  const digest = await crypto.subtle.sign("HMAC", key, encoder.encode(rawBody));
-  const expected = `sha256=${toHex(digest)}`;
-  const received = request.headers.get("X-Sendmux-Signature") ?? "";
-
-  if (!constantTimeEqual(received, expected)) {
+  if (!(await crypto.subtle.verify("HMAC", key, signature, signed))) {
     return { ok: false };
   }
 
-  return {
-    ok: true,
-    body: JSON.parse(rawBody),
-    eventId: request.headers.get("X-Sendmux-Event-Id"),
-    eventType: request.headers.get("X-Sendmux-Event-Type"),
-  };
+  try {
+    const body = JSON.parse(
+      new TextDecoder("utf-8", { fatal: true }).decode(rawBody),
+    );
+    if (
+      !body ||
+      typeof body.id !== "string" ||
+      typeof body.type !== "string" ||
+      body.id !== request.headers.get("X-Sendmux-Event-Id") ||
+      body.type !== request.headers.get("X-Sendmux-Event-Type")
+    )
+      return { ok: false };
+    return { ok: true, body, eventId: body.id, eventType: body.type };
+  } catch {
+    return { ok: false };
+  }
 }
 ```
 
 ## Common mistakes
 
 - Reading parsed JSON instead of the raw body.
-- Comparing without the `sha256=` prefix.
+- Verifying only the body instead of the timestamp and body together.
+- Accepting stale timestamps or keeping an inaccurate server clock.
 - Using a normal string comparison for secrets.
-- Processing retries without deduping on `X-Sendmux-Event-Id`.
+- Processing retries without deduplicating the verified event ID.
+
+## Legacy verification
+
+The legacy `X-Sendmux-Signature` value is `sha256=<hex HMAC-SHA256>` over the raw body bytes alone, using the same secret. It has no signed timestamp. Existing verifiers keep working; use V2 for freshness checks. A receiver configured for V2 should reject a missing or invalid V2 header instead of falling back to legacy verification.
 
 ## Endpoint behaviour
 
