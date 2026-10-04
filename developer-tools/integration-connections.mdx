@@ -127,6 +127,8 @@ An integration credential has access to all current and future inboxes in its Se
   <Step title="Retire the owned inbox and reconcile costs">
     Stop new work for the inbox in your integration, then call `DELETE /mailboxes/{public_id}` with `mailbox.admin.delete`. Confirm the response has `data.deleted: true` and the expected `data.id`. Keep the inbox ID and original team identity for [cost reconciliation](/developer-tools/mailbox-costs).
 
+    If deletion returns `503`, wait for the `Retry-After` interval before retrying the same inbox deletion. A `404` alone does not confirm deletion.
+
     A successful deletion does not make pending costs final. Read the retained cumulative cost window until its overall state is `final`. Keep pending readings open, and never replace a failed read with zero. Revoking the integration credential stops access to every inbox it covers; it is not a substitute for retiring one inbox.
   </Step>
 </Steps>
