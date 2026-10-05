@@ -4,6 +4,15 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="5 October 2026" tags={["Bug fixes"]} rss={{ title: "Sending connection delays" }}>
+  ## Bug fixes
+
+Queued emails resume sooner when a sending connection becomes available. Provider quotas are rechecked immediately before sending, including after a quota reset.
+
+Emails of different sizes can reuse a sending connection. Confirmed sends keep their result if returning unused provider allowance fails.
+
+</Update>
+
 <Update label="3 October 2026" tags={["New features"]} rss={{ title: "Mailbox drafts, inbox lifecycle and attachment text" }}>
   ## Agent email workflows
 
