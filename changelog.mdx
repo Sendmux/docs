@@ -4,6 +4,26 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="7 October 2026" tags={["Improvements"]} rss={{ title: "SMTP acceptance during busy periods" }}>
+  ## Improvements
+
+This SMTP update is not live.
+
+After release, direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens can be accepted while sending capacity is occupied, after the message is stored and required credits reserved.
+
+SMTP `250` confirms acceptance for background sending. Delivery can still fail, so check **Logs** for the result.
+
+</Update>
+
+<Update label="5 October 2026" tags={["Bug fixes"]} rss={{ title: "Sending connection delays" }}>
+  ## Bug fixes
+
+Queued emails resume sooner when a sending connection becomes available. Provider quotas are rechecked immediately before sending, including after a quota reset.
+
+Emails of different sizes can reuse a sending connection. Confirmed sends keep their result if returning unused provider allowance fails.
+
+</Update>
+
 <Update label="3 October 2026" tags={["New features"]} rss={{ title: "Mailbox drafts, inbox lifecycle and attachment text" }}>
   ## Agent email workflows
 
