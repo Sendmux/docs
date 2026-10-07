@@ -60,7 +60,7 @@ These codes are shared with the Management API. Their semantics are identical to
 
 ### rate_limit_exceeded
 
-**HTTP 429**: You have exceeded the rate limit of 1800 requests per minute. The response carries a `Retry-After` HTTP header with the recommended wait in seconds. Back off until then before retrying. `retryable` is `true`.
+**HTTP 429**: You have exceeded the rate limit of 60,000 requests per minute. The response carries a `Retry-After` HTTP header with the recommended wait in seconds. Back off until then before retrying. `retryable` is `true`.
 
 ### internal_error
 

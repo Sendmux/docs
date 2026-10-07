@@ -130,11 +130,11 @@ Every response includes an `X-Request-Id` header matching `meta.request_id`. Inc
 
 ## Rate limiting
 
-Mailbox API keys are rate-limited to **1800 requests per minute**. Rate limit headers are included on responses:
+Mailbox API keys are rate-limited to **60,000 requests per minute**. Rate limit headers are included on responses:
 
 ```http
-X-RateLimit-Limit: 1800
-X-RateLimit-Remaining: 1794
+X-RateLimit-Limit: 60000
+X-RateLimit-Remaining: 59994
 X-RateLimit-Reset: 1679313700
 ```
 
