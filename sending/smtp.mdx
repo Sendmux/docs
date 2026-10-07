@@ -69,6 +69,18 @@ Use [template variables](/sending/template-variables) in subjects and bodies to 
 
 Successful SMTP sends appear in **Logs** like HTTP sends. Use the message ID, sender, recipient, status, provider, and timestamp to trace delivery.
 
+## Acceptance during busy periods
+
+<Note>
+  This SMTP update is not live.
+</Note>
+
+After release, direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens can be accepted while sending capacity is occupied, after the message is stored and required credits reserved.
+
+SMTP `250` confirms acceptance for background sending. Delivery can still fail, so check **Logs** for the result.
+
+`452 4.3.1 Insufficient credits.` means the message was not accepted.
+
 ## Free daily limit
 
 Free teams can send to 50 accepted recipients per UTC day across SMTP and HTTP. Sendmux reserves capacity before returning `250`, so concurrent SMTP sessions cannot cross the cap.

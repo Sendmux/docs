@@ -11,6 +11,8 @@ This SMTP update is not live.
 
 After release, direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens can be accepted while sending capacity is occupied, after the message is stored and required credits reserved.
 
+SMTP `250` confirms acceptance for background sending. Delivery can still fail, so check **Logs** for the result.
+
 </Update>
 
 <Update label="5 October 2026" tags={["Bug fixes"]} rss={{ title: "Sending connection delays" }}>
