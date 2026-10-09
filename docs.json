@@ -344,6 +344,7 @@
             "pages": [
               "GET /mailbox/me",
               "GET /mailbox/session",
+              "GET /mailbox/sender-choices",
               "GET /mailbox/identity",
               "PATCH /mailbox/identity",
               "GET /mailbox/identities"
