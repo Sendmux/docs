@@ -18314,7 +18314,7 @@
         ],
         "summary": "Get permitted sender choices",
         "tags": [
-          "Mailbox"
+          "Mailbox API"
         ]
       }
     },
