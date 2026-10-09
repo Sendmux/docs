@@ -1,6 +1,6 @@
 # Documentation authoring workflow
 
-Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the humanisation finalisation gate before release when the change qualifies.
+Use this workflow for every new, moved, or materially edited reader-facing documentation page or prose block. Complete the placement gate before writing and the polish pass before release when the change qualifies.
 
 ## 1. Read before writing
 
@@ -8,7 +8,7 @@ Use this workflow for every new, moved, or materially edited reader-facing docum
 2. Read the complete `navigation` tree in `docs.json`; do not inspect only the page's current group.
 3. Search all MDX, snippets, OpenAPI prose, and redirects for the subject and its synonyms.
 4. Read two or three sibling pages that serve the same reader task.
-5. Verify technical and product claims from their owning source. The verified pre-humanisation copy is the frozen baseline.
+5. Verify technical and product claims from their owning source. The verified copy, before the polish pass, is the frozen baseline.
 
 ## 2. Decide the information architecture
 
@@ -56,29 +56,21 @@ Use only sections that help the reader complete the task. Where applicable, prog
 
 Keep one reader intent per page. Split a page when its sections serve different navigation destinations or reader goals; merge pages when they duplicate one task and neither has an independent purpose.
 
-## 4. Determine whether humanisation is required
+## 4. Determine whether the polish pass is required
 
-Humanisation is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
+The polish pass is required when the change adds reader-facing prose, changes sentence meaning or structure, or replaces a complete visible sentence or paragraph in shipped MDX, OpenAPI-rendered prose, snippets, or changelog prose.
 
-Humanisation is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Humanisation: skipped — <exact exemption>` when skipping it.
+It is not required for an exact technical-token correction, metadata-only edit, punctuation-only edit, generated artifact, code-only change, or agent-only instruction. Record `Polish pass: skipped — <exact exemption>` when skipping it.
 
-This workflow enables the canonical contract's `ineligible-technical` disposition for documentation and technical guides. Apply the contract's complete criteria before any provider call and only to one atomic technical-reference paragraph or list item. Do not exempt a whole page or section, or any explanatory, tutorial, transitional, or promotional prose, merely because it discusses a technical subject. Preserve a qualifying unit byte-identically and record its source evidence, protected assertions, manual checks, and eligibility reason in the ledger.
+## 5. Run the polish pass
 
-Historical `reference-class` ledgers remain byte-identical evidence only. They do not authorise a material edit or replace the ledger required by the canonical contract.
+Read `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/polish-pass.md` and run it once over the new or changed prose. Give the critic the section 2 placement block as the brief, the **Shipped copy quality** and **Writing conventions** rules in `AGENTS.md` as the voice profile, and the owning sources from section 1 as the claims source. If the `humanize` skill is not installed, search local skill repositories for it; if it is still missing, stop and report it.
 
-## 5. Apply the canonical finalisation contract
-
-Read `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/humanisation-finalisation.md` before finalisation. Its eligibility, transport, repair, retry, scoring, and ledger rules are authoritative.
-
-Inventory the prose units and freeze their protected spans. Use the contract's `ineligible-manual` route for qualifying short units or a whole piece below the submission floor, preserving source bytes and recording manual checks. Process eligible submissions through **detect, humanise, repair, re-detect, ledger**. Follow the contract's reviewer decision for retries and its conditions for retaining the reviewed source; provider errors require `blocked-manual-review` with the exact error.
-
-This workflow additionally protects supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, verified factual claims, frontmatter, heading hierarchy, code, tables, list structure, image markup, FAQ questions, link destinations, Australian English, and the repository's concise developer-docs voice.
-
-Record exactly one disposition per unit in a hash-bound ledger, with zero `blocked-manual-review` rows before release. Keep provider output and review files private; preserve historical ledgers byte-identically.
+Add the docs protected set to the critic's brief and to the protected-set check: supplied SEO and long-tail keywords, technical entities, code tokens, commands, URLs, source links, numbers, units, product/protocol/provider names, schema fields, verified factual claims, frontmatter, heading hierarchy, code, tables, list structure, image markup, FAQ questions, link destinations, Australian English, and the repository's concise developer-docs voice.
 
 ## 6. Pass the preservation gate
 
-Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction. A passing ledger does not replace these preservation checks.
+Fail the gate if any protected occurrence is reduced without an explicit, task-authorised correction.
 
 Compare the frozen baseline and final copy and confirm:
 
@@ -92,14 +84,14 @@ Read baseline and final copy side by side once more. The gate passes only when e
 
 ## 7. Verify and report
 
-Run every repository gate that applies, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks. Humanisation evidence never replaces technical verification or browser review.
+Run every repository gate that applies to the final copy, including confidentiality, external-link, Mintlify validation, broken links, and rendered preview checks.
 
 Report:
 
 ```text
 Placement: <tab → group → subgroup → page>
 Disposition: <keep | move | split | merge>
-Humanisation: <skipped — exact exemption | finalised — dispositions and ledger path | held — blocked-manual-review count and exact reason>
+Polish pass: <skipped — exact exemption | done — every rubric line passes, protected set exact | held — blocked rubric line and the fact it needs>
 Preservation: <protected counts unchanged; claims verified>
 Status: <checks and release state>
 ```
