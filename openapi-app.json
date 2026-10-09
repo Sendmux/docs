@@ -6202,7 +6202,7 @@
                 "enum": [
                   30
                 ],
-                "type": "number"
+                "type": "integer"
               },
               "inline_attachment_bytes_max": {
                 "type": "integer"
