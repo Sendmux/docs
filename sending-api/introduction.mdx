@@ -114,15 +114,15 @@ The Sending API uses the same envelope as the [Management API](/api/introduction
 
 ## Rate limits
 
-Each send-only key, mailbox key, or owner-approved agent token used on the Sending API is rate-limited to **1,800 requests per 60 seconds**. A batch send counts as **1 request**, regardless of how many messages it contains.
+Each send-only key, mailbox key, or owner-approved agent token used on the Sending API is rate-limited to **60,000 requests per 60 seconds**. A batch send counts as **1 request**, regardless of how many messages it contains.
 
 Management API keys are limited separately to **600 requests per 60 seconds**. See the [Management API introduction](/api/introduction#rate-limits).
 
 Every response carries the current rate-limit state plus a request identifier:
 
 ```
-X-RateLimit-Limit: 1800
-X-RateLimit-Remaining: 1794
+X-RateLimit-Limit: 60000
+X-RateLimit-Remaining: 59994
 X-RateLimit-Reset: 1679313700
 X-Request-Id: req_clxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
