@@ -6213,7 +6213,7 @@
             },
             "header": [
               {
-                "description": "",
+                "description": "Return 304 when this ETag still matches.",
                 "disabled": true,
                 "key": "If-None-Match",
                 "value": "<string>"
