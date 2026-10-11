@@ -34,6 +34,7 @@ Revoking a manual API key stops that key. Disconnecting a connected app stops th
 | **Infrastructure key** | Team automation, providers, routing, billing, logs, domains, mailboxes, and webhooks. | `smx_root_`   |
 | **Sending key**        | Sending mail through the Sending API, SMTP, CLI tools, MCP clients, or agents.        | `smx_mbx_`    |
 | **Mailbox key**        | API, IMAP, and SMTP access for one mailbox.                                           | `smx_mbx_`    |
+| **Mailbox Integration** | Let integrations create and use inboxes across your team.                            | `smx_int_`    |
 | **Agent token**        | Constrained mailbox access for a self-registered agent.                               | `smx_agent_`  |
 
 Sending keys and mailbox keys share the `smx_mbx_` prefix. Owner-approved agent tokens use `smx_agent_`. Permissions, token resource, and sending scope decide what each credential can do.
@@ -82,7 +83,7 @@ Re-authorising the same app updates the existing connection instead of creating 
     through all providers, selected providers, or delivery groups.
   </Step>
   <Step title="Store the secret">
-    Copy the generated `smx_root_` or `smx_mbx_` value. Sendmux will not show it
+    Copy the generated `smx_root_`, `smx_mbx_`, or `smx_int_` value. Sendmux will not show it
     again.
   </Step>
 </Steps>
@@ -90,6 +91,10 @@ Re-authorising the same app updates the existing connection instead of creating 
 ## Scopes and presets
 
 Infrastructure keys use role presets such as **Full Access**, **Read Only**, **Provider Admin**, **Billing Admin**, and **Webhook Admin**.
+
+### Mailbox Integration
+
+Select **Mailbox Integration** when you create a key. Enter a name and optional description. The fixed role can create and use inboxes across your team. It requires email access permission.
 
 Sending and mailbox keys use mailbox permissions:
 
