@@ -27,6 +27,8 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
   <Step title="Edit the saved content">
     Pass the revision you last read as `expected_revision`. A `409` means another edit won: read the draft again and review the newer content before retrying. Omitted fields keep their saved values.
 
+    Mailbox draft writes reject `X-SES-TENANT`, `X-SES-CONFIGURATION-SET` and `X-SES-MESSAGE-TAGS`, regardless of letter case. Older drafts containing these headers remain readable. To clear saved custom headers, include `"custom_headers": {}` in an update.
+
     ```bash
     curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123 \
       -H "Authorization: Bearer $SENDMUX_API_KEY" \
