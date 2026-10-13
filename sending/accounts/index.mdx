@@ -35,7 +35,7 @@ The managed account is active by default. It is best for first sends and low-vol
 
 <SharedSesPolicy />
 
-Pro managed sending has no per-second, per-minute or per-hour Sendmux cap, and your team's current daily allowance still applies, including approved increases. Managed sends share Amazon SES account and regional sending limits.
+Pro managed sending has no per-second, per-minute or per-hour Sendmux speed cap, and your team's current daily allowance still applies, including approved increases. Managed sends share Amazon SES account and regional sending limits.
 
 Free managed-sending limits are fixed. Upgrade to Pro for more capacity. On Pro, **Request increase** appears on **Accounts** at 80% of the managed Amazon SES daily limit. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API. Submit the request once; Sendmux reviews it and emails the outcome.
 
