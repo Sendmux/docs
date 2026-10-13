@@ -66,9 +66,11 @@ Managed Amazon SES adds these safeguards:
 | Plan | Hourly limit                      | Daily limit                         | More capacity                                   |
 | ---- | --------------------------------- | ----------------------------------- | ----------------------------------------------- |
 | Free | 2 accepted recipients             | 50 accepted recipients              | Upgrade to Pro                                  |
-| Pro  | Starts at 100 accepted recipients | Starts at 1,000 accepted recipients | Request a review from **Accounts** at 80% usage |
+| Pro  | No Sendmux speed cap             | Team's current daily allowance     | Request a review from **Accounts** at 80% usage |
 
-Pro does not have a Sendmux-wide outgoing volume cap. Managed sending limits, configured quotas, provider limits, and account health controls still apply.
+Pro managed sending has no per-second, per-minute or per-hour Sendmux cap. Your team's current daily allowance, approved increases and shared Amazon SES account and regional sending limits still apply.
+
+Your own providers on Pro and Enterprise have no Sendmux sending caps. Any quotas you configure, provider limits and account health controls still apply.
 
 ## Related guides
 
