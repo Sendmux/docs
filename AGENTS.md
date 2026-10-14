@@ -89,8 +89,8 @@ Mirror the patterns Mintlify uses in [their own docs repo](https://github.com/mi
 
 These rules are mandatory for every file that ships to `docs.sendmux.ai`.
 
-- Before drafting or finalising any reader-facing text, find, read and apply the `humanize` skill. If its listed path is missing or stale, search installed skills and local skill repositories. If it remains unavailable, stop and report the missing skill. Write concise, clear, plain English while preserving necessary technical terminology, identifiers, units, numbers and factual qualifications. Skill use does not replace the finalisation and preservation gates below.
-- Follow `automation/docs-authoring-workflow.md` for placement, canonical humanisation finalisation, and preservation before shipping new or materially rewritten reader-facing docs copy.
+- Write concise, clear, plain English while preserving necessary technical terminology, identifiers, units, numbers and factual qualifications. The `humanize` skill runs once, inside the polish pass below.
+- Follow `automation/docs-authoring-workflow.md` for placement, the polish pass, and preservation before shipping new or materially rewritten reader-facing docs copy.
 - Keep copy concise, plain, and clear. Cut filler before adding detail.
 - Balance sibling card and UI block copy so matching blocks wrap to the same number of lines where practical.
 - Keep customer explanations and walkthroughs in **Guides**. Keep API endpoint detail in generated API reference tabs.
@@ -235,7 +235,7 @@ Before pushing any docs change, run the validation gates listed in [Before decla
 
 ## Documentation authoring workflow
 
-- For every new, moved, or materially edited reader-facing documentation page or prose block, read and follow `automation/docs-authoring-workflow.md` from placement audit through the canonical `AA-claude-prompts/humanisation-finalisation.md` finalisation, preservation, and release checks; release requires zero `blocked-manual-review` units.
+- For every new, moved, or materially edited reader-facing documentation page or prose block, read and follow `automation/docs-authoring-workflow.md` from placement audit through the polish pass in `/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/polish-pass.md`, preservation, and release checks.
 - Reconsider an existing page's location whenever its scope changes; prior placement is evidence, not proof that the page still belongs there.
 - Order top-level documentation groups for this developer-first audience: onboarding → developer tools → AI workflows → adjacent core workflows → configuration → operations → use cases and general integrations → administration; reassess neighbouring groups whenever one changes.
 

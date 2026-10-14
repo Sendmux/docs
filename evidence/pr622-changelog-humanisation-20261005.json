@@ -1,0 +1,31 @@
+[
+  {
+    "id": "changelog#p001",
+    "eligibility": "whole-new-prose-block-under-50-words",
+    "editableCharacters": 69,
+    "sourceSha256": "3c1c659940bd720b016d042292ddddc793d9732fe105cf4ac3db2faf0eb55716",
+    "finalSha256": "3c1c659940bd720b016d042292ddddc793d9732fe105cf4ac3db2faf0eb55716",
+    "changedFromSource": false,
+    "attempt": 1,
+    "scoreSource": null,
+    "scoreRaw": null,
+    "scoreFinal": null,
+    "repairs": [],
+    "manualChecks": [
+      "Exact source-backed claim from approved action guard",
+      "Plain English; no internal/provider terms",
+      "Existing page structure and text unchanged",
+      "Modal/default prerequisite preserved; no promise future charges succeed",
+      "Exact held source and 1 October 2026 RSS metadata preserved; no rewriting or retry",
+      "Fresh candidate minus added block equals current main baseline byte-identically; newer promo-code entry retained",
+      "Hard-ban literal scan: em dashes0, semicolons0, curly quotes0, banned vocabulary0, comparative framing0, diminishment0, rhetorical scaffolding0; body sentence10words; rhythm threshold inapplicable under80words"
+    ],
+    "disposition": "ineligible-manual",
+    "runnerExit": 1,
+    "runnerError": "batch-word-limit",
+    "providerSubmitted": false,
+    "reason": "Standalone new prose block under submission floor; no padding/mixing allowed; contract line22",
+    "transport": "rest",
+    "transportEvidence": "Original session H:32653 invokes canonical humanise.mjs run for changelog; local batch-word-limit guard prevents provider submission."
+  }
+]

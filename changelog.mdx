@@ -4,23 +4,39 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="7 October 2026" tags={["Improvements"]} rss={{ title: "SMTP acceptance during busy periods" }}>
+<Update label="<<TBD: verified publication date>>" tags={["Improvements", "Bug fixes"]} rss={{ title: "SMTP acceptance and sending connection recovery" }}>
   ## Improvements
 
-This SMTP update is not live.
+When sending capacity is occupied, Sendmux can still accept your direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens after it stores the message and reserves the required credits.
 
-After release, direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens can be accepted while sending capacity is occupied, after the message is stored and required credits reserved.
+SMTP `250` confirms acceptance for background sending, though delivery can still fail. Check **Logs** for the result.
 
-SMTP `250` confirms acceptance for background sending. Delivery can still fail, so check **Logs** for the result.
+  ## Bug fixes
+
+Queued emails resume sooner when a sending connection becomes available, and Sendmux rechecks provider quotas immediately before sending, including after a quota reset.
+
+Emails of different sizes can reuse a sending connection, and confirmed sends keep their result if returning unused provider allowance fails.
 
 </Update>
 
-<Update label="5 October 2026" tags={["Bug fixes"]} rss={{ title: "Sending connection delays" }}>
+<Update label="14 October 2026" tags={["Bug fixes"]} rss={{ title: "Sending caps corrected for paid teams" }}>
   ## Bug fixes
 
-Queued emails resume sooner when a sending connection becomes available. Provider quotas are rechecked immediately before sending, including after a quota reset.
+Pro managed sending now follows your team's daily allowance without separate per-second, per-minute or per-hour Sendmux speed caps. Approved increases and existing daily allowances stay in place. Managed sends still share Amazon SES sending limits. On Pro and Enterprise, your own providers follow provider limits and any sending quotas you configure. Free sending limits are unchanged.
 
-Emails of different sizes can reuse a sending connection. Confirmed sends keep their result if returning unused provider allowance fails.
+</Update>
+
+<Update label="9 October 2026" tags={["Bug fixes"]} rss={{ title: "Payment method check for automatic top-ups" }}>
+  ## Bug fixes
+
+Add a default payment method before enabling automatic top-ups in Sendmux.
+
+</Update>
+
+<Update label="8 October 2026" tags={["Improvements"]} rss={{ title: "Mailbox Integration keys in the dashboard" }}>
+  ## Improvements
+
+Create Mailbox Integration keys from the API keys page to let integrations create and use inboxes across your team.
 
 </Update>
 
