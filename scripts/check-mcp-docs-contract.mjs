@@ -5,7 +5,7 @@ import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { parseArgs } from "node:util";
 
-const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json"];
+const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json", "packages/ts/mcp/package.json"];
 const semver = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/;
 const usage = "Usage: check-mcp-docs-contract.mjs --check|--write [--sdk PATH]";
 
@@ -59,7 +59,7 @@ export async function checkContract({ sdkDir, pin }) {
     if (!disk.equals(blob)) throw new Error(`${path} differs from pinned Git blob ${pin}`);
   }
   const { verifyRegistryVersion } = await import(pathToFileURL(resolve(sdkDir, "scripts/check-mcp.mjs")));
-  verifyRegistryVersion(resolve(sdkDir, "packages/python/mcp"));
+  verifyRegistryVersion(resolve(sdkDir, "packages/python/mcp"), resolve(sdkDir, "packages/ts/mcp"));
   const contract = JSON.parse(readFileSync(resolve(sdkDir, owned[3]), "utf8"));
   const { package: pkg, protocols, runtime_protocols: runtimeProtocols, tools, hosted, uploads } = contract;
   assert.match(pkg.identity, /\S/, "package.identity");

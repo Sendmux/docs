@@ -9,7 +9,7 @@ import { changedRenderedFields, checkContract, renderSnippet } from "../scripts/
 const candidate = process.env.SENDMUX_SDK_CHECKOUT;
 if (!candidate) throw new Error("SENDMUX_SDK_CHECKOUT must name the pinned SDK checkout used by fixture tests");
 const checker = resolve("scripts/check-mcp-docs-contract.mjs");
-const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json"];
+const owned = ["scripts/check-mcp.mjs", "packages/python/mcp/pyproject.toml", "packages/python/mcp/server.json", "packages/python/mcp/sendmux_mcp/mcp-contract.json", "packages/ts/mcp/package.json"];
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 const writeJson = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
 
@@ -45,7 +45,7 @@ function coherentVersionChange(root, version) {
   if (!version) { const parts = contract.package.version.split(".").map(Number); parts[2] += 1; version = parts.join("."); }
   contract.package.version = version; writeJson(contractPath, contract);
   const pyproject = join(root, owned[1]); writeFileSync(pyproject, readFileSync(pyproject, "utf8").replace(/version = "[^"]+"/, `version = "${contract.package.version}"`));
-  const registryPath = join(root, owned[2]); const registry = readJson(registryPath); registry.version = contract.package.version; registry.packages.find((entry) => entry.identifier === contract.package.identity).version = contract.package.version; writeJson(registryPath, registry);
+  const registryPath = join(root, owned[2]); const registry = readJson(registryPath); registry.packages.find((entry) => entry.registryType === "pypi" && entry.identifier === contract.package.identity).version = contract.package.version; writeJson(registryPath, registry);
   return contract;
 }
 
@@ -85,7 +85,14 @@ test("trust boundary rejects malformed, wrong-head, missing-input, changed-blob,
   const sdk = fixture(t, "trust"); await assert.rejects(checkContract({ sdkDir: sdk.root, pin: "main" }), /40-character/); await assert.rejects(checkContract({ sdkDir: sdk.root, pin: "0".repeat(40) }), /resolves to/);
   const missing = fixture(t, "missing"); rmSync(join(missing.root, owned[3])); await assert.rejects(checkContract({ sdkDir: missing.root, pin: missing.pin }), /ENOENT|no such file/i);
   const changed = fixture(t, "changed"); writeFileSync(join(changed.root, owned[3]), `${readFileSync(join(changed.root, owned[3]), "utf8")}\n`); await assert.rejects(checkContract({ sdkDir: changed.root, pin: changed.pin }), /differs from pinned Git blob/);
-  const joint = fixture(t, "mutant-no-git-blob-check"); coherentVersionChange(joint.root); assert.equal(readJson(join(joint.root, owned[3])).package.version, readJson(join(joint.root, owned[2])).version, "RED mutant/no-git-blob-check accepts coherent uncommitted inputs"); await assert.rejects(checkContract({ sdkDir: joint.root, pin: joint.pin }), /differs from pinned Git blob/, "GREEN Git-blob check rejects mutant fixture");
+  const joint = fixture(t, "mutant-no-git-blob-check"); coherentVersionChange(joint.root); assert.equal(readJson(join(joint.root, owned[3])).package.version, readJson(join(joint.root, owned[2])).packages.find((entry) => entry.registryType === "pypi" && entry.identifier === "sendmux-mcp").version, "RED mutant/no-git-blob-check accepts coherent uncommitted inputs"); await assert.rejects(checkContract({ sdkDir: joint.root, pin: joint.pin }), /differs from pinned Git blob/, "GREEN Git-blob check rejects mutant fixture");
+});
+
+test("trust boundary rejects uncommitted npm package metadata", async (t) => {
+  const sdk = fixture(t, "npm-changed-blob");
+  const npmPackagePath = join(sdk.root, "packages/ts/mcp/package.json");
+  writeFileSync(npmPackagePath, `${readFileSync(npmPackagePath, "utf8")}\n`);
+  await assert.rejects(checkContract({ sdkDir: sdk.root, pin: sdk.pin }), /packages\/ts\/mcp\/package\.json differs from pinned Git blob/);
 });
 
 test("private and unrelated committed changes do not affect projection", async (t) => {

@@ -1,0 +1,1069 @@
+{
+  "artifact": "Monid resumed saved drafts, per-mailbox cost and billing guides",
+  "reviewedAt": "2026-09-30T14:15:08.268659+10:00",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "f782ea953a53f489d62a12224f28568b2ee37c7da37966d9d7af6be37b505b14",
+  "workflow": "automation/docs-authoring-workflow.md:59-77",
+  "pageHashes": {
+    "developer-tools/mailbox-api/saved-drafts.mdx": {
+      "sourceSha256": "fb3709231aeec7675513458dcd0cc0b979e6cfdb5a546043eedebcb9c44705e6",
+      "finalSha256": "b7604548f341718ef41503846b1f0715259fc401cf13aeec51f126a9469895f9",
+      "preservation": "Exact frozen page unchanged except task-authorised card icon correction to a verified icon token."
+    },
+    "developer-tools/mailbox-costs.mdx": {
+      "sourceSha256": "c73f1dfadd48ac5e6ee0b1015d26412506c9b6e3d2915420f02ae5220faa0cef",
+      "finalSha256": "c73f1dfadd48ac5e6ee0b1015d26412506c9b6e3d2915420f02ae5220faa0cef",
+      "preservation": "Exact frozen page unchanged."
+    },
+    "account/billing.mdx": {
+      "sourceSha256": "30e22d2773f3bd6e77395912cf09354a98f2a67c07b3d58f987634d2707c879a",
+      "finalSha256": "30e22d2773f3bd6e77395912cf09354a98f2a67c07b3d58f987634d2707c879a",
+      "preservation": "Exact frozen page unchanged."
+    }
+  },
+  "providerSubmissions": 4,
+  "attemptsPerBatch": 1,
+  "batches": [
+    {
+      "name": "saved-drafts-1",
+      "attempt": 1,
+      "taskId": "d8a2b9b6-3c95-4066-a30e-3bb74437d3bb",
+      "mechanicalRejection": "frozen-content-mismatch",
+      "sourceSha256": "7f8895616cfd588f9aa9564bd8cd6d41fb664e74745da39cd2e0bc6456dbbfb6",
+      "restoredRawSha256": "7f8895616cfd588f9aa9564bd8cd6d41fb664e74745da39cd2e0bc6456dbbfb6",
+      "finalSha256": "7f8895616cfd588f9aa9564bd8cd6d41fb664e74745da39cd2e0bc6456dbbfb6",
+      "providerRawSha256": "44eff3727616685c5f9b9c313ba51620a8cdb609313a8bb3d793ce35f0a9df37",
+      "scoreSource": 58,
+      "scoreRaw": 58,
+      "scoreFinal": 58,
+      "rawScoreProvenance": "Cached source detection reused only after restored-raw input SHA256 exactly matched detect-source.contentSha256. Final detection performed after restoration.",
+      "repairs": [],
+      "gate": "Source retained under explicit operator decline-retry decision; detector thresholds did not pass and scores remain unchanged."
+    },
+    {
+      "name": "saved-drafts-2",
+      "attempt": 1,
+      "taskId": "763d5a4a-c9d5-47a2-a739-d298f0689e0c",
+      "mechanicalRejection": "ambiguous-paragraph-mapping",
+      "sourceSha256": "2f42200bd1ecf71154f8b8200f83de1166a128052d36f9406690612cbc4c0882",
+      "restoredRawSha256": "2f42200bd1ecf71154f8b8200f83de1166a128052d36f9406690612cbc4c0882",
+      "finalSha256": "2f42200bd1ecf71154f8b8200f83de1166a128052d36f9406690612cbc4c0882",
+      "providerRawSha256": "003e3d3c99f6bf1be5db65a9aec5f49397132941da3cc7a498ef98c451b974e4",
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "rawScoreProvenance": "Cached source detection reused only after restored-raw input SHA256 exactly matched detect-source.contentSha256. Final detection performed after restoration.",
+      "repairs": [],
+      "gate": "Source retained under explicit operator decline-retry decision; detector thresholds did not pass and scores remain unchanged."
+    },
+    {
+      "name": "mailbox-costs-1",
+      "attempt": 1,
+      "taskId": "d4bf8b7c-42e4-4371-8455-4ef9cd54bd80",
+      "mechanicalRejection": "ambiguous-paragraph-mapping",
+      "sourceSha256": "a6df32a7a74655ffff2baed9ca7af30c15be6f4a360945db5d3f6fd5007291f2",
+      "restoredRawSha256": "a6df32a7a74655ffff2baed9ca7af30c15be6f4a360945db5d3f6fd5007291f2",
+      "finalSha256": "a6df32a7a74655ffff2baed9ca7af30c15be6f4a360945db5d3f6fd5007291f2",
+      "providerRawSha256": "eebef91825ccf0d267fdcf47571f5152d906c7ddc279fb2df728e5bb89b762ee",
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "rawScoreProvenance": "Cached source detection reused only after restored-raw input SHA256 exactly matched detect-source.contentSha256. Final detection performed after restoration.",
+      "repairs": [],
+      "gate": "Source retained under explicit operator decline-retry decision; detector thresholds did not pass and scores remain unchanged."
+    },
+    {
+      "name": "billing-1",
+      "attempt": 1,
+      "taskId": "e4b50e5a-4b50-455f-bafb-2b76c27af799",
+      "mechanicalRejection": "protected-anchor-mismatch",
+      "sourceSha256": "74a8e1c1e6961197b41cb3a1aa717afb3286180060a9ee323bebd6c1428a3d40",
+      "restoredRawSha256": "74a8e1c1e6961197b41cb3a1aa717afb3286180060a9ee323bebd6c1428a3d40",
+      "finalSha256": "74a8e1c1e6961197b41cb3a1aa717afb3286180060a9ee323bebd6c1428a3d40",
+      "providerRawSha256": "d57f888648def6f5c2817c826c65e4990b629ff1626db80567c8251981a60972",
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "rawScoreProvenance": "Cached source detection reused only after restored-raw input SHA256 exactly matched detect-source.contentSha256. Final detection performed after restoration.",
+      "repairs": [],
+      "gate": "Source retained under explicit operator decline-retry decision; detector thresholds did not pass and scores remain unchanged."
+    }
+  ],
+  "units": [
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p001",
+      "eligibility": "eligible",
+      "editableCharacters": 177,
+      "sourceSha256": "7695794e5b1963e642816bc1e6a134f6b03143a567d1500222edffddfde86488",
+      "finalSha256": "7695794e5b1963e642816bc1e6a134f6b03143a567d1500222edffddfde86488",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 58,
+      "scoreRaw": 58,
+      "scoreFinal": 58,
+      "repairs": [],
+      "protectedAnchors": [
+        "Use saved drafts"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-1",
+      "restorationReason": "Split source intro across output paragraphs and title-cased the entire sentences; voice/structure cannot be repaired by token substitution.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p002",
+      "eligibility": "eligible",
+      "editableCharacters": 166,
+      "sourceSha256": "53e86c64d28d338d0d2b3c3ab57d787525db47ea984dff64eebb66f8afa627cb",
+      "finalSha256": "53e86c64d28d338d0d2b3c3ab57d787525db47ea984dff64eebb66f8afa627cb",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 58,
+      "scoreRaw": 58,
+      "scoreFinal": 58,
+      "repairs": [],
+      "protectedAnchors": [
+        "`mailbox.read`",
+        "`mailbox.drafts.write`",
+        "`email.send`",
+        "All draft requests"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-1",
+      "restorationReason": "Removed required permissions and omitted creating from write scope.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p003",
+      "eligibility": "eligible",
+      "editableCharacters": 298,
+      "sourceSha256": "9750d568e6b440fd9a422d136ed41776c2f9115d0c6a55a5b36ea8f5614a9c70",
+      "finalSha256": "9750d568e6b440fd9a422d136ed41776c2f9115d0c6a55a5b36ea8f5614a9c70",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 58,
+      "scoreRaw": 58,
+      "scoreFinal": 58,
+      "repairs": [],
+      "protectedAnchors": [
+        "`reply_all`",
+        "`forward`",
+        "Sendmux",
+        "Create a draft"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-1",
+      "restorationReason": "Removed reply_all/forward tokens and changed delivery-source instructions; rebuilding requires sentence restoration.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p004",
+      "eligibility": "eligible",
+      "editableCharacters": 141,
+      "sourceSha256": "a42d41cff089675f7ae76ac9bf11d76573d78334fb4dc2df000631d18cbceb2e",
+      "finalSha256": "a42d41cff089675f7ae76ac9bf11d76573d78334fb4dc2df000631d18cbceb2e",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 58,
+      "scoreRaw": 58,
+      "scoreFinal": 58,
+      "repairs": [],
+      "protectedAnchors": [
+        "`data.id`",
+        "`data.revision`",
+        "`GET /mailbox/drafts/{draftId}`",
+        "`ready`",
+        "Keep the returned"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-1",
+      "restorationReason": "Removed ID/revision/route/status and changed idempotency instruction to losing the key.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p005",
+      "eligibility": "eligible",
+      "editableCharacters": 170,
+      "sourceSha256": "115f27edf17ab029d72c0e65cb2c5a38958c25a787ff224fb5780e697c1c497a",
+      "finalSha256": "115f27edf17ab029d72c0e65cb2c5a38958c25a787ff224fb5780e697c1c497a",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 58,
+      "scoreRaw": 58,
+      "scoreFinal": 58,
+      "repairs": [],
+      "protectedAnchors": [
+        "`expected_revision`",
+        "`409`",
+        "409",
+        "Pass the revision"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-1",
+      "restorationReason": "Removed expected_revision and409, changing the exact conflict instruction.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p006",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 232,
+      "sourceSha256": "356aa16d84f675639accf9e7cc9f2cffd6c6906b883b153e323f68e26257f8a7",
+      "finalSha256": "356aa16d84f675639accf9e7cc9f2cffd6c6906b883b153e323f68e26257f8a7",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`data.revision`",
+        "`html_body`",
+        "[upload it](/developer-tools/mailbox-api/attachments)",
+        "`blob_id`",
+        "`attachments`",
+        "`disposition`",
+        "`content_id`",
+        "To",
+        "Use the new"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "eligibilityReason": "One atomic technical-reference instruction/assertion paragraph: all editable wording specifies saved attachment fields or precise cost attribution. Every clause source-backed; no narrative/marketing content. Root-relative source link preserved unchanged; no provider call for this unit.",
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p007",
+      "eligibility": "eligible",
+      "editableCharacters": 229,
+      "sourceSha256": "3c44c27711f0a15cae66a06a473b08ca4752eee9e93b255d7f115d93a3d2956c",
+      "finalSha256": "3c44c27711f0a15cae66a06a473b08ca4752eee9e93b255d7f115d93a3d2956c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "Confirm the recipients,"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Changed lost response to original message lost and hardened must not to will never.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p008",
+      "eligibility": "eligible",
+      "editableCharacters": 137,
+      "sourceSha256": "ad3d258fdc512bc99db8bff16d88fc0e16ed009954a4cd86d72ccafadf6af77e",
+      "finalSha256": "ad3d258fdc512bc99db8bff16d88fc0e16ed009954a4cd86d72ccafadf6af77e",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "`409`",
+        "409",
+        "A stale revision"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Dropped409 and rewrote stale-revision interpretation.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p009",
+      "eligibility": "eligible",
+      "editableCharacters": 341,
+      "sourceSha256": "236650689d729b27445c7f73476a8a21032a6b1a134e61cece0cf76b78ba3ab7",
+      "finalSha256": "236650689d729b27445c7f73476a8a21032a6b1a134e61cece0cf76b78ba3ab7",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "`expected_revision`",
+        "`expected_schedule_version`",
+        "`scheduled_for`",
+        "`schedule_version`",
+        "`PATCH /mailbox/drafts/{draftId}/schedule`",
+        "`null`",
+        "30",
+        "To",
+        "To schedule the"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Dropped revision/version/time/route fields; changed cancel null to true.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p010",
+      "eligibility": "eligible",
+      "editableCharacters": 269,
+      "sourceSha256": "872147af7ff02783177dc56553300ada6d8a3947916fcf62e16ae621e1297eb1",
+      "finalSha256": "872147af7ff02783177dc56553300ada6d8a3947916fcf62e16ae621e1297eb1",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "`expected_schedule_version`",
+        "Cancel a scheduled"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Split unit across two paragraphs, dropped expected_schedule_version and changed cancellation ordering.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p011",
+      "eligibility": "eligible",
+      "editableCharacters": 269,
+      "sourceSha256": "0063b6b1345be2b36d2f0cf1389ee0508ebe39631f343dec5339a440a63c3e0d",
+      "finalSha256": "0063b6b1345be2b36d2f0cf1389ee0508ebe39631f343dec5339a440a63c3e0d",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "50",
+        "Reply-To",
+        "To",
+        "Cc",
+        "Bcc",
+        "The sender and"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Replaced team/mailbox/credential intersection with new Team/Box wording.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p012",
+      "eligibility": "eligible",
+      "editableCharacters": 227,
+      "sourceSha256": "56cd236b12b8b2d2693e11744f53bdf48ff812d97fa517de3140f0e849c6b645",
+      "finalSha256": "56cd236b12b8b2d2693e11744f53bdf48ff812d97fa517de3140f0e849c6b645",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "Review the saved"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Changed saved-response approval to approving sent revisions and weakened prepared tracking to available.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-api/saved-drafts.mdx#p013",
+      "eligibility": "eligible",
+      "editableCharacters": 257,
+      "sourceSha256": "c6ed56a02e85599a0b7c56875c7b76738bb85fa8007379f4783e6d48439bf4ac",
+      "finalSha256": "c6ed56a02e85599a0b7c56875c7b76738bb85fa8007379f4783e6d48439bf4ac",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 79,
+      "scoreRaw": 79,
+      "scoreFinal": 79,
+      "repairs": [],
+      "protectedAnchors": [
+        "`failed`",
+        "`failure_code`",
+        "`uncertain`",
+        "Read the same"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/_lib/schemas/mailbox-drafts.ts:15-28,87-128,260-367",
+        "src/server/mailbox-drafts.ts:833-861,907-954",
+        "src/server/mailbox-draft-source.ts:54-118"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "saved-drafts-2",
+      "restorationReason": "Dropped failed/failure_code/uncertain tokens and changed outcome qualifications.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p001",
+      "eligibility": "eligible",
+      "editableCharacters": 247,
+      "sourceSha256": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf",
+      "finalSha256": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`mailbox.admin.read`",
+        "Management API",
+        "Use the Management"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Removed mailbox.admin.read requirement and changed reconciliation task into forecasting.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p002",
+      "eligibility": "eligible",
+      "editableCharacters": 153,
+      "sourceSha256": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6",
+      "finalSha256": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`MAILBOX_ID`",
+        "`WINDOW_START`",
+        "`WINDOW_END`",
+        "Set `MAILBOX_ID` to"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split paragraph and removed MAILBOX_ID/WINDOW_START/WINDOW_END instructions.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p003",
+      "eligibility": "eligible",
+      "editableCharacters": 304,
+      "sourceSha256": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be",
+      "finalSha256": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "366",
+        "The window includes"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Altered precision and range wording; voice/structure require complete source restoration.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p004",
+      "eligibility": "eligible",
+      "editableCharacters": 270,
+      "sourceSha256": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c",
+      "finalSha256": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`incoming`",
+        "`outgoing`",
+        "`storage`",
+        "`posted_amount`",
+        "`state`",
+        "`pending`",
+        "`final`",
+        "`200`",
+        "200",
+        "The response has"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split unit and replaced pending/final state with success/error status.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p005",
+      "eligibility": "eligible",
+      "editableCharacters": 271,
+      "sourceSha256": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f",
+      "finalSha256": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`incurred_amount`",
+        "`unbillable_amount`",
+        "`raw_amount`",
+        "`allocated_amount`",
+        "`posted_amount`",
+        "`incurred_amount` records email"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split field definitions into multiple lines and removed all field tokens.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p006",
+      "eligibility": "eligible",
+      "editableCharacters": 165,
+      "sourceSha256": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df",
+      "finalSha256": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`raw_amount`",
+        "18",
+        "six decimal places",
+        "Amounts and quantities"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Changed raw_amount18 precision into posted storage18 precision.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p007",
+      "eligibility": "eligible",
+      "editableCharacters": 527,
+      "sourceSha256": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478",
+      "finalSha256": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`coverage_started_at`",
+        "`pending`",
+        "`final`",
+        "The incoming and"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split unit, removed coverage/state fields and invented subscriptions or range-resolution claims.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p008",
+      "eligibility": "eligible",
+      "editableCharacters": 291,
+      "sourceSha256": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47",
+      "finalSha256": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "first records",
+        "original recorded time",
+        "Outgoing usage belongs"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Dropped replay timing guarantee and changed acceptance-time definition.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p009",
+      "eligibility": "eligible",
+      "editableCharacters": 294,
+      "sourceSha256": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8",
+      "finalSha256": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "first covered calendar month",
+        "When storage billing"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Changed first-covered-month source into emphatic uppercase; restoring voice requires sentence rewriting.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p010",
+      "eligibility": "eligible",
+      "editableCharacters": 334,
+      "sourceSha256": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4",
+      "finalSha256": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`404`",
+        "`503`",
+        "`Retry-After`",
+        "404",
+        "503",
+        "After deleting a"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Removed404/503/Retry-After and credential revocation instructions.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p011",
+      "eligibility": "eligible",
+      "editableCharacters": 202,
+      "sourceSha256": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca",
+      "finalSha256": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "Retained readings require"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Changed original active team/credential requirement into credentials used for initial reading.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "account/billing.mdx#p001",
+      "eligibility": "eligible",
+      "editableCharacters": 248,
+      "sourceSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "finalSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "first records",
+        "original recorded time",
+        "Outgoing usage is"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "billing-1",
+      "restorationReason": "Changed first recorded acceptance to receives notification and billing period to month; replay wording changed.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "account/billing.mdx#p002",
+      "eligibility": "eligible",
+      "editableCharacters": 335,
+      "sourceSha256": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f",
+      "finalSha256": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "repairs": [],
+      "protectedAnchors": [
+        "24",
+        "Sendmux",
+        "If a provider's"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "billing-1",
+      "restorationReason": "Omitted24-hour review instruction and changed reservation hold into held send; i.e. artefact and sentence rewrite cannot be repaired within token-only route.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "account/billing.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 196,
+      "sourceSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "finalSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "[per-mailbox cost readings](/developer-tools/mailbox-costs)",
+        "first covered calendar month",
+        "For [per-mailbox cost"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "eligibilityReason": "One atomic technical-reference instruction/assertion paragraph: all editable wording specifies saved attachment fields or precise cost attribution. Every clause source-backed; no narrative/marketing content. Root-relative source link preserved unchanged; no provider call for this unit.",
+      "disposition": "ineligible-technical"
+    }
+  ],
+  "blockedManualReviewCount": 0,
+  "ineligibleTechnicalCount": 2,
+  "status": "Copy finalised by explicit operator source-retention decision; local uncommitted docs candidate only.",
+  "preservation": "27/27 source unit hashes unchanged; source claims/keywords/frontmatter/headings/code/tables/list structure/images/links/numbers/qualifiers unchanged. Card icon metadata correction is separately verified and excluded from prose humanisation.",
+  "sourcePreservedManualCount": 25,
+  "reviewerDecision": {
+    "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+    "operatorReply": "Approved both",
+    "decision": "decline-retry-retain-reviewed-source",
+    "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+    "policy": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md:37",
+    "pendingLedgerSha256": "e72c7b019bb7a2ad6d54cc2f966b34681a3800159d8ffed3462e531417fce55d",
+    "manualChecksComplete": true,
+    "providerSubmissions": 4,
+    "secondSubmission": false
+  }
+}
