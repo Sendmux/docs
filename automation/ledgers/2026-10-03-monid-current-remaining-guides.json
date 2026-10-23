@@ -1,0 +1,3346 @@
+{
+  "schemaVersion": 1,
+  "status": "canonical-current-source-inventory; exact historical reviews reused; no new approval or paid calls",
+  "contract": "/Users/rj/Desktop/GIT-REPOS/ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/docs-authoring-workflow.md",
+  "baselineHead": "6d33f4703a6ea7afe4e28dd22404e8ea15c97401",
+  "priorEvidence": [
+    {
+      "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+      "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b"
+    },
+    {
+      "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+      "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73"
+    }
+  ],
+  "pages": {
+    "account/billing.mdx": {
+      "candidateSha256": "30e22d2773f3bd6e77395912cf09354a98f2a67c07b3d58f987634d2707c879a",
+      "baselineSha256": "8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d",
+      "proseUnits": 34,
+      "baselinePresent": true,
+      "legacyPageEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "recordedFinalSha256": "30e22d2773f3bd6e77395912cf09354a98f2a67c07b3d58f987634d2707c879a"
+      }
+    },
+    "developer-tools/mailbox-costs.mdx": {
+      "candidateSha256": "c73f1dfadd48ac5e6ee0b1015d26412506c9b6e3d2915420f02ae5220faa0cef",
+      "baselineSha256": null,
+      "proseUnits": 11,
+      "baselinePresent": false,
+      "legacyPageEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "recordedFinalSha256": "c73f1dfadd48ac5e6ee0b1015d26412506c9b6e3d2915420f02ae5220faa0cef"
+      }
+    },
+    "developer-tools/mailbox-api/search-and-batch.mdx": {
+      "candidateSha256": "85f90baf3a2fe233aff647a0fe082c81bb41f37893d4752a84a8a00553997d0e",
+      "baselineSha256": "90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454",
+      "proseUnits": 12,
+      "baselinePresent": true,
+      "legacyPageEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "recordedFinalSha256": "85f90baf3a2fe233aff647a0fe082c81bb41f37893d4752a84a8a00553997d0e"
+      }
+    },
+    "webhooks/setup.mdx": {
+      "candidateSha256": "15395713bd795ceca96b96b9e98db5d59b73a41018fc937b472d5d730a7d06b1",
+      "baselineSha256": "694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37",
+      "proseUnits": 21,
+      "baselinePresent": true,
+      "legacyPageEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "recordedFinalSha256": "15395713bd795ceca96b96b9e98db5d59b73a41018fc937b472d5d730a7d06b1"
+      }
+    },
+    "webhooks/verify-signatures.mdx": {
+      "candidateSha256": "68672cad3ed659e14c2fe69ab51638034fd33fcf35a05b915080cd22725d0440",
+      "baselineSha256": "aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47",
+      "proseUnits": 15,
+      "baselinePresent": true,
+      "legacyPageEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "recordedFinalSha256": "68672cad3ed659e14c2fe69ab51638034fd33fcf35a05b915080cd22725d0440"
+      }
+    }
+  },
+  "units": [
+    {
+      "id": "account/billing.mdx#p001",
+      "line": 16,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 186,
+      "sourceSha256": "d0233e963250ee39dd5894e13a52367f2a41787232b56536b44c14d1652a2215",
+      "finalSha256": "d0233e963250ee39dd5894e13a52367f2a41787232b56536b44c14d1652a2215",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p002",
+      "line": 19,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 301,
+      "sourceSha256": "1d9b32a457053fc48a68b610cc8e3d161dfbcfe9b24ebedbe91f7e185b82244f",
+      "finalSha256": "1d9b32a457053fc48a68b610cc8e3d161dfbcfe9b24ebedbe91f7e185b82244f",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p003",
+      "line": 33,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 323,
+      "sourceSha256": "1721017dc539e129e26266717932ecab78ee3a4fc6e369860135627749c60ddf",
+      "finalSha256": "1721017dc539e129e26266717932ecab78ee3a4fc6e369860135627749c60ddf",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p004",
+      "line": 35,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 240,
+      "sourceSha256": "c62151cf278b5c5025ea3540e7782122178309ce96c3ed8a4a7d31be72d76374",
+      "finalSha256": "c62151cf278b5c5025ea3540e7782122178309ce96c3ed8a4a7d31be72d76374",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p005",
+      "line": 37,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 44,
+      "sourceSha256": "738c990211ac90ec4184739ebdcf56402cfcdfd3ff1783098ef13d1e45795aa7",
+      "finalSha256": "738c990211ac90ec4184739ebdcf56402cfcdfd3ff1783098ef13d1e45795aa7",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p006",
+      "line": 39,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 47,
+      "sourceSha256": "c0b1901485e10c04ec75a99c11f14c94e12b0af89c6e36d6c8f6336163f1e815",
+      "finalSha256": "c0b1901485e10c04ec75a99c11f14c94e12b0af89c6e36d6c8f6336163f1e815",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p007",
+      "line": 41,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 46,
+      "sourceSha256": "fcc67269bfe8ed724517abcfe27b00ff4e7b4912a49df9f3b97752fc830920bc",
+      "finalSha256": "fcc67269bfe8ed724517abcfe27b00ff4e7b4912a49df9f3b97752fc830920bc",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p008",
+      "line": 45,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 125,
+      "sourceSha256": "3d3111a8aec7393eb337c6d995251ebbcd1c91cd5f390c997d3c39d37373fcc9",
+      "finalSha256": "3d3111a8aec7393eb337c6d995251ebbcd1c91cd5f390c997d3c39d37373fcc9",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p009",
+      "line": 47,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 131,
+      "sourceSha256": "53b30499c9166521fe87f534b6db77ae349702ec0029e51046cb3ddfd1c7d282",
+      "finalSha256": "53b30499c9166521fe87f534b6db77ae349702ec0029e51046cb3ddfd1c7d282",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p010",
+      "line": 51,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 85,
+      "sourceSha256": "19b0a9ff30ae106fa120c86af2a0bd013f385cf9dce7f5ee563f62d37f848216",
+      "finalSha256": "19b0a9ff30ae106fa120c86af2a0bd013f385cf9dce7f5ee563f62d37f848216",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p011",
+      "line": 53,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 165,
+      "sourceSha256": "c1d7bf90737a3df2f96e354408e2e54400169b05987390f1b697e86fbf7555e6",
+      "finalSha256": "c1d7bf90737a3df2f96e354408e2e54400169b05987390f1b697e86fbf7555e6",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p012",
+      "line": 62,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 151,
+      "sourceSha256": "9a3b5ce51780cc56df5445ee78c79bd952c25bd4e9071cfee4a1e40b39f47404",
+      "finalSha256": "9a3b5ce51780cc56df5445ee78c79bd952c25bd4e9071cfee4a1e40b39f47404",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p013",
+      "line": 64,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 117,
+      "sourceSha256": "780cdb8fee2d96c549c5955e7522c4e7fc98277e0031f53454d9355ce992edb2",
+      "finalSha256": "780cdb8fee2d96c549c5955e7522c4e7fc98277e0031f53454d9355ce992edb2",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p014",
+      "eligibility": "eligible",
+      "editableCharacters": 248,
+      "sourceSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "finalSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "first records",
+        "original recorded time",
+        "Outgoing usage is"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "billing-1",
+      "restorationReason": "Changed first recorded acceptance to receives notification and billing period to month; replay wording changed.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "account/billing.mdx#p001"
+      },
+      "line": 66,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "account/billing.mdx#p001",
+        "sourceSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+        "finalSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+        "protectedCounts": [
+          {
+            "span": "Sendmux",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "first records",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "original recorded time",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Outgoing usage is",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "account/billing.mdx#p015",
+      "eligibility": "eligible",
+      "editableCharacters": 335,
+      "sourceSha256": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f",
+      "finalSha256": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "repairs": [],
+      "protectedAnchors": [
+        "24",
+        "Sendmux",
+        "If a provider's"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "billing-1",
+      "restorationReason": "Omitted24-hour review instruction and changed reservation hold into held send; i.e. artefact and sentence rewrite cannot be repaired within token-only route.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "account/billing.mdx#p002"
+      },
+      "line": 68,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "account/billing.mdx#p002",
+        "sourceSha256": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f",
+        "finalSha256": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "fadaae4cb0a9514946105ebff272aa368306646328484167d344ed0ab648399f",
+        "protectedCounts": [
+          {
+            "span": "24",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Sendmux",
+            "source": 2,
+            "final": 2
+          },
+          {
+            "span": "If a provider's",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "account/billing.mdx#p016",
+      "line": 70,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 203,
+      "sourceSha256": "f7c395fcab0c25b82e9062673bcf4821de519fa8bc66b5a24d09fe7207b4ed62",
+      "finalSha256": "f7c395fcab0c25b82e9062673bcf4821de519fa8bc66b5a24d09fe7207b4ed62",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p017",
+      "line": 72,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 107,
+      "sourceSha256": "22e9655c612f0b44ecc4c89ab0641b77168fb6356697cef7082e01038c56d1ab",
+      "finalSha256": "22e9655c612f0b44ecc4c89ab0641b77168fb6356697cef7082e01038c56d1ab",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p018",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 196,
+      "sourceSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "finalSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "[per-mailbox cost readings](/developer-tools/mailbox-costs)",
+        "first covered calendar month",
+        "For [per-mailbox cost"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "eligibilityReason": "One atomic technical-reference instruction/assertion paragraph: all editable wording specifies saved attachment fields or precise cost attribution. Every clause source-backed; no narrative/marketing content. Root-relative source link preserved unchanged; no provider call for this unit.",
+      "disposition": "ineligible-technical",
+      "line": 74,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "account/billing.mdx#p003",
+        "sourceSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+        "finalSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30"
+      },
+      "sourceBinding": {
+        "hash": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+        "protectedCounts": [
+          {
+            "span": "[per-mailbox cost readings](/developer-tools/mailbox-costs)",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "first covered calendar month",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "For [per-mailbox cost",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "account/billing.mdx#p019",
+      "line": 76,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 147,
+      "sourceSha256": "6c316fb1030ff000d53823646447d83f4c1ab77361bf783e20601d26c2506ad0",
+      "finalSha256": "6c316fb1030ff000d53823646447d83f4c1ab77361bf783e20601d26c2506ad0",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p020",
+      "line": 80,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 122,
+      "sourceSha256": "d545e615da84b933e3e46476cb6bda4fd76dd365577bc84d308e8efd68634ce2",
+      "finalSha256": "d545e615da84b933e3e46476cb6bda4fd76dd365577bc84d308e8efd68634ce2",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p021",
+      "line": 82,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 280,
+      "sourceSha256": "b3359cc723ec731c48f101a395821d33ecce6f55bc4e9b3934ff7f09e2ce5f54",
+      "finalSha256": "b3359cc723ec731c48f101a395821d33ecce6f55bc4e9b3934ff7f09e2ce5f54",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p022",
+      "line": 86,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 137,
+      "sourceSha256": "7640b39b7a122a42bab85aa3deb2aea016a5bc7a71f6808a24e0e6e2ff997fba",
+      "finalSha256": "7640b39b7a122a42bab85aa3deb2aea016a5bc7a71f6808a24e0e6e2ff997fba",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p023",
+      "line": 92,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 49,
+      "sourceSha256": "b0c7ba5474e0fd57b30471e54d086edd71abc03e6b13631203275f0e2f8a54cb",
+      "finalSha256": "b0c7ba5474e0fd57b30471e54d086edd71abc03e6b13631203275f0e2f8a54cb",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p024",
+      "line": 96,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 120,
+      "sourceSha256": "67cdfc0c84a9188fb43e729e6bbee65fc19b536081091dd84b5d3d5dd492d116",
+      "finalSha256": "67cdfc0c84a9188fb43e729e6bbee65fc19b536081091dd84b5d3d5dd492d116",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p025",
+      "line": 104,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 79,
+      "sourceSha256": "f52b92e8e261c5ff541b27faf6436be63508af1f67da87ad694dd1aedd3894a7",
+      "finalSha256": "f52b92e8e261c5ff541b27faf6436be63508af1f67da87ad694dd1aedd3894a7",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p026",
+      "line": 108,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 82,
+      "sourceSha256": "2b5b7f1919c135b6cd19dfe5335d024fa5c55bd63f90d7ae352daf66735f7ca3",
+      "finalSha256": "2b5b7f1919c135b6cd19dfe5335d024fa5c55bd63f90d7ae352daf66735f7ca3",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p027",
+      "line": 114,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 71,
+      "sourceSha256": "4a07a7c3643cecae2a45e1f83d7b74fcaf909d959afd6897c3751168a325218a",
+      "finalSha256": "4a07a7c3643cecae2a45e1f83d7b74fcaf909d959afd6897c3751168a325218a",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p028",
+      "line": 118,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 172,
+      "sourceSha256": "c5c2e2fdf22569bb13f5c9f5932ff8d85d6bee10087a2b0f46594f9f1bca5cbc",
+      "finalSha256": "c5c2e2fdf22569bb13f5c9f5932ff8d85d6bee10087a2b0f46594f9f1bca5cbc",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p029",
+      "line": 122,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 103,
+      "sourceSha256": "944e34ace14f1e396402bb8da1f6a144331f00710ceefee40dfb712bb0f079cf",
+      "finalSha256": "944e34ace14f1e396402bb8da1f6a144331f00710ceefee40dfb712bb0f079cf",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p030",
+      "line": 125,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 46,
+      "sourceSha256": "dceb617507d378d6c0aa2a1c7e414d90276d326d1b908daae57cc02b0b1b2828",
+      "finalSha256": "dceb617507d378d6c0aa2a1c7e414d90276d326d1b908daae57cc02b0b1b2828",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p031",
+      "line": 132,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 42,
+      "sourceSha256": "c779e1c9dc086cbacf350dbfd52009b16ab168f0c07171dd8fadb5244d84bfcd",
+      "finalSha256": "c779e1c9dc086cbacf350dbfd52009b16ab168f0c07171dd8fadb5244d84bfcd",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p032",
+      "line": 135,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 41,
+      "sourceSha256": "f74971fdb1f27d5a5b68533441e26611ad2b68b70ea71876243e3fb549822e78",
+      "finalSha256": "f74971fdb1f27d5a5b68533441e26611ad2b68b70ea71876243e3fb549822e78",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p033",
+      "line": 138,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 69,
+      "sourceSha256": "dbc3056e8b395f7ba2565e83c74cc4cbc9790f20bae94a5f6b14269d29a676c9",
+      "finalSha256": "dbc3056e8b395f7ba2565e83c74cc4cbc9790f20bae94a5f6b14269d29a676c9",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "account/billing.mdx#p034",
+      "line": 141,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 34,
+      "sourceSha256": "479fd6e3cafa525536397572fa582bdb99355ce109569e13e7680fae42b1be0b",
+      "finalSha256": "479fd6e3cafa525536397572fa582bdb99355ce109569e13e7680fae42b1be0b",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:account/billing.mdx; baseline SHA256 8272efb74c9395cb014f2c0689baf4068245dd5db6f7d3d29c53d622ab64069d"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p001",
+      "eligibility": "eligible",
+      "editableCharacters": 247,
+      "sourceSha256": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf",
+      "finalSha256": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`mailbox.admin.read`",
+        "Management API",
+        "Use the Management"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Removed mailbox.admin.read requirement and changed reconciliation task into forecasting.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p001"
+      },
+      "line": 7,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p001",
+        "sourceSha256": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf",
+        "finalSha256": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "576b93d69f240f5010dbbc97f81a493989324fc6d7a9519ddcafa56cb52dafaf",
+        "protectedCounts": [
+          {
+            "span": "`mailbox.admin.read`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Management API",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Use the Management",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p002",
+      "eligibility": "eligible",
+      "editableCharacters": 153,
+      "sourceSha256": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6",
+      "finalSha256": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`MAILBOX_ID`",
+        "`WINDOW_START`",
+        "`WINDOW_END`",
+        "Set `MAILBOX_ID` to"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split paragraph and removed MAILBOX_ID/WINDOW_START/WINDOW_END instructions.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p002"
+      },
+      "line": 11,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p002",
+        "sourceSha256": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6",
+        "finalSha256": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "6e441e0fb3301d6137c78fc9feca0bdbe83f706502995a61be6756050e15a0c6",
+        "protectedCounts": [
+          {
+            "span": "`MAILBOX_ID`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`WINDOW_START`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`WINDOW_END`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Set `MAILBOX_ID` to",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p003",
+      "eligibility": "eligible",
+      "editableCharacters": 304,
+      "sourceSha256": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be",
+      "finalSha256": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "366",
+        "The window includes"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Altered precision and range wording; voice/structure require complete source restoration.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p003"
+      },
+      "line": 20,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p003",
+        "sourceSha256": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be",
+        "finalSha256": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "a311e28fa7a0671dac15366b860b34e2acdd4535c9887ddd32fee6d8f281f1be",
+        "protectedCounts": [
+          {
+            "span": "366",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "The window includes",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p004",
+      "eligibility": "eligible",
+      "editableCharacters": 270,
+      "sourceSha256": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c",
+      "finalSha256": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`incoming`",
+        "`outgoing`",
+        "`storage`",
+        "`posted_amount`",
+        "`state`",
+        "`pending`",
+        "`final`",
+        "`200`",
+        "200",
+        "The response has"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split unit and replaced pending/final state with success/error status.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p004"
+      },
+      "line": 24,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p004",
+        "sourceSha256": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c",
+        "finalSha256": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "dfdd37b8e193afb704dc819949179e13238ff47ba19b3354c78c41941bab6c1c",
+        "protectedCounts": [
+          {
+            "span": "`incoming`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`outgoing`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`storage`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`posted_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`state`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`pending`",
+            "source": 2,
+            "final": 2
+          },
+          {
+            "span": "`final`",
+            "source": 2,
+            "final": 2
+          },
+          {
+            "span": "`200`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "200",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "The response has",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p005",
+      "eligibility": "eligible",
+      "editableCharacters": 271,
+      "sourceSha256": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f",
+      "finalSha256": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`incurred_amount`",
+        "`unbillable_amount`",
+        "`raw_amount`",
+        "`allocated_amount`",
+        "`posted_amount`",
+        "`incurred_amount` records email"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split field definitions into multiple lines and removed all field tokens.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p005"
+      },
+      "line": 26,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p005",
+        "sourceSha256": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f",
+        "finalSha256": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "fd8d2227de362a3d17b9073d167779a8b1f3b6a0b2396ae7590e632bac69f07f",
+        "protectedCounts": [
+          {
+            "span": "`incurred_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`unbillable_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`raw_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`allocated_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`posted_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`incurred_amount` records email",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p006",
+      "eligibility": "eligible",
+      "editableCharacters": 165,
+      "sourceSha256": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df",
+      "finalSha256": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`raw_amount`",
+        "18",
+        "six decimal places",
+        "Amounts and quantities"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Changed raw_amount18 precision into posted storage18 precision.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p006"
+      },
+      "line": 28,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p006",
+        "sourceSha256": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df",
+        "finalSha256": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "cb45d1e03e99f2868bc2845d713ad28eabc8923b6b6273b5aa5e70ec0d2391df",
+        "protectedCounts": [
+          {
+            "span": "`raw_amount`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "18",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "six decimal places",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Amounts and quantities",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p007",
+      "eligibility": "eligible",
+      "editableCharacters": 527,
+      "sourceSha256": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478",
+      "finalSha256": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`coverage_started_at`",
+        "`pending`",
+        "`final`",
+        "The incoming and"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Split unit, removed coverage/state fields and invented subscriptions or range-resolution claims.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p007"
+      },
+      "line": 32,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p007",
+        "sourceSha256": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478",
+        "finalSha256": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "ec342ea0879b130c236f4910ce7c824f66700cb7b70f61bd0f0c122761454478",
+        "protectedCounts": [
+          {
+            "span": "`coverage_started_at`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`pending`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`final`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "The incoming and",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p008",
+      "eligibility": "eligible",
+      "editableCharacters": 291,
+      "sourceSha256": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47",
+      "finalSha256": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "first records",
+        "original recorded time",
+        "Outgoing usage belongs"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Dropped replay timing guarantee and changed acceptance-time definition.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p008"
+      },
+      "line": 34,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p008",
+        "sourceSha256": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47",
+        "finalSha256": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "fc66721e449f8a225a71f8d41b37950466eeb5232d7893cffea31bd172bdbe47",
+        "protectedCounts": [
+          {
+            "span": "Sendmux",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "first records",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "original recorded time",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "Outgoing usage belongs",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p009",
+      "eligibility": "eligible",
+      "editableCharacters": 294,
+      "sourceSha256": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8",
+      "finalSha256": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "first covered calendar month",
+        "When storage billing"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Changed first-covered-month source into emphatic uppercase; restoring voice requires sentence rewriting.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p009"
+      },
+      "line": 36,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p009",
+        "sourceSha256": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8",
+        "finalSha256": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "b1b862e4383513b82f9220fa57237a972ae2b9cef82a539cc5d1dd67c38978c8",
+        "protectedCounts": [
+          {
+            "span": "first covered calendar month",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "When storage billing",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p010",
+      "eligibility": "eligible",
+      "editableCharacters": 334,
+      "sourceSha256": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4",
+      "finalSha256": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "`404`",
+        "`503`",
+        "`Retry-After`",
+        "404",
+        "503",
+        "After deleting a"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Removed404/503/Retry-After and credential revocation instructions.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p010"
+      },
+      "line": 40,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p010",
+        "sourceSha256": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4",
+        "finalSha256": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "4f10bcb316b5843dc9fceeb479324761e44fc332b0c64dabe81bae51d70867f4",
+        "protectedCounts": [
+          {
+            "span": "`404`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`503`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`Retry-After`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "404",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "503",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "After deleting a",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-costs.mdx#p011",
+      "eligibility": "eligible",
+      "editableCharacters": 202,
+      "sourceSha256": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca",
+      "finalSha256": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 37,
+      "scoreRaw": 37,
+      "scoreFinal": 37,
+      "repairs": [],
+      "protectedAnchors": [
+        "Retained readings require"
+      ],
+      "sourceEvidence": [
+        "src/app/api/v1/mailboxes/[public_id]/usage/route.ts:12-31",
+        "src/app/api/v1/mailboxes/_lib.ts:11-21",
+        "src/server/api-v1/mailbox-usage.ts:19-39",
+        "src/server/billing/mailbox-email-costs.ts:84-113",
+        "src/server/billing/mailbox-storage.ts:271-283",
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "mailbox-costs-1",
+      "restorationReason": "Changed original active team/credential requirement into credentials used for initial reading.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": {
+        "decision": "decline-retry-retain-exact-reviewed-source",
+        "operator": "Roshan",
+        "recordedAt": "2026-09-30T14:15:08.268659+10:00",
+        "operatorReply": "Approved both",
+        "scope": "25 attempted eligible units retain exact reviewed source;2technical exemptions unchanged",
+        "provenance": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "provenanceSha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "provenanceSelector": "reviewerDecision",
+        "legacyUnitId": "developer-tools/mailbox-costs.mdx#p011"
+      },
+      "line": 42,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-resume-guides.json",
+        "sha256": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+        "id": "developer-tools/mailbox-costs.mdx#p011",
+        "sourceSha256": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca",
+        "finalSha256": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca"
+      },
+      "legacyRetentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "sourceBinding": {
+        "hash": "0eb9ac256a728d40a5866c2779f2c7553c1e391abf2df02e140e25a36c6731ca",
+        "protectedCounts": [
+          {
+            "span": "Retained readings require",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p001",
+      "line": 7,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 189,
+      "sourceSha256": "3fae563d844c2ac5e2e70dd7ec9cff6993f53b65a2475ae875b2cf8a4913f1a8",
+      "finalSha256": "3fae563d844c2ac5e2e70dd7ec9cff6993f53b65a2475ae875b2cf8a4913f1a8",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p002",
+      "line": 11,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 194,
+      "sourceSha256": "8d837c4b0674c0ad1d0372af7c572b5417202771e78940ba513c1b6ef8337707",
+      "finalSha256": "8d837c4b0674c0ad1d0372af7c572b5417202771e78940ba513c1b6ef8337707",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p003",
+      "line": 17,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 122,
+      "sourceSha256": "2bd2deee652149e4afc2d8e3773f7ecc177e866b3585c4c7aafaeb07f214a877",
+      "finalSha256": "2bd2deee652149e4afc2d8e3773f7ecc177e866b3585c4c7aafaeb07f214a877",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p004",
+      "line": 46,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 165,
+      "sourceSha256": "01a80dda7186f09830e8c3ea7d0f1ccb6a6666ada386305fe0c4cccc7c2471fe",
+      "finalSha256": "01a80dda7186f09830e8c3ea7d0f1ccb6a6666ada386305fe0c4cccc7c2471fe",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p005",
+      "line": 53,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 64,
+      "sourceSha256": "464f782f4682399a3db2d3aaa7ff9bb10f731fae3b6707405c548fddd239218d",
+      "finalSha256": "464f782f4682399a3db2d3aaa7ff9bb10f731fae3b6707405c548fddd239218d",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p006",
+      "line": 75,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 116,
+      "sourceSha256": "207d483129437726b58a37b3a9412544bc4b904881c1fc45c8199cf578dea5a0",
+      "finalSha256": "207d483129437726b58a37b3a9412544bc4b904881c1fc45c8199cf578dea5a0",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p007",
+      "line": 103,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 68,
+      "sourceSha256": "8963fc5ba7ca0a7544cc0e8222f7bfe16e6b0dd82b600994bfcc465735e38495",
+      "finalSha256": "8963fc5ba7ca0a7544cc0e8222f7bfe16e6b0dd82b600994bfcc465735e38495",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p008",
+      "line": 113,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 91,
+      "sourceSha256": "29caec9647f9a610f049b8c362f8e047db256ac12613b312a457fa3fbd6f79ce",
+      "finalSha256": "29caec9647f9a610f049b8c362f8e047db256ac12613b312a457fa3fbd6f79ce",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p009",
+      "line": 189,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 17,
+      "sourceSha256": "a30f6d658b5e159cc188289a67a45bd333ed58a868663d5a37555d5435d3bef2",
+      "finalSha256": "a30f6d658b5e159cc188289a67a45bd333ed58a868663d5a37555d5435d3bef2",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p010",
+      "line": 199,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 229,
+      "sourceSha256": "7ef26d561c667121f081d0f86364cc88cfed15f196a7025e8f83448b55edd955",
+      "finalSha256": "7ef26d561c667121f081d0f86364cc88cfed15f196a7025e8f83448b55edd955",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p011",
+      "line": 239,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 111,
+      "sourceSha256": "69ba55bed252aedfd44c4704418bd1a9bcc2ce4a7d1a22e1282fb938331d92b3",
+      "finalSha256": "69ba55bed252aedfd44c4704418bd1a9bcc2ce4a7d1a22e1282fb938331d92b3",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p012",
+      "line": 272,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 155,
+      "sourceSha256": "3b7a97001f1e5e06bcb3e999a15d324945d0e339b26320da1c01037144dc8b84",
+      "finalSha256": "3b7a97001f1e5e06bcb3e999a15d324945d0e339b26320da1c01037144dc8b84",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:developer-tools/mailbox-api/search-and-batch.mdx; baseline SHA256 90aaabc596c61a995639dc7ebb5aedd722fd8e6f0dad59dc77ab1d2ffb31e454"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p001",
+      "line": 7,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 130,
+      "sourceSha256": "137fbeaf0d9417b980203a895cfffbabba3e0ac7effd5abb73006156633dc97a",
+      "finalSha256": "137fbeaf0d9417b980203a895cfffbabba3e0ac7effd5abb73006156633dc97a",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p002",
+      "line": 10,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 194,
+      "sourceSha256": "d2ec58f21414cd90e36c7dd6ab8267ce1313b38efc42570c4f2820d54fbd8505",
+      "finalSha256": "d2ec58f21414cd90e36c7dd6ab8267ce1313b38efc42570c4f2820d54fbd8505",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p003",
+      "line": 17,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 249,
+      "sourceSha256": "909af94ab880993a5cb787066b7997bc915e6b630d52540a756ec9675ffec025",
+      "finalSha256": "909af94ab880993a5cb787066b7997bc915e6b630d52540a756ec9675ffec025",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p004",
+      "line": 23,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 62,
+      "sourceSha256": "9ee7584110d534425f945039e7b9b64572ca4cab32d0f2908d5ae4db70b34098",
+      "finalSha256": "9ee7584110d534425f945039e7b9b64572ca4cab32d0f2908d5ae4db70b34098",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p005",
+      "line": 26,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 66,
+      "sourceSha256": "0caaf63575b933d33f07733317c980162a3afb4fb8f3827422f165a9086ee0fc",
+      "finalSha256": "0caaf63575b933d33f07733317c980162a3afb4fb8f3827422f165a9086ee0fc",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p006",
+      "line": 29,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 62,
+      "sourceSha256": "738488b1a8abe389892c2a70b9595fe99bf0e0fea8abe5d6a01e8ce9cc1440ae",
+      "finalSha256": "738488b1a8abe389892c2a70b9595fe99bf0e0fea8abe5d6a01e8ce9cc1440ae",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p007",
+      "line": 32,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 58,
+      "sourceSha256": "b2dbed49a5b1b1fb35adf4d8cd6d3936398d828abd9ffb71675cec3712508c54",
+      "finalSha256": "b2dbed49a5b1b1fb35adf4d8cd6d3936398d828abd9ffb71675cec3712508c54",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p008",
+      "line": 38,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 72,
+      "sourceSha256": "017c7b3f3d2043bfb797fa066e654e46090da153f969d395142ff3cd9e5c980e",
+      "finalSha256": "017c7b3f3d2043bfb797fa066e654e46090da153f969d395142ff3cd9e5c980e",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p009",
+      "line": 49,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 78,
+      "sourceSha256": "85c2dc42156a0baef445050ea41a89df51f4d4c262751150ceee39b348b2d893",
+      "finalSha256": "85c2dc42156a0baef445050ea41a89df51f4d4c262751150ceee39b348b2d893",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p010",
+      "line": 66,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 101,
+      "sourceSha256": "776d06a5d70cc84e1c3f2e2681112cb35089e30fb8a7aa2ed0d402075941bf8f",
+      "finalSha256": "776d06a5d70cc84e1c3f2e2681112cb35089e30fb8a7aa2ed0d402075941bf8f",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p011",
+      "line": 68,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 172,
+      "sourceSha256": "ba748468b517e40e4439bc07cce64b4e555ac1daf8dd959b005e5e5b19b1f4f9",
+      "finalSha256": "ba748468b517e40e4439bc07cce64b4e555ac1daf8dd959b005e5e5b19b1f4f9",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p012",
+      "line": 72,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 176,
+      "sourceSha256": "b289c3ddbb533555528ba349dfa156a545d2193f09e6eef5f610c529dbe14662",
+      "finalSha256": "b289c3ddbb533555528ba349dfa156a545d2193f09e6eef5f610c529dbe14662",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p013",
+      "line": 74,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 118,
+      "sourceSha256": "90f17dcada2cb1b841180cf8a82acf5a2727159aecb658adef7ce43172e576ad",
+      "finalSha256": "90f17dcada2cb1b841180cf8a82acf5a2727159aecb658adef7ce43172e576ad",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p014",
+      "line": 76,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 79,
+      "sourceSha256": "694ec2ff1a3e1f39ad71f8c6bf63dac065b6e4d9a5d2caf16d5422d4dbd19f29",
+      "finalSha256": "694ec2ff1a3e1f39ad71f8c6bf63dac065b6e4d9a5d2caf16d5422d4dbd19f29",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p015",
+      "line": 80,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 155,
+      "sourceSha256": "d2a3d2f5b67b79fa6c85609ac131e695ab091e3dc899bf27db6cc6494fe649b1",
+      "finalSha256": "d2a3d2f5b67b79fa6c85609ac131e695ab091e3dc899bf27db6cc6494fe649b1",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p016",
+      "line": 83,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 47,
+      "sourceSha256": "08bf2e086ded1b9fd2d99d3f583e1d0cb35ad031738fce83fe4fb277cd0ac42f",
+      "finalSha256": "08bf2e086ded1b9fd2d99d3f583e1d0cb35ad031738fce83fe4fb277cd0ac42f",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p017",
+      "line": 94,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 48,
+      "sourceSha256": "ee1abed4a5bd9ef7a9dbecfb6a5a5b9501996176e9ac9656f8c9951e516222d2",
+      "finalSha256": "ee1abed4a5bd9ef7a9dbecfb6a5a5b9501996176e9ac9656f8c9951e516222d2",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p018",
+      "line": 97,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 34,
+      "sourceSha256": "c6642146ba433144fa67d437a2430d4131c021c63bd1f145d23c86af96b2bae2",
+      "finalSha256": "c6642146ba433144fa67d437a2430d4131c021c63bd1f145d23c86af96b2bae2",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p019",
+      "line": 100,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 31,
+      "sourceSha256": "9faca332048bb0d33fb3587f882ac4eb078f8955052de72f83d86470021995a6",
+      "finalSha256": "9faca332048bb0d33fb3587f882ac4eb078f8955052de72f83d86470021995a6",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p020",
+      "line": 107,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 46,
+      "sourceSha256": "2453d3d8900891c9971fa06e7f712397af13d5f10e4248aed01fe6c9c2a88560",
+      "finalSha256": "2453d3d8900891c9971fa06e7f712397af13d5f10e4248aed01fe6c9c2a88560",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/setup.mdx#p021",
+      "line": 114,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 42,
+      "sourceSha256": "41820622138f6b3c94206a21b25e44143045c59f8b8ea6c996a360a62a2f2d0f",
+      "finalSha256": "41820622138f6b3c94206a21b25e44143045c59f8b8ea6c996a360a62a2f2d0f",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/setup.mdx; baseline SHA256 694214a5557e189d3e1a55810d52f7667cf7b67ab1816596401aa911bfc79f37"
+      ]
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 136,
+      "sourceSha256": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3",
+      "finalSha256": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Signature-V2: v1=<hex>`",
+        "`X-Sendmux-Timestamp: <Unix seconds>`",
+        "`X-Sendmux-Signature: sha256=<hex>`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 7,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p001",
+        "sourceSha256": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3",
+        "finalSha256": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3",
+        "protectedCounts": [
+          {
+            "span": "`X-Sendmux-Signature-V2: v1=<hex>`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`X-Sendmux-Timestamp: <Unix seconds>`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`X-Sendmux-Signature: sha256=<hex>`",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l001",
+      "line": 11,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 85,
+      "sourceSha256": "1143d90a0948a2b53d62fe6be69d1eb88309a560510858c98db18da2fa067b11",
+      "finalSha256": "1143d90a0948a2b53d62fe6be69d1eb88309a560510858c98db18da2fa067b11",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/verify-signatures.mdx; baseline SHA256 aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47"
+      ]
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 62,
+      "sourceSha256": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68",
+      "finalSha256": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Timestamp`",
+        "`.`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 12,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p005",
+        "sourceSha256": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68",
+        "finalSha256": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68",
+        "protectedCounts": [
+          {
+            "span": "`X-Sendmux-Timestamp`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`.`",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 58,
+      "sourceSha256": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89",
+      "finalSha256": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`v1`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 13,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p006",
+        "sourceSha256": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89",
+        "finalSha256": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89",
+        "protectedCounts": [
+          {
+            "span": "`v1`",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 129,
+      "sourceSha256": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279",
+      "finalSha256": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 14,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p007",
+        "sourceSha256": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279",
+        "finalSha256": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279",
+        "protectedCounts": []
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 211,
+      "sourceSha256": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae",
+      "finalSha256": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`id`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 16,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p002",
+        "sourceSha256": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae",
+        "finalSha256": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae",
+        "protectedCounts": [
+          {
+            "span": "`id`",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p003",
+      "line": 19,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 132,
+      "sourceSha256": "d8ab9f148b4fe3e07d757846a9f08237d97f11d851922b7752e962296efbc618",
+      "finalSha256": "d8ab9f148b4fe3e07d757846a9f08237d97f11d851922b7752e962296efbc618",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/verify-signatures.mdx; baseline SHA256 aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47"
+      ]
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l005",
+      "line": 79,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 44,
+      "sourceSha256": "5ba492aa73e297d20ed59ea6c9811d4e30559455f0cfa8aee6fc5be0ab979241",
+      "finalSha256": "5ba492aa73e297d20ed59ea6c9811d4e30559455f0cfa8aee6fc5be0ab979241",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/verify-signatures.mdx; baseline SHA256 aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47"
+      ]
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l006",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 67,
+      "sourceSha256": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448",
+      "finalSha256": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 80,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p009",
+        "sourceSha256": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448",
+        "finalSha256": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448",
+        "protectedCounts": []
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l007",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 65,
+      "sourceSha256": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e",
+      "finalSha256": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 81,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p010",
+        "sourceSha256": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e",
+        "finalSha256": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e",
+        "protectedCounts": []
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l008",
+      "line": 82,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 45,
+      "sourceSha256": "baaed6a2a16b65dddfd1acb98dbb2fc532779a0f812c8ef3eb9b49755b0655a1",
+      "finalSha256": "baaed6a2a16b65dddfd1acb98dbb2fc532779a0f812c8ef3eb9b49755b0655a1",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/verify-signatures.mdx; baseline SHA256 aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47"
+      ]
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#l009",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 63,
+      "sourceSha256": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90",
+      "finalSha256": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 83,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p012",
+        "sourceSha256": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90",
+        "finalSha256": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90",
+        "protectedCounts": []
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 287,
+      "sourceSha256": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb",
+      "finalSha256": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Signature`",
+        "`sha256=<hex HMAC-SHA256>`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical",
+      "line": 87,
+      "changedFromPrior": true,
+      "legacyUnitEvidence": {
+        "path": "/Users/rj/Desktop/GIT-REPOS/sendmux-docs-monid-readiness/automation/ledgers/2026-09-30-monid-stable-guides.json",
+        "sha256": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+        "id": "webhooks/verify-signatures.mdx#p003",
+        "sourceSha256": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb",
+        "finalSha256": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb"
+      },
+      "sourceEvidence": [
+        "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+        "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+        "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+        "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+        "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+      ],
+      "sourceBinding": {
+        "hash": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb",
+        "protectedCounts": [
+          {
+            "span": "`X-Sendmux-Signature`",
+            "source": 1,
+            "final": 1
+          },
+          {
+            "span": "`sha256=<hex HMAC-SHA256>`",
+            "source": 1,
+            "final": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p005",
+      "line": 91,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 140,
+      "sourceSha256": "33a7692ad7286c0d6a712dec5931839bedeb0ece0836b9b46f5a1576ae1c8f9d",
+      "finalSha256": "33a7692ad7286c0d6a712dec5931839bedeb0ece0836b9b46f5a1576ae1c8f9d",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/verify-signatures.mdx; baseline SHA256 aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47"
+      ]
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p006",
+      "line": 93,
+      "eligibility": "excluded-frozen",
+      "editableCharacters": 64,
+      "sourceSha256": "0fc27b2d304e90f4f12e649ec4356fdd2f7441e402810e1a170b2c1a271c4c41",
+      "finalSha256": "0fc27b2d304e90f4f12e649ec4356fdd2f7441e402810e1a170b2c1a271c4c41",
+      "changedFromSource": false,
+      "changedFromPrior": false,
+      "transport": null,
+      "attempt": null,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact raw prose bytes match one consumed occurrence in owning HEAD baseline; unchanged source retained.",
+        "Headings, code, markup, metadata, labels and list markers remain outside canonical body prose inventory."
+      ],
+      "disposition": "excluded-frozen",
+      "sourceEvidence": [
+        "docs HEAD 6d33f4703a6ea7afe4e28dd22404e8ea15c97401:webhooks/verify-signatures.mdx; baseline SHA256 aaba4eea1232e8e7f4b5e80094a9225261eb2f78bce70e1877334be230858b47"
+      ]
+    }
+  ],
+  "limitations": [
+    "Lists use canonical #l IDs and marker-free body hashes; legacy partial inventory IDs retained as provenance only.",
+    "Multiline JSX opening markup/attributes excluded; body prose preserves raw indentation/newline bytes.",
+    "No new wording, manual-retention authority, provider/detector call, source/index change, runtime or publication."
+  ],
+  "counts": {
+    "excluded-frozen": 70,
+    "pass-source-preserved-manual": 13,
+    "ineligible-technical": 10
+  },
+  "blockedManualReviewCount": 0
+}

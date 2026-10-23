@@ -1,0 +1,118 @@
+---
+title: "Save, edit and send mailbox drafts"
+description: "Prepare threaded replies, review saved revisions and send or schedule the approved draft."
+keywords: ["saved email drafts", "threaded replies", "draft revision", "scheduled email", "Mailbox API"]
+---
+
+Use saved drafts when an agent and a person need to work on the same message before it is sent. A draft has a stable ID and a revision that changes whenever its content changes.
+
+All draft requests require `mailbox.read`. Creating, editing and deleting also require `mailbox.drafts.write`; sending and scheduling also require `email.send`. Use a credential authorised for the selected mailbox.
+
+<Steps>
+  <Step title="Prepare a reply">
+    Create a draft from a message in the authorised mailbox. Sendmux prepares the recipients, subject and thread headers from that message. `reply_all` includes other visible recipients; `forward` starts without recipients. Replies retain inline images from the source, while forwards also include its regular attachments.
+
+    ```bash
+    curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: reply-msg-123" \
+      -d '{"source":{"message_id":"msg_123","action":"reply"}}'
+    ```
+
+    Keep the returned `data.id` and `data.revision`. Reuse the same idempotency key if the create response is lost. Read `GET /mailbox/drafts/{draftId}` until its status is `ready` before editing or sending.
+
+    Replies use the source message's Reply-To when present, exclude your own mailbox identities, remove duplicate recipients and never inherit Bcc. The source content, thread headers and attachments are snapshotted when you prepare the draft; later changes to the source do not update it.
+  </Step>
+  <Step title="Edit the saved content">
+    Pass the revision you last read as `expected_revision`. A `409` means another edit won: read the draft again and review the newer content before retrying. Omitted fields keep their saved values.
+
+    ```bash
+    curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123 \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"expected_revision":1,"text_body":"Thanks for your message. I will check and reply today."}'
+    ```
+
+    Use the new `data.revision` from the response when reviewing the final draft. The saved HTML stays intact unless you edit `html_body`. To add a file, [upload it](/developer-tools/mailbox-api/attachments) and include its `blob_id`, filename, content type and size in the draft's `attachments` array. Include `disposition` and `content_id` for an inline image.
+  </Step>
+  <Step title="Send the reviewed revision">
+    Confirm the recipients, subject, bodies and attachments in the saved draft. Send only that exact revision. If the response is lost, read the same draft's status before retrying; an uncertain send must not become a second message.
+
+    ```bash
+    curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"expected_revision":2}'
+    ```
+
+    A stale revision returns `409`. A queued or uncertain result needs its existing draft state checked; do not create a replacement send request.
+  </Step>
+</Steps>
+
+## Schedule or cancel a send
+
+To schedule the reviewed revision, include `expected_revision`, `expected_schedule_version` and a `scheduled_for` time with a timezone in the send request. The time must be within 30 days and is the earliest permitted send time, not a delivery guarantee. Read the current revision and `schedule_version` before rescheduling or cancelling with `PATCH /mailbox/drafts/{draftId}/schedule`; set `scheduled_for` to `null` to cancel. Cancellation cannot undo a send that has already begun.
+
+Cancel a scheduled send before editing its content. After cancellation, include the current `expected_schedule_version` when sending immediately or scheduling again. Sender, recipient and credential permissions are checked again when the send begins; revoked authorisation stops the pending send.
+
+For a draft with revision `2` and schedule version `0`, schedule that exact content:
+
+```bash
+curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
+  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"expected_revision\":2,\"expected_schedule_version\":0,\"scheduled_for\":\"$SCHEDULED_FOR\"}"
+```
+
+Set `SCHEDULED_FOR` to a future timestamp with a timezone, within 30 days and with no more than millisecond precision. Read the resulting `schedule_version`; use it to move the time or set `scheduled_for` to `null`:
+
+```bash
+curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/schedule \
+  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"expected_revision":2,"expected_schedule_version":1,"scheduled_for":null}'
+```
+
+The example assumes the schedule version is `1`; use the version you read. Confirm the draft is `ready` before editing. If a scheduled time passes during an outage, sending resumes after recovery only if the current authorisation still permits it. A connected app's expired access token alone does not revoke its active grant.
+
+## Review sender and content
+
+The sender and Reply-To default to the originating inbox. Any override must satisfy the team, mailbox and credential policies together. A saved draft can be incomplete, but sending requires at least one recipient and permits at most 50 recipients across To, Cc and Bcc.
+
+Review the saved response before approving its revision. Required plan footers and tracking changes are prepared when content is saved. If sending asks you to save again, read and approve the resulting revision before retrying.
+
+Tracking is fixed when the draft is first saved and retained across edits. Delivery must use a sending account compatible with that saved tracking configuration. Once any recipient's submission is accepted, the effective From address stays fixed for the remaining recipients. An uncertain result never triggers fallback to another sender. The originating inbox remains the authorisation and billing identity, and Reply-To still defaults to that inbox.
+
+## Configure sending restrictions
+
+Team, inbox and credential policies intersect: an address must pass every applicable policy. `allowed_from` and `allowed_reply_to` control sender and reply addresses. `recipients.allow` and `recipients.deny` check every To, Cc and Bcc address; deny takes precedence. A `null` recipient allow-list imposes no allow-list restriction at that level, while an empty rule allows no recipients.
+
+Address rules use `addresses` for exact addresses and `domains` for exact domains. Subdomains are not included automatically. A verified domain owned by your team can authorise its localparts; shared `myagent.mx` addresses must be assigned to your team. Extra senders require explicit permission at every policy level. Existing inboxes and credentials do not gain extra senders automatically.
+
+<Steps>
+  <Step title="Read the policy with administrative access">
+    Use `GET /mailbox-send-policies/{scope}/{public_id}` through the Management API and keep its exact `ETag`. Set `scope` to `team`, `mailbox`, `api_key`, `oauth_grant` or `agent_registration`, and use that resource's public ID. Integration and mailbox keys cannot manage policies.
+
+    Team policies require `team.read` to read and `team.update` to replace. Inbox policies require `mailbox.admin.read` and `mailbox.admin.manage`; credential policies require `key.read` and `key.*`, respectively.
+  </Step>
+  <Step title="Replace the complete policy">
+    Send `PUT` to the same URL with `If-Match` set to the exact `ETag` and a JSON body containing `policy`. Replacement resets omitted settings to their defaults, so retain every restriction you still need. If the policy changed, a `409` requires a fresh read before saving.
+  </Step>
+  <Step title="Review all applicable restrictions">
+    Confirm the team, inbox and credential policies permit the same From, Reply-To and recipients. Sending-account scopes and an explicit `X-Sendmux-Delivery-Group` header can narrow the eligible accounts further; they cannot widen the credential's access.
+  </Step>
+</Steps>
+
+Sendmux tries an eligible connected account for the exact From address before an eligible managed account for its verified domain. Account weights apply within a compatible tier using the same From address. `alternate_from` contains ordered concrete alternatives; every applicable policy must explicitly permit each alternative. Fallback does not continue after uncertain acceptance.
+
+## Handle a failed send
+
+Read the same draft after a lost response. For `failed`, inspect `failure_code` and correct the content or authorisation before retrying. For `uncertain`, retain the draft and wait for reconciliation; do not create another message to replace it. A queued result is not a delivery guarantee.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox threads" icon="comments" href="/developer-tools/mailbox-api/threads"></Card>
+  <Card title="Mailbox attachments" icon="paperclip" href="/developer-tools/mailbox-api/attachments"></Card>
+</Columns>
