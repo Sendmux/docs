@@ -1,0 +1,72 @@
+---
+title: "Save, edit and send mailbox drafts"
+description: "Prepare threaded replies, review saved revisions and send or schedule the approved draft."
+keywords: ["saved email drafts", "threaded replies", "draft revision", "scheduled email", "Mailbox API"]
+---
+
+Use saved drafts when an agent and a person need to work on the same message before it is sent. A draft has a stable ID and a revision that changes whenever its content changes.
+
+All draft requests require `mailbox.read`. Creating, editing and deleting also require `mailbox.drafts.write`; sending and scheduling also require `email.send`. Use a credential authorised for the selected mailbox.
+
+<Steps>
+  <Step title="Prepare a reply">
+    Create a draft from a message in the authorised mailbox. Sendmux prepares the recipients, subject and thread headers from that message. `reply_all` includes other visible recipients; `forward` starts without recipients. Replies retain inline images from the source, while forwards also include its regular attachments.
+
+    ```bash
+    curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: reply-msg-123" \
+      -d '{"source":{"message_id":"msg_123","action":"reply"}}'
+    ```
+
+    Keep the returned `data.id` and `data.revision`. Reuse the same idempotency key if the create response is lost. Read `GET /mailbox/drafts/{draftId}` until its status is `ready` before editing or sending.
+  </Step>
+  <Step title="Edit the saved content">
+    Pass the revision you last read as `expected_revision`. A `409` means another edit won: read the draft again and review the newer content before retrying. Omitted fields keep their saved values.
+
+    ```bash
+    curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123 \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"expected_revision":1,"text_body":"Thanks for your message. I will check and reply today."}'
+    ```
+
+    Use the new `data.revision` from the response when reviewing the final draft. The saved HTML stays intact unless you edit `html_body`. To add a file, [upload it](/developer-tools/mailbox-api/attachments) and include its `blob_id`, filename, content type and size in the draft's `attachments` array. Include `disposition` and `content_id` for an inline image.
+  </Step>
+  <Step title="Send the reviewed revision">
+    Confirm the recipients, subject, bodies and attachments in the saved draft. Send only that exact revision. If the response is lost, read the same draft's status before retrying; an uncertain send must not become a second message.
+
+    ```bash
+    curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"expected_revision":2}'
+    ```
+
+    A stale revision returns `409`. A queued or uncertain result needs its existing draft state checked; do not create a replacement send request.
+  </Step>
+</Steps>
+
+## Schedule or cancel a send
+
+To schedule the reviewed revision, include `expected_revision`, `expected_schedule_version` and a `scheduled_for` time with a timezone in the send request. The time must be within 30 days and is the earliest permitted send time, not a delivery guarantee. Read the current revision and `schedule_version` before rescheduling or cancelling with `PATCH /mailbox/drafts/{draftId}/schedule`; set `scheduled_for` to `null` to cancel. Cancellation cannot undo a send that has already begun.
+
+Cancel a scheduled send before editing its content. After cancellation, include the current `expected_schedule_version` when sending immediately or scheduling again. Sender, recipient and credential permissions are checked again when the send begins; revoked authorisation stops the pending send.
+
+## Review sender and content
+
+The sender and Reply-To default to the originating inbox. Any override must satisfy the team, mailbox and credential policies together. A saved draft can be incomplete, but sending requires at least one recipient and permits at most 50 recipients across To, Cc and Bcc.
+
+Review the saved response before approving its revision. Required plan footers and tracking changes are prepared when content is saved. If sending asks you to save again, read and approve the resulting revision before retrying.
+
+## Handle a failed send
+
+Read the same draft after a lost response. For `failed`, inspect `failure_code` and correct the content or authorisation before retrying. For `uncertain`, retain the draft and wait for reconciliation; do not create another message to replace it. A queued result is not a delivery guarantee.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox threads" icon="comments" href="/developer-tools/mailbox-api/threads"></Card>
+  <Card title="Mailbox attachments" icon="paperclip" href="/developer-tools/mailbox-api/attachments"></Card>
+</Columns>

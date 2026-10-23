@@ -36,7 +36,7 @@ const collectionDefinitions = [
     source: "app",
     baseVariable: "management_base_url",
     defaultBaseUrl: "https://app.sendmux.ai/api/v1",
-    includePath: (path) => !path.startsWith("/mailbox") && path !== "/openapi.json",
+    includePath: (path) => !path.startsWith("/mailbox/") && path !== "/openapi.json",
   },
   {
     name: "Sendmux Mailbox API",
@@ -44,7 +44,7 @@ const collectionDefinitions = [
     source: "app",
     baseVariable: "mailbox_base_url",
     defaultBaseUrl: "https://app.sendmux.ai/api/v1",
-    includePath: (path) => path.startsWith("/mailbox"),
+    includePath: (path) => path.startsWith("/mailbox/"),
   },
   {
     name: "Sendmux Sending API",

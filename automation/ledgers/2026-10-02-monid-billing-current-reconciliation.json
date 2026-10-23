@@ -1,0 +1,192 @@
+{
+  "artifact": "account/billing.mdx",
+  "reconciledAt": "2026-10-02 20:53 AEST",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "workflow": "automation/docs-authoring-workflow.md",
+  "currentPageSha256": "afa390621051f6685a08a20ce69bfe0c6bfff85529d8276b06008671b12926ae",
+  "upstreamPageSha256": "f652eb6cf9261019c0f03b6222afdcfea3b6230f86a94b6b8c82f6c55a88644e",
+  "priorMonidPageSha256": "4a15231de4a134fd9db7b180e0ed9db9282c77504f59a8648aaf6448675e96d2",
+  "historicalLedgers": {
+    "automation/ledgers/2026-09-30-monid-resume-guides.json": "bab2aed74e3acf5368799ad7c95c5199420480446831dd554ccb57b911d24d73",
+    "automation/ledgers/2026-09-30-monid-stable-guides.json": "aa05fb25c427ba04daaf6ef1f1861a9815bdaf636516e018da765be1244ced6b",
+    "automation/ledgers/2026-10-01-monid-billing-reconciliation.json": "924578979b88a4a701d16a8aa696fd38598132fe3660f0ccfd79c834c1914026",
+    "automation/ledgers/2026-10-01-billing-coupon-fixes.json": "9b6eb78ce7335a427b810493d8f6639623b9f3ac1a7c13ff8ebbd8d51c4f040a"
+  },
+  "units": [
+    {
+      "id": "account/billing.mdx#p001",
+      "eligibility": "eligible",
+      "editableCharacters": 248,
+      "sourceSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "finalSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "first records",
+        "original recorded time",
+        "Outgoing usage is"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "billing-1",
+      "restorationReason": "Changed first recorded acceptance to receives notification and billing period to month; replay wording changed.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37.",
+      "reviewLedger": "automation/ledgers/2026-10-01-monid-billing-reconciliation.json"
+    },
+    {
+      "id": "account/billing.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 196,
+      "sourceSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "finalSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "[per-mailbox cost readings](/developer-tools/mailbox-costs)",
+        "first covered calendar month",
+        "For [per-mailbox cost"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "eligibilityReason": "One atomic technical-reference instruction/assertion paragraph: all editable wording specifies saved attachment fields or precise cost attribution. Every clause source-backed; no narrative/marketing content. Root-relative source link preserved unchanged; no provider call for this unit.",
+      "disposition": "ineligible-technical",
+      "reviewLedger": "automation/ledgers/2026-10-01-monid-billing-reconciliation.json"
+    },
+    {
+      "id": "account/billing#unknown-provider-hold",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 266,
+      "sourceSha256": "b5797e2a8365fff2655152484c10fbcef6a7f95b0176905dd59fdd61006c6763",
+      "finalSha256": "b5797e2a8365fff2655152484c10fbcef6a7f95b0176905dd59fdd61006c6763",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "24-hour threshold verified; expiry report does not release held credit",
+        "No invented resolution deadline or promise of automatic release",
+        "Hold is not posted usage; unchanged no-auto-top-up assertion preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Surrounding text, tables, frontmatter, headings, URLs and code unchanged"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed explanatory piece is 46 words, below the canonical 50-word submission floor; no unrelated content added to reach it.",
+      "sourceEvidence": [
+        "src/utils/credit-reservations.ts:150,932-993,1005-1009",
+        "tests/integration/credit-reservations.test.ts:864-930",
+        "workers/src/tasks/billing-reconciliation.ts:40-71"
+      ],
+      "protectedAnchors": [
+        "Sendmux",
+        "unknown",
+        "24 hours",
+        "not automatically released",
+        "not a usage charge",
+        "cannot start an auto top-up by itself"
+      ],
+      "frozenInline": [],
+      "reviewLedger": "automation/ledgers/2026-10-01-monid-billing-reconciliation.json"
+    },
+    {
+      "id": "account/billing.mdx#manual-topup-promo",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 174,
+      "sourceSha256": "a0c61225f7cd0ae1857f9f8e90216c99bf1efb782a6a72fe5d1390c878a7a1b8",
+      "finalSha256": "a0c61225f7cd0ae1857f9f8e90216c99bf1efb782a6a72fe5d1390c878a7a1b8",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "Source-backed conditions and limits preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Em dashes: 0; semicolons: 0; curly quotes: 0; banned vocabulary: 0",
+        "Existing frontmatter, headings, code, tables and link destinations preserved"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed piece is 29 words, below the canonical 50-word submission floor; unrelated prose was not added to reach it.",
+      "sourceEvidence": [
+        "src/server/billing/checkout.ts:79-90",
+        "src/server/billing/stripe-billing-reconciler.ts:120-143"
+      ],
+      "protectedAnchors": [
+        "promo code",
+        "selected credit amount",
+        "checkout completes",
+        "100%",
+        "zero"
+      ],
+      "frozenInline": [],
+      "reviewLedger": "automation/ledgers/2026-10-01-billing-coupon-fixes.json"
+    }
+  ],
+  "otherCarriedGuidePageSha256": {
+    "developer-tools/mailbox-api/saved-drafts.mdx": "b7604548f341718ef41503846b1f0715259fc401cf13aeec51f126a9469895f9",
+    "developer-tools/mailbox-costs.mdx": "c73f1dfadd48ac5e6ee0b1015d26412506c9b6e3d2915420f02ae5220faa0cef",
+    "webhooks/setup.mdx": "15395713bd795ceca96b96b9e98db5d59b73a41018fc937b472d5d730a7d06b1",
+    "webhooks/verify-signatures.mdx": "68672cad3ed659e14c2fe69ab51638034fd33fcf35a05b915080cd22725d0440",
+    "developer-tools/mailbox-api/message-content.mdx": "f5d9ae7d6f11dca6975cb23638bdc96db1c25bc33e84f108354e1a3e210b396b",
+    "developer-tools/mailbox-api/search-and-batch.mdx": "85f90baf3a2fe233aff647a0fe082c81bb41f37893d4752a84a8a00553997d0e"
+  },
+  "preservation": {
+    "historicalLedgersUnchanged": true,
+    "allFourUnitHashesMatchHistoricalFinal": true,
+    "allProtectedAnchorsPresent": true,
+    "removingOnlyCouponRestoresPriorMonidPage": true,
+    "removingOnlyMonidAdditionsRestoresCurrentUpstreamPage": true,
+    "otherCarriedGuidesMatchHistoricalFinalPages": true
+  },
+  "sourceEvidenceRechecked": [
+    "sendmux-monid-readiness-current-20261002/src/server/billing/mailbox-usage.ts:78-119",
+    "sendmux-monid-readiness-current-20261002/src/server/billing/mailbox-storage-collections.ts:328-348",
+    "sendmux-monid-readiness-current-20261002/src/utils/credit-reservations.ts:153-165,927-947,1040-1108",
+    "sendmux-monid-readiness-current-20261002/src/server/billing/checkout.ts:75-98",
+    "sendmux-monid-readiness-current-20261002/src/server/billing/stripe-billing-reconciler.ts:115-148"
+  ],
+  "manualChecks": [
+    "Current full page is exactly historical Monid page plus the upstream coupon paragraph; no source prose was rewritten.",
+    "Monid outgoing and storage paragraphs retain their historical byte hashes; the existing unknown-provider hold and upstream coupon paragraphs retain theirs.",
+    "Historical eligibility, attempts, scores, operator source-retention decision and manual checks remain attached to the identical prose-unit bytes.",
+    "Coupon is a 29-word standalone unit after the Manual top-up heading; no new adjacent eligible-unit batch was assembled.",
+    "Source-backed conditions, quantities, links, Australian English and confidentiality reviewed against the preserved historical rows and cited current source."
+  ],
+  "blockedManualReviewCount": 0,
+  "providerSubmissionsThisReconciliation": 0,
+  "status": "Source-only hash reconciliation; technical, preservation, rendered and release gates remain outstanding."
+}

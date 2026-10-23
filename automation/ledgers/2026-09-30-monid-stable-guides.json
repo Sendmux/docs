@@ -1,0 +1,582 @@
+{
+  "artifact": "Monid stable webhook and mailbox content guides",
+  "reviewedAt": "2026-09-30 08:12",
+  "contract": "ja-k8s/AA-claude-prompts/humanisation-finalisation.md",
+  "contractSha256": "f782ea953a53f489d62a12224f28568b2ee37c7da37966d9d7af6be37b505b14",
+  "workflow": "automation/docs-authoring-workflow.md sections 1-7; section 4 enables ineligible-technical for one atomic reference unit. No eligible prose batch remains; no provider submission made.",
+  "sourceEvidence": [
+    "event-gateway-monid-webhook-signatures/src/consumers/shared/webhook-signer.ts:26-38 and src/consumers/tenant-webhook-fanout/index.ts:481-496 — V2 timestamp, signature bytes and headers; body reused across retries.",
+    "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/webhooks.ts:99-126,275 — signed body id/type and both signature contracts.",
+    "sendmux agent/monid-readiness src/app/api/v1/_lib/schemas/mailbox-api.ts:205-255,1730-1790 — clean HTML fields, outcomes and content route.",
+    "sendmux agent/monid-readiness src/utils/mailbox-html-content.ts:17-85 and src/server/api-v1/mailbox-api.ts:2419-2455 — cleaning limits and flags.",
+    "sendmux agent/monid-readiness src/app/api/v1/mailbox/messages/[message_id]/raw/route.ts:5-31 and src/server/api-v1/mailbox-api.ts:1862-1902 — raw bytes, content type and ETag.",
+    "sendmux-docs-monid-readiness/tests/webhook-verifier-example.test.mjs — verifies the executable MDX sample against signed bytes and rejection cases."
+  ],
+  "pageSha256": {
+    "webhooks/setup.mdx": "15395713bd795ceca96b96b9e98db5d59b73a41018fc937b472d5d730a7d06b1",
+    "webhooks/verify-signatures.mdx": "68672cad3ed659e14c2fe69ab51638034fd33fcf35a05b915080cd22725d0440",
+    "developer-tools/mailbox-api/message-content.mdx": "f5d9ae7d6f11dca6975cb23638bdc96db1c25bc33e84f108354e1a3e210b396b",
+    "developer-tools/mailbox-api/search-and-batch.mdx": "85f90baf3a2fe233aff647a0fe082c81bb41f37893d4752a84a8a00553997d0e"
+  },
+  "units": [
+    {
+      "id": "webhooks/verify-signatures.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 136,
+      "sourceSha256": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3",
+      "finalSha256": "b7d81cf42e36e16903a086d9950dbee3a9e04c64f913c7d448194f0d0576d1c3",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Signature-V2: v1=<hex>`",
+        "`X-Sendmux-Timestamp: <Unix seconds>`",
+        "`X-Sendmux-Signature: sha256=<hex>`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 211,
+      "sourceSha256": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae",
+      "finalSha256": "93541087567351ae0edc6d9e919c1f82426a309797ea30f2a2395a5f2d3813ae",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`id`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 287,
+      "sourceSha256": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb",
+      "finalSha256": "d2a179d69a3481671a2e1b9684eed12dc5cce40bd01cadeb7d59766476a779bb",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Signature`",
+        "`sha256=<hex HMAC-SHA256>`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 85,
+      "sourceSha256": "1143d90a0948a2b53d62fe6be69d1eb88309a560510858c98db18da2fa067b11",
+      "finalSha256": "1143d90a0948a2b53d62fe6be69d1eb88309a560510858c98db18da2fa067b11",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 62,
+      "sourceSha256": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68",
+      "finalSha256": "4df1549bf716325df20298b33475af03af393d3dc6f34e1a68a12d009f909d68",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Timestamp`",
+        "`.`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p006",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 58,
+      "sourceSha256": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89",
+      "finalSha256": "52ed1afa7d23f3ae800927a7aa0ab6fd1ecbc4720135ce8d1c3810bc8fb30b89",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`v1`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p007",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 129,
+      "sourceSha256": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279",
+      "finalSha256": "92d60ab9ee051ca24fb6eaa5b912d4cacb22a27e26ed0250a01392c9a05c6279",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p008",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "Fewer than 50 editable characters after frozen inline spans are excluded.",
+      "editableCharacters": 44,
+      "sourceSha256": "5ba492aa73e297d20ed59ea6c9811d4e30559455f0cfa8aee6fc5be0ab979241",
+      "finalSha256": "5ba492aa73e297d20ed59ea6c9811d4e30559455f0cfa8aee6fc5be0ab979241",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p009",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 67,
+      "sourceSha256": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448",
+      "finalSha256": "6841b63a6b0241127ca933ccc7cdfb52988933f71bbf7a6ff3bf7c5690256448",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p010",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 65,
+      "sourceSha256": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e",
+      "finalSha256": "5711f0a631ead26490291c6612d4bd9ee0f1d9f48d0aa07da8b7e4dbe82d4a5e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p011",
+      "eligibility": "ineligible-manual",
+      "eligibilityReason": "Fewer than 50 editable characters after frozen inline spans are excluded.",
+      "editableCharacters": 45,
+      "sourceSha256": "baaed6a2a16b65dddfd1acb98dbb2fc532779a0f812c8ef3eb9b49755b0655a1",
+      "finalSha256": "baaed6a2a16b65dddfd1acb98dbb2fc532779a0f812c8ef3eb9b49755b0655a1",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-manual"
+    },
+    {
+      "id": "webhooks/verify-signatures.mdx#p012",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 63,
+      "sourceSha256": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90",
+      "finalSha256": "016f19376127f44f09f9b759e080b76f53ba841e9f4a5882badf202da5dd3c90",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p001",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 274,
+      "sourceSha256": "479ed0fda3c41d81dc03aa52f46a015400f9c66ea7e46153ee940ea8250e2c39",
+      "finalSha256": "479ed0fda3c41d81dc03aa52f46a015400f9c66ea7e46153ee940ea8250e2c39",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`include_html=true`",
+        "`body.html`",
+        "`body.cleaned_html`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p002",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 89,
+      "sourceSha256": "231e70d5253cb1451f71c79903b41f266285edc9713ca17685388177846b9b10",
+      "finalSha256": "231e70d5253cb1451f71c79903b41f266285edc9713ca17685388177846b9b10",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`body.html_cleaning`",
+        "`status`",
+        "`quotes_stripped`",
+        "`signature_stripped`",
+        "`body.quotes_stripped`",
+        "`body.signature_stripped`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 185,
+      "sourceSha256": "8723bb628634fc8540bb0ba659bb7b72734d1215dbfd4fc4bb19a9ab40da0a52",
+      "finalSha256": "8723bb628634fc8540bb0ba659bb7b72734d1215dbfd4fc4bb19a9ab40da0a52",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`null`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p004",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 137,
+      "sourceSha256": "baab7653fa15c2ff5b8c376d8ec97082acc470a861e7c94da0ed919ea1e71bdf",
+      "finalSha256": "baab7653fa15c2ff5b8c376d8ec97082acc470a861e7c94da0ed919ea1e71bdf",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`GET /mailbox/messages/{message_id}/raw`",
+        "`message/rfc822`",
+        "`mailbox.read`",
+        "`ETag`",
+        "`If-None-Match`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p005",
+      "eligibility": "ineligible-technical",
+      "eligibilityReason": "One atomic technical-reference assertion or reader instruction; every clause is source-backed, with no narrative or promotional prose.",
+      "editableCharacters": 90,
+      "sourceSha256": "1868935c8508f715d071c2a120fcf5c9bb2b4e9c630113a18c39cd4470ccd1a1",
+      "finalSha256": "1868935c8508f715d071c2a120fcf5c9bb2b4e9c630113a18c39cd4470ccd1a1",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`/body`",
+        "`/raw`",
+        "`.eml`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "webhooks/setup.mdx#p001",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 2,
+      "sourceSha256": "02ec25c575af182d36382a600d356b57fd39a7f4f42c2a0c61c25b3b92770a1e",
+      "finalSha256": "02ec25c575af182d36382a600d356b57fd39a7f4f42c2a0c61c25b3b92770a1e",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Signature-V2`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "webhooks/setup.mdx#p002",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 2,
+      "sourceSha256": "3dd17ff1bec792fb1d5435e4d3778301b2b9f9a840c323dcfe6c1715b32e05de",
+      "finalSha256": "3dd17ff1bec792fb1d5435e4d3778301b2b9f9a840c323dcfe6c1715b32e05de",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Timestamp`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "webhooks/setup.mdx#p003",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 2,
+      "sourceSha256": "08a09cfdf0d7f3ebf2d073b5d8471698983cdba3f70d6f4cef42b8267b068714",
+      "finalSha256": "08a09cfdf0d7f3ebf2d073b5d8471698983cdba3f70d6f4cef42b8267b068714",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "`X-Sendmux-Signature`"
+      ],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p006",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 27,
+      "sourceSha256": "ff58d1e4a3b6bfde2d1e5d1f8053c9fa372a7f4137d4c5856c16ef052b3983cd",
+      "finalSha256": "ff58d1e4a3b6bfde2d1e5d1f8053c9fa372a7f4137d4c5856c16ef052b3983cd",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "developer-tools/mailbox-api/message-content.mdx#p007",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 28,
+      "sourceSha256": "6f899bd6bbbcab6f2ad642dfc0b85249049b99424dfb1d2a92e76a75d5f0c64c",
+      "finalSha256": "6f899bd6bbbcab6f2ad642dfc0b85249049b99424dfb1d2a92e76a75d5f0c64c",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p001",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 33,
+      "sourceSha256": "ca41f44261856d9cb4c6e4f5c79ad1d2bd545486c83aa12ef439817495e47ca9",
+      "finalSha256": "ca41f44261856d9cb4c6e4f5c79ad1d2bd545486c83aa12ef439817495e47ca9",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    },
+    {
+      "id": "developer-tools/mailbox-api/search-and-batch.mdx#p002",
+      "eligibility": "excluded-frozen",
+      "eligibilityReason": "Code, JSON example, or table content is frozen by the documentation finalisation contract.",
+      "editableCharacters": 34,
+      "sourceSha256": "e5525f863179ffa92dfad4bd6002ed60615ab01ee682e672f6fa222cb56f347f",
+      "finalSha256": "e5525f863179ffa92dfad4bd6002ed60615ab01ee682e672f6fa222cb56f347f",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [],
+      "manualChecks": [
+        "Claim and exact terms checked against product API schema or gateway signer cited in sourceEvidence.",
+        "Australian English, confidentiality, qualifications and reader instruction reviewed; source bytes retained."
+      ],
+      "disposition": "excluded-frozen"
+    }
+  ],
+  "frozen": [
+    "frontmatter and heading hierarchy",
+    "webhook verifier code",
+    "request and response examples",
+    "signature-header table",
+    "HTML-cleaning status table",
+    "URLs and link destinations"
+  ],
+  "eligibleBatchCount": 0,
+  "providerSubmissions": 0,
+  "blockedManualReviewCount": 0,
+  "preservation": "Exact reviewed candidate source retained; only technical claims and frozen examples differ from HEAD. No provider rewrite or sentence repair was applied."
+}

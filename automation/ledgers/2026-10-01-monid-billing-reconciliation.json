@@ -1,0 +1,125 @@
+{
+  "artifact": "account/billing.mdx",
+  "reviewedAt": "2026-10-01T15:36:21.580084+10:00",
+  "finalPageSha256": "4a15231de4a134fd9db7b180e0ed9db9282c77504f59a8648aaf6448675e96d2",
+  "upstreamPageSha256": "0e11d7f39a7a52763ec28de082d361a63b6d2fa8c1dfae21e4f95a9ff792a97b",
+  "sourceLedgers": [
+    "automation/ledgers/2026-09-30-monid-resume-guides.json",
+    "automation/ledgers/2026-09-30-billing-hold-review.json"
+  ],
+  "units": [
+    {
+      "id": "account/billing.mdx#p001",
+      "eligibility": "eligible",
+      "editableCharacters": 248,
+      "sourceSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "finalSha256": "56312babe7ce8f753444ba20958aa993293e082ddb5c64df93a0d3a16879421c",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 1,
+      "scoreSource": 80,
+      "scoreRaw": 80,
+      "scoreFinal": 80,
+      "repairs": [],
+      "protectedAnchors": [
+        "Sendmux",
+        "first records",
+        "original recorded time",
+        "Outgoing usage is"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "batch": "billing-1",
+      "restorationReason": "Changed first recorded acceptance to receives notification and billing period to month; replay wording changed.",
+      "disposition": "pass-source-preserved-manual",
+      "retentionDecision": "Operator declined retry and approved exact reviewed source retention after attempt1 rejection, finalisation contract:37."
+    },
+    {
+      "id": "account/billing.mdx#p003",
+      "eligibility": "ineligible-technical",
+      "editableCharacters": 196,
+      "sourceSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "finalSha256": "a4a712d9ef8114aab04aa274cab6bd34067a4dd2515dd351b24f352da6af3a30",
+      "changedFromSource": false,
+      "transport": null,
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "protectedAnchors": [
+        "[per-mailbox cost readings](/developer-tools/mailbox-costs)",
+        "first covered calendar month",
+        "For [per-mailbox cost"
+      ],
+      "sourceEvidence": [
+        "src/server/billing/mailbox-usage.ts:83-119",
+        "src/server/billing/mailbox-storage-collections.ts:332-342",
+        "src/utils/credit-reservations.ts:159,1048-1105"
+      ],
+      "manualChecks": [
+        "Every final unit remains byte-identical to frozen reviewed source; factual scope, warnings, prerequisites, negative instructions and limits retained.",
+        "API fields, permissions, commands, numbers and link destinations checked against cited source; no internal stack name introduced.",
+        "Australian English and concise documentation voice reviewed against frozen source."
+      ],
+      "eligibilityReason": "One atomic technical-reference instruction/assertion paragraph: all editable wording specifies saved attachment fields or precise cost attribution. Every clause source-backed; no narrative/marketing content. Root-relative source link preserved unchanged; no provider call for this unit.",
+      "disposition": "ineligible-technical"
+    },
+    {
+      "id": "account/billing#unknown-provider-hold",
+      "eligibility": "ineligible-manual",
+      "editableCharacters": 266,
+      "sourceSha256": "b5797e2a8365fff2655152484c10fbcef6a7f95b0176905dd59fdd61006c6763",
+      "finalSha256": "b5797e2a8365fff2655152484c10fbcef6a7f95b0176905dd59fdd61006c6763",
+      "changedFromSource": false,
+      "transport": "rest",
+      "attempt": 0,
+      "scoreSource": null,
+      "scoreRaw": null,
+      "scoreFinal": null,
+      "repairs": [],
+      "manualChecks": [
+        "Exact reviewed source bytes retained",
+        "24-hour threshold verified; expiry report does not release held credit",
+        "No invented resolution deadline or promise of automatic release",
+        "Hold is not posted usage; unchanged no-auto-top-up assertion preserved",
+        "AU English, concise voice and confidentiality checked",
+        "Surrounding text, tables, frontmatter, headings, URLs and code unchanged"
+      ],
+      "disposition": "ineligible-manual",
+      "eligibilityReason": "The complete changed explanatory piece is 46 words, below the canonical 50-word submission floor; no unrelated content added to reach it.",
+      "sourceEvidence": [
+        "src/utils/credit-reservations.ts:150,932-993,1005-1009",
+        "tests/integration/credit-reservations.test.ts:864-930",
+        "workers/src/tasks/billing-reconciliation.ts:40-71"
+      ],
+      "protectedAnchors": [
+        "Sendmux",
+        "unknown",
+        "24 hours",
+        "not automatically released",
+        "not a usage charge",
+        "cannot start an auto top-up by itself"
+      ],
+      "frozenInline": []
+    }
+  ],
+  "supersedes": [
+    "2026-09-30-monid-resume-guides.json:account/billing.mdx#p002"
+  ],
+  "blockedManualReviewCount": 0,
+  "newProse": false,
+  "preservation": {
+    "approvedTwoParagraphsByteIdentical": true,
+    "removingOnlyThoseParagraphsRestoresExactUpstreamPage": true,
+    "historicalLedgersUnchanged": true
+  }
+}

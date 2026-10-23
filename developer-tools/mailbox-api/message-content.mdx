@@ -56,6 +56,8 @@ curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?strip_signa
       "format": "text",
       "text": "Clean body text...",
       "html": null,
+      "cleaned_html": null,
+      "html_cleaning": null,
       "is_truncated": false,
       "truncated_at_chars": null,
       "signature_stripped": true,
@@ -100,6 +102,37 @@ Clean content controls:
   metadata or downloaded separately. PDF, CSV, Office document, and OCR parsing
   are not part of these APIs.
 </Note>
+
+## Read cleaned HTML
+
+Set `include_html=true` on the content endpoint to receive both the original `body.html` and `body.cleaned_html`. The stripping options apply to the cleaned copy. Recognised quote and signature containers are removed; surviving markup, links and inline-image references are preserved. Unrecognised formats remain unchanged.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?include_html=true&strip_quotes=true&strip_signature=true" \
+  -H "Authorization: Bearer $SENDMUX_API_KEY"
+```
+
+`body.html_cleaning` contains a `status` and separate `quotes_stripped` and `signature_stripped` flags. The existing `body.quotes_stripped` and `body.signature_stripped` flags describe the text output.
+
+| HTML cleaning status | Result |
+| --- | --- |
+| `complete` | `cleaned_html` contains the processed HTML, including an empty string if all content was removed. |
+| `source_truncated` | The source exceeded `max_body_chars` or was already truncated; `cleaned_html` is `null`. |
+| `limit_exceeded` | Cleaning exceeded 20,000 elements or 128 nested elements; `cleaned_html` is `null`. |
+
+Both added fields are `null` when HTML is absent or not requested. Cleaning does not sanitise HTML. Apply your own sanitisation and rendering restrictions before displaying either HTML field.
+
+## Download the original message
+
+`GET /mailbox/messages/{message_id}/raw` returns the stored message bytes as `message/rfc822`, including headers and encoded attachments. It requires `mailbox.read` access to that message and supports `ETag` and `If-None-Match`.
+
+```bash
+curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/raw" \
+  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  --output message.eml
+```
+
+The `/body` endpoint returns decoded body fields in JSON. Use `/raw` when you need the original `.eml` bytes.
 
 ## Next steps
 
