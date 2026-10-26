@@ -87,6 +87,8 @@ For previously verified managed domains, Sendmux compares authentication status 
 
 Team owners choose email and in-app notices, including recovery notices, in their Deliverability notification preferences. Alerts that include disabled sending or signing use both channels for active owners and admins, even if those channels are disabled in their preferences. Email notices can arrive after the status update.
 
+Managed sending from your custom domain requires a successful Amazon SES identity check, sending enabled, healthy DKIM and signing enabled. If custom MAIL FROM is configured, it must also be healthy and match the configured domain. Checks expire after one hour. Missing, incomplete, unhealthy or older checks block managed sending, including saved mailbox drafts, and remove its options from mailbox sender choices until verification and a fresh, healthy check succeed. Connected sending accounts keep their existing rules.
+
 ## Troubleshooting
 
 <AccordionGroup>
