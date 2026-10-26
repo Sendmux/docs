@@ -83,6 +83,10 @@ Amazon SES status is checked separately on a five-minute schedule, even when DNS
 
 Your domain list and detail page refresh while visible and when you return to the tab. The **Action required** label includes a temporary Amazon SES authentication failure. Review the individual status checks and the last-checked time.
 
+For previously verified managed domains, Sendmux compares authentication status reported by Amazon SES, including DKIM. It creates an alert when authentication degrades, worsens or fully recovers. Repeated observations of the same status do not create duplicate alerts.
+
+Team owners choose email and in-app notices, including recovery notices, in their Deliverability notification preferences. Alerts that include disabled sending or signing use both channels for active owners and admins, even if those channels are disabled in their preferences. Email notices can arrive after the status update.
+
 ## Troubleshooting
 
 <AccordionGroup>

@@ -4,12 +4,14 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="26 October 2026" tags={["Bug fixes"]} rss={{ title: "Domain status stays current after DNS checks fail" }}>
+<Update label="26 October 2026" tags={["Bug fixes"]} rss={{ title: "Domain status and authentication alerts" }}>
   ## Bug fixes
 
 You can see updated Amazon SES sending and email-signing status even when a DNS check cannot complete.
 
 The domain list and detail page refresh automatically. A temporary authentication failure now shows **Action required**.
+
+Sendmux alerts team owners when authentication degrades, worsens or fully recovers for a previously verified managed domain, based on Amazon SES status checks. Manage email and in-app notices in your Deliverability notification preferences. Alerts that include disabled sending or signing use both channels for active owners and admins, even if those channels are disabled in their preferences.
 
 </Update>
 
