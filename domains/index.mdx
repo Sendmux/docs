@@ -77,7 +77,11 @@ Open the sending-only domain and choose **Switch to sending & receiving**. Sendm
 | `verified` | All required records are present and ready.                      |
 | `failed`   | One or more records could not be verified after repeated checks. |
 
-Sendmux rechecks domains every six hours. A short DNS issue does not immediately trigger an email. Persistent failures notify team owners.
+Sendmux rechecks DNS every six hours. A short DNS issue does not immediately trigger an email. Persistent failures notify team owners.
+
+Amazon SES status is checked separately on a five-minute schedule, even when DNS checks cannot complete. This schedule does not guarantee an update within five minutes.
+
+Your domain list and detail page refresh while visible and when you return to the tab. The **Action required** label includes a temporary Amazon SES authentication failure. Review the individual status checks and the last-checked time.
 
 ## Troubleshooting
 
