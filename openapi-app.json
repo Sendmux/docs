@@ -275,6 +275,86 @@
         ],
         "type": "object"
       },
+      "CalendarWebhookEventData": {
+        "additionalProperties": false,
+        "properties": {
+          "created": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "destroyed": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "new_state": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "old_state": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "resource": {
+            "enum": [
+              "calendar",
+              "event"
+            ],
+            "type": "string"
+          },
+          "sync_required": {
+            "type": "boolean"
+          },
+          "updated": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 100,
+            "type": "array"
+          }
+        },
+        "required": [
+          "mailbox_id",
+          "resource",
+          "created",
+          "updated",
+          "destroyed",
+          "old_state",
+          "new_state",
+          "has_more",
+          "sync_required"
+        ],
+        "type": "object"
+      },
       "Connection": {
         "additionalProperties": false,
         "properties": {
@@ -412,6 +492,91 @@
           "expected_revision",
           "expected_schedule_version",
           "scheduled_for"
+        ],
+        "type": "object"
+      },
+      "CreateCalendarBody": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "Private calendar name.",
+            "example": "Appointments",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "time_zone": {
+            "description": "Time zone for local event times.",
+            "example": "Australia/Melbourne",
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "time_zone"
+        ],
+        "type": "object"
+      },
+      "CreateCalendarEventBody": {
+        "additionalProperties": false,
+        "properties": {
+          "calendar_id": {
+            "description": "Calendar ID in the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "description": {
+            "description": "Plain text event details. Set null to clear.",
+            "maxLength": 20000,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duration": {
+            "description": "Event duration expressed as days, hours, minutes or seconds.",
+            "example": "PT1H",
+            "maxLength": 80,
+            "pattern": "^P(?=\\d+D|T\\d)(?:\\d+D)?(?:T(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+(?:\\.\\d{1,9})?S)?)?$",
+            "type": "string"
+          },
+          "start": {
+            "description": "Local start date and time without an offset, interpreted in time_zone.",
+            "example": "2026-11-02T10:00:00",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$",
+            "type": "string"
+          },
+          "time_zone": {
+            "description": "Time zone for local event times.",
+            "example": "Australia/Melbourne",
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "description": "Event title.",
+            "example": "Appointment",
+            "maxLength": 1000,
+            "type": "string"
+          },
+          "uid": {
+            "description": "Stable caller-held identity, retained before this request. An uncertain create must be reconciled by UID lookup; never repeat it after an empty immediate lookup.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "calendar_id",
+          "uid",
+          "title",
+          "start",
+          "time_zone",
+          "duration"
         ],
         "type": "object"
       },
@@ -2457,6 +2622,557 @@
             "properties": {
               "data": {
                 "$ref": "#/components/schemas/MailboxBatchUpdateMessagesResult"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendar": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Whether this is the mailbox's current default calendar.",
+            "type": "boolean"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "name",
+          "time_zone",
+          "is_default"
+        ],
+        "type": "object"
+      },
+      "MailboxCalendarChanges": {
+        "additionalProperties": false,
+        "properties": {
+          "created": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "destroyed": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 100,
+            "type": "array"
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "new_state": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "old_state": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "resource": {
+            "enum": [
+              "event"
+            ],
+            "type": "string"
+          },
+          "sync_required": {
+            "type": "boolean"
+          },
+          "updated": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 100,
+            "type": "array"
+          }
+        },
+        "required": [
+          "mailbox_id",
+          "resource",
+          "created",
+          "updated",
+          "destroyed",
+          "old_state",
+          "new_state",
+          "has_more",
+          "sync_required"
+        ],
+        "type": "object"
+      },
+      "MailboxCalendarChangesResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/MailboxCalendarChanges"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarCreated": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "name",
+          "time_zone"
+        ],
+        "type": "object"
+      },
+      "MailboxCalendarCreatedResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/MailboxCalendarCreated"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarEvent": {
+        "additionalProperties": false,
+        "properties": {
+          "calendar_ids": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 250,
+            "type": "array"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duration": {
+            "type": "string"
+          },
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "calendar_ids",
+          "uid",
+          "title",
+          "description",
+          "start",
+          "time_zone",
+          "duration"
+        ],
+        "type": "object"
+      },
+      "MailboxCalendarEventCreated": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "uid"
+        ],
+        "type": "object"
+      },
+      "MailboxCalendarEventCreatedResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/MailboxCalendarEventCreated"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarEventDeletedResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "additionalProperties": false,
+                "properties": {
+                  "deleted": {
+                    "enum": [
+                      true
+                    ],
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "description": "Opaque identifier scoped to the selected mailbox.",
+                    "maxLength": 4096,
+                    "minLength": 1,
+                    "pattern": "^[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "deleted"
+                ],
+                "type": "object"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarEventListResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/MailboxCalendarEvent"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/CursorPagination"
+              }
+            },
+            "required": [
+              "data",
+              "pagination"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarEventResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/MailboxCalendarEventWithEtag"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarEventUpdatedResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "description": "Opaque identifier scoped to the selected mailbox.",
+                    "maxLength": 4096,
+                    "minLength": 1,
+                    "pattern": "^[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "updated": {
+                    "enum": [
+                      true
+                    ],
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "updated"
+                ],
+                "type": "object"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarEventWithEtag": {
+        "additionalProperties": false,
+        "properties": {
+          "calendar_ids": {
+            "items": {
+              "description": "Opaque identifier scoped to the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "maxItems": 250,
+            "type": "array"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duration": {
+            "type": "string"
+          },
+          "etag": {
+            "description": "Current event version, also returned in the ETag response header. Pass this value in If-Match when updating or deleting the event.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "start": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "calendar_ids",
+          "uid",
+          "title",
+          "description",
+          "start",
+          "time_zone",
+          "duration",
+          "etag"
+        ],
+        "type": "object"
+      },
+      "MailboxCalendarListResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/MailboxCalendar"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/CursorPagination"
+              }
+            },
+            "required": [
+              "data",
+              "pagination"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "MailboxCalendarResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/MailboxCalendar"
               },
               "meta": {
                 "$ref": "#/components/schemas/ResponseMeta"
@@ -7176,6 +7892,46 @@
         ],
         "unevaluatedProperties": false
       },
+      "PatchCalendarEventBody": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "description": "Plain text event details. Set null to clear.",
+            "maxLength": 20000,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "duration": {
+            "description": "Event duration expressed as days, hours, minutes or seconds.",
+            "example": "PT1H",
+            "maxLength": 80,
+            "pattern": "^P(?=\\d+D|T\\d)(?:\\d+D)?(?:T(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+(?:\\.\\d{1,9})?S)?)?$",
+            "type": "string"
+          },
+          "start": {
+            "description": "Local start date and time without an offset, interpreted in time_zone.",
+            "example": "2026-11-02T10:00:00",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$",
+            "type": "string"
+          },
+          "time_zone": {
+            "description": "Time zone for local event times.",
+            "example": "Australia/Melbourne",
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "description": "Event title.",
+            "example": "Appointment",
+            "maxLength": 1000,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "PatchMailboxFolderBody": {
         "additionalProperties": false,
         "properties": {
@@ -9537,6 +10293,7 @@
                 "message.delivery_delayed",
                 "message.received",
                 "message.received.spam",
+                "calendar.changed",
                 "sendmux.test"
               ],
               "example": "message.bounced",
@@ -9650,6 +10407,7 @@
               "message.delivery_delayed",
               "message.received",
               "message.received.spam",
+              "calendar.changed",
               "sendmux.test"
             ],
             "example": "message.bounced",
@@ -9810,6 +10568,7 @@
               "message.delivery_delayed",
               "message.received",
               "message.received.spam",
+              "calendar.changed",
               "sendmux.test"
             ],
             "example": "message.bounced",
@@ -10017,7 +10776,6 @@
         "type": "object"
       },
       "WebhookEventPayload": {
-        "additionalProperties": false,
         "description": "The JSON request body delivered to the webhook endpoint.",
         "example": {
           "data": {
@@ -10044,49 +10802,91 @@
           "team_public_id": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
           "type": "message.received"
         },
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/WebhookEventData"
-          },
-          "id": {
-            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
-            "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "type": "string"
-          },
-          "occurred_at": {
-            "description": "When the event occurred.",
-            "example": "2026-05-21T09:12:00Z",
-            "type": "string"
-          },
-          "team_public_id": {
-            "description": "Team that owns the event.",
-            "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "type": "string"
-          },
-          "type": {
-            "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
-            "enum": [
-              "message.delivered",
-              "message.bounced",
-              "message.complained",
-              "message.rejected",
-              "message.delivery_delayed",
-              "message.received",
-              "message.received.spam",
-              "sendmux.test"
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/WebhookEventData"
+              },
+              "id": {
+                "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+                "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "type": "string"
+              },
+              "occurred_at": {
+                "description": "When the event occurred.",
+                "example": "2026-05-21T09:12:00Z",
+                "type": "string"
+              },
+              "team_public_id": {
+                "description": "Team that owns the event.",
+                "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "type": "string"
+              },
+              "type": {
+                "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
+                "enum": [
+                  "message.delivered",
+                  "message.bounced",
+                  "message.complained",
+                  "message.rejected",
+                  "message.delivery_delayed",
+                  "message.received",
+                  "message.received.spam",
+                  "sendmux.test"
+                ],
+                "example": "message.received",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "team_public_id",
+              "occurred_at",
+              "data"
             ],
-            "example": "message.received",
-            "type": "string"
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/CalendarWebhookEventData"
+              },
+              "id": {
+                "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+                "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "type": "string"
+              },
+              "occurred_at": {
+                "description": "When the event occurred.",
+                "example": "2026-05-21T09:12:00Z",
+                "type": "string"
+              },
+              "team_public_id": {
+                "description": "Team that owns the event.",
+                "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "calendar.changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "team_public_id",
+              "occurred_at",
+              "data"
+            ],
+            "type": "object"
           }
-        },
-        "required": [
-          "id",
-          "type",
-          "team_public_id",
-          "occurred_at",
-          "data"
-        ],
-        "type": "object"
+        ]
       },
       "WebhookFilters": {
         "additionalProperties": false,
@@ -10137,6 +10937,7 @@
                 "message.delivery_delayed",
                 "message.received",
                 "message.received.spam",
+                "calendar.changed",
                 "sendmux.test"
               ],
               "example": "message.bounced",
@@ -10270,6 +11071,7 @@
                 "message.delivery_delayed",
                 "message.received",
                 "message.received.spam",
+                "calendar.changed",
                 "sendmux.test"
               ],
               "example": "message.bounced",
@@ -10384,6 +11186,7 @@
                 "message.delivery_delayed",
                 "message.received",
                 "message.received.spam",
+                "calendar.changed",
                 "sendmux.test"
               ],
               "example": "message.bounced",
@@ -10439,6 +11242,8 @@
               "billing.auto_topup": "Configure auto top-up settings",
               "billing.read": "View balance, transactions, invoices",
               "billing.topup": "Purchase balance top-ups",
+              "calendar.read": "Read calendars and events in this mailbox",
+              "calendar.write": "Create calendars and create, edit and delete events in this mailbox",
               "domain.*": "All domain operations",
               "domain.create": "Add sending domains",
               "domain.delete": "Remove domains",
@@ -12719,6 +13524,1564 @@
           }
         ],
         "summary": "Upload a mailbox attachment",
+        "tags": [
+          "Mailbox API"
+        ]
+      }
+    },
+    "/mailbox/calendar-events": {
+      "get": {
+        "description": "UID search is eventually consistent. An empty immediate lookup leaves an uncertain create unresolved and never authorises repeating it.",
+        "operationId": "mailboxListCalendarEvents",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "description": "Maximum records per page, up to 100.",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "description": "Cursor from the previous page. Keep the same filters while paging.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "uid",
+            "required": false,
+            "schema": {
+              "description": "Exact immutable event UID. Empty results can reflect a recent create awaiting search visibility; never repeat an uncertain create.",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "calendar_id",
+            "required": false,
+            "schema": {
+              "description": "Limit events to this calendar in the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarEventListResponse"
+                }
+              }
+            },
+            "description": "Events."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.read"
+            ]
+          }
+        ],
+        "summary": "List calendar events",
+        "tags": [
+          "Mailbox API"
+        ]
+      },
+      "post": {
+        "description": "Creates one event without participants, recurrence or alerts. Invitations and scheduling messages are disabled. Retain UID before dispatch. If creation is uncertain, use read-only UID lookup; do not repeat the create.",
+        "operationId": "mailboxCreateCalendarEvent",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "description": "Stable key for this exact create in this mailbox. Saved responses replay for 24 hours. Uncertain creates still require read-only reconciliation.",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCalendarEventBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarEventCreatedResponse"
+                }
+              }
+            },
+            "description": "Event identity acknowledged. Fetch it using the Location header.",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.write"
+            ]
+          }
+        ],
+        "summary": "Create a non-sending event",
+        "tags": [
+          "Mailbox API"
+        ]
+      }
+    },
+    "/mailbox/calendar-events/{event_id}": {
+      "delete": {
+        "operationId": "mailboxDeleteCalendarEvent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "description": "Event ID in the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "ETag from the most recent event GET. Wildcards are rejected.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarEventDeletedResponse"
+                }
+              }
+            },
+            "description": "Event deleted."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.write"
+            ]
+          }
+        ],
+        "summary": "Delete a non-sending event",
+        "tags": [
+          "Mailbox API"
+        ]
+      },
+      "get": {
+        "operationId": "mailboxGetCalendarEvent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "description": "Event ID in the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-None-Match",
+            "required": false,
+            "schema": {
+              "description": "ETag from a previous resource GET; a matching version returns 304.",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarEventResponse"
+                }
+              }
+            },
+            "description": "Event.",
+            "headers": {
+              "ETag": {
+                "description": "Current resource version.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Unchanged.",
+            "headers": {
+              "ETag": {
+                "description": "Current resource version.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.read"
+            ]
+          }
+        ],
+        "summary": "Get a calendar event",
+        "tags": [
+          "Mailbox API"
+        ]
+      },
+      "patch": {
+        "operationId": "mailboxUpdateCalendarEvent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "description": "Event ID in the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "ETag from the most recent event GET. Wildcards are rejected.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchCalendarEventBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarEventUpdatedResponse"
+                }
+              }
+            },
+            "description": "Update acknowledged. Fetch the event for its current version."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.write"
+            ]
+          }
+        ],
+        "summary": "Update a non-sending event",
+        "tags": [
+          "Mailbox API"
+        ]
+      }
+    },
+    "/mailbox/calendar-events/changes": {
+      "get": {
+        "description": "Coalesced changes for synchronisation, not a lossless mutation history. Missing or expired state requires a full list refresh; establish a new baseline before listing and then consume changes to cover concurrent edits.",
+        "operationId": "mailboxGetCalendarEventChanges",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "since_state",
+            "required": false,
+            "schema": {
+              "description": "Event state from the previous changes response. Omit to establish a full-refresh baseline.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "description": "Maximum changed IDs across the response, up to 100.",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarChangesResponse"
+                }
+              }
+            },
+            "description": "Changes or an explicit full refresh requirement."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.read"
+            ]
+          }
+        ],
+        "summary": "Get calendar event changes",
+        "tags": [
+          "Mailbox API"
+        ]
+      }
+    },
+    "/mailbox/calendars": {
+      "get": {
+        "operationId": "mailboxListCalendars",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "description": "Maximum records per page, up to 100.",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "description": "Cursor from the previous page. Keep the same filters while paging.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarListResponse"
+                }
+              }
+            },
+            "description": "Calendars."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.read"
+            ]
+          }
+        ],
+        "summary": "List calendars",
+        "tags": [
+          "Mailbox API"
+        ]
+      },
+      "post": {
+        "operationId": "mailboxCreateCalendar",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "description": "Stable key for this exact create in this mailbox. Saved responses replay for 24 hours. Uncertain creates still require read-only reconciliation.",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCalendarBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarCreatedResponse"
+                }
+              }
+            },
+            "description": "Calendar created.",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.write"
+            ]
+          }
+        ],
+        "summary": "Create a private calendar",
+        "tags": [
+          "Mailbox API"
+        ]
+      }
+    },
+    "/mailbox/calendars/{calendar_id}": {
+      "get": {
+        "operationId": "mailboxGetCalendar",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "calendar_id",
+            "required": true,
+            "schema": {
+              "description": "Calendar ID in the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-None-Match",
+            "required": false,
+            "schema": {
+              "description": "ETag from a previous resource GET; a matching version returns 304.",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarResponse"
+                }
+              }
+            },
+            "description": "Calendar.",
+            "headers": {
+              "ETag": {
+                "description": "Current resource version.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Unchanged.",
+            "headers": {
+              "ETag": {
+                "description": "Current resource version.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.read"
+            ]
+          }
+        ],
+        "summary": "Get a calendar",
         "tags": [
           "Mailbox API"
         ]
@@ -22361,6 +24724,7 @@
                 "message.delivery_delayed",
                 "message.received",
                 "message.received.spam",
+                "calendar.changed",
                 "sendmux.test"
               ],
               "example": "message.bounced",
