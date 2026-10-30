@@ -249,6 +249,1959 @@
         },
         {
           "event": [],
+          "name": "List calendar events",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "UID search is eventually consistent. An empty immediate lookup leaves an uncertain create unresolved and never authorises repeating it.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List calendar events",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendar-events"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "uid",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "calendar_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Events.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create a non-sending event",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"calendar_id\": \"<string>\",\n  \"description\": \"<string,null>\",\n  \"duration\": \"<string>\",\n  \"start\": \"<string>\",\n  \"time_zone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uid\": \"<string>\"\n}"
+            },
+            "description": {
+              "content": "Creates one event without participants, recurrence or alerts. Invitations and scheduling messages are disabled. Retain UID before dispatch. If creation is uncertain, use read-only UID lookup; do not repeat the create.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a non-sending event",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendar-events"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Event identity acknowledged. Fetch it using the Location header.",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Delete a non-sending event",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {},
+            "header": [
+              {
+                "description": "(Required) ",
+                "disabled": false,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "name": "Delete a non-sending event",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendar-events",
+                ":event_id"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "event_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Event deleted.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a calendar event",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {},
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a calendar event",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendar-events",
+                ":event_id"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "event_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current resource version.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Event.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current resource version.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Unchanged.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Update a non-sending event",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"description\": \"<string,null>\",\n  \"duration\": \"<string>\",\n  \"start\": \"<string>\",\n  \"time_zone\": \"<string>\",\n  \"title\": \"<string>\"\n}"
+            },
+            "description": {},
+            "header": [
+              {
+                "description": "(Required) ",
+                "disabled": false,
+                "key": "If-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "name": "Update a non-sending event",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendar-events",
+                ":event_id"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "event_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Update acknowledged. Fetch the event for its current version.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get calendar event changes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {
+              "content": "Coalesced changes for synchronisation, not a lossless mutation history. Missing or expired state requires a full list refresh; establish a new baseline before listing and then consume changes to cover concurrent edits.",
+              "type": "text/plain"
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get calendar event changes",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendar-events",
+                "changes"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "since_state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Changes or an explicit full refresh requirement.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "List calendars",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {},
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "List calendars",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendars"
+              ],
+              "query": [
+                {
+                  "disabled": true,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": true,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Calendars.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Create a private calendar",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n  \"name\": \"<string>\",\n  \"time_zone\": \"<string>\"\n}"
+            },
+            "description": {},
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "name": "Create a private calendar",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendars"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 201,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "",
+                  "disabled": true,
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Calendar created.",
+              "status": "Created"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
+          "name": "Get a calendar",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "description": {},
+            "header": [
+              {
+                "description": "",
+                "disabled": true,
+                "key": "If-None-Match",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "name": "Get a calendar",
+            "url": {
+              "host": [
+                "{{mailbox_base_url}}"
+              ],
+              "path": [
+                "mailbox",
+                "calendars",
+                ":calendar_id"
+              ],
+              "query": [
+                {
+                  "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+                  "disabled": true,
+                  "key": "mailbox_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "(Required) ",
+                  "disabled": false,
+                  "key": "calendar_id",
+                  "type": "any",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 200,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current resource version.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Calendar.",
+              "status": "OK"
+            },
+            {
+              "_postman_previewlanguage": "text",
+              "body": "",
+              "code": 304,
+              "cookie": [],
+              "header": [
+                {
+                  "description": "Current resource version.",
+                  "disabled": true,
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "name": "Unchanged.",
+              "status": "Not Modified"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 400,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Bad Request"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 401,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unauthorized"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 403,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Forbidden"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 404,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Not Found"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 409,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Conflict"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 413,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Request Entity Too Large"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 422,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 429,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Too Many Requests"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 500,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Internal Server Error"
+            },
+            {
+              "_postman_previewlanguage": "json",
+              "body": "",
+              "code": 503,
+              "cookie": [],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "name": "Request failed.",
+              "status": "Service Unavailable"
+            }
+          ]
+        },
+        {
+          "event": [],
           "name": "Get mailbox changes",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
