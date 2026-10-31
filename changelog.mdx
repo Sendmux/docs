@@ -4,12 +4,16 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
-<Update label="31 October 2026" tags={["New features"]} rss={{ title: "Weekly sending account reconnect digest" }}>
+<Update label="31 October 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Weekly reconnect notices and mailbox deletion recovery" }}>
   ## Weekly sending account reconnect digest
 
 Sendmux sends active team owners and admins who can manage accounts a digest listing every account still needing reconnection, at most once a week per team. Reconnect them from **Accounts**. Reconnected or deleted accounts are excluded before delivery, and Sendmux sends nothing if none remain.
 
 In notification settings, use **Accounts needing reconnection** to control email and notification bell notices for this digest. Its own **Email** and **In-app** toggles are separate from **Deliverability**.
+
+  ## Bug fixes
+
+Sendmux fixes an issue that kept some existing teams' mailbox deletions waiting indefinitely for final usage checks.
 
 </Update>
 
