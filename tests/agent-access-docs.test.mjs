@@ -77,7 +77,7 @@ test("agent skills guide offers every installable skill from the canonical pack"
   const examples = [...guide.matchAll(/```bash\n([\s\S]*?)```/g)].map((match) => match[1]).join("\n");
   const installs = [...examples.matchAll(/^npx skills add (\S+)(?: --skill (\S+))?$/gm)];
   for (const [, repository, skill] of installs) {
-    assert.equal(repository, "Sendmux/skills", "installation must use the canonical repository");
+    assert.equal(repository, "qubrics/skills", "installation must use the canonical repository");
     if (skill) assert.ok(names.includes(skill), `unknown installable skill ${skill}`);
   }
   for (const skill of ["agent-email-inbox", "email-for-ai-agents"]) {

@@ -21,7 +21,7 @@ runs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         persist-credentials: false
-        repository: Sendmux/sendmux-sdk
+        repository: qubrics/qubrics-sdk
         ref: ${{ steps.mcp-sdk.outputs.commit }}
         path: .tmp/mcp-docs-sdk
 
@@ -32,8 +32,8 @@ runs:
         GH_TOKEN: ${{ github.token }}
       run: |
         set -euo pipefail
-        tag="$(gh release view --repo Sendmux/skills --json tagName --jq .tagName)"
-        gh release download "$tag" --repo Sendmux/skills --pattern acceptance.json --output "$RUNNER_TEMP/skills-acceptance.json"
+        tag="$(gh release view --repo qubrics/skills --json tagName --jq .tagName)"
+        gh release download "$tag" --repo qubrics/skills --pattern acceptance.json --output "$RUNNER_TEMP/skills-acceptance.json"
         revision="$(node -e 'const r = require(process.argv[1]); if (!r.accepted || !/^[0-9a-f]{40}$/.test(r.skills?.proposed?.revision ?? "")) throw new Error("Missing approved skills revision"); process.stdout.write(r.skills.proposed.revision)' "$RUNNER_TEMP/skills-acceptance.json")"
         printf 'tag=%s\nrevision=%s\n' "$tag" "$revision" >> "$GITHUB_OUTPUT"
 
@@ -41,7 +41,7 @@ runs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         persist-credentials: false
-        repository: Sendmux/skills
+        repository: qubrics/skills
         ref: ${{ steps.skills-release.outputs.revision }}
         path: .tmp/skills-release
         fetch-depth: 0
