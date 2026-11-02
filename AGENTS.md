@@ -285,3 +285,13 @@ Before pushing any docs change, run the validation gates listed in [Before decla
 
 {/_ Define what should and shouldn't be documented _/}
 {/_ Example: Don't document internal admin features _/}
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in this repo's GitHub Issues via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
