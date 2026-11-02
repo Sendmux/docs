@@ -12,7 +12,7 @@
   "event": [],
   "info": {
     "description": {
-      "content": "Programmatic access to your Sendmux email infrastructure.",
+      "content": "Programmatic access to your Qubrics email infrastructure.",
       "type": "text/plain"
     },
     "name": "Sendmux Management API",
@@ -508,7 +508,7 @@
           },
           "request": {
             "description": {
-              "content": "Removes a domain from our mail platform, Amazon SES, and Sendmux. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
+              "content": "Removes a domain from our mail platform, Amazon SES, and Qubrics. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
               "type": "text/plain"
             },
             "header": [
@@ -2672,7 +2672,7 @@
           },
           "request": {
             "description": {
-              "content": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Sendmux. All associated API keys are revoked.",
+              "content": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Qubrics. All associated API keys are revoked.",
               "type": "text/plain"
             },
             "header": [
