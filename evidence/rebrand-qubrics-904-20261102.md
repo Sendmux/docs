@@ -45,3 +45,19 @@ The MCP checker requires an explicit `--sdk PATH` or `SENDMUX_SDK_CHECKOUT` and 
 No merge, deploy or publish performed. Coordinated app snapshot and MCP contract-pin updates remain required after their owner hands off the paths. General Sendmux copy, package names and hostnames remain assigned to other rebrand tickets. npm installation reported three inherited high vulnerabilities; dependencies and lockfile are unchanged.
 
 Two-axis code review against the fixed base returned Standards 0 findings / 0 blockers and Spec 0 findings / 0 blockers. The coordinating agent owns commit, branch push, PR against `main`, CI and the eventual release approval handback. This evidence records source qualification only.
+
+## PR78 CI fixture reconciliation
+
+CI run `41408332332` at source commit `6523cd3be4b96f17eb7cb430e58bee2bed83595b` failed three tests. A focused local run of the same files reproduced all three before editing: `node --test tests/docs-accuracy.test.mjs tests/executable-docs.test.mjs tests/webhook-verifier-example.test.mjs` exited 1; `pr78-focused-red.log` records the failures.
+
+Canonical per A17 (`qubrics` specification `specs/rebrand-qubrics/spec.md:24`): Qubrics names are documented, old integration names remain supported, and emitted headers have both twins. Per the explicit Ops Watch `#897 lines 40,49` handoff, the CLI release link is `https://github.com/qubrics/qubrics-sdk/releases`. The source changes are intentional; tests must follow those authorised contract names.
+
+Before test edits, the old assertion / intended behaviour / replacement assertion are:
+
+- `tests/docs-accuracy.test.mjs:11` pins the old `Sendmux/sendmux-sdk/releases` URL. The approved #897 line49 handoff uses `qubrics/qubrics-sdk/releases`; replace only that exact URL matcher. Keep all five supported-platform assertions.
+- `tests/executable-docs.test.mjs:39` supplies only `SENDMUX_API_KEY`, while the A17 example at `sending/attachments.mdx:67` reads `QUBRICS_API_KEY`, producing `QUBRICS_API_KEY: unbound variable`. Supply the documented Qubrics variable and model the upload intent's equal-valued new/retained token headers. Keep the attachment-ID, no-stdout, private argv, method, URL and header assertions; assert that both emitted token names reach curl through standard input.
+- `tests/webhook-verifier-example.test.mjs:18` supplies only old header names, while `webhooks/verify-signatures.mdx:29` reads `X-Qubrics-Signature-V2` and `X-Qubrics-Timestamp`. The valid request therefore fails before its HMAC check (`false !== true`), and negative cases can pass for the wrong reason. Feed the unchanged positive and adversarial cases the documented four Qubrics headers. Preserve the exact timestamp boundaries, raw-body tampering, event-ID mismatch, malformed JSON/header, missing header, unsafe timestamp and wrong-secret assertions.
+
+Adjacent test scan found no further product examples pinned to superseded header/env names outside these files. `SENDMUX_SDK_CHECKOUT` and `SENDMUX_SKILLS_ROOT` in other tests are existing CI-tooling inputs; leave them unchanged.
+
+After these fixture and exact-token assertion changes, the same focused command exited 0: 7 tests passed, 0 failed, 0 skipped (`pr78-focused-green.log`). Before the fix, 4 passed and 3 failed. No test cases or negative assertions were removed, weakened or skipped; no source prose changed. The upload fixture extension models both emitted token headers, while its existing secret-in-argv checks still cover the API key, token and capability URL. This is a test-only reconciliation, not a runtime behaviour change.

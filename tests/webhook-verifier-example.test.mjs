@@ -15,10 +15,10 @@ function request({ timestamp = now / 1000, timestampHeader = String(timestamp), 
   return new Request("https://receiver.example/webhook", {
     method: "POST",
     headers: {
-      "X-Sendmux-Timestamp": timestampHeader,
-      "X-Sendmux-Signature-V2": header ?? `v1=${mac}`,
-      "X-Sendmux-Event-Id": eventId,
-      "X-Sendmux-Event-Type": "message.received",
+      "X-Qubrics-Timestamp": timestampHeader,
+      "X-Qubrics-Signature-V2": header ?? `v1=${mac}`,
+      "X-Qubrics-Event-Id": eventId,
+      "X-Qubrics-Event-Type": "message.received",
     },
     body: bytes,
   });
