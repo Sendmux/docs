@@ -228,8 +228,14 @@
             },
             "header": [
               {
-                "description": "(Required) Short-lived upload token returned by POST /emails/attachment-uploads.",
-                "disabled": false,
+                "description": "Short-lived upload token returned by POST /emails/attachment-uploads. Send this header or X-Sendmux-Upload-Token. If both are sent, their values must match.",
+                "disabled": true,
+                "key": "X-Qubrics-Upload-Token",
+                "value": "<string>"
+              },
+              {
+                "description": "Compatibility alias for X-Qubrics-Upload-Token, retained indefinitely.",
+                "disabled": true,
                 "key": "X-Sendmux-Upload-Token",
                 "value": "<string>"
               },

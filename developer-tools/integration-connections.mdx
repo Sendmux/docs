@@ -43,11 +43,11 @@ For user-approved access, complete [OAuth authorisation](/developer-tools/oauth)
   </Step>
 </Steps>
 
-For example, with a Sending key stored in the `SENDMUX_API_KEY` environment variable:
+For example, with a Sending key stored in the `QUBRICS_API_KEY` environment variable:
 
 ```bash
 curl --fail-with-body https://smtp.sendmux.ai/api/v1/me \
-  --header "Authorization: Bearer $SENDMUX_API_KEY"
+  --header "Authorization: Bearer $QUBRICS_API_KEY"
 ```
 
 ## Response fields
@@ -104,7 +104,7 @@ An integration credential has access to all current and future inboxes in its Se
 
     ```bash
     curl -X POST https://app.sendmux.ai/api/v1/mailboxes \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -H "Idempotency-Key: native-inbox-create-1" \
       -d '{"email":"agent@example.com","display_name":"Agent"}'
@@ -117,7 +117,7 @@ An integration credential has access to all current and future inboxes in its Se
 
     ```bash
     curl --get https://app.sendmux.ai/api/v1/mailbox/messages \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       --data-urlencode "mailbox_id=$MAILBOX_ID" \
       --data-urlencode "limit=10"
     ```

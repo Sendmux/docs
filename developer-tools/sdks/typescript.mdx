@@ -57,7 +57,7 @@ Set `accessToken` to a bare token string or a synchronous or asynchronous provid
 import { createMailboxClient } from "@sendmux/mailbox";
 
 const client = createMailboxClient({
-  accessToken: () => process.env.SENDMUX_ACCESS_TOKEN!,
+  accessToken: () => process.env.QUBRICS_ACCESS_TOKEN!,
 });
 ```
 
@@ -75,7 +75,7 @@ The umbrella package exports `sending`, `mailbox`, and `management` namespaces. 
 import { sending } from "@sendmux/sdk";
 
 const client = sending.createSendingClient({
-  apiKey: process.env.SENDMUX_MAILBOX_API_KEY!,
+  apiKey: process.env.QUBRICS_MAILBOX_API_KEY!,
 });
 ```
 
@@ -83,7 +83,7 @@ const client = sending.createSendingClient({
 import { mailbox } from "@sendmux/sdk";
 
 const client = mailbox.createMailboxClient({
-  apiKey: process.env.SENDMUX_MAILBOX_API_KEY!,
+  apiKey: process.env.QUBRICS_MAILBOX_API_KEY!,
 });
 ```
 
@@ -91,7 +91,7 @@ const client = mailbox.createMailboxClient({
 import { management } from "@sendmux/sdk";
 
 const client = management.createManagementClient({
-  apiKey: process.env.SENDMUX_ROOT_API_KEY!,
+  apiKey: process.env.QUBRICS_ROOT_API_KEY!,
 });
 ```
 

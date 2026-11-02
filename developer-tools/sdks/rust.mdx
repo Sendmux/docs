@@ -43,8 +43,8 @@ use sendmux::mailbox::MailboxClient;
 
 fn oauth_client() -> sendmux::Result<MailboxClient> {
     MailboxClient::new_with_token_provider(|| async {
-        Ok(std::env::var("SENDMUX_ACCESS_TOKEN")
-            .expect("SENDMUX_ACCESS_TOKEN is required"))
+        Ok(std::env::var("QUBRICS_ACCESS_TOKEN")
+            .expect("QUBRICS_ACCESS_TOKEN is required"))
     })
 }
 ```
@@ -62,8 +62,8 @@ use sendmux::sending::SendingClient;
 
 fn sending_client() -> sendmux::Result<SendingClient> {
     SendingClient::new(
-        std::env::var("SENDMUX_MAILBOX_API_KEY")
-            .expect("SENDMUX_MAILBOX_API_KEY is required"),
+        std::env::var("QUBRICS_MAILBOX_API_KEY")
+            .expect("QUBRICS_MAILBOX_API_KEY is required"),
     )
 }
 ```
@@ -73,8 +73,8 @@ use sendmux::mailbox::MailboxClient;
 
 fn mailbox_client() -> sendmux::Result<MailboxClient> {
     MailboxClient::new(
-        std::env::var("SENDMUX_MAILBOX_API_KEY")
-            .expect("SENDMUX_MAILBOX_API_KEY is required"),
+        std::env::var("QUBRICS_MAILBOX_API_KEY")
+            .expect("QUBRICS_MAILBOX_API_KEY is required"),
     )
 }
 ```
@@ -84,8 +84,8 @@ use sendmux::management::ManagementClient;
 
 fn management_client() -> sendmux::Result<ManagementClient> {
     ManagementClient::new(
-        std::env::var("SENDMUX_ROOT_API_KEY")
-            .expect("SENDMUX_ROOT_API_KEY is required"),
+        std::env::var("QUBRICS_ROOT_API_KEY")
+            .expect("QUBRICS_ROOT_API_KEY is required"),
     )
 }
 ```
@@ -99,8 +99,8 @@ use sendmux::sending::{Address, EmailSendRequest, SendingClient};
 
 pub async fn send_welcome() -> sendmux::Result<()> {
     let client = SendingClient::new(
-        std::env::var("SENDMUX_MAILBOX_API_KEY")
-            .expect("SENDMUX_MAILBOX_API_KEY is required"),
+        std::env::var("QUBRICS_MAILBOX_API_KEY")
+            .expect("QUBRICS_MAILBOX_API_KEY is required"),
     )?;
 
     let response = client
