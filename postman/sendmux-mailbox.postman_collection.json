@@ -12,7 +12,7 @@
   "event": [],
   "info": {
     "description": {
-      "content": "Programmatic access to your Sendmux email infrastructure.",
+      "content": "Programmatic access to your Qubrics email infrastructure.",
       "type": "text/plain"
     },
     "name": "Sendmux Mailbox API",

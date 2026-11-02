@@ -3825,7 +3825,7 @@
             "$ref": "#/components/schemas/MailboxDomainMailFromRecords"
           },
           "mx": {
-            "description": "MX records the customer must place. All point at Sendmux's inbound mail servers.",
+            "description": "MX records the customer must place. All point at Qubrics' inbound mail servers.",
             "items": {
               "$ref": "#/components/schemas/MailboxDomainMxRecord"
             },
@@ -3847,7 +3847,7 @@
                 "$ref": "#/components/schemas/MailboxDomainNameValueRecord"
               },
               {
-                "description": "Ownership-proof TXT record (Sendmux-specific)"
+                "description": "Ownership-proof TXT record (Qubrics-specific)"
               }
             ]
           }
@@ -10740,7 +10740,7 @@
             ]
           },
           "sendmux_message_id": {
-            "description": "Sendmux message correlation ID for outbound sending feedback when available.",
+            "description": "Qubrics message correlation ID for outbound sending feedback when available.",
             "example": null,
             "type": [
               "string",
@@ -11225,7 +11225,7 @@
     "securitySchemes": {
       "bearerAuth": {
         "bearerFormat": "API Key",
-        "description": "Sendmux API key. Use a root API key for Management API routes, or a mailbox credential for Mailbox API routes. Obtain keys from the dashboard under API Keys.",
+        "description": "Qubrics API key. Use a root API key for Management API routes, or a mailbox credential for Mailbox API routes. Obtain keys from the dashboard under API Keys.",
         "scheme": "bearer",
         "type": "http"
       },
@@ -11297,8 +11297,8 @@
     }
   },
   "info": {
-    "description": "Programmatic access to your Sendmux email infrastructure.",
-    "title": "Sendmux API",
+    "description": "Programmatic access to your Qubrics email infrastructure.",
+    "title": "Qubrics API",
     "version": "1.0.0"
   },
   "openapi": "3.1.0",
@@ -11709,7 +11709,7 @@
     },
     "/domains/{public_id}": {
       "delete": {
-        "description": "Removes a domain from our mail platform, Amazon SES, and Sendmux. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
+        "description": "Removes a domain from our mail platform, Amazon SES, and Qubrics. Blocked if any active mailbox still uses the domain — delete those mailboxes first.",
         "operationId": "managementDeleteDomain",
         "parameters": [
           {
@@ -21926,7 +21926,7 @@
     },
     "/mailboxes/{public_id}": {
       "delete": {
-        "description": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Sendmux. All associated API keys are revoked.",
+        "description": "Removes a mailbox from our mail platform, Amazon SES (for `@myagent.mx` addresses), and Qubrics. All associated API keys are revoked.",
         "operationId": "managementDeleteMailbox",
         "parameters": [
           {
