@@ -16,6 +16,8 @@ The app, account emails and API descriptions use the Qubrics name. Your existing
 
 You can configure integrations with `QUBRICS_*` settings and use `X-Qubrics-*` headers or `qubrics_` MCP tool names. Existing `SENDMUX_*` settings, `X-Sendmux-*` headers and MCP tool names remain supported indefinitely.
 
+You can keep your supported `sendmux-core` version when using Qubrics settings with the Python Sending SDK.
+
 Newly emitted mail webhook payloads include both `qubrics_message_id` and `sendmux_message_id`. Their values match and can be null. Your integration must also accept older retained payloads and deliveries queued before this release with only `sendmux_message_id`.
 
 Delegated attachment uploads accept `X-Qubrics-Upload-Token` or `X-Sendmux-Upload-Token`. The upload intent returns both headers with the same token. If you send both headers, their values must match after trimming whitespace, even if one is blank.

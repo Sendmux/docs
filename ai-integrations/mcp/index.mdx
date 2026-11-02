@@ -217,7 +217,7 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
   <Accordion title="Protected environment input">
     ```bash
     QUBRICS_MCP_SURFACES=mailbox,management,sending \
-    QUBRICS_MAILBOX_API_KEY="$QUBRICS_MAILBOX_KEY" \
+    QUBRICS_MAILBOX_API_KEY="$QUBRICS_MBX_KEY" \
     QUBRICS_MANAGEMENT_API_KEY="$QUBRICS_ROOT_KEY" \
     QUBRICS_SENDING_API_KEY="$QUBRICS_SENDING_KEY" \
     sendmux-mcp
