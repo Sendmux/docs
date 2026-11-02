@@ -34,12 +34,12 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
     2. Go to **Plugins**.
     3. In **Personal plugins**, click **+** and choose **Add marketplace**.
     4. Choose **Add from a repository**.
-    5. Enter `Sendmux/skills`, then install the **Sendmux** plugin.
+    5. Enter `qubrics/skills`, then install the **Sendmux** plugin.
   </Accordion>
 
   <Accordion title="Claude Code">
     ```text
-    /plugin marketplace add Sendmux/skills
+    /plugin marketplace add qubrics/skills
     /plugin install sendmux@sendmux
     /reload-plugins
     ```
@@ -49,7 +49,7 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
     Add the marketplace with the Codex CLI:
 
     ```bash
-    codex plugin marketplace add Sendmux/skills
+    codex plugin marketplace add qubrics/skills
     ```
 
     In Codex, open **Plugins** in the app or `/plugins` in the CLI, then install **Sendmux** from the Sendmux marketplace.
@@ -83,20 +83,20 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
 Use `skills add` when your agent supports raw Agent Skills rather than plugin marketplaces.
 
 ```bash
-npx skills add Sendmux/skills
+npx skills add qubrics/skills
 ```
 
 Install one skill when you only need a focused workflow.
 
 ```bash
-npx skills add Sendmux/skills --skill sendmux-send-email
+npx skills add qubrics/skills --skill sendmux-send-email
 ```
 
 Install a focused inbox or outbound email workflow:
 
 ```bash
-npx skills add Sendmux/skills --skill agent-email-inbox
-npx skills add Sendmux/skills --skill email-for-ai-agents
+npx skills add qubrics/skills --skill agent-email-inbox
+npx skills add qubrics/skills --skill email-for-ai-agents
 ```
 
 Update installed skills later.
@@ -109,12 +109,12 @@ npx skills update
 
 | Target | Recommended install |
 | --- | --- |
-| Claude app, Claude Desktop, Cowork | Add marketplace from repository `Sendmux/skills`, then install **Sendmux**. |
-| Claude Code | `/plugin marketplace add Sendmux/skills`, then `/plugin install sendmux@sendmux`. |
-| Codex app and Codex CLI | `codex plugin marketplace add Sendmux/skills`, then install **Sendmux** from **Plugins** or `/plugins`. |
-| ChatGPT desktop (Work mode or Codex) | Add `Sendmux/skills` with the Codex CLI, restart ChatGPT desktop, then install **Sendmux** from the **Plugins Directory**. |
-| Agent Skills clients | `npx skills add Sendmux/skills`. |
-| Single-skill installs | `npx skills add Sendmux/skills --skill <skill-name>`. |
+| Claude app, Claude Desktop, Cowork | Add marketplace from repository `qubrics/skills`, then install **Sendmux**. |
+| Claude Code | `/plugin marketplace add qubrics/skills`, then `/plugin install sendmux@sendmux`. |
+| Codex app and Codex CLI | `codex plugin marketplace add qubrics/skills`, then install **Sendmux** from **Plugins** or `/plugins`. |
+| ChatGPT desktop (Work mode or Codex) | Add `qubrics/skills` with the Codex CLI, restart ChatGPT desktop, then install **Sendmux** from the **Plugins Directory**. |
+| Agent Skills clients | `npx skills add qubrics/skills`. |
+| Single-skill installs | `npx skills add qubrics/skills --skill <skill-name>`. |
 
 ## What the pack teaches
 

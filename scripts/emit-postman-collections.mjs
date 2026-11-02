@@ -2,8 +2,8 @@
 
 // Generates the Sendmux Postman collections from the committed OpenAPI specs
 // (openapi-app.json + openapi-sending.json). Those specs are kept in sync with
-// the live Management/Mailbox API (in Sendmux/sendmux) and the live Sending API
-// (in Sendmux/smtp-proxy) by each producer repo's own OpenAPI snapshot gate, so
+// the live Management/Mailbox API (in qubrics/qubrics) and the live Sending API
+// (in qubrics/smtp-proxy) by each producer repo's own OpenAPI snapshot gate, so
 // this repo only needs the deterministic spec -> collection transform.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
