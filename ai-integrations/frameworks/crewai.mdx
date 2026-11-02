@@ -27,7 +27,8 @@ Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener 
 ## Install
 
 ```bash
-pip install crewai "crewai-tools[mcp]" sendmux-mcp
+pip install crewai "crewai-tools[mcp]"
+pip install --upgrade sendmux-mcp
 ```
 
 ## Connect over local stdio
@@ -135,10 +136,26 @@ Mailbox-scoped keys are the isolation boundary. Build the server parameters per 
 
 ```python
 def server_params_for(mailbox_key: str) -> StdioServerParameters:
+    credential_names = {
+        "QUBRICS_API_KEY",
+        "QUBRICS_MAILBOX_API_KEY",
+        "QUBRICS_MANAGEMENT_API_KEY",
+        "QUBRICS_SENDING_API_KEY",
+        "SENDMUX_API_KEY",
+        "SENDMUX_MAILBOX_API_KEY",
+        "SENDMUX_MANAGEMENT_API_KEY",
+        "SENDMUX_SENDING_API_KEY",
+    }
+    env = {
+        name: value
+        for name, value in os.environ.items()
+        if name not in credential_names
+    }
+    env["QUBRICS_API_KEY"] = mailbox_key
     return StdioServerParameters(
         command="sendmux-mcp-mailbox",
         args=[],
-        env={"QUBRICS_API_KEY": mailbox_key, **os.environ},
+        env=env,
     )
 ```
 

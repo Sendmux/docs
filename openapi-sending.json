@@ -796,6 +796,16 @@
           }
         },
         "type": "oauth2"
+      },
+      "UploadTokenQubrics": {
+        "in": "header",
+        "name": "X-Qubrics-Upload-Token",
+        "type": "apiKey"
+      },
+      "UploadTokenSendmux": {
+        "in": "header",
+        "name": "X-Sendmux-Upload-Token",
+        "type": "apiKey"
       }
     }
   },
@@ -1096,7 +1106,14 @@
             "description": "Attachment storage temporarily unavailable"
           }
         },
-        "security": [],
+        "security": [
+          {
+            "UploadTokenQubrics": []
+          },
+          {
+            "UploadTokenSendmux": []
+          }
+        ],
         "summary": "Upload bytes to an attachment upload URL",
         "tags": [
           "Attachments"
