@@ -16,6 +16,8 @@ The app, account emails and API descriptions use the Qubrics name. Your existing
 
 You can configure integrations with `QUBRICS_*` settings and use `X-Qubrics-*` headers or `qubrics_` MCP tool names. Existing `SENDMUX_*` settings, `X-Sendmux-*` headers and MCP tool names remain supported indefinitely.
 
+New mail webhook payloads include both `qubrics_message_id` and `sendmux_message_id`. Values match and can be null.
+
 </Update>
 
 <Update label="31 October 2026" tags={["New features", "Bug fixes"]} rss={{ title: "Weekly reconnect notices and mailbox deletion recovery" }}>
