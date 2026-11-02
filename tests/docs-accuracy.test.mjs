@@ -8,7 +8,7 @@ const readDocsFile = (path) =>
 test("documents every supported CLI release archive", async () => {
   const cli = await readDocsFile("developer-tools/cli.mdx");
 
-  assert.match(cli, /https:\/\/github\.com\/Sendmux\/sendmux-sdk\/releases/);
+  assert.match(cli, /https:\/\/github\.com\/qubrics\/qubrics-sdk\/releases/);
   for (const platform of [
     "linux-x64",
     "linux-arm64",
