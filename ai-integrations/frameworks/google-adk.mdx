@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofollow noopener noreferrer" target="_blank">Google Agent Development Kit</a> agent a Sendmux mailbox. `McpToolset` retrieves MCP tools as ADK tools, and the framework loads and closes them around each agent invocation.
 
 <Warning>
@@ -25,6 +27,8 @@ Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofoll
 - A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
+
+<McpUpgradeSafety />
 
 ```bash
 pip install google-adk

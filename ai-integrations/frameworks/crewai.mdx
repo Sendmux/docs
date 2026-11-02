@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener noreferrer" target="_blank">CrewAI</a> agent a Sendmux mailbox. `MCPServerAdapter` returns CrewAI tools that map one to one onto the MCP tools your key allows.
 
 <Warning>
@@ -25,6 +27,8 @@ Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener 
 - A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
+
+<McpUpgradeSafety />
 
 ```bash
 pip install crewai "crewai-tools[mcp]"

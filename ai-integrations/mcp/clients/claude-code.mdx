@@ -4,6 +4,8 @@ description: "Configure Sendmux MCP in Claude Code."
 keywords: ["Claude Code","MCP client","Sendmux MCP","MCP setup"]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client.
 
 ## Hosted OAuth
@@ -21,6 +23,8 @@ claude mcp add sendmux --transport http https://mcp.sendmux.ai/mcp
 Use `/mcp` in Claude Code if the server is listed as requiring authentication.
 
 ## Local stdio
+
+<McpUpgradeSafety />
 
 Install the local package once:
 

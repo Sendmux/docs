@@ -6,6 +6,20 @@ Goal: Qubrics integration names are the default in examples, with explicit indef
 
 Status: source candidate, not merged or published. The release-draft changelog must travel with the coordinated product release.
 
+## Final source-freeze preparation
+
+App source commit `9a70abe5df0c060bce5114cbaa458a6878b44970`, SMTP source commit `20b3129d1dcecaaa3e1f513413d97dd6baabead6` and SDK source commit `722fbab2f98248d17b4878dd5149a35a711d5a18` are final. After Ops released calendar's SDK leases, the preserved calendar candidate's source/coverage decisions were integrated into the separate SDK worktree. Authenticated aliases pass 4/4 tests; related calendar/permission/MCP tests pass 71/71; normal drift and the unmodified commit hook pass for 127 operations. Final SDK Standards and Spec reviews each return 0 findings. The protected MCP pin and release-facts snippet remain unchanged; a compatible publication must be verified before these docs can publish.
+
+Review `4440353952` is corrected in the consolidated changelog draft: only newly emitted mail payloads promise both correlation fields; integrations must accept older retained/queued payloads with only `sendmux_message_id`. The same draft covers equal upload-token headers and the approved `Qubrics-Webhooks/1.0` User-Agent, with conditional allowlist guidance. Both existing rebrand Update blocks remain. Fresh critique, one humanize pass and protected-set preservation are recorded in `docs/changelog-consolidated-polish.md` under the task artifacts.
+
+Canonical order is product commits final, then this genuine consolidated changelog commit/push, then product pushes. SDK source finalisation precedes this docs commit; no timestamp churn or bypass. Consumer backport event-gateway#36 is merged as `a82b49a677b5eb88bcd0747db80a127a4f3b853f`; production slot is now held by calendar-friction-review, with a separate deployment ASK required when pushes are green.
+
+Review `4440311170` is corrected through one shared `snippets/mcp-upgrade-safety.mdx` warning, rendered before all 24 existing MCP package upgrade commands. It preserves the working package environment, dependency state and MCP client/tool configuration before upgrading, identifies the source-documented 2.0.0 removal of local `file_path` and roots attachment inputs, and links the current Qubrics SDK migration/rollback guide before switching agents. Source: SDK `packages/python/mcp/README.md:33-44` and `CHANGELOG.md:59-67`. Commands, existing Qubrics names and surrounding examples are unchanged. No tests were added or removed; unchanged package-install commands were not executed.
+
+The combined final candidate passed confidentiality, external-link validation, `mint validate`, `mint broken-links` and `git diff --check`, all exit 0. Receipts: `docs/upgrade-final-{confidentiality,external-links,mint-validate,broken-links,diff-check}.log`. Actual HTTP preview proof rendered 24/24 guides with the warning before the install command and the expected guidance link attributes (`docs/upgrade-final-render.log`). Independent review returned Standards 0 hard violations / 0 heuristic findings and Spec 0 findings. One humanize pass and the protected-set check retain every migration prerequisite and exact technical token (`docs/upgrade-polish-preservation.md`).
+
+The protected MCP pin and release-facts snippet match HEAD exactly (Git blobs `0e6938ea8cc8e6a1edf6a6c0992557f0e6ab1efb` and `f227900319ce4bf03cb85f1170c77836df1003fb`). Owned preview processes 13437/13695 exited; the unrelated existing listener 79174 remains untouched (`docs/upgrade-final-teardown.log`). All source-write claims are released. The previously guard-blocked shared preview cache remains; no repeated deletion or workaround was attempted. No commit, push, production write, deploy or publication was performed during this final independent preparation.
+
 ## Scope and sources
 
 - Base: `3aebf537d97f79211bcf7fba9019642950946150`.

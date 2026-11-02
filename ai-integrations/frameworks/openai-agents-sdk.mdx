@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to attach Sendmux to an <a href="https://openai.github.io/openai-agents-python/" rel="nofollow noopener noreferrer" target="_blank">OpenAI Agents SDK</a> agent. Servers passed to `mcp_servers` expose their tools to the agent automatically, so you do not write tool wrappers.
 
 <Warning>
@@ -25,6 +27,8 @@ Use this page to attach Sendmux to an <a href="https://openai.github.io/openai-a
 - A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
+
+<McpUpgradeSafety />
 
 ```bash
 pip install openai-agents

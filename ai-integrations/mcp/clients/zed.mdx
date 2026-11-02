@@ -4,6 +4,8 @@ description: "Configure Sendmux MCP in Zed."
 keywords: ["Zed","MCP client","Sendmux MCP","MCP setup"]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client.
 
 ## Hosted OAuth
@@ -29,6 +31,8 @@ Add this to Zed settings.
 Do not add an `Authorization` header for hosted OAuth. Zed prompts for the standard MCP OAuth flow when no header is configured.
 
 ## Local stdio
+
+<McpUpgradeSafety />
 
 Install the local package once:
 

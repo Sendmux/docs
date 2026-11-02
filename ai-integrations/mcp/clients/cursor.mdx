@@ -4,6 +4,8 @@ description: "Configure Sendmux MCP in Cursor."
 keywords: ["Cursor","MCP client","Sendmux MCP","MCP setup"]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client.
 
 ## Hosted OAuth
@@ -29,6 +31,8 @@ Add this to `.cursor/mcp.json` for one project or `~/.cursor/mcp.json` for all p
 Cursor opens the OAuth flow when the hosted server asks for authorisation.
 
 ## Local stdio
+
+<McpUpgradeSafety />
 
 Install the local package once:
 

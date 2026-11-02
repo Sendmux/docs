@@ -4,6 +4,8 @@ description: "Configure Sendmux MCP in Qwen Code."
 keywords: ["Qwen Code","MCP client","Sendmux MCP","MCP setup"]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client.
 
 ## Hosted OAuth
@@ -30,6 +32,8 @@ Add this to `.qwen/settings.json` for one project or `~/.qwen/settings.json` for
 Use `/mcp auth` in Qwen Code if the server needs authentication.
 
 ## Local stdio
+
+<McpUpgradeSafety />
 
 Install the local package once:
 

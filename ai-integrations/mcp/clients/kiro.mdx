@@ -4,6 +4,8 @@ description: "Configure Sendmux MCP in Kiro."
 keywords: ["Kiro","MCP client","Sendmux MCP","MCP setup"]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client.
 
 ## Hosted OAuth
@@ -30,6 +32,8 @@ Add this to `.kiro/settings/mcp.json` for one workspace or `~/.kiro/settings/mcp
 Kiro opens the browser OAuth flow when the hosted server asks for authorisation.
 
 ## Local stdio
+
+<McpUpgradeSafety />
 
 Install the local package once:
 

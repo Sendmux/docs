@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to load Sendmux tools into a <a href="https://langchain-ai.github.io/langgraph/" rel="nofollow noopener noreferrer" target="_blank">LangGraph</a> agent. The <a href="https://github.com/langchain-ai/langchain-mcp-adapters" rel="nofollow noopener noreferrer" target="_blank">LangChain MCP adapters</a> convert MCP tools into LangChain tools, so anything that accepts a tool list will accept them.
 
 <Warning>
@@ -24,6 +26,8 @@ Use this page to load Sendmux tools into a <a href="https://langchain-ai.github.
 - A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
+
+<McpUpgradeSafety />
 
 ```bash
 pip install langchain-mcp-adapters langgraph
