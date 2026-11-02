@@ -12,7 +12,7 @@ Set `MAILBOX_ID` to the saved public ID and set `WINDOW_START` and `WINDOW_END` 
 
 ```bash
 curl --fail-with-body --get "https://app.sendmux.ai/api/v1/mailboxes/$MAILBOX_ID/usage" \
-  --header "Authorization: Bearer $SENDMUX_API_KEY" \
+  --header "Authorization: Bearer $QUBRICS_API_KEY" \
   --data-urlencode "start=$WINDOW_START" \
   --data-urlencode "end=$WINDOW_END"
 ```

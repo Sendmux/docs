@@ -62,7 +62,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Sendmux\Mailbox\ClientFactory;
 
 $mailboxApi = ClientFactory::createMailboxAPIApiWithAccessToken(
-    static fn (): string => getenv('SENDMUX_ACCESS_TOKEN') ?: ''
+    static fn (): string => getenv('QUBRICS_ACCESS_TOKEN') ?: ''
 );
 ```
 
@@ -86,7 +86,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Sendmux\Sending\ClientFactory;
 
 $emails = ClientFactory::createEmailsApi(
-    getenv('SENDMUX_MAILBOX_API_KEY') ?: ''
+    getenv('QUBRICS_MAILBOX_API_KEY') ?: ''
 );
 ```
 
@@ -98,7 +98,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Sendmux\Mailbox\ClientFactory;
 
 $mailboxApi = ClientFactory::createMailboxAPIApi(
-    getenv('SENDMUX_MAILBOX_API_KEY') ?: ''
+    getenv('QUBRICS_MAILBOX_API_KEY') ?: ''
 );
 ```
 
@@ -110,7 +110,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Sendmux\Management\ClientFactory;
 
 $mailboxes = ClientFactory::createMailboxesApi(
-    getenv('SENDMUX_ROOT_API_KEY') ?: ''
+    getenv('QUBRICS_ROOT_API_KEY') ?: ''
 );
 ```
 

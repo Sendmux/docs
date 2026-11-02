@@ -14,7 +14,7 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
 
     ```bash
     curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -H "Idempotency-Key: reply-msg-123" \
       -d '{"source":{"message_id":"msg_123","action":"reply"}}'
@@ -31,7 +31,7 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
 
     ```bash
     curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123 \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{"expected_revision":1,"text_body":"Thanks for your message. I will check and reply today."}'
     ```
@@ -43,7 +43,7 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
 
     ```bash
     curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{"expected_revision":2}'
     ```
@@ -62,7 +62,7 @@ For a draft with revision `2` and schedule version `0`, schedule that exact cont
 
 ```bash
 curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
-  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  -H "Authorization: Bearer $QUBRICS_API_KEY" \
   -H "Content-Type: application/json" \
   -d "{\"expected_revision\":2,\"expected_schedule_version\":0,\"scheduled_for\":\"$SCHEDULED_FOR\"}"
 ```
@@ -71,7 +71,7 @@ Set `SCHEDULED_FOR` to a future timestamp with a timezone, within 30 days and wi
 
 ```bash
 curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/schedule \
-  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  -H "Authorization: Bearer $QUBRICS_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"expected_revision":2,"expected_schedule_version":1,"scheduled_for":null}'
 ```
@@ -102,7 +102,7 @@ Address rules use `addresses` for exact addresses and `domains` for exact domain
     Send `PUT` to the same URL with `If-Match` set to the exact `ETag` and a JSON body containing `policy`. Replacement resets omitted settings to their defaults, so retain every restriction you still need. If the policy changed, a `409` requires a fresh read before saving.
   </Step>
   <Step title="Review all applicable restrictions">
-    Confirm the team, inbox and credential policies permit the same From, Reply-To and recipients. Sending-account scopes and an explicit `X-Sendmux-Delivery-Group` header can narrow the eligible accounts further; they cannot widen the credential's access.
+    Confirm the team, inbox and credential policies permit the same From, Reply-To and recipients. Sending-account scopes and an explicit `X-Qubrics-Delivery-Group` header can narrow the eligible accounts further; they cannot widen the credential's access.
   </Step>
 </Steps>
 

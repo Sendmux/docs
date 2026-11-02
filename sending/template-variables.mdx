@@ -57,7 +57,7 @@ An empty result becomes an unnamed address. Existing **From name** and **Reply-T
 
 ### Excluded locations
 
-Template substitution does not change any address component or any other header, including `To`, `Cc`, `Bcc`, `Message-ID`, `Date`, `Received`, `DKIM-Signature`, `List-*`, `Content-*`, `X-Sendmux-*` and custom `X-*` headers.
+Template substitution does not change any address component or any other header, including `To`, `Cc`, `Bcc`, `Message-ID`, `Date`, `Received`, `DKIM-Signature`, `List-*`, `Content-*`, `X-Qubrics-*` and custom `X-*` headers.
 
 These restrictions protect recipient addresses, routing metadata, identifiers and security fields. Excluded means no template substitution; existing header stripping and rewriting still apply.
 

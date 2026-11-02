@@ -37,7 +37,7 @@ sudo snap install sendmux
 On macOS or Linux, you can also install it with Homebrew.
 
 ```bash
-brew install sendmux/tap/sendmux
+brew install qubrics/tap/sendmux
 ```
 
 You can also install it from npm.
@@ -46,7 +46,7 @@ You can also install it from npm.
 npm install -g @sendmux/cli
 ```
 
-Download a standalone tarball from <a href="https://github.com/Sendmux/sendmux-sdk/releases" rel="nofollow noopener noreferrer" target="_blank">GitHub Releases</a> for `linux-x64`, `linux-arm64`, `darwin-x64`, `darwin-arm64`, or `win32-x64`.
+Download a standalone tarball from <a href="https://github.com/qubrics/qubrics-sdk/releases" rel="nofollow noopener noreferrer" target="_blank">GitHub Releases</a> for `linux-x64`, `linux-arm64`, `darwin-x64`, `darwin-arm64`, or `win32-x64`.
 
 Check the installed command.
 
@@ -74,7 +74,7 @@ sendmux auth:logout work
 
 Logout revokes the connection before removing the profile. A failed revocation keeps the profile for retry. Logout can also clear a login interrupted before tokens were saved.
 
-For automation that manages its own tokens, supply `SENDMUX_ACCESS_TOKEN` through the process environment. This token is not refreshed by the CLI. Do not set it alongside an API key.
+For automation that manages its own tokens, supply `QUBRICS_ACCESS_TOKEN` through the process environment. This token is not refreshed by the CLI. Do not set it alongside an API key.
 
 ## Register an agent inbox
 
@@ -108,12 +108,12 @@ Save API keys as local CLI profiles so you do not pass a key on every command.
 <CodeGroup>
 
 ```bash Mailbox profile
-SENDMUX_API_KEY="$SENDMUX_MAILBOX_KEY" sendmux profiles:set mailbox \
+QUBRICS_API_KEY="$QUBRICS_MAILBOX_KEY" sendmux profiles:set mailbox \
   --default
 ```
 
 ```bash Management profile
-SENDMUX_API_KEY="$SENDMUX_ROOT_KEY" sendmux profiles:set management
+QUBRICS_API_KEY="$QUBRICS_ROOT_KEY" sendmux profiles:set management
 ```
 
 </CodeGroup>
@@ -128,17 +128,19 @@ sendmux profiles:show management
 
 ## Authentication order
 
-An API command first uses `SENDMUX_ACCESS_TOKEN` when set. Supplying an API key at the same time is an error. Otherwise, it resolves credentials in this order:
+An API command first uses `QUBRICS_ACCESS_TOKEN` when set. Supplying an API key at the same time is an error. Otherwise, it resolves credentials in this order:
 
 1. `--api-key`
-2. `SENDMUX_API_KEY`
+2. `QUBRICS_API_KEY`
 3. `--profile`
-4. `SENDMUX_PROFILE`
+4. `QUBRICS_PROFILE`
 5. the configured default profile
 
 `profiles:set` accepts `--api-key` as a reference option, but environment input keeps expanded credentials out of child-process arguments.
 
-`--base-url` overrides the API base URL for one command. `SENDMUX_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
+`--base-url` overrides the API base URL for one command. `QUBRICS_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
+
+See [Compatibility names](/ai-integrations/mcp#compatibility-names) for retained `SENDMUX_*` settings, webhook headers and MCP tool names.
 
 Before running the API call, the CLI checks that the key or profile matches the command surface. A management command fails early when it receives a mailbox-compatible key, and sending commands fail early when they receive a root key. Mailbox commands accept `smx_mbx_` keys and durable `smx_agent_` profiles. API permissions still apply, so a durable read token cannot send email before owner acceptance and approval.
 
