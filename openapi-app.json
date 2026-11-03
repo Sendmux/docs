@@ -2014,7 +2014,7 @@
           },
           "download_url": {
             "description": "Short-lived URL for this exact attachment. Fetch it promptly; if it expires, call the message or attachment metadata endpoint again to receive a fresh URL.",
-            "example": "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachment-downloads/attref_abc123?download_token=...",
+            "example": "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/attachment-downloads/attref_abc123?download_token=...",
             "type": "string"
           },
           "filename": {
@@ -2208,7 +2208,7 @@
           },
           "upload_url": {
             "description": "Short-lived signed PUT URL for this exact attachment. Upload promptly; if it expires, create a new upload URL.",
-            "example": "https://app.sendmux.ai/api/v1/mailbox/attachment-uploads/upl_123?upload_token=...",
+            "example": "https://app.qubrics.com/api/v1/mailbox/attachment-uploads/upl_123?upload_token=...",
             "type": "string"
           }
         },
@@ -3746,7 +3746,7 @@
           },
           "server": {
             "description": "Mailbox server name",
-            "example": "mail.sendmux.ai",
+            "example": "mail.qubrics.com",
             "type": "string"
           },
           "smtp_port": {
@@ -4007,7 +4007,7 @@
             "type": "integer"
           },
           "target": {
-            "example": "mail.sendmux.ai",
+            "example": "mail.qubrics.com",
             "type": "string"
           }
         },
@@ -11342,11 +11342,11 @@
         "type": "http"
       },
       "oauth2": {
-        "description": "Use the authorisation-code flow with S256 PKCE and resource=https://sendmux.ai/api. The user selects the team, API access and mailboxes during consent. OAuth access tokens authenticate HTTP API requests; use separate credentials for SMTP and IMAP.",
+        "description": "Use the authorisation-code flow with S256 PKCE and resource=https://qubrics.com/api. The user selects the team, API access and mailboxes during consent. OAuth access tokens authenticate HTTP API requests; use separate credentials for SMTP and IMAP.",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "https://app.sendmux.ai/oauth/authorize",
-            "refreshUrl": "https://app.sendmux.ai/oauth/token",
+            "authorizationUrl": "https://app.qubrics.com/oauth/authorize",
+            "refreshUrl": "https://app.qubrics.com/oauth/token",
             "scopes": {
               "analytics.*": "All analytics operations",
               "analytics.read": "View key usage analytics and verification logs",
@@ -11401,7 +11401,7 @@
               "webhook.read": "List/view webhook subscriptions",
               "webhook.update": "Update webhook URL, event types, enabled flag"
             },
-            "tokenUrl": "https://app.sendmux.ai/oauth/token"
+            "tokenUrl": "https://app.qubrics.com/oauth/token"
           }
         },
         "type": "oauth2"
@@ -25361,7 +25361,7 @@
   "servers": [
     {
       "description": "API v1",
-      "url": "https://app.sendmux.ai/api/v1"
+      "url": "https://app.qubrics.com/api/v1"
     }
   ],
   "webhooks": {}
