@@ -355,6 +355,43 @@
         ],
         "type": "object"
       },
+      "CalendarWebhookEventPayload": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CalendarWebhookEventData"
+          },
+          "id": {
+            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+            "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "occurred_at": {
+            "description": "When the event occurred.",
+            "example": "2026-05-21T09:12:00Z",
+            "type": "string"
+          },
+          "team_public_id": {
+            "description": "Team that owns the event.",
+            "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "calendar.changed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "team_public_id",
+          "occurred_at",
+          "data"
+        ],
+        "type": "object"
+      },
       "Connection": {
         "additionalProperties": false,
         "properties": {
@@ -2825,6 +2862,48 @@
         ],
         "unevaluatedProperties": false
       },
+      "MailboxCalendarDeletedResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          },
+          {
+            "properties": {
+              "data": {
+                "additionalProperties": false,
+                "properties": {
+                  "deleted": {
+                    "enum": [
+                      true
+                    ],
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "description": "Opaque identifier scoped to the selected mailbox.",
+                    "maxLength": 4096,
+                    "minLength": 1,
+                    "pattern": "^[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "deleted"
+                ],
+                "type": "object"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/ResponseMeta"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "unevaluatedProperties": false
+      },
       "MailboxCalendarEvent": {
         "additionalProperties": false,
         "properties": {
@@ -3172,7 +3251,7 @@
           {
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/MailboxCalendar"
+                "$ref": "#/components/schemas/MailboxCalendarWithEtag"
               },
               "meta": {
                 "$ref": "#/components/schemas/ResponseMeta"
@@ -3185,6 +3264,47 @@
           }
         ],
         "unevaluatedProperties": false
+      },
+      "MailboxCalendarWithEtag": {
+        "additionalProperties": false,
+        "properties": {
+          "etag": {
+            "description": "Current calendar version, matching the ETag response header. Use this value in If-Match to delete an empty calendar.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Whether this is the mailbox's current default calendar.",
+            "type": "boolean"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "name",
+          "time_zone",
+          "is_default",
+          "etag"
+        ],
+        "type": "object"
       },
       "MailboxChanges": {
         "additionalProperties": false,
@@ -7892,6 +8012,52 @@
         ],
         "unevaluatedProperties": false
       },
+      "MailWebhookEventPayload": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/WebhookEventData"
+          },
+          "id": {
+            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+            "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "occurred_at": {
+            "description": "When the event occurred.",
+            "example": "2026-05-21T09:12:00Z",
+            "type": "string"
+          },
+          "team_public_id": {
+            "description": "Team that owns the event.",
+            "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "type": {
+            "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
+            "enum": [
+              "message.delivered",
+              "message.bounced",
+              "message.complained",
+              "message.rejected",
+              "message.delivery_delayed",
+              "message.received",
+              "message.received.spam",
+              "sendmux.test"
+            ],
+            "example": "message.received",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "team_public_id",
+          "occurred_at",
+          "data"
+        ],
+        "type": "object"
+      },
       "PatchCalendarEventBody": {
         "additionalProperties": false,
         "properties": {
@@ -10777,6 +10943,20 @@
       },
       "WebhookEventPayload": {
         "description": "The JSON request body delivered to the webhook endpoint.",
+        "discriminator": {
+          "mapping": {
+            "calendar.changed": "#/components/schemas/CalendarWebhookEventPayload",
+            "message.bounced": "#/components/schemas/MailWebhookEventPayload",
+            "message.complained": "#/components/schemas/MailWebhookEventPayload",
+            "message.delivered": "#/components/schemas/MailWebhookEventPayload",
+            "message.delivery_delayed": "#/components/schemas/MailWebhookEventPayload",
+            "message.received": "#/components/schemas/MailWebhookEventPayload",
+            "message.received.spam": "#/components/schemas/MailWebhookEventPayload",
+            "message.rejected": "#/components/schemas/MailWebhookEventPayload",
+            "sendmux.test": "#/components/schemas/MailWebhookEventPayload"
+          },
+          "propertyName": "type"
+        },
         "example": {
           "data": {
             "bounce_subtype": null,
@@ -10804,87 +10984,10 @@
         },
         "oneOf": [
           {
-            "additionalProperties": false,
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/WebhookEventData"
-              },
-              "id": {
-                "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
-                "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "occurred_at": {
-                "description": "When the event occurred.",
-                "example": "2026-05-21T09:12:00Z",
-                "type": "string"
-              },
-              "team_public_id": {
-                "description": "Team that owns the event.",
-                "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "type": {
-                "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
-                "enum": [
-                  "message.delivered",
-                  "message.bounced",
-                  "message.complained",
-                  "message.rejected",
-                  "message.delivery_delayed",
-                  "message.received",
-                  "message.received.spam",
-                  "sendmux.test"
-                ],
-                "example": "message.received",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "team_public_id",
-              "occurred_at",
-              "data"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/MailWebhookEventPayload"
           },
           {
-            "additionalProperties": false,
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/CalendarWebhookEventData"
-              },
-              "id": {
-                "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
-                "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "occurred_at": {
-                "description": "When the event occurred.",
-                "example": "2026-05-21T09:12:00Z",
-                "type": "string"
-              },
-              "team_public_id": {
-                "description": "Team that owns the event.",
-                "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "type": {
-                "enum": [
-                  "calendar.changed"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "team_public_id",
-              "occurred_at",
-              "data"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/CalendarWebhookEventPayload"
           }
         ]
       },
@@ -14906,6 +15009,169 @@
       }
     },
     "/mailbox/calendars/{calendar_id}": {
+      "delete": {
+        "description": "Fetch the calendar and supply its ETag in If-Match. A calendar containing events returns 409 conflict.",
+        "operationId": "mailboxDeleteCalendar",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "calendar_id",
+            "required": true,
+            "schema": {
+              "description": "Calendar ID in the selected mailbox.",
+              "maxLength": 4096,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "description": "ETag from the most recent calendar GET. Wildcards are rejected.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Mailbox public ID to target when the credential grants access to more than one mailbox. Omit when the credential is scoped to exactly one mailbox.",
+            "in": "query",
+            "name": "mailbox_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxCalendarDeletedResponse"
+                }
+              }
+            },
+            "description": "Calendar deleted."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Request failed."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth2": [
+              "calendar.write"
+            ]
+          }
+        ],
+        "summary": "Delete an empty calendar",
+        "tags": [
+          "Mailbox API"
+        ]
+      },
       "get": {
         "operationId": "mailboxGetCalendar",
         "parameters": [
