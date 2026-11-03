@@ -7,7 +7,7 @@ rss: true
 <Update label="3 November 2026" tags={["Bug fixes"]} rss={{ title: "Calendar versions in JSON responses" }}>
   ## Calendar versions in JSON responses
 
-Calendar GET now returns `etag` in the JSON body, matching the `ETag` response header. CLI and MCP callers can use this value in `If-Match` to delete an empty calendar.
+Calendar GET now returns `etag` in the JSON body, matching the `ETag` response header. SDK calendar GET response models include `etag`. CLI and MCP callers can use this value in `If-Match` to delete an empty calendar.
 
 </Update>
 
