@@ -3251,7 +3251,7 @@
           {
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/MailboxCalendar"
+                "$ref": "#/components/schemas/MailboxCalendarWithEtag"
               },
               "meta": {
                 "$ref": "#/components/schemas/ResponseMeta"
@@ -3264,6 +3264,47 @@
           }
         ],
         "unevaluatedProperties": false
+      },
+      "MailboxCalendarWithEtag": {
+        "additionalProperties": false,
+        "properties": {
+          "etag": {
+            "description": "Current calendar version, matching the ETag response header. Use this value in If-Match to delete an empty calendar.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Opaque identifier scoped to the selected mailbox.",
+            "maxLength": 4096,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Whether this is the mailbox's current default calendar.",
+            "type": "boolean"
+          },
+          "mailbox_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "mailbox_id",
+          "name",
+          "time_zone",
+          "is_default",
+          "etag"
+        ],
+        "type": "object"
       },
       "MailboxChanges": {
         "additionalProperties": false,

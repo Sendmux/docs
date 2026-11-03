@@ -4,6 +4,27 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="3 November 2026" tags={["Bug fixes"]} rss={{ title: "Calendar versions in JSON responses" }}>
+  ## Calendar versions in JSON responses
+
+Calendar GET now returns `etag` in the JSON body, matching the `ETag` response header. CLI and MCP callers can use this value in `If-Match` to delete an empty calendar.
+
+</Update>
+
+<Update label="3 November 2026" tags={["New features"]} rss={{ title: "Delete empty mailbox calendars" }}>
+  ## Delete empty mailbox calendars
+
+You can delete an empty mailbox calendar with `DELETE /mailbox/calendars/{calendar_id}` and `calendar.write`. Supply the calendar's current `ETag` in `If-Match`. Calendars containing events return `409 conflict`.
+
+</Update>
+
+<Update label="2 November 2026" tags={["Improvements"]} rss={{ title: "Qubrics (formerly Sendmux): v1.8.318" }}>
+  ## Qubrics (formerly Sendmux)
+
+The app, account emails and API descriptions use the Qubrics name. Your existing service addresses, API keys and account settings stay the same.
+
+</Update>
+
 <Update label="2 November 2026" tags={["Improvements"]} rss={{ title: "Qubrics (formerly Sendmux)" }}>
   ## Qubrics (formerly Sendmux)
 
