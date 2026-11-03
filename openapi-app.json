@@ -355,6 +355,43 @@
         ],
         "type": "object"
       },
+      "CalendarWebhookEventPayload": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CalendarWebhookEventData"
+          },
+          "id": {
+            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+            "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "occurred_at": {
+            "description": "When the event occurred.",
+            "example": "2026-05-21T09:12:00Z",
+            "type": "string"
+          },
+          "team_public_id": {
+            "description": "Team that owns the event.",
+            "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "calendar.changed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "team_public_id",
+          "occurred_at",
+          "data"
+        ],
+        "type": "object"
+      },
       "Connection": {
         "additionalProperties": false,
         "properties": {
@@ -7934,6 +7971,52 @@
         ],
         "unevaluatedProperties": false
       },
+      "MailWebhookEventPayload": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/WebhookEventData"
+          },
+          "id": {
+            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+            "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "occurred_at": {
+            "description": "When the event occurred.",
+            "example": "2026-05-21T09:12:00Z",
+            "type": "string"
+          },
+          "team_public_id": {
+            "description": "Team that owns the event.",
+            "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "type": "string"
+          },
+          "type": {
+            "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
+            "enum": [
+              "message.delivered",
+              "message.bounced",
+              "message.complained",
+              "message.rejected",
+              "message.delivery_delayed",
+              "message.received",
+              "message.received.spam",
+              "sendmux.test"
+            ],
+            "example": "message.received",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "team_public_id",
+          "occurred_at",
+          "data"
+        ],
+        "type": "object"
+      },
       "PatchCalendarEventBody": {
         "additionalProperties": false,
         "properties": {
@@ -10819,6 +10902,20 @@
       },
       "WebhookEventPayload": {
         "description": "The JSON request body delivered to the webhook endpoint.",
+        "discriminator": {
+          "mapping": {
+            "calendar.changed": "#/components/schemas/CalendarWebhookEventPayload",
+            "message.bounced": "#/components/schemas/MailWebhookEventPayload",
+            "message.complained": "#/components/schemas/MailWebhookEventPayload",
+            "message.delivered": "#/components/schemas/MailWebhookEventPayload",
+            "message.delivery_delayed": "#/components/schemas/MailWebhookEventPayload",
+            "message.received": "#/components/schemas/MailWebhookEventPayload",
+            "message.received.spam": "#/components/schemas/MailWebhookEventPayload",
+            "message.rejected": "#/components/schemas/MailWebhookEventPayload",
+            "sendmux.test": "#/components/schemas/MailWebhookEventPayload"
+          },
+          "propertyName": "type"
+        },
         "example": {
           "data": {
             "bounce_subtype": null,
@@ -10846,87 +10943,10 @@
         },
         "oneOf": [
           {
-            "additionalProperties": false,
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/WebhookEventData"
-              },
-              "id": {
-                "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
-                "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "occurred_at": {
-                "description": "When the event occurred.",
-                "example": "2026-05-21T09:12:00Z",
-                "type": "string"
-              },
-              "team_public_id": {
-                "description": "Team that owns the event.",
-                "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "type": {
-                "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
-                "enum": [
-                  "message.delivered",
-                  "message.bounced",
-                  "message.complained",
-                  "message.rejected",
-                  "message.delivery_delayed",
-                  "message.received",
-                  "message.received.spam",
-                  "sendmux.test"
-                ],
-                "example": "message.received",
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "team_public_id",
-              "occurred_at",
-              "data"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/MailWebhookEventPayload"
           },
           {
-            "additionalProperties": false,
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/CalendarWebhookEventData"
-              },
-              "id": {
-                "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
-                "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "occurred_at": {
-                "description": "When the event occurred.",
-                "example": "2026-05-21T09:12:00Z",
-                "type": "string"
-              },
-              "team_public_id": {
-                "description": "Team that owns the event.",
-                "example": "team_clxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "type": "string"
-              },
-              "type": {
-                "enum": [
-                  "calendar.changed"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "team_public_id",
-              "occurred_at",
-              "data"
-            ],
-            "type": "object"
+            "$ref": "#/components/schemas/CalendarWebhookEventPayload"
           }
         ]
       },
