@@ -93,6 +93,7 @@
             "example": {
               "Content-Length": "20480",
               "Content-Type": "application/pdf",
+              "X-Qubrics-Upload-Token": "smx_upload_...",
               "X-Sendmux-Upload-Token": "smx_upload_..."
             },
             "type": "object"
@@ -795,6 +796,16 @@
           }
         },
         "type": "oauth2"
+      },
+      "UploadTokenQubrics": {
+        "in": "header",
+        "name": "X-Qubrics-Upload-Token",
+        "type": "apiKey"
+      },
+      "UploadTokenSendmux": {
+        "in": "header",
+        "name": "X-Sendmux-Upload-Token",
+        "type": "apiKey"
       }
     }
   },
@@ -954,10 +965,19 @@
         "operationId": "sendingCompleteAttachmentUpload",
         "parameters": [
           {
-            "description": "Short-lived upload token returned by POST /emails/attachment-uploads.",
+            "description": "Short-lived upload token returned by POST /emails/attachment-uploads. Send this header or X-Sendmux-Upload-Token. If both are sent, their values must match.",
+            "in": "header",
+            "name": "X-Qubrics-Upload-Token",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Compatibility alias for X-Qubrics-Upload-Token, retained indefinitely.",
             "in": "header",
             "name": "X-Sendmux-Upload-Token",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -1086,7 +1106,14 @@
             "description": "Attachment storage temporarily unavailable"
           }
         },
-        "security": [],
+        "security": [
+          {
+            "UploadTokenQubrics": []
+          },
+          {
+            "UploadTokenSendmux": []
+          }
+        ],
         "summary": "Upload bytes to an attachment upload URL",
         "tags": [
           "Attachments"

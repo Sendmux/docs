@@ -362,7 +362,7 @@
             "$ref": "#/components/schemas/CalendarWebhookEventData"
           },
           "id": {
-            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+            "description": "Stable per-event identifier. Also sent in the X-Qubrics-Event-Id and X-Sendmux-Event-Id headers.",
             "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
             "type": "string"
           },
@@ -8019,7 +8019,7 @@
             "$ref": "#/components/schemas/WebhookEventData"
           },
           "id": {
-            "description": "Stable per-event identifier. Also sent in the X-Sendmux-Event-Id header.",
+            "description": "Stable per-event identifier. Also sent in the X-Qubrics-Event-Id and X-Sendmux-Event-Id headers.",
             "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
             "type": "string"
           },
@@ -8034,7 +8034,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Dotted event type. Same value as the X-Sendmux-Event-Type header.",
+            "description": "Dotted event type. Same value as the X-Qubrics-Event-Type and X-Sendmux-Event-Type headers.",
             "enum": [
               "message.delivered",
               "message.bounced",
@@ -10879,6 +10879,14 @@
               "null"
             ]
           },
+          "qubrics_message_id": {
+            "description": "Qubrics message correlation ID, equal to sendmux_message_id. May be absent from older retained events.",
+            "example": null,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "recipients": {
             "description": "All affected recipients. Empty for synthetic test events.",
             "example": [
@@ -10906,7 +10914,7 @@
             ]
           },
           "sendmux_message_id": {
-            "description": "Qubrics message correlation ID for outbound sending feedback when available.",
+            "description": "Compatibility alias of qubrics_message_id for outbound sending feedback.",
             "example": null,
             "type": [
               "string",
@@ -10969,6 +10977,7 @@
             "mailbox_id": "mbx_123",
             "message_id": "ME3P282MB076951B3AAD3255D686EA8EDCA0F2@example.com",
             "message_id_kind": "rfc5322",
+            "qubrics_message_id": null,
             "recipients": [
               "inbox@example.com"
             ],
@@ -11204,7 +11213,7 @@
             ]
           },
           "secret": {
-            "description": "Signing secret for both webhook signature headers. X-Sendmux-Signature signs the exact body bytes. X-Sendmux-Signature-V2 contains v1=<hex HMAC-SHA256> and signs X-Sendmux-Timestamp (Unix seconds), a full stop, then the exact body bytes. Check timestamp freshness and compare signatures in constant time before parsing the body. Store this secret securely; it is returned only on creation and rotation. Use POST /webhooks/{id}/rotate-secret to issue a new one.",
+            "description": "Signing secret for both webhook signature versions. X-Qubrics-Signature signs the exact body bytes. X-Qubrics-Signature-V2 contains v1=<hex HMAC-SHA256> and signs X-Qubrics-Timestamp (Unix seconds), a full stop, then the exact body bytes. The X-Sendmux-Signature, X-Sendmux-Signature-V2 and X-Sendmux-Timestamp headers carry the same values and remain supported indefinitely. Check timestamp freshness and compare signatures in constant time before parsing the body. Store this secret securely. It is returned only on creation and rotation. Use POST /webhooks/{id}/rotate-secret to issue a new one.",
             "example": "whsec_a9f3c2…",
             "type": "string"
           },
@@ -11260,7 +11269,7 @@
         "additionalProperties": false,
         "properties": {
           "event_id": {
-            "description": "The event_id attached to the X-Sendmux-Event-Id header of the test delivery.",
+            "description": "The event_id attached to the X-Qubrics-Event-Id and X-Sendmux-Event-Id headers of the test delivery.",
             "example": "evt_clxxxxxxxxxxxxxxxxxxxxxxxxx",
             "type": "string"
           }
@@ -25239,7 +25248,7 @@
     },
     "/webhooks/{public_id}/test": {
       "post": {
-        "description": "Publishes a synthetic `sendmux.test` event to this webhook subscription. The subscription must include `\"sendmux.test\"` in `event_types`, and mailbox filters do not block the test delivery. Returns the generated `event_id` so you can correlate the `X-Sendmux-Event-Id` header on your endpoint.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original `event_id` rather than publishing a second test event.",
+        "description": "Publishes a synthetic `sendmux.test` event to this webhook subscription. The subscription must include `\"sendmux.test\"` in `event_types`, and mailbox filters do not block the test delivery. Returns the generated `event_id` so you can correlate the `X-Qubrics-Event-Id` or `X-Sendmux-Event-Id` header on your endpoint.\n\nSupply an `Idempotency-Key` header to safely retry on network errors — replays under the same key return the original `event_id` rather than publishing a second test event.",
         "operationId": "managementTestWebhook",
         "parameters": [
           {
