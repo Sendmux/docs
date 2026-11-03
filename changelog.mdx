@@ -39,6 +39,8 @@ You can configure integrations with `QUBRICS_*` settings and use `X-Qubrics-*` h
 
 You can keep your supported `sendmux-core` version when using Qubrics settings with the Python Sending SDK.
 
+Empty `QUBRICS_*` settings use matching `SENDMUX_*` values. Your existing PHP and Ruby delegated-upload calls and Go upload-token fields keep working. Python webhook models keep `qubrics_message_id` absent when omitted and preserve explicit `null` values.
+
 Newly emitted mail webhook payloads include both `qubrics_message_id` and `sendmux_message_id`. Their values match and can be null. Your integration must also accept older retained payloads and deliveries queued before this release with only `sendmux_message_id`.
 
 Delegated attachment uploads accept `X-Qubrics-Upload-Token` or `X-Sendmux-Upload-Token`. The upload intent returns both headers with the same token. If you send both headers, their values must match after trimming whitespace, even if one is blank.
