@@ -4,6 +4,13 @@ description: "New features, improvements, and fixes across the Sendmux platform.
 rss: true
 ---
 
+<Update label="3 November 2026" tags={["New features"]} rss={{ title: "Delete empty mailbox calendars" }}>
+  ## Delete empty mailbox calendars
+
+You can delete an empty mailbox calendar with `DELETE /mailbox/calendars/{calendar_id}` and `calendar.write`. Supply the calendar's current `ETag` in `If-Match`. Calendars containing events return `409 conflict`.
+
+</Update>
+
 <Update label="2 November 2026" tags={["Improvements"]} rss={{ title: "Qubrics (formerly Sendmux): v1.8.318" }}>
   ## Qubrics (formerly Sendmux)
 
