@@ -31,27 +31,27 @@ const conversionOptions = {
 
 const collectionDefinitions = [
   {
-    name: "Sendmux Management API",
+    name: "Qubrics Management API",
     fileName: "sendmux-management.postman_collection.json",
     source: "app",
     baseVariable: "management_base_url",
-    defaultBaseUrl: "https://app.sendmux.ai/api/v1",
+    defaultBaseUrl: "https://app.qubrics.com/api/v1",
     includePath: (path) => !path.startsWith("/mailbox/") && path !== "/openapi.json",
   },
   {
-    name: "Sendmux Mailbox API",
+    name: "Qubrics Mailbox API",
     fileName: "sendmux-mailbox.postman_collection.json",
     source: "app",
     baseVariable: "mailbox_base_url",
-    defaultBaseUrl: "https://app.sendmux.ai/api/v1",
+    defaultBaseUrl: "https://app.qubrics.com/api/v1",
     includePath: (path) => path.startsWith("/mailbox/"),
   },
   {
-    name: "Sendmux Sending API",
+    name: "Qubrics Sending API",
     fileName: "sendmux-sending.postman_collection.json",
     source: "sending",
     baseVariable: "sending_base_url",
-    defaultBaseUrl: "https://smtp.sendmux.ai/api/v1",
+    defaultBaseUrl: "https://smtp.qubrics.com/api/v1",
     includePath: (path) => path !== "/openapi.json",
   },
 ];
