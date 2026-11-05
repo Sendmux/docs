@@ -1,6 +1,6 @@
 ---
 title: "CrewAI"
-description: "Attach Sendmux mailbox and sending tools to a CrewAI agent or crew."
+description: "Attach Qubrics mailbox and sending tools to a CrewAI agent or crew."
 keywords:
   [
     "CrewAI",
@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener noreferrer" target="_blank">CrewAI</a> agent a Sendmux mailbox. `MCPServerAdapter` returns CrewAI tools that map one to one onto the MCP tools your key allows.
+Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener noreferrer" target="_blank">CrewAI</a> agent a Qubrics mailbox. `MCPServerAdapter` returns CrewAI tools that map one to one onto the MCP tools your key allows.
 
 <Warning>
   Replace placeholder keys and tokens before running any snippet. Do not commit
@@ -22,7 +22,7 @@ Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener 
 
 - Python 3.10 or newer.
 - `crewai` and `crewai-tools` with MCP support installed.
-- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- A Qubrics key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
 
@@ -126,7 +126,7 @@ server_params = {"url": "http://127.0.0.1:8765/mcp", "transport": "streamable-ht
   CrewAI does not document custom request headers for its HTTP transports, and
   private HTTP mode requires `SENDMUX_MCP_HTTP_BEARER_TOKEN` unless you start it
   with `--allow-unauthenticated-http`. Use the stdio connection above when the
-  crew needs an authenticated Sendmux connection.
+  crew needs an authenticated Qubrics connection.
 </Warning>
 
 ## Give each user their own mailbox
@@ -184,6 +184,6 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
     Understand mailbox operations and usage limits.
   </Card>
   <Card title="Python SDK" icon="code" href="/developer-tools/sdks/python">
-    Call Sendmux directly when you want full endpoint coverage.
+    Call Qubrics directly when you want full endpoint coverage.
   </Card>
 </CardGroup>

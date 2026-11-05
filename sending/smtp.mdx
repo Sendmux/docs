@@ -1,6 +1,6 @@
 ---
 title: "Sending via SMTP"
-description: "Connect an SMTP-compatible app or mail client to Sendmux."
+description: "Connect an SMTP-compatible app or mail client to Qubrics."
 keywords: ["SMTP", "STARTTLS", "TLS", "port 587", "port 2525", "relay"]
 ---
 
@@ -19,7 +19,7 @@ Use SMTP when an existing application, plugin, or mail client already supports S
 
 | Setting | Value |
 | --- | --- |
-| **Host** | `smtp.sendmux.ai` |
+| **Host** | `smtp.qubrics.com` |
 | **Port** | `587` with STARTTLS, or `2525` with STARTTLS |
 | **Username** | Any value, such as `smtpuser` |
 | **Password** | Your `smx_mbx_` send-only key, mailbox password, or owner-approved Sending-resource `smx_agent_` token |
@@ -30,13 +30,13 @@ Use SMTP when an existing application, plugin, or mail client already supports S
 ```bash
 swaks --to user@example.com \
   --from hello@example.com \
-  --server smtp.sendmux.ai:587 \
+  --server smtp.qubrics.com:587 \
   --auth LOGIN \
   --auth-user smtpuser \
   --auth-password "smx_mbx_your_key_here" \
   --tls \
   --header "Subject: Test email" \
-  --body "Hello from Sendmux"
+  --body "Hello from Qubrics"
 ```
 
 ## Select delivery groups
@@ -47,11 +47,11 @@ Add one `X-Sendmux-Delivery-Group` header containing comma-separated group publi
 X-Sendmux-Delivery-Group: dgrp_group_a, dgrp_group_b
 ```
 
-Replace the example IDs with your groups' public IDs. Sendmux trims surrounding whitespace and deduplicates IDs, with a maximum of 50 groups. Empty entries and repeated occurrences of the header are rejected, including when separate occurrences contain the same value. A folded continuation belongs to the same header.
+Replace the example IDs with your groups' public IDs. Qubrics trims surrounding whitespace and deduplicates IDs, with a maximum of 50 groups. Empty entries and repeated occurrences of the header are rejected, including when separate occurrences contain the same value. A folded continuation belongs to the same header.
 
 The hint can only narrow the credential's authorised providers. Shared-domain sending ignores it and retains its forced route. See [Delivery groups](/sending/accounts/delivery-groups#restrict-one-message) for the scope rules.
 
-Unless shared-domain routing ignores the hint, invalid, unknown, foreign-team, or disallowed hints receive a permanent `550` response. Temporary service failures remain retryable. Sendmux removes the routing header before delivery.
+Unless shared-domain routing ignores the hint, invalid, unknown, foreign-team, or disallowed hints receive a permanent `550` response. Temporary service failures remain retryable. Qubrics removes the routing header before delivery.
 
 Use [template variables](/sending/template-variables) in subjects and bodies to insert values from the selected account.
 
@@ -71,7 +71,7 @@ Successful SMTP sends appear in **Logs** like HTTP sends. Use the message ID, se
 
 ## Acceptance during busy periods
 
-When sending capacity is occupied, Sendmux can still accept your direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens after it stores the message and reserves the required credits.
+When sending capacity is occupied, Qubrics can still accept your direct SMTP submissions using send-only keys or owner-approved Sending-resource tokens after it stores the message and reserves the required credits.
 
 SMTP `250` confirms acceptance for background sending, though delivery can still fail. Check **Logs** for the result.
 
@@ -79,7 +79,7 @@ SMTP `250` confirms acceptance for background sending, though delivery can still
 
 ## Free daily limit
 
-Free teams can send to 50 accepted recipients per UTC day across SMTP and HTTP. Sendmux reserves capacity before returning `250`, so concurrent SMTP sessions cannot cross the cap.
+Free teams can send to 50 accepted recipients per UTC day across SMTP and HTTP. Qubrics reserves capacity before returning `250`, so concurrent SMTP sessions cannot cross the cap.
 
 When no daily capacity remains, SMTP returns `550 5.7.1 Daily sending limit reached. Upgrade to Pro to continue.` The message is not queued. Retry after `00:00 UTC` or upgrade the team to Pro.
 

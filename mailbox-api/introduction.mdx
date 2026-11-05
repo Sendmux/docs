@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "Mailbox-scoped API endpoints for Sendmux mailbox credentials and connected apps."
+description: "Mailbox-scoped API endpoints for Qubrics mailbox credentials and connected apps."
 keywords:
   [
     "mailbox API",
@@ -14,7 +14,7 @@ keywords:
   ]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 Team-wide mailbox provisioning stays in the [Management API](/api/introduction). High-volume provider-routed sending stays in the [Sending API](/sending-api/introduction).
 
@@ -23,15 +23,15 @@ Team-wide mailbox provisioning stays in the [Management API](/api/introduction).
 All Mailbox API requests should be made to:
 
 ```text
-https://app.sendmux.ai/api/v1
+https://app.qubrics.com/api/v1
 ```
 
 ## Authentication
 
-Authenticate with a mailbox credential, [REST OAuth access token](/developer-tools/oauth), or agent access token from Sendmux. Pass it as a Bearer token in the `Authorization` header.
+Authenticate with a mailbox credential, [REST OAuth access token](/developer-tools/oauth), or agent access token from Qubrics. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
-curl https://app.sendmux.ai/api/v1/mailbox/me \
+curl https://app.qubrics.com/api/v1/mailbox/me \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -117,7 +117,7 @@ The Mailbox API uses the same envelope as the Management API.
   "error": {
     "code": "not_found",
     "message": "Mailbox not found.",
-    "doc_url": "https://sendmux.ai/docs/api/errors#not_found",
+    "doc_url": "https://qubrics.com/docs/api/errors#not_found",
     "retryable": false
   },
   "meta": {
@@ -154,5 +154,5 @@ When the limit is exceeded, the API returns `429 rate_limit_exceeded` with a `Re
 Mailbox API endpoints are included in the app API specification:
 
 ```text
-https://app.sendmux.ai/api/v1/openapi.json
+https://app.qubrics.com/api/v1/openapi.json
 ```

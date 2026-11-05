@@ -37,7 +37,7 @@ Each value is a string of at most 4,096 Unicode code points. An empty string is 
 
 ## Substitution rules
 
-Valid custom tags whose keys are unset become empty strings. Values do not expand template tags inside another value. Body values are inserted raw: Sendmux does not escape HTML or encode URLs. Prepare each value for the context where you insert it.
+Valid custom tags whose keys are unset become empty strings. Values do not expand template tags inside another value. Body values are inserted raw: Qubrics does not escape HTML or encode URLs. Prepare each value for the context where you insert it.
 
 Subject substitutions remove control characters so a value cannot inject another email header. Body values retain their original content. Substitution supports plain text, HTML, quoted-printable, and base64 message content, including encoded subjects.
 
@@ -51,7 +51,7 @@ For example, use the selected account's configured **From name**:
 From: "[DP_FROM_NAME]" <hello@example.com>
 ```
 
-Sendmux removes C0/C1 control characters, including carriage returns and line feeds, from each rendered name and limits it to 255 Unicode code points. Names are encoded for email headers so commas, quotes and angle brackets remain name text.
+Qubrics removes C0/C1 control characters, including carriage returns and line feeds, from each rendered name and limits it to 255 Unicode code points. Names are encoded for email headers so commas, quotes and angle brackets remain name text.
 
 An empty result becomes an unnamed address. Existing **From name** and **Reply-To name** defaults then apply where they normally would; `Sender` has no default. Substitution preserves each address, its order and any address group. Existing sender address routing and explicit **Reply-To** address overrides still apply. A default **Reply-To name** alone does not collapse a list of reply addresses.
 
@@ -61,7 +61,7 @@ Template substitution does not change any address component or any other header,
 
 These restrictions protect recipient addresses, routing metadata, identifiers and security fields. Excluded means no template substitution; existing header stripping and rewriting still apply.
 
-Sendmux does not substitute template tags inside attachments, signed or encrypted message parts, or attached emails.
+Qubrics does not substitute template tags inside attachments, signed or encrypted message parts, or attached emails.
 
 Variables belong to the selected provider, not the recipient or credential. Passwords, access tokens, and other connection secrets have no built-in template tags.
 

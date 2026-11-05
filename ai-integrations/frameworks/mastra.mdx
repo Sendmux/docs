@@ -1,6 +1,6 @@
 ---
 title: "Mastra"
-description: "Give a Mastra agent a Sendmux mailbox and sending access through MCP."
+description: "Give a Mastra agent a Qubrics mailbox and sending access through MCP."
 keywords:
   [
     "Mastra",
@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener noreferrer" target="_blank">Mastra</a> agent to Sendmux so it can read, search, and reply from a mailbox you grant it.
+Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener noreferrer" target="_blank">Mastra</a> agent to Qubrics so it can read, search, and reply from a mailbox you grant it.
 
 <Warning>
   Replace placeholder keys and tokens before running any snippet. Do not commit
@@ -21,7 +21,7 @@ Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener no
 ## Requirements
 
 - A Mastra project with `@mastra/core` and `@mastra/mcp` installed.
-- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- A Qubrics key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 - Python available in the same runtime if you use the local stdio connection.
 
 ## Install
@@ -32,7 +32,7 @@ Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener no
 npm install @mastra/mcp
 ```
 
-```bash Sendmux MCP
+```bash Qubrics MCP
 pip install sendmux-mcp
 ```
 
@@ -193,6 +193,6 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
     Understand targeting, search, threads, and sync.
   </Card>
   <Card title="TypeScript SDK" icon="code" href="/developer-tools/sdks/typescript">
-    Call Sendmux directly when you want full endpoint coverage.
+    Call Qubrics directly when you want full endpoint coverage.
   </Card>
 </CardGroup>

@@ -134,5 +134,7 @@ function isSendmuxUrl(value) {
   } catch {
     return false;
   }
-  return url.hostname === "sendmux.ai" || url.hostname.endsWith(".sendmux.ai");
+  return ["sendmux.ai", "qubrics.com"].some(
+    (hostname) => url.hostname === hostname || url.hostname.endsWith(`.${hostname}`),
+  );
 }

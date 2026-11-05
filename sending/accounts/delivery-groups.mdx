@@ -20,9 +20,9 @@ The key or mailbox you authenticate with defines the providers available to you.
 
 | Scope                    | Result                                                  |
 | ------------------------ | ------------------------------------------------------- |
-| **All active providers** | Sendmux can use any active provider on the team.        |
-| **Specific providers**   | Sendmux can use only the providers selected on the key. |
-| **Delivery group**       | Sendmux can use only providers in the selected group.   |
+| **All active providers** | Qubrics can use any active provider on the team.        |
+| **Specific providers**   | Qubrics can use only the providers selected on the key. |
+| **Delivery group**       | Qubrics can use only providers in the selected group.   |
 
 Groups have no activation setting. Their availability depends on eligible member providers, including provider status and sending limits. An empty eligible pool never falls back to providers outside the requested groups.
 
@@ -30,7 +30,7 @@ Groups have no activation setting. Their availability depends on eligible member
 
 For HTTP, set `delivery_group` to one group public ID or a nonempty array in the send body. In a batch, set it on each message. For SMTP, use one `X-Sendmux-Delivery-Group` header with comma-separated public IDs.
 
-Sendmux trims surrounding whitespace, removes duplicate IDs, and accepts at most 50 groups. Empty entries are invalid. SMTP also rejects repeated occurrences of the header and strips the header before delivery. HTTP callers must use the dedicated field; the header is reserved in `custom_headers`.
+Qubrics trims surrounding whitespace, removes duplicate IDs, and accepts at most 50 groups. Empty entries are invalid. SMTP also rejects repeated occurrences of the header and strips the header before delivery. HTTP callers must use the dedicated field; the header is reserved in `custom_headers`.
 
 The credential's scope determines how the hint is applied:
 
@@ -42,7 +42,7 @@ The credential's scope determines how the hint is applied:
 | Shared-domain override | Ignore the hint and retain the forced route, with a warning. |
 | No hint | Retain the credential's existing routing behaviour. |
 
-Shared-domain routing takes precedence, even if the hint is malformed. Otherwise, Sendmux validates syntax, credential scope and group subset, then team-owned existence. A valid group ID from another team is treated as unknown.
+Shared-domain routing takes precedence, even if the hint is malformed. Otherwise, Qubrics validates syntax, credential scope and group subset, then team-owned existence. A valid group ID from another team is treated as unknown.
 
 Routing failures use these codes:
 
@@ -88,7 +88,7 @@ Use a mailbox's send scope to bind it to a delivery group. Every API or SMTP sen
 
 ## Delete a group
 
-Deleting a group moves its providers to **No group**. Sendmux warns when API keys depend on the group so you can update their send scope first.
+Deleting a group moves its providers to **No group**. Qubrics warns when API keys depend on the group so you can update their send scope first.
 
 ## Related guides
 

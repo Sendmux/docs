@@ -11,7 +11,7 @@ Use the Management API to reconcile the cost of a mailbox your team owns. Keep t
 Set `MAILBOX_ID` to the saved public ID and set `WINDOW_START` and `WINDOW_END` to timestamps with timezones. Request the same start with a later end to read cumulative usage for that period:
 
 ```bash
-curl --fail-with-body --get "https://app.sendmux.ai/api/v1/mailboxes/$MAILBOX_ID/usage" \
+curl --fail-with-body --get "https://app.qubrics.com/api/v1/mailboxes/$MAILBOX_ID/usage" \
   --header "Authorization: Bearer $SENDMUX_API_KEY" \
   --data-urlencode "start=$WINDOW_START" \
   --data-urlencode "end=$WINDOW_END"
@@ -31,7 +31,7 @@ Amounts and quantities are decimal strings. Posted USD amounts have six decimal 
 
 The incoming and outgoing lines report `coverage_started_at`. A window beginning before the available coverage remains `pending`, even if its recorded total is zero. Incoming finality requires complete recorded deliveries and resolved posting; outgoing finality requires complete recorded acceptance and posting. Storage finality requires completed posting through the window, or through the final storage cutoff for a closed mailbox. The overall state becomes `final` only when all three lines are final. Reading this endpoint does not start or finish settlement.
 
-Outgoing usage belongs to the time Sendmux first records the provider's acceptance, rather than the timestamp reported by the sending server. A delayed confirmation can therefore fall into a later billing period. Repeated confirmation of the same acceptance keeps its original recorded time.
+Outgoing usage belongs to the time Qubrics first records the provider's acceptance, rather than the timestamp reported by the sending server. A delayed confirmation can therefore fall into a later billing period. Repeated confirmation of the same acceptance keeps its original recorded time.
 
 When storage billing covers an interval before per-mailbox tracking began, that earlier cost is attributed to the first covered calendar month. It is not backfilled into earlier monthly readings. This changes where that cost appears in per-mailbox windows, not the team's posted storage charge.
 

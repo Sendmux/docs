@@ -1,6 +1,6 @@
 ---
 title: "PHP SDK"
-description: "Install and configure the Sendmux PHP SDK packages."
+description: "Install and configure the Qubrics PHP SDK packages."
 keywords:
   [
     "PHP SDK",
@@ -8,11 +8,11 @@ keywords:
     "sendmux/sending",
     "sendmux/mailbox",
     "sendmux/management",
-    "Sendmux SDKs",
+    "Qubrics SDKs",
   ]
 ---
 
-Use the PHP SDK when your application needs Composer packages for one or more Sendmux API surfaces.
+Use the PHP SDK when your application needs Composer packages for one or more Qubrics API surfaces.
 
 <Info>
   For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
@@ -130,7 +130,7 @@ $mailboxes = ClientFactory::createMailboxesApi(
   exchange the durable token for a one-hour Sending-resource token before sending.
 </Note>
 
-Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+Sending uses `https://smtp.qubrics.com/api/v1` by default. Mailbox and Management use `https://app.qubrics.com/api/v1`.
 
 ## Shared API behaviour
 
@@ -165,7 +165,7 @@ Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-N
 
 ### Errors
 
-The core package defines `SendmuxApiError`. Use `ErrorMapper::fromThrowable()` when you need to normalise a generated exception into the Sendmux error shape.
+The core package defines `SendmuxApiError`. Use `ErrorMapper::fromThrowable()` when you need to normalise a generated exception into the Qubrics error shape.
 
 Use the mapped error code, retryability, status, and request ID when deciding whether to retry or contact support.
 

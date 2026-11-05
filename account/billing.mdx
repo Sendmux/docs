@@ -13,7 +13,7 @@ keywords:
   ]
 ---
 
-Billing is scoped to each team. Sendmux uses the team balance for billable email and storage usage, then records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
+Billing is scoped to each team. Qubrics uses the team balance for billable email and storage usage, then records purchases, usage, auto top-ups, refunds, and adjustments as transactions.
 
 <Info>
   Legacy billing changed on 30 September 2026 at 05:00 UTC. Unpaid legacy teams
@@ -32,7 +32,7 @@ Billing is scoped to each team. Sendmux uses the team balance for billable email
 
 With Free, you get two mailboxes and can send to up to 50 provider-accepted recipients per UTC day across all sending routes. These limits are fixed. If you hit one, delete an unused resource or upgrade to Pro. Provider quotas, safety controls, account health restrictions, and managed Amazon SES limits still apply on Pro.
 
-Messages sent by a Free team add the plain text “Email sent via Sendmux” after supported text and HTML bodies. A blank gap separates it from your message. The footer has no link or Sendmux styling. Pro and Enterprise messages do not add it.
+Messages sent by a Free team add the plain text “Email sent via Qubrics” after supported text and HTML bodies. A blank gap separates it from your message. The footer has no link or Qubrics styling. Pro and Enterprise messages do not add it.
 
 Every account can have one active Free team.
 
@@ -46,13 +46,13 @@ Paid legacy teams can keep their current billing setup or choose **Upgrade to Pr
 
 Checkout asks for the team's billing contact email. It can differ from your sign-in email, such as a shared accounts address.
 
-Sendmux uses this email for receipts and billing messages. Team membership, not the billing contact, controls ownership and access.
+Qubrics uses this email for receipts and billing messages. Team membership, not the billing contact, controls ownership and access.
 
 ## Current usage rates
 
 These rates apply to Free, Pro and preserved paid legacy teams. Enterprise rates follow the team's contract.
 
-Sendmux charges each billable event individually. The per-1,000 column is only an equivalent rate for comparison; you do not buy or consume email in blocks of 1,000.
+Qubrics charges each billable event individually. The per-1,000 column is only an equivalent rate for comparison; you do not buy or consume email in blocks of 1,000.
 
 | Activity                                             | Billing unit                           | Rate per unit | Equivalent per 1,000 |
 | ---------------------------------------------------- | -------------------------------------- | ------------- | -------------------- |
@@ -65,9 +65,9 @@ For outgoing mail, each provider-accepted To, CC, or BCC recipient occurrence is
 
 If the same address appears in more than one recipient field, each provider-accepted occurrence is billed separately.
 
-Outgoing usage is assigned to the time Sendmux first records the provider's acceptance. Delayed confirmation can therefore appear in a later billing period than the sending server's timestamp. Repeated confirmation keeps the original recorded time.
+Outgoing usage is assigned to the time Qubrics first records the provider's acceptance. Delayed confirmation can therefore appear in a later billing period than the sending server's timestamp. Repeated confirmation keeps the original recorded time.
 
-If a provider's result is unknown, Sendmux keeps the reservation on hold while it reconciles the send. After 24 hours, the unresolved send is due for review; Sendmux does not treat missing confirmation as a rejection or release the hold without a known outcome. The hold is not a usage charge and cannot start an auto top-up by itself.
+If a provider's result is unknown, Qubrics keeps the reservation on hold while it reconciles the send. After 24 hours, the unresolved send is due for review; Qubrics does not treat missing confirmation as a rejection or release the hold without a known outcome. The hold is not a usage charge and cannot start an auto top-up by itself.
 
 Inbound usage is counted for each distinct mailbox that receives the message. One message delivered to two mailboxes counts as two deliveries. Mail rejected by mailbox allow or block rules is not billed.
 

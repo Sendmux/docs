@@ -1,23 +1,23 @@
 ---
 title: "MCP"
-description: "Connect AI tools to Sendmux documentation and product tools."
+description: "Connect AI tools to Qubrics documentation and product tools."
 keywords:
   [
     "MCP",
     "Model Context Protocol",
     "sendmux-mcp",
     "AI agents",
-    "Sendmux MCP",
+    "Qubrics MCP",
   ]
 ---
 
 import McpReleaseFacts from "/snippets/mcp-release-facts.mdx";
 
-Sendmux has two MCP connections. Use Doc Search MCP when you want an AI tool to search Sendmux docs. Use MCP when you want an agent to work with Sendmux tools you authorise.
+Qubrics has two MCP connections. Use Doc Search MCP when you want an AI tool to search Qubrics docs. Use MCP when you want an agent to work with Qubrics tools you authorise.
 
 | Connection | Use it for | Server |
 | --- | --- | --- |
-| Doc Search MCP | Search Sendmux guides and API references. | `https://sendmux.ai/docs/mcp` |
+| Doc Search MCP | Search Qubrics guides and API references. | `https://qubrics.com/docs/mcp` |
 | MCP | Use Management, Mailbox, and Sending tools. | `https://mcp.sendmux.ai/mcp` or the local `sendmux-mcp` package |
 
 <Info>
@@ -32,7 +32,7 @@ Doc Search MCP exposes `search_sendmux`.
 <AccordionGroup>
   <Accordion title="Claude Code">
     ```bash
-    claude mcp add sendmux-docs --transport http https://sendmux.ai/docs/mcp
+    claude mcp add sendmux-docs --transport http https://qubrics.com/docs/mcp
     ```
   </Accordion>
 
@@ -43,7 +43,7 @@ Doc Search MCP exposes `search_sendmux`.
     {
       "mcpServers": {
         "sendmux-docs": {
-          "url": "https://sendmux.ai/docs/mcp"
+          "url": "https://qubrics.com/docs/mcp"
         }
       }
     }
@@ -58,7 +58,7 @@ Doc Search MCP exposes `search_sendmux`.
       "servers": {
         "sendmux-docs": {
           "type": "http",
-          "url": "https://sendmux.ai/docs/mcp"
+          "url": "https://qubrics.com/docs/mcp"
         }
       }
     }
@@ -70,7 +70,7 @@ Doc Search MCP exposes `search_sendmux`.
 
     ```toml
     [mcp_servers.sendmux_docs]
-    url = "https://sendmux.ai/docs/mcp"
+    url = "https://qubrics.com/docs/mcp"
     ```
   </Accordion>
 </AccordionGroup>
@@ -85,14 +85,14 @@ MCP exposes the product surfaces you grant.
 | Management | Manage team resources such as domains, mailboxes, sending accounts, logs, metrics, billing, and webhooks. | Hosted grant with Management access, or an `smx_root_` key locally |
 | Sending | Send single or batch emails. | Hosted grant with Sending access, an `smx_mbx_` key, or an owner-approved Sending-resource `smx_agent_` token locally |
 
-Hosted MCP is the default when your client supports remote MCP with browser OAuth. It keeps Sendmux in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
+Hosted MCP is the default when your client supports remote MCP with browser OAuth. It keeps Qubrics in the authorisation flow, avoids distributing manual API keys to agents, and shows only the tools allowed by the grant.
 
 <McpReleaseFacts />
 
 | Setting | Value |
 | --- | --- |
 | Server URL | `https://mcp.sendmux.ai/mcp` |
-| Authorisation server | `https://app.sendmux.ai` |
+| Authorisation server | `https://app.qubrics.com` |
 | Health check | `https://mcp.sendmux.ai/health` |
 
 Use the Postman collection when you want to test MCP requests from Postman:
@@ -105,7 +105,7 @@ Use the Postman collection when you want to test MCP requests from Postman:
   <img src="https://run.pstmn.io/button.svg" alt="Run in Postman" />
 </a>
 
-When you connect, Sendmux asks you to choose a team, product surfaces, and mailbox access where relevant. Access tokens are short-lived. Refresh tokens rotate on use and can last up to 30 days unless the connection is disconnected or expires.
+When you connect, Qubrics asks you to choose a team, product surfaces, and mailbox access where relevant. Access tokens are short-lived. Refresh tokens rotate on use and can last up to 30 days unless the connection is disconnected or expires.
 
 <Note>
   If you grant more than one mailbox, start mailbox workflows with
@@ -199,8 +199,8 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
     | Mailbox API key | `SENDMUX_MAILBOX_API_KEY` | None |
     | Management API key | `SENDMUX_MANAGEMENT_API_KEY` | None |
     | Sending API key | `SENDMUX_SENDING_API_KEY` | None |
-    | Management and Mailbox API base URL | `SENDMUX_APP_BASE_URL` | `https://app.sendmux.ai/api/v1` |
-    | Sending API base URL | `SENDMUX_SENDING_BASE_URL` | `https://smtp.sendmux.ai/api/v1` |
+    | Management and Mailbox API base URL | `SENDMUX_APP_BASE_URL` | `https://app.qubrics.com/api/v1` |
+    | Sending API base URL | `SENDMUX_SENDING_BASE_URL` | `https://smtp.qubrics.com/api/v1` |
     | Retry time budget, in seconds | `SENDMUX_MCP_RETRY_MAX_ELAPSED_SECONDS` | Unset |
     | Transport | `SENDMUX_MCP_TRANSPORT` | `stdio` |
     | HTTP host | `SENDMUX_MCP_HOST` | `127.0.0.1` |
@@ -257,10 +257,10 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
 
 <CardGroup cols={2}>
   <Card title="A2A" icon="network-wired" iconType="solid" href="/ai-integrations/a2a">
-    Use Sendmux through an A2A 1.0 agent endpoint with hosted OAuth.
+    Use Qubrics through an A2A 1.0 agent endpoint with hosted OAuth.
   </Card>
   <Card title="MCP clients" icon="plug" href="/ai-integrations/mcp/clients">
-    Configure Sendmux MCP in Claude Code, Cursor, Codex, Gemini CLI, Qwen Code, Zed, and more.
+    Configure Qubrics MCP in Claude Code, Cursor, Codex, Gemini CLI, Qwen Code, Zed, and more.
   </Card>
   <Card title="SDKs" icon="code" href="/developer-tools/sdks">
     Use package-managed clients from application code.

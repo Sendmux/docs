@@ -1,6 +1,6 @@
 ---
 title: "Google ADK"
-description: "Add Sendmux mailbox and sending tools to a Google ADK agent with an MCP toolset."
+description: "Add Qubrics mailbox and sending tools to a Google ADK agent with an MCP toolset."
 keywords:
   [
     "Google ADK",
@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofollow noopener noreferrer" target="_blank">Google Agent Development Kit</a> agent a Sendmux mailbox. `McpToolset` retrieves MCP tools as ADK tools, and the framework loads and closes them around each agent invocation.
+Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofollow noopener noreferrer" target="_blank">Google Agent Development Kit</a> agent a Qubrics mailbox. `McpToolset` retrieves MCP tools as ADK tools, and the framework loads and closes them around each agent invocation.
 
 <Warning>
   Replace placeholder keys and tokens before running any snippet. Do not commit
@@ -22,7 +22,7 @@ Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofoll
 
 - Python 3.10 or newer.
 - `google-adk` installed.
-- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- A Qubrics key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
 
@@ -183,9 +183,9 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
     Review environment variables and tool discovery.
   </Card>
   <Card title="A2A" icon="network" href="/ai-integrations/a2a">
-    Reach Sendmux through an A2A agent endpoint.
+    Reach Qubrics through an A2A agent endpoint.
   </Card>
   <Card title="Python SDK" icon="code" href="/developer-tools/sdks/python">
-    Call Sendmux directly when you want full endpoint coverage.
+    Call Qubrics directly when you want full endpoint coverage.
   </Card>
 </CardGroup>

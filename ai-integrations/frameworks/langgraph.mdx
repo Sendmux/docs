@@ -1,6 +1,6 @@
 ---
 title: "LangGraph"
-description: "Load Sendmux mailbox and sending tools into a LangGraph agent through the LangChain MCP adapters."
+description: "Load Qubrics mailbox and sending tools into a LangGraph agent through the LangChain MCP adapters."
 keywords:
   [
     "LangGraph",
@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Use this page to load Sendmux tools into a <a href="https://langchain-ai.github.io/langgraph/" rel="nofollow noopener noreferrer" target="_blank">LangGraph</a> agent. The <a href="https://github.com/langchain-ai/langchain-mcp-adapters" rel="nofollow noopener noreferrer" target="_blank">LangChain MCP adapters</a> convert MCP tools into LangChain tools, so anything that accepts a tool list will accept them.
+Use this page to load Qubrics tools into a <a href="https://langchain-ai.github.io/langgraph/" rel="nofollow noopener noreferrer" target="_blank">LangGraph</a> agent. The <a href="https://github.com/langchain-ai/langchain-mcp-adapters" rel="nofollow noopener noreferrer" target="_blank">LangChain MCP adapters</a> convert MCP tools into LangChain tools, so anything that accepts a tool list will accept them.
 
 <Warning>
   Replace placeholder keys and tokens before running any snippet. Do not commit
@@ -21,7 +21,7 @@ Use this page to load Sendmux tools into a <a href="https://langchain-ai.github.
 ## Requirements
 
 - Python 3.10 or newer.
-- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- A Qubrics key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
 
@@ -123,7 +123,7 @@ asyncio.run(main())
 ```
 
 <Note>
-  Set `tool_name_prefix=True` on `MultiServerMCPClient` when you connect Sendmux
+  Set `tool_name_prefix=True` on `MultiServerMCPClient` when you connect Qubrics
   alongside other MCP servers. It prefixes tool names with the server name and
   prevents collisions.
 </Note>
@@ -188,6 +188,6 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
     Use search and batch operations efficiently.
   </Card>
   <Card title="Python SDK" icon="code" href="/developer-tools/sdks/python">
-    Call Sendmux directly when you want full endpoint coverage.
+    Call Qubrics directly when you want full endpoint coverage.
   </Card>
 </CardGroup>

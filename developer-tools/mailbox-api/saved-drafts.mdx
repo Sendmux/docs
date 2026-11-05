@@ -10,10 +10,10 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
 
 <Steps>
   <Step title="Prepare a reply">
-    Create a draft from a message in the authorised mailbox. Sendmux prepares the recipients, subject and thread headers from that message. `reply_all` includes other visible recipients; `forward` starts without recipients. Replies retain inline images from the source, while forwards also include its regular attachments.
+    Create a draft from a message in the authorised mailbox. Qubrics prepares the recipients, subject and thread headers from that message. `reply_all` includes other visible recipients; `forward` starts without recipients. Replies retain inline images from the source, while forwards also include its regular attachments.
 
     ```bash
-    curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts \
+    curl -X POST https://app.qubrics.com/api/v1/mailbox/drafts \
       -H "Authorization: Bearer $SENDMUX_API_KEY" \
       -H "Content-Type: application/json" \
       -H "Idempotency-Key: reply-msg-123" \
@@ -30,7 +30,7 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
     Mailbox draft writes reject `X-SES-TENANT`, `X-SES-CONFIGURATION-SET` and `X-SES-MESSAGE-TAGS`, regardless of letter case. Older drafts containing these headers remain readable. To clear saved custom headers, include `"custom_headers": {}` in an update.
 
     ```bash
-    curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123 \
+    curl -X PATCH https://app.qubrics.com/api/v1/mailbox/drafts/draft_123 \
       -H "Authorization: Bearer $SENDMUX_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{"expected_revision":1,"text_body":"Thanks for your message. I will check and reply today."}'
@@ -42,7 +42,7 @@ All draft requests require `mailbox.read`. Creating, editing and deleting also r
     Confirm the recipients, subject, bodies and attachments in the saved draft. Send only that exact revision. If the response is lost, read the same draft's status before retrying; an uncertain send must not become a second message.
 
     ```bash
-    curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
+    curl -X POST https://app.qubrics.com/api/v1/mailbox/drafts/draft_123/send \
       -H "Authorization: Bearer $SENDMUX_API_KEY" \
       -H "Content-Type: application/json" \
       -d '{"expected_revision":2}'
@@ -61,7 +61,7 @@ Cancel a scheduled send before editing its content. After cancellation, include 
 For a draft with revision `2` and schedule version `0`, schedule that exact content:
 
 ```bash
-curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
+curl -X POST https://app.qubrics.com/api/v1/mailbox/drafts/draft_123/send \
   -H "Authorization: Bearer $SENDMUX_API_KEY" \
   -H "Content-Type: application/json" \
   -d "{\"expected_revision\":2,\"expected_schedule_version\":0,\"scheduled_for\":\"$SCHEDULED_FOR\"}"
@@ -70,7 +70,7 @@ curl -X POST https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/send \
 Set `SCHEDULED_FOR` to a future timestamp with a timezone, within 30 days and with no more than millisecond precision. Read the resulting `schedule_version`; use it to move the time or set `scheduled_for` to `null`:
 
 ```bash
-curl -X PATCH https://app.sendmux.ai/api/v1/mailbox/drafts/draft_123/schedule \
+curl -X PATCH https://app.qubrics.com/api/v1/mailbox/drafts/draft_123/schedule \
   -H "Authorization: Bearer $SENDMUX_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"expected_revision":2,"expected_schedule_version":1,"scheduled_for":null}'
@@ -106,7 +106,7 @@ Address rules use `addresses` for exact addresses and `domains` for exact domain
   </Step>
 </Steps>
 
-Sendmux tries an eligible connected account for the exact From address before an eligible managed account for its verified domain. Account weights apply within a compatible tier using the same From address. `alternate_from` contains ordered concrete alternatives; every applicable policy must explicitly permit each alternative. Fallback does not continue after uncertain acceptance.
+Qubrics tries an eligible connected account for the exact From address before an eligible managed account for its verified domain. Account weights apply within a compatible tier using the same From address. `alternate_from` contains ordered concrete alternatives; every applicable policy must explicitly permit each alternative. Fallback does not continue after uncertain acceptance.
 
 ## Handle a failed send
 

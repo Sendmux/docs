@@ -1,6 +1,6 @@
 ---
 title: "Verify webhook signatures"
-description: "Verify the HMAC-SHA256 signature on every Sendmux webhook delivery."
+description: "Verify the HMAC-SHA256 signature on every Qubrics webhook delivery."
 keywords: ["signature verification", "HMAC", "SHA-256", "webhook security"]
 ---
 
@@ -90,4 +90,4 @@ The legacy `X-Sendmux-Signature` value is `sha256=<hex HMAC-SHA256>` over the ra
 
 Return a `2xx` status once the event is accepted. For longer processing, store the event first, return quickly, and process it after the response.
 
-Sendmux retries non-`2xx` responses and timeouts. See [Webhooks setup](/webhooks/setup#retries).
+Qubrics retries non-`2xx` responses and timeouts. See [Webhooks setup](/webhooks/setup#retries).

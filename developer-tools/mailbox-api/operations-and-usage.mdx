@@ -4,7 +4,7 @@ description: "Work with sender identities, send submissions, calendar deletion, 
 keywords: ["sender identities","send submissions","calendar deletion","mailbox quotas","mailbox usage"]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 ## Operational resources
 
@@ -20,12 +20,12 @@ Mailbox API sends use this sender name by default and append the matching
 plain text or HTML signature when the send body includes that format.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/identity" \
+curl "https://app.qubrics.com/api/v1/mailbox/identity" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
 ```bash
-curl -X PATCH "https://app.sendmux.ai/api/v1/mailbox/identity" \
+curl -X PATCH "https://app.qubrics.com/api/v1/mailbox/identity" \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -39,7 +39,7 @@ curl -X PATCH "https://app.sendmux.ai/api/v1/mailbox/identity" \
 authenticated mailbox.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/identities" \
+curl "https://app.qubrics.com/api/v1/mailbox/identities" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -74,7 +74,7 @@ Use submissions to inspect queued, sent, failed, or cancelled send lifecycle
 records separately from the `messages/send` request that created them.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/submissions?email_ids=msg_123&limit=10" \
+curl "https://app.qubrics.com/api/v1/mailbox/submissions?email_ids=msg_123&limit=10" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -102,7 +102,7 @@ changes.
 Use quotas for detailed limits and `usage` for a compact health view.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/usage" \
+curl "https://app.qubrics.com/api/v1/mailbox/usage" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 

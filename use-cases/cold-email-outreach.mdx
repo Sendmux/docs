@@ -1,7 +1,7 @@
 ---
 title: "Cold email outreach and GTM from your own inboxes"
 sidebarTitle: "Cold email outreach"
-description: "Sendmux is an email layer that routes cold outreach through inboxes you own. Add sending accounts, set per-account caps, and run your GTM motion from an AI tool."
+description: "Qubrics is an email layer that routes cold outreach through inboxes you own. Add sending accounts, set per-account caps, and run your GTM motion from an AI tool."
 keywords:
   [
     "cold email outreach",
@@ -12,17 +12,17 @@ keywords:
     "sending accounts",
   ]
 "og:title": "Cold email outreach and GTM from your own inboxes"
-"og:description": "Add your own cold email inboxes to Sendmux, set caps and sender details, create a sending key, and connect an AI agent with a Sending-only grant."
+"og:description": "Add your own cold email inboxes to Qubrics, set caps and sender details, create a sending key, and connect an AI agent with a Sending-only grant."
 ---
 
 import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 
-Sendmux is an email layer that routes cold outreach through sending accounts you already own. You add each inbox, set its sender details and its per-hour and per-day caps, then create one sending key. Sendmux picks an eligible account for every message and holds anything over that account's current cap.
+Qubrics is an email layer that routes cold outreach through sending accounts you already own. You add each inbox, set its sender details and its per-hour and per-day caps, then create one sending key. Qubrics picks an eligible account for every message and holds anything over that account's current cap.
 
-That makes it the send rail underneath a GTM motion. Your tools pick the targets and write the copy. Sendmux decides which inbox carries each message and how fast.
+That makes it the send rail underneath a GTM motion. Your tools pick the targets and write the copy. Qubrics decides which inbox carries each message and how fast.
 
 <Info>
-  You need a Sendmux team, at least one inbox you can supply SMTP credentials
+  You need a Qubrics team, at least one inbox you can supply SMTP credentials
   for or a Gmail or Outlook account you can authorise, and a prospect list you
   may lawfully contact.
 </Info>
@@ -31,22 +31,22 @@ That makes it the send rail underneath a GTM motion. Your tools pick the targets
 
 ## Do you need a domain for cold email?
 
-No. You do not add or verify a domain in Sendmux when you send through your own accounts. Each account already authenticates for its own domain at its own provider, so Sendmux hands the message to that provider and the provider signs it.
+No. You do not add or verify a domain in Qubrics when you send through your own accounts. Each account already authenticates for its own domain at its own provider, so Qubrics hands the message to that provider and the provider signs it.
 
-| What you want to do                       | Domain needed in Sendmux |
+| What you want to do                       | Domain needed in Qubrics |
 | ----------------------------------------- | ------------------------ |
 | Send through your own accounts            | No                       |
-| Send through the managed SES from Sendmux | Yes                      |
-| Receive mail or host mailboxes in Sendmux | Yes                      |
+| Send through the managed SES from Qubrics | Yes                      |
+| Receive mail or host mailboxes in Qubrics | Yes                      |
 
 <Note>
   One failure mode is worth knowing. If the managed account is the only eligible
-  provider for a send and the sender domain is not verified, Sendmux rejects the
+  provider for a send and the sender domain is not verified, Qubrics rejects the
   message and records it in [Logs](/monitoring/dashboard-logs#delivery-logs)
   rather than returning a bounce.
 </Note>
 
-## Set up cold outreach in Sendmux
+## Set up cold outreach in Qubrics
 
 <Steps>
   <Step title="Add your cold email accounts">
@@ -57,12 +57,12 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
     Any inbox provider that gives you SMTP credentials works as a Custom SMTP
     account, including Mission Inbox, ScaledMail, Zapmail, and others. There is
     no vendor-specific connector for these. You supply the host, port, username,
-    and password, and Sendmux treats the account like any other.
+    and password, and Qubrics treats the account like any other.
 
     <Frame caption="Choose the connection type when you add a sending account.">
       <img
         src="/images/integrations/email-marketing/sendmux-add-sending-account.png"
-        alt="The Sendmux Add Account panel showing Custom SMTP, Gmail and Outlook connection types"
+        alt="The Qubrics Add Account panel showing Custom SMTP, Gmail and Outlook connection types"
       />
     </Frame>
 
@@ -73,7 +73,7 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
     <Frame caption="A pool of inboxes, each with its own delivery group and per-minute, per-hour and per-day caps.">
       <img
         src="/images/use-cases/cold-email-accounts-list.png"
-        alt="The Sendmux Accounts table listing several SMTP sending accounts with their delivery group, throughput caps and status"
+        alt="The Qubrics Accounts table listing several SMTP sending accounts with their delivery group, throughput caps and status"
       />
     </Frame>
 
@@ -90,7 +90,7 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
     <Frame caption="Advanced settings hold the sender identity, the caps and the routing weight for one account.">
       <img
         src="/images/use-cases/cold-email-account-advanced.png"
-        alt="Advanced settings for one Sendmux sending account showing From Email, From Name, Reply-To, quotas, distribution percentage and delivery group"
+        alt="Advanced settings for one Qubrics sending account showing From Email, From Name, Reply-To, quotas, distribution percentage and delivery group"
       />
     </Frame>
 
@@ -125,7 +125,7 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
     <Frame caption="Choose Sending Key. It covers the API, the CLI, MCP and AI agents.">
       <img
         src="/images/use-cases/cold-email-sending-key.png"
-        alt="The Sendmux Create API Key dialog with Infrastructure Key, Sending Key and Mailbox Key options, with Sending Key selected"
+        alt="The Qubrics Create API Key dialog with Infrastructure Key, Sending Key and Mailbox Key options, with Sending Key selected"
       />
     </Frame>
 
@@ -135,7 +135,7 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
 
     Then send:
 
-    - **SMTP.** Host `smtp.sendmux.ai`, port `587` with STARTTLS, password is
+    - **SMTP.** Host `smtp.qubrics.com`, port `587` with STARTTLS, password is
       your sending key. See [Sending by SMTP](/sending/smtp).
     - **HTTP.** `POST` to the Sending API. See
       [Sending by HTTP](/sending/http).
@@ -158,7 +158,7 @@ No. You do not add or verify a domain in Sendmux when you send through your own 
 
 ## Run your GTM motion from an AI tool
 
-Connect Sendmux to Claude or another MCP client and your agent can send through the same accounts, with the same caps, without you pasting a key into it.
+Connect Qubrics to Claude or another MCP client and your agent can send through the same accounts, with the same caps, without you pasting a key into it.
 
 <Steps>
   <Step title="Add the server">
@@ -167,7 +167,7 @@ Connect Sendmux to Claude or another MCP client and your agent can send through 
     clients](/ai-integrations/mcp/clients#hosted-oauth-clients).
   </Step>
   <Step title="Authorise the connection">
-    Sendmux asks you to pick a team, then which product lines the app may use.
+    Qubrics asks you to pick a team, then which product lines the app may use.
   </Step>
   <Step title="Check the tools appear">
     Confirm the sending tools are listed. See [Verify the
@@ -186,7 +186,7 @@ Connect Sendmux to Claude or another MCP client and your agent can send through 
 <Frame caption="Under Product lines, leave Sending API ticked and clear the other two.">
   <img
     src="/images/use-cases/cold-email-mcp-consent-sending-only.png"
-    alt="The Sendmux authorise connected app screen with Mailbox API and Management API unticked and Sending API ticked"
+    alt="The Qubrics authorise connected app screen with Mailbox API and Management API unticked and Sending API ticked"
   />
 </Frame>
 
@@ -196,7 +196,7 @@ For what each surface covers and how long tokens last, see [MCP](/ai-integration
 
 Keeping the boundary clear saves a lot of debugging later.
 
-| Your GTM stack                          | Sendmux                                   |
+| Your GTM stack                          | Qubrics                                   |
 | --------------------------------------- | ----------------------------------------- |
 | Prospect list, segments, and enrichment | Eligible account selection                |
 | Message copy and personalisation        | Sender details applied per account        |
@@ -205,9 +205,9 @@ Keeping the boundary clear saves a lot of debugging later.
 
 ## Choose fixed caps or ranges
 
-Use a fixed cap when you want one predictable ceiling per account. Use a range when you would rather the ceiling move inside boundaries you set. Sendmux picks a value when account information refreshes and holds that cap until the next refresh.
+Use a fixed cap when you want one predictable ceiling per account. Use a range when you would rather the ceiling move inside boundaries you set. Qubrics picks a value when account information refreshes and holds that cap until the next refresh.
 
-A range varies the ceiling. It does not add a delay between individual messages, and it does not guarantee inbox placement. Targeting, authenticated sender domains, message quality, and account history all still decide what happens after Sendmux hands the message over.
+A range varies the ceiling. It does not add a delay between individual messages, and it does not guarantee inbox placement. Targeting, authenticated sender domains, message quality, and account history all still decide what happens after Qubrics hands the message over.
 
 ## Spread sends across several inboxes
 
@@ -220,9 +220,9 @@ Distribution percentage weights traffic between accounts that are eligible for t
 
 ## Add replies later
 
-Replies land wherever the **Reply-To** on each account points, which by default is the inbox provider you own. Nothing in Sendmux is required for that.
+Replies land wherever the **Reply-To** on each account points, which by default is the inbox provider you own. Nothing in Qubrics is required for that.
 
-You only need a Sendmux domain and mailbox when you want replies inside Sendmux, so an agent can read and act on them. That is also when the **Mailbox API** grant becomes worth adding to your MCP connection. See [Domain management](/domains) and [Mailboxes](/mailboxes).
+You only need a Qubrics domain and mailbox when you want replies inside Qubrics, so an agent can read and act on them. That is also when the **Mailbox API** grant becomes worth adding to your MCP connection. See [Domain management](/domains) and [Mailboxes](/mailboxes).
 
 ## Check before your first campaign
 
@@ -241,11 +241,11 @@ Start small. Read the logs, watch bounces and complaints, then raise volume.
 <AccordionGroup>
   <Accordion title="Do I need a verified domain to send cold email?">
     No, not when you send through your own accounts. Each account authenticates
-    at its own provider. A verified domain in Sendmux is needed only for the
+    at its own provider. A verified domain in Qubrics is needed only for the
     managed account, or to receive mail.
   </Accordion>
 
-<Accordion title="Which inbox providers work with Sendmux?">
+<Accordion title="Which inbox providers work with Qubrics?">
   Any provider that gives you SMTP credentials, plus Gmail and Outlook or
   Microsoft 365 through the connected-account flow. Cold email inbox providers
   such as Mission Inbox, ScaledMail, and Zapmail connect as Custom SMTP

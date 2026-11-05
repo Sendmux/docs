@@ -1,6 +1,6 @@
 ---
 title: "AI SDK"
-description: "Use Sendmux mailbox and sending tools from the AI SDK with generateText or streamText."
+description: "Use Qubrics mailbox and sending tools from the AI SDK with generateText or streamText."
 keywords:
   [
     "AI SDK",
@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener noreferrer" target="_blank">AI SDK</a> to Sendmux. `createMCPClient` converts MCP tools into AI SDK tools, so they drop straight into `generateText` or `streamText`.
+Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener noreferrer" target="_blank">AI SDK</a> to Qubrics. `createMCPClient` converts MCP tools into AI SDK tools, so they drop straight into `generateText` or `streamText`.
 
 <Warning>
   Replace placeholder keys and tokens before running any snippet. Do not commit
@@ -21,7 +21,7 @@ Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener
 ## Requirements
 
 - A project with `ai` and `@ai-sdk/mcp` installed.
-- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- A Qubrics key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 - Python available in the same runtime if you use the local stdio connection.
 
 ## Install
@@ -32,7 +32,7 @@ Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener
 npm install ai @ai-sdk/mcp
 ```
 
-```bash Sendmux MCP
+```bash Qubrics MCP
 pip install sendmux-mcp
 ```
 
@@ -134,7 +134,7 @@ const result = await streamText({
 
 <Note>
   Spreading several tool sets into one object lets later sets override earlier
-  tools with the same name. Keep Sendmux in its own client, or namespace the
+  tools with the same name. Keep Qubrics in its own client, or namespace the
   others, when you connect more than one MCP server.
 </Note>
 
@@ -182,6 +182,6 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
     Work with threads and conversation state.
   </Card>
   <Card title="TypeScript SDK" icon="code" href="/developer-tools/sdks/typescript">
-    Call Sendmux directly when you want full endpoint coverage.
+    Call Qubrics directly when you want full endpoint coverage.
   </Card>
 </CardGroup>

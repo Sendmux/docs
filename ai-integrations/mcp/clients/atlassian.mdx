@@ -1,11 +1,11 @@
 ---
-title: "Connect Atlassian to Sendmux MCP"
+title: "Connect Atlassian to Qubrics MCP"
 sidebarTitle: "Atlassian"
-description: "Add hosted Sendmux MCP as a custom external server in Atlassian administration."
-keywords: ["Atlassian MCP", "external MCP server", "Sendmux MCP", "OAuth", "DCR"]
+description: "Add hosted Qubrics MCP as a custom external server in Atlassian administration."
+keywords: ["Atlassian MCP", "external MCP server", "Qubrics MCP", "OAuth", "DCR"]
 ---
 
-Use this how-to to connect an Atlassian site to hosted Sendmux MCP. You need Atlassian organisation administrator access and a Sendmux user who can approve the intended team, product surfaces, and mailboxes. This page does not cover local servers, private HTTP, or Atlassian's built-in system integrations.
+Use this how-to to connect an Atlassian site to hosted Qubrics MCP. You need Atlassian organisation administrator access and a Qubrics user who can approve the intended team, product surfaces, and mailboxes. This page does not cover local servers, private HTTP, or Atlassian's built-in system integrations.
 
 ## Add the server
 
@@ -17,13 +17,13 @@ Use this how-to to connect an Atlassian site to hosted Sendmux MCP. You need Atl
     Open the dropdown beside **Explore apps**, choose **Add external MCP server**, then choose **Custom MCP server**.
   </Step>
   <Step title="Enter the connection details">
-    Enter **MCP URL** as `https://mcp.sendmux.ai/mcp`, **MCP server name** as `Sendmux`, and **Authentication** as **OAuth**. The hosted endpoint uses Streamable HTTP and OAuth 2.1 authorisation code with PKCE and dynamic client registration (DCR). You do not need a manually created Sendmux client ID or secret.
+    Enter **MCP URL** as `https://mcp.sendmux.ai/mcp`, **MCP server name** as `Qubrics`, and **Authentication** as **OAuth**. The hosted endpoint uses Streamable HTTP and OAuth 2.1 authorisation code with PKCE and dynamic client registration (DCR). You do not need a manually created Qubrics client ID or secret.
   </Step>
   <Step title="Authorise the grant">
-    Complete Sendmux browser authorisation. Select only the team, product surfaces, and mailboxes needed for this connection.
+    Complete Qubrics browser authorisation. Select only the team, product surfaces, and mailboxes needed for this connection.
   </Step>
   <Step title="Verify the connection">
-    Confirm Sendmux appears in **Connected apps** and its tools appear. Invoke one read-only connection or list tool from a granted surface. This verifies your configuration: it does not automatically certify Atlassian as a client.
+    Confirm Qubrics appears in **Connected apps** and its tools appear. Invoke one read-only connection or list tool from a granted surface. This verifies your configuration: it does not automatically certify Atlassian as a client.
   </Step>
 </Steps>
 
@@ -31,7 +31,7 @@ See Atlassian's <a href="https://support.atlassian.com/organization-administrati
 
 ## Manage tools
 
-Open **Apps > Sites**, select the site, then open **Connected apps > Actions > View app details > Tools selection**. Deselect a tool to deactivate it. Sendmux mutations remain governed by the selected grant and each tool's behaviour.
+Open **Apps > Sites**, select the site, then open **Connected apps > Actions > View app details > Tools selection**. Deselect a tool to deactivate it. Qubrics mutations remain governed by the selected grant and each tool's behaviour.
 
 See Atlassian's <a href="https://support.atlassian.com/organization-administration/docs/configure-tools-for-an-external-mcp-server/" rel="nofollow noopener noreferrer" target="_blank">external MCP tool configuration guide</a>.
 
@@ -47,7 +47,7 @@ OAuth keeps four boundaries separate: a registration can restrict an exact resou
 
 For hosted MCP, `invalid_target` means the requested resource does not match an explicitly restricted registration or is not an exact supported resource. Confirm **MCP URL** is exactly `https://mcp.sendmux.ai/mcp` and **Authentication** is **OAuth**. Do not reuse a REST or A2A registration, broaden an existing restriction, weaken resource checks, change scopes, or uninstall and re-add the server as a workaround.
 
-If the documented configuration still fails, record the non-secret error and request identifier and contact [Sendmux support](mailto:contact@sendmux.ai). Do not include tokens or capability URLs.
+If the documented configuration still fails, record the non-secret error and request identifier and contact [Qubrics support](mailto:contact@sendmux.ai). Do not include tokens or capability URLs.
 
 ## Next steps
 

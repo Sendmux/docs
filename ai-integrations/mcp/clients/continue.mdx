@@ -1,10 +1,10 @@
 ---
 title: "Continue MCP setup"
-description: "Configure Sendmux MCP in Continue."
-keywords: ["Continue","MCP client","Sendmux MCP","MCP setup"]
+description: "Configure Qubrics MCP in Continue."
+keywords: ["Continue","MCP client","Qubrics MCP","MCP setup"]
 ---
 
-Use this page to connect Sendmux MCP to your AI client.
+Use this page to connect Qubrics MCP to your AI client.
 
 ## Local stdio
 
@@ -29,11 +29,11 @@ export SENDMUX_ROOT_KEY=smx_root_...
 Create `.continue/mcpServers/sendmux-mailbox.yaml`.
 
 ```yaml
-name: Sendmux mailbox MCP
+name: Qubrics mailbox MCP
 version: 0.0.1
 schema: v1
 mcpServers:
-  - name: Sendmux mailbox
+  - name: Qubrics mailbox
     type: stdio
     command: sendmux-mcp-mailbox
     env:
@@ -55,11 +55,11 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
 Create `.continue/mcpServers/sendmux-local.yaml`.
 
 ```yaml
-name: Sendmux local MCP
+name: Qubrics local MCP
 version: 0.0.1
 schema: v1
 mcpServers:
-  - name: Sendmux local
+  - name: Qubrics local
     type: streamable-http
     url: http://127.0.0.1:8765/mcp
     headers:

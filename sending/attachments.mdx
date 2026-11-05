@@ -1,10 +1,10 @@
 ---
 title: "Attachments"
-description: "Send, upload, and download attachments with Sendmux."
+description: "Send, upload, and download attachments with Qubrics."
 keywords: ["attachments", "file uploads", "file downloads", "base64", "MIME types", "size limits"]
 ---
 
-For the Sending API, upload file bytes first and send by `attachment_id`. Inline base64 attachments remain supported for small generated content and older integrations, but uploaded refs are the preferred path for normal files. Direct and delegated binary uploads require the exact `Content-Length`; Sendmux SDK and CLI file helpers calculate it from the local file.
+For the Sending API, upload file bytes first and send by `attachment_id`. Inline base64 attachments remain supported for small generated content and older integrations, but uploaded refs are the preferred path for normal files. Direct and delegated binary uploads require the exact `Content-Length`; Qubrics SDK and CLI file helpers calculate it from the local file.
 
 ## Limits
 
@@ -26,7 +26,7 @@ Upload bytes directly when your client has the API key:
 ```bash
 SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
 ATTACHMENT_ID="$(
-  curl -sS -X POST "https://smtp.sendmux.ai/api/v1/emails/attachments?filename=invoice.pdf" \
+  curl -sS -X POST "https://smtp.qubrics.com/api/v1/emails/attachments?filename=invoice.pdf" \
     --header @- \
     -H "Content-Type: application/pdf" \
     -H "Content-Length: $SIZE_BYTES" \
@@ -56,7 +56,7 @@ SIZE_BYTES="$(wc -c < invoice.pdf | tr -d ' ')"
 SHA256="$(shasum -a 256 invoice.pdf | awk '{print $1}')"
 
 UPLOAD_INTENT="$({
-  curl -sS -X POST https://smtp.sendmux.ai/api/v1/emails/attachment-uploads \
+  curl -sS -X POST https://smtp.qubrics.com/api/v1/emails/attachment-uploads \
     --header @- \
     -H "Content-Type: application/json" \
     -d "{
@@ -100,7 +100,7 @@ SDK and CLI helpers can read a local path. MCP clients instead request a short-l
 
 ## Allowed files
 
-Sendmux accepts common image, document, spreadsheet, presentation, text, calendar, and contact formats. Executables and archives are rejected.
+Qubrics accepts common image, document, spreadsheet, presentation, text, calendar, and contact formats. Executables and archives are rejected.
 
 Binary files are checked against their claimed file type. Text-based files are checked by extension.
 

@@ -4,14 +4,14 @@ description: "Read raw or cleaned mailbox message bodies with content controls."
 keywords: ["message body","clean message content","raw email body","Mailbox API"]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 ## Message body APIs
 
 Use the raw body endpoint when you need the message body exactly as available from the mailbox.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/body?part=both&max_body_chars=50000" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/body?part=both&max_body_chars=50000" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -41,7 +41,7 @@ curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/body?part=both&max_
 Use the clean content endpoint when you want deterministic body cleaning and structured metadata.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?strip_signature=true&strip_quotes=true&include_links=true&include_html=false&include_headers=selected&include_attachments=metadata" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/content?strip_signature=true&strip_quotes=true&include_links=true&include_html=false&include_headers=selected&include_attachments=metadata" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -108,7 +108,7 @@ Clean content controls:
 Set `include_html=true` on the content endpoint to receive both the original `body.html` and `body.cleaned_html`. The stripping options apply to the cleaned copy. Recognised quote and signature containers are removed; surviving markup, links and inline-image references are preserved. Unrecognised formats remain unchanged.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?include_html=true&strip_quotes=true&strip_signature=true" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/content?include_html=true&strip_quotes=true&strip_signature=true" \
   -H "Authorization: Bearer $SENDMUX_API_KEY"
 ```
 
@@ -127,7 +127,7 @@ Both added fields are `null` when HTML is absent or not requested. Cleaning does
 `GET /mailbox/messages/{message_id}/raw` returns the stored message bytes as `message/rfc822`, including headers and encoded attachments. It requires `mailbox.read` access to that message and supports `ETag` and `If-None-Match`.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/raw" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/raw" \
   -H "Authorization: Bearer $SENDMUX_API_KEY" \
   --output message.eml
 ```
@@ -144,7 +144,7 @@ Use attachment text extraction when you need readable content from a file rather
 
     ```bash
     curl -X POST \
-      "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
+      "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
       -H "Authorization: Bearer $SENDMUX_API_KEY"
     ```
 
@@ -155,7 +155,7 @@ Use attachment text extraction when you need readable content from a file rather
 
     ```bash
     curl \
-      "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
+      "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
       -H "Authorization: Bearer $SENDMUX_API_KEY"
     ```
 

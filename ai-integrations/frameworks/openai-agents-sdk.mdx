@@ -1,6 +1,6 @@
 ---
 title: "OpenAI Agents SDK"
-description: "Give an OpenAI Agents SDK agent a Sendmux mailbox through an MCP server."
+description: "Give an OpenAI Agents SDK agent a Qubrics mailbox through an MCP server."
 keywords:
   [
     "OpenAI Agents SDK",
@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Use this page to attach Sendmux to an <a href="https://openai.github.io/openai-agents-python/" rel="nofollow noopener noreferrer" target="_blank">OpenAI Agents SDK</a> agent. Servers passed to `mcp_servers` expose their tools to the agent automatically, so you do not write tool wrappers.
+Use this page to attach Qubrics to an <a href="https://openai.github.io/openai-agents-python/" rel="nofollow noopener noreferrer" target="_blank">OpenAI Agents SDK</a> agent. Servers passed to `mcp_servers` expose their tools to the agent automatically, so you do not write tool wrappers.
 
 <Warning>
   Replace placeholder keys and tokens before running any snippet. Do not commit
@@ -22,7 +22,7 @@ Use this page to attach Sendmux to an <a href="https://openai.github.io/openai-a
 
 - Python 3.10 or newer.
 - `openai-agents` installed.
-- A Sendmux key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
+- A Qubrics key for the surface you are calling. Mailbox work needs an `smx_mbx_` key or a scoped `smx_agent_` token.
 
 ## Install
 
@@ -44,7 +44,7 @@ from agents.mcp import MCPServerStdio
 
 async def main() -> None:
     async with MCPServerStdio(
-        name="Sendmux mailbox",
+        name="Qubrics mailbox",
         params={
             "command": "sendmux-mcp-mailbox",
             "env": {"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"]},
@@ -98,7 +98,7 @@ import os
 from agents.mcp import MCPServerStreamableHttp
 
 server = MCPServerStreamableHttp(
-    name="Sendmux mailbox",
+    name="Qubrics mailbox",
     params={
         "url": "http://127.0.0.1:8765/mcp",
         "headers": {"Authorization": f"Bearer {os.environ['SENDMUX_MCP_HTTP_BEARER_TOKEN']}"},
@@ -111,11 +111,11 @@ server = MCPServerStreamableHttp(
 
 ## Require approval before an agent sends
 
-The SDK can hold a tool for approval before it runs. Pair this with the Sendmux sending gate when a human should see the message first.
+The SDK can hold a tool for approval before it runs. Pair this with the Qubrics sending gate when a human should see the message first.
 
 ```python
 server = MCPServerStdio(
-    name="Sendmux",
+    name="Qubrics",
     params={"command": "sendmux-mcp-mailbox", "env": {"SENDMUX_API_KEY": mailbox_key}},
     tool_filter=["mailbox_list_messages", "mailbox_search_message_snippets", "mailbox_get_message"],
     require_approval="never",
@@ -135,7 +135,7 @@ Mailbox-scoped keys are the isolation boundary. Open a server per tenant so the 
 ```python
 def server_for(mailbox_key: str) -> MCPServerStdio:
     return MCPServerStdio(
-        name="Sendmux mailbox",
+        name="Qubrics mailbox",
         params={
             "command": "sendmux-mcp-mailbox",
             "env": {"SENDMUX_API_KEY": mailbox_key},
@@ -187,6 +187,6 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
     Register an agent and complete owner approval.
   </Card>
   <Card title="Python SDK" icon="code" href="/developer-tools/sdks/python">
-    Call Sendmux directly when you want full endpoint coverage.
+    Call Qubrics directly when you want full endpoint coverage.
   </Card>
 </CardGroup>

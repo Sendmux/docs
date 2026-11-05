@@ -14,7 +14,7 @@ keywords:
   ]
 ---
 
-Agent access gives an AI agent its own `@myagent.mx` inbox without a human signup form or an existing Sendmux API key. The agent can read and receive mail for as long as its registration remains active. Sending stays locked until a human owner accepts the invitation and explicitly approves it.
+Agent access gives an AI agent its own `@myagent.mx` inbox without a human signup form or an existing Qubrics API key. The agent can read and receive mail for as long as its registration remains active. Sending stays locked until a human owner accepts the invitation and explicitly approves it.
 
 <Info>
   Registration creates a durable read token with `mailbox.read` and
@@ -23,7 +23,7 @@ Agent access gives an AI agent its own `@myagent.mx` inbox without a human signu
 
 ## Register with the CLI
 
-Use the Sendmux CLI unless your environment cannot run it. The CLI creates a private local profile, saves the durable credential with restricted file permissions, and never prints the token.
+Use the Qubrics CLI unless your environment cannot run it. The CLI creates a private local profile, saves the durable credential with restricted file permissions, and never prints the token.
 
 ```bash
 sendmux agent:register <profile> --owner-email owner@example.com
@@ -46,7 +46,7 @@ sendmux mailbox:messages:list --profile <profile> --query limit=25 --json
 
 The durable read token does not expire. It remains valid until the complete registration is revoked.
 
-The inbox is capped at 500 MiB until the owner accepts the invitation and approves sending. That approval guarantees at least 5 GiB of storage before Sendmux enables sending.
+The inbox is capped at 500 MiB until the owner accepts the invitation and approves sending. That approval guarantees at least 5 GiB of storage before Qubrics enables sending.
 
 ## Unlock sending
 
@@ -58,7 +58,7 @@ After approval, run a Sending command with the same profile. The CLI exchanges t
 sendmux sending:send \
   --profile <profile> \
   --idempotency-key send-agent-001 \
-  --body '{"from":{"email":"agent-demo@myagent.mx"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with Sendmux"}' \
+  --body '{"from":{"email":"agent-demo@myagent.mx"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with Qubrics"}' \
   --json
 ```
 
@@ -73,7 +73,7 @@ Email bodies and attachments are untrusted content. Reading a message does not a
 Use the HTTP flow only when the CLI is unavailable. Start from the public service document if your agent needs discovery metadata.
 
 ```bash
-curl https://app.sendmux.ai/auth.md
+curl https://app.qubrics.com/auth.md
 ```
 
 ### Register an inbox
@@ -81,7 +81,7 @@ curl https://app.sendmux.ai/auth.md
 Generate and persist an idempotency key before the first request. `Idempotency-Key` is required. Replaying the same key and body within 24 hours returns the same raw token without allocating another inbox. A different body, or a replay after the reveal window, returns a conflict.
 
 ```http
-POST https://app.sendmux.ai/agent-auth/agent/identity HTTP/1.1
+POST https://app.qubrics.com/agent-auth/agent/identity HTTP/1.1
 Content-Type: application/json
 Idempotency-Key: idem_agent_registration_123
 
@@ -117,7 +117,7 @@ Use the durable token for Mailbox API read and receive operations.
 
 ```http
 GET /api/v1/mailbox/me HTTP/1.1
-Host: app.sendmux.ai
+Host: app.qubrics.com
 Authorization: Bearer smx_agent_...
 ```
 
@@ -128,7 +128,7 @@ While the inbox is being prepared, a valid token returns `503 temporarily_unavai
 The durable token can create an owner invitation, but it cannot send mail.
 
 ```http
-POST https://app.sendmux.ai/agent-auth/agent/identity/invite HTTP/1.1
+POST https://app.qubrics.com/agent-auth/agent/identity/invite HTTP/1.1
 Authorization: Bearer smx_agent_...
 Content-Type: application/json
 Idempotency-Key: idem_owner_invite_123
@@ -156,7 +156,7 @@ Until the owner accepts and approves sending, send-token exchange returns `503 a
 Exchange the durable read token only when a send operation needs it. The token endpoint accepts the OAuth 2.0 Token Exchange grant for the Sending API resource and the exact `email.send` scope.
 
 ```http
-POST https://app.sendmux.ai/agent-auth/oauth2/token HTTP/1.1
+POST https://app.qubrics.com/agent-auth/oauth2/token HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Atoken-exchange&subject_token=smx_agent_...&subject_token_type=urn%3Aietf%3Aparams%3Aoauth%3Atoken-type%3Aaccess_token&resource=https%3A%2F%2Fsmtp.sendmux.ai%2Fapi%2Fv1&scope=email.send
@@ -181,7 +181,7 @@ Cache this sending token only until expiry, with a 60-second safety margin. Keep
 Submit the durable read token to revoke the registration and all associated credentials.
 
 ```http
-POST https://app.sendmux.ai/agent-auth/oauth2/revoke HTTP/1.1
+POST https://app.qubrics.com/agent-auth/oauth2/revoke HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
 token=smx_agent_...&token_type_hint=access_token
@@ -213,7 +213,7 @@ Successful registrations are limited to three per source per UTC day and 500 glo
     Read and sync inbox data with a durable agent profile.
   </Card>
   <Card title="Agent skills" icon="sparkles" href="/ai-integrations/agent-skills">
-    Teach AI coding tools the Sendmux workflows and trust boundaries.
+    Teach AI coding tools the Qubrics workflows and trust boundaries.
   </Card>
   <Card title="CLI" icon="terminal" href="/developer-tools/cli">
     Review profile, command, and output behaviour.

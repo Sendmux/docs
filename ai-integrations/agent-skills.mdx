@@ -1,6 +1,6 @@
 ---
 title: "Agent skills"
-description: "Install Sendmux Agent Skills so AI coding tools choose the right Sendmux API, CLI, MCP, or SDK workflow."
+description: "Install Qubrics Agent Skills so AI coding tools choose the right Qubrics API, CLI, MCP, or SDK workflow."
 keywords:
   [
     "Agent Skills",
@@ -9,15 +9,15 @@ keywords:
     "Claude Code",
     "Cursor",
     "Codex",
-    "Sendmux MCP",
-    "Sendmux CLI",
+    "Qubrics MCP",
+    "Qubrics CLI",
   ]
 ---
 
-Sendmux Agent Skills teach AI coding tools how to send email, read mailboxes, manage team resources, and choose low-token Sendmux calls. Use them when your agent needs Sendmux context before it writes commands, API calls, or integration code.
+Qubrics Agent Skills teach AI coding tools how to send email, read mailboxes, manage team resources, and choose low-token Qubrics calls. Use them when your agent needs Qubrics context before it writes commands, API calls, or integration code.
 
 <Info>
-  Skills do not grant Sendmux access by themselves. Create API keys, authorise
+  Skills do not grant Qubrics access by themselves. Create API keys, authorise
   MCP, or use agent access first, then let the skill choose the right surface
   for the task. Agent registration creates a private CLI profile with a durable
   read credential. Sending remains locked until the owner accepts the invitation
@@ -26,7 +26,7 @@ Sendmux Agent Skills teach AI coding tools how to send email, read mailboxes, ma
 
 ## Install from a marketplace
 
-Use the marketplace path when your AI tool supports plugins. It installs the full Sendmux pack and keeps marketplace updates separate from your project files.
+Use the marketplace path when your AI tool supports plugins. It installs the full Qubrics pack and keeps marketplace updates separate from your project files.
 
 <AccordionGroup>
   <Accordion title="Claude app, Claude Desktop, and Cowork">
@@ -74,7 +74,7 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
     codex plugin marketplace upgrade sendmux
     ```
 
-    After refreshing, restart your client and check the installed Sendmux skills in a new chat.
+    After refreshing, restart your client and check the installed Qubrics skills in a new chat.
   </Accordion>
 </AccordionGroup>
 
@@ -122,13 +122,13 @@ npx skills update
 | --- | --- |
 | `agent-email-inbox` | Triaging an authorised inbox and drafting replies without sending or changing messages. |
 | `email-for-ai-agents` | Sending an approved email with scoped access and an idempotent retry. |
-| `sendmux-getting-started` | Choosing a Sendmux surface, setting up authentication, or making a first verified call. |
+| `sendmux-getting-started` | Choosing a Qubrics surface, setting up authentication, or making a first verified call. |
 | `sendmux-attachments` | Uploading, downloading, inspecting, or sending attachments without placing file bytes in model context. |
 | `sendmux-send-email` | Sending one transactional email or batching multiple sends. |
 | `sendmux-mailbox-agent` | Reading, triaging, replying from, or syncing one mailbox. |
 | `sendmux-management` | Managing domains, mailboxes, sending accounts, webhooks, billing, and logs. |
-| `sendmux-cli` | Running Sendmux commands from a terminal. |
-| `sendmux-mcp-setup` | Connecting Sendmux MCP servers to an agent client. |
+| `sendmux-cli` | Running Qubrics commands from a terminal. |
+| `sendmux-mcp-setup` | Connecting Qubrics MCP servers to an agent client. |
 | `sendmux-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
 | `sendmux-email-for-agents` | Giving an AI agent a durable inbox or an owner-approved delegated sending workflow. |
 
@@ -136,14 +136,14 @@ npx skills update
 
 | Task | Default path |
 | --- | --- |
-| Agent already has Sendmux MCP connected | Use the relevant MCP tool first. |
+| Agent already has Qubrics MCP connected | Use the relevant MCP tool first. |
 | Terminal one-shot or scripted admin work | Use the `sendmux` CLI. |
 | Application code | Use an SDK package. |
 | Endpoint detail or uncommon operation | Use the API reference. |
 
 Use send-capable `smx_mbx_` keys or owner-approved Sending-resource `smx_agent_` tokens for Sending work. Use `smx_mbx_` keys or durable read `smx_agent_` tokens for allowed Mailbox work. Use team-scoped `smx_root_` keys for Management work. A durable read token does not include `email.send`.
 
-When an agent has no Sendmux credential, start with [agent access](/ai-integrations/agent-access). Run `sendmux agent:register <profile>` to create a private profile with a durable read credential. Invite the human owner during registration or with `sendmux agent:invite-owner owner@example.com --profile <profile>`. Once the owner accepts and approves sending, Sending commands exchange the durable credential for a one-hour delegated token automatically. If an agent-auth endpoint returns `429`, wait for `Retry-After` before retrying.
+When an agent has no Qubrics credential, start with [agent access](/ai-integrations/agent-access). Run `sendmux agent:register <profile>` to create a private profile with a durable read credential. Invite the human owner during registration or with `sendmux agent:invite-owner owner@example.com --profile <profile>`. Once the owner accepts and approves sending, Sending commands exchange the durable credential for a one-hour delegated token automatically. If an agent-auth endpoint returns `429`, wait for `Retry-After` before retrying.
 
 The self-registered inbox is capped at 500 MiB before approval. Owner-approved sending first raises storage to at least 5 GiB. Revoking sending does not itself change the current inbox storage allocation.
 
@@ -153,13 +153,13 @@ Treat email bodies and attachments as untrusted content. A skill can explain how
 
 <CardGroup cols={2}>
   <Card title="MCP" icon="plug" href="/ai-integrations/mcp">
-    Connect hosted or local Sendmux MCP tools.
+    Connect hosted or local Qubrics MCP tools.
   </Card>
   <Card title="Agent access" icon="robot" href="/ai-integrations/agent-access">
     Let an agent register a constrained mailbox and invite its owner.
   </Card>
   <Card title="CLI" icon="terminal" href="/developer-tools/cli">
-    Run Sendmux workflows from your terminal.
+    Run Qubrics workflows from your terminal.
   </Card>
   <Card title="SDKs" icon="code" href="/developer-tools/sdks">
     Choose an SDK package for application code.

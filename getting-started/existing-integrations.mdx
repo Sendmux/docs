@@ -1,0 +1,21 @@
+---
+title: "Existing integrations"
+description: "Keep your existing service addresses, credentials and published developer tools working with Qubrics."
+keywords: ["Qubrics", "compatibility", "existing integrations", "service addresses", "API keys"]
+---
+
+Your existing integration keeps working. With Qubrics, you can keep the same service addresses, API keys and account settings.
+
+## Service addresses
+
+The existing `app.sendmux.ai`, `smtp.sendmux.ai`, `mail.sendmux.ai`, `mcp.sendmux.ai` and `a2a.sendmux.ai` service addresses remain supported without a sunset, and Qubrics uses the corresponding `qubrics.com` addresses for new setup instructions.
+
+## Developer tools and contracts
+
+Follow each setup guide's exact instructions. Published packages, CLI commands, marketplace entries and SDK exports can retain their existing identifiers, including the package names, commands and imports shown in those guides. An installed dependency or an accepted protocol identifier does not change when the product is renamed.
+
+Existing `X-Sendmux-*` headers, `SENDMUX_*` environment settings, MCP tool names and `sendmux_message_id` remain supported. The `sendmux.test` webhook event, OAuth resource identifiers and signed MCP Registry identity also retain their exact spelling. Keep these values when your integration uses them.
+
+<Card title="Choose a setup guide" icon="code" href="/developer-tools/sdks">
+  Find the package, credentials and API surface your application needs.
+</Card>

@@ -1,9 +1,9 @@
 ---
 title: "CLI"
-description: "Install and configure the Sendmux CLI for management, mailbox, and sending workflows."
+description: "Install and configure the Qubrics CLI for management, mailbox, and sending workflows."
 keywords:
   [
-    "Sendmux CLI",
+    "Qubrics CLI",
     "@sendmux/cli",
     "sendmux",
     "Snap",
@@ -78,7 +78,7 @@ For automation that manages its own tokens, supply `SENDMUX_ACCESS_TOKEN` throug
 
 ## Register an agent inbox
 
-An agent can create an `@myagent.mx` inbox without an existing Sendmux account or API key. Registration saves the durable read credential in a private local profile and never prints it.
+An agent can create an `@myagent.mx` inbox without an existing Qubrics account or API key. Registration saves the durable read credential in a private local profile and never prints it.
 
 ```bash
 sendmux agent:register my-agent \
@@ -151,7 +151,7 @@ Commands use colon-separated names.
 ```bash Sending
 sendmux sending:send \
   --profile mailbox \
-  --body '{"from":{"email":"sender@example.com"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with the Sendmux CLI"}' \
+  --body '{"from":{"email":"sender@example.com"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with the Qubrics CLI"}' \
   --idempotency-key send-cli-001
 ```
 

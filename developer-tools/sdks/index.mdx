@@ -1,7 +1,7 @@
 ---
 title: "SDKs"
 sidebarTitle: "Overview"
-description: "Choose a Sendmux SDK package and the API surface it should use."
+description: "Choose a Qubrics SDK package and the API surface it should use."
 keywords:
   [
     "SDKs",
@@ -17,12 +17,12 @@ keywords:
   ]
 ---
 
-Sendmux SDKs give your application package-managed clients for the Sending, Mailbox, and Management APIs.
+Qubrics SDKs give your application package-managed clients for the Sending, Mailbox, and Management APIs.
 
 Use an umbrella package when one application needs more than one API surface. Use a surface package when you want a smaller dependency for one job.
 
 <Info>
-  Create the credential in Sendmux before you install a package. Sending
+  Create the credential in Qubrics before you install a package. Sending
   clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
   `smx_mbx_` keys or scoped `smx_agent_` tokens. Management clients use
   team-scoped `smx_root_` keys.
@@ -59,10 +59,10 @@ TypeScript, Python, Go, PHP, Ruby, and Rust clients also accept [REST OAuth toke
 
 <CardGroup cols={2}>
   <Card title="CLI" icon="terminal" href="/developer-tools/cli">
-    Install the Sendmux CLI with Snap, Homebrew, or npm for terminal workflows.
+    Install the Qubrics CLI with Snap, Homebrew, or npm for terminal workflows.
   </Card>
   <Card title="MCP servers" icon="plug" href="/ai-integrations/mcp">
-    Connect AI tools to Sendmux docs and authorised product tools.
+    Connect AI tools to Qubrics docs and authorised product tools.
   </Card>
 </CardGroup>
 

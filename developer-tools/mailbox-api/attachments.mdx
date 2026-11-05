@@ -4,7 +4,7 @@ description: "Upload outbound mailbox attachments and download attachments from 
 keywords: ["mailbox attachments","attachment upload","attachment download","blob ID"]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 ## Attachments
 
@@ -14,7 +14,7 @@ raw bytes in the request body, then pass the returned `blob_id` to
 headers, and encoded attachments, must fit inside the 25 MB raw message limit.
 
 ```bash
-curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \
+curl -X POST "https://app.qubrics.com/api/v1/mailbox/attachments:upload?filename=invoice.pdf" \
   --header @- \
   -H "Content-Type: application/pdf" \
   --data-binary "@invoice.pdf" <<< "Authorization: Bearer $SENDMUX_API_KEY"
@@ -38,7 +38,7 @@ curl -X POST "https://app.sendmux.ai/api/v1/mailbox/attachments:upload?filename=
 Then send the uploaded attachment by ID:
 
 ```bash
-curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages/send \
+curl -X POST https://app.qubrics.com/api/v1/mailbox/messages/send \
   --header @- \
   -H "Content-Type: application/json" \
   -d '{
@@ -67,7 +67,7 @@ attachments and use the returned link only for binary or oversized files.
 Attachment downloads support byte ranges:
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/msg_123/attachments/att_123" \
   --header @- \
   -H "Range: bytes=0-1048575" \
   --output invoice.part <<< "Authorization: Bearer $SENDMUX_API_KEY"

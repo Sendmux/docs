@@ -1,6 +1,6 @@
 ---
 title: "Sending by HTTP"
-description: "Send single or batch email requests through the Sendmux Sending API."
+description: "Send single or batch email requests through the Qubrics Sending API."
 keywords: ["HTTP API", "send email", "batch send", "JSON", "Sending API"]
 ---
 
@@ -28,7 +28,7 @@ Use the HTTP Sending API for new integrations, batch sending, and retry-safe req
 ## Send one email
 
 ```bash
-curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+curl -X POST https://smtp.qubrics.com/api/v1/emails/send \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -47,7 +47,7 @@ A successful request returns `200 OK` with a queued `message_id`.
 Send up to 100 messages in one request. The response reports each message by its input index.
 
 ```bash
-curl -X POST https://smtp.sendmux.ai/api/v1/emails/send/batch \
+curl -X POST https://smtp.qubrics.com/api/v1/emails/send/batch \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -117,7 +117,7 @@ if (!data.ok) {
 
 Use [Sending API errors](/sending-api/errors) for retry and support guidance.
 
-On Free, accepted and in-flight recipients share a limit of 50 per UTC day. When a new request would cross it, Sendmux returns `429 daily_limit_exceeded` before queueing that message. A queued message that reaches a full UTC day waits for the next reset. Wait for the `Retry-After` period or upgrade to Pro.
+On Free, accepted and in-flight recipients share a limit of 50 per UTC day. When a new request would cross it, Qubrics returns `429 daily_limit_exceeded` before queueing that message. A queued message that reaches a full UTC day waits for the next reset. Wait for the `Retry-After` period or upgrade to Pro.
 
 ## Related guides
 

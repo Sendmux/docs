@@ -1,6 +1,6 @@
 ---
 title: "Webhooks setup"
-description: "Subscribe to Sendmux events, verify signatures, and review delivery attempts."
+description: "Subscribe to Qubrics events, verify signatures, and review delivery attempts."
 keywords: ["webhooks", "events", "signatures", "HMAC", "retries", "rotation"]
 ---
 
@@ -65,7 +65,7 @@ Verify the signature before acting on an event. See [Verify webhook signatures](
 
 Your endpoint should return `2xx` quickly. Non-`2xx` responses and timeouts are retried across a 24-hour window.
 
-After the final failed attempt, Sendmux marks the webhook as failing and emails the team owner. Fix the endpoint, then disable and re-enable the webhook to resume delivery.
+After the final failed attempt, Qubrics marks the webhook as failing and emails the team owner. Fix the endpoint, then disable and re-enable the webhook to resume delivery.
 
 ## Review deliveries
 

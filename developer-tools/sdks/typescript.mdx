@@ -1,6 +1,6 @@
 ---
 title: "TypeScript SDK"
-description: "Install and configure the Sendmux TypeScript SDK packages."
+description: "Install and configure the Qubrics TypeScript SDK packages."
 keywords:
   [
     "TypeScript SDK",
@@ -8,11 +8,11 @@ keywords:
     "@sendmux/sending",
     "@sendmux/mailbox",
     "@sendmux/management",
-    "Sendmux SDKs",
+    "Qubrics SDKs",
   ]
 ---
 
-Use the TypeScript SDK when your application needs package-managed clients for one or more Sendmux API surfaces.
+Use the TypeScript SDK when your application needs package-managed clients for one or more Qubrics API surfaces.
 
 <Info>
   For API-key authentication, Sending clients accept a send-capable `smx_mbx_` key or owner-approved Sending-resource `smx_agent_` token. Mailbox clients accept
@@ -113,7 +113,7 @@ Surface packages expose `createSendingClient`, `createMailboxClient`, and `creat
   exchange the durable token for a one-hour Sending-resource token before sending.
 </Note>
 
-Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+Sending uses `https://smtp.qubrics.com/api/v1` by default. Mailbox and Management use `https://app.qubrics.com/api/v1`.
 
 ## Shared API behaviour
 
