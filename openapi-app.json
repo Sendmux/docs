@@ -11409,7 +11409,7 @@
     }
   },
   "info": {
-    "description": "Programmatic access to your Qubrics email infrastructure.",
+    "description": "Programmatic access to your Qubrics email infrastructure. Probe.",
     "title": "Qubrics API",
     "version": "1.0.0"
   },
