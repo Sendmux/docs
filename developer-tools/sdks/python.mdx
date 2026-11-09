@@ -58,7 +58,7 @@ import os
 from sendmux_mailbox import create_mailbox_client
 
 client = create_mailbox_client(
-    access_token=lambda: os.environ["SENDMUX_ACCESS_TOKEN"],
+    access_token=lambda: os.environ["QUBRICS_ACCESS_TOKEN"],
 )
 ```
 
@@ -77,7 +77,7 @@ import os
 from sendmux_sdk import sending
 
 client = sending.create_sending_client(
-    api_key=os.environ["SENDMUX_MAILBOX_API_KEY"],
+    api_key=os.environ["QUBRICS_MAILBOX_API_KEY"],
 )
 ```
 
@@ -86,7 +86,7 @@ import os
 from sendmux_sdk import mailbox
 
 client = mailbox.create_mailbox_client(
-    api_key=os.environ["SENDMUX_MAILBOX_API_KEY"],
+    api_key=os.environ["QUBRICS_MAILBOX_API_KEY"],
 )
 ```
 
@@ -95,7 +95,7 @@ import os
 from sendmux_sdk import management
 
 client = management.create_management_client(
-    api_key=os.environ["SENDMUX_ROOT_API_KEY"],
+    api_key=os.environ["QUBRICS_ROOT_API_KEY"],
 )
 ```
 

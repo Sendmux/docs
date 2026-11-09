@@ -84,7 +84,7 @@ Add `delivery_group` to a single-send body or to each message in `messages` for 
 
 Replace the example IDs with your groups' public IDs. Use at most 50 groups; surrounding whitespace is trimmed and repeated IDs are deduplicated. Each batch message can select different groups, within the credential's scope.
 
-Use the dedicated field for HTTP requests. `X-Sendmux-Delivery-Group` is reserved and cannot be supplied through `custom_headers`. See [Delivery groups](/sending/accounts/delivery-groups#restrict-one-message) for scope rules and shared-domain overrides.
+Use the dedicated field for HTTP requests. `X-Qubrics-Delivery-Group` is reserved and cannot be supplied through `custom_headers`. See [Delivery groups](/sending/accounts/delivery-groups#restrict-one-message) for scope rules and shared-domain overrides.
 
 ### Other options
 

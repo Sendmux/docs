@@ -1,6 +1,6 @@
 # Docs #75: Qubrics rename
 
-Status: coded, not merged or published. Acceptance remains blocked; no production mutation performed.
+Status: version-independent source prepared on 9 November; not merged or published. Five npm versions remain TBD pending SDK #343 final. Acceptance remains blocked; no production mutation performed.
 Source baseline: `03210aa92d7a81e1ca207f0a35102172696a1f1c` (`origin/main`).
 Worktree: `/Users/rj/Desktop/GIT-REPOS/sendmux-docs-rebrand-qubrics-docs75`, branch `agent/rebrand-qubrics-docs75`.
 Remote verified as `https://github.com/qubrics/docs.git`; issue #75 assigned to `roshanjonah`.
@@ -14,6 +14,38 @@ PR [#78](https://github.com/qubrics/docs/pull/78) was read first and is OPEN at 
 Source changes rename display copy and app/sending/mail/A2A setup addresses, central site name/canonicals/support/GitHub destinations and brand assets. Existing tab/group order stays intact. One compatibility page follows quickstart; the rename entry stays in the navbar-only changelog. The old X account URL, published package names, binary/formula/plugin labels, API identifiers, SDK/MCP runtime defaults and source-owned generated facts remain unchanged until their owners qualify replacements. Downloadable Postman collection titles/defaults change through their owning generator; filenames and credential variable names remain exact, and no hosted workspace sync runs.
 
 The approved SITE candidate provides the Qubrics light/dark SVG logos (`SITE_qubrics.ai` source commit `f383dca6`, `public/logo-light.svg` and `public/logo-dark.svg`). Favicon and MailWizz diagram reuse the same logo emblem. Consent screenshot is cropped to the Product lines controls its caption describes, retaining all three surfaces, selections, permission controls and Authorise/Cancel. It contains no fabricated UI.
+
+## 9 November: authorised branch preparation
+
+Ops authorised version-independent name, host and PR #78 overlap edits, retaining the no-merge/no-publication/no-redirect hold. The five unpublished npm versions below are deliberately **TBD**, even where #343 lists target versions. They are filled only after Ops confirms #343 final. Versionless install commands use the source-approved package names without guessing a release number. Their presence on this branch does not claim installation success or authorise publication.
+
+Read-only npm `latest` measurements on 9 November at 11:29 AEDT:
+
+| Package | Version | Registry response |
+| --- | --- | --- |
+| `@qubrics/core` | `2.0.0` | HTTP 200 |
+| `@qubrics/sending` | `2.0.0` | HTTP 200 |
+| `@qubrics/management` | **TBD** | HTTP 404 |
+| `@qubrics/mailbox` | **TBD** | HTTP 404 |
+| `@qubrics/ai-sdk` | **TBD** | HTTP 404 |
+| `@qubrics/cli` | **TBD** | HTTP 404 |
+| `@qubrics/sdk` | **TBD** | HTTP 404 |
+
+Sources: `https://registry.npmjs.org/@qubrics%2f<name>/latest` and [SDK #343's operator-approved seventh-package correction](https://github.com/qubrics/qubrics-sdk/issues/343). Registry availability is not a fresh-install or runtime qualification. Published core still exports `SendmuxApiError`; the AI SDK source still exports `sendmux(...)`. Both are preserved. The published Sending public wrapper defaults to `https://smtp.qubrics.com/api/v1`; generated inner-client defaults are not claimed to have changed.
+
+The TypeScript guide now prepares the new npm imports and service defaults; CLI examples use `qubrics` and `QUBRICS_*`. Actual Snap and Homebrew install identities stay exact and are labelled as installing the legacy command. Non-TypeScript published imports/defaults, Google/MailWizz selectable labels, OAuth resources, signed Registry identity and docs MCP `search_sendmux` remain exact pending their owning source/release evidence. Advertised hosted MCP setup URLs now use `mcp.qubrics.com`; this does not rewrite an OAuth resource identifier or a protected generated release fact.
+
+PR #78 remains OPEN at `944a2a2c305dbdad5d687dbf0ee050556e9611e2`. Its version-independent MDX hunks were transplanted onto this branch, preserving our branding and hosts: preferred Qubrics environment/header/tool names, complete retained-name reference, CrewAI's eight inherited credential aliases, Codex's two-shell HTTP bearer setup, and the attachment-upgrade warning. The directly affected executable fixtures carry the same aliases. The docs-owned sample function is now `verifyQubricsWebhook`; its test callers match. PR #78 itself is untouched. Its producer-owned OpenAPI snapshots, generated collection changes, release/calendar changelog claims and evidence remain with that PR. This is partial overlap reconciliation, not adoption of its unqualified publication or protected MCP producer.
+
+Preservation check: `scripts/mcp-docs-sdk.json`, `snippets/mcp-release-facts.mdx`, `openapi-app.json` and `openapi-sending.json` are unchanged in this follow-up. The new compatibility guide link points to the full retained-name reference without implying a new alias for `sendmux.test` or the signed Registry identity.
+
+Focused existing examples were seen red before fixture reconciliation: `QUBRICS_API_KEY: unbound variable` and `verifySendmuxWebhook is not a function`. Origin was old test inputs/callers after the authorised example-name change. Imported #78 fixtures and matching sample callers restore seven passing tests, zero skips; all tampering, timestamp, ambiguity and secret-privacy assertions remain. The collection-boundary test also passes. Logs: `overlap-fixtures-red.log`, `overlap-fixtures-green.log`, `postman-overlap-test.log` in the task artifacts directory. No test added, deleted, skipped or weakened.
+
+Confidentiality, external-link safety, Postman drift, Mintlify validation, broken links and whitespace checks pass on the version-independent edits. Logs: `mint-validate-overlap-final.log`, `mint-broken-links-overlap.log`. Eight focused tests pass with zero skips (seven docs/executable/verifier tests plus one collection-boundary test). New installer/versioning/compatibility-link prose passed fresh critique and one humanize pass; exact commands, identifiers, links, structure and qualifications are preserved. Imported PR #78 prose retains its already polished source baseline; exact technical-token edits use the workflow exemption. Independent standards review found no concrete defects or lost security assertions in the resumed diff.
+
+Chrome Agent preview on localhost:3075 rendered the final CLI installer qualification, TypeScript imports, MCP compatibility table and existing-integrations link. Inspected pages had no page/hydration errors; mobile existing-integrations measured viewport390/scrollWidth390. Owned page and Playwriter session7 closed, preview PIDs98571/98870 stopped and port3075 no longer listens. The task-created `/Users/rj/.mintlify/previews/3075` cache was removed; older `3000` and shared caches were left alone.
+
+The acceptance table below records the 5 November baseline. Its all-new-package 404 measurement is superseded by the seven-row table above; its target-host 522 measurements have not been rechecked by this source-only step. #901 owns target recovery and the post-publication SITE proxy check. All four #75 acceptance boxes stay open. Release order remains SDK #343, Skills #34, then #75; no merge, publication or redirect action occurred.
 
 ## Acceptance readback
 

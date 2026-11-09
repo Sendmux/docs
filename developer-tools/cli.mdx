@@ -4,8 +4,8 @@ description: "Install and configure the Qubrics CLI for management, mailbox, and
 keywords:
   [
     "Qubrics CLI",
-    "@sendmux/cli",
-    "sendmux",
+    "@qubrics/cli",
+    "qubrics",
     "Snap",
     "Snap Store",
     "Homebrew",
@@ -16,7 +16,7 @@ keywords:
   ]
 ---
 
-Use the `sendmux` CLI when you want terminal access to the same Management, Mailbox, and Sending API surfaces exposed by the SDKs.
+Use the `qubrics` CLI when you want terminal access to the same Management, Mailbox, and Sending API surfaces exposed by the SDKs.
 
 <Info>
   OAuth profiles use the scopes approved during [sign-in](/developer-tools/oauth).
@@ -28,31 +28,33 @@ Use the `sendmux` CLI when you want terminal access to the same Management, Mail
 
 ## Install
 
+Install the Qubrics CLI from npm.
+
+```bash
+npm install -g @qubrics/cli
+```
+
 On Linux, install the CLI from the <a href="https://snapcraft.io/sendmux" rel="nofollow noopener noreferrer" target="_blank">Snap Store</a>.
 
 ```bash
 sudo snap install sendmux
 ```
 
-On macOS or Linux, you can also install it with Homebrew.
+You can also install the CLI with Homebrew on macOS or Linux.
 
 ```bash
-brew install sendmux/tap/sendmux
+brew install qubrics/tap/sendmux
 ```
 
-You can also install it from npm.
+Snap and Homebrew install the legacy `sendmux` command, while the examples below use the `qubrics` command from npm.
 
-```bash
-npm install -g @sendmux/cli
-```
-
-Download a standalone tarball from <a href="https://github.com/Sendmux/sendmux-sdk/releases" rel="nofollow noopener noreferrer" target="_blank">GitHub Releases</a> for `linux-x64`, `linux-arm64`, `darwin-x64`, `darwin-arm64`, or `win32-x64`.
+Download a standalone tarball from <a href="https://github.com/qubrics/qubrics-sdk/releases" rel="nofollow noopener noreferrer" target="_blank">GitHub Releases</a> for `linux-x64`, `linux-arm64`, `darwin-x64`, `darwin-arm64`, or `win32-x64`.
 
 Check the installed command.
 
 ```bash
-sendmux --version
-sendmux --help
+qubrics --version
+qubrics --help
 ```
 
 ## Sign in with OAuth
@@ -60,8 +62,8 @@ sendmux --help
 Create a separate profile for a user-approved connection. Repeat `--scope` for each required permission.
 
 ```bash
-sendmux auth:login work --scope mailbox.read --scope email.send
-sendmux mailbox:get-connection --profile work --json
+qubrics auth:login work --scope mailbox.read --scope email.send
+qubrics mailbox:get-connection --profile work --json
 ```
 
 The command opens your browser for consent and uses a loopback callback on the same computer. Use `--no-browser` to open the printed URL yourself. Existing profiles are not overwritten.
@@ -69,19 +71,19 @@ The command opens your browser for consent and uses a loopback callback on the s
 OAuth profiles store tokens in a local file with restricted permissions. The CLI refreshes expiring tokens and serialises concurrent refreshes. An uncertain refresh fails and requires a new login; it does not replay the old refresh token.
 
 ```bash
-sendmux auth:logout work
+qubrics auth:logout work
 ```
 
 Logout revokes the connection before removing the profile. A failed revocation keeps the profile for retry. Logout can also clear a login interrupted before tokens were saved.
 
-For automation that manages its own tokens, supply `SENDMUX_ACCESS_TOKEN` through the process environment. This token is not refreshed by the CLI. Do not set it alongside an API key.
+For automation that manages its own tokens, supply `QUBRICS_ACCESS_TOKEN` through the process environment. This token is not refreshed by the CLI. Do not set it alongside an API key.
 
 ## Register an agent inbox
 
 An agent can create an `@myagent.mx` inbox without an existing Qubrics account or API key. Registration saves the durable read credential in a private local profile and never prints it.
 
 ```bash
-sendmux agent:register my-agent \
+qubrics agent:register my-agent \
   --mailbox-local-part my-agent \
   --client-name "My agent" \
   --owner-email owner@example.com \
@@ -94,7 +96,7 @@ The command waits up to 10 minutes for inbox provisioning. Rerun the same comman
 If you do not know the owner email during registration, invite them later.
 
 ```bash
-sendmux agent:invite-owner owner@example.com --profile my-agent --json
+qubrics agent:invite-owner owner@example.com --profile my-agent --json
 ```
 
 The durable profile can read and receive mail without an expiry date unless the complete registration is revoked. After the owner accepts the invitation and approves sending, Sending commands automatically exchange the durable credential for a one-hour `email.send` token.
@@ -108,12 +110,12 @@ Save API keys as local CLI profiles so you do not pass a key on every command.
 <CodeGroup>
 
 ```bash Mailbox profile
-SENDMUX_API_KEY="$SENDMUX_MAILBOX_KEY" sendmux profiles:set mailbox \
+QUBRICS_API_KEY="$QUBRICS_MAILBOX_KEY" qubrics profiles:set mailbox \
   --default
 ```
 
 ```bash Management profile
-SENDMUX_API_KEY="$SENDMUX_ROOT_KEY" sendmux profiles:set management
+QUBRICS_API_KEY="$QUBRICS_ROOT_KEY" qubrics profiles:set management
 ```
 
 </CodeGroup>
@@ -121,24 +123,26 @@ SENDMUX_API_KEY="$SENDMUX_ROOT_KEY" sendmux profiles:set management
 The CLI stores profile configuration locally with restricted file permissions. `profiles:list --verbose` and `profiles:show` mask saved keys.
 
 ```bash
-sendmux profiles:list
-sendmux profiles:list --verbose
-sendmux profiles:show management
+qubrics profiles:list
+qubrics profiles:list --verbose
+qubrics profiles:show management
 ```
 
 ## Authentication order
 
-An API command first uses `SENDMUX_ACCESS_TOKEN` when set. Supplying an API key at the same time is an error. Otherwise, it resolves credentials in this order:
+An API command first uses `QUBRICS_ACCESS_TOKEN` when set. Supplying an API key at the same time is an error. Otherwise, it resolves credentials in this order:
 
 1. `--api-key`
-2. `SENDMUX_API_KEY`
+2. `QUBRICS_API_KEY`
 3. `--profile`
-4. `SENDMUX_PROFILE`
+4. `QUBRICS_PROFILE`
 5. the configured default profile
 
 `profiles:set` accepts `--api-key` as a reference option, but environment input keeps expanded credentials out of child-process arguments.
 
-`--base-url` overrides the API base URL for one command. `SENDMUX_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
+`--base-url` overrides the API base URL for one command. `QUBRICS_BASE_URL` overrides it for the current shell. A profile can also store a base URL override.
+
+See [Compatibility names](/ai-integrations/mcp#compatibility-names) for retained `SENDMUX_*` settings, webhook headers and MCP tool names.
 
 Before running the API call, the CLI checks that the key or profile matches the command surface. A management command fails early when it receives a mailbox-compatible key, and sending commands fail early when they receive a root key. Mailbox commands accept `smx_mbx_` keys and durable `smx_agent_` profiles. API permissions still apply, so a durable read token cannot send email before owner acceptance and approval.
 
@@ -149,20 +153,20 @@ Commands use colon-separated names.
 <CodeGroup>
 
 ```bash Sending
-sendmux sending:send \
+qubrics sending:send \
   --profile mailbox \
   --body '{"from":{"email":"sender@example.com"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with the Qubrics CLI"}' \
   --idempotency-key send-cli-001
 ```
 
 ```bash Mailbox
-sendmux mailbox:messages:list \
+qubrics mailbox:messages:list \
   --profile mailbox \
   --query limit=25
 ```
 
 ```bash Management
-sendmux management:mailboxes:list \
+qubrics management:mailboxes:list \
   --profile management \
   --query limit=25
 ```
@@ -172,7 +176,7 @@ sendmux management:mailboxes:list \
 Pass request bodies inline with `--body` or from a file with `--body-file`.
 
 ```bash
-sendmux management:create-mailbox \
+qubrics management:create-mailbox \
   --profile management \
   --body-file ./mailbox.json \
   --idempotency-key create-mailbox-001
@@ -191,7 +195,7 @@ Typed values are validated before the request is sent. Unknown parameter names f
 Without `--json`, API commands print formatted JSON for easy reading. Use `--json` when another process needs machine-readable output from the CLI.
 
 ```bash
-sendmux management:mailboxes:list --profile management --json
+qubrics management:mailboxes:list --profile management --json
 ```
 
 Text responses return `{ "text": "..." }` with `--json`. Binary responses return base64 data and `byte_length`.
@@ -210,15 +214,15 @@ The CLI rejects these flags on commands whose API operation does not accept the 
 
 ## Command reference
 
-The CLI command set is generated from the public API surfaces. Run `sendmux --help` to see the current topics, `sendmux <topic> --help` to browse a surface, and `sendmux <command> --help` for the flags supported by one command.
+The CLI command set is generated from the public API surfaces. Run `qubrics --help` to see the current topics, `qubrics <topic> --help` to browse a surface, and `qubrics <command> --help` for the flags supported by one command.
 
 For example:
 
 ```bash
-sendmux sending --help
-sendmux mailbox --help
-sendmux management --help
-sendmux sending:send --help
+qubrics sending --help
+qubrics mailbox --help
+qubrics management --help
+qubrics sending:send --help
 ```
 
 ## Next steps

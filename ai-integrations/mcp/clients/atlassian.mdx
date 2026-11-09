@@ -17,7 +17,7 @@ Use this how-to to connect an Atlassian site to hosted Qubrics MCP. You need Atl
     Open the dropdown beside **Explore apps**, choose **Add external MCP server**, then choose **Custom MCP server**.
   </Step>
   <Step title="Enter the connection details">
-    Enter **MCP URL** as `https://mcp.sendmux.ai/mcp`, **MCP server name** as `Qubrics`, and **Authentication** as **OAuth**. The hosted endpoint uses Streamable HTTP and OAuth 2.1 authorisation code with PKCE and dynamic client registration (DCR). You do not need a manually created Qubrics client ID or secret.
+    Enter **MCP URL** as `https://mcp.qubrics.com/mcp`, **MCP server name** as `Qubrics`, and **Authentication** as **OAuth**. The hosted endpoint uses Streamable HTTP and OAuth 2.1 authorisation code with PKCE and dynamic client registration (DCR). You do not need a manually created Qubrics client ID or secret.
   </Step>
   <Step title="Authorise the grant">
     Complete Qubrics browser authorisation. Select only the team, product surfaces, and mailboxes needed for this connection.
@@ -45,7 +45,7 @@ See Atlassian's <a href="https://support.atlassian.com/organization-administrati
 
 OAuth keeps four boundaries separate: a registration can restrict an exact resource, an authorisation request asks for a resource, the approved grant binds that resource, and the access token carries the same audience. Omitting `resource` during DCR creates no registration restriction. If a later authorisation, code-exchange, or refresh request omits the resource, only that later REST request defaults to `https://sendmux.ai/api`.
 
-For hosted MCP, `invalid_target` means the requested resource does not match an explicitly restricted registration or is not an exact supported resource. Confirm **MCP URL** is exactly `https://mcp.sendmux.ai/mcp` and **Authentication** is **OAuth**. Do not reuse a REST or A2A registration, broaden an existing restriction, weaken resource checks, change scopes, or uninstall and re-add the server as a workaround.
+For hosted MCP, `invalid_target` means the requested resource does not match an explicitly restricted registration or is not an exact supported resource. Confirm **MCP URL** is exactly `https://mcp.qubrics.com/mcp` and **Authentication** is **OAuth**. Do not reuse a REST or A2A registration, broaden an existing restriction, weaken resource checks, change scopes, or uninstall and re-add the server as a workaround.
 
 If the documented configuration still fails, record the non-secret error and request identifier and contact [Qubrics support](mailto:contact@sendmux.ai). Do not include tokens or capability URLs.
 

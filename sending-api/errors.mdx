@@ -96,7 +96,7 @@ Common causes:
 
 ### invalid_delivery_group
 
-**HTTP 422**: The per-message `delivery_group` hint is malformed or ambiguous. Supply one group public ID or a nonempty array, with at most 50 groups and no empty entries. Use the dedicated field instead of `X-Sendmux-Delivery-Group` in `custom_headers`. `retryable` is `false`.
+**HTTP 422**: The per-message `delivery_group` hint is malformed or ambiguous. Supply one group public ID or a nonempty array, with at most 50 groups and no empty entries. Use the dedicated field instead of `X-Qubrics-Delivery-Group` in `custom_headers`. `retryable` is `false`.
 
 ### delivery_group_not_found
 

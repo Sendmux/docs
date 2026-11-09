@@ -48,7 +48,7 @@ import (
 
 func oauthClient() (*mailbox.Client, error) {
     return mailbox.NewWithTokenProvider(func(ctx context.Context) (string, error) {
-        return os.Getenv("SENDMUX_ACCESS_TOKEN"), nil
+        return os.Getenv("QUBRICS_ACCESS_TOKEN"), nil
     })
 }
 ```
@@ -72,7 +72,7 @@ import (
 )
 
 func main() {
-	client, err := sending.New(os.Getenv("SENDMUX_MAILBOX_API_KEY"))
+	client, err := sending.New(os.Getenv("QUBRICS_MAILBOX_API_KEY"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,7 +92,7 @@ import (
 )
 
 func main() {
-	client, err := mailbox.New(os.Getenv("SENDMUX_MAILBOX_API_KEY"))
+	client, err := mailbox.New(os.Getenv("QUBRICS_MAILBOX_API_KEY"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -112,7 +112,7 @@ import (
 )
 
 func main() {
-	client, err := management.New(os.Getenv("SENDMUX_ROOT_API_KEY"))
+	client, err := management.New(os.Getenv("QUBRICS_ROOT_API_KEY"))
 	if err != nil {
 		log.Fatal(err)
 	}

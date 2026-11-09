@@ -5,7 +5,7 @@ import test from "node:test";
 
 const page = await readFile(new URL("../webhooks/verify-signatures.mdx", import.meta.url), "utf8");
 const source = page.match(/```js\n([\s\S]*?)```/)[1];
-const { verifySendmuxWebhook } = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
+const { verifyQubricsWebhook } = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
 const secret = "whsec_local_example_test";
 const now = Date.UTC(2026, 8, 29, 7);
 const body = '{ "id": "evt_example", "type": "message.received", "note": "日本語" }\n';
@@ -15,10 +15,10 @@ function request({ timestamp = now / 1000, timestampHeader = String(timestamp), 
   return new Request("https://receiver.example/webhook", {
     method: "POST",
     headers: {
-      "X-Sendmux-Timestamp": timestampHeader,
-      "X-Sendmux-Signature-V2": header ?? `v1=${mac}`,
-      "X-Sendmux-Event-Id": eventId,
-      "X-Sendmux-Event-Type": "message.received",
+      "X-Qubrics-Timestamp": timestampHeader,
+      "X-Qubrics-Signature-V2": header ?? `v1=${mac}`,
+      "X-Qubrics-Event-Id": eventId,
+      "X-Qubrics-Event-Type": "message.received",
     },
     body: bytes,
   });
@@ -27,7 +27,7 @@ function request({ timestamp = now / 1000, timestampHeader = String(timestamp), 
 test("the published verifier accepts the exact signed bytes within its freshness window", async (t) => {
   t.mock.timers.enable({ apis: ["Date"], now });
   for (const offset of [-300, 0, 300]) {
-    const result = await verifySendmuxWebhook(request({ timestamp: now / 1000 + offset }), secret);
+    const result = await verifyQubricsWebhook(request({ timestamp: now / 1000 + offset }), secret);
     assert.equal(result.ok, true);
     assert.equal(result.eventId, "evt_example");
     assert.equal(result.body.note, "日本語");
@@ -47,7 +47,7 @@ test("the published verifier rejects tampering, stale/future timestamps and ambi
     { timestampHeader: "" },
     { timestampHeader: "9007199254740999" },
   ]) {
-    assert.equal((await verifySendmuxWebhook(request(input), secret)).ok, false);
+    assert.equal((await verifyQubricsWebhook(request(input), secret)).ok, false);
   }
-  assert.equal((await verifySendmuxWebhook(request(), "wrong-secret")).ok, false);
+  assert.equal((await verifyQubricsWebhook(request(), "wrong-secret")).ok, false);
 });

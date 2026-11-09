@@ -30,7 +30,7 @@ ATTACHMENT_ID="$(
     --header @- \
     -H "Content-Type: application/pdf" \
     -H "Content-Length: $SIZE_BYTES" \
-    --data-binary @invoice.pdf <<< "Authorization: Bearer $SENDMUX_API_KEY" \
+    --data-binary @invoice.pdf <<< "Authorization: Bearer $QUBRICS_API_KEY" \
   | jq -r '.data.attachment_id'
 )"
 ```
@@ -64,7 +64,7 @@ UPLOAD_INTENT="$({
       \"content_type\": \"application/pdf\",
       \"size_bytes\": $SIZE_BYTES,
       \"sha256\": \"$SHA256\"
-    }" <<< "Authorization: Bearer $SENDMUX_API_KEY"
+    }" <<< "Authorization: Bearer $QUBRICS_API_KEY"
 })"
 
 ATTACHMENT_ID="$(
@@ -86,11 +86,11 @@ The upload token can write only that attachment, expires quickly, and does not g
 
 ## Agent and MCP workflows
 
-For real Sending files in hosted or local MCP, call `sending_create_attachment_upload` with `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, honour the returned `max_size_bytes`, then pass the returned `attachment_id` to `sending_send_email` or `sending_send_email_batch`.
+For real Sending files in hosted or local MCP, call `qubrics_sending_create_attachment_upload` with `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, honour the returned `max_size_bytes`, then pass the returned `attachment_id` to `qubrics_sending_send_email` or `qubrics_sending_send_email_batch`.
 
-For real Mailbox files in hosted or local MCP, call `mailbox_upload_attachment` with `presign_upload_url=true`, `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, then send with the returned `blob_id`. The presigned request cap is 7,500,000 bytes.
+For real Mailbox files in hosted or local MCP, call `qubrics_mailbox_upload_attachment` with `presign_upload_url=true`, `filename`, `content_type`, and exact `size_bytes`. Upload bytes outside model context using the returned method and headers, then send with the returned `blob_id`. The presigned request cap is 7,500,000 bytes.
 
-Use MCP `content_base64` only for tiny agent-authored content. Decoded content is capped at 32 KiB: it is not the normal path for real files. SDK and CLI file helpers can accept local paths because they run outside MCP model context. For inbound Mailbox attachments, call `mailbox_read_attachment` first when you need text-like content.
+Use MCP `content_base64` only for tiny agent-authored content. Decoded content is capped at 32 KiB: it is not the normal path for real files. SDK and CLI file helpers can accept local paths because they run outside MCP model context. For inbound Mailbox attachments, call `qubrics_mailbox_read_attachment` first when you need text-like content.
 
 ## Mailbox upload before sending
 
@@ -153,7 +153,7 @@ Mailbox messages include attachment metadata when attachments are present:
 
 The `download_url` is short-lived and grants access only to that attachment. Fetch it promptly with any HTTP client; no `Authorization` header is needed for the URL itself.
 
-If the URL expires, re-read the message with `GET /mailbox/messages/{message_id}`, list or search messages again, or call the MCP `mailbox_get_attachment` tool to get a fresh `download_url`. MCP clients that need attachment text should call `mailbox_read_attachment` first; it returns inline text for text-like attachments and returns a resource link for binary or oversized files. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
+If the URL expires, re-read the message with `GET /mailbox/messages/{message_id}`, list or search messages again, or call the MCP `qubrics_mailbox_get_attachment` tool to get a fresh `download_url`. MCP clients that need attachment text should call `qubrics_mailbox_read_attachment` first; it returns inline text for text-like attachments and returns a resource link for binary or oversized files. The authenticated attachment download endpoint continues to work for clients that send bearer credentials.
 
 Realtime received-message events can include the same attachment metadata when it is available. Handle older events where `attachments` is omitted, then re-read message metadata before downloading.
 
@@ -163,7 +163,7 @@ Range requests are still supported on attachment downloads, including short-live
 
 1. Wait for or list messages.
 2. Read the message metadata and find the attachment.
-3. For MCP, call `mailbox_read_attachment` with the message ID and attachment ID.
+3. For MCP, call `qubrics_mailbox_read_attachment` with the message ID and attachment ID.
 4. Use returned inline text directly, or fetch the returned link promptly for binary or oversized files.
 5. If the URL expired, re-read the message or attachment metadata and fetch the new URL.
 
