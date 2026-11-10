@@ -43,10 +43,10 @@ sudo snap install sendmux
 You can also install the CLI with Homebrew on macOS or Linux.
 
 ```bash
-brew install qubrics/tap/sendmux
+brew install qubrics/tap/qubrics
 ```
 
-Snap and Homebrew install the legacy `sendmux` command, while the examples below use the `qubrics` command from npm.
+Snap installs the legacy `sendmux` command. The examples below use `qubrics`, available from npm or Homebrew.
 
 Download a standalone tarball from <a href="https://github.com/qubrics/qubrics-sdk/releases" rel="nofollow noopener noreferrer" target="_blank">GitHub Releases</a> for `linux-x64`, `linux-arm64`, `darwin-x64`, `darwin-arm64`, or `win32-x64`.
 
@@ -56,6 +56,8 @@ Check the installed command.
 qubrics --version
 qubrics --help
 ```
+
+The npm package's `sendmux` command remains for one major version and prints a deprecation notice before running `qubrics`.
 
 ## Sign in with OAuth
 

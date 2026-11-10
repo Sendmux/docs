@@ -7,7 +7,7 @@
     "light": "#5a84e9",
     "dark": "#004aad"
   },
-  "favicon": "/images/favicon.ico",
+  "favicon": "/images/logo-light.svg",
   "api": {
     "playground": {
       "display": "interactive"

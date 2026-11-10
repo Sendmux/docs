@@ -1,6 +1,6 @@
 # Docs #75: Qubrics rename
 
-Status: version-independent source prepared on 9 November; not merged or published. Five npm versions remain TBD pending SDK #343 final. Acceptance remains blocked; no production mutation performed.
+Status: released npm/PHP facts consumed on 10 November; not merged or published. All seven npm versions are measured, with no TBD remaining. Acceptance remains blocked by other producer qualifications and release gates; no production mutation performed.
 Source baseline: `03210aa92d7a81e1ca207f0a35102172696a1f1c` (`origin/main`).
 Worktree: `/Users/rj/Desktop/GIT-REPOS/sendmux-docs-rebrand-qubrics-docs75`, branch `agent/rebrand-qubrics-docs75`.
 Remote verified as `https://github.com/qubrics/docs.git`; issue #75 assigned to `roshanjonah`.
@@ -13,25 +13,55 @@ PR [#78](https://github.com/qubrics/docs/pull/78) was read first and is OPEN at 
 
 Source changes rename display copy and app/sending/mail/A2A setup addresses, central site name/canonicals/support/GitHub destinations and brand assets. Existing tab/group order stays intact. One compatibility page follows quickstart; the rename entry stays in the navbar-only changelog. The old X account URL, published package names, binary/formula/plugin labels, API identifiers, SDK/MCP runtime defaults and source-owned generated facts remain unchanged until their owners qualify replacements. Downloadable Postman collection titles/defaults change through their owning generator; filenames and credential variable names remain exact, and no hosted workspace sync runs.
 
-The approved SITE candidate provides the Qubrics light/dark SVG logos (`SITE_qubrics.ai` source commit `f383dca6`, `public/logo-light.svg` and `public/logo-dark.svg`). Favicon and MailWizz diagram reuse the same logo emblem. Consent screenshot is cropped to the Product lines controls its caption describes, retaining all three surfaces, selections, permission controls and Authorise/Cancel. It contains no fabricated UI.
+Operator's 10 November direction requires the emblem only, with no wordmark. Both current header SVGs reuse existing ja-k8s `77c271c7ed2e46b301a65717221fa51baa765fe0:AAA-qubrics/brand/Logos/qubrics-icon.svg`, source blob `e2a2e20f2cd1f02d0e217cd63d21a63b385d5190` (only a final newline added). This is the matching blue geometric ten-tile Qubrics symbol, not the old circular SITE `emblem.svg`; it has no wordmark or embedded raster. `docs.json` points the favicon to the same emblem SVG. The earlier SITE `f383dca6` wordmarks are replaced; its symbol remains the provenance of the already emblem-only MailWizz diagram. Consent screenshot is cropped to the Product lines controls its caption describes, retaining all three surfaces, selections, permission controls and Authorise/Cancel. It contains no fabricated UI.
 
-## 9 November: authorised branch preparation
+## 10 November: live npm qualification and PHP consumption
 
-Ops authorised version-independent name, host and PR #78 overlap edits, retaining the no-merge/no-publication/no-redirect hold. The five unpublished npm versions below are deliberately **TBD**, even where #343 lists target versions. They are filled only after Ops confirms #343 final. Versionless install commands use the source-approved package names without guessing a release number. Their presence on this branch does not claim installation success or authorise publication.
+Ops cleared the SDK#343 wait after confirming `@qubrics/cli@2.0.0` live, and authorised remaining goal work against the released npm package. Homebrew PR16 is OPEN and green, not merged; its new install is not live. Publication and redirect gates remain. This supersedes the five versions held TBD on 9 November.
 
-Read-only npm `latest` measurements on 9 November at 11:29 AEDT:
+Read-only official npm `latest` measurements on 10 November:
 
 | Package | Version | Registry response |
 | --- | --- | --- |
 | `@qubrics/core` | `2.0.0` | HTTP 200 |
 | `@qubrics/sending` | `2.0.0` | HTTP 200 |
-| `@qubrics/management` | **TBD** | HTTP 404 |
-| `@qubrics/mailbox` | **TBD** | HTTP 404 |
-| `@qubrics/ai-sdk` | **TBD** | HTTP 404 |
-| `@qubrics/cli` | **TBD** | HTTP 404 |
-| `@qubrics/sdk` | **TBD** | HTTP 404 |
+| `@qubrics/management` | `3.0.0` | HTTP 200 |
+| `@qubrics/mailbox` | `3.0.0` | HTTP 200 |
+| `@qubrics/ai-sdk` | `1.0.0` | HTTP 200 |
+| `@qubrics/cli` | `2.0.0` | HTTP 200 |
+| `@qubrics/sdk` | `3.0.0` | HTTP 200 |
 
 Sources: `https://registry.npmjs.org/@qubrics%2f<name>/latest` and [SDK #343's operator-approved seventh-package correction](https://github.com/qubrics/qubrics-sdk/issues/343). Registry availability is not a fresh-install or runtime qualification. Published core still exports `SendmuxApiError`; the AI SDK source still exports `sendmux(...)`. Both are preserved. The published Sending public wrapper defaults to `https://smtp.qubrics.com/api/v1`; generated inner-client defaults are not claimed to have changed.
+
+Fresh isolated install: `npm install --ignore-scripts --no-audit --no-fund @qubrics/cli@2.0.0 @qubrics/ai-sdk@1.0.0` exited0 and resolved all seven packages through public registry dependencies. CLI SHA1 is `7239e87899f96a644eb455ff6a6ab2ade774a92c`, matching Ops' prefix. `qubrics --version` reports `@qubrics/cli/2.0.0 darwin-arm64 node-v26.13.0`; the npm `sendmux --version` shim emits `sendmux is deprecated. Use qubrics instead.` and reports the same CLI. General, Sending, profile and OAuth help commands exit0. Public SDK factory readbacks assert Sending uses `https://smtp.qubrics.com/api/v1`, Mailbox/Management use `https://app.qubrics.com/api/v1`, and retained npm `SendmuxApiError`/`sendmux()` exports are functions. No API request or production write was sent. Logs in MAIN task artifacts: `npm-install-live-20261110.log`, `npm-consumer-live-20261110.log`, `cli-*-help-live-20261110.log`.
+
+[Release run42753683784 job129624728202](https://github.com/qubrics/qubrics-sdk/actions/runs/42753683784/job/129624728202) is SUCCESS at `8d3d7492dc83852906c163d0ce0c30cfdd0bc06f`; pack, verify and attach steps succeeded. [Release ts-cli-v2.0.0](https://github.com/qubrics/qubrics-sdk/releases/tag/ts-cli-v2.0.0) lists exactly five `qubrics-v2.0.0-8d3d749-<platform>.tar.gz` assets: darwin-arm64, darwin-x64, linux-arm64, linux-x64 and win32-x64. This session measured asset inventory and npm consumer execution; it did not duplicate cross-platform producer smokes.
+
+[Homebrew PR16](https://github.com/qubrics/homebrew-tap/pull/16) merged at `c9ebc138487f85c590a63edd570a803d82c8968b` on 10 November at 06:10:29 UTC, superseding the earlier open-PR hold. Its public `Formula/qubrics.rb` points at the live npm CLI 2.0.0 tarball; an independent download measures SHA256 `2431314e4e3d4e485b5935a6b74921c09f005e82ebb4bab519d77c6d8911a799`, exactly matching the formula. The docs now use `brew install qubrics/tap/qubrics`; Snap's real `sendmux` identity is preserved. Fresh critique passes every applicable rubric line; exactly one humanize pass leaves the replacement installer qualification unchanged. Protected names and binary distinction remain exact, with sentence lengths 6/10 and zero em dashes, semicolons, curly quotes or banned patterns.
+
+Homebrew's green [run42765023694](https://github.com/qubrics/homebrew-tap/actions/runs/42765023694) audits, installs and tests only `qubrics/tap/sendmux`, as both `tests.yml` and the run log show. It is not new-formula installation proof. The live legacy formula still downloads `@sendmux/cli@1.7.1`, rather than aliasing Qubrics. [Homebrew #14](https://github.com/qubrics/homebrew-tap/issues/14) remains OPEN and owns the alias, new-formula install/upgrade proof and CI. No tap source or global Homebrew installation was changed by this docs session.
+
+PHP [#4 final install/registry evidence](https://github.com/qubrics/qubrics-php-sdk/issues/4#issuecomment-6702628291) is CLOSED. Independently measured official Packagist source references equal the `v3.0.0` tag commits below, and each old `sendmux/*` package has its matching `qubrics/*` abandonment replacement. Fresh Composer installs are attributed to the producer evidence rather than repeated here.
+
+| PHP package, all `v3.0.0` | Registry = tag = producer-installed commit |
+| --- | --- |
+| `qubrics/core` | `785c61fb0fbc6d668f1116ac21d5df1e7a023556` |
+| `qubrics/sending` | `86cf41b715020f798d3aa2425c7c7139f8c14712` |
+| `qubrics/mailbox` | `534db204f23fd1cabab4d14ed4b9d9a7cfd78e6a` |
+| `qubrics/management` | `3db467c73fd555d98e9a9631fa8fb9b889006ee7` |
+| `qubrics/sdk` | `b48e2c43ab7ec53c909f5cb85d66085a83b66687` |
+
+PHP guide and overview now use released `qubrics/*:^3.0`, `Qubrics` namespaces and qubrics.com defaults. Tagged [core class](https://github.com/qubrics/qubrics-php-core/blob/785c61fb0fbc6d668f1116ac21d5df1e7a023556/src/QubricsApiError.php#L9) proves `QubricsApiError`; this does not rename the distinct npm `SendmuxApiError` export. Factory names, OAuth protections, credential-prefix requirements, retry qualifications and header helpers are preserved. These are exact technical-token corrections exempt from the polish pass. The new npm CLI one-major deprecation sentence passed fresh critique, exactly one humanize pass and protected-token preservation; its wording scopes the behaviour to npm rather than Snap/Homebrew.
+
+Local tooling incident: all initial smoke commands stopped in the Node24 loader before JavaScript with missing `libsimdjson.34.dylib`; that binary is linked against .34 while installed simdjson supplies .36. Relief: existing `/opt/homebrew/bin/node` v26.13.0 runs those same commands cleanly. No global runtime/library repair, symlink or package change. Global repair is Parked outside #75.
+
+Rendered source proof: final CLI npm compatibility qualification and PHP `qubrics/*:^3.0`/`QubricsApiError`/default hosts render correctly. Header uses only the symbol in light and dark themes; both browser image readbacks are1200×1200 and the generated32×32 favicon contains only the symbol. Mobile CSS viewport/content widths are390/390. The existing MailWizz diagram is already emblem-only. No page/hydration errors in stable page logs; Socket.io/HMR warnings are local preview lifecycle messages. An initial accessibility snapshot raced dev navigation; a separate stable observation succeeded. After asset replacement the open tab retained decoded450×150 images while HTTP served the correct1200×1200 SVG. Relief: reloading that preview tab fetched the current square assets; no production cache or hostname setting changed. Screenshots: `emblem-preview-desktop-20261110.png`, `emblem-preview-dark-20261110.png`, `emblem-preview-mobile-20261110.png`, `favicon-live-20261110.png` in MAIN task artifacts.
+
+Current acceptance blockers: Skills v1.8.2 still publishes marketplace/plugin `sendmux`; all seven A18 Qubrics PyPI names and five RubyGems names return404 on 10 November. Go/MCP publication and PR78's producer-owned snapshots/release facts remain unqualified; no inferred replacements. Homebrew PR16 is merged, while #14 still owns install/upgrade proof and the legacy alias. The redirect is unconfigured and requires a separate Ops ASK with disabling only the new rule as rollback. Changelog publication requires the merge/publication ASK with a successful previous publication retained. All four #75 acceptance boxes remain open. `rebrand-qubrics-901` owns live target recovery and its SITE proxy recheck after publication.
+
+Final emblem/installer source gates on 10 November pass: confidentiality, external links, Postman drift, `mint validate`, `mint broken-links` and `git diff --check`, all exit0. Mint logs are `mint-validate-emblem-20261110.log` and `mint-broken-links-emblem-20261110.log` in MAIN task artifacts. The preserved npm consumer proof and rendered emblem proofs above qualify the changed surfaces; no additional tests or harnesses were added. Local review preview is `http://localhost:3075/developer-tools/sdks/php`, measured HTTP200, with task-owned PIDs63763/63772 retained only for the requested preview handoff. Static light/dark/mobile/favicon screenshots remain in artifacts after that preview closes.
+
+## 9 November: authorised branch preparation
 
 The TypeScript guide now prepares the new npm imports and service defaults; CLI examples use `qubrics` and `QUBRICS_*`. Actual Snap and Homebrew install identities stay exact and are labelled as installing the legacy command. Non-TypeScript published imports/defaults, Google/MailWizz selectable labels, OAuth resources, signed Registry identity and docs MCP `search_sendmux` remain exact pending their owning source/release evidence. Advertised hosted MCP setup URLs now use `mcp.qubrics.com`; this does not rewrite an OAuth resource identifier or a protected generated release fact.
 

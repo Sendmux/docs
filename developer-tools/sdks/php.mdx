@@ -4,10 +4,10 @@ description: "Install and configure the Qubrics PHP SDK packages."
 keywords:
   [
     "PHP SDK",
-    "sendmux/sdk",
-    "sendmux/sending",
-    "sendmux/mailbox",
-    "sendmux/management",
+    "qubrics/sdk",
+    "qubrics/sending",
+    "qubrics/mailbox",
+    "qubrics/management",
     "Qubrics SDKs",
   ]
 ---
@@ -33,19 +33,19 @@ Install the umbrella package when one application needs more than one API surfac
 <CodeGroup>
 
 ```bash Umbrella
-composer require sendmux/sdk:^2.1
+composer require qubrics/sdk:^3.0
 ```
 
 ```bash Sending
-composer require sendmux/sending:^2.1
+composer require qubrics/sending:^3.0
 ```
 
 ```bash Mailbox
-composer require sendmux/mailbox:^2.1
+composer require qubrics/mailbox:^3.0
 ```
 
 ```bash Management
-composer require sendmux/management:^2.1
+composer require qubrics/management:^3.0
 ```
 
 </CodeGroup>
@@ -59,7 +59,7 @@ composer require sendmux/management:^2.1
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Sendmux\Mailbox\ClientFactory;
+use Qubrics\Mailbox\ClientFactory;
 
 $mailboxApi = ClientFactory::createMailboxAPIApiWithAccessToken(
     static fn (): string => getenv('QUBRICS_ACCESS_TOKEN') ?: ''
@@ -83,7 +83,7 @@ PHP packages expose factory methods for each generated API group.
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Sendmux\Sending\ClientFactory;
+use Qubrics\Sending\ClientFactory;
 
 $emails = ClientFactory::createEmailsApi(
     getenv('QUBRICS_MAILBOX_API_KEY') ?: ''
@@ -95,7 +95,7 @@ $emails = ClientFactory::createEmailsApi(
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Sendmux\Mailbox\ClientFactory;
+use Qubrics\Mailbox\ClientFactory;
 
 $mailboxApi = ClientFactory::createMailboxAPIApi(
     getenv('QUBRICS_MAILBOX_API_KEY') ?: ''
@@ -107,7 +107,7 @@ $mailboxApi = ClientFactory::createMailboxAPIApi(
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Sendmux\Management\ClientFactory;
+use Qubrics\Management\ClientFactory;
 
 $mailboxes = ClientFactory::createMailboxesApi(
     getenv('QUBRICS_ROOT_API_KEY') ?: ''
@@ -120,9 +120,9 @@ $mailboxes = ClientFactory::createMailboxesApi(
 
 | Surface | Package | Factory examples | API key |
 | --- | --- | --- | --- |
-| Sending | `sendmux/sending` | `createEmailsApi`, `createMetaApi` | `smx_mbx_` or owner-approved `smx_agent_` with `email.send` |
-| Mailbox | `sendmux/mailbox` | `createMailboxAPIApi` | `smx_mbx_` or scoped `smx_agent_` |
-| Management | `sendmux/management` | `createMailboxesApi`, `createDomainsApi`, `createWebhooksApi` | `smx_root_` |
+| Sending | `qubrics/sending` | `createEmailsApi`, `createMetaApi` | `smx_mbx_` or owner-approved `smx_agent_` with `email.send` |
+| Mailbox | `qubrics/mailbox` | `createMailboxAPIApi` | `smx_mbx_` or scoped `smx_agent_` |
+| Management | `qubrics/management` | `createMailboxesApi`, `createDomainsApi`, `createWebhooksApi` | `smx_root_` |
 
 <Note>
   Durable `smx_agent_` tokens are mailbox-compatible and include `mailbox.read`
@@ -130,7 +130,7 @@ $mailboxes = ClientFactory::createMailboxesApi(
   exchange the durable token for a one-hour Sending-resource token before sending.
 </Note>
 
-Sending uses `https://smtp.sendmux.ai/api/v1` by default. Mailbox and Management use `https://app.sendmux.ai/api/v1`.
+Sending uses `https://smtp.qubrics.com/api/v1` by default. Mailbox and Management use `https://app.qubrics.com/api/v1`.
 
 ## Shared API behaviour
 
@@ -153,7 +153,7 @@ Use core header helpers when a generated operation accepts custom headers.
 ```php
 <?php
 
-use Sendmux\Core\Headers;
+use Qubrics\Core\Headers;
 
 $headers = array_merge(
     Headers::idempotency('order-123'),
@@ -165,7 +165,7 @@ Use `Idempotency-Key` for retry-safe mutating requests. Use `If-Match` and `If-N
 
 ### Errors
 
-The core package defines `SendmuxApiError`. Use `ErrorMapper::fromThrowable()` when you need to normalise a generated exception into the Qubrics error shape.
+The core package defines `QubricsApiError`. Use `ErrorMapper::fromThrowable()` when you need to normalise a generated exception into the Qubrics error shape.
 
 Use the mapped error code, retryability, status, and request ID when deciding whether to retry or contact support.
 
@@ -179,7 +179,7 @@ Use the mapped error code, retryability, status, and request ID when deciding wh
     Check compatibility, support, and upgrade guidance.
   </Card>
   <Card title="Management API" icon="chart-line" href="/api/introduction">
-    Review the Management API contract used by `sendmux/management`.
+    Review the Management API contract used by `qubrics/management`.
   </Card>
   <Card title="API keys" icon="key" href="/account/api-keys">
     Create and scope the credentials used by SDK clients.
