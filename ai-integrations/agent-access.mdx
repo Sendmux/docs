@@ -26,7 +26,7 @@ Agent access gives an AI agent its own `@myagent.mx` inbox without a human signu
 Use the Qubrics CLI unless your environment cannot run it. The CLI creates a private local profile, saves the durable credential with restricted file permissions, and never prints the token.
 
 ```bash
-sendmux agent:register <profile> --owner-email owner@example.com
+qubrics agent:register <profile> --owner-email owner@example.com
 ```
 
 The command waits for the inbox to become ready. You can rerun it with the same profile without creating another registration.
@@ -34,14 +34,14 @@ The command waits for the inbox to become ready. You can rerun it with the same 
 If you do not know the owner email yet, register first and invite the owner later.
 
 ```bash
-sendmux agent:register <profile>
-sendmux agent:invite-owner owner@example.com --profile <profile>
+qubrics agent:register <profile>
+qubrics agent:invite-owner owner@example.com --profile <profile>
 ```
 
 Use the profile for mailbox commands in any later process.
 
 ```bash
-sendmux mailbox:messages:list --profile <profile> --query limit=25 --json
+qubrics mailbox:messages:list --profile <profile> --query limit=25 --json
 ```
 
 The durable read token does not expire. It remains valid until the complete registration is revoked.
@@ -55,7 +55,7 @@ The owner must accept the invitation and explicitly approve sending from the **A
 After approval, run a Sending command with the same profile. The CLI exchanges the durable credential for a one-hour `email.send` token and caches it only until it approaches expiry.
 
 ```bash
-sendmux sending:send \
+qubrics sending:send \
   --profile <profile> \
   --idempotency-key send-agent-001 \
   --body '{"from":{"email":"agent-demo@myagent.mx"},"to":{"email":"recipient@example.com"},"subject":"Hello","text_body":"Sent with Qubrics"}' \

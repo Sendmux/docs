@@ -38,8 +38,8 @@ test("active docs do not teach the retired agent registration ceremony", async (
 test("agent access leads with durable reads and owner-approved sending", async () => {
   const guide = await readFile(new URL("../ai-integrations/agent-access.mdx", import.meta.url), "utf8");
 
-  assert.match(guide, /sendmux agent:register <profile>/);
-  assert.match(guide, /sendmux agent:invite-owner owner@example\.com --profile <profile>/);
+  assert.match(guide, /qubrics agent:register <profile>/);
+  assert.match(guide, /qubrics agent:invite-owner owner@example\.com --profile <profile>/);
   assert.match(guide, /durable read token/i);
   assert.match(guide, /does not expire/i);
   assert.match(guide, /owner must accept.*explicitly approve sending/is);
@@ -80,7 +80,7 @@ test("agent skills guide offers every installable skill from the canonical pack"
     assert.equal(repository, "qubrics/skills", "installation must use the canonical repository");
     if (skill) assert.ok(names.includes(skill), `unknown installable skill ${skill}`);
   }
-  for (const skill of ["agent-email-inbox", "email-for-ai-agents"]) {
+  for (const skill of ["qubrics-agent-email-inbox", "qubrics-email-for-ai-agents"]) {
     assert.ok(installs.some((match) => match[2] === skill), `${skill} needs a focused install command`);
   }
 });

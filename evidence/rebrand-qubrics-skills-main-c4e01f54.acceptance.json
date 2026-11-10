@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "accepted": true,
+  "sourceRevisions": {
+    "app": "87ce115810ebcfa91655295603c27af52fcff96f",
+    "sending": "2f4226655efc05f109b5feda50ed2ca1570aea91",
+    "sdk": "8d3d7492dc83852906c163d0ce0c30cfdd0bc06f"
+  },
+  "sources": {
+    "app": {
+      "revision": "87ce115810ebcfa91655295603c27af52fcff96f",
+      "sourceTree": "80d75dbab08d0d535ceb7722b56d598bc9450c58",
+      "lockfileSha256": "be149ac16aec55edfad51a4535fb06eb1ab52239a9cb963b29e931ee812f2463",
+      "openapiSha256": "4e4fbc8024eaad195169a18cc096856d1653a3c01fb4f66d0313e67cb0b2e705",
+      "policySha256": "d4159fc4ad2a7b1927c294303fbc11533f8dab9f5a9b3cc73b2139c7354e71bf"
+    },
+    "sending": {
+      "revision": "2f4226655efc05f109b5feda50ed2ca1570aea91",
+      "sourceTree": "95b6078936a93304770b32c0e6df7d866b6e54ba",
+      "lockfileSha256": "ef0259838427fdfcb2426a68a3f46f70124ec5688bcb6b365c60821b10a623af",
+      "openapiSha256": "eb69dc0ca27e5f42cd9da70e90e2b1a386dfe588b743e47a8d91f3b7928a75e5",
+      "policySha256": "64b2ab07617f084045921f7078100372c3175712cecc117a799109a2c2546fd3"
+    },
+    "sdk": {
+      "revision": "8d3d7492dc83852906c163d0ce0c30cfdd0bc06f",
+      "snapshots": {
+        "openapi-app.json": "1d49dc00e00b86837041b76cdb0676d96c68317ec74354d6a5acf4cf2ff0e73c",
+        "openapi-sending.json": "3138c5f27e3c0ab8475d1ccaf7378815c12e12918c30a90e77e2115642bc3647"
+      }
+    }
+  },
+  "skills": {
+    "published": {
+      "revision": "9d8059b10111943ce08860217a27222f43507686",
+      "treeDigest": "d1f44a97309ab1353ec3560941e083584ad41327221744424c43174aa5b630f2",
+      "entries": [
+        {
+          "name": "agent-email-inbox",
+          "skillDigest": "956a19a3f81906299d19f35afa0a8dba4a5bd1f1275a45d02ba1d407579f0347",
+          "contractDigest": "ff9bbe9c4e919ceac5310b94e501b49902514a69be84d7e96666628da315693b"
+        },
+        {
+          "name": "email-for-ai-agents",
+          "skillDigest": "6f2c0908457404bb6aacc4cdcf18ce49b9054cbd873939b7b3e417224fd4d1d9",
+          "contractDigest": "34abd6b8b1d1020b8f52f33749898bc6a0deda7ee7e0c75fc0e362e7217ca993"
+        },
+        {
+          "name": "sendmux-attachments",
+          "skillDigest": "f06e0579bf0f3ee52dcffcc23393b323c5fe9050b939e2694b28731d30ca9a5e",
+          "contractDigest": "7408d16a218a8327fc1adac11c175e1dd7d902bacf09984af818f2b78f37c0d8"
+        },
+        {
+          "name": "sendmux-cli",
+          "skillDigest": "79f22216d882af6ffa0c246f01204e4f4537065368e15027f7a9f08c931db929",
+          "contractDigest": "cd2f5d905c533639d3adcebf71f480fcf47ee37f5c051aa52137ee6813191e77"
+        },
+        {
+          "name": "sendmux-email-for-agents",
+          "skillDigest": "411f7cc5d798a8e0abc7f48dd3561adc64bf5a71435c8c9283d0943f269a6cec",
+          "contractDigest": "7264462de7365aa95d86ade75b83f2d01880de8f0ae97b5ae83642b8948c19f1"
+        },
+        {
+          "name": "sendmux-getting-started",
+          "skillDigest": "aec42bf3c8c21038749fbef5d3753bd689bf74edfcabd79c56b500ea6bf2e21b",
+          "contractDigest": "30aecf506069ce2fdab897e6af2da91f51de71a155fd27194ef3cd0cbc887b1b"
+        },
+        {
+          "name": "sendmux-mailbox-agent",
+          "skillDigest": "a3e2ba98b2f049335b02ebb3f3ea25b44e4c1c93878160273250222bb693a08a",
+          "contractDigest": "99693eaa313cb4f5ab7e17c015abf490dcf23e9fdc25906fb86df57b5c79a5d1"
+        },
+        {
+          "name": "sendmux-management",
+          "skillDigest": "a82945bdb1521932eef71cfe05264e006ebffd52fde7859c0cc4cfedef72abea",
+          "contractDigest": "75ab7db219d7e1b42ba2e2c5bb6e5cdc501d5ec795d08a4b86ecee2f3cd4ddde"
+        },
+        {
+          "name": "sendmux-mcp-setup",
+          "skillDigest": "cabb71c6b068c8223d53e0ea5e0a39c788e1bff606b5fdfb48b141e6c530c224",
+          "contractDigest": "fb111c51163d41772dff1a6d370421a4b3aca91d489521dfbe1b5dcf53da4cd5"
+        },
+        {
+          "name": "sendmux-send-email",
+          "skillDigest": "853bac285313fe319a7bf94bf67636793a818e7d616a8938bb81b33ef460ccb3",
+          "contractDigest": "ad42fc4c264f1f66abca1cef3db32ff1b22fb49f67748a210850ed5e07bf422a"
+        },
+        {
+          "name": "sendmux-token-efficient-usage",
+          "skillDigest": "ece1d30c9a91b3b24376c0ab41d991741b60f9314064da63b0f74da35104a3cb",
+          "contractDigest": "52f8e4f095fad9f160997a895b837212b96a01feedb4d7994fc59b146fa1f392"
+        }
+      ]
+    },
+    "proposed": {
+      "revision": "c4e01f547b32591b658844da8d65b54da86554aa",
+      "treeDigest": "8da71c6b513fc31123c700fe333fbb7333e2020f59cba06a34c515c026de052a",
+      "entries": [
+        {
+          "name": "qubrics-agent-email-inbox",
+          "skillDigest": "4a72427ac606f9ad94b4760e039d49ad7918b3f92d3b1d70ae8dfe87ac83ac86",
+          "contractDigest": "3f5f47694a28d42237b4cd733e05e0dd3d0e1bab7305420b23096495ac056d31"
+        },
+        {
+          "name": "qubrics-attachments",
+          "skillDigest": "12d114d48cbb7f1a264a8bc5ba5d4adb1bbf7b377c3506e9d06564de9f5aa53b",
+          "contractDigest": "29b51e124ba68723ee54ea85dd5669cc3ef99a6b6ed11a9069a4f147e39a0334"
+        },
+        {
+          "name": "qubrics-cli",
+          "skillDigest": "c7b4ac5db8aef06326e3209d37f7116619cc4778ea5964ca0ac041de09799107",
+          "contractDigest": "86884a59c07cbd32e7cc6d87882ad65549173f85d7b7095f79c23bdef179dca3"
+        },
+        {
+          "name": "qubrics-email-for-agents",
+          "skillDigest": "70dc5a8f04dca687b17929ac59d553be893235413271a4e99399fff30c70f0a6",
+          "contractDigest": "8b0c582a8c9ca5cbc4585a37936923c9c03c9ab2fdee980ee19cfa1644cc5c3c"
+        },
+        {
+          "name": "qubrics-email-for-ai-agents",
+          "skillDigest": "bb7c1d2dececb3955dc5c7c446e5bebb84b329643678791cae4c0147bc6769ac",
+          "contractDigest": "750bfc66fc19fceaf1bec351c364f6aa510577f7f097f145746371082180b059"
+        },
+        {
+          "name": "qubrics-getting-started",
+          "skillDigest": "335408923d71bc790f64c9d24cfcc89657affb34adfb4a93411c3c27a041ba70",
+          "contractDigest": "fda4aaeb993327cfb41a5150ea064363448c3e3ed5284191310f11270efb7294"
+        },
+        {
+          "name": "qubrics-mailbox-agent",
+          "skillDigest": "1cdd58768ac528e492d6c00c877b3d5b3863db8a050ab978e9e6a780b9991478",
+          "contractDigest": "dd4115dc12b22767abaf705903f7071495247039c269b39a997f0d4384acfc04"
+        },
+        {
+          "name": "qubrics-management",
+          "skillDigest": "ec55108500cd59654717c8d8102088d495e8b923525e8b391e76650a66b00103",
+          "contractDigest": "9549291c4892f98757cf5ad01bdd7f9bddab2474c48e428d7c09f9326ca3a68d"
+        },
+        {
+          "name": "qubrics-mcp-setup",
+          "skillDigest": "a0ee94408114640c0782c227014dbec5261921185a6c144aaaedbdf912199279",
+          "contractDigest": "cd35b4e6c688898e4fa5b85c6a1fc6778232f74ca19948c204ad7551b7c14966"
+        },
+        {
+          "name": "qubrics-send-email",
+          "skillDigest": "4ffab36dcec098252982995431fccb2bcb6a343481f30822d5d6831e8b5616cf",
+          "contractDigest": "0eb646a55a2445b0b4a42e0c13544242b9e74600d590a429bebcea6bc1a0ed01"
+        },
+        {
+          "name": "qubrics-token-efficient-usage",
+          "skillDigest": "7c4d1d3ac670ed25ba71248e12b5e77cdd6ab15c6aab6ed747f0bbc9071a6eeb",
+          "contractDigest": "e48605fdb8e7392c6948afbedcae6c4abddff61b6dc9d0e38b518aebcc86385d"
+        }
+      ]
+    }
+  },
+  "policyDigest": "25b495791484fefe9beb16ab89a524968e4b374de7255130b76b7873aaed0d0e",
+  "checkerDigest": "97d6ca1d481b488481cee1d602f9b1ce93f8b5470845658937bbd0a8803a1140",
+  "candidateDigest": "14334c5a8290f8a075a3ff51d61129e18779a850f1eb22621b27e0412b87ec0f",
+  "results": [
+    {
+      "lane": "published",
+      "name": "agent-email-inbox",
+      "status": "no-impact",
+      "reviewDigest": "cbc8ca50bcbf1f34be7b56b26e2a4e32e6332ace77619ff1b964e1c1038e557d"
+    },
+    {
+      "lane": "published",
+      "name": "email-for-ai-agents",
+      "status": "no-impact",
+      "reviewDigest": "905ddba7fc812ca698fb92478f86af5476d70e5dd7070317936238c8ded6b9a2"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-attachments",
+      "status": "no-impact",
+      "reviewDigest": "0f53edbf026d8c44179d719d937bf8e62853d9787931b55cb3c0bfa7069ba31a"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-cli",
+      "status": "no-impact",
+      "reviewDigest": "b1ba88165cf8cfe98b00b2fc740bc7f01a2b5c9052bebd0f414e08ea7a2969e5"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-email-for-agents",
+      "status": "no-impact",
+      "reviewDigest": "c0aed66477576e78cde9aa3580df09cf87445cae3e1a9ae276809b70b425ef3a"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-getting-started",
+      "status": "no-impact",
+      "reviewDigest": "c13e01e17f5711d5067da224c06b43589b9de49288b013d4dcd0f2472a2f7b6b"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-mailbox-agent",
+      "status": "no-impact",
+      "reviewDigest": "fced619f41b969196b8210156e6a3cf27dbbd080713d39fa46b821a9237954f1"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-management",
+      "status": "no-impact",
+      "reviewDigest": "3103a7aab1cb6c8bb9271c3090284b3f2615d69933b2e386dbb4563df80d44dc"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-mcp-setup",
+      "status": "no-impact",
+      "reviewDigest": "b1cafe70b1b3d730a21433dfe72ce68d26bf8006b44e4ce62749feca85ab9c6f"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-send-email",
+      "status": "no-impact",
+      "reviewDigest": "7e71fed48826130c4cb8b2a3ac03a471b1c61cfaff1fb42bb61a22d71bd0fb60"
+    },
+    {
+      "lane": "published",
+      "name": "sendmux-token-efficient-usage",
+      "status": "no-impact",
+      "reviewDigest": "4c2001b048b65ad270ee437c903861d05a9521c187b506512a07d6b3b28775f8"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-agent-email-inbox",
+      "status": "reviewed",
+      "reviewDigest": "17eb78400f9171169a3346146859f95bfad66e4cb947cab7c88c69031327f23d"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-attachments",
+      "status": "reviewed",
+      "reviewDigest": "2a3b71cd30b0902201182db2f020dd36086628df7ad9118a0afc66fed38b00cf"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-cli",
+      "status": "reviewed",
+      "reviewDigest": "63590b9f75a31c05aa5faa4441b62162a6c12e4e5a91fa38f58a46b2b4e0f7fc"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-email-for-agents",
+      "status": "reviewed",
+      "reviewDigest": "f86d696786a7ac69a1bf8d2bbc9412243ac21dd311baf79526b9da150de22818"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-email-for-ai-agents",
+      "status": "reviewed",
+      "reviewDigest": "9d111202511250b5b939f19d1eecf4c99f8112054a6486c9d814c9b82b1dd5e0"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-getting-started",
+      "status": "reviewed",
+      "reviewDigest": "a4c02f690e7100b86c6c771232012f62fb69cb0e2d8431c8ab8a0943c3de354c"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-mailbox-agent",
+      "status": "reviewed",
+      "reviewDigest": "bfe6cb52068cb65b4fa0b7875e1d89d703a1bfcef92de75b11c0920afbecd8de"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-management",
+      "status": "reviewed",
+      "reviewDigest": "de5f046339f17ed7dd92ac8914b7b8bfb5d8708a78af7523958fde635e5ee084"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-mcp-setup",
+      "status": "reviewed",
+      "reviewDigest": "edf618ccf781a80b773b5569dfcb4025b168999e8e59d31b54355546577d074c"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-send-email",
+      "status": "reviewed",
+      "reviewDigest": "99bf8dffba0e9439030ed59561a4c57d0ff9d10a25b9c63314cced994503a260"
+    },
+    {
+      "lane": "proposed",
+      "name": "qubrics-token-efficient-usage",
+      "status": "reviewed",
+      "reviewDigest": "7ce5eeae4817edb0f23a7c7cc60bf554e7cfedb0e40f411a171bc5ad9fb8f167"
+    }
+  ],
+  "checkedAt": "2026-11-10T07:27:50.632Z"
+}

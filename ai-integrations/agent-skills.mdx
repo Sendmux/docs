@@ -34,13 +34,13 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
     2. Go to **Plugins**.
     3. In **Personal plugins**, click **+** and choose **Add marketplace**.
     4. Choose **Add from a repository**.
-    5. Enter `qubrics/skills`, then install the **Sendmux** plugin.
+    5. Enter `qubrics/skills`, then install the **Qubrics** plugin.
   </Accordion>
 
   <Accordion title="Claude Code">
     ```text
     /plugin marketplace add qubrics/skills
-    /plugin install sendmux@sendmux
+    /plugin install qubrics@qubrics
     /reload-plugins
     ```
   </Accordion>
@@ -52,7 +52,7 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
     codex plugin marketplace add qubrics/skills
     ```
 
-    In Codex, open **Plugins** in the app or `/plugins` in the CLI, then install **Sendmux** from the Sendmux marketplace.
+    In Codex, open **Plugins** in the app or `/plugins` in the CLI, then install **Qubrics** from the Qubrics marketplace.
 
     For Work mode or Codex in the ChatGPT desktop app:
 
@@ -60,18 +60,20 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
       <Step title="Restart ChatGPT desktop">
         Restart the ChatGPT desktop app after adding the marketplace.
       </Step>
-      <Step title="Install Sendmux">
-        Open the **Plugins Directory**, choose the **Sendmux** marketplace, and install the **Sendmux** plugin.
+      <Step title="Install Qubrics">
+        Open the **Plugins Directory**, choose the **Qubrics** marketplace, and install the **Qubrics** plugin.
       </Step>
       <Step title="Check the skills">
-        Start a new chat and check that `agent-email-inbox` and `email-for-ai-agents` are available.
+        Start a new chat and check that `qubrics-agent-email-inbox` and `qubrics-email-for-ai-agents` are available.
       </Step>
     </Steps>
+
+    If you added the marketplace before the rename, run `codex plugin marketplace add qubrics/skills` again to refresh its name.
 
     To refresh the marketplace's Git snapshot, run:
 
     ```bash
-    codex plugin marketplace upgrade sendmux
+    codex plugin marketplace upgrade qubrics
     ```
 
     After refreshing, restart your client and check the installed Qubrics skills in a new chat.
@@ -89,14 +91,14 @@ npx skills add qubrics/skills
 Install one skill when you only need a focused workflow.
 
 ```bash
-npx skills add qubrics/skills --skill sendmux-send-email
+npx skills add qubrics/skills --skill qubrics-send-email
 ```
 
 Install a focused inbox or outbound email workflow:
 
 ```bash
-npx skills add qubrics/skills --skill agent-email-inbox
-npx skills add qubrics/skills --skill email-for-ai-agents
+npx skills add qubrics/skills --skill qubrics-agent-email-inbox
+npx skills add qubrics/skills --skill qubrics-email-for-ai-agents
 ```
 
 Update installed skills later.
@@ -109,10 +111,10 @@ npx skills update
 
 | Target | Recommended install |
 | --- | --- |
-| Claude app, Claude Desktop, Cowork | Add marketplace from repository `qubrics/skills`, then install **Sendmux**. |
-| Claude Code | `/plugin marketplace add qubrics/skills`, then `/plugin install sendmux@sendmux`. |
-| Codex app and Codex CLI | `codex plugin marketplace add qubrics/skills`, then install **Sendmux** from **Plugins** or `/plugins`. |
-| ChatGPT desktop (Work mode or Codex) | Add `qubrics/skills` with the Codex CLI, restart ChatGPT desktop, then install **Sendmux** from the **Plugins Directory**. |
+| Claude app, Claude Desktop, Cowork | Add marketplace from repository `qubrics/skills`, then install **Qubrics**. |
+| Claude Code | `/plugin marketplace add qubrics/skills`, then `/plugin install qubrics@qubrics`. |
+| Codex app and Codex CLI | `codex plugin marketplace add qubrics/skills`, then install **Qubrics** from **Plugins** or `/plugins`. |
+| ChatGPT desktop (Work mode or Codex) | Add `qubrics/skills` with the Codex CLI, restart ChatGPT desktop, then install **Qubrics** from the **Plugins Directory**. |
 | Agent Skills clients | `npx skills add qubrics/skills`. |
 | Single-skill installs | `npx skills add qubrics/skills --skill <skill-name>`. |
 
@@ -120,30 +122,30 @@ npx skills update
 
 | Skill | Use when |
 | --- | --- |
-| `agent-email-inbox` | Triaging an authorised inbox and drafting replies without sending or changing messages. |
-| `email-for-ai-agents` | Sending an approved email with scoped access and an idempotent retry. |
-| `sendmux-getting-started` | Choosing a Qubrics surface, setting up authentication, or making a first verified call. |
-| `sendmux-attachments` | Uploading, downloading, inspecting, or sending attachments without placing file bytes in model context. |
-| `sendmux-send-email` | Sending one transactional email or batching multiple sends. |
-| `sendmux-mailbox-agent` | Reading, triaging, replying from, or syncing one mailbox. |
-| `sendmux-management` | Managing domains, mailboxes, sending accounts, webhooks, billing, and logs. |
-| `sendmux-cli` | Running Qubrics commands from a terminal. |
-| `sendmux-mcp-setup` | Connecting Qubrics MCP servers to an agent client. |
-| `sendmux-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
-| `sendmux-email-for-agents` | Giving an AI agent a durable inbox or an owner-approved delegated sending workflow. |
+| `qubrics-agent-email-inbox` | Triaging an authorised inbox and drafting replies without sending or changing messages. |
+| `qubrics-email-for-ai-agents` | Sending an approved email with scoped access and an idempotent retry. |
+| `qubrics-getting-started` | Choosing a Qubrics surface, setting up authentication, or making a first verified call. |
+| `qubrics-attachments` | Uploading, downloading, inspecting, or sending attachments without placing file bytes in model context. |
+| `qubrics-send-email` | Sending one transactional email or batching multiple sends. |
+| `qubrics-mailbox-agent` | Reading, triaging, replying from, or syncing one mailbox. |
+| `qubrics-management` | Managing domains, mailboxes, sending accounts, webhooks, billing, and logs. |
+| `qubrics-cli` | Running Qubrics commands from a terminal. |
+| `qubrics-mcp-setup` | Connecting Qubrics MCP servers to an agent client. |
+| `qubrics-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
+| `qubrics-email-for-agents` | Giving an AI agent a durable inbox or an owner-approved delegated sending workflow. |
 
 ## Choose the right surface
 
 | Task | Default path |
 | --- | --- |
 | Agent already has Qubrics MCP connected | Use the relevant MCP tool first. |
-| Terminal one-shot or scripted admin work | Use the `sendmux` CLI. |
+| Terminal one-shot or scripted admin work | Use the `qubrics` CLI. |
 | Application code | Use an SDK package. |
 | Endpoint detail or uncommon operation | Use the API reference. |
 
 Use send-capable `smx_mbx_` keys or owner-approved Sending-resource `smx_agent_` tokens for Sending work. Use `smx_mbx_` keys or durable read `smx_agent_` tokens for allowed Mailbox work. Use team-scoped `smx_root_` keys for Management work. A durable read token does not include `email.send`.
 
-When an agent has no Qubrics credential, start with [agent access](/ai-integrations/agent-access). Run `sendmux agent:register <profile>` to create a private profile with a durable read credential. Invite the human owner during registration or with `sendmux agent:invite-owner owner@example.com --profile <profile>`. Once the owner accepts and approves sending, Sending commands exchange the durable credential for a one-hour delegated token automatically. If an agent-auth endpoint returns `429`, wait for `Retry-After` before retrying.
+When an agent has no Qubrics credential, start with [agent access](/ai-integrations/agent-access). Run `qubrics agent:register <profile>` to create a private profile with a durable read credential. Invite the human owner during registration or with `qubrics agent:invite-owner owner@example.com --profile <profile>`. Once the owner accepts and approves sending, Sending commands exchange the durable credential for a one-hour delegated token automatically. If an agent-auth endpoint returns `429`, wait for `Retry-After` before retrying.
 
 The self-registered inbox is capped at 500 MiB before approval. Owner-approved sending first raises storage to at least 5 GiB. Revoking sending does not itself change the current inbox storage allocation.
 
