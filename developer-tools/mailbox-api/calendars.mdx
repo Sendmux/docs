@@ -6,7 +6,15 @@ keywords: ["mailbox calendars", "calendar events", "calendar sync", "event ETag"
 
 Use the Mailbox API to keep private calendars and non-sending events for an authorised mailbox. Calendar events do not include participants, recurrence, alerts, invitations, or scheduling messages.
 
-All requests need an authorised Mailbox credential. Reads require `calendar.read`. Creates, updates, and deletes require `calendar.write`. When one credential grants access to several mailboxes, select a returned `mailbox_id` and keep using it throughout the workflow.
+<Info>
+  Authorise every request with a Mailbox credential. Use `calendar.read` for
+  reads. Use `calendar.write` for creates, updates, and deletes.
+
+  If your connected-app token has several granted mailboxes, list them with
+  `GET /mailbox/mailboxes`. Pass the selected mailbox's returned `id` as
+  `mailbox_id` on every request below. Omit `mailbox_id` for manual mailbox
+  credentials and assigned agent tokens.
+</Info>
 
 <Steps>
   <Step title="Create or select a calendar">
@@ -60,7 +68,7 @@ All requests need an authorised Mailbox credential. Reads require `calendar.read
       -d '{"title":"Updated appointment"}'
     ```
 
-    Event deletion also requires `If-Match` and does not send cancellation email. Confirm the target before deleting it. To delete a calendar, first remove its events, then read the calendar and send its exact `ETag` in `If-Match`. A non-empty calendar returns `409 conflict`.
+    Include `If-Match` when you delete an event. Deleting an event does not send a cancellation email. Confirm the event before you delete it. To delete a calendar, first remove its events, then read the calendar and send its exact `ETag` in `If-Match`. A non-empty calendar returns `409 conflict`.
   </Step>
 
   <Step title="Synchronise event state">
