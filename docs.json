@@ -61,6 +61,7 @@
                 "pages": [
                   "developer-tools/mailbox-api/targeting-and-capabilities",
                   "developer-tools/mailbox-api/operations-and-usage",
+                  "developer-tools/mailbox-api/calendars",
                   "developer-tools/mailbox-api/threads",
                   "developer-tools/mailbox-api/saved-drafts",
                   "developer-tools/mailbox-api/search-and-batch",
@@ -410,6 +411,21 @@
               "GET /mailbox/folders/{folder_id}",
               "PATCH /mailbox/folders/{folder_id}",
               "DELETE /mailbox/folders/{folder_id}"
+            ]
+          },
+          {
+            "group": "Calendars",
+            "pages": [
+              "GET /mailbox/calendars",
+              "POST /mailbox/calendars",
+              "GET /mailbox/calendars/{calendar_id}",
+              "DELETE /mailbox/calendars/{calendar_id}",
+              "GET /mailbox/calendar-events",
+              "POST /mailbox/calendar-events",
+              "GET /mailbox/calendar-events/{event_id}",
+              "PATCH /mailbox/calendar-events/{event_id}",
+              "DELETE /mailbox/calendar-events/{event_id}",
+              "GET /mailbox/calendar-events/changes"
             ]
           },
           {

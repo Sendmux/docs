@@ -1,7 +1,7 @@
 ---
 title: "Mailbox operations and usage"
-description: "Work with sender identities, send submissions, calendar deletion, quotas, and mailbox usage."
-keywords: ["sender identities","send submissions","calendar deletion","mailbox quotas","mailbox usage"]
+description: "Work with sender identities, send submissions, quotas, and mailbox usage."
+keywords: ["sender identities","send submissions","mailbox quotas","mailbox usage"]
 ---
 
 The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
@@ -150,15 +150,9 @@ Quota filters:
 
 Poll `GET /mailbox/quotas/changes?since_state=...` to sync quota changes.
 
-## Delete an empty calendar
-
-Read `GET /mailbox/calendars/{calendar_id}` with a credential that has `calendar.read` and keep the `ETag` response header. To delete the empty calendar, send that value in `If-Match` with `DELETE /mailbox/calendars/{calendar_id}` using a credential that has `calendar.write`.
-
-Calendars containing events return `409 conflict`. Remove the events first. If `If-Match` is missing or stale, deletion also returns `409 conflict`. Fetch the calendar again before another deletion request.
-
 ## Next steps
 
 <Columns cols={2}>
-  <Card title="Mailbox API introduction" icon="book-open" href="/mailbox-api/introduction"></Card>
+  <Card title="Calendars and events" icon="calendar" href="/developer-tools/mailbox-api/calendars"></Card>
   <Card title="Threads" icon="messages-square" href="/developer-tools/mailbox-api/threads"></Card>
 </Columns>
