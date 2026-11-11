@@ -64,7 +64,7 @@ Use the marketplace path when your AI tool supports plugins. It installs the ful
         Open the **Plugins Directory**, choose the **Sendmux** marketplace, and install the **Sendmux** plugin.
       </Step>
       <Step title="Check the skills">
-        Start a new chat and check that `agent-email-inbox` and `email-for-ai-agents` are available.
+        Start a new chat and check that `qubrics-agent-email-inbox` and `qubrics-email-for-ai-agents` are available.
       </Step>
     </Steps>
 
@@ -89,14 +89,14 @@ npx skills add qubrics/skills
 Install one skill when you only need a focused workflow.
 
 ```bash
-npx skills add qubrics/skills --skill sendmux-send-email
+npx skills add qubrics/skills --skill qubrics-send-email
 ```
 
 Install a focused inbox or outbound email workflow:
 
 ```bash
-npx skills add qubrics/skills --skill agent-email-inbox
-npx skills add qubrics/skills --skill email-for-ai-agents
+npx skills add qubrics/skills --skill qubrics-agent-email-inbox
+npx skills add qubrics/skills --skill qubrics-email-for-ai-agents
 ```
 
 Update installed skills later.
@@ -120,17 +120,17 @@ npx skills update
 
 | Skill | Use when |
 | --- | --- |
-| `agent-email-inbox` | Triaging an authorised inbox and drafting replies without sending or changing messages. |
-| `email-for-ai-agents` | Sending an approved email with scoped access and an idempotent retry. |
-| `sendmux-getting-started` | Choosing a Sendmux surface, setting up authentication, or making a first verified call. |
-| `sendmux-attachments` | Uploading, downloading, inspecting, or sending attachments without placing file bytes in model context. |
-| `sendmux-send-email` | Sending one transactional email or batching multiple sends. |
-| `sendmux-mailbox-agent` | Reading, triaging, replying from, or syncing one mailbox. |
-| `sendmux-management` | Managing domains, mailboxes, sending accounts, webhooks, billing, and logs. |
-| `sendmux-cli` | Running Sendmux commands from a terminal. |
-| `sendmux-mcp-setup` | Connecting Sendmux MCP servers to an agent client. |
-| `sendmux-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
-| `sendmux-email-for-agents` | Giving an AI agent a durable inbox or an owner-approved delegated sending workflow. |
+| `qubrics-agent-email-inbox` | Triaging an authorised inbox and drafting replies without sending or changing messages. |
+| `qubrics-email-for-ai-agents` | Sending an approved email with scoped access and an idempotent retry. |
+| `qubrics-getting-started` | Choosing a Sendmux surface, setting up authentication, or making a first verified call. |
+| `qubrics-attachments` | Uploading, downloading, inspecting, or sending attachments without placing file bytes in model context. |
+| `qubrics-send-email` | Sending one transactional email or batching multiple sends. |
+| `qubrics-mailbox-agent` | Reading, triaging, replying from, or syncing one mailbox. |
+| `qubrics-management` | Managing domains, mailboxes, sending accounts, webhooks, billing, and logs. |
+| `qubrics-cli` | Running Sendmux commands from a terminal. |
+| `qubrics-mcp-setup` | Connecting Sendmux MCP servers to an agent client. |
+| `qubrics-token-efficient-usage` | Choosing low-token calls such as batch sends, counts, snippets, deltas, cursors, and conditional requests. |
+| `qubrics-email-for-agents` | Giving an AI agent a durable inbox or an owner-approved delegated sending workflow. |
 
 ## Choose the right surface
 

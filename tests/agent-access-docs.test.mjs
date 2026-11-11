@@ -80,7 +80,7 @@ test("agent skills guide offers every installable skill from the canonical pack"
     assert.equal(repository, "qubrics/skills", "installation must use the canonical repository");
     if (skill) assert.ok(names.includes(skill), `unknown installable skill ${skill}`);
   }
-  for (const skill of ["agent-email-inbox", "email-for-ai-agents"]) {
+  for (const skill of ["qubrics-agent-email-inbox", "qubrics-email-for-ai-agents"]) {
     assert.ok(installs.some((match) => match[2] === skill), `${skill} needs a focused install command`);
   }
 });
