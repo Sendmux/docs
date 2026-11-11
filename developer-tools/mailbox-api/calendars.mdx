@@ -1,0 +1,93 @@
+---
+title: "Manage mailbox calendars and events"
+description: "Create private calendars, save non-sending events, apply conditional changes, and synchronise event state."
+keywords: ["mailbox calendars", "calendar events", "calendar sync", "event ETag", "Calendar API"]
+---
+
+Use the Mailbox API to keep private calendars and non-sending events for an authorised mailbox. Calendar events do not include participants, recurrence, alerts, invitations, or scheduling messages.
+
+All requests need an authorised Mailbox credential. Reads require `calendar.read`. Creates, updates, and deletes require `calendar.write`. When one credential grants access to several mailboxes, select a returned `mailbox_id` and keep using it throughout the workflow.
+
+<Steps>
+  <Step title="Create or select a calendar">
+    List calendars before creating another one. Keep the returned cursor unchanged when you request the next page.
+
+    ```bash
+    curl "https://app.sendmux.ai/api/v1/mailbox/calendars?limit=50" \
+      -H "Authorization: Bearer $SENDMUX_API_KEY"
+    ```
+
+    Create a private calendar with a local time zone. Retain one `Idempotency-Key` for the logical create and reuse it after a lost response. Do not send the same body with a new key while the outcome is uncertain.
+
+    ```bash
+    curl -X POST "https://app.sendmux.ai/api/v1/mailbox/calendars" \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: calendar-appointments-v1" \
+      -d '{"name":"Appointments","time_zone":"Australia/Melbourne"}'
+    ```
+  </Step>
+
+  <Step title="Create an event with a stable UID">
+    Save a caller-held `uid` before dispatch. Send a local `start` without an offset, its `time_zone`, and an ISO 8601 `duration`.
+
+    ```bash
+    curl -X POST "https://app.sendmux.ai/api/v1/mailbox/calendar-events" \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: appointment-2026-11-20-v1" \
+      -d '{
+        "calendar_id": "calendar_123",
+        "uid": "appointment-2026-11-20@example.com",
+        "title": "Appointment",
+        "start": "2026-11-20T10:00:00",
+        "time_zone": "Australia/Melbourne",
+        "duration": "PT1H"
+      }'
+    ```
+
+    If the response is uncertain, look up the exact UID with `GET /mailbox/calendar-events?uid=...`. UID search is eventually consistent, so an empty immediate result does not authorise another create. Keep reconciling the original UID and idempotency key.
+  </Step>
+
+  <Step title="Change the latest event version">
+    Read the event immediately before an update or delete and retain its `ETag`. Send that exact value in `If-Match`. If the mutation returns `409 conflict`, read the event again and review the current version before another mutation.
+
+    ```bash
+    curl -X PATCH "https://app.sendmux.ai/api/v1/mailbox/calendar-events/event_123" \
+      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+      -H "Content-Type: application/json" \
+      -H 'If-Match: "event-etag"' \
+      -d '{"title":"Updated appointment"}'
+    ```
+
+    Event deletion also requires `If-Match` and does not send cancellation email. Confirm the target before deleting it. To delete a calendar, first remove its events, then read the calendar and send its exact `ETag` in `If-Match`. A non-empty calendar returns `409 conflict`.
+  </Step>
+
+  <Step title="Synchronise event state">
+    Call `GET /mailbox/calendar-events/changes` without `since_state` to establish a baseline. Then list the current events and call changes again with the baseline state to include edits that happened during the list.
+
+    For each changes response, read every created or updated ID, remove every destroyed ID, then store its `new_state`. Continue while `has_more` is true, always passing the last applied `new_state`. Changes are coalesced, not a complete activity history. When `sync_required` is true or a saved state has expired, establish a new baseline and repeat the full list workflow.
+  </Step>
+</Steps>
+
+## Client operation names
+
+| Task | MCP tool | CLI command | TypeScript SDK |
+| --- | --- | --- | --- |
+| List calendars | `mailbox_list_calendars` | `mailbox:list-calendars` | `mailboxListCalendars` |
+| Create calendar | `mailbox_create_calendar` | `mailbox:create-calendar` | `mailboxCreateCalendar` |
+| Read calendar | `mailbox_get_calendar` | `mailbox:get-calendar` | `mailboxGetCalendar` |
+| Delete calendar | `mailbox_delete_calendar` | `mailbox:delete-calendar` | `mailboxDeleteCalendar` |
+| List events | `mailbox_list_calendar_events` | `mailbox:list-calendar-events` | `mailboxListCalendarEvents` |
+| Create event | `mailbox_create_calendar_event` | `mailbox:create-calendar-event` | `mailboxCreateCalendarEvent` |
+| Read event | `mailbox_get_calendar_event` | `mailbox:get-calendar-event` | `mailboxGetCalendarEvent` |
+| Update event | `mailbox_update_calendar_event` | `mailbox:update-calendar-event` | `mailboxUpdateCalendarEvent` |
+| Delete event | `mailbox_delete_calendar_event` | `mailbox:delete-calendar-event` | `mailboxDeleteCalendarEvent` |
+| Read event changes | `mailbox_get_calendar_event_changes` | `mailbox:get-calendar-event-changes` | `mailboxGetCalendarEventChanges` |
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Mailbox selection and permissions" icon="key" href="/developer-tools/mailbox-api/targeting-and-capabilities"></Card>
+  <Card title="Synchronise mailbox data" icon="rotate" href="/developer-tools/mailbox-api/sync"></Card>
+</Columns>
