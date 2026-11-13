@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 import McpReleaseFacts from "/snippets/mcp-release-facts.mdx";
 
 Sendmux has two MCP connections. Use Doc Search MCP when you want an AI tool to search Sendmux docs. Use MCP when you want an agent to work with Sendmux tools you authorise.
@@ -109,7 +111,7 @@ When you connect, Sendmux asks you to choose a team, product surfaces, and mailb
 
 <Note>
   If you grant more than one mailbox, start mailbox workflows with
-  `mailbox_list_granted_mailboxes` and pass the returned `mailbox_id` to tools
+  `qubrics_mailbox_list_granted_mailboxes` and pass the returned `mailbox_id` to tools
   that act on one mailbox.
 </Note>
 
@@ -150,27 +152,29 @@ The bridge connects stdio clients to the hosted server through browser OAuth. To
 
 ## Local package
 
+<McpUpgradeSafety />
+
 Install the local package from PyPI:
 
 ```bash
-pip install sendmux-mcp
+pip install --upgrade sendmux-mcp
 ```
 
 Run one surface:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... sendmux-mcp-mailbox
-SENDMUX_API_KEY=smx_root_... sendmux-mcp-management
-SENDMUX_API_KEY=smx_mbx_... sendmux-mcp-sending
+QUBRICS_API_KEY=smx_mbx_... sendmux-mcp-mailbox
+QUBRICS_API_KEY=smx_root_... sendmux-mcp-management
+QUBRICS_API_KEY=smx_mbx_... sendmux-mcp-sending
 ```
 
 Run all product surfaces:
 
 ```bash
-SENDMUX_MCP_SURFACES=mailbox,management,sending \
-SENDMUX_MAILBOX_API_KEY=smx_mbx_... \
-SENDMUX_MANAGEMENT_API_KEY=smx_root_... \
-SENDMUX_SENDING_API_KEY=smx_mbx_... \
+QUBRICS_MCP_SURFACES=mailbox,management,sending \
+QUBRICS_MAILBOX_API_KEY=smx_mbx_... \
+QUBRICS_MANAGEMENT_API_KEY=smx_root_... \
+QUBRICS_SENDING_API_KEY=smx_mbx_... \
 sendmux-mcp
 ```
 
@@ -181,12 +185,12 @@ The server validates key prefixes before starting. Management requires `smx_root
 HTTP mode is useful when your MCP client connects to a server URL but you still want to run the package yourself.
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 
-The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP mode requires `SENDMUX_MCP_HTTP_BEARER_TOKEN` unless you explicitly start it with `--allow-unauthenticated-http`.
+The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP mode requires `QUBRICS_MCP_HTTP_BEARER_TOKEN` unless you explicitly start it with `--allow-unauthenticated-http`.
 
 ## Configuration reference
 
@@ -194,32 +198,55 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
   <Accordion title="Environment variables">
     | Setting | Environment | Default |
     | --- | --- | --- |
-    | Tool surfaces | `SENDMUX_MCP_SURFACES` | Required for `sendmux-mcp` |
-    | API key fallback | `SENDMUX_API_KEY` | None |
-    | Mailbox API key | `SENDMUX_MAILBOX_API_KEY` | None |
-    | Management API key | `SENDMUX_MANAGEMENT_API_KEY` | None |
-    | Sending API key | `SENDMUX_SENDING_API_KEY` | None |
-    | Management and Mailbox API base URL | `SENDMUX_APP_BASE_URL` | `https://app.sendmux.ai/api/v1` |
-    | Sending API base URL | `SENDMUX_SENDING_BASE_URL` | `https://smtp.sendmux.ai/api/v1` |
-    | Retry time budget, in seconds | `SENDMUX_MCP_RETRY_MAX_ELAPSED_SECONDS` | Unset |
-    | Transport | `SENDMUX_MCP_TRANSPORT` | `stdio` |
-    | HTTP host | `SENDMUX_MCP_HOST` | `127.0.0.1` |
-    | HTTP port | `SENDMUX_MCP_PORT` | `8765` |
-    | HTTP path | `SENDMUX_MCP_PATH` | `/mcp` |
-    | HTTP bearer token | `SENDMUX_MCP_HTTP_BEARER_TOKEN` | Required for HTTP |
-    | Allowed browser origins | `SENDMUX_MCP_ALLOWED_ORIGINS` | No browser origins |
+    | Tool surfaces | `QUBRICS_MCP_SURFACES` | Required for `sendmux-mcp` |
+    | API key fallback | `QUBRICS_API_KEY` | None |
+    | Mailbox API key | `QUBRICS_MAILBOX_API_KEY` | None |
+    | Management API key | `QUBRICS_MANAGEMENT_API_KEY` | None |
+    | Sending API key | `QUBRICS_SENDING_API_KEY` | None |
+    | Management and Mailbox API base URL | `QUBRICS_APP_BASE_URL` | `https://app.sendmux.ai/api/v1` |
+    | Sending API base URL | `QUBRICS_SENDING_BASE_URL` | `https://smtp.sendmux.ai/api/v1` |
+    | Retry time budget, in seconds | `QUBRICS_MCP_RETRY_MAX_ELAPSED_SECONDS` | Unset |
+    | Transport | `QUBRICS_MCP_TRANSPORT` | `stdio` |
+    | HTTP host | `QUBRICS_MCP_HOST` | `127.0.0.1` |
+    | HTTP port | `QUBRICS_MCP_PORT` | `8765` |
+    | HTTP path | `QUBRICS_MCP_PATH` | `/mcp` |
+    | HTTP bearer token | `QUBRICS_MCP_HTTP_BEARER_TOKEN` | Required for HTTP |
+    | Allowed browser origins | `QUBRICS_MCP_ALLOWED_ORIGINS` | No browser origins |
   </Accordion>
 
   <Accordion title="Protected environment input">
     ```bash
-    SENDMUX_MCP_SURFACES=mailbox,management,sending \
-    SENDMUX_MAILBOX_API_KEY="$SENDMUX_MAILBOX_KEY" \
-    SENDMUX_MANAGEMENT_API_KEY="$SENDMUX_ROOT_KEY" \
-    SENDMUX_SENDING_API_KEY="$SENDMUX_SENDING_KEY" \
+    QUBRICS_MCP_SURFACES=mailbox,management,sending \
+    QUBRICS_MAILBOX_API_KEY="$QUBRICS_MBX_KEY" \
+    QUBRICS_MANAGEMENT_API_KEY="$QUBRICS_ROOT_KEY" \
+    QUBRICS_SENDING_API_KEY="$QUBRICS_SENDING_KEY" \
     sendmux-mcp
     ```
   </Accordion>
 </AccordionGroup>
+
+## Compatibility names
+
+Use the Qubrics names in new integrations. Existing integrations keep working.
+
+For supported environment settings, the SDKs, CLI and MCP server read `QUBRICS_*` before the matching `SENDMUX_*` name. You can update a configuration while keeping older variables in place, including `SENDMUX_API_KEY`, `SENDMUX_ACCESS_TOKEN`, `SENDMUX_BASE_URL`, `SENDMUX_PROFILE`, `SENDMUX_APP_BASE_URL`, `SENDMUX_SENDING_BASE_URL`, `SENDMUX_MAILBOX_API_KEY`, `SENDMUX_MANAGEMENT_API_KEY` and `SENDMUX_SENDING_API_KEY`. Each `QUBRICS_MCP_*` setting in the configuration reference also accepts its matching `SENDMUX_MCP_*` name.
+
+Each Qubrics header has a retained header with the same value. Requests accept either name wherever that header is valid:
+
+| Qubrics header | Retained header |
+| --- | --- |
+| `X-Qubrics-Signature` | `X-Sendmux-Signature` |
+| `X-Qubrics-Signature-V2` | `X-Sendmux-Signature-V2` |
+| `X-Qubrics-Timestamp` | `X-Sendmux-Timestamp` |
+| `X-Qubrics-Event-Id` | `X-Sendmux-Event-Id` |
+| `X-Qubrics-Event-Type` | `X-Sendmux-Event-Type` |
+| `X-Qubrics-Delivery-Attempt` | `X-Sendmux-Delivery-Attempt` |
+| `X-Qubrics-Delivery-Group` | `X-Sendmux-Delivery-Group` |
+| `X-Qubrics-Upload-Token` | `X-Sendmux-Upload-Token` |
+
+MCP tools add `qubrics_` before their existing names, so `qubrics_mailbox_list_granted_mailboxes` and `mailbox_list_granted_mailboxes` call the same handler and return the same result, as do the corresponding `management_*` and `sending_*` tool names.
+
+New mail webhook event data includes both `qubrics_message_id` and `sendmux_message_id` with the same value, which can be null. Calendar events use a separate payload without these fields. Older retained payloads and deliveries queued before this release can contain only `sendmux_message_id`. All compatibility names remain supported indefinitely.
 
 ## Tool discovery
 
@@ -241,11 +268,11 @@ The endpoint defaults to `/mcp`. `/health` returns the selected surfaces. HTTP m
   </Accordion>
 
   <Accordion title="HTTP server returns 401">
-    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` to private HTTP, or complete OAuth for hosted MCP.
+    Send `Authorization: Bearer <QUBRICS_MCP_HTTP_BEARER_TOKEN>` to private HTTP, or complete OAuth for hosted MCP.
   </Accordion>
 
   <Accordion title="HTTP server returns 403 origin_forbidden">
-    Add the browser client's origin to `SENDMUX_MCP_ALLOWED_ORIGINS` for private HTTP.
+    Add the browser client's origin to `QUBRICS_MCP_ALLOWED_ORIGINS` for private HTTP.
   </Accordion>
 
   <Accordion title="Too many tools in one client">

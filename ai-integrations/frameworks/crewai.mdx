@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener noreferrer" target="_blank">CrewAI</a> agent a Sendmux mailbox. `MCPServerAdapter` returns CrewAI tools that map one to one onto the MCP tools your key allows.
 
 <Warning>
@@ -26,8 +28,11 @@ Use this page to give a <a href="https://www.crewai.com" rel="nofollow noopener 
 
 ## Install
 
+<McpUpgradeSafety />
+
 ```bash
-pip install crewai "crewai-tools[mcp]" sendmux-mcp
+pip install crewai "crewai-tools[mcp]"
+pip install --upgrade sendmux-mcp
 ```
 
 ## Connect over local stdio
@@ -44,7 +49,7 @@ from mcp import StdioServerParameters
 server_params = StdioServerParameters(
     command="sendmux-mcp-mailbox",
     args=[],
-    env={"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"], **os.environ},
+    env={"QUBRICS_API_KEY": os.environ["QUBRICS_MAILBOX_API_KEY"], **os.environ},
 )
 
 with MCPServerAdapter(server_params) as tools:
@@ -72,9 +77,9 @@ server_params = StdioServerParameters(
     command="sendmux-mcp",
     args=[],
     env={
-        "SENDMUX_MCP_SURFACES": "mailbox,sending",
-        "SENDMUX_MAILBOX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"],
-        "SENDMUX_SENDING_API_KEY": os.environ["SENDMUX_SENDING_API_KEY"],
+        "QUBRICS_MCP_SURFACES": "mailbox,sending",
+        "QUBRICS_MAILBOX_API_KEY": os.environ["QUBRICS_MAILBOX_API_KEY"],
+        "QUBRICS_SENDING_API_KEY": os.environ["QUBRICS_SENDING_API_KEY"],
         **os.environ,
     },
 )
@@ -87,9 +92,9 @@ Pass tool names to the adapter when an agent should only reach part of a surface
 ```python
 with MCPServerAdapter(
     server_params,
-    "mailbox_list_messages",
-    "mailbox_search_message_snippets",
-    "mailbox_get_message",
+    "qubrics_mailbox_list_messages",
+    "qubrics_mailbox_search_message_snippets",
+    "qubrics_mailbox_get_message",
 ) as tools:
     agent = Agent(role="Inbox triage specialist", goal="Summarise what needs attention", tools=tools)
 ```
@@ -124,7 +129,7 @@ server_params = {"url": "http://127.0.0.1:8765/mcp", "transport": "streamable-ht
 
 <Warning>
   CrewAI does not document custom request headers for its HTTP transports, and
-  private HTTP mode requires `SENDMUX_MCP_HTTP_BEARER_TOKEN` unless you start it
+  private HTTP mode requires `QUBRICS_MCP_HTTP_BEARER_TOKEN` unless you start it
   with `--allow-unauthenticated-http`. Use the stdio connection above when the
   crew needs an authenticated Sendmux connection.
 </Warning>
@@ -135,23 +140,39 @@ Mailbox-scoped keys are the isolation boundary. Build the server parameters per 
 
 ```python
 def server_params_for(mailbox_key: str) -> StdioServerParameters:
+    credential_names = {
+        "QUBRICS_API_KEY",
+        "QUBRICS_MAILBOX_API_KEY",
+        "QUBRICS_MANAGEMENT_API_KEY",
+        "QUBRICS_SENDING_API_KEY",
+        "SENDMUX_API_KEY",
+        "SENDMUX_MAILBOX_API_KEY",
+        "SENDMUX_MANAGEMENT_API_KEY",
+        "SENDMUX_SENDING_API_KEY",
+    }
+    env = {
+        name: value
+        for name, value in os.environ.items()
+        if name not in credential_names
+    }
+    env["QUBRICS_API_KEY"] = mailbox_key
     return StdioServerParameters(
         command="sendmux-mcp-mailbox",
         args=[],
-        env={"SENDMUX_API_KEY": mailbox_key, **os.environ},
+        env=env,
     )
 ```
 
 ## Sending stays gated
 
-A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `QUBRICS_SENDING_API_KEY`.
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="The adapter returns no tools">
     Confirm the surfaces the server started with. `sendmux-mcp` requires
-    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+    `QUBRICS_MCP_SURFACES`; the single-surface entry points do not.
   </Accordion>
 
   <Accordion title="The subprocess exits immediately">
@@ -166,7 +187,7 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
   </Accordion>
 
   <Accordion title="You granted more than one mailbox">
-    Start the workflow with `mailbox_list_granted_mailboxes` and pass the
+    Start the workflow with `qubrics_mailbox_list_granted_mailboxes` and pass the
     returned `mailbox_id` to tools that act on one mailbox.
   </Accordion>
 </AccordionGroup>

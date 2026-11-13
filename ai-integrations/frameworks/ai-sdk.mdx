@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener noreferrer" target="_blank">AI SDK</a> to Sendmux. `createMCPClient` converts MCP tools into AI SDK tools, so they drop straight into `generateText` or `streamText`.
 
 <Warning>
@@ -26,6 +28,8 @@ Use this page to connect the <a href="https://ai-sdk.dev" rel="nofollow noopener
 
 ## Install
 
+<McpUpgradeSafety />
+
 <CodeGroup>
 
 ```bash AI SDK
@@ -33,7 +37,7 @@ npm install ai @ai-sdk/mcp
 ```
 
 ```bash Sendmux MCP
-pip install sendmux-mcp
+pip install --upgrade sendmux-mcp
 ```
 
 </CodeGroup>
@@ -43,8 +47,8 @@ pip install sendmux-mcp
 HTTP is the better fit for most AI SDK deployments, because serverless and edge runtimes usually cannot spawn a process. Start the server where your key can live:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 
@@ -58,7 +62,7 @@ const mcpClient = await createMCPClient({
     type: "http",
     url: "http://127.0.0.1:8765/mcp",
     headers: {
-      Authorization: `Bearer ${process.env.SENDMUX_MCP_HTTP_BEARER_TOKEN}`,
+      Authorization: `Bearer ${process.env.QUBRICS_MCP_HTTP_BEARER_TOKEN}`,
     },
   },
 });
@@ -76,7 +80,7 @@ const mcpClient = await createMCPClient({
   transport: new Experimental_StdioMCPTransport({
     command: "sendmux-mcp-mailbox",
     args: [],
-    env: { SENDMUX_API_KEY: process.env.SENDMUX_MAILBOX_API_KEY! },
+    env: { QUBRICS_API_KEY: process.env.QUBRICS_MAILBOX_API_KEY! },
   }),
 });
 ```
@@ -97,7 +101,7 @@ try {
       type: "http",
       url: "http://127.0.0.1:8765/mcp",
       headers: {
-        Authorization: `Bearer ${process.env.SENDMUX_MCP_HTTP_BEARER_TOKEN}`,
+        Authorization: `Bearer ${process.env.QUBRICS_MCP_HTTP_BEARER_TOKEN}`,
       },
     },
   });
@@ -144,23 +148,23 @@ Mailbox-scoped keys are the isolation boundary. Create the client per request wi
 
 ## Sending stays gated
 
-A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and start the server with it as `SENDMUX_SENDING_API_KEY`.
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and start the server with it as `QUBRICS_SENDING_API_KEY`.
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="tools() returns nothing">
     Confirm the surfaces the server started with. `sendmux-mcp` requires
-    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+    `QUBRICS_MCP_SURFACES`; the single-surface entry points do not.
   </Accordion>
 
   <Accordion title="The HTTP transport returns 401">
-    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` in the
+    Send `Authorization: Bearer <QUBRICS_MCP_HTTP_BEARER_TOKEN>` in the
     transport `headers`.
   </Accordion>
 
   <Accordion title="The HTTP transport returns 403 origin_forbidden">
-    Add the calling origin to `SENDMUX_MCP_ALLOWED_ORIGINS` on the server.
+    Add the calling origin to `QUBRICS_MCP_ALLOWED_ORIGINS` on the server.
   </Accordion>
 
   <Accordion title="Connections build up under load">

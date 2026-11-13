@@ -57,7 +57,7 @@ Set `access_token` to a bare token string or callable. Do not also set `api_key`
 require 'sendmux/sdk'
 
 client = Sendmux::Mailbox::Client.new(
-  access_token: -> { ENV.fetch('SENDMUX_ACCESS_TOKEN') }
+  access_token: -> { ENV.fetch('QUBRICS_ACCESS_TOKEN') }
 )
 ```
 
@@ -73,7 +73,7 @@ The umbrella gem exposes helpers for each surface.
 require 'sendmux/sdk'
 
 client = Sendmux::SDK.sending(
-  api_key: ENV.fetch('SENDMUX_MAILBOX_API_KEY')
+  api_key: ENV.fetch('QUBRICS_MAILBOX_API_KEY')
 )
 ```
 
@@ -81,7 +81,7 @@ client = Sendmux::SDK.sending(
 require 'sendmux/sdk'
 
 client = Sendmux::SDK.mailbox(
-  api_key: ENV.fetch('SENDMUX_MAILBOX_API_KEY')
+  api_key: ENV.fetch('QUBRICS_MAILBOX_API_KEY')
 )
 ```
 
@@ -89,7 +89,7 @@ client = Sendmux::SDK.mailbox(
 require 'sendmux/sdk'
 
 client = Sendmux::SDK.management(
-  api_key: ENV.fetch('SENDMUX_ROOT_API_KEY')
+  api_key: ENV.fetch('QUBRICS_ROOT_API_KEY')
 )
 ```
 

@@ -15,6 +15,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client. Prefer hosted OAuth when your client supports it. Use local stdio or private HTTP when the client cannot complete hosted OAuth.
 
 <Warning>
@@ -92,22 +94,24 @@ https://mcp.sendmux.ai/mcp
 
 ## Local stdio clients
 
+<McpUpgradeSafety />
+
 Install the local package once:
 
 ```bash
-pip install sendmux-mcp
+pip install --upgrade sendmux-mcp
 ```
 
 Use a mailbox key for Mailbox or Sending:
 
 ```bash
-export SENDMUX_MBX_KEY=smx_mbx_...
+export QUBRICS_MBX_KEY=smx_mbx_...
 ```
 
 Use a root key for Management:
 
 ```bash
-export SENDMUX_ROOT_KEY=smx_root_...
+export QUBRICS_ROOT_KEY=smx_root_...
 ```
 
 ## Private HTTP clients
@@ -115,8 +119,8 @@ export SENDMUX_ROOT_KEY=smx_root_...
 Start a local HTTP MCP server:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 
@@ -134,7 +138,7 @@ Use `http://127.0.0.1:8765/mcp` as the client URL.
   </Step>
 
   <Step title="Select a mailbox when needed">
-    For a hosted multi-mailbox grant, call `mailbox_list_granted_mailboxes` before mailbox-specific work.
+    For a hosted multi-mailbox grant, call `qubrics_mailbox_list_granted_mailboxes` before mailbox-specific work.
   </Step>
 
   <Step title="Check private HTTP auth">

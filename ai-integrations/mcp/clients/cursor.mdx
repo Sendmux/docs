@@ -4,6 +4,8 @@ description: "Configure Sendmux MCP in Cursor."
 keywords: ["Cursor","MCP client","Sendmux MCP","MCP setup"]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect Sendmux MCP to your AI client.
 
 ## Hosted OAuth
@@ -30,22 +32,24 @@ Cursor opens the OAuth flow when the hosted server asks for authorisation.
 
 ## Local stdio
 
+<McpUpgradeSafety />
+
 Install the local package once:
 
 ```bash
-pip install sendmux-mcp
+pip install --upgrade sendmux-mcp
 ```
 
 Use a mailbox key for Mailbox or Sending:
 
 ```bash
-export SENDMUX_MBX_KEY=smx_mbx_...
+export QUBRICS_MBX_KEY=smx_mbx_...
 ```
 
 Use a root key for Management:
 
 ```bash
-export SENDMUX_ROOT_KEY=smx_root_...
+export QUBRICS_ROOT_KEY=smx_root_...
 ```
 
 ```json
@@ -55,7 +59,7 @@ export SENDMUX_ROOT_KEY=smx_root_...
       "type": "stdio",
       "command": "sendmux-mcp-mailbox",
       "env": {
-        "SENDMUX_API_KEY": "smx_mbx_..."
+        "QUBRICS_API_KEY": "smx_mbx_..."
       }
     }
   }
@@ -67,8 +71,8 @@ export SENDMUX_ROOT_KEY=smx_root_...
 Start a local HTTP MCP server:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 

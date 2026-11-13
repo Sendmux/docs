@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofollow noopener noreferrer" target="_blank">Google Agent Development Kit</a> agent a Sendmux mailbox. `McpToolset` retrieves MCP tools as ADK tools, and the framework loads and closes them around each agent invocation.
 
 <Warning>
@@ -26,8 +28,11 @@ Use this page to give a <a href="https://google.github.io/adk-docs/" rel="nofoll
 
 ## Install
 
+<McpUpgradeSafety />
+
 ```bash
-pip install google-adk sendmux-mcp
+pip install google-adk
+pip install --upgrade sendmux-mcp
 ```
 
 ## Connect over local stdio
@@ -45,7 +50,7 @@ sendmux_toolset = McpToolset(
     connection_params=StdioServerParameters(
         command="sendmux-mcp-mailbox",
         args=[],
-        env={"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"]},
+        env={"QUBRICS_API_KEY": os.environ["QUBRICS_MAILBOX_API_KEY"]},
     ),
 )
 
@@ -66,9 +71,9 @@ connection_params=StdioServerParameters(
     command="sendmux-mcp",
     args=[],
     env={
-        "SENDMUX_MCP_SURFACES": "mailbox,sending",
-        "SENDMUX_MAILBOX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"],
-        "SENDMUX_SENDING_API_KEY": os.environ["SENDMUX_SENDING_API_KEY"],
+        "QUBRICS_MCP_SURFACES": "mailbox,sending",
+        "QUBRICS_MAILBOX_API_KEY": os.environ["QUBRICS_MAILBOX_API_KEY"],
+        "QUBRICS_SENDING_API_KEY": os.environ["QUBRICS_SENDING_API_KEY"],
     },
 )
 ```
@@ -78,8 +83,8 @@ connection_params=StdioServerParameters(
 Use this when the agent runs somewhere it cannot spawn a process. Start the server yourself:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 
@@ -95,7 +100,7 @@ sendmux_toolset = McpToolset(
     connection_params=StreamableHTTPConnectionParams(
         url="http://127.0.0.1:8765/mcp",
         headers={
-            "Authorization": f"Bearer {os.environ['SENDMUX_MCP_HTTP_BEARER_TOKEN']}"
+            "Authorization": f"Bearer {os.environ['QUBRICS_MCP_HTTP_BEARER_TOKEN']}"
         },
     ),
 )
@@ -110,12 +115,12 @@ sendmux_toolset = McpToolset(
     connection_params=StdioServerParameters(
         command="sendmux-mcp-mailbox",
         args=[],
-        env={"SENDMUX_API_KEY": os.environ["SENDMUX_MAILBOX_API_KEY"]},
+        env={"QUBRICS_API_KEY": os.environ["QUBRICS_MAILBOX_API_KEY"]},
     ),
     tool_filter=[
-        "mailbox_list_messages",
-        "mailbox_search_message_snippets",
-        "mailbox_get_message",
+        "qubrics_mailbox_list_messages",
+        "qubrics_mailbox_search_message_snippets",
+        "qubrics_mailbox_get_message",
     ],
 )
 ```
@@ -135,7 +140,7 @@ def toolset_for(mailbox_key: str) -> McpToolset:
         connection_params=StdioServerParameters(
             command="sendmux-mcp-mailbox",
             args=[],
-            env={"SENDMUX_API_KEY": mailbox_key},
+            env={"QUBRICS_API_KEY": mailbox_key},
         ),
     )
 ```
@@ -144,14 +149,14 @@ For a per-request key over private HTTP, supply `header_provider` instead. It ru
 
 ## Sending stays gated
 
-A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `QUBRICS_SENDING_API_KEY`.
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="The agent sees no tools">
     Confirm the surfaces the server started with. `sendmux-mcp` requires
-    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not. Check
+    `QUBRICS_MCP_SURFACES`; the single-surface entry points do not. Check
     `tool_filter` as well, since it hides everything it does not name.
   </Accordion>
 
@@ -168,7 +173,7 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
   </Accordion>
 
   <Accordion title="Private HTTP returns 401">
-    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` through
+    Send `Authorization: Bearer <QUBRICS_MCP_HTTP_BEARER_TOKEN>` through
     `headers` or `header_provider`.
   </Accordion>
 </AccordionGroup>

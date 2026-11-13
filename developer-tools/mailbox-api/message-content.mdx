@@ -109,7 +109,7 @@ Set `include_html=true` on the content endpoint to receive both the original `bo
 
 ```bash
 curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/content?include_html=true&strip_quotes=true&strip_signature=true" \
-  -H "Authorization: Bearer $SENDMUX_API_KEY"
+  -H "Authorization: Bearer $QUBRICS_API_KEY"
 ```
 
 `body.html_cleaning` contains a `status` and separate `quotes_stripped` and `signature_stripped` flags. The existing `body.quotes_stripped` and `body.signature_stripped` flags describe the text output.
@@ -128,7 +128,7 @@ Both added fields are `null` when HTML is absent or not requested. Cleaning does
 
 ```bash
 curl "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/raw" \
-  -H "Authorization: Bearer $SENDMUX_API_KEY" \
+  -H "Authorization: Bearer $QUBRICS_API_KEY" \
   --output message.eml
 ```
 
@@ -145,7 +145,7 @@ Use attachment text extraction when you need readable content from a file rather
     ```bash
     curl -X POST \
       "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
-      -H "Authorization: Bearer $SENDMUX_API_KEY"
+      -H "Authorization: Bearer $QUBRICS_API_KEY"
     ```
 
     Integration credentials and connected apps with several granted inboxes must also pass the selected `mailbox_id` query parameter.
@@ -156,7 +156,7 @@ Use attachment text extraction when you need readable content from a file rather
     ```bash
     curl \
       "https://app.sendmux.ai/api/v1/mailbox/messages/msg_123/attachments/att_123/text?max_bytes=262144" \
-      -H "Authorization: Bearer $SENDMUX_API_KEY"
+      -H "Authorization: Bearer $QUBRICS_API_KEY"
     ```
 
     An HTTP `200` means conversion completed; check `data.outcome` before using `data.text`. Only `ready` contains extracted Markdown text. Other completed outcomes contain an empty string.

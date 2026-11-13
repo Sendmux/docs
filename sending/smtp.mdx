@@ -41,10 +41,10 @@ swaks --to user@example.com \
 
 ## Select delivery groups
 
-Add one `X-Sendmux-Delivery-Group` header containing comma-separated group public IDs:
+Add one `X-Qubrics-Delivery-Group` header containing comma-separated group public IDs:
 
 ```text
-X-Sendmux-Delivery-Group: dgrp_group_a, dgrp_group_b
+X-Qubrics-Delivery-Group: dgrp_group_a, dgrp_group_b
 ```
 
 Replace the example IDs with your groups' public IDs. Sendmux trims surrounding whitespace and deduplicates IDs, with a maximum of 50 groups. Empty entries and repeated occurrences of the header are rejected, including when separate occurrences contain the same value. A folded continuation belongs to the same header.

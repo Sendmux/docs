@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener noreferrer" target="_blank">Mastra</a> agent to Sendmux so it can read, search, and reply from a mailbox you grant it.
 
 <Warning>
@@ -26,6 +28,8 @@ Use this page to connect a <a href="https://mastra.ai" rel="nofollow noopener no
 
 ## Install
 
+<McpUpgradeSafety />
+
 <CodeGroup>
 
 ```bash Mastra
@@ -33,7 +37,7 @@ npm install @mastra/mcp
 ```
 
 ```bash Sendmux MCP
-pip install sendmux-mcp
+pip install --upgrade sendmux-mcp
 ```
 
 </CodeGroup>
@@ -52,7 +56,7 @@ export const mcpClient = new MCPClient({
       command: "sendmux-mcp-mailbox",
       args: [],
       env: {
-        SENDMUX_API_KEY: process.env.SENDMUX_MAILBOX_API_KEY!,
+        QUBRICS_API_KEY: process.env.QUBRICS_MAILBOX_API_KEY!,
       },
     },
   },
@@ -66,9 +70,9 @@ sendmux: {
   command: "sendmux-mcp",
   args: [],
   env: {
-    SENDMUX_MCP_SURFACES: "mailbox,sending",
-    SENDMUX_MAILBOX_API_KEY: process.env.SENDMUX_MAILBOX_API_KEY!,
-    SENDMUX_SENDING_API_KEY: process.env.SENDMUX_SENDING_API_KEY!,
+    QUBRICS_MCP_SURFACES: "mailbox,sending",
+    QUBRICS_MAILBOX_API_KEY: process.env.QUBRICS_MAILBOX_API_KEY!,
+    QUBRICS_SENDING_API_KEY: process.env.QUBRICS_SENDING_API_KEY!,
   },
 }
 ```
@@ -78,8 +82,8 @@ sendmux: {
 Use this when your Mastra service runs somewhere it cannot spawn a process. Start the server yourself:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 
@@ -95,7 +99,7 @@ export const mcpClient = new MCPClient({
       url: new URL("http://127.0.0.1:8765/mcp"),
       requestInit: {
         headers: {
-          Authorization: `Bearer ${process.env.SENDMUX_MCP_HTTP_BEARER_TOKEN}`,
+          Authorization: `Bearer ${process.env.QUBRICS_MCP_HTTP_BEARER_TOKEN}`,
         },
       },
     },
@@ -135,7 +139,7 @@ const mcp = new MCPClient({
     sendmux: {
       command: "sendmux-mcp-mailbox",
       args: [],
-      env: { SENDMUX_API_KEY: tenantMailboxKey },
+      env: { QUBRICS_API_KEY: tenantMailboxKey },
     },
   },
 });
@@ -153,14 +157,14 @@ const response = await inboxAgent.stream("What needs a reply today?", {
 
 ## Sending stays gated
 
-A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `QUBRICS_SENDING_API_KEY`.
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="No tools appear on the agent">
     Confirm the surfaces the server started with. `sendmux-mcp` requires
-    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+    `QUBRICS_MCP_SURFACES`; the single-surface entry points do not.
   </Accordion>
 
   <Accordion title="The server exits before Mastra connects">
@@ -170,12 +174,12 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
   </Accordion>
 
   <Accordion title="Private HTTP returns 401">
-    Send `Authorization: Bearer <SENDMUX_MCP_HTTP_BEARER_TOKEN>` on every
+    Send `Authorization: Bearer <QUBRICS_MCP_HTTP_BEARER_TOKEN>` on every
     request through `requestInit.headers`.
   </Accordion>
 
   <Accordion title="You granted more than one mailbox">
-    Start the workflow with `mailbox_list_granted_mailboxes` and pass the
+    Start the workflow with `qubrics_mailbox_list_granted_mailboxes` and pass the
     returned `mailbox_id` to tools that act on one mailbox.
   </Accordion>
 </AccordionGroup>

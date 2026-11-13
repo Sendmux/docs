@@ -11,6 +11,8 @@ keywords:
   ]
 ---
 
+import McpUpgradeSafety from "/snippets/mcp-upgrade-safety.mdx";
+
 Use this page to load Sendmux tools into a <a href="https://langchain-ai.github.io/langgraph/" rel="nofollow noopener noreferrer" target="_blank">LangGraph</a> agent. The <a href="https://github.com/langchain-ai/langchain-mcp-adapters" rel="nofollow noopener noreferrer" target="_blank">LangChain MCP adapters</a> convert MCP tools into LangChain tools, so anything that accepts a tool list will accept them.
 
 <Warning>
@@ -25,8 +27,11 @@ Use this page to load Sendmux tools into a <a href="https://langchain-ai.github.
 
 ## Install
 
+<McpUpgradeSafety />
+
 ```bash
-pip install langchain-mcp-adapters langgraph sendmux-mcp
+pip install langchain-mcp-adapters langgraph
+pip install --upgrade sendmux-mcp
 ```
 
 ## Connect over local stdio
@@ -42,7 +47,7 @@ client = MultiServerMCPClient(
             "transport": "stdio",
             "command": "sendmux-mcp-mailbox",
             "args": [],
-            "env": {"SENDMUX_API_KEY": "${SENDMUX_MAILBOX_API_KEY}"},
+            "env": {"QUBRICS_API_KEY": "${QUBRICS_MAILBOX_API_KEY}"},
         }
     }
 )
@@ -56,9 +61,9 @@ Run more than one surface by switching to the `sendmux-mcp` entry point and nami
     "command": "sendmux-mcp",
     "args": [],
     "env": {
-        "SENDMUX_MCP_SURFACES": "mailbox,sending",
-        "SENDMUX_MAILBOX_API_KEY": "${SENDMUX_MAILBOX_API_KEY}",
-        "SENDMUX_SENDING_API_KEY": "${SENDMUX_SENDING_API_KEY}",
+        "QUBRICS_MCP_SURFACES": "mailbox,sending",
+        "QUBRICS_MAILBOX_API_KEY": "${QUBRICS_MAILBOX_API_KEY}",
+        "QUBRICS_SENDING_API_KEY": "${QUBRICS_SENDING_API_KEY}",
     },
 }
 ```
@@ -68,8 +73,8 @@ Run more than one surface by switching to the `sendmux-mcp` entry point and nami
 Use this when your graph runs somewhere it cannot spawn a process. Start the server yourself:
 
 ```bash
-SENDMUX_API_KEY=smx_mbx_... \
-SENDMUX_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
+QUBRICS_API_KEY=smx_mbx_... \
+QUBRICS_MCP_HTTP_BEARER_TOKEN=local-mcp-token \
 sendmux-mcp-mailbox --transport http --host 127.0.0.1 --port 8765
 ```
 
@@ -140,7 +145,7 @@ def client_for(mailbox_key: str) -> MultiServerMCPClient:
                 "transport": "stdio",
                 "command": "sendmux-mcp-mailbox",
                 "args": [],
-                "env": {"SENDMUX_API_KEY": mailbox_key},
+                "env": {"QUBRICS_API_KEY": mailbox_key},
             }
         }
     )
@@ -148,14 +153,14 @@ def client_for(mailbox_key: str) -> MultiServerMCPClient:
 
 ## Sending stays gated
 
-A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `SENDMUX_SENDING_API_KEY`.
+A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `email.send`. After a named human owner accepts the invite and approves sending, exchange the durable token for a one-hour Sending-resource token and pass that as `QUBRICS_SENDING_API_KEY`.
 
 ## Troubleshooting
 
 <AccordionGroup>
   <Accordion title="get_tools returns an empty list">
     Confirm the surfaces the server started with. `sendmux-mcp` requires
-    `SENDMUX_MCP_SURFACES`; the single-surface entry points do not.
+    `QUBRICS_MCP_SURFACES`; the single-surface entry points do not.
   </Accordion>
 
   <Accordion title="The subprocess exits immediately">
@@ -170,7 +175,7 @@ A durable `smx_agent_` token includes `mailbox.read` and `email.receive`, not `e
   </Accordion>
 
   <Accordion title="You granted more than one mailbox">
-    Start the workflow with `mailbox_list_granted_mailboxes` and pass the
+    Start the workflow with `qubrics_mailbox_list_granted_mailboxes` and pass the
     returned `mailbox_id` to tools that act on one mailbox.
   </Accordion>
 </AccordionGroup>

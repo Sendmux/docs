@@ -28,7 +28,7 @@ Groups have no activation setting. Their availability depends on eligible member
 
 ## Restrict one message
 
-For HTTP, set `delivery_group` to one group public ID or a nonempty array in the send body. In a batch, set it on each message. For SMTP, use one `X-Sendmux-Delivery-Group` header with comma-separated public IDs.
+For HTTP, set `delivery_group` to one group public ID or a nonempty array in the send body. In a batch, set it on each message. For SMTP, use one `X-Qubrics-Delivery-Group` header with comma-separated public IDs.
 
 Sendmux trims surrounding whitespace, removes duplicate IDs, and accepts at most 50 groups. Empty entries are invalid. SMTP also rejects repeated occurrences of the header and strips the header before delivery. HTTP callers must use the dedicated field; the header is reserved in `custom_headers`.
 
