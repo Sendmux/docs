@@ -12,31 +12,31 @@ keywords:
   ]
 ---
 
-Use this guide to connect Gmail, Google Workspace, Outlook, or Microsoft 365 accounts that Sendmux will use for sending. For a large account pool, import the account list first, then authorise each pending account from its row.
+Use this guide to connect Gmail, Google Workspace, Outlook, or Microsoft 365 accounts that Qubrics will use for sending. For a large account pool, import the account list first, then authorise each pending account from its row.
 
 <Info>
-  You need permission to manage sending accounts in Sendmux and sign-in access
+  You need permission to manage sending accounts in Qubrics and sign-in access
   to every account you connect. If your organisation blocks third-party apps,
   ask a Google Workspace or Microsoft Entra administrator to complete the
   relevant preparation step below.
 </Info>
 
-## Permissions Sendmux requests
+## Permissions Qubrics requests
 
-Sendmux requests only the permissions needed to identify the account, keep the connection active, and send email.
+Qubrics requests only the permissions needed to identify the account, keep the connection active, and send email.
 
 | Provider | Sending permission | What it allows |
 | --- | --- | --- |
 | Google | `gmail.send` | Send email on behalf of the connected account. |
 | Microsoft | Microsoft Graph delegated `Mail.Send` | Send email as the signed-in account. |
 
-The connection also requests basic identity scopes so Sendmux can confirm which account completed the flow. Microsoft includes `offline_access` so the account can remain connected without an interactive sign-in for every send.
+The connection also requests basic identity scopes so Qubrics can confirm which account completed the flow. Microsoft includes `offline_access` so the account can remain connected without an interactive sign-in for every send.
 
 Connected accounts always send from the mailbox address that completed authorisation. You can set a sender display name and reply-to address, but a different **From Email** address requires a separately authorised account.
 
 <Warning>
-  Sendmux does not need permission to read, change, or delete mailbox content.
-  Cancel the flow and contact Sendmux support if a provider prompt asks for
+  Qubrics does not need permission to read, change, or delete mailbox content.
+  Cancel the flow and contact Qubrics support if a provider prompt asks for
   `Mail.Read`, `Mail.ReadWrite`, IMAP access, or permission to read and
   permanently delete Gmail messages.
 </Warning>
@@ -49,7 +49,7 @@ Most organisations can skip this section. Complete it only when a Workspace poli
   <Step title="Open Google app access controls">
     In the Google Admin console, open **Security** > **Access and data control** > **API controls**, then select **Manage App Access**.
   </Step>
-  <Step title="Configure Sendmux">
+  <Step title="Configure Qubrics">
     Select **Configure new app**, search for `Sendmux`, and choose the Sendmux
     OAuth app. Select the organisational units whose accounts will connect.
   </Step>
@@ -63,17 +63,17 @@ Most organisations can skip this section. Complete it only when a Workspace poli
 Google says changes can take up to 24 hours, though they often apply sooner. See <a href="https://knowledge.workspace.google.com/admin/apps/control-which-apps-access-google-workspace-data" rel="nofollow noopener noreferrer" target="_blank">Google's app access guide</a> for current administrator roles and controls.
 
 <Note>
-  Administrator configuration allows the Sendmux app to request the approved
-  scopes. It does not connect every mailbox or give Sendmux domain-wide access.
-  Each account owner still completes the Sendmux authorisation flow.
+  Administrator configuration allows the Qubrics app to request the approved
+  scopes. It does not connect every mailbox or give Qubrics domain-wide access.
+  Each account owner still completes the Qubrics authorisation flow.
 </Note>
 
 ## Prepare Microsoft 365
 
-Most Microsoft 365 organisations allow the delegated `Mail.Send` permission without a separate administrator step. If your tenant blocks user consent, approve Sendmux once before connecting the account pool.
+Most Microsoft 365 organisations allow the delegated `Mail.Send` permission without a separate administrator step. If your tenant blocks user consent, approve Qubrics once before connecting the account pool.
 
 <Steps>
-  <Step title="Open Microsoft account setup in Sendmux">
+  <Step title="Open Microsoft account setup in Qubrics">
     Open **Accounts**, select **Add Account**, then choose **Outlook / Microsoft
     365**.
   </Step>
@@ -93,7 +93,7 @@ Most Microsoft 365 organisations allow the delegated `Mail.Send` permission with
   </Step>
 </Steps>
 
-Tenant-wide consent allows users in the organisation to connect Sendmux. It does not connect their mailboxes automatically. See <a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-admin-consent" rel="nofollow noopener noreferrer" target="_blank">Microsoft's tenant-wide consent guide</a> for current administrator roles and consent controls.
+Tenant-wide consent allows users in the organisation to connect Qubrics. It does not connect their mailboxes automatically. See <a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-admin-consent" rel="nofollow noopener noreferrer" target="_blank">Microsoft's tenant-wide consent guide</a> for current administrator roles and consent controls.
 
 ## Connect one account
 
@@ -108,10 +108,10 @@ Tenant-wide consent allows users in the organisation to connect Sendmux. It does
   <Step title="Review the permission">
     Confirm the account address and the sending-only permission, then approve
     the connection. New Google Workspace accounts may first show Google's
-    welcome page. Complete that page, then restart the connection from Sendmux.
+    welcome page. Complete that page, then restart the connection from Qubrics.
   </Step>
   <Step title="Confirm the result">
-    Sendmux returns to **Accounts**. The account should show **Active**. If the
+    Qubrics returns to **Accounts**. The account should show **Active**. If the
     provider rejected or cancelled the flow, use **Authorise** or
     **Re-authorise** beside the account to try again.
   </Step>
@@ -135,7 +135,7 @@ Importing creates the account records in one operation. Provider sign-in still h
     | `oauth_user_email` | The account that must complete authorisation. |
 
     You can also set its delivery group, sender display name, reply-to details,
-    quotas, and routing weight in the same file. Sendmux ignores `from_email`
+    quotas, and routing weight in the same file. Qubrics ignores `from_email`
     for connected accounts and uses `oauth_user_email` as the sender address.
   </Step>
   <Step title="Import the accounts">
@@ -167,12 +167,12 @@ Importing creates the account records in one operation. Provider sign-in still h
   <Accordion title="An imported account stays Pending">
     Pending is expected until that account completes OAuth. Select
     **Authorise** beside the account. If the action is not visible, confirm that
-    your Sendmux role can manage sending accounts, then refresh the page.
+    your Qubrics role can manage sending accounts, then refresh the page.
   </Accordion>
 
   <Accordion title="Google says the app is unverified or asks to read and delete mail">
     Do not continue through **Advanced**. The expected Gmail permission is
-    **Send email on your behalf**. Cancel the flow and contact Sendmux support
+    **Send email on your behalf**. Cancel the flow and contact Qubrics support
     with the team, account address, and time of the attempt.
   </Accordion>
 
@@ -190,10 +190,10 @@ Importing creates the account records in one operation. Provider sign-in still h
     browser.
   </Accordion>
 
-  <Accordion title="Sendmux reports too many authorisation attempts">
+  <Accordion title="Qubrics reports too many authorisation attempts">
     Stop repeating the flow. Refresh **Accounts** and retry once from the
     account's own **Authorise** or **Re-authorise** action. If the message
-    returns, contact Sendmux support with the team, account address, and
+    returns, contact Qubrics support with the team, account address, and
     timestamp. This message is not a sending-account capacity limit.
   </Accordion>
 </AccordionGroup>

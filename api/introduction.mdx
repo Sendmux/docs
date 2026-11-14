@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "Programmatic access to your Sendmux email infrastructure."
+description: "Programmatic access to your Qubrics email infrastructure."
 keywords:
   [
     "management API",
@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-The Sendmux Management API gives you programmatic access to your email workspace: manage sending accounts, domains, mailboxes, API keys, and webhook subscriptions; check mailbox address availability before you create a mailbox; read metrics and delivery logs; track billing balance and history.
+The Qubrics Management API gives you programmatic access to your email workspace: manage sending accounts, domains, mailboxes, API keys, and webhook subscriptions; check mailbox address availability before you create a mailbox; read metrics and delivery logs; track billing balance and history.
 
 Billing balance shows what you can spend now.
 
@@ -21,7 +21,7 @@ Billing balance shows what you can spend now.
 All API requests should be made to:
 
 ```
-https://app.sendmux.ai/api/v1
+https://app.qubrics.com/api/v1
 ```
 
 ## Authentication
@@ -29,11 +29,11 @@ https://app.sendmux.ai/api/v1
 Authenticate using a root API key or a [REST OAuth access token](/developer-tools/oauth) with Management access. Pass it as a Bearer token in the `Authorization` header.
 
 ```bash
-curl https://app.sendmux.ai/api/v1/providers \
+curl https://app.qubrics.com/api/v1/providers \
   -H "Authorization: Bearer smx_root_your_key_here"
 ```
 
-API keys are scoped to a team and carry permissions. Create and manage them under **Settings > API Keys** in the Sendmux app. New Free teams include **2 active credentials** across manual API keys and connected apps. Manual keys include root keys, send-only keys, and mailbox-scoped keys. Free limits are fixed. Remove credentials until usage is below the limit, or upgrade to Pro when you need more capacity. See [Team limits](/account/team-limits).
+API keys are scoped to a team and carry permissions. Create and manage them under **Settings > API Keys** in the Qubrics app. New Free teams include **2 active credentials** across manual API keys and connected apps. Manual keys include root keys, send-only keys, and mailbox-scoped keys. Free limits are fixed. Remove credentials until usage is below the limit, or upgrade to Pro when you need more capacity. See [Team limits](/account/team-limits).
 
 ### Permissions
 
@@ -99,7 +99,7 @@ List endpoints include a `pagination` object alongside `data`.
     "code": "invalid_parameter",
     "message": "The 'from_date' parameter must be a valid ISO 8601 date.",
     "param": "from_date",
-    "doc_url": "https://sendmux.ai/docs/api/errors#invalid_parameter",
+    "doc_url": "https://qubrics.com/docs/api/errors#invalid_parameter",
     "retryable": false
   },
   "meta": {
@@ -160,7 +160,7 @@ Conditional requests are supported across mailbox, domain, webhook, and log reso
 
 Use the Management API's **Sending accounts** group to manage accounts used by the Sending API. Custom SMTP accounts support full create, read, update, delete, activation, deactivation, usage, and connection-test flows.
 
-Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
+Connected account setup still starts in the Qubrics app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
 
 The shared Amazon SES account is protected. You can read, activate, or deactivate it. Free limits are fixed. Eligible Pro teams can request a daily limit review at 80% usage. You cannot edit its credentials, quotas, routing weight, sender defaults, or delete it through the API.
 
@@ -177,7 +177,7 @@ The shared Amazon SES account is protected. You can read, activate, or deactivat
 The full OpenAPI 3.1 specification is available at:
 
 ```
-https://app.sendmux.ai/api/v1/openapi.json
+https://app.qubrics.com/api/v1/openapi.json
 ```
 
 Use it with any OpenAPI-compatible tool to generate client libraries or explore the API.

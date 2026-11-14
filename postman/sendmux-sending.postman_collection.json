@@ -15,7 +15,7 @@
       "content": "Send emails programmatically via the Sendmux email infrastructure. Every response carries an `X-Request-Id` header; errors include a `retryable` flag. 429 and 503 responses include `Retry-After`. Mutating endpoints accept an `Idempotency-Key` header for safe retries.",
       "type": "text/plain"
     },
-    "name": "Sendmux Sending API",
+    "name": "Qubrics Sending API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -1297,7 +1297,7 @@
     {
       "key": "sending_base_url",
       "type": "string",
-      "value": "https://smtp.sendmux.ai/api/v1"
+      "value": "https://smtp.qubrics.com/api/v1"
     }
   ]
 }

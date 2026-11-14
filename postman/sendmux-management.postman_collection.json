@@ -15,7 +15,7 @@
       "content": "Programmatic access to your Qubrics email infrastructure.",
       "type": "text/plain"
     },
-    "name": "Sendmux Management API",
+    "name": "Qubrics Management API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -6630,7 +6630,7 @@
     {
       "key": "management_base_url",
       "type": "string",
-      "value": "https://app.sendmux.ai/api/v1"
+      "value": "https://app.qubrics.com/api/v1"
     }
   ]
 }

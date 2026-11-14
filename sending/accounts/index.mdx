@@ -1,6 +1,6 @@
 ---
 title: "Sending accounts"
-description: "Add, import, route, and monitor the accounts Sendmux uses to deliver email."
+description: "Add, import, route, and monitor the accounts Qubrics uses to deliver email."
 keywords:
   [
     "sending accounts",
@@ -16,7 +16,7 @@ keywords:
 
 import SharedSesPolicy from "/snippets/shared-ses-policy.mdx";
 
-Every team can send as soon as it is created. Sendmux includes a managed Amazon SES sending account, and you can add your own accounts when you need more control.
+Every team can send as soon as it is created. Qubrics includes a managed Amazon SES sending account, and you can add your own accounts when you need more control.
 
 The app calls these **sending accounts**. The Management API calls the same resources **providers**.
 
@@ -26,7 +26,7 @@ The managed account is active by default. It is best for first sends and low-vol
 
 | Setting               | Free                   | Pro                       |
 | --------------------- | ---------------------- | ------------------------- |
-| Hourly sending limit  | 2 accepted recipients  | No Sendmux speed cap      |
+| Hourly sending limit  | 2 accepted recipients  | No Qubrics speed cap      |
 | Starting daily limit  | 50 accepted recipients | 1,000 accepted recipients |
 | Daily reset           | 00:00 UTC              | 00:00 UTC                 |
 | Setup                 | None                   | None                      |
@@ -35,9 +35,9 @@ The managed account is active by default. It is best for first sends and low-vol
 
 <SharedSesPolicy />
 
-Pro managed sending has no per-second, per-minute or per-hour Sendmux speed cap, and your team's current daily allowance still applies, including approved increases. Managed sends share Amazon SES account and regional sending limits.
+Pro managed sending has no per-second, per-minute or per-hour Qubrics speed cap, and your team's current daily allowance still applies, including approved increases. Managed sends share Amazon SES account and regional sending limits.
 
-Free managed-sending limits are fixed. Upgrade to Pro for more capacity. On Pro, **Request increase** appears on **Accounts** at 80% of the managed Amazon SES daily limit. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API. Submit the request once; Sendmux reviews it and emails the outcome.
+Free managed-sending limits are fixed. Upgrade to Pro for more capacity. On Pro, **Request increase** appears on **Accounts** at 80% of the managed Amazon SES daily limit. You can also call `POST /providers/shared-amazon-ses-limit-request` from the Management API. Submit the request once; Qubrics reviews it and emails the outcome.
 
 <Warning>
   If the managed account is inactive and no other active provider exists, sends
@@ -48,7 +48,7 @@ Free managed-sending limits are fixed. Upgrade to Pro for more capacity. On Pro,
 
 Use your own provider when you need higher volume, a specific sender policy, or direct control of account credentials.
 
-Your own providers on Pro and Enterprise have no Sendmux sending caps. Provider limits and any quotas you configure still apply.
+Your own providers on Pro and Enterprise have no Qubrics sending caps. Provider limits and any quotas you configure still apply.
 
 <Steps>
   <Step title="Open Accounts">
@@ -73,7 +73,7 @@ Your own providers on Pro and Enterprise have no Sendmux sending caps. Provider 
 
 ## Import accounts from a file
 
-Use CSV to create or update custom accounts in bulk. Use a Sendmux JSON
+Use CSV to create or update custom accounts in bulk. Use a Qubrics JSON
 configuration file to transfer supported non-secret values without spreadsheet
 formatting.
 
@@ -87,7 +87,7 @@ formatting.
     source team.
   </Step>
   <Step title="Review the rows">
-    Upload the CSV or JSON file. Sendmux shows the accepted rows before it
+    Upload the CSV or JSON file. Qubrics shows the accepted rows before it
     starts. CSV files also show any invalid rows, which are not imported.
   </Step>
   <Step title="Start the import">
@@ -121,7 +121,7 @@ formatting.
     | --- | --- | --- |
     | `name` | Every row | Account name. |
     | `type` | No | `smtp` (default), `gmail_api`, or `outlook_api`. |
-    | `group_name` | No | Delivery group name. Sendmux creates the group if it does not exist, then adds the account. |
+    | `group_name` | No | Delivery group name. Qubrics creates the group if it does not exist, then adds the account. |
     | `host` or `smtp_host` | New SMTP account | Public SMTP hostname. |
     | `port` or `smtp_port` | New SMTP account | `25`, `465`, `587`, or `2525`. |
     | `protocol` or `smtp_protocol` | New SMTP account | `plain`, `none`, `ssl`, `tls`, or `starttls`. |
@@ -141,7 +141,7 @@ formatting.
   </Accordion>
 
   <Accordion title="How updates are matched">
-    Sendmux checks Gmail and Outlook accounts by type and `oauth_user_email`,
+    Qubrics checks Gmail and Outlook accounts by type and `oauth_user_email`,
     SMTP accounts by host and username, then a unique account name with the
     same type. Blank optional cells do not clear existing values.
 
@@ -195,7 +195,7 @@ Use the [Management API](/api/introduction#sending-account-management) when you 
 | Request shared Amazon SES daily limit review                  | `POST /providers/shared-amazon-ses-limit-request`                                  |
 | Cancel a pending shared-account limit request                 | `DELETE /providers/shared-amazon-ses-limit-request/{request_id}`                   |
 
-Connected account setup still starts in the Sendmux app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
+Connected account setup still starts in the Qubrics app. After connection, the API can read, activate, deactivate, delete, and update safe account metadata.
 
 <Warning>
   The shared Amazon SES account is managed by the platform. API clients can
@@ -236,7 +236,7 @@ See [Template variables](/sending/template-variables) for the key rule, value li
 | Plan | Your own sending accounts | More capacity |
 | ---- | ------------------------- | ------------- |
 | Free | 1; the managed account does not count | Delete an account or upgrade to Pro |
-| Pro | Unlimited*, subject to fair usage. The app shows your current allowance. | Request an increase at 80% usage for Sendmux admin approval. |
+| Pro | Unlimited*, subject to fair usage. The app shows your current allowance. | Request an increase at 80% usage for Qubrics admin approval. |
 
 ## Related guides
 

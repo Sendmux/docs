@@ -1,6 +1,6 @@
 ---
 title: "Errors"
-description: "Error codes and handling for the Sendmux Sending API."
+description: "Error codes and handling for the Qubrics Sending API."
 keywords:
   [
     "sending errors",
@@ -23,7 +23,7 @@ The Sending API uses the same error envelope as the [Management API](/api/errors
     "code": "insufficient_credits",
     "message": "A human-readable description of the error.",
     "param": "to.email",
-    "doc_url": "https://sendmux.ai/docs/sending-api/errors#insufficient_credits",
+    "doc_url": "https://qubrics.com/docs/sending-api/errors#insufficient_credits",
     "retryable": false
   },
   "meta": {
@@ -96,7 +96,7 @@ Common causes:
 
 ### invalid_delivery_group
 
-**HTTP 422**: The per-message `delivery_group` hint is malformed or ambiguous. Supply one group public ID or a nonempty array, with at most 50 groups and no empty entries. Use the dedicated field instead of `X-Sendmux-Delivery-Group` in `custom_headers`. `retryable` is `false`.
+**HTTP 422**: The per-message `delivery_group` hint is malformed or ambiguous. Supply one group public ID or a nonempty array, with at most 50 groups and no empty entries. Use the dedicated field instead of `X-Qubrics-Delivery-Group` in `custom_headers`. `retryable` is `false`.
 
 ### delivery_group_not_found
 

@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "almond",
-  "name": "Sendmux",
+  "name": "Qubrics",
   "colors": {
     "primary": "#6a75f1",
     "light": "#5a84e9",
     "dark": "#004aad"
   },
-  "favicon": "/images/favicon.ico",
+  "favicon": "/images/logo-light.svg",
   "api": {
     "playground": {
       "display": "interactive"
@@ -32,7 +32,7 @@
           {
             "group": "Getting started",
             "icon": "play",
-            "pages": ["index", "getting-started/quickstart"]
+            "pages": ["index", "getting-started/quickstart", "getting-started/existing-integrations"]
           },
           {
             "group": "Developer tools",
@@ -481,11 +481,11 @@
       "anchors": [
         {
           "anchor": "App",
-          "href": "https://app.sendmux.ai"
+          "href": "https://app.qubrics.com"
         },
         {
           "anchor": "Website",
-          "href": "https://sendmux.ai"
+          "href": "https://qubrics.com"
         }
       ]
     }
@@ -493,7 +493,7 @@
   "logo": {
     "light": "/images/logo-light.svg",
     "dark": "/images/logo-dark.svg",
-    "href": "https://sendmux.ai/docs"
+    "href": "https://qubrics.com/docs"
   },
   "navbar": {
     "links": [
@@ -503,13 +503,13 @@
       },
       {
         "label": "Support",
-        "href": "mailto:contact@sendmux.ai"
+        "href": "mailto:contact@qubrics.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "App",
-      "href": "https://app.sendmux.ai"
+      "href": "https://app.qubrics.com"
     }
   },
   "contextual": {
@@ -527,7 +527,7 @@
   "footer": {
     "socials": {
       "x": "https://x.com/sendmux",
-      "github": "https://github.com/sendmux"
+      "github": "https://github.com/qubrics"
     }
   },
   "fonts": {
@@ -545,7 +545,7 @@
   "description": "The intelligent email layer",
   "seo": {
     "metatags": {
-      "canonical": "https://sendmux.ai/docs"
+      "canonical": "https://qubrics.com/docs"
     }
   },
   "appearance": {

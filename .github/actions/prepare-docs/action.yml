@@ -25,37 +25,23 @@ runs:
         ref: ${{ steps.mcp-sdk.outputs.commit }}
         path: .tmp/mcp-docs-sdk
 
-    - name: Resolve approved skills release
-      id: skills-release
-      shell: bash
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        set -euo pipefail
-        tag="$(gh release view --repo qubrics/skills --json tagName --jq .tagName)"
-        gh release download "$tag" --repo qubrics/skills --pattern acceptance.json --output "$RUNNER_TEMP/skills-acceptance.json"
-        revision="$(node -e 'const r = require(process.argv[1]); if (!r.accepted || !/^[0-9a-f]{40}$/.test(r.skills?.proposed?.revision ?? "")) throw new Error("Missing approved skills revision"); process.stdout.write(r.skills.proposed.revision)' "$RUNNER_TEMP/skills-acceptance.json")"
-        printf 'tag=%s\nrevision=%s\n' "$tag" "$revision" >> "$GITHUB_OUTPUT"
-
-    - name: Checkout approved skills source
+    - name: Checkout approved Skills main
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         persist-credentials: false
         repository: qubrics/skills
-        ref: ${{ steps.skills-release.outputs.revision }}
-        path: .tmp/skills-release
+        ref: c4e01f547b32591b658844da8d65b54da86554aa
+        path: .tmp/skills-main
         fetch-depth: 0
 
-    - name: Verify skills release acceptance
+    - name: Verify Skills main acceptance
       shell: bash
       env:
-        SKILLS_TAG: ${{ steps.skills-release.outputs.tag }}
-        SKILLS_REVISION: ${{ steps.skills-release.outputs.revision }}
+        SKILLS_REVISION: c4e01f547b32591b658844da8d65b54da86554aa
       run: |
         set -euo pipefail
-        test "$(git -C .tmp/skills-release rev-parse "refs/tags/$SKILLS_TAG^{commit}")" = "$SKILLS_REVISION"
-        node .tmp/skills-release/scripts/skill-compatibility.mjs --verify-skills-receipt "$RUNNER_TEMP/skills-acceptance.json" \
-          --skills-root "$GITHUB_WORKSPACE/.tmp/skills-release" --revision "$SKILLS_REVISION"
+        node .tmp/skills-main/scripts/skill-compatibility.mjs --verify-skills-receipt evidence/rebrand-qubrics-skills-main-c4e01f54.acceptance.json \
+          --skills-root "$GITHUB_WORKSPACE/.tmp/skills-main" --revision "$SKILLS_REVISION"
 
     - name: Install dependencies
       shell: bash
@@ -66,7 +52,7 @@ runs:
       run: npm test
       env:
         SENDMUX_SDK_CHECKOUT: .tmp/mcp-docs-sdk
-        SENDMUX_SKILLS_ROOT: .tmp/skills-release
+        SENDMUX_SKILLS_ROOT: .tmp/skills-main
 
     - name: MCP docs contract drift
       shell: bash

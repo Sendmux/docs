@@ -1,50 +1,50 @@
 ---
-title: "Use Sendmux with MailWizz for cold email outreach"
+title: "Use Qubrics with MailWizz for cold email outreach"
 sidebarTitle: "MailWizz"
-description: "Connect MailWizz to Sendmux, set humanised sending limits, and run cold email outreach campaigns with scheduled follow-ups and signed feedback."
+description: "Connect MailWizz to Qubrics, set humanised sending limits, and run cold email outreach campaigns with scheduled follow-ups and signed feedback."
 keywords:
   [
-    "Sendmux MailWizz integration",
+    "Qubrics MailWizz integration",
     "MailWizz cold email",
     "cold email outreach",
     "MailWizz follow-up campaign",
     "email sending limits",
     "MailWizz delivery server",
   ]
-"og:title": "Use Sendmux with MailWizz for cold email outreach"
-"og:description": "Connect MailWizz to Sendmux, manage sending accounts and limits, and run prospecting campaigns with follow-ups."
-"og:image": "https://sendmux.ai/docs/images/integrations/email-marketing/sendmux-mailwizz-integration.png"
+"og:title": "Use Qubrics with MailWizz for cold email outreach"
+"og:description": "Connect MailWizz to Qubrics, manage sending accounts and limits, and run prospecting campaigns with follow-ups."
+"og:image": "https://qubrics.com/docs/images/integrations/email-marketing/sendmux-mailwizz-integration.png"
 ---
 
-Connect MailWizz to Sendmux when you want MailWizz to manage prospects, campaign content, schedules and follow-ups while Sendmux manages eligible sending accounts, routing and sending limits. You configure one Sendmux delivery server in MailWizz, then use it across your outreach sequence.
+Connect MailWizz to Qubrics when you want MailWizz to manage prospects, campaign content, schedules and follow-ups while Qubrics manages eligible sending accounts, routing and sending limits. You configure one Qubrics delivery server in MailWizz, then use it across your outreach sequence.
 
 <Frame>
   <img
     src="/images/integrations/email-marketing/sendmux-mailwizz-integration.png"
-    alt="MailWizz campaign messages passing through Sendmux to several eligible sending accounts, with delivery feedback returning to MailWizz"
+    alt="MailWizz campaign messages passing through Qubrics to several eligible sending accounts, with delivery feedback returning to MailWizz"
   />
 </Frame>
 
 <Info>
-  Before you start, use MailWizz 2.0.34 or later. You also need a Sendmux
+  Before you start, use MailWizz 2.0.34 or later. You also need a Qubrics
   team with an active sending account and a publicly reachable MailWizz
   frontend URL using HTTPS.
 </Info>
 
-## Set up MailWizz with Sendmux
+## Set up MailWizz with Qubrics
 
 <Steps>
-  <Step title="Install the extension and connect Sendmux">
-    <a href="https://github.com/qubrics/mailwizz-smtp-proxy/releases/latest/download/sendmux-web-api.zip" rel="nofollow noopener noreferrer" target="_blank">Download the latest Sendmux extension</a>. In the MailWizz backend, open **Extend** → **Extensions** → **Upload extension**, upload the archive and enable **Sendmux Sending API**.
+  <Step title="Install the extension and connect Qubrics">
+    <a href="https://github.com/qubrics/mailwizz-smtp-proxy/releases/latest/download/sendmux-web-api.zip" rel="nofollow noopener noreferrer" target="_blank">Download the latest Qubrics extension</a>. In the MailWizz backend, open **Extend** → **Extensions** → **Upload extension**, upload the archive and enable **Sendmux Sending API**.
 
-    <Frame caption="Upload the Sendmux extension ZIP in MailWizz.">
+    <Frame caption="Upload the Qubrics extension ZIP in MailWizz.">
       <img
         src="/images/integrations/email-marketing/mailwizz-upload-extension.png"
         alt="MailWizz upload extension dialog with a ZIP archive chooser and Upload archive button"
       />
     </Frame>
 
-    In Sendmux, open **API Keys**, create a send-capable mailbox key and copy
+    In Qubrics, open **API Keys**, create a send-capable mailbox key and copy
     the reveal-once value beginning with `smx_mbx_`.
 
     In MailWizz, open **Delivery servers** → **Create new**, select **Sendmux
@@ -52,7 +52,7 @@ Connect MailWizz to Sendmux when you want MailWizz to manage prospects, campaign
     fields. Save the server. It remains inactive until you connect signed
     feedback.
 
-    Reopen the server and select **Info** to copy its webhook URL. In Sendmux,
+    Reopen the server and select **Info** to copy its webhook URL. In Qubrics,
     open **Webhooks** → **Create webhook**, use that URL and subscribe to
     `message.bounced` and `message.complained`. Copy the reveal-once `whsec_`
     secret back into **Webhook signing secret** in MailWizz. Save, test and
@@ -60,14 +60,14 @@ Connect MailWizz to Sendmux when you want MailWizz to manage prospects, campaign
   </Step>
 
   <Step title="Add sending accounts and set limits">
-    In Sendmux, open **Accounts** → **Add Account**. Add each account you want
+    In Qubrics, open **Accounts** → **Add Account**. Add each account you want
     in your outreach pool, complete its connection details and run the
     available test.
 
-    <Frame caption="Choose the connection type for each Sendmux sending account.">
+    <Frame caption="Choose the connection type for each Qubrics sending account.">
       <img
         src="/images/integrations/email-marketing/sendmux-add-sending-account.png"
-        alt="Sendmux Add Account panel showing the available sending account connection types"
+        alt="Qubrics Add Account panel showing the available sending account connection types"
       />
     </Frame>
 
@@ -78,12 +78,12 @@ Connect MailWizz to Sendmux when you want MailWizz to manage prospects, campaign
     <Frame caption="Set fixed or ranged quotas for each sending window.">
       <img
         src="/images/integrations/email-marketing/sendmux-account-quotas.png"
-        alt="Sendmux quota fields for per-second, per-minute, per-hour and per-day sending limits"
+        alt="Qubrics quota fields for per-second, per-minute, per-hour and per-day sending limits"
       />
     </Frame>
 
     Choose limits that fit the account's history and provider policy. A range
-    such as `5–10` lets Sendmux periodically select an active cap inside those
+    such as `5–10` lets Qubrics periodically select an active cap inside those
     boundaries. Messages above the current cap wait until capacity is
     available.
   </Step>
@@ -105,7 +105,7 @@ Connect MailWizz to Sendmux when you want MailWizz to manage prospects, campaign
     before activation.
 
     Use a separate campaign for every intended follow-up. Both the original
-    campaign and its follow-ups use the same Sendmux delivery server, so
+    campaign and its follow-ups use the same Qubrics delivery server, so
     account eligibility and sending limits continue to apply.
   </Step>
 </Steps>
@@ -116,11 +116,11 @@ Connect MailWizz to Sendmux when you want MailWizz to manage prospects, campaign
   clear way to stop further contact.
 </Warning>
 
-## How MailWizz and Sendmux divide the work
+## How MailWizz and Qubrics divide the work
 
-MailWizz owns the campaign workflow. Sendmux decides which eligible account can send and enforces that account's current limits. This keeps lists and automations in MailWizz without recreating every sending account as a separate delivery server.
+MailWizz owns the campaign workflow. Qubrics decides which eligible account can send and enforces that account's current limits. This keeps lists and automations in MailWizz without recreating every sending account as a separate delivery server.
 
-| MailWizz | Sendmux |
+| MailWizz | Qubrics |
 | --- | --- |
 | Lists, subscribers and segments | Connected sending accounts |
 | Campaign content and schedules | Account eligibility and routing |
@@ -129,15 +129,15 @@ MailWizz owns the campaign workflow. Sendmux decides which eligible account can 
 
 ## Choose fixed limits or ranges
 
-Use a fixed cap when you want one predictable ceiling. Use a range when the active ceiling may move within approved boundaries. Sendmux selects a value when account information refreshes and keeps that cap until the next refresh.
+Use a fixed cap when you want one predictable ceiling. Use a range when the active ceiling may move within approved boundaries. Qubrics selects a value when account information refreshes and keeps that cap until the next refresh.
 
 A range varies the sending ceiling. It does not add a random delay to each message or guarantee inbox placement. Good targeting, authenticated sender domains, relevant content and a healthy account history still matter.
 
 ## How feedback returns to MailWizz
 
-The extension includes MailWizz campaign and subscriber identifiers with campaign sends. When Sendmux reports a bounce or complaint, MailWizz verifies the signed event and matches it to the campaign, subscriber and delivery server that recorded the send before changing subscriber state.
+The extension includes MailWizz campaign and subscriber identifiers with campaign sends. When Qubrics reports a bounce or complaint, MailWizz verifies the signed event and matches it to the campaign, subscriber and delivery server that recorded the send before changing subscriber state.
 
-| Sendmux event | MailWizz result |
+| Qubrics event | MailWizz result |
 | --- | --- |
 | Permanent bounce | Records a hard bounce and normally blacklists the subscriber. |
 | Transient bounce | Records a soft bounce. |
@@ -148,11 +148,11 @@ Invalid, unsigned or unmatched webhook calls cannot alter campaign records. If a
 
 ## What `queued` means
 
-`queued` means Sendmux accepted the message for processing. It does not mean the recipient system accepted it or that it reached the inbox. Final delivery still depends on the selected account, the recipient system, message quality and sender reputation.
+`queued` means Qubrics accepted the message for processing. It does not mean the recipient system accepted it or that it reached the inbox. Final delivery still depends on the selected account, the recipient system, message quality and sender reputation.
 
 ## Check before your first campaign
 
-- Test and activate the Sendmux delivery server in MailWizz.
+- Test and activate the Qubrics delivery server in MailWizz.
 - Confirm at least one eligible sending account is active.
 - Review From, Reply-To and sending limits for every account.
 - Confirm the feedback webhook has its saved `whsec_` secret.
@@ -167,12 +167,12 @@ Start with a controlled campaign. Check delivery logs, bounces, complaints and r
   <Accordion title="Do I need a separate MailWizz bounce server?">
     Not for campaign feedback handled by this integration. The signed webhook
     writes correlated bounces and complaints into MailWizz. Keep it active and
-    monitor failed webhook deliveries in Sendmux.
+    monitor failed webhook deliveries in Qubrics.
   </Accordion>
 
-  <Accordion title="Can Sendmux use multiple sending accounts?">
-    Yes. Add each account to Sendmux and configure its sender details, limits
-    and routing. Sendmux chooses among eligible active accounts for the key
+  <Accordion title="Can Qubrics use multiple sending accounts?">
+    Yes. Add each account to Qubrics and configure its sender details, limits
+    and routing. Qubrics chooses among eligible active accounts for the key
     used by the MailWizz delivery server.
   </Accordion>
 
@@ -185,7 +185,7 @@ Start with a controlled campaign. Check delivery logs, bounces, complaints and r
   <Accordion title="Can I reuse one autoresponder for repeated sends?">
     Use a separate MailWizz campaign for each intended follow-up. Deliberately
     re-entering the same subscriber into the same autoresponder during the
-    Sendmux idempotency window is not supported.
+    Qubrics idempotency window is not supported.
   </Accordion>
 </AccordionGroup>
 

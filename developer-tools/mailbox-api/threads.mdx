@@ -4,7 +4,7 @@ description: "List and read Mailbox API conversation threads and their messages.
 keywords: ["mailbox threads","conversation threads","thread messages","Mailbox API"]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 ## Thread APIs
 
@@ -14,7 +14,7 @@ every body.
 ### List threads
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/threads?q=invoice&participant=sender@example.com&folder_id=inbox&is_unread=true&limit=10" \
+curl "https://app.qubrics.com/api/v1/mailbox/threads?q=invoice&participant=sender@example.com&folder_id=inbox&is_unread=true&limit=10" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -74,7 +74,7 @@ Thread list filters:
 ### Read a thread
 
 ```bash
-curl https://app.sendmux.ai/api/v1/mailbox/threads/thr_123 \
+curl https://app.qubrics.com/api/v1/mailbox/threads/thr_123 \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 

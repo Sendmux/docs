@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-Network timeouts and client retries can send the same request more than once. `Idempotency-Key` lets Sendmux return the first result instead of running the operation again.
+Network timeouts and client retries can send the same request more than once. `Idempotency-Key` lets Qubrics return the first result instead of running the operation again.
 
 ## How it works
 
@@ -21,19 +21,19 @@ Network timeouts and client retries can send the same request more than once. `I
     identifies the logical action, such as an order or invoice ID.
   </Step>
   <Step title="Retry with the same body">
-    If the same key and body arrive again within 24 hours, Sendmux returns the
+    If the same key and body arrive again within 24 hours, Qubrics returns the
     original response.
   </Step>
   <Step title="Handle conflicts">
     If the same key arrives with a different body, or while the first request is
-    still running, Sendmux returns `409 idempotency_conflict`.
+    still running, Qubrics returns `409 idempotency_conflict`.
   </Step>
 </Steps>
 
 ## Example
 
 ```bash
-curl -X POST https://smtp.sendmux.ai/api/v1/emails/send \
+curl -X POST https://smtp.qubrics.com/api/v1/emails/send \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -H "Idempotency-Key: order-confirmation-12345" \

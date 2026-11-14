@@ -1,6 +1,6 @@
 ---
 title: "A2A"
-description: "Discover and connect A2A-compatible agents to Sendmux with OAuth."
+description: "Discover and connect A2A-compatible agents to Qubrics with OAuth."
 keywords:
   [
     "A2A",
@@ -8,11 +8,11 @@ keywords:
     "Agent Card",
     "OAuth",
     "AI agents",
-    "Sendmux A2A",
+    "Qubrics A2A",
   ]
 ---
 
-Use A2A when an agent platform needs to discover Sendmux and call mailbox, management, or sending operations through a standard agent endpoint. Sendmux publishes an Agent Card and uses OAuth for hosted access.
+Use A2A when an agent platform needs to discover Qubrics and call mailbox, management, or sending operations through a standard agent endpoint. Qubrics publishes an Agent Card and uses OAuth for hosted access.
 
 ## Choose A2A or MCP
 
@@ -21,18 +21,18 @@ Use A2A when an agent platform needs to discover Sendmux and call mailbox, manag
 | A2A | Your agent platform supports A2A 1.0 over HTTP+JSON and exchanges structured agent messages. |
 | [MCP](/ai-integrations/mcp) | Your AI client discovers and calls MCP tools. |
 
-Both connections expose curated Sendmux operations. Authorisation grants remain limited to the product surfaces, permissions, and mailboxes you select.
+Both connections expose curated Qubrics operations. Authorisation grants remain limited to the product surfaces, permissions, and mailboxes you select.
 
-## Discover Sendmux
+## Discover Qubrics
 
 Start with the Agent Card. It describes the service URL, protocol version, supported skills, capabilities, and OAuth security scheme.
 
 | Resource | URL |
 | --- | --- |
-| Agent Card | `https://a2a.sendmux.ai/.well-known/agent-card.json` |
-| A2A service | `https://a2a.sendmux.ai/a2a/v1` |
-| OAuth protected-resource metadata | `https://a2a.sendmux.ai/.well-known/oauth-protected-resource` |
-| OAuth authorisation-server metadata | `https://app.sendmux.ai/.well-known/oauth-authorization-server` |
+| Agent Card | `https://a2a.qubrics.com/.well-known/agent-card.json` |
+| A2A service | `https://a2a.qubrics.com/a2a/v1` |
+| OAuth protected-resource metadata | `https://a2a.qubrics.com/.well-known/oauth-protected-resource` |
+| OAuth authorisation-server metadata | `https://app.qubrics.com/.well-known/oauth-authorization-server` |
 
 The Agent Card advertises A2A protocol version `1.0`, the `HTTP+JSON` binding, and `application/json` input and output.
 
@@ -45,7 +45,7 @@ The Agent Card advertises A2A protocol version `1.0`, the `HTTP+JSON` binding, a
   </Step>
   <Step title="Start OAuth">
     Use the advertised authorisation-code flow with PKCE. Your client opens
-    Sendmux in a browser.
+    Qubrics in a browser.
   </Step>
   <Step title="Choose the grant">
     Select a team, the Mailbox, Management, or Sending surfaces, and mailbox
@@ -57,14 +57,14 @@ The Agent Card advertises A2A protocol version `1.0`, the `HTTP+JSON` binding, a
 </Steps>
 
 <Warning>
-  A2A access tokens are audience-bound to `https://a2a.sendmux.ai/a2a/v1`.
+  A2A access tokens are audience-bound to `https://a2a.qubrics.com/a2a/v1`.
   They cannot authorise MCP requests. MCP tokens cannot authorise A2A
   requests.
 </Warning>
 
 ## Send an operation
 
-Send a `message:send` request with exactly one JSON `DataPart`. Put the selected Sendmux operation and its inputs in the part's `data` value. Your A2A client handles the surrounding message envelope.
+Send a `message:send` request with exactly one JSON `DataPart`. Put the selected Qubrics operation and its inputs in the part's `data` value. Your A2A client handles the surrounding message envelope.
 
 ```json
 {
@@ -79,10 +79,10 @@ Send a `message:send` request with exactly one JSON `DataPart`. Put the selected
 
 | Field | Use |
 | --- | --- |
-| `operationId` | Required. Selects one curated hosted Sendmux operation. |
+| `operationId` | Required. Selects one curated hosted Qubrics operation. |
 | `pathParameters` | Supplies every placeholder in the selected operation path, with no additional keys. |
 | `query` | Supplies query parameters as scalar values or lists of scalar values. |
-| `headers` | Supplies headers required by the selected Sendmux operation. Send the OAuth Bearer token on the A2A request instead. |
+| `headers` | Supplies headers required by the selected Qubrics operation. Send the OAuth Bearer token on the A2A request instead. |
 | `body` | Supplies a JSON request body. |
 | `bodyBase64` | Supplies a base64-encoded non-JSON body. Do not send it together with `body`. |
 | `mailboxId` | Targets one granted mailbox when the OAuth grant includes more than one. |
@@ -101,7 +101,7 @@ Use the [Mailbox API](/mailbox-api/introduction), [Management API](/api/introduc
 
 ## Read the result
 
-Sendmux returns one JSON `DataPart`. Its `data` contains the upstream HTTP status, safe response headers, and either a JSON body or a base64-encoded body.
+Qubrics returns one JSON `DataPart`. Its `data` contains the upstream HTTP status, safe response headers, and either a JSON body or a base64-encoded body.
 
 ```json
 {
@@ -162,7 +162,7 @@ The A2A endpoint is immediate and stateless. It does not advertise or route stre
     Compare hosted and local MCP connections for tool-based clients.
   </Card>
   <Card title="Agent access" icon="robot" href="/ai-integrations/agent-access">
-    Create a constrained agent identity when the agent has no existing Sendmux credential.
+    Create a constrained agent identity when the agent has no existing Qubrics credential.
   </Card>
   <Card title="Mailbox API" icon="inbox" href="/mailbox-api/introduction">
     Review mailbox operations and request fields.

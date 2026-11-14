@@ -4,18 +4,18 @@ description: "Configure scoped OAuth access to the Sending, Mailbox, and Managem
 keywords: ["OAuth", "PKCE", "API authentication", "access token", "refresh token", "integration"]
 ---
 
-Use the authorisation-code flow with S256 PKCE to request user-approved access to the Sendmux REST APIs. The user selects a team, permissions, and any required mailboxes on the consent screen.
+Use the authorisation-code flow with S256 PKCE to request user-approved access to the Qubrics REST APIs. The user selects a team, permissions, and any required mailboxes on the consent screen.
 
 ## Endpoints and resource
 
 | Setting | Value |
 | --- | --- |
-| Issuer | `https://app.sendmux.ai` |
-| Discovery | `https://app.sendmux.ai/.well-known/oauth-authorization-server` |
-| Client registration | `POST https://app.sendmux.ai/oauth/register` |
-| Authorisation | `GET https://app.sendmux.ai/oauth/authorize` |
-| Token exchange and refresh | `POST https://app.sendmux.ai/oauth/token` |
-| Revocation | `POST https://app.sendmux.ai/oauth/revoke` |
+| Issuer | `https://app.qubrics.com` |
+| Discovery | `https://app.qubrics.com/.well-known/oauth-authorization-server` |
+| Client registration | `POST https://app.qubrics.com/oauth/register` |
+| Authorisation | `GET https://app.qubrics.com/oauth/authorize` |
+| Token exchange and refresh | `POST https://app.qubrics.com/oauth/token` |
+| Revocation | `POST https://app.qubrics.com/oauth/revoke` |
 | REST resource | `https://sendmux.ai/api` |
 | Grant types | `authorization_code`, `refresh_token` |
 | PKCE method | `S256` |

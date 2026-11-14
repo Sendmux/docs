@@ -1,6 +1,6 @@
 ---
 title: "Webhooks setup"
-description: "Subscribe to Sendmux events, verify signatures, and review delivery attempts."
+description: "Subscribe to Qubrics events, verify signatures, and review delivery attempts."
 keywords: ["webhooks", "events", "signatures", "HMAC", "retries", "rotation"]
 ---
 
@@ -39,14 +39,16 @@ Every delivery includes a JSON body and headers that identify the event.
 
 | Header                       | Use                                         |
 | ---------------------------- | ------------------------------------------- |
-| `X-Sendmux-Signature-V2`     | Verify the timestamp and exact body bytes.  |
-| `X-Sendmux-Timestamp`        | Check the signed Unix timestamp in seconds. |
-| `X-Sendmux-Signature`        | Verify the body with the legacy signature.  |
-| `X-Sendmux-Event-Id`         | Dedupe retries for the same event.          |
-| `X-Sendmux-Event-Type`       | Route the event in your application.        |
-| `X-Sendmux-Delivery-Attempt` | Track retry attempts.                       |
+| `X-Qubrics-Signature-V2`     | Verify the timestamp and exact body bytes.  |
+| `X-Qubrics-Timestamp`        | Check the signed Unix timestamp in seconds. |
+| `X-Qubrics-Signature`        | Verify the body with the legacy signature.  |
+| `X-Qubrics-Event-Id`         | Dedupe retries for the same event.          |
+| `X-Qubrics-Event-Type`       | Route the event in your application.        |
+| `X-Qubrics-Delivery-Attempt` | Track retry attempts.                       |
 
 Verify the signature before acting on an event. See [Verify webhook signatures](/webhooks/verify-signatures).
+
+See [Compatibility names](/ai-integrations/mcp#compatibility-names) for retained `SENDMUX_*` settings, webhook headers and MCP tool names.
 
 ## Event types
 
@@ -65,7 +67,7 @@ Verify the signature before acting on an event. See [Verify webhook signatures](
 
 Your endpoint should return `2xx` quickly. Non-`2xx` responses and timeouts are retried across a 24-hour window.
 
-After the final failed attempt, Sendmux marks the webhook as failing and emails the team owner. Fix the endpoint, then disable and re-enable the webhook to resume delivery.
+After the final failed attempt, Qubrics marks the webhook as failing and emails the team owner. Fix the endpoint, then disable and re-enable the webhook to resume delivery.
 
 ## Review deliveries
 

@@ -38,8 +38,8 @@ test("active docs do not teach the retired agent registration ceremony", async (
 test("agent access leads with durable reads and owner-approved sending", async () => {
   const guide = await readFile(new URL("../ai-integrations/agent-access.mdx", import.meta.url), "utf8");
 
-  assert.match(guide, /sendmux agent:register <profile>/);
-  assert.match(guide, /sendmux agent:invite-owner owner@example\.com --profile <profile>/);
+  assert.match(guide, /qubrics agent:register <profile>/);
+  assert.match(guide, /qubrics agent:invite-owner owner@example\.com --profile <profile>/);
   assert.match(guide, /durable read token/i);
   assert.match(guide, /does not expire/i);
   assert.match(guide, /owner must accept.*explicitly approve sending/is);

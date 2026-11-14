@@ -21,15 +21,15 @@ Use the Mailbox API to keep private calendars and non-sending events for an auth
     List calendars before creating another one. Keep the returned cursor unchanged when you request the next page.
 
     ```bash
-    curl "https://app.sendmux.ai/api/v1/mailbox/calendars?limit=50" \
-      -H "Authorization: Bearer $SENDMUX_API_KEY"
+    curl "https://app.qubrics.com/api/v1/mailbox/calendars?limit=50" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY"
     ```
 
     Create a private calendar with a local time zone. Retain one `Idempotency-Key` for the logical create and reuse it after a lost response. Do not send the same body with a new key while the outcome is uncertain.
 
     ```bash
-    curl -X POST "https://app.sendmux.ai/api/v1/mailbox/calendars" \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+    curl -X POST "https://app.qubrics.com/api/v1/mailbox/calendars" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -H "Idempotency-Key: calendar-appointments-v1" \
       -d '{"name":"Appointments","time_zone":"Australia/Melbourne"}'
@@ -40,8 +40,8 @@ Use the Mailbox API to keep private calendars and non-sending events for an auth
     Save a caller-held `uid` before dispatch. Send a local `start` without an offset, its `time_zone`, and an ISO 8601 `duration`.
 
     ```bash
-    curl -X POST "https://app.sendmux.ai/api/v1/mailbox/calendar-events" \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+    curl -X POST "https://app.qubrics.com/api/v1/mailbox/calendar-events" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -H "Idempotency-Key: appointment-2026-11-20-v1" \
       -d '{
@@ -61,8 +61,8 @@ Use the Mailbox API to keep private calendars and non-sending events for an auth
     Read the event immediately before an update or delete and retain its `ETag`. Send that exact value in `If-Match`. If the mutation returns `409 conflict`, read the event again and review the current version before another mutation.
 
     ```bash
-    curl -X PATCH "https://app.sendmux.ai/api/v1/mailbox/calendar-events/event_123" \
-      -H "Authorization: Bearer $SENDMUX_API_KEY" \
+    curl -X PATCH "https://app.qubrics.com/api/v1/mailbox/calendar-events/event_123" \
+      -H "Authorization: Bearer $QUBRICS_API_KEY" \
       -H "Content-Type: application/json" \
       -H 'If-Match: "event-etag"' \
       -d '{"title":"Updated appointment"}'

@@ -1,17 +1,17 @@
 ---
 title: "Visual Studio MCP setup"
-description: "Configure Sendmux MCP in Visual Studio."
-keywords: ["Visual Studio","MCP client","Sendmux MCP","MCP setup"]
+description: "Configure Qubrics MCP in Visual Studio."
+keywords: ["Visual Studio","MCP client","Qubrics MCP","MCP setup"]
 ---
 
-Use this page to connect Sendmux MCP to your AI client.
+Use this page to connect Qubrics MCP to your AI client.
 
 ## Hosted OAuth
 
 Use the hosted endpoint when the client supports remote MCP OAuth:
 
 ```text
-https://mcp.sendmux.ai/mcp
+https://mcp.qubrics.com/mcp
 ```
 
 Add a remote MCP server with this JSON shape.
@@ -20,10 +20,10 @@ Add a remote MCP server with this JSON shape.
 {
   "servers": {
     "sendmux": {
-      "url": "https://mcp.sendmux.ai/mcp"
+      "url": "https://mcp.qubrics.com/mcp"
     }
   }
 }
 ```
 
-Click **Auth** above the server in the MCP configuration file, then complete the Sendmux authorisation flow.
+Click **Auth** above the server in the MCP configuration file, then complete the Qubrics authorisation flow.

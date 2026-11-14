@@ -15,10 +15,10 @@ keywords:
   ]
 ---
 
-Use this section to wire Sendmux into an agent you are building in code. Every framework here reaches Sendmux through MCP, so the tools your agent gets are the tools your key or grant allows.
+Use this section to wire Qubrics into an agent you are building in code. Every framework here reaches Qubrics through MCP, so the tools your agent gets are the tools your key or grant allows.
 
 <Info>
-  These pages cover frameworks you build agents with. To configure Sendmux in a
+  These pages cover frameworks you build agents with. To configure Qubrics in a
   coding assistant such as Claude Code or Cursor, use
   [MCP client setup](/ai-integrations/mcp/clients).
 </Info>
@@ -36,7 +36,7 @@ Framework agents run without a browser, so pick the connection your runtime can 
 | --- | --- | --- |
 | Local stdio | Your process can launch `sendmux-mcp` on the same machine. | Process environment |
 | Private HTTP | Your agent runs elsewhere, or your framework only accepts a URL. | `Authorization` header |
-| Hosted OAuth | Your framework can complete a browser MCP OAuth flow or hold an OAuth client provider. | Sendmux-issued token |
+| Hosted OAuth | Your framework can complete a browser MCP OAuth flow or hold an OAuth client provider. | Qubrics-issued token |
 
 Local stdio is the shortest path for a single service. Private HTTP suits containers, serverless runtimes, and any framework whose MCP client sends headers but cannot spawn a process.
 
@@ -98,7 +98,7 @@ A durable `smx_agent_` token carries `mailbox.read` and `email.receive`, not `em
     Register an agent and complete owner approval.
   </Card>
   <Card title="Agent skills" icon="sparkles" href="/ai-integrations/agent-skills">
-    Install the skills pack so agents reach for Sendmux by default.
+    Install the skills pack so agents reach for Qubrics by default.
   </Card>
   <Card title="API keys" icon="key" href="/account/api-keys">
     Create and scope the credentials your agent uses.

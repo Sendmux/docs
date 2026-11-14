@@ -13,7 +13,7 @@ keywords:
   ]
 ---
 
-Free limits are fixed. Pro offers Unlimited* resource capacity, subject to fair usage and Sendmux admin approval for increases. Provider quotas, safety controls, account health restrictions and managed Amazon SES limits still apply.
+Free limits are fixed. Pro offers Unlimited* resource capacity, subject to fair usage and Qubrics admin approval for increases. Provider quotas, safety controls, account health restrictions and managed Amazon SES limits still apply.
 
 ## Free limits
 
@@ -47,7 +47,7 @@ API creation requests generate `409 limit_exceeded`. Retrying the same request c
 
 ## Pro capacity
 
-The app shows usage and allowance. At 80% usage, select **Request increase** for Sendmux admin review, then request another increase at 80% of the approved allowance. Contact support for advance approval of higher limits to avoid interruptions.
+The app shows usage and allowance. At 80% usage, select **Request increase** for Qubrics admin review, then request another increase at 80% of the approved allowance. Contact support for advance approval of higher limits to avoid interruptions.
 
 Provider-accepted recipients don't use resource allowances. Provider quotas, API rate limits, safety controls, account health restrictions and managed Amazon SES safeguards still apply on Pro.
 
@@ -55,7 +55,7 @@ Provider-accepted recipients don't use resource allowances. Provider quotas, API
 
 Free teams can send to at most 50 accepted recipients per UTC day across all sending routes. A message with one To recipient and two CC recipients counts as three accepted recipients.
 
-Sendmux reserves capacity before accepting the message. Just before a queued message reaches its provider, Sendmux assigns that capacity to the current UTC day. If that day is already full, the queued message waits for the next UTC reset.
+Qubrics reserves capacity before accepting the message. Just before a queued message reaches its provider, Qubrics assigns that capacity to the current UTC day. If that day is already full, the queued message waits for the next UTC reset.
 
 In-flight recipients count towards the limit until their provider outcome is known, so concurrent sends cannot cross the cap. A reservation is not a usage charge. Outgoing usage is charged only for provider-accepted recipient occurrences.
 
@@ -66,11 +66,11 @@ Managed Amazon SES adds these safeguards:
 | Plan | Hourly limit                      | Daily limit                         | More capacity                                   |
 | ---- | --------------------------------- | ----------------------------------- | ----------------------------------------------- |
 | Free | 2 accepted recipients             | 50 accepted recipients              | Upgrade to Pro                                  |
-| Pro  | No Sendmux speed cap             | Team's current daily allowance     | Request a review from **Accounts** at 80% usage |
+| Pro  | No Qubrics speed cap             | Team's current daily allowance     | Request a review from **Accounts** at 80% usage |
 
-Pro managed sending has no per-second, per-minute or per-hour Sendmux cap. Your team's current daily allowance, approved increases and shared Amazon SES account and regional sending limits still apply.
+Pro managed sending has no per-second, per-minute or per-hour Qubrics cap. Your team's current daily allowance, approved increases and shared Amazon SES account and regional sending limits still apply.
 
-Your own providers on Pro and Enterprise have no Sendmux sending caps. Any quotas you configure, provider limits and account health controls still apply.
+Your own providers on Pro and Enterprise have no Qubrics sending caps. Any quotas you configure, provider limits and account health controls still apply.
 
 ## Related guides
 

@@ -1,6 +1,6 @@
 ---
 title: "Errors"
-description: "Error codes and handling for the Sendmux API."
+description: "Error codes and handling for the Qubrics API."
 keywords:
   [
     "error codes",
@@ -12,7 +12,7 @@ keywords:
   ]
 ---
 
-The Sendmux API uses standard HTTP status codes and returns a consistent error envelope so you can handle failures programmatically.
+The Qubrics API uses standard HTTP status codes and returns a consistent error envelope so you can handle failures programmatically.
 
 ## Error response format
 
@@ -23,7 +23,7 @@ The Sendmux API uses standard HTTP status codes and returns a consistent error e
     "code": "invalid_parameter",
     "message": "Description of the error.",
     "param": "from_date",
-    "doc_url": "https://sendmux.ai/docs/api/errors#invalid_parameter",
+    "doc_url": "https://qubrics.com/docs/api/errors#invalid_parameter",
     "retryable": false
   },
   "meta": {
@@ -78,7 +78,7 @@ When a request body fails schema validation on multiple fields, the error envelo
     "code": "invalid_parameter",
     "message": "Invalid request parameters.",
     "param": "filter_rules.0.action",
-    "doc_url": "https://sendmux.ai/docs/api/errors#invalid_parameter",
+    "doc_url": "https://qubrics.com/docs/api/errors#invalid_parameter",
     "retryable": false,
     "errors": [
       {
@@ -107,7 +107,7 @@ The `param` at the top of the error matches the first issue's `field` for backwa
 
 ```bash
 # Fix: include a valid API key
-curl https://app.sendmux.ai/api/v1/providers \
+curl https://app.qubrics.com/api/v1/providers \
   -H "Authorization: Bearer smx_root_your_key_here"
 ```
 

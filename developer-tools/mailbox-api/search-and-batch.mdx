@@ -4,7 +4,7 @@ description: "Filter, count, search, retrieve, update, and delete mailbox messag
 keywords: ["message search","batch messages","mailbox filters","message count"]
 ---
 
-The Sendmux Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
+The Qubrics Mailbox API is for mailbox-scoped access. Use it when a client should act as a mailbox, or as one mailbox from a connected-app mailbox set, without managing team-wide resources.
 
 ## Retrieval precision APIs
 
@@ -53,7 +53,7 @@ snippet.
 Use the count endpoint when you only need the number of matches.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/count?body=invoice&after=2026-05-01T00:00:00Z" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/count?body=invoice&after=2026-05-01T00:00:00Z" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -76,7 +76,7 @@ Use snippets to decide which matching messages deserve a full fetch. Snippets
 may include `<mark>` tags around matched terms.
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/search-snippets?q=invoice&limit=5" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/search-snippets?q=invoice&limit=5" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -104,7 +104,7 @@ Pass `message_ids` as a comma-separated list when you already have exact
 messages:
 
 ```bash
-curl "https://app.sendmux.ai/api/v1/mailbox/messages/search-snippets?q=invoice&message_ids=msg_123,msg_456" \
+curl "https://app.qubrics.com/api/v1/mailbox/messages/search-snippets?q=invoice&message_ids=msg_123,msg_456" \
   -H "Authorization: Bearer smx_mbx_your_key_here"
 ```
 
@@ -114,7 +114,7 @@ Use batch get when you have exact IDs and want one request instead of one call
 per message.
 
 ```bash
-curl https://app.sendmux.ai/api/v1/mailbox/messages:batch-get \
+curl https://app.qubrics.com/api/v1/mailbox/messages:batch-get \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -202,7 +202,7 @@ clears it. Keyword names are normalised to lowercase. Lifecycle keywords such
 as `$draft` are read-only.
 
 ```bash
-curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-update \
+curl -X POST https://app.qubrics.com/api/v1/mailbox/messages:batch-update \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -240,7 +240,7 @@ Use batch delete to move up to 100 messages to Trash. Set `permanent=true` only
 when the messages should be permanently removed.
 
 ```bash
-curl -X POST https://app.sendmux.ai/api/v1/mailbox/messages:batch-delete \
+curl -X POST https://app.qubrics.com/api/v1/mailbox/messages:batch-delete \
   -H "Authorization: Bearer smx_mbx_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
